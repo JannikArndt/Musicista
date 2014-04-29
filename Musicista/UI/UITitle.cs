@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
+﻿using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Media;
 
 namespace Musicista.UI
@@ -17,8 +12,6 @@ namespace Musicista.UI
 
         private int _top;
         private int _left;
-        private int _width;
-        private int _height;
 
         public int Top
         {

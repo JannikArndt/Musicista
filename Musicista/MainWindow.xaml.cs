@@ -14,7 +14,7 @@ namespace Musicista
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         public MainWindow()
         {
@@ -23,31 +23,29 @@ namespace Musicista
 
             Sidebar.Content = new SidebarInformation();
 
-            NoteViewer.Background = Brushes.LightGray;
-            NoteViewer.Height = 3000;
+            var page1 = UIHelper.CreatePage();
+            var page2 = UIHelper.CreatePage();
+
+            var pages = new StackPanel();
+            pages.Children.Add(page1);
+            pages.Children.Add(page2);
+            pages.Children.Add(new Canvas { Height = 200 });
+
+            CanvasScrollViewer.Content = pages;
 
 
-            var UIPage = UIHelper.CreatePage(NoteViewer);
-            UIHelper.CreateTitle("7. Sinfonie", NoteViewer, UIPage);
+            UIHelper.DrawTitle("7. Sinfonie", page1);
+            UIHelper.DrawComposer("Ludwig v. Beethoven", page1);
 
-            TextBlock composer = new TextBlock
-            {
-                Text = "Ludwig v. Beethoven",
-                FontSize = 16
-            };
-            Canvas.SetTop(composer, 150);
-            Canvas.SetLeft(composer, 600);
-            NoteViewer.Children.Add(composer);
+            var Staff1 = UIHelper.DrawStaff(page1, 200);
+            var Staff2 = UIHelper.DrawStaff(page1, 300);
+            var Staff3 = UIHelper.DrawStaff(page1, 400);
+            var Staff4 = UIHelper.DrawStaff(page1, 500);
+            var Staff5 = UIHelper.DrawStaff(page1, 600);
+            var Staff6 = UIHelper.DrawStaff(page1, 700);
+            var Staff7 = UIHelper.DrawStaff(page1, 800);
 
-            var Staff1 = UIHelper.DrawStaff(NoteViewer, UIPage, 200);
-            var Staff2 = UIHelper.DrawStaff(NoteViewer, UIPage, 300);
-            var Staff3 = UIHelper.DrawStaff(NoteViewer, UIPage, 400);
-            var Staff4 = UIHelper.DrawStaff(NoteViewer, UIPage, 500);
-            var Staff5 = UIHelper.DrawStaff(NoteViewer, UIPage, 600);
-            var Staff6 = UIHelper.DrawStaff(NoteViewer, UIPage, 700);
-            var Staff7 = UIHelper.DrawStaff(NoteViewer, UIPage, 800);
-
-            UIHelper.DrawTrebleClef(NoteViewer, Staff1);
+            UIHelper.DrawTrebleClef(page1, Staff1);
 
             var m1 = new Measure
             {
@@ -98,12 +96,12 @@ namespace Musicista
 
 
 
-            UIMeasure uim1 = UIHelper.DrawMeasure(NoteViewer, Staff1, m1);
-            UIMeasure uim2 = UIHelper.DrawMeasure(NoteViewer, Staff1, m2);
-            UIMeasure uim3 = UIHelper.DrawMeasure(NoteViewer, Staff1, m3);
-            UIMeasure uim4 = UIHelper.DrawMeasure(NoteViewer, Staff1, m3);
-            UIMeasure uim5 = UIHelper.DrawMeasure(NoteViewer, Staff2, m3);
-            UIMeasure uim6 = UIHelper.DrawMeasure(NoteViewer, Staff2, m3);
+            UIMeasure uim1 = UIHelper.DrawMeasure(page1, Staff1, m1);
+            UIMeasure uim2 = UIHelper.DrawMeasure(page1, Staff1, m2);
+            UIMeasure uim3 = UIHelper.DrawMeasure(page1, Staff1, m3);
+            UIMeasure uim4 = UIHelper.DrawMeasure(page1, Staff1, m3);
+            UIMeasure uim5 = UIHelper.DrawMeasure(page1, Staff2, m3);
+            UIMeasure uim6 = UIHelper.DrawMeasure(page1, Staff2, m3);
 
             Note note1 = new Note { Beat = 1.00, Step = Pitch.D, Octave = 4, Duration = Model.Duration.sixteenth };
             Note note2 = new Note { Beat = 1.25, Step = Pitch.DSharp, Octave = 4, Duration = Model.Duration.sixteenth };
@@ -137,45 +135,45 @@ namespace Musicista
             Note note33 = new Note { Beat = 4, Step = Pitch.B, Octave = 5, Duration = Model.Duration.quarter };
 
             Note note40 = new Note { Beat = 1, Step = Pitch.D, Octave = 4, Duration = Model.Duration.half };
-            Note note41 = new Note { Beat = 3, Step = Pitch.D, Octave = 4, Duration = Model.Duration.half };
+            Note note41 = new Note { Beat = 3, Step = Pitch.D, Octave = 5, Duration = Model.Duration.half };
 
             Note note50 = new Note { Beat = 1, Step = Pitch.D, Octave = 4, Duration = Model.Duration.whole };
 
-            UIHelper.DrawNote(NoteViewer, note50, uim1);
+            UIHelper.DrawNote(page1, note50, uim1);
 
-            UIHelper.DrawNote(NoteViewer, note40, uim2);
-            UIHelper.DrawNote(NoteViewer, note41, uim2);
+            UIHelper.DrawNote(page1, note40, uim2);
+            UIHelper.DrawNote(page1, note41, uim2);
 
-            UIHelper.DrawNote(NoteViewer, note30, uim3);
-            UIHelper.DrawNote(NoteViewer, note31, uim3);
-            UIHelper.DrawNote(NoteViewer, note32, uim3);
-            UIHelper.DrawNote(NoteViewer, note33, uim3);
+            UIHelper.DrawNote(page1, note30, uim3);
+            UIHelper.DrawNote(page1, note31, uim3);
+            UIHelper.DrawNote(page1, note32, uim3);
+            UIHelper.DrawNote(page1, note33, uim3);
 
-            UIHelper.DrawNote(NoteViewer, note20, uim4);
-            UIHelper.DrawNote(NoteViewer, note21, uim4);
-            UIHelper.DrawNote(NoteViewer, note22, uim4);
-            UIHelper.DrawNote(NoteViewer, note23, uim4);
-            UIHelper.DrawNote(NoteViewer, note24, uim4);
-            UIHelper.DrawNote(NoteViewer, note25, uim4);
-            UIHelper.DrawNote(NoteViewer, note26, uim4);
-            UIHelper.DrawNote(NoteViewer, note27, uim4);
+            UIHelper.DrawNote(page1, note20, uim4);
+            UIHelper.DrawNote(page1, note21, uim4);
+            UIHelper.DrawNote(page1, note22, uim4);
+            UIHelper.DrawNote(page1, note23, uim4);
+            UIHelper.DrawNote(page1, note24, uim4);
+            UIHelper.DrawNote(page1, note25, uim4);
+            UIHelper.DrawNote(page1, note26, uim4);
+            UIHelper.DrawNote(page1, note27, uim4);
 
-            UIHelper.DrawNote(NoteViewer, note1, uim5);
-            UIHelper.DrawNote(NoteViewer, note2, uim5);
-            UIHelper.DrawNote(NoteViewer, note3, uim5);
-            UIHelper.DrawNote(NoteViewer, note4, uim5);
-            UIHelper.DrawNote(NoteViewer, note5, uim5);
-            UIHelper.DrawNote(NoteViewer, note6, uim5);
-            UIHelper.DrawNote(NoteViewer, note7, uim5);
-            UIHelper.DrawNote(NoteViewer, note8, uim5);
-            UIHelper.DrawNote(NoteViewer, note9, uim5);
-            UIHelper.DrawNote(NoteViewer, note10, uim5);
-            UIHelper.DrawNote(NoteViewer, note11, uim5);
-            UIHelper.DrawNote(NoteViewer, note12, uim5);
-            UIHelper.DrawNote(NoteViewer, note13, uim5);
-            UIHelper.DrawNote(NoteViewer, note14, uim5);
-            UIHelper.DrawNote(NoteViewer, note15, uim5);
-            UIHelper.DrawNote(NoteViewer, note16, uim5);
+            UIHelper.DrawNote(page1, note1, uim5);
+            UIHelper.DrawNote(page1, note2, uim5);
+            UIHelper.DrawNote(page1, note3, uim5);
+            UIHelper.DrawNote(page1, note4, uim5);
+            UIHelper.DrawNote(page1, note5, uim5);
+            UIHelper.DrawNote(page1, note6, uim5);
+            UIHelper.DrawNote(page1, note7, uim5);
+            UIHelper.DrawNote(page1, note8, uim5);
+            UIHelper.DrawNote(page1, note9, uim5);
+            UIHelper.DrawNote(page1, note10, uim5);
+            UIHelper.DrawNote(page1, note11, uim5);
+            UIHelper.DrawNote(page1, note12, uim5);
+            UIHelper.DrawNote(page1, note13, uim5);
+            UIHelper.DrawNote(page1, note14, uim5);
+            UIHelper.DrawNote(page1, note15, uim5);
+            UIHelper.DrawNote(page1, note16, uim5);
 
         }
 
@@ -210,14 +208,14 @@ namespace Musicista
         {
             if (Keyboard.Modifiers.HasFlag(ModifierKeys.Alt))
             {
-                Point currentMousePosition = Mouse.GetPosition(NoteViewer);
-                (NoteViewer.LayoutTransform as ScaleTransform).CenterX = currentMousePosition.X;
-                (NoteViewer.LayoutTransform as ScaleTransform).CenterY = currentMousePosition.Y;
-                (NoteViewer.LayoutTransform as ScaleTransform).ScaleX *= 1 + (e.Delta / 1000.0);
-                (NoteViewer.LayoutTransform as ScaleTransform).ScaleY *= 1 + (e.Delta / 1000.0);
+                Point currentMousePosition = Mouse.GetPosition(CanvasScrollViewer);
+                (CanvasScrollViewer.LayoutTransform as ScaleTransform).CenterX = currentMousePosition.X;
+                (CanvasScrollViewer.LayoutTransform as ScaleTransform).CenterY = currentMousePosition.Y;
+                (CanvasScrollViewer.LayoutTransform as ScaleTransform).ScaleX *= 1 + (e.Delta / 1000.0);
+                (CanvasScrollViewer.LayoutTransform as ScaleTransform).ScaleY *= 1 + (e.Delta / 1000.0);
                 e.Handled = true;
 
-                if ((NoteViewer.LayoutTransform as ScaleTransform).ScaleX > 1.05)
+                if ((CanvasScrollViewer.LayoutTransform as ScaleTransform).ScaleX > 1.05)
                     CanvasScrollViewer.HorizontalScrollBarVisibility = ScrollBarVisibility.Visible;
                 else
                     CanvasScrollViewer.HorizontalScrollBarVisibility = ScrollBarVisibility.Hidden;
@@ -232,7 +230,7 @@ namespace Musicista
 
                 if (dialog.ShowDialog() != true)
                     return;
-                dialog.PrintVisual(NoteViewer, "Drawing");
+                dialog.PrintVisual(CanvasScrollViewer.Content as Canvas, "Drawing");
             }
             catch (Exception ex)
             {

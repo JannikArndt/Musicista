@@ -15,10 +15,12 @@ namespace Musicista
             + "C 19,130 8,129 3,123  C 3,122 3,122 2,122  C 1,120 0,117 0,115  C 0,108 4,101 11,97  C 19,91 29,91 35,95" // Head
             + "L 35,0L 40,0  L 40,0 Z";
 
-        public static String QuarterUpsideDown = "";
+        public static String QuarterUpsideDown = "F1 M 0,220 L 0,114 C 0,108 4,101 11,96 C 21,90 32,91 37,97 C 37,98 37,98 38,98 C 39,100 40,103 40,105 C 40,112 36,119 29,123 C 21,129 11,129 5,125 L 5,220 L 0,220 Z";
 
         public static String Half = Quarter.Substring(3) // + Inner White
             + "M 9,122  C 12,123 14,122 17,120  C 21,118 24,115 27,113  C 29,111 33,108 35,105  C 36,101 32,97 28,98  C 26,98 23,101 21,102  C 18,105 15,107 12,109  C 10,111 7,112 6,114  C 2,118 5,121 9,122 Z";
+
+        public static String HalfUpsideDown = QuarterUpsideDown + "M 31,98 C 28,97 26,98 23,100 C 19,102 16,105 13,107 C 11,109 6,112 5,115 C 4,119 8,123 12,122 C 14,122 17,119 19,118 C 22,115 25,113 28,111 C 30,109 32,108 34,106 C 38,102 35,99 31,98 Z";
 
         public static String Eigth = Quarter + "C 40,4 40,7 42,10  C 45,16 47,22 51,27  C 59,38 70,50 72,64  C 73,73 73,93 63,97  C 74,76 67,45 40,36 Z"; // Flag
 

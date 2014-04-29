@@ -31,12 +31,10 @@
             </MenuItem>
         </Menu>
 
-        <ScrollViewer Grid.Row="2" Grid.Column="0" Name="CanvasScrollViewer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" Background="LightGray">
-            <Canvas Name="NoteViewer" Width="870">
-                <Canvas.LayoutTransform>
-                    <ScaleTransform ScaleX="1" ScaleY="1" />
-                </Canvas.LayoutTransform>
-            </Canvas>
+        <ScrollViewer Grid.Row="2" Grid.Column="0" Name="CanvasScrollViewer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Visible" Background="LightGray">
+            <ScrollViewer.LayoutTransform>
+                <ScaleTransform ScaleX="1" ScaleY="1"></ScaleTransform>
+            </ScrollViewer.LayoutTransform>
         </ScrollViewer>
 
         <Border Grid.Row="1" Grid.ColumnSpan="2" BorderThickness="0" Background="#FFF0F0F0">

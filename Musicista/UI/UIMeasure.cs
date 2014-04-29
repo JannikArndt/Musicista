@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
+﻿using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -16,7 +9,7 @@ namespace Musicista.UI
         private int _top;
         private int _left;
         private int _width;
-        private int _height;
+        private int _height = 40;
 
         public int Top
         {
@@ -56,7 +49,7 @@ namespace Musicista.UI
             MeasureBox = new Rectangle
             {
                 Width = width,
-                Height = 40,
+                Height = _height,
                 //Fill = Brushes.Yellow,
                 Opacity = 0.5
             };
@@ -73,8 +66,6 @@ namespace Musicista.UI
             Left = left;
             Top = top;
             Width = width;
-            _height = 40;
-
         }
     }
 }

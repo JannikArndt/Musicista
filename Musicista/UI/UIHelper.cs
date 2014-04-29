@@ -270,19 +270,16 @@ namespace Musicista.UI
                     Note.Data = Geometry.Parse(Engraving.Whole);
                     break;
                 case Model.Duration.half:
-                    if (top >= -1) // Beim b auch Vorgänger beachten!
-                        Note.Data = Geometry.Parse(Engraving.Half);
-                    else
-                        Note.Data = Geometry.Parse(Engraving.HalfUpsideDown);
+                    Note.Data = Geometry.Parse(top >= -1 ? Engraving.Half : Engraving.HalfUpsideDown);
                     break;
                 case Model.Duration.quarter:
-                    if (top >= -1) // Beim b auch Vorgänger beachten!
-                        Note.Data = Geometry.Parse(Engraving.Quarter);
-                    else
-                        Note.Data = Geometry.Parse(Engraving.QuarterUpsideDown);
+                    Note.Data = Geometry.Parse(top >= -1 ? Engraving.Quarter : Engraving.QuarterUpsideDown);
                     break;
                 case Model.Duration.eigth:
-                    Note.Data = Geometry.Parse(Engraving.Eigth);
+                    Note.Data = Geometry.Parse(top >= -1 ? Engraving.Eigth : Engraving.EightUpsideDown);
+                    break;
+                case Model.Duration.sixteenth:
+                    Note.Data = Geometry.Parse(top >= -1 ? Engraving.Sixteenth : Engraving.Sixteenth);
                     break;
             }
 

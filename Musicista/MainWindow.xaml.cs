@@ -131,7 +131,7 @@ namespace Musicista
 
             Note note30 = new Note { Beat = 1, Step = Pitch.C, Octave = 5, Duration = Model.Duration.quarter };
             Note note31 = new Note { Beat = 2, Step = Pitch.D, Octave = 5, Duration = Model.Duration.quarter };
-            Note note32 = new Note { Beat = 3, Step = Pitch.FSharp, Octave = 5, Duration = Model.Duration.quarter };
+            Note note32 = new Note { Beat = 3, Step = Pitch.FSharp, Octave = 4, Duration = Model.Duration.quarter };
             Note note33 = new Note { Beat = 4, Step = Pitch.B, Octave = 5, Duration = Model.Duration.quarter };
 
             Note note40 = new Note { Beat = 1, Step = Pitch.D, Octave = 4, Duration = Model.Duration.half };

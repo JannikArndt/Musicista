@@ -166,10 +166,10 @@ namespace Musicista.UI
             switch (note.Octave)
             {
                 case 6:
-                    top = -43;
+                    top = -44;
                     break;
                 case 5:
-                    top = -21.5;
+                    top = -22;
                     break;
                 case 4:
                     top = 0;
@@ -261,8 +261,8 @@ namespace Musicista.UI
 
             if (top >= 17)
                 DrawLedger(page, measure, true, (int)((top - 10) / 6), left);
-            else if (top < -17)
-                DrawLedger(page, measure, false, (int)((Math.Abs(top) - 16) / 6), left);
+            else if (top < -15)
+                DrawLedger(page, measure, false, (int)((Math.Abs(top) - 15) / 6), left);
 
             switch (note.Duration)
             {

@@ -112,13 +112,13 @@ namespace Musicista
             Note note7 = new Note { Beat = 2.50, Step = Pitch.ASharp, Octave = 4, Duration = Model.Duration.sixteenth };
             Note note8 = new Note { Beat = 2.75, Step = Pitch.BFlat, Octave = 4, Duration = Model.Duration.sixteenth };
             Note note9 = new Note { Beat = 3.00, Step = Pitch.B, Octave = 4, Duration = Model.Duration.sixteenth };
-            Note note10 = new Note { Beat = 3.25, Step = Pitch.D, Octave = 4, Duration = Model.Duration.sixteenth };
-            Note note11 = new Note { Beat = 3.50, Step = Pitch.D, Octave = 4, Duration = Model.Duration.sixteenth };
-            Note note12 = new Note { Beat = 3.75, Step = Pitch.D, Octave = 4, Duration = Model.Duration.sixteenth };
-            Note note13 = new Note { Beat = 4.00, Step = Pitch.D, Octave = 4, Duration = Model.Duration.sixteenth };
-            Note note14 = new Note { Beat = 4.25, Step = Pitch.D, Octave = 4, Duration = Model.Duration.sixteenth };
-            Note note15 = new Note { Beat = 4.50, Step = Pitch.D, Octave = 4, Duration = Model.Duration.sixteenth };
-            Note note16 = new Note { Beat = 4.75, Step = Pitch.D, Octave = 4, Duration = Model.Duration.sixteenth };
+            Note note10 = new Note { Beat = 3.25, Step = Pitch.G, Octave = 5, Duration = Model.Duration.sixteenth };
+            Note note11 = new Note { Beat = 3.50, Step = Pitch.A, Octave = 5, Duration = Model.Duration.sixteenth };
+            Note note12 = new Note { Beat = 3.75, Step = Pitch.B, Octave = 5, Duration = Model.Duration.sixteenth };
+            Note note13 = new Note { Beat = 4.00, Step = Pitch.C, Octave = 6, Duration = Model.Duration.sixteenth };
+            Note note14 = new Note { Beat = 4.25, Step = Pitch.D, Octave = 6, Duration = Model.Duration.sixteenth };
+            Note note15 = new Note { Beat = 4.50, Step = Pitch.E, Octave = 6, Duration = Model.Duration.sixteenth };
+            Note note16 = new Note { Beat = 4.75, Step = Pitch.F, Octave = 6, Duration = Model.Duration.sixteenth };
 
             Note note20 = new Note { Beat = 1.00, Step = Pitch.C, Octave = 4, Duration = Model.Duration.eigth };
             Note note21 = new Note { Beat = 1.50, Step = Pitch.D, Octave = 3, Duration = Model.Duration.eigth };

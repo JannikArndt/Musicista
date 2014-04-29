@@ -50,7 +50,11 @@
                 <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
                     <Button Width="75" Click="ShowCollection" Style="{StaticResource MenuButton}">
                         <StackPanel>
-                            <Image Source="Icons/Collection.png" Width="30" />
+                            <Path Fill="Black" SnapsToDevicePixels="True" HorizontalAlignment="Center" Data="F1 M 110,25L 108,24L 109,15L 33,15L 34,24L 32,25L 30,12L 112,12L 110,25 Z M 29,38L 27,24L 115,24L 113,38L 110,38L 112,26L 30,26L 31,38L 29,38 Z  M 26,54L 24,37L 116,37L 114,54L 112,53L 114,40L 27,40L 28,54L 26,54 Z M 34,131L 106,131L 116,55L 25,55M 108,133L 32,133L 22,53L 118,53L 108,133 Z M 72,82L 72,82L 72,104C 72,104 72,104 72,104L 72,82 Z M 73,82L 73,91C 76,91 77,92 79,94C 81,95 81,97 81,99C 81,102 80,104 78,107C 78,107 78,107 79,107C 80,107 81,105 82,103C 82,101 83,100 83,98C 83,96 82,94 80,93C 79,91 77,89 76,88C 75,86 74,84 73,82 Z M 73,82L 72,82L 72,104C 72,104 72,104 72,104C 72,103 70,103 68,103C 66,103 64,103 62,104C 61,105 61,105 60,106C 59,107 59,108 59,108C 59,111 61,112 64,112C 67,112 69,111 70,110C 71,110 72,109 72,109C 73,108 73,107 73,106L 73,91L 73,82L 73,82 Z M 63,111C 62,111 62,111 61,110C 61,110 60,110 60,109C 60,109 61,108 62,107C 62,107 63,107 65,106C 67,104 69,104 70,104C 70,104 71,104 71,104C 72,105 72,105 72,106C 72,106 72,107 71,108C 70,108 69,108 68,109C 65,110 64,111 63,111 Z">
+                                <Path.LayoutTransform>
+                                    <ScaleTransform ScaleX=".2" ScaleY=".2"></ScaleTransform>
+                                </Path.LayoutTransform>
+                            </Path>
                             <TextBlock>Collection</TextBlock>
                         </StackPanel>
                     </Button>
@@ -58,19 +62,31 @@
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
                     <Button Width="75" Click="SelectToolAdd" Style="{StaticResource MenuButton}">
                         <StackPanel>
-                            <Image Source="Icons/Add.png" Width="30" />
-                            <TextBlock>Add</TextBlock>
+                            <Path Fill="Black" SnapsToDevicePixels="True" HorizontalAlignment="Center" Data="F1 M 45,52L 45,21L 49,21L 49,52L 80,52L 80,56L 49,56L 49,87L 45,87L 45,56L 14,56L 14,52L 45,52 Z M 96,104L 96,9L 101,9L 101,9C 102,12 102,16 103,19C 106,24 109,30 112,36C 120,47 131,58 133,72C 135,81 135,101 124,105C 135,84 128,54 101,45L 101,114 M 101,114C 101,121 97,127 90,132C 81,138 69,138 64,131C 64,131 64,130 64,130C 62,128 62,125 62,123C 61,116 65,109 72,105C 81,99 90,99 96,104M 70,131C 74,131 76,130 79,128C 82,126 85,123 88,121C 91,119 95,117 96,114C 98,109 93,106 90,106C 87,107 85,109 83,111C 80,113 77,115 74,117C 72,119 69,120 67,122C 63,126 67,129 70,131 Z ">
+                                <Path.LayoutTransform>
+                                    <ScaleTransform ScaleX=".2" ScaleY=".2"></ScaleTransform>
+                                </Path.LayoutTransform>
+                            </Path>
+                            <TextBlock HorizontalAlignment="Center">Add</TextBlock>
                         </StackPanel>
                     </Button>
                     <Button Width="75" Click="SelectToolEdit" Style="{StaticResource MenuButton}">
                         <StackPanel>
-                            <Image Source="Icons/Edit.png" Width="30" />
+                            <Path Fill="Black" SnapsToDevicePixels="True" HorizontalAlignment="Center" Data="F1 M 96,104 L 96,9 L 101,9 L 101,9 C 102,12 102,16 103,19 C 106,24 109,30 112,36 C 120,47 131,58 133,72 C 135,81 135,101 124,105 C 135,84 128,54 101,45 L 101,114 M 101,114 C 101,121 97,127 90,132 C 81,138 69,138 64,131 C 64,131 64,130 64,130 C 62,128 62,125 62,123 C 61,116 65,109 72,105 C 81,99 90,99 96,104 M 70,131 C 74,131 76,130 79,128 C 82,126 85,123 88,121 C 91,119 95,117 96,114 C 98,109 93,106 90,106 C 87,107 85,109 83,111 C 80,113 77,115 74,117 C 72,119 69,120 67,122 C 63,126 67,129 70,131 Z M 77,51 L 63,36 L 69,30 L 84,44 L 77,51 Z M 34,94 L 20,79 L 63,36 L 77,50 L 34,94 Z M 24,75 L 19,80 L 16,98 L 33,95 L 39,89 M 16,94 L 16,98 L 19,97 L 16,94 Z ">
+                                <Path.LayoutTransform>
+                                    <ScaleTransform ScaleX=".2" ScaleY=".2"></ScaleTransform>
+                                </Path.LayoutTransform>
+                            </Path>
                             <TextBlock>Edit</TextBlock>
                         </StackPanel>
                     </Button>
                     <Button Width="75" Click="SelectToolSelect" Style="{StaticResource MenuButton}">
                         <StackPanel>
-                            <Image Source="Icons/Select.png" Width="30" />
+                            <Path Fill="Black" SnapsToDevicePixels="True" HorizontalAlignment="Center" Data="F1 M 31,76L 43,63L 55,91L 64,88L 53,61L 71,61L 31,20L 31,76 Z M 96,104L 96,9L 101,9L 101,9C 102,12 102,16 103,19C 106,24 109,30 112,36C 120,47 131,58 133,72C 135,81 135,101 124,105C 135,84 128,54 101,45L 101,114 M 101,114C 101,121 97,127 90,132C 81,138 69,138 64,131C 64,131 64,130 64,130C 62,128 62,125 62,123C 61,116 65,109 72,105C 81,99 90,99 96,104M 70,131C 74,131 76,130 79,128C 82,126 85,123 88,121C 91,119 95,117 96,114C 98,109 93,106 90,106C 87,107 85,109 83,111C 80,113 77,115 74,117C 72,119 69,120 67,122C 63,126 67,129 70,131 Z ">
+                                <Path.LayoutTransform>
+                                    <ScaleTransform ScaleX=".2" ScaleY=".2"></ScaleTransform>
+                                </Path.LayoutTransform>
+                            </Path>
                             <TextBlock>Select</TextBlock>
                         </StackPanel>
                     </Button>
@@ -78,19 +94,32 @@
                 <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
                     <Button Width="75" Click="ShowSidebarInformation" Style="{StaticResource MenuButton}">
                         <StackPanel>
-                            <Image Source="Icons/Information.png" Width="30" />
+                            <Path Fill="Black" SnapsToDevicePixels="True" HorizontalAlignment="Center" Data="F1 M 96,104 L 96,9 L 101,9 L 101,9 C 102,12 102,16 103,19 C 106,24 109,30 112,36 C 120,47 131,58 133,72 C 135,81 135,101 124,105 C 135,84 128,54 101,45 L 101,114 M 101,114 C 101,121 97,127 90,132 C 81,138 69,138 64,131 C 64,131 64,130 64,130 C 62,128 62,125 62,123 C 61,116 65,109 72,105 C 81,99 90,99 96,104
+M 70,131 C 74,131 76,130 79,128 C 82,126 85,123 88,121 C 91,119 95,117 96,114 C 98,109 93,106 90,106 C 87,107 85,109 83,111 C 80,113 77,115 74,117 C 72,119 69,120 67,122 C 63,126 67,129 70,131 Z M 26,73 L 26,58 L 17,62 L 17,76 M 33,79 L 28,80 L 28,97 L 26,97 L 26,81 L 17,85 L 17,99 L 15,99 L 15,86 L 10,88 L 10,79 L 15,77 L 15,63 L 10,64 L 10,56 L 15,54 L 15,37 L 17,37 L 17,53 L 26,49 L 26,35 L 28,35 L 28,48 L 33,46 L 33,55 L 28,57 L 28,72 L 33,70 L 33,79 Z M 55,59 C 55,57 54,56 54,55 C 53,54 52,54 51,54 C 50,54 48,54 47,55 C 45,56 44,57 44,58 L 44,70 C 48,68 50,66 51,66 C 53,63 55,61 55,59 Z M 62,58 C 62,60 61,61 60,63 C 58,65 53,68 47,72 C 46,73 44,74 42,76 L 42,17 L 44,17 L 44,53 C 47,50 51,49 54,49 C 57,49 60,50 61,53 C 62,54 62,56 62,58 Z M 83,65 L 83,51 L 73,55 L 73,70 M 86,93 L 83,93 L 83,74 L 70,80 L 70,28 L 73,28 L 73,47 L 86,41 L 86,93 Z ">
+                                <Path.LayoutTransform>
+                                    <ScaleTransform ScaleX=".2" ScaleY=".2"></ScaleTransform>
+                                </Path.LayoutTransform>
+                            </Path>
                             <TextBlock>Information</TextBlock>
                         </StackPanel>
                     </Button>
                     <Button Width="75" Click="ShowSidebarView" Style="{StaticResource MenuButton}">
                         <StackPanel>
-                            <Image Source="Icons/View.png" Width="30" />
+                            <Path Fill="Black" SnapsToDevicePixels="True" HorizontalAlignment="Center" Data="F1 M 109,96 L 109,26 L 112,26 C 112,32 115,38 119,44 C 122,49 126,55 130,60 C 134,66 136,72 136,77 C 136,82 135,87 133,93 C 131,99 128,104 125,106 C 125,106 124,105 124,104 C 129,96 132,88 132,79 C 132,74 130,68 126,63 C 122,58 118,55 112,54 L 112,103 M 109,100 C 109,99 109,97 107,96 C 106,95 104,95 102,95 C 100,95 96,97 90,101 C 86,103 84,105 83,105 C 80,108 79,110 79,111 C 79,113 80,115 81,116 C 82,117 84,117 86,117 C 88,117 92,115 99,111 C 102,108 104,107 105,106 C 108,104 109,102 109,100 Z M 112,102 C 112,105 111,107 110,110 C 108,112 106,114 104,116 C 100,118 95,119 89,119 C 80,119 76,116 76,109 C 76,107 77,105 78,102 C 80,100 82,98 84,96 C 88,94 93,92 99,92 C 104,92 107,93 110,95 L 110,26 L 112,26 L 112,102 Z M 32,96 L 32,26 L 29,26 C 29,32 27,38 23,44 C 19,49 16,55 12,60 C 8,66 6,72 6,77 C 6,82 7,87 9,93 C 11,99 14,104 17,106 C 17,106 17,105 18,104 C 12,96 10,88 10,79 C 10,74 12,68 16,63 C 20,58 24,55 29,54 L 29,103 M 32,100 C 32,99 33,97 34,96 C 36,95 37,95 39,95 C 41,95 45,97 51,101 C 55,103 57,105 58,105 C 61,108 62,110 62,111 C 62,113 61,115 60,116 C 59,117 57,117 55,117 C 53,117 49,115 43,111 C 39,108 37,107 37,106 C 34,104 32,102 32,100 Z M 29,102 C 29,105 30,107 32,110 C 34,112 35,114 37,116 C 41,118 46,119 52,119 C 61,119 65,116 65,109 C 65,107 64,105 63,102 C 61,100 59,98 57,96 C 53,94 48,92 42,92 C 38,92 34,93 32,95 L 32,26 L 29,26 L 29,102 Z M 60,102 C 66,96 74,96 80,102">
+                                <Path.LayoutTransform>
+                                    <ScaleTransform ScaleX=".2" ScaleY=".2"></ScaleTransform>
+                                </Path.LayoutTransform>
+                            </Path>
                             <TextBlock>View</TextBlock>
                         </StackPanel>
                     </Button>
                     <Button Width="75" Click="ShowSidebarAlgorithms" Style="{StaticResource MenuButton}">
                         <StackPanel>
-                            <Image Source="Icons/Algorithms.png" Width="30" />
+                            <Path Fill="Black" SnapsToDevicePixels="True" HorizontalAlignment="Center" Data="F1 M 63,87L 63,47L 64,47C 64,50 65,54 68,58C 70,60 72,63 74,66C 76,70 78,73 78,76C 78,79 77,82 76,85C 75,89 73,91 71,92C 71,92 71,92 71,91C 74,87 75,82 75,77C 75,74 74,71 72,68C 70,65 67,63 64,63L 64,91 M 62,89C 62,88 62,87 61,87C 60,86 60,86 59,86C 57,86 55,87 52,90C 49,91 48,92 48,92C 46,93 45,95 45,96C 45,97 46,97 47,98C 47,99 48,99 49,99C 50,99 53,98 56,95C 58,94 60,93 60,93C 62,91 62,90 62,89 Z M 64,90C 64,92 64,93 63,95C 62,96 61,97 60,98C 57,99 55,100 51,100C 46,100 44,98 44,94C 44,93 44,92 45,90C 46,89 47,88 48,87C 50,85 53,85 57,85C 59,85 61,85 63,86L 63,47L 64,47L 64,90 Z M 105,86L 94,86L 94,97L 90,97L 90,86L 80,86L 80,82L 90,82L 90,72L 94,72L 94,82L 105,82L 105,86 Z  M 19,108L 67,108L 67,118L 4,118L 4,111L 34,75L 6,40L 6,33L 63,33L 63,42L 20,42L 20,42L 46,75L 19,108L 19,108 ZM 137,86L 126,86L 126,97L 123,97L 123,86L 112,86L 112,82L 123,82L 123,72L 126,72L 126,82L 137,82L 137,86 Z">
+                                <Path.LayoutTransform>
+                                    <ScaleTransform ScaleX=".2" ScaleY=".2"></ScaleTransform>
+                                </Path.LayoutTransform>
+                            </Path>
                             <TextBlock>Algorithms</TextBlock>
                         </StackPanel>
                     </Button>

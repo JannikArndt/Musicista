@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using Model;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -43,8 +44,9 @@ namespace Musicista.UI
         }
         public Rectangle MeasureBox { get; set; }
         public Line Barline { get; set; }
+        public readonly Measure Measure = new Measure();
 
-        public UIMeasure(Canvas canvas, int top, int left, int width)
+        public UIMeasure(Canvas canvas, int top, int left, int width, Measure measure = null)
         {
             MeasureBox = new Rectangle
             {
@@ -66,6 +68,12 @@ namespace Musicista.UI
             Left = left;
             Top = top;
             Width = width;
+            Measure = measure;
+        }
+
+        public override string ToString()
+        {
+            return "Measure #" + Measure.MeasureNumber;
         }
     }
 }

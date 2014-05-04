@@ -14,7 +14,7 @@
         </Grid.ColumnDefinitions>
 
         <Menu Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Height="18" VerticalAlignment="Top">
-            <MenuItem Header="_File">
+            <MenuItem Header="_File" Click="Open">
                 <MenuItem Header="_New..."></MenuItem>
                 <Separator />
                 <MenuItem Header="_Open..."></MenuItem>

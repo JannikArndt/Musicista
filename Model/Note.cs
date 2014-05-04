@@ -47,5 +47,10 @@ namespace Model
                 return PitchIsHigherThan(Step, Octave);
             throw new FormatException();
         }
+
+        public override string ToString()
+        {
+            return "" + Step + Octave + " on " + Beat + " for " + Duration;
+        }
     }
 }

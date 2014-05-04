@@ -129,6 +129,10 @@
       <Project>{482ea0c1-bb86-4d52-af7f-0eb53928f341}</Project>
       <Name>Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MusicXML\MusicXML.csproj">
+      <Project>{491c9dad-a8a3-409e-b986-897eb7c793c9}</Project>
+      <Name>MusicXML</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="View\" />

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Model
 {
     public class Rest : Symbol
     {
+        public override string ToString()
+        {
+            return "Rest on " + Beat + " for " + Duration;
+        }
     }
 }

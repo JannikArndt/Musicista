@@ -1,40 +1,32 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-public partial class scorepartwisePart
-{
+using System;
+using System.CodeDom.Compiler;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
 
+[GeneratedCode("xsd", "4.0.30319.33440")]
+[Serializable]
+[DebuggerStepThrough]
+[DesignerCategory("code")]
+[XmlType(AnonymousType = true)]
+public class scorepartwisePart
+{
+    private string idField;
     private scorepartwisePartMeasure[] measureField;
 
-    private string idField;
 
-
-    [System.Xml.Serialization.XmlElementAttribute("measure")]
+    [XmlElement("measure")]
     public scorepartwisePartMeasure[] measure
     {
-        get
-        {
-            return this.measureField;
-        }
-        set
-        {
-            this.measureField = value;
-        }
+        get { return measureField; }
+        set { measureField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "IDREF")]
+    [XmlAttribute(DataType = "IDREF")]
     public string id
     {
-        get
-        {
-            return this.idField;
-        }
-        set
-        {
-            this.idField = value;
-        }
+        get { return idField; }
+        set { idField = value; }
     }
 }

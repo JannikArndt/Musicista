@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Serialization;
 
-
 [GeneratedCode("xsd", "4.0.30319.33440")]
 [Serializable]
 [DebuggerStepThrough]
@@ -31,14 +30,14 @@ public class scorepartwise
         versionField = "1.0";
     }
 
-    
+
     public work work
     {
         get { return workField; }
         set { workField = value; }
     }
 
-    
+
     [XmlElement("movement-number")]
     public string movementnumber
     {
@@ -46,7 +45,7 @@ public class scorepartwise
         set { movementnumberField = value; }
     }
 
-    
+
     [XmlElement("movement-title")]
     public string movementtitle
     {
@@ -54,21 +53,21 @@ public class scorepartwise
         set { movementtitleField = value; }
     }
 
-    
+
     public identification identification
     {
         get { return identificationField; }
         set { identificationField = value; }
     }
 
-    
+
     public defaults defaults
     {
         get { return defaultsField; }
         set { defaultsField = value; }
     }
 
-    
+
     [XmlElement("credit")]
     public credit[] credit
     {
@@ -76,7 +75,7 @@ public class scorepartwise
         set { creditField = value; }
     }
 
-    
+
     [XmlElement("part-list")]
     public partlist partlist
     {
@@ -84,7 +83,7 @@ public class scorepartwise
         set { partlistField = value; }
     }
 
-    
+
     [XmlElement("part")]
     public scorepartwisePart[] part
     {
@@ -92,7 +91,7 @@ public class scorepartwise
         set { partField = value; }
     }
 
-    
+
     [XmlAttribute(DataType = "token")]
     [DefaultValue("1.0")]
     public string version

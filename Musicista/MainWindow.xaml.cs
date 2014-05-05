@@ -1,4 +1,5 @@
-﻿using Musicista.Sidebar;
+﻿using Model;
+using Musicista.Sidebar;
 using Musicista.UI;
 using System;
 using System.Collections.Generic;
@@ -18,12 +19,30 @@ namespace Musicista
     public partial class MainWindow
     {
         private List<Canvas> pageList;
+        private Piece currentPiece;
         public MainWindow()
         {
             InitializeComponent();
             PreviewMouseWheel += Zoom;
 
             Sidebar.Content = new SidebarInformation();
+
+            var serializer = new XmlSerializer(typeof(scorepartwise));
+            using (var fileStream = new FileStream("score.xml", FileMode.Open))
+            {
+                var result = (scorepartwise)serializer.Deserialize(fileStream);
+
+                currentPiece = Mapper.MapMusicXMLPartwiseToMusicistaPiece(result);
+                pageList = UIHelper.DrawPiece(currentPiece);
+
+                var pages = new StackPanel();
+                foreach (var page in pageList)
+                    pages.Children.Add(page);
+                pages.Children.Add(new Canvas { Height = 200 });
+                CanvasScrollViewer.Content = pages;
+            }
+
+            /*
 
             pageList = UIHelper.DrawPiece(Examples.ExampleData.GetBeethoven7());
 
@@ -32,6 +51,8 @@ namespace Musicista
                 pages.Children.Add(page);
             pages.Children.Add(new Canvas { Height = 200 });
             CanvasScrollViewer.Content = pages;
+             */
+
         }
 
         private void ShowCollection(object sender, RoutedEventArgs e)
@@ -110,11 +131,18 @@ namespace Musicista
             var serializer = new XmlSerializer(typeof(scorepartwise));
             using (var fileStream = new FileStream("score.xml", FileMode.Open))
             {
-                scorepartwise result = (scorepartwise)serializer.Deserialize(fileStream);
+                var result = (scorepartwise)serializer.Deserialize(fileStream);
                 UIHelper.DrawTitle(result.work.worktitle, pageList.First());
+
+                currentPiece = Mapper.MapMusicXMLPartwiseToMusicistaPiece(result);
+                pageList = UIHelper.DrawPiece(currentPiece);
+
+                var pages = new StackPanel();
+                foreach (var page in pageList)
+                    pages.Children.Add(page);
+                pages.Children.Add(new Canvas { Height = 200 });
+                CanvasScrollViewer.Content = pages;
             }
-
-
         }
     }
 }

@@ -1,167 +1,108 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "score-part")]
-public partial class scorepart
+using System;
+using System.CodeDom.Compiler;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
+[GeneratedCode("xsd", "4.0.30319.33440")]
+[Serializable]
+[DebuggerStepThrough]
+[DesignerCategory("code")]
+[XmlType(TypeName = "score-part")]
+public class scorepart
 {
-
-    private identification identificationField;
-
-    private partname partnameField;
-
-    private namedisplay partnamedisplayField;
-
-    private partname partabbreviationField;
-
-    private namedisplay partabbreviationdisplayField;
-
     private string[] groupField;
-
-    private scoreinstrument[] scoreinstrumentField;
-
+    private string idField;
+    private identification identificationField;
     private mididevice[] midideviceField;
 
     private midiinstrument[] midiinstrumentField;
 
-    private string idField;
+    private partname partabbreviationField;
+
+    private namedisplay partabbreviationdisplayField;
+    private partname partnameField;
+
+    private namedisplay partnamedisplayField;
+
+    private scoreinstrument[] scoreinstrumentField;
 
 
     public identification identification
     {
-        get
-        {
-            return this.identificationField;
-        }
-        set
-        {
-            this.identificationField = value;
-        }
+        get { return identificationField; }
+        set { identificationField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("part-name")]
+    [XmlElement("part-name")]
     public partname partname
     {
-        get
-        {
-            return this.partnameField;
-        }
-        set
-        {
-            this.partnameField = value;
-        }
+        get { return partnameField; }
+        set { partnameField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("part-name-display")]
+    [XmlElement("part-name-display")]
     public namedisplay partnamedisplay
     {
-        get
-        {
-            return this.partnamedisplayField;
-        }
-        set
-        {
-            this.partnamedisplayField = value;
-        }
+        get { return partnamedisplayField; }
+        set { partnamedisplayField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("part-abbreviation")]
+    [XmlElement("part-abbreviation")]
     public partname partabbreviation
     {
-        get
-        {
-            return this.partabbreviationField;
-        }
-        set
-        {
-            this.partabbreviationField = value;
-        }
+        get { return partabbreviationField; }
+        set { partabbreviationField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("part-abbreviation-display")]
+    [XmlElement("part-abbreviation-display")]
     public namedisplay partabbreviationdisplay
     {
-        get
-        {
-            return this.partabbreviationdisplayField;
-        }
-        set
-        {
-            this.partabbreviationdisplayField = value;
-        }
+        get { return partabbreviationdisplayField; }
+        set { partabbreviationdisplayField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("group")]
+    [XmlElement("group")]
     public string[] group
     {
-        get
-        {
-            return this.groupField;
-        }
-        set
-        {
-            this.groupField = value;
-        }
+        get { return groupField; }
+        set { groupField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("score-instrument")]
+    [XmlElement("score-instrument")]
     public scoreinstrument[] scoreinstrument
     {
-        get
-        {
-            return this.scoreinstrumentField;
-        }
-        set
-        {
-            this.scoreinstrumentField = value;
-        }
+        get { return scoreinstrumentField; }
+        set { scoreinstrumentField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("midi-device")]
+    [XmlElement("midi-device")]
     public mididevice[] mididevice
     {
-        get
-        {
-            return this.midideviceField;
-        }
-        set
-        {
-            this.midideviceField = value;
-        }
+        get { return midideviceField; }
+        set { midideviceField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("midi-instrument")]
+    [XmlElement("midi-instrument")]
     public midiinstrument[] midiinstrument
     {
-        get
-        {
-            return this.midiinstrumentField;
-        }
-        set
-        {
-            this.midiinstrumentField = value;
-        }
+        get { return midiinstrumentField; }
+        set { midiinstrumentField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "ID")]
+    [XmlAttribute(DataType = "ID")]
     public string id
     {
-        get
-        {
-            return this.idField;
-        }
-        set
-        {
-            this.idField = value;
-        }
+        get { return idField; }
+        set { idField = value; }
     }
 }

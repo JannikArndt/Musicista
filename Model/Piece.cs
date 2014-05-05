@@ -1,9 +1,6 @@
-﻿using System;
+﻿using Model.Meta;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Model.Meta;
 
 namespace Model
 {
@@ -37,6 +34,7 @@ namespace Model
         public string Notes { get; set; }
 
 
+        public List<Instrument> ListOfInstruments { get; set; }
         public List<Section> ListOfSections { get; set; }
 
         public Piece()
@@ -45,6 +43,7 @@ namespace Model
             ListOfInterpreters = new List<Person>();
             ListOfLyricists = new List<Person>();
             ListOfProducers = new List<Person>();
+            ListOfInstruments = new List<Instrument>();
             ListOfSections = new List<Section>();
         }
 

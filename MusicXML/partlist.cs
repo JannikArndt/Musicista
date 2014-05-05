@@ -1,57 +1,43 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "part-list")]
-public partial class partlist
-{
+using System;
+using System.CodeDom.Compiler;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
 
+[GeneratedCode("xsd", "4.0.30319.33440")]
+[Serializable]
+[DebuggerStepThrough]
+[DesignerCategory("code")]
+[XmlType(TypeName = "part-list")]
+public class partlist
+{
+    private object[] itemsField;
     private partgroup[] partgroupField;
 
     private scorepart scorepartField;
 
-    private object[] itemsField;
 
-
-    [System.Xml.Serialization.XmlElementAttribute("part-group", Order = 0)]
+    [XmlElement("part-group", Order = 0)]
     public partgroup[] partgroup
     {
-        get
-        {
-            return this.partgroupField;
-        }
-        set
-        {
-            this.partgroupField = value;
-        }
+        get { return partgroupField; }
+        set { partgroupField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("score-part", Order = 1)]
+    [XmlElement("score-part", Order = 1)]
     public scorepart scorepart
     {
-        get
-        {
-            return this.scorepartField;
-        }
-        set
-        {
-            this.scorepartField = value;
-        }
+        get { return scorepartField; }
+        set { scorepartField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("part-group", typeof(partgroup), Order = 2)]
-    [System.Xml.Serialization.XmlElementAttribute("score-part", typeof(scorepart), Order = 2)]
+    [XmlElement("part-group", typeof(partgroup), Order = 2)]
+    [XmlElement("score-part", typeof(scorepart), Order = 2)]
     public object[] Items
     {
-        get
-        {
-            return this.itemsField;
-        }
-        set
-        {
-            this.itemsField = value;
-        }
+        get { return itemsField; }
+        set { itemsField = value; }
     }
 }

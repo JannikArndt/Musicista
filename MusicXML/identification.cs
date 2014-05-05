@@ -1,101 +1,67 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class identification
+using System;
+using System.CodeDom.Compiler;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
+[GeneratedCode("xsd", "4.0.30319.33440")]
+[Serializable]
+[DebuggerStepThrough]
+[DesignerCategory("code")]
+public class identification
 {
-
     private typedtext[] creatorField;
-
-    private typedtext[] rightsField;
 
     private encoding encodingField;
 
+    private miscellaneousfield[] miscellaneousField;
+    private typedtext[] relationField;
+    private typedtext[] rightsField;
     private string sourceField;
 
-    private typedtext[] relationField;
 
-    private miscellaneousfield[] miscellaneousField;
-
-
-    [System.Xml.Serialization.XmlElementAttribute("creator")]
+    [XmlElement("creator")]
     public typedtext[] creator
     {
-        get
-        {
-            return this.creatorField;
-        }
-        set
-        {
-            this.creatorField = value;
-        }
+        get { return creatorField; }
+        set { creatorField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("rights")]
+    [XmlElement("rights")]
     public typedtext[] rights
     {
-        get
-        {
-            return this.rightsField;
-        }
-        set
-        {
-            this.rightsField = value;
-        }
+        get { return rightsField; }
+        set { rightsField = value; }
     }
 
 
     public encoding encoding
     {
-        get
-        {
-            return this.encodingField;
-        }
-        set
-        {
-            this.encodingField = value;
-        }
+        get { return encodingField; }
+        set { encodingField = value; }
     }
 
 
     public string source
     {
-        get
-        {
-            return this.sourceField;
-        }
-        set
-        {
-            this.sourceField = value;
-        }
+        get { return sourceField; }
+        set { sourceField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("relation")]
+    [XmlElement("relation")]
     public typedtext[] relation
     {
-        get
-        {
-            return this.relationField;
-        }
-        set
-        {
-            this.relationField = value;
-        }
+        get { return relationField; }
+        set { relationField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlArrayItemAttribute(IsNullable = false)]
+    [XmlArrayItem(IsNullable = false)]
     public miscellaneousfield[] miscellaneous
     {
-        get
-        {
-            return this.miscellaneousField;
-        }
-        set
-        {
-            this.miscellaneousField = value;
-        }
+        get { return miscellaneousField; }
+        set { miscellaneousField = value; }
     }
 }

@@ -1,40 +1,33 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "typed-text")]
-public partial class typedtext
-{
+using System;
+using System.CodeDom.Compiler;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
 
+[GeneratedCode("xsd", "4.0.30319.33440")]
+[Serializable]
+[DebuggerStepThrough]
+[DesignerCategory("code")]
+[XmlType(TypeName = "typed-text")]
+public class typedtext
+{
     private string typeField;
 
     private string valueField;
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
+    [XmlAttribute(DataType = "token")]
     public string type
     {
-        get
-        {
-            return this.typeField;
-        }
-        set
-        {
-            this.typeField = value;
-        }
+        get { return typeField; }
+        set { typeField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlTextAttribute()]
+    [XmlText]
     public string Value
     {
-        get
-        {
-            return this.valueField;
-        }
-        set
-        {
-            this.valueField = value;
-        }
+        get { return valueField; }
+        set { valueField = value; }
     }
 }

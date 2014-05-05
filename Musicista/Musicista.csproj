@@ -63,6 +63,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Engraving.cs" />
+    <Compile Include="Mapper.cs" />
     <Compile Include="Sidebar\SidebarAlgorithms.xaml.cs">
       <DependentUpon>SidebarAlgorithms.xaml</DependentUpon>
     </Compile>

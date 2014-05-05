@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace Model
 {
     public class Instrument
@@ -14,6 +10,11 @@ namespace Model
         {
             ID = id;
             Name = name;
+        }
+
+        public override string ToString()
+        {
+            return ID + ": " + Name;
         }
     }
 }

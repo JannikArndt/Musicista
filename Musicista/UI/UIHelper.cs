@@ -64,6 +64,7 @@ namespace Musicista.UI
                                                 // once every four measures make a new system
                                                 if (count > 3)
                                                 {
+                                                    ConnectStaves(staves, currentPage);
                                                     staves.Clear();
                                                     for (int i = 0; i < maxStaves; i++)
                                                     {
@@ -84,6 +85,31 @@ namespace Musicista.UI
                                             }
                                         }
             return pageList;
+        }
+
+        private static void ConnectStaves(List<UIStaff> staves, Canvas page)
+        {
+            if (staves == null || staves.Count == 0)
+                return;
+
+            // Left side, top, bottom
+            var x = staves.First().Left;
+            var y1 = staves.First().Top;
+            var y2 = staves.Last().Top + 24;
+
+            // First line
+            var line = new Line { X1 = x, Y1 = y1, X2 = x, Y2 = y2, StrokeThickness = 2, Stroke = Brushes.Black, SnapsToDevicePixels = true };
+            line.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
+            page.Children.Add(line);
+
+            // Barlines
+            foreach (var measure in staves.First().Measures)
+            {
+                x = measure.Left + measure.Width;
+                line = new Line { X1 = x, Y1 = y1, X2 = x, Y2 = y2, StrokeThickness = 2, Stroke = Brushes.Black, SnapsToDevicePixels = true };
+                line.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
+                page.Children.Add(line);
+            }
         }
 
         public static Canvas CreatePage()

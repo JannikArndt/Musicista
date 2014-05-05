@@ -279,7 +279,7 @@ namespace Musicista.UI
             var newRest = new Path
             {
                 RenderTransform = new ScaleTransform(.21, .21),
-                Fill = Brushes.Red,
+                Fill = Brushes.Black,
                 SnapsToDevicePixels = true
             };
 
@@ -287,25 +287,30 @@ namespace Musicista.UI
             newRest.SetValue(RenderOptions.ClearTypeHintProperty, ClearTypeHint.Enabled);
             newRest.SetValue(RenderOptions.CachingHintProperty, CachingHint.Cache);
 
+            // Left
             double left = measure.Left + ((measure.Width - 10) / 4 * (rest.Beat - 1)) + 10;
-            const double top = 0;
+            if (rest.Duration == Duration.whole)
+                left = measure.Left + measure.Width / 2;
+
+            // Top
+            const double top = 11;
 
             switch (rest.Duration)
             {
                 case Duration.whole:
-                    newRest.Data = Geometry.Parse(Engraving.Whole);
+                    newRest.Data = Geometry.Parse(Engraving.RestWhole);
                     break;
                 case Duration.half:
-                    newRest.Data = Geometry.Parse(Engraving.Half);
+                    newRest.Data = Geometry.Parse(Engraving.RestHalf);
                     break;
                 case Duration.quarter:
-                    newRest.Data = Geometry.Parse(Engraving.Quarter);
+                    newRest.Data = Geometry.Parse(Engraving.RestQuarter);
                     break;
                 case Duration.eigth:
-                    newRest.Data = Geometry.Parse(Engraving.Eigth);
+                    newRest.Data = Geometry.Parse(Engraving.RestEigth);
                     break;
                 case Duration.sixteenth:
-                    newRest.Data = Geometry.Parse(Engraving.Sixteenth);
+                    newRest.Data = Geometry.Parse(Engraving.RestSixteenth);
                     break;
             }
 
@@ -327,7 +332,7 @@ namespace Musicista.UI
             newNote.SetValue(RenderOptions.ClearTypeHintProperty, ClearTypeHint.Enabled);
             newNote.SetValue(RenderOptions.CachingHintProperty, CachingHint.Cache);
 
-            double left = measure.Left + ((measure.Width - 10) / 4 * (note.Beat - 1)) + 10;
+            double left = measure.Left + ((measure.Width - 12) / 4 * (note.Beat - 1)) + 12;
             double top = 0;
 
             switch (note.Octave)
@@ -336,7 +341,7 @@ namespace Musicista.UI
                     top = -44;
                     break;
                 case 5:
-                    top = -22;
+                    top = -21;
                     break;
                 case 4:
                     top = 0;
@@ -506,7 +511,7 @@ namespace Musicista.UI
             double setLeft)
         {
             double top = measure.Top + setTop + 16;
-            double left = setLeft - 6;
+            double left = setLeft - 7;
 
             var newAccidental = new Path
             {

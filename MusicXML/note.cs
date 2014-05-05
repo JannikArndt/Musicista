@@ -1,45 +1,22 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class note
+using System;
+using System.CodeDom.Compiler;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
+[GeneratedCode("xsd", "4.0.30319.33440")]
+[Serializable]
+[DebuggerStepThrough]
+[DesignerCategory("code")]
+public class note
 {
-
-    private object[] itemsField;
-
-    private ItemsChoiceType1[] itemsElementNameField;
-
-    private instrument instrumentField;
-
-    private formattedtext footnoteField;
-
-    private level levelField;
-
-    private string voiceField;
-
-    private notetype typeField;
-
-    private emptyplacement[] dotField;
-
     private accidental accidentalField;
+    private decimal attackField;
 
-    private timemodification timemodificationField;
-
-    private stem stemField;
-
-    private notehead noteheadField;
-
-    private noteheadtext noteheadtextField;
-
-    private string staffField;
+    private bool attackFieldSpecified;
 
     private beam[] beamField;
-
-    private notations[] notationsField;
-
-    private lyric[] lyricField;
-
-    private play playField;
+    private string colorField;
 
     private decimal defaultxField;
 
@@ -48,37 +25,7 @@ public partial class note
     private decimal defaultyField;
 
     private bool defaultyFieldSpecified;
-
-    private decimal relativexField;
-
-    private bool relativexFieldSpecified;
-
-    private decimal relativeyField;
-
-    private bool relativeyFieldSpecified;
-
-    private string fontfamilyField;
-
-    private fontstyle fontstyleField;
-
-    private bool fontstyleFieldSpecified;
-
-    private string fontsizeField;
-
-    private fontweight fontweightField;
-
-    private bool fontweightFieldSpecified;
-
-    private string colorField;
-
-    private yesno printdotField;
-
-    private bool printdotFieldSpecified;
-
-    private yesno printlyricField;
-
-    private bool printlyricFieldSpecified;
-
+    private emptyplacement[] dotField;
     private decimal dynamicsField;
 
     private bool dynamicsFieldSpecified;
@@ -87,689 +34,438 @@ public partial class note
 
     private bool enddynamicsFieldSpecified;
 
-    private decimal attackField;
+    private string fontfamilyField;
+    private string fontsizeField;
 
-    private bool attackFieldSpecified;
+    private fontstyle fontstyleField;
+
+    private bool fontstyleFieldSpecified;
+
+    private fontweight fontweightField;
+
+    private bool fontweightFieldSpecified;
+    private formattedtext footnoteField;
+    private instrument instrumentField;
+    private ItemsChoiceType1[] itemsElementNameField;
+    private object[] itemsField;
+    private level levelField;
+    private lyric[] lyricField;
+    private notations[] notationsField;
+    private notehead noteheadField;
+
+    private noteheadtext noteheadtextField;
+    private yesno pizzicatoField;
+
+    private bool pizzicatoFieldSpecified;
+    private play playField;
+
+    private yesno printdotField;
+
+    private bool printdotFieldSpecified;
+
+    private yesno printlyricField;
+
+    private bool printlyricFieldSpecified;
+    private decimal relativexField;
+
+    private bool relativexFieldSpecified;
+
+    private decimal relativeyField;
+
+    private bool relativeyFieldSpecified;
 
     private decimal releaseField;
 
     private bool releaseFieldSpecified;
+    private string staffField;
+    private stem stemField;
+    private timemodification timemodificationField;
 
     private string timeonlyField;
-
-    private yesno pizzicatoField;
-
-    private bool pizzicatoFieldSpecified;
+    private notetype typeField;
+    private string voiceField;
 
 
-    [System.Xml.Serialization.XmlElementAttribute("chord", typeof(empty))]
-    [System.Xml.Serialization.XmlElementAttribute("cue", typeof(empty))]
-    [System.Xml.Serialization.XmlElementAttribute("duration", typeof(decimal))]
-    [System.Xml.Serialization.XmlElementAttribute("grace", typeof(grace))]
-    [System.Xml.Serialization.XmlElementAttribute("pitch", typeof(pitch))]
-    [System.Xml.Serialization.XmlElementAttribute("rest", typeof(rest))]
-    [System.Xml.Serialization.XmlElementAttribute("tie", typeof(tie))]
-    [System.Xml.Serialization.XmlElementAttribute("unpitched", typeof(unpitched))]
-    [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemsElementName")]
+    [XmlElement("chord", typeof(empty))]
+    [XmlElement("cue", typeof(empty))]
+    [XmlElement("duration", typeof(decimal))]
+    [XmlElement("grace", typeof(grace))]
+    [XmlElement("pitch", typeof(pitch))]
+    [XmlElement("rest", typeof(rest))]
+    [XmlElement("tie", typeof(tie))]
+    [XmlElement("unpitched", typeof(unpitched))]
+    [XmlChoiceIdentifier("ItemsElementName")]
     public object[] Items
     {
-        get
-        {
-            return this.itemsField;
-        }
-        set
-        {
-            this.itemsField = value;
-        }
+        get { return itemsField; }
+        set { itemsField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("ItemsElementName")]
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    [XmlElement("ItemsElementName")]
+    [XmlIgnore]
     public ItemsChoiceType1[] ItemsElementName
     {
-        get
-        {
-            return this.itemsElementNameField;
-        }
-        set
-        {
-            this.itemsElementNameField = value;
-        }
+        get { return itemsElementNameField; }
+        set { itemsElementNameField = value; }
     }
 
 
     public instrument instrument
     {
-        get
-        {
-            return this.instrumentField;
-        }
-        set
-        {
-            this.instrumentField = value;
-        }
+        get { return instrumentField; }
+        set { instrumentField = value; }
     }
 
 
     public formattedtext footnote
     {
-        get
-        {
-            return this.footnoteField;
-        }
-        set
-        {
-            this.footnoteField = value;
-        }
+        get { return footnoteField; }
+        set { footnoteField = value; }
     }
 
 
     public level level
     {
-        get
-        {
-            return this.levelField;
-        }
-        set
-        {
-            this.levelField = value;
-        }
+        get { return levelField; }
+        set { levelField = value; }
     }
 
 
     public string voice
     {
-        get
-        {
-            return this.voiceField;
-        }
-        set
-        {
-            this.voiceField = value;
-        }
+        get { return voiceField; }
+        set { voiceField = value; }
     }
 
 
     public notetype type
     {
-        get
-        {
-            return this.typeField;
-        }
-        set
-        {
-            this.typeField = value;
-        }
+        get { return typeField; }
+        set { typeField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("dot")]
+    [XmlElement("dot")]
     public emptyplacement[] dot
     {
-        get
-        {
-            return this.dotField;
-        }
-        set
-        {
-            this.dotField = value;
-        }
+        get { return dotField; }
+        set { dotField = value; }
     }
 
 
     public accidental accidental
     {
-        get
-        {
-            return this.accidentalField;
-        }
-        set
-        {
-            this.accidentalField = value;
-        }
+        get { return accidentalField; }
+        set { accidentalField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("time-modification")]
+    [XmlElement("time-modification")]
     public timemodification timemodification
     {
-        get
-        {
-            return this.timemodificationField;
-        }
-        set
-        {
-            this.timemodificationField = value;
-        }
+        get { return timemodificationField; }
+        set { timemodificationField = value; }
     }
 
 
     public stem stem
     {
-        get
-        {
-            return this.stemField;
-        }
-        set
-        {
-            this.stemField = value;
-        }
+        get { return stemField; }
+        set { stemField = value; }
     }
 
 
     public notehead notehead
     {
-        get
-        {
-            return this.noteheadField;
-        }
-        set
-        {
-            this.noteheadField = value;
-        }
+        get { return noteheadField; }
+        set { noteheadField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("notehead-text")]
+    [XmlElement("notehead-text")]
     public noteheadtext noteheadtext
     {
-        get
-        {
-            return this.noteheadtextField;
-        }
-        set
-        {
-            this.noteheadtextField = value;
-        }
+        get { return noteheadtextField; }
+        set { noteheadtextField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlElementAttribute(DataType = "positiveInteger")]
+    [XmlElement(DataType = "positiveInteger")]
     public string staff
     {
-        get
-        {
-            return this.staffField;
-        }
-        set
-        {
-            this.staffField = value;
-        }
+        get { return staffField; }
+        set { staffField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("beam")]
+    [XmlElement("beam")]
     public beam[] beam
     {
-        get
-        {
-            return this.beamField;
-        }
-        set
-        {
-            this.beamField = value;
-        }
+        get { return beamField; }
+        set { beamField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("notations")]
+    [XmlElement("notations")]
     public notations[] notations
     {
-        get
-        {
-            return this.notationsField;
-        }
-        set
-        {
-            this.notationsField = value;
-        }
+        get { return notationsField; }
+        set { notationsField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("lyric")]
+    [XmlElement("lyric")]
     public lyric[] lyric
     {
-        get
-        {
-            return this.lyricField;
-        }
-        set
-        {
-            this.lyricField = value;
-        }
+        get { return lyricField; }
+        set { lyricField = value; }
     }
 
 
     public play play
     {
-        get
-        {
-            return this.playField;
-        }
-        set
-        {
-            this.playField = value;
-        }
+        get { return playField; }
+        set { playField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("default-x")]
+    [XmlAttribute("default-x")]
     public decimal defaultx
     {
-        get
-        {
-            return this.defaultxField;
-        }
-        set
-        {
-            this.defaultxField = value;
-        }
+        get { return defaultxField; }
+        set { defaultxField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    [XmlIgnore]
     public bool defaultxSpecified
     {
-        get
-        {
-            return this.defaultxFieldSpecified;
-        }
-        set
-        {
-            this.defaultxFieldSpecified = value;
-        }
+        get { return defaultxFieldSpecified; }
+        set { defaultxFieldSpecified = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("default-y")]
+    [XmlAttribute("default-y")]
     public decimal defaulty
     {
-        get
-        {
-            return this.defaultyField;
-        }
-        set
-        {
-            this.defaultyField = value;
-        }
+        get { return defaultyField; }
+        set { defaultyField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    [XmlIgnore]
     public bool defaultySpecified
     {
-        get
-        {
-            return this.defaultyFieldSpecified;
-        }
-        set
-        {
-            this.defaultyFieldSpecified = value;
-        }
+        get { return defaultyFieldSpecified; }
+        set { defaultyFieldSpecified = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("relative-x")]
+    [XmlAttribute("relative-x")]
     public decimal relativex
     {
-        get
-        {
-            return this.relativexField;
-        }
-        set
-        {
-            this.relativexField = value;
-        }
+        get { return relativexField; }
+        set { relativexField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    [XmlIgnore]
     public bool relativexSpecified
     {
-        get
-        {
-            return this.relativexFieldSpecified;
-        }
-        set
-        {
-            this.relativexFieldSpecified = value;
-        }
+        get { return relativexFieldSpecified; }
+        set { relativexFieldSpecified = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("relative-y")]
+    [XmlAttribute("relative-y")]
     public decimal relativey
     {
-        get
-        {
-            return this.relativeyField;
-        }
-        set
-        {
-            this.relativeyField = value;
-        }
+        get { return relativeyField; }
+        set { relativeyField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    [XmlIgnore]
     public bool relativeySpecified
     {
-        get
-        {
-            return this.relativeyFieldSpecified;
-        }
-        set
-        {
-            this.relativeyFieldSpecified = value;
-        }
+        get { return relativeyFieldSpecified; }
+        set { relativeyFieldSpecified = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("font-family", DataType = "token")]
+    [XmlAttribute("font-family", DataType = "token")]
     public string fontfamily
     {
-        get
-        {
-            return this.fontfamilyField;
-        }
-        set
-        {
-            this.fontfamilyField = value;
-        }
+        get { return fontfamilyField; }
+        set { fontfamilyField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("font-style")]
+    [XmlAttribute("font-style")]
     public fontstyle fontstyle
     {
-        get
-        {
-            return this.fontstyleField;
-        }
-        set
-        {
-            this.fontstyleField = value;
-        }
+        get { return fontstyleField; }
+        set { fontstyleField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    [XmlIgnore]
     public bool fontstyleSpecified
     {
-        get
-        {
-            return this.fontstyleFieldSpecified;
-        }
-        set
-        {
-            this.fontstyleFieldSpecified = value;
-        }
+        get { return fontstyleFieldSpecified; }
+        set { fontstyleFieldSpecified = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("font-size")]
+    [XmlAttribute("font-size")]
     public string fontsize
     {
-        get
-        {
-            return this.fontsizeField;
-        }
-        set
-        {
-            this.fontsizeField = value;
-        }
+        get { return fontsizeField; }
+        set { fontsizeField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("font-weight")]
+    [XmlAttribute("font-weight")]
     public fontweight fontweight
     {
-        get
-        {
-            return this.fontweightField;
-        }
-        set
-        {
-            this.fontweightField = value;
-        }
+        get { return fontweightField; }
+        set { fontweightField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    [XmlIgnore]
     public bool fontweightSpecified
     {
-        get
-        {
-            return this.fontweightFieldSpecified;
-        }
-        set
-        {
-            this.fontweightFieldSpecified = value;
-        }
+        get { return fontweightFieldSpecified; }
+        set { fontweightFieldSpecified = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
+    [XmlAttribute(DataType = "token")]
     public string color
     {
-        get
-        {
-            return this.colorField;
-        }
-        set
-        {
-            this.colorField = value;
-        }
+        get { return colorField; }
+        set { colorField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("print-dot")]
+    [XmlAttribute("print-dot")]
     public yesno printdot
     {
-        get
-        {
-            return this.printdotField;
-        }
-        set
-        {
-            this.printdotField = value;
-        }
+        get { return printdotField; }
+        set { printdotField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    [XmlIgnore]
     public bool printdotSpecified
     {
-        get
-        {
-            return this.printdotFieldSpecified;
-        }
-        set
-        {
-            this.printdotFieldSpecified = value;
-        }
+        get { return printdotFieldSpecified; }
+        set { printdotFieldSpecified = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("print-lyric")]
+    [XmlAttribute("print-lyric")]
     public yesno printlyric
     {
-        get
-        {
-            return this.printlyricField;
-        }
-        set
-        {
-            this.printlyricField = value;
-        }
+        get { return printlyricField; }
+        set { printlyricField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    [XmlIgnore]
     public bool printlyricSpecified
     {
-        get
-        {
-            return this.printlyricFieldSpecified;
-        }
-        set
-        {
-            this.printlyricFieldSpecified = value;
-        }
+        get { return printlyricFieldSpecified; }
+        set { printlyricFieldSpecified = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [XmlAttribute]
     public decimal dynamics
     {
-        get
-        {
-            return this.dynamicsField;
-        }
-        set
-        {
-            this.dynamicsField = value;
-        }
+        get { return dynamicsField; }
+        set { dynamicsField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    [XmlIgnore]
     public bool dynamicsSpecified
     {
-        get
-        {
-            return this.dynamicsFieldSpecified;
-        }
-        set
-        {
-            this.dynamicsFieldSpecified = value;
-        }
+        get { return dynamicsFieldSpecified; }
+        set { dynamicsFieldSpecified = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("end-dynamics")]
+    [XmlAttribute("end-dynamics")]
     public decimal enddynamics
     {
-        get
-        {
-            return this.enddynamicsField;
-        }
-        set
-        {
-            this.enddynamicsField = value;
-        }
+        get { return enddynamicsField; }
+        set { enddynamicsField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    [XmlIgnore]
     public bool enddynamicsSpecified
     {
-        get
-        {
-            return this.enddynamicsFieldSpecified;
-        }
-        set
-        {
-            this.enddynamicsFieldSpecified = value;
-        }
+        get { return enddynamicsFieldSpecified; }
+        set { enddynamicsFieldSpecified = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [XmlAttribute]
     public decimal attack
     {
-        get
-        {
-            return this.attackField;
-        }
-        set
-        {
-            this.attackField = value;
-        }
+        get { return attackField; }
+        set { attackField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    [XmlIgnore]
     public bool attackSpecified
     {
-        get
-        {
-            return this.attackFieldSpecified;
-        }
-        set
-        {
-            this.attackFieldSpecified = value;
-        }
+        get { return attackFieldSpecified; }
+        set { attackFieldSpecified = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [XmlAttribute]
     public decimal release
     {
-        get
-        {
-            return this.releaseField;
-        }
-        set
-        {
-            this.releaseField = value;
-        }
+        get { return releaseField; }
+        set { releaseField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    [XmlIgnore]
     public bool releaseSpecified
     {
-        get
-        {
-            return this.releaseFieldSpecified;
-        }
-        set
-        {
-            this.releaseFieldSpecified = value;
-        }
+        get { return releaseFieldSpecified; }
+        set { releaseFieldSpecified = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("time-only", DataType = "token")]
+    [XmlAttribute("time-only", DataType = "token")]
     public string timeonly
     {
-        get
-        {
-            return this.timeonlyField;
-        }
-        set
-        {
-            this.timeonlyField = value;
-        }
+        get { return timeonlyField; }
+        set { timeonlyField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [XmlAttribute]
     public yesno pizzicato
     {
-        get
-        {
-            return this.pizzicatoField;
-        }
-        set
-        {
-            this.pizzicatoField = value;
-        }
+        get { return pizzicatoField; }
+        set { pizzicatoField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    [XmlIgnore]
     public bool pizzicatoSpecified
     {
-        get
-        {
-            return this.pizzicatoFieldSpecified;
-        }
-        set
-        {
-            this.pizzicatoFieldSpecified = value;
-        }
+        get { return pizzicatoFieldSpecified; }
+        set { pizzicatoFieldSpecified = value; }
     }
 }

@@ -1,280 +1,177 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "text-element-data")]
-public partial class textelementdata
-{
+using System;
+using System.CodeDom.Compiler;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Schema;
+using System.Xml.Serialization;
 
+[GeneratedCode("xsd", "4.0.30319.33440")]
+[Serializable]
+[DebuggerStepThrough]
+[DesignerCategory("code")]
+[XmlType(TypeName = "text-element-data")]
+public class textelementdata
+{
+    private string colorField;
+    private textdirection dirField;
+
+    private bool dirFieldSpecified;
     private string fontfamilyField;
+    private string fontsizeField;
 
     private fontstyle fontstyleField;
 
     private bool fontstyleFieldSpecified;
 
-    private string fontsizeField;
-
     private fontweight fontweightField;
 
     private bool fontweightFieldSpecified;
-
-    private string colorField;
-
-    private string underlineField;
-
-    private string overlineField;
+    private string langField;
+    private string letterspacingField;
 
     private string linethroughField;
+    private string overlineField;
 
     private decimal rotationField;
 
     private bool rotationFieldSpecified;
-
-    private string letterspacingField;
-
-    private string langField;
-
-    private textdirection dirField;
-
-    private bool dirFieldSpecified;
+    private string underlineField;
 
     private string valueField;
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("font-family", DataType = "token")]
+    [XmlAttribute("font-family", DataType = "token")]
     public string fontfamily
     {
-        get
-        {
-            return this.fontfamilyField;
-        }
-        set
-        {
-            this.fontfamilyField = value;
-        }
+        get { return fontfamilyField; }
+        set { fontfamilyField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("font-style")]
+    [XmlAttribute("font-style")]
     public fontstyle fontstyle
     {
-        get
-        {
-            return this.fontstyleField;
-        }
-        set
-        {
-            this.fontstyleField = value;
-        }
+        get { return fontstyleField; }
+        set { fontstyleField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    [XmlIgnore]
     public bool fontstyleSpecified
     {
-        get
-        {
-            return this.fontstyleFieldSpecified;
-        }
-        set
-        {
-            this.fontstyleFieldSpecified = value;
-        }
+        get { return fontstyleFieldSpecified; }
+        set { fontstyleFieldSpecified = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("font-size")]
+    [XmlAttribute("font-size")]
     public string fontsize
     {
-        get
-        {
-            return this.fontsizeField;
-        }
-        set
-        {
-            this.fontsizeField = value;
-        }
+        get { return fontsizeField; }
+        set { fontsizeField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("font-weight")]
+    [XmlAttribute("font-weight")]
     public fontweight fontweight
     {
-        get
-        {
-            return this.fontweightField;
-        }
-        set
-        {
-            this.fontweightField = value;
-        }
+        get { return fontweightField; }
+        set { fontweightField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    [XmlIgnore]
     public bool fontweightSpecified
     {
-        get
-        {
-            return this.fontweightFieldSpecified;
-        }
-        set
-        {
-            this.fontweightFieldSpecified = value;
-        }
+        get { return fontweightFieldSpecified; }
+        set { fontweightFieldSpecified = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
+    [XmlAttribute(DataType = "token")]
     public string color
     {
-        get
-        {
-            return this.colorField;
-        }
-        set
-        {
-            this.colorField = value;
-        }
+        get { return colorField; }
+        set { colorField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "nonNegativeInteger")]
+    [XmlAttribute(DataType = "nonNegativeInteger")]
     public string underline
     {
-        get
-        {
-            return this.underlineField;
-        }
-        set
-        {
-            this.underlineField = value;
-        }
+        get { return underlineField; }
+        set { underlineField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "nonNegativeInteger")]
+    [XmlAttribute(DataType = "nonNegativeInteger")]
     public string overline
     {
-        get
-        {
-            return this.overlineField;
-        }
-        set
-        {
-            this.overlineField = value;
-        }
+        get { return overlineField; }
+        set { overlineField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("line-through", DataType = "nonNegativeInteger")]
+    [XmlAttribute("line-through", DataType = "nonNegativeInteger")]
     public string linethrough
     {
-        get
-        {
-            return this.linethroughField;
-        }
-        set
-        {
-            this.linethroughField = value;
-        }
+        get { return linethroughField; }
+        set { linethroughField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [XmlAttribute]
     public decimal rotation
     {
-        get
-        {
-            return this.rotationField;
-        }
-        set
-        {
-            this.rotationField = value;
-        }
+        get { return rotationField; }
+        set { rotationField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    [XmlIgnore]
     public bool rotationSpecified
     {
-        get
-        {
-            return this.rotationFieldSpecified;
-        }
-        set
-        {
-            this.rotationFieldSpecified = value;
-        }
+        get { return rotationFieldSpecified; }
+        set { rotationFieldSpecified = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("letter-spacing")]
+    [XmlAttribute("letter-spacing")]
     public string letterspacing
     {
-        get
-        {
-            return this.letterspacingField;
-        }
-        set
-        {
-            this.letterspacingField = value;
-        }
+        get { return letterspacingField; }
+        set { letterspacingField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://www.w3.org/XML/1998/namespace")]
+    [XmlAttribute(Form = XmlSchemaForm.Qualified, Namespace = "http://www.w3.org/XML/1998/namespace")]
     public string lang
     {
-        get
-        {
-            return this.langField;
-        }
-        set
-        {
-            this.langField = value;
-        }
+        get { return langField; }
+        set { langField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [XmlAttribute]
     public textdirection dir
     {
-        get
-        {
-            return this.dirField;
-        }
-        set
-        {
-            this.dirField = value;
-        }
+        get { return dirField; }
+        set { dirField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    [XmlIgnore]
     public bool dirSpecified
     {
-        get
-        {
-            return this.dirFieldSpecified;
-        }
-        set
-        {
-            this.dirFieldSpecified = value;
-        }
+        get { return dirFieldSpecified; }
+        set { dirFieldSpecified = value; }
     }
 
 
-    [System.Xml.Serialization.XmlTextAttribute()]
+    [XmlText]
     public string Value
     {
-        get
-        {
-            return this.valueField;
-        }
-        set
-        {
-            this.valueField = value;
-        }
+        get { return valueField; }
+        set { valueField = value; }
     }
 }

@@ -1,69 +1,49 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class pitch
+using System;
+using System.CodeDom.Compiler;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
+[GeneratedCode("xsd", "4.0.30319.33440")]
+[Serializable]
+[DebuggerStepThrough]
+[DesignerCategory("code")]
+public class pitch
 {
-
-    private step stepField;
-
     private decimal alterField;
 
     private bool alterFieldSpecified;
 
     private string octaveField;
+    private step stepField;
 
 
     public step step
     {
-        get
-        {
-            return this.stepField;
-        }
-        set
-        {
-            this.stepField = value;
-        }
+        get { return stepField; }
+        set { stepField = value; }
     }
 
 
     public decimal alter
     {
-        get
-        {
-            return this.alterField;
-        }
-        set
-        {
-            this.alterField = value;
-        }
+        get { return alterField; }
+        set { alterField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    [XmlIgnore]
     public bool alterSpecified
     {
-        get
-        {
-            return this.alterFieldSpecified;
-        }
-        set
-        {
-            this.alterFieldSpecified = value;
-        }
+        get { return alterFieldSpecified; }
+        set { alterFieldSpecified = value; }
     }
 
 
-    [System.Xml.Serialization.XmlElementAttribute(DataType = "integer")]
+    [XmlElement(DataType = "integer")]
     public string octave
     {
-        get
-        {
-            return this.octaveField;
-        }
-        set
-        {
-            this.octaveField = value;
-        }
+        get { return octaveField; }
+        set { octaveField = value; }
     }
 }

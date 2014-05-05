@@ -1,30 +1,16 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class lyric
+using System;
+using System.CodeDom.Compiler;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
+[GeneratedCode("xsd", "4.0.30319.33440")]
+[Serializable]
+[DebuggerStepThrough]
+[DesignerCategory("code")]
+public class lyric
 {
-
-    private object[] itemsField;
-
-    private ItemsChoiceType6[] itemsElementNameField;
-
-    private empty endlineField;
-
-    private empty endparagraphField;
-
-    private formattedtext footnoteField;
-
-    private level levelField;
-
-    private string numberField;
-
-    private string nameField;
-
-    private leftcenterright justifyField;
-
-    private bool justifyFieldSpecified;
-
+    private string colorField;
     private decimal defaultxField;
 
     private bool defaultxFieldSpecified;
@@ -32,7 +18,28 @@ public partial class lyric
     private decimal defaultyField;
 
     private bool defaultyFieldSpecified;
+    private empty endlineField;
 
+    private empty endparagraphField;
+
+    private formattedtext footnoteField;
+    private ItemsChoiceType6[] itemsElementNameField;
+    private object[] itemsField;
+
+    private leftcenterright justifyField;
+
+    private bool justifyFieldSpecified;
+    private level levelField;
+    private string nameField;
+    private string numberField;
+
+    private abovebelow placementField;
+
+    private bool placementFieldSpecified;
+
+    private yesno printobjectField;
+
+    private bool printobjectFieldSpecified;
     private decimal relativexField;
 
     private bool relativexFieldSpecified;
@@ -41,340 +48,192 @@ public partial class lyric
 
     private bool relativeyFieldSpecified;
 
-    private abovebelow placementField;
 
-    private bool placementFieldSpecified;
-
-    private string colorField;
-
-    private yesno printobjectField;
-
-    private bool printobjectFieldSpecified;
-
-
-    [System.Xml.Serialization.XmlElementAttribute("elision", typeof(textfontcolor))]
-    [System.Xml.Serialization.XmlElementAttribute("extend", typeof(extend))]
-    [System.Xml.Serialization.XmlElementAttribute("humming", typeof(empty))]
-    [System.Xml.Serialization.XmlElementAttribute("laughing", typeof(empty))]
-    [System.Xml.Serialization.XmlElementAttribute("syllabic", typeof(syllabic))]
-    [System.Xml.Serialization.XmlElementAttribute("text", typeof(textelementdata))]
-    [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemsElementName")]
+    [XmlElement("elision", typeof(textfontcolor))]
+    [XmlElement("extend", typeof(extend))]
+    [XmlElement("humming", typeof(empty))]
+    [XmlElement("laughing", typeof(empty))]
+    [XmlElement("syllabic", typeof(syllabic))]
+    [XmlElement("text", typeof(textelementdata))]
+    [XmlChoiceIdentifier("ItemsElementName")]
     public object[] Items
     {
-        get
-        {
-            return this.itemsField;
-        }
-        set
-        {
-            this.itemsField = value;
-        }
+        get { return itemsField; }
+        set { itemsField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("ItemsElementName")]
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    [XmlElement("ItemsElementName")]
+    [XmlIgnore]
     public ItemsChoiceType6[] ItemsElementName
     {
-        get
-        {
-            return this.itemsElementNameField;
-        }
-        set
-        {
-            this.itemsElementNameField = value;
-        }
+        get { return itemsElementNameField; }
+        set { itemsElementNameField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("end-line")]
+    [XmlElement("end-line")]
     public empty endline
     {
-        get
-        {
-            return this.endlineField;
-        }
-        set
-        {
-            this.endlineField = value;
-        }
+        get { return endlineField; }
+        set { endlineField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("end-paragraph")]
+    [XmlElement("end-paragraph")]
     public empty endparagraph
     {
-        get
-        {
-            return this.endparagraphField;
-        }
-        set
-        {
-            this.endparagraphField = value;
-        }
+        get { return endparagraphField; }
+        set { endparagraphField = value; }
     }
 
 
     public formattedtext footnote
     {
-        get
-        {
-            return this.footnoteField;
-        }
-        set
-        {
-            this.footnoteField = value;
-        }
+        get { return footnoteField; }
+        set { footnoteField = value; }
     }
 
 
     public level level
     {
-        get
-        {
-            return this.levelField;
-        }
-        set
-        {
-            this.levelField = value;
-        }
+        get { return levelField; }
+        set { levelField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NMTOKEN")]
+    [XmlAttribute(DataType = "NMTOKEN")]
     public string number
     {
-        get
-        {
-            return this.numberField;
-        }
-        set
-        {
-            this.numberField = value;
-        }
+        get { return numberField; }
+        set { numberField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
+    [XmlAttribute(DataType = "token")]
     public string name
     {
-        get
-        {
-            return this.nameField;
-        }
-        set
-        {
-            this.nameField = value;
-        }
+        get { return nameField; }
+        set { nameField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [XmlAttribute]
     public leftcenterright justify
     {
-        get
-        {
-            return this.justifyField;
-        }
-        set
-        {
-            this.justifyField = value;
-        }
+        get { return justifyField; }
+        set { justifyField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    [XmlIgnore]
     public bool justifySpecified
     {
-        get
-        {
-            return this.justifyFieldSpecified;
-        }
-        set
-        {
-            this.justifyFieldSpecified = value;
-        }
+        get { return justifyFieldSpecified; }
+        set { justifyFieldSpecified = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("default-x")]
+    [XmlAttribute("default-x")]
     public decimal defaultx
     {
-        get
-        {
-            return this.defaultxField;
-        }
-        set
-        {
-            this.defaultxField = value;
-        }
+        get { return defaultxField; }
+        set { defaultxField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    [XmlIgnore]
     public bool defaultxSpecified
     {
-        get
-        {
-            return this.defaultxFieldSpecified;
-        }
-        set
-        {
-            this.defaultxFieldSpecified = value;
-        }
+        get { return defaultxFieldSpecified; }
+        set { defaultxFieldSpecified = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("default-y")]
+    [XmlAttribute("default-y")]
     public decimal defaulty
     {
-        get
-        {
-            return this.defaultyField;
-        }
-        set
-        {
-            this.defaultyField = value;
-        }
+        get { return defaultyField; }
+        set { defaultyField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    [XmlIgnore]
     public bool defaultySpecified
     {
-        get
-        {
-            return this.defaultyFieldSpecified;
-        }
-        set
-        {
-            this.defaultyFieldSpecified = value;
-        }
+        get { return defaultyFieldSpecified; }
+        set { defaultyFieldSpecified = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("relative-x")]
+    [XmlAttribute("relative-x")]
     public decimal relativex
     {
-        get
-        {
-            return this.relativexField;
-        }
-        set
-        {
-            this.relativexField = value;
-        }
+        get { return relativexField; }
+        set { relativexField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    [XmlIgnore]
     public bool relativexSpecified
     {
-        get
-        {
-            return this.relativexFieldSpecified;
-        }
-        set
-        {
-            this.relativexFieldSpecified = value;
-        }
+        get { return relativexFieldSpecified; }
+        set { relativexFieldSpecified = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("relative-y")]
+    [XmlAttribute("relative-y")]
     public decimal relativey
     {
-        get
-        {
-            return this.relativeyField;
-        }
-        set
-        {
-            this.relativeyField = value;
-        }
+        get { return relativeyField; }
+        set { relativeyField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    [XmlIgnore]
     public bool relativeySpecified
     {
-        get
-        {
-            return this.relativeyFieldSpecified;
-        }
-        set
-        {
-            this.relativeyFieldSpecified = value;
-        }
+        get { return relativeyFieldSpecified; }
+        set { relativeyFieldSpecified = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [XmlAttribute]
     public abovebelow placement
     {
-        get
-        {
-            return this.placementField;
-        }
-        set
-        {
-            this.placementField = value;
-        }
+        get { return placementField; }
+        set { placementField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    [XmlIgnore]
     public bool placementSpecified
     {
-        get
-        {
-            return this.placementFieldSpecified;
-        }
-        set
-        {
-            this.placementFieldSpecified = value;
-        }
+        get { return placementFieldSpecified; }
+        set { placementFieldSpecified = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
+    [XmlAttribute(DataType = "token")]
     public string color
     {
-        get
-        {
-            return this.colorField;
-        }
-        set
-        {
-            this.colorField = value;
-        }
+        get { return colorField; }
+        set { colorField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("print-object")]
+    [XmlAttribute("print-object")]
     public yesno printobject
     {
-        get
-        {
-            return this.printobjectField;
-        }
-        set
-        {
-            this.printobjectField = value;
-        }
+        get { return printobjectField; }
+        set { printobjectField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    [XmlIgnore]
     public bool printobjectSpecified
     {
-        get
-        {
-            return this.printobjectFieldSpecified;
-        }
-        set
-        {
-            this.printobjectFieldSpecified = value;
-        }
+        get { return printobjectFieldSpecified; }
+        set { printobjectFieldSpecified = value; }
     }
 }

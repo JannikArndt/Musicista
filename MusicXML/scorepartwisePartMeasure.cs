@@ -1,148 +1,103 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-public partial class scorepartwisePartMeasure
+using System;
+using System.CodeDom.Compiler;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
+[GeneratedCode("xsd", "4.0.30319.33440")]
+[Serializable]
+[DebuggerStepThrough]
+[DesignerCategory("code")]
+[XmlType(AnonymousType = true)]
+public class scorepartwisePartMeasure
 {
-
-    private object[] itemsField;
-
-    private string numberField;
-
     private yesno implicitField;
 
     private bool implicitFieldSpecified;
+    private object[] itemsField;
 
     private yesno noncontrollingField;
 
     private bool noncontrollingFieldSpecified;
+    private string numberField;
 
     private decimal widthField;
 
     private bool widthFieldSpecified;
 
 
-    [System.Xml.Serialization.XmlElementAttribute("attributes", typeof(attributes))]
-    [System.Xml.Serialization.XmlElementAttribute("backup", typeof(backup))]
-    [System.Xml.Serialization.XmlElementAttribute("barline", typeof(barline))]
-    [System.Xml.Serialization.XmlElementAttribute("bookmark", typeof(bookmark))]
-    [System.Xml.Serialization.XmlElementAttribute("direction", typeof(direction))]
-    [System.Xml.Serialization.XmlElementAttribute("figured-bass", typeof(figuredbass))]
-    [System.Xml.Serialization.XmlElementAttribute("forward", typeof(forward))]
-    [System.Xml.Serialization.XmlElementAttribute("grouping", typeof(grouping))]
-    [System.Xml.Serialization.XmlElementAttribute("harmony", typeof(harmony))]
-    [System.Xml.Serialization.XmlElementAttribute("link", typeof(link))]
-    [System.Xml.Serialization.XmlElementAttribute("note", typeof(note))]
-    [System.Xml.Serialization.XmlElementAttribute("print", typeof(print))]
-    [System.Xml.Serialization.XmlElementAttribute("sound", typeof(sound))]
+    [XmlElement("attributes", typeof(attributes))]
+    [XmlElement("backup", typeof(backup))]
+    [XmlElement("barline", typeof(barline))]
+    [XmlElement("bookmark", typeof(bookmark))]
+    [XmlElement("direction", typeof(direction))]
+    [XmlElement("figured-bass", typeof(figuredbass))]
+    [XmlElement("forward", typeof(forward))]
+    [XmlElement("grouping", typeof(grouping))]
+    [XmlElement("harmony", typeof(harmony))]
+    [XmlElement("link", typeof(link))]
+    [XmlElement("note", typeof(note))]
+    [XmlElement("print", typeof(print))]
+    [XmlElement("sound", typeof(sound))]
     public object[] Items
     {
-        get
-        {
-            return this.itemsField;
-        }
-        set
-        {
-            this.itemsField = value;
-        }
+        get { return itemsField; }
+        set { itemsField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
+    [XmlAttribute(DataType = "token")]
     public string number
     {
-        get
-        {
-            return this.numberField;
-        }
-        set
-        {
-            this.numberField = value;
-        }
+        get { return numberField; }
+        set { numberField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [XmlAttribute]
     public yesno @implicit
     {
-        get
-        {
-            return this.implicitField;
-        }
-        set
-        {
-            this.implicitField = value;
-        }
+        get { return implicitField; }
+        set { implicitField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    [XmlIgnore]
     public bool implicitSpecified
     {
-        get
-        {
-            return this.implicitFieldSpecified;
-        }
-        set
-        {
-            this.implicitFieldSpecified = value;
-        }
+        get { return implicitFieldSpecified; }
+        set { implicitFieldSpecified = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("non-controlling")]
+    [XmlAttribute("non-controlling")]
     public yesno noncontrolling
     {
-        get
-        {
-            return this.noncontrollingField;
-        }
-        set
-        {
-            this.noncontrollingField = value;
-        }
+        get { return noncontrollingField; }
+        set { noncontrollingField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    [XmlIgnore]
     public bool noncontrollingSpecified
     {
-        get
-        {
-            return this.noncontrollingFieldSpecified;
-        }
-        set
-        {
-            this.noncontrollingFieldSpecified = value;
-        }
+        get { return noncontrollingFieldSpecified; }
+        set { noncontrollingFieldSpecified = value; }
     }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [XmlAttribute]
     public decimal width
     {
-        get
-        {
-            return this.widthField;
-        }
-        set
-        {
-            this.widthField = value;
-        }
+        get { return widthField; }
+        set { widthField = value; }
     }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    [XmlIgnore]
     public bool widthSpecified
     {
-        get
-        {
-            return this.widthFieldSpecified;
-        }
-        set
-        {
-            this.widthFieldSpecified = value;
-        }
+        get { return widthFieldSpecified; }
+        set { widthFieldSpecified = value; }
     }
 }

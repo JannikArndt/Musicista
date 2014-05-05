@@ -73,14 +73,13 @@ namespace Musicista
                         Instrument = piece.ListOfInstruments[partNumber],
                         ListOfSymbols = new List<Symbol>()
                     };
-                    IEnumerable<object> notes =
-                        mxml.part[partNumber].measure[measureNumber].Items.Where(item => item.GetType() == typeof(note));
+                    var notes = mxml.part[partNumber].measure[measureNumber].Items.Where(item => item.GetType() == typeof(note));
 
                     double beat = 256;
 
                     foreach (note mxmlNote in notes)
                     {
-                        Note newNote = CreateNoteFromMXMLNote(mxmlNote, beat / 256);
+                        var newNote = CreateNoteFromMXMLNote(mxmlNote, beat / 256);
                         beat += (int)newNote.Duration;
                         part.ListOfSymbols.Add(newNote);
                     }
@@ -93,11 +92,29 @@ namespace Musicista
             return piece;
         }
 
-        public static Note CreateNoteFromMXMLNote(note mxmlNote, double beat = 1.0)
+        public static Symbol CreateNoteFromMXMLNote(note mxmlNote, double beat = 1.0)
         {
             if (mxmlNote == null || mxmlNote.Items == null || !mxmlNote.Items.Any())
                 return null;
 
+            // Rests
+            if (mxmlNote.Items.Any(item => item is rest))
+            {
+                var newRest = new Rest
+                {
+                    Beat = beat
+                };
+                if (mxmlNote.Items.Any(item => item is decimal))
+                {
+                    string durationString = mxmlNote.Items.First(item => item is decimal).ToString();
+                    newRest.Duration = (Duration)int.Parse(durationString);
+                }
+                if (!string.IsNullOrEmpty(mxmlNote.voice))
+                    newRest.Voice = int.Parse(Regex.Match(mxmlNote.voice, @"\d+").Value);
+                return newRest;
+            }
+
+            // Notes
             var newNote = new Note
             {
                 Beat = beat,
@@ -116,11 +133,11 @@ namespace Musicista
             }
 
             if (mxmlNote.Items.Any(item => item is textelementdata))
-                newNote.Text = ((textelementdata)mxmlNote.lyric[0].Items.First(item => item is textelementdata)).Value;
+                newNote.Text =
+                    ((textelementdata)mxmlNote.lyric[0].Items.First(item => item is textelementdata)).Value;
 
             if (!string.IsNullOrEmpty(mxmlNote.voice))
                 newNote.Voice = int.Parse(Regex.Match(mxmlNote.voice, @"\d+").Value);
-
             return newNote;
         }
     }

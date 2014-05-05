@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace Model
 {
     public enum Duration
     {
+        unknown = 0,
         fivehundredtwelfth = 2,
         twohundredfiftysixth = 4,
         hundredtwentyeigth = 8,

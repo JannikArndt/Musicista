@@ -1,4 +1,5 @@
 ﻿using Model;
+using Model.Meta;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -8,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
 using System.Windows.Shapes;
+using Duration = Model.Duration;
 
 namespace Musicista.UI
 {
@@ -15,76 +17,100 @@ namespace Musicista.UI
     {
         public static List<Canvas> DrawPiece(Piece piece)
         {
-            var pageList = new List<Canvas> { CreatePage(), CreatePage() };
-            var currentPage = pageList.First();
+            Canvas currentPage = CreatePage();
+            var pageList = new List<Canvas> { currentPage };
 
             if (!String.IsNullOrEmpty(piece.Title))
                 DrawTitle(piece.Title, pageList.First());
 
             if (piece.ListOfComposers != null && piece.ListOfComposers.Count > 0)
-                foreach (var composer in piece.ListOfComposers)
+                foreach (Composer composer in piece.ListOfComposers)
                     DrawComposer(composer.FullName, pageList.First());
 
             int count = 4;
+            int measuresPerPage = 0;
 
-            if (piece.ListOfSections != null && piece.ListOfSections.Count > 0)
-                foreach (var section in piece.ListOfSections)
-                    if (section.ListOfMovements != null && section.ListOfMovements.Count > 0)
-                        foreach (var movement in section.ListOfMovements)
-                            if (movement.ListOfSegments != null && movement.ListOfSegments.Count > 0)
-                                foreach (var segment in movement.ListOfSegments)
-                                    if (segment.ListOfPassages != null && segment.ListOfPassages.Count > 0)
-                                        foreach (var passage in segment.ListOfPassages)
-                                            if (passage.ListOfMeasures != null && passage.ListOfMeasures.Count > 0)
+            if (piece.ListOfSections == null || piece.ListOfSections.Count <= 0)
+                return pageList;
+            foreach (Section section in piece.ListOfSections)
+                if (section.ListOfMovements != null && section.ListOfMovements.Count > 0)
+                    foreach (Movement movement in section.ListOfMovements)
+                        if (movement.ListOfSegments != null && movement.ListOfSegments.Count > 0)
+                            foreach (Segment segment in movement.ListOfSegments)
+                                if (segment.ListOfPassages != null && segment.ListOfPassages.Count > 0)
+                                    foreach (Passage passage in segment.ListOfPassages)
+                                        if (passage.ListOfMeasures != null && passage.ListOfMeasures.Count > 0)
+                                        {
+                                            int maxStaves =
+                                                passage.ListOfMeasures.Select(measure => measure.Parts.Count).Max();
+                                            int currentTop = 200;
+                                            var staves = new List<UIStaff>();
+                                            int staffSpacing = 50;
+                                            int additionalSystemSpacing = 30;
+
+                                            foreach (Measure measure in passage.ListOfMeasures)
                                             {
-                                                int maxStaves = passage.ListOfMeasures.Select(measure => measure.Parts.Count).Max();
-                                                int currentTop = 200;
-                                                var staves = new List<UIStaff>();
-
-                                                foreach (var measure in passage.ListOfMeasures)
+                                                // pagebreak every 16 measures
+                                                if (measuresPerPage > 15)
                                                 {
-                                                    if (count > 3)
-                                                    {
-                                                        staves.Clear();
-                                                        for (int i = 0; i < maxStaves; i++)
-                                                        {
-                                                            var staff = DrawStaff(currentPage, currentTop);
-                                                            DrawTrebleClef(pageList.First(), staff);
-                                                            staves.Add(staff);
-                                                            currentTop += 80;
-                                                        }
-                                                        count = 0;
-                                                    }
-                                                    count++;
-
-                                                    DrawMeasure(pageList.First(), staves, measure);
+                                                    currentPage = CreatePage();
+                                                    pageList.Add(currentPage);
+                                                    measuresPerPage = 0;
+                                                    currentTop = 60;
+                                                    staffSpacing = 55;
+                                                    additionalSystemSpacing = 40;
                                                 }
+
+                                                // once every four measures make a new system
+                                                if (count > 3)
+                                                {
+                                                    staves.Clear();
+                                                    for (int i = 0; i < maxStaves; i++)
+                                                    {
+                                                        UIStaff staff = DrawStaff(currentPage, currentTop);
+                                                        DrawTrebleClef(currentPage, staff);
+                                                        staves.Add(staff);
+                                                        currentTop += staffSpacing; // Spacing between staves
+                                                    }
+                                                    count = 0;
+                                                    currentTop += additionalSystemSpacing; // Spacing between systems
+                                                }
+
+
+                                                count++;
+                                                measuresPerPage++;
+
+                                                DrawMeasure(currentPage, staves, measure);
                                             }
+                                        }
             return pageList;
         }
 
         public static Canvas CreatePage()
         {
-            return new Canvas
+            var canvas = new Canvas
             {
-                Width = 841,     // A0 in mm
+                Width = 841, // A0 in mm
                 Height = 1189,
                 Margin = new Thickness(0, 20, 0, 0),
                 VerticalAlignment = VerticalAlignment.Top,
-                LayoutTransform = new ScaleTransform(1, 1),
                 Background = Brushes.White,
+                LayoutTransform = new ScaleTransform(1, 1),
                 Effect = new DropShadowEffect { RenderingBias = RenderingBias.Performance }
             };
+            Panel.SetZIndex(canvas, 0);
+            return canvas;
         }
+
         public static UITitle DrawTitle(string text, Canvas page)
         {
-            var Title = new UITitle(text, 60, 0);
+            var title = new UITitle(text, 60, 0);
 
             // center title
-            Title.Left = (int)((page.Width / 2) - (Title.Width / 2));
+            title.Left = (int)((page.Width / 2) - (title.Width / 2));
 
-            page.Children.Add(Title.TitleTextBlock);
-            return Title;
+            page.Children.Add(title.TitleTextBlock);
+            return title;
         }
 
         public static void DrawComposer(string text, Canvas page)
@@ -115,17 +141,17 @@ namespace Musicista.UI
 
         public static UIStaff DrawStaff(Canvas page, int top)
         {
-            int Left = 50;
-            int Width = (int)page.Width - 2 * 50;
-            var Staff = new UIStaff(top, Left, Width);
+            const int left = 50;
+            int width = (int)page.Width - 2 * 50;
+            var staff = new UIStaff(top, left, width);
 
-            page.Children.Add(Staff.line1);
-            page.Children.Add(Staff.line2);
-            page.Children.Add(Staff.line3);
-            page.Children.Add(Staff.line4);
-            page.Children.Add(Staff.line5);
+            page.Children.Add(staff.line1);
+            page.Children.Add(staff.line2);
+            page.Children.Add(staff.line3);
+            page.Children.Add(staff.line4);
+            page.Children.Add(staff.line5);
 
-            return Staff;
+            return staff;
         }
 
         public static List<UIMeasure> DrawMeasure(Canvas page, List<UIStaff> staves, Measure measure = null)
@@ -139,11 +165,12 @@ namespace Musicista.UI
                 for (int partNumber = 0; partNumber < measure.Parts.Count; partNumber++)
                     if (measure.Parts[partNumber] != null && measure.Parts[partNumber].ListOfSymbols.Count > 0)
                     {
-
                         int top = staves[partNumber].Top - 10;
                         int left;
+                        // measure 2 to n
                         if (staves[partNumber].Measures.Count > 0)
                             left = staves[partNumber].Measures.Last().Left + staves[partNumber].Measures.Last().Width;
+                        // measure 1
                         else
                             left = staves[partNumber].Left + indent;
 
@@ -158,12 +185,13 @@ namespace Musicista.UI
                         staves[partNumber].Measures.Add(newMeasure);
                         measures.Add(newMeasure);
 
-                        int CurrentEnd = staves[partNumber].Left + indent;
-                        foreach (var UIMeasure in staves[partNumber].Measures)
+                        int currentEnd = staves[partNumber].Left + indent;
+                        foreach (UIMeasure uiMeasure in staves[partNumber].Measures)
                         {
-                            UIMeasure.Width = (staves[partNumber].Width - indent) / 2; //staves[partNumber].Measures.Count;
-                            UIMeasure.Left = CurrentEnd;
-                            CurrentEnd += UIMeasure.Width;
+                            uiMeasure.Width = (staves[partNumber].Width - indent) / 4;
+                            //staves[partNumber].Measures.Count;
+                            uiMeasure.Left = currentEnd;
+                            currentEnd += uiMeasure.Width;
                         }
 
                         /*
@@ -188,7 +216,7 @@ namespace Musicista.UI
 
                         // Draw Notes
 
-                        foreach (var symbol in measure.Parts[partNumber].ListOfSymbols)
+                        foreach (Symbol symbol in measure.Parts[partNumber].ListOfSymbols)
                             DrawSymbol(page, symbol, measures[partNumber]);
                     }
 
@@ -197,8 +225,8 @@ namespace Musicista.UI
 
         public static void DrawTrebleClef(Canvas page, UIStaff staff)
         {
-            int Top = staff.Top - 10;
-            int Left = staff.Left + 10;
+            int top = staff.Top - 10;
+            int left = staff.Left + 10;
 
             var clef = new Path
             {
@@ -207,8 +235,8 @@ namespace Musicista.UI
                 Data = Geometry.Parse(Engraving.TrebleClef)
             };
 
-            Canvas.SetTop(clef, Top);
-            Canvas.SetLeft(clef, Left);
+            Canvas.SetTop(clef, top);
+            Canvas.SetLeft(clef, left);
             page.Children.Add(clef);
         }
 
@@ -218,61 +246,60 @@ namespace Musicista.UI
                 DrawNote(page, (Note)symbol, measure);
             else if (symbol.GetType() == typeof(Rest))
                 DrawRest(page, (Rest)symbol, measure);
-
         }
 
         public static void DrawRest(Canvas page, Rest rest, UIMeasure measure)
         {
-            var Rest = new Path
+            var newRest = new Path
             {
                 RenderTransform = new ScaleTransform(.21, .21),
                 Fill = Brushes.Red,
                 SnapsToDevicePixels = true
             };
 
-            Rest.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Unspecified);
-            Rest.SetValue(RenderOptions.ClearTypeHintProperty, ClearTypeHint.Enabled);
-            Rest.SetValue(RenderOptions.CachingHintProperty, CachingHint.Cache);
+            newRest.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Unspecified);
+            newRest.SetValue(RenderOptions.ClearTypeHintProperty, ClearTypeHint.Enabled);
+            newRest.SetValue(RenderOptions.CachingHintProperty, CachingHint.Cache);
 
             double left = measure.Left + ((measure.Width - 10) / 4 * (rest.Beat - 1)) + 10;
-            double top = 0;
+            const double top = 0;
 
             switch (rest.Duration)
             {
-                case Model.Duration.whole:
-                    Rest.Data = Geometry.Parse(Engraving.Whole);
+                case Duration.whole:
+                    newRest.Data = Geometry.Parse(Engraving.Whole);
                     break;
-                case Model.Duration.half:
-                    Rest.Data = Geometry.Parse(top >= -1 ? Engraving.Half : Engraving.HalfUpsideDown);
+                case Duration.half:
+                    newRest.Data = Geometry.Parse(Engraving.Half);
                     break;
-                case Model.Duration.quarter:
-                    Rest.Data = Geometry.Parse(top >= -1 ? Engraving.Quarter : Engraving.QuarterUpsideDown);
+                case Duration.quarter:
+                    newRest.Data = Geometry.Parse(Engraving.Quarter);
                     break;
-                case Model.Duration.eigth:
-                    Rest.Data = Geometry.Parse(top >= -1 ? Engraving.Eigth : Engraving.EightUpsideDown);
+                case Duration.eigth:
+                    newRest.Data = Geometry.Parse(Engraving.Eigth);
                     break;
-                case Model.Duration.sixteenth:
-                    Rest.Data = Geometry.Parse(top >= -1 ? Engraving.Sixteenth : Engraving.Sixteenth);
+                case Duration.sixteenth:
+                    newRest.Data = Geometry.Parse(Engraving.Sixteenth);
                     break;
             }
 
-            Canvas.SetTop(Rest, measure.Top + top);
-            Canvas.SetLeft(Rest, left);
-            page.Children.Add(Rest);
+            Canvas.SetTop(newRest, measure.Top + top);
+            Canvas.SetLeft(newRest, left);
+            page.Children.Add(newRest);
         }
 
         public static void DrawNote(Canvas page, Note note, UIMeasure measure)
         {
-            var Note = new Path
+            var newNote = new Path
             {
                 RenderTransform = new ScaleTransform(.21, .21),
                 Fill = Brushes.Black,
                 SnapsToDevicePixels = true
             };
 
-            Note.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Unspecified);
-            Note.SetValue(RenderOptions.ClearTypeHintProperty, ClearTypeHint.Enabled);
-            Note.SetValue(RenderOptions.CachingHintProperty, CachingHint.Cache);
+            newNote.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Unspecified);
+            newNote.SetValue(RenderOptions.ClearTypeHintProperty, ClearTypeHint.Enabled);
+            newNote.SetValue(RenderOptions.CachingHintProperty, CachingHint.Cache);
 
             double left = measure.Left + ((measure.Width - 10) / 4 * (note.Beat - 1)) + 10;
             double top = 0;
@@ -298,76 +325,76 @@ namespace Musicista.UI
 
             switch (note.Step)
             {
-                case Model.Meta.Pitch.C:
+                case Pitch.C:
                     top += 18;
                     break;
-                case Model.Meta.Pitch.CSharp:
+                case Pitch.CSharp:
                     top += 18;
                     DrawAccidental(page, measure, Accidental.Sharp, top, left);
                     break;
-                case Model.Meta.Pitch.DFlat:
+                case Pitch.DFlat:
                     top += 14;
                     DrawAccidental(page, measure, Accidental.Flat, top, left);
                     break;
-                case Model.Meta.Pitch.D:
+                case Pitch.D:
                     top += 14;
                     break;
-                case Model.Meta.Pitch.DSharp:
+                case Pitch.DSharp:
                     top += 14;
                     DrawAccidental(page, measure, Accidental.Sharp, top, left);
                     break;
-                case Model.Meta.Pitch.EFlat:
+                case Pitch.EFlat:
                     top += 11;
                     DrawAccidental(page, measure, Accidental.Flat, top, left);
                     break;
-                case Model.Meta.Pitch.E:
+                case Pitch.E:
                     top += 11;
                     break;
-                case Model.Meta.Pitch.ESharp:
+                case Pitch.ESharp:
                     top += 11;
                     DrawAccidental(page, measure, Accidental.Sharp, top, left);
                     break;
-                case Model.Meta.Pitch.FFlat:
+                case Pitch.FFlat:
                     top += 8;
                     DrawAccidental(page, measure, Accidental.Flat, top, left);
                     break;
-                case Model.Meta.Pitch.F:
+                case Pitch.F:
                     top += 8;
                     break;
-                case Model.Meta.Pitch.FSharp:
+                case Pitch.FSharp:
                     top += 8;
                     DrawAccidental(page, measure, Accidental.Sharp, top, left);
                     break;
-                case Model.Meta.Pitch.GFlat:
+                case Pitch.GFlat:
                     top += 5;
                     DrawAccidental(page, measure, Accidental.Flat, top, left);
                     break;
-                case Model.Meta.Pitch.G:
+                case Pitch.G:
                     top += 5;
                     break;
-                case Model.Meta.Pitch.GSharp:
+                case Pitch.GSharp:
                     top += 5;
                     DrawAccidental(page, measure, Accidental.Sharp, top, left);
                     break;
-                case Model.Meta.Pitch.AFlat:
+                case Pitch.AFlat:
                     top += 2;
                     DrawAccidental(page, measure, Accidental.Flat, top, left);
                     break;
-                case Model.Meta.Pitch.A:
+                case Pitch.A:
                     top += 2;
                     break;
-                case Model.Meta.Pitch.ASharp:
+                case Pitch.ASharp:
                     top += 2;
                     DrawAccidental(page, measure, Accidental.Sharp, top, left);
                     break;
-                case Model.Meta.Pitch.BFlat:
+                case Pitch.BFlat:
                     top += -1;
                     DrawAccidental(page, measure, Accidental.Flat, top, left);
                     break;
-                case Model.Meta.Pitch.B:
+                case Pitch.B:
                     top += -1;
                     break;
-                case Model.Meta.Pitch.BSharp:
+                case Pitch.BSharp:
                     top += -1;
                     DrawAccidental(page, measure, Accidental.Sharp, top, left);
                     break;
@@ -380,63 +407,82 @@ namespace Musicista.UI
 
             switch (note.Duration)
             {
-                case Model.Duration.whole:
-                    Note.Data = Geometry.Parse(Engraving.Whole);
+                case Duration.whole:
+                    newNote.Data = Geometry.Parse(Engraving.Whole);
                     break;
-                case Model.Duration.half:
-                    Note.Data = Geometry.Parse(top >= -1 ? Engraving.Half : Engraving.HalfUpsideDown);
+                case Duration.half:
+                    newNote.Data = Geometry.Parse(top >= -1 ? Engraving.Half : Engraving.HalfUpsideDown);
                     break;
-                case Model.Duration.quarter:
-                    Note.Data = Geometry.Parse(top >= -1 ? Engraving.Quarter : Engraving.QuarterUpsideDown);
+                case Duration.quarter:
+                    newNote.Data = Geometry.Parse(top >= -1 ? Engraving.Quarter : Engraving.QuarterUpsideDown);
                     break;
-                case Model.Duration.eigth:
-                    Note.Data = Geometry.Parse(top >= -1 ? Engraving.Eigth : Engraving.EightUpsideDown);
+                case Duration.eigth:
+                    newNote.Data = Geometry.Parse(top >= -1 ? Engraving.Eigth : Engraving.EightUpsideDown);
                     break;
-                case Model.Duration.sixteenth:
-                    Note.Data = Geometry.Parse(top >= -1 ? Engraving.Sixteenth : Engraving.Sixteenth);
+                case Duration.sixteenth:
+                    newNote.Data = Geometry.Parse(top >= -1 ? Engraving.Sixteenth : Engraving.Sixteenth);
                     break;
             }
 
-            Canvas.SetTop(Note, measure.Top + top);
-            Canvas.SetLeft(Note, left);
-            page.Children.Add(Note);
+            Canvas.SetTop(newNote, measure.Top + top);
+            Canvas.SetLeft(newNote, left);
+            page.Children.Add(newNote);
         }
 
         public static void DrawLedger(Canvas page, UIMeasure measure, bool below, int count, double left)
         {
-            int Width = 15;
-            int Spacing = 6;
+            const int Width = 15;
+            const int Spacing = 6;
 
             if (below)
             {
-                int Top = measure.Top + 41;
+                int top = measure.Top + 41;
 
                 for (int i = 0; i < count; i++)
                 {
-                    var Ledger = new Line { X1 = left - 3, Y1 = Top + i * Spacing, X2 = left + Width - 3, Y2 = Top + i * Spacing, StrokeThickness = 1, Stroke = Brushes.Black, SnapsToDevicePixels = true };
-                    Ledger.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
-                    page.Children.Add(Ledger);
+                    var ledger = new Line
+                    {
+                        X1 = left - 3,
+                        Y1 = top + i * Spacing,
+                        X2 = left + Width - 3,
+                        Y2 = top + i * Spacing,
+                        StrokeThickness = 1,
+                        Stroke = Brushes.Black,
+                        SnapsToDevicePixels = true
+                    };
+                    ledger.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
+                    page.Children.Add(ledger);
                 }
             }
             else
             {
-                int Top = measure.Top + 3;
+                int top = measure.Top + 3;
 
                 for (int i = 0; i < count; i++)
                 {
-                    var Ledger = new Line { X1 = left - 3, Y1 = Top - i * Spacing, X2 = left + Width - 3, Y2 = Top - i * Spacing, StrokeThickness = 1, Stroke = Brushes.Black, SnapsToDevicePixels = true };
-                    Ledger.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
-                    page.Children.Add(Ledger);
+                    var ledger = new Line
+                    {
+                        X1 = left - 3,
+                        Y1 = top - i * Spacing,
+                        X2 = left + Width - 3,
+                        Y2 = top - i * Spacing,
+                        StrokeThickness = 1,
+                        Stroke = Brushes.Black,
+                        SnapsToDevicePixels = true
+                    };
+                    ledger.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
+                    page.Children.Add(ledger);
                 }
             }
         }
 
-        public static void DrawAccidental(Canvas page, UIMeasure measure, Accidental accidentalKind, double top, double left)
+        public static void DrawAccidental(Canvas page, UIMeasure measure, Accidental accidentalKind, double setTop,
+            double setLeft)
         {
-            double Top = measure.Top + top + 16;
-            double Left = left - 6;
+            double top = measure.Top + setTop + 16;
+            double left = setLeft - 6;
 
-            Path NewAccidental = new Path
+            var newAccidental = new Path
             {
                 RenderTransform = new ScaleTransform(.3, .3),
                 Fill = Brushes.Black,
@@ -445,28 +491,27 @@ namespace Musicista.UI
             switch (accidentalKind)
             {
                 case Accidental.Sharp:
-                    NewAccidental.Data = Geometry.Parse(Engraving.Sharp);
+                    newAccidental.Data = Geometry.Parse(Engraving.Sharp);
                     break;
                 case Accidental.Flat:
-                    NewAccidental.Data = Geometry.Parse(Engraving.Flat);
+                    newAccidental.Data = Geometry.Parse(Engraving.Flat);
                     break;
                 case Accidental.Natural:
-                    NewAccidental.Data = Geometry.Parse(Engraving.Natural);
+                    newAccidental.Data = Geometry.Parse(Engraving.Natural);
                     break;
                 case Accidental.DoubleSharp:
-                    NewAccidental.Data = Geometry.Parse(Engraving.DoubleSharp);
-                    Left -= 3;
+                    newAccidental.Data = Geometry.Parse(Engraving.DoubleSharp);
+                    left -= 3;
                     break;
                 case Accidental.DoubleFlat:
-                    NewAccidental.Data = Geometry.Parse(Engraving.DoubleFlat);
-                    Left -= 3;
+                    newAccidental.Data = Geometry.Parse(Engraving.DoubleFlat);
+                    left -= 3;
                     break;
             }
 
-            Canvas.SetTop(NewAccidental, Top);
-            Canvas.SetLeft(NewAccidental, Left);
-            page.Children.Add(NewAccidental);
+            Canvas.SetTop(newAccidental, top);
+            Canvas.SetLeft(newAccidental, left);
+            page.Children.Add(newAccidental);
         }
-
     }
 }

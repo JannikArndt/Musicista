@@ -476,7 +476,7 @@ namespace Musicista.UI
                     // TODO Punkt
                     break;
                 case Duration.sixteenth:
-                    newNote.Data = Geometry.Parse(top >= -1 ? Engraving.Sixteenth : Engraving.Sixteenth);
+                    newNote.Data = Geometry.Parse(Engraving.Sixteenth);
                     break;
             }
 
@@ -487,8 +487,8 @@ namespace Musicista.UI
 
         public static void DrawLedger(Canvas page, UIMeasure measure, bool below, int count, double left)
         {
-            const int Width = 15;
-            const int Spacing = 6;
+            const int width = 15;
+            const int spacing = 6;
 
             if (below)
             {
@@ -499,9 +499,9 @@ namespace Musicista.UI
                     var ledger = new Line
                     {
                         X1 = left - 3,
-                        Y1 = top + i * Spacing,
-                        X2 = left + Width - 3,
-                        Y2 = top + i * Spacing,
+                        Y1 = top + i * spacing,
+                        X2 = left + width - 3,
+                        Y2 = top + i * spacing,
                         StrokeThickness = 1,
                         Stroke = Brushes.Black,
                         SnapsToDevicePixels = true
@@ -519,9 +519,9 @@ namespace Musicista.UI
                     var ledger = new Line
                     {
                         X1 = left - 3,
-                        Y1 = top - i * Spacing,
-                        X2 = left + Width - 3,
-                        Y2 = top - i * Spacing,
+                        Y1 = top - i * spacing,
+                        X2 = left + width - 3,
+                        Y2 = top - i * spacing,
                         StrokeThickness = 1,
                         Stroke = Brushes.Black,
                         SnapsToDevicePixels = true

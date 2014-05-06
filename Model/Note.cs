@@ -41,11 +41,9 @@ namespace Model
 
         public int PitchIsHigherThan(String noteString)
         {
-            Pitch Step = (Pitch)System.Enum.Parse(typeof(Pitch), noteString.Substring(0, noteString.Length - 1));
-            int Octave = int.Parse(noteString.Substring(noteString.Length - 1, 1));
-            if (Step != null && Octave != null)
-                return PitchIsHigherThan(Step, Octave);
-            throw new FormatException();
+            var otherStep = (Pitch)Enum.Parse(typeof(Pitch), noteString.Substring(0, noteString.Length - 1));
+            var otherOctave = int.Parse(noteString.Substring(noteString.Length - 1, 1));
+            return PitchIsHigherThan(otherStep, otherOctave);
         }
 
         public override string ToString()

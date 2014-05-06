@@ -1,5 +1,6 @@
 ﻿using Model;
 using Model.Meta;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -124,12 +125,13 @@ namespace Musicista
 
             if (mxmlNote.Items.Any(item => item is decimal) && mxmlNote.Items.Any(item => item is pitch))
             {
-                string durationString = mxmlNote.Items.First(item => item is decimal).ToString();
+                var durationString = mxmlNote.Items.First(item => item is decimal).ToString();
                 newNote.Duration = (Duration)int.Parse(durationString);
-
+                if (!Enum.IsDefined(typeof(Duration), newNote.Duration))
+                    Console.WriteLine("Error parsing duration " + durationString);
                 newNote.Octave = int.Parse(((pitch)mxmlNote.Items.First(item => item is pitch)).octave);
 
-                newNote.Step = (Pitch)((pitch)mxmlNote.Items.First(item => item is pitch)).step;
+                newNote.Step = GetPitchFromMXMLNote(mxmlNote);
             }
 
             if (mxmlNote.Items.Any(item => item is textelementdata))
@@ -139,6 +141,71 @@ namespace Musicista
             if (!string.IsNullOrEmpty(mxmlNote.voice))
                 newNote.Voice = int.Parse(Regex.Match(mxmlNote.voice, @"\d+").Value);
             return newNote;
+        }
+
+        public static Pitch GetPitchFromMXMLNote(note mxmlNote)
+        {
+            step step = ((pitch)mxmlNote.Items.First(item => item is pitch)).step;
+            decimal alter = ((pitch)mxmlNote.Items.First(item => item is pitch)).alter;
+
+            if (alter == 0)
+                switch (step)
+                {
+                    case step.A:
+                        return Pitch.A;
+                    case step.B:
+                        return Pitch.B;
+                    case step.C:
+                        return Pitch.C;
+                    case step.D:
+                        return Pitch.D;
+                    case step.E:
+                        return Pitch.E;
+                    case step.F:
+                        return Pitch.F;
+                    case step.G:
+                        return Pitch.G;
+                }
+
+            if (alter == 1)
+                switch (step)
+                {
+                    case step.A:
+                        return Pitch.ASharp;
+                    case step.B:
+                        return Pitch.BSharp;
+                    case step.C:
+                        return Pitch.CSharp;
+                    case step.D:
+                        return Pitch.DSharp;
+                    case step.E:
+                        return Pitch.ESharp;
+                    case step.F:
+                        return Pitch.FSharp;
+                    case step.G:
+                        return Pitch.GSharp;
+                }
+
+            if (alter == -1)
+                switch (step)
+                {
+                    case step.A:
+                        return Pitch.AFlat;
+                    case step.B:
+                        return Pitch.BFlat;
+                    case step.C:
+                        return Pitch.CFlat;
+                    case step.D:
+                        return Pitch.DFlat;
+                    case step.E:
+                        return Pitch.EFlat;
+                    case step.F:
+                        return Pitch.FFlat;
+                    case step.G:
+                        return Pitch.GFlat;
+                }
+
+            return Pitch.Unknown;
         }
     }
 }

@@ -438,17 +438,42 @@ namespace Musicista.UI
 
             switch (note.Duration)
             {
+                case Duration.wholeDotted:
+                    newNote.Data = Geometry.Parse(Engraving.Whole);
+                    newNote.Fill = Brushes.DarkRed;
+                    // TODO Punkt
+                    break;
                 case Duration.whole:
                     newNote.Data = Geometry.Parse(Engraving.Whole);
+                    break;
+                case Duration.halfDotted:
+                    newNote.Data = Geometry.Parse(top >= -1 ? Engraving.Half : Engraving.HalfUpsideDown);
+                    newNote.Fill = Brushes.DarkRed;
+                    // TODO Punkt
                     break;
                 case Duration.half:
                     newNote.Data = Geometry.Parse(top >= -1 ? Engraving.Half : Engraving.HalfUpsideDown);
                     break;
+                case Duration.quarterDotted:
+                    newNote.Data = Geometry.Parse(top >= -1 ? Engraving.Quarter : Engraving.QuarterUpsideDown);
+                    newNote.Fill = Brushes.DarkRed;
+                    // TODO Punkt
+                    break;
                 case Duration.quarter:
                     newNote.Data = Geometry.Parse(top >= -1 ? Engraving.Quarter : Engraving.QuarterUpsideDown);
                     break;
+                case Duration.eigthDotted:
+                    newNote.Data = Geometry.Parse(top >= -1 ? Engraving.Eigth : Engraving.EightUpsideDown);
+                    newNote.Fill = Brushes.DarkRed;
+                    // TODO Punkt
+                    break;
                 case Duration.eigth:
                     newNote.Data = Geometry.Parse(top >= -1 ? Engraving.Eigth : Engraving.EightUpsideDown);
+                    break;
+                case Duration.sixteenthDotted:
+                    newNote.Data = Geometry.Parse(Engraving.Sixteenth);
+                    newNote.Fill = Brushes.DarkRed;
+                    // TODO Punkt
                     break;
                 case Duration.sixteenth:
                     newNote.Data = Geometry.Parse(top >= -1 ? Engraving.Sixteenth : Engraving.Sixteenth);

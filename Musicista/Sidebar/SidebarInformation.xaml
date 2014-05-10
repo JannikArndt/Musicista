@@ -6,6 +6,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="300">
     <Grid Background="#FFEDEDED">
-        <TextBlock>Informationen</TextBlock>
+        <StackPanel Orientation="Vertical">
+            <TextBlock>Informationen</TextBlock>
+            <TextBlock Name="Clicked"></TextBlock>
+        </StackPanel>
     </Grid>
 </UserControl>

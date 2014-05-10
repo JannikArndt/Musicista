@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
 using System.Windows.Shapes;
@@ -135,8 +136,16 @@ namespace Musicista.UI
             // center title
             title.Left = (int)((page.Width / 2) - (title.Width / 2));
 
+            title.TitleTextBlock.PreviewMouseDown += TitleClick;
+
             page.Children.Add(title.TitleTextBlock);
             return title;
+        }
+
+        private static void TitleClick(object sender, MouseButtonEventArgs mouseButtonEventArgs)
+        {
+            if (MainWindow.SidebarInformation != null)
+                MainWindow.SidebarInformation.ShowUIElement(sender);
         }
 
         public static void DrawComposer(string text, Canvas page)

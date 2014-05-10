@@ -20,12 +20,14 @@ namespace Musicista
     {
         private List<Canvas> pageList;
         private Piece currentPiece;
+        public static SidebarInformation SidebarInformation;
         public MainWindow()
         {
             InitializeComponent();
             PreviewMouseWheel += Zoom;
 
-            Sidebar.Content = new SidebarInformation();
+            SidebarInformation = new SidebarInformation();
+            Sidebar.Content = SidebarInformation;
 
             var serializer = new XmlSerializer(typeof(scorepartwise));
             using (var fileStream = new FileStream("score.xml", FileMode.Open))

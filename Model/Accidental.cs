@@ -1,5 +1,5 @@
 ﻿
-namespace Musicista.UI
+namespace Model
 {
     public enum Accidental
     {

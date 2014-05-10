@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Accidental.cs" />
     <Compile Include="Instrument.cs" />
     <Compile Include="Meta\Expression.cs" />
     <Compile Include="Meta\Album.cs" />

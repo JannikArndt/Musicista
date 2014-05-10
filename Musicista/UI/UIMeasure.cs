@@ -15,7 +15,7 @@ namespace Musicista.UI
         {
             Width = width;
             Height = 40;
-            //Background = Brushes.Yellow;
+            Background = Brushes.Yellow;
             //Opacity = 0.5;
 
             SetTop(this, top);
@@ -38,6 +38,10 @@ namespace Musicista.UI
             Barline.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
 
             Children.Add(Barline);
+
+            MouseLeftButtonDown += MainWindow.DragStart;
+            MouseMove += MainWindow.Drag;
+            MouseLeftButtonUp += MainWindow.DragEnd;
 
             staff.Children.Add(this);
         }

@@ -67,7 +67,6 @@
     <Compile Include="Sidebar\SidebarView.xaml.cs">
       <DependentUpon>SidebarView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Accidental.cs" />
     <Compile Include="UI\UIHelper.cs" />
     <Compile Include="UI\UIMeasure.cs" />
     <Compile Include="UI\UIStaff.cs" />

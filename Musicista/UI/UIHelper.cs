@@ -26,8 +26,8 @@ namespace Musicista.UI
                 foreach (var composer in piece.ListOfComposers)
                     DrawComposer(composer.FullName, pageList.First());
 
-            int count = 4;
-            int measuresPerPage = 0;
+            int measuresPerSystem = 4;
+            int systemsPerPage = 0;
 
             if (piece.ListOfSections == null || piece.ListOfSections.Count <= 0)
                 return pageList;
@@ -40,93 +40,47 @@ namespace Musicista.UI
                                     foreach (var passage in segment.ListOfPassages)
                                         if (passage.ListOfMeasures != null && passage.ListOfMeasures.Count > 0)
                                         {
-                                            int maxStaves =
-                                                passage.ListOfMeasures.Select(measure => measure.Parts.Count).Max();
-                                            int currentTop = 200;
-                                            var staves = new List<UIStaff>();
-                                            int staffSpacing = 50;
-                                            int additionalSystemSpacing = 30;
+                                            var maxStaves = passage.ListOfMeasures.Select(measure => measure.Parts.Count).Max();
+                                            var currentTop = 200;
+                                            double staffSpacing = 50;
+                                            double systemSpacing = 30;
+
+                                            var currentSystem = new UISystem(currentPage, currentTop, 50, 50, staffSpacing, systemSpacing);
 
                                             foreach (var measure in passage.ListOfMeasures)
                                             {
-                                                // pagebreak every 16 measures
-                                                if (measuresPerPage > 15)
+                                                // pagebreak every 4 systems
+                                                if (systemsPerPage > 3)
                                                 {
                                                     currentPage = CreatePage();
                                                     pageList.Add(currentPage);
-                                                    measuresPerPage = 0;
+                                                    systemsPerPage = 0;
                                                     currentTop = 60;
                                                     staffSpacing = 55;
-                                                    additionalSystemSpacing = 40;
+                                                    systemSpacing = 40;
                                                 }
 
-                                                // once every four measures make a new system
-                                                if (count > 3)
+                                                // systembreak every 4 measures
+                                                if (measuresPerSystem > 3)
                                                 {
-                                                    ConnectStaves(staves, currentPage);
-                                                    staves.Clear();
-                                                    for (int i = 0; i < maxStaves; i++)
+                                                    currentSystem.ConnectStaves();
+                                                    currentSystem = new UISystem(currentPage, currentTop, 50, 50, staffSpacing, systemSpacing);
+
+                                                    for (var i = 0; i < maxStaves; i++)
                                                     {
-                                                        UIStaff staff = DrawStaff(currentPage, currentTop);
+                                                        var staff = new UIStaff(currentSystem, currentTop);
+                                                        currentSystem.AddStaff(staff);
                                                         DrawTrebleClef(staff);
-                                                        staves.Add(staff);
-                                                        currentTop += staffSpacing; // Spacing between staves
                                                     }
-                                                    count = 0;
-                                                    currentTop += additionalSystemSpacing; // Spacing between systems
+                                                    measuresPerSystem = 0;
+                                                    systemsPerPage++;
+                                                    currentTop += (int)currentSystem.Bottom; // Beginning of the next system
                                                 }
-
-
-                                                count++;
-                                                measuresPerPage++;
-
-                                                DrawMeasure(currentPage, staves, measure);
+                                                measuresPerSystem++;
+                                                DrawMeasure(currentSystem, measure);
                                             }
                                         }
             return pageList;
-        }
-
-        private static void ConnectStaves(List<UIStaff> staves, Canvas page)
-        {
-            if (staves == null || staves.Count == 0)
-                return;
-
-            // Left side, top, bottom
-            var x = (int)Canvas.GetLeft(staves.First());
-            var y1 = (int)Canvas.GetTop(staves.First());
-            var y2 = (int)Canvas.GetTop(staves.Last()) + 24;
-
-            // First line
-            var line = new Line
-            {
-                X1 = x,
-                Y1 = y1,
-                X2 = x,
-                Y2 = y2,
-                StrokeThickness = 2,
-                Stroke = Brushes.Black,
-                SnapsToDevicePixels = true
-            };
-            line.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
-            page.Children.Add(line);
-
-            // Barlines
-            foreach (var measure in staves.First().Measures)
-            {
-                x = (int)Canvas.GetLeft(staves.First()) + (int)Canvas.GetLeft(measure) + (int)measure.Width;
-                line = new Line
-                {
-                    X1 = x,
-                    Y1 = y1,
-                    X2 = x,
-                    Y2 = y2,
-                    StrokeThickness = 2,
-                    Stroke = Brushes.Black,
-                    SnapsToDevicePixels = true
-                };
-                line.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
-                page.Children.Add(line);
-            }
         }
 
         public static Canvas CreatePage()
@@ -157,56 +111,49 @@ namespace Musicista.UI
             page.Children.Add(composerTextBlock);
         }
 
-        public static UIStaff DrawStaff(Canvas page, int top)
-        {
-            const int left = 50;
-            int width = (int)page.Width - 2 * 50;
-            var staff = new UIStaff(page, top, left, width);
-
-            return staff;
-        }
-
-        public static List<UIMeasure> DrawMeasure(Canvas page, List<UIStaff> staves, Measure measure = null)
+        public static List<UIMeasure> DrawMeasure(UISystem system, Measure measure = null)
         {
             const int indent = 40;
             const int width = 150;
 
             var measures = new List<UIMeasure>();
 
-            if (measure != null && measure.Parts != null && measure.Parts.Count > 0)
-                for (var partNumber = 0; partNumber < measure.Parts.Count; partNumber++)
-                    if (measure.Parts[partNumber] != null && measure.Parts[partNumber].ListOfSymbols.Count > 0)
+            if (measure == null || measure.Parts == null || measure.Parts.Count <= 0)
+                return measures;
+
+            for (var partNumber = 0; partNumber < measure.Parts.Count; partNumber++)
+                if (measure.Parts[partNumber] != null && measure.Parts[partNumber].ListOfSymbols.Count > 0)
+                {
+                    var staff = system.Staves[partNumber];
+                    const int top = -10;
+                    int left;
+                    // measure 2 to n
+                    if (staff.Measures.Count > 0)
+                        left = (int)(Canvas.GetLeft(staff.Measures.Last()) + staff.Measures.Last().Width);
+                    // measure 1
+                    else
+                        left = indent;
+
+
+                    // 1. noten pro schlag (z.B. 4 auf 1, 4 auf 2, 1 auf 3, 1 Pause auf 4)
+                    // 2. Maximum finden (z.B. 4 pro Schlag)
+                    // 3. Maximum x Schläge = spezifische Breite
+                    // 4. Für alle Takte berechnen und aufaddieren
+                    // 6. Absolute Breite = Spezifische Breite / Aufsummierte Breite * Zielbreite
+
+                    var newMeasure = new UIMeasure(staff, top, left, width, measure);
+                    staff.Measures.Add(newMeasure);
+                    measures.Add(newMeasure);
+
+                    int currentEnd = indent;
+                    foreach (var uiMeasure in staff.Measures)
                     {
-                        int top = -10;
-                        int left;
-                        // measure 2 to n
-                        if (staves[partNumber].Measures.Count > 0)
-                            left = (int)(Canvas.GetLeft(staves[partNumber].Measures.Last()) + staves[partNumber].Measures.Last().Width);
-                        // measure 1
-                        else
-                            left = indent;
+                        uiMeasure.Width = (staff.Width - indent) / 4;
+                        Canvas.SetLeft(uiMeasure, currentEnd);
+                        currentEnd += (int)uiMeasure.Width;
+                    }
 
-
-                        // 1. noten pro schlag (z.B. 4 auf 1, 4 auf 2, 1 auf 3, 1 Pause auf 4)
-                        // 2. Maximum finden (z.B. 4 pro Schlag)
-                        // 3. Maximum x Schläge = spezifische Breite
-                        // 4. Für alle Takte berechnen und aufaddieren
-                        // 6. Absolute Breite = Spezifische Breite / Aufsummierte Breite * Zielbreite
-
-                        var newMeasure = new UIMeasure(staves[partNumber], top, left, width, measure);
-                        staves[partNumber].Measures.Add(newMeasure);
-                        measures.Add(newMeasure);
-
-                        int currentEnd = indent;
-                        foreach (var uiMeasure in staves[partNumber].Measures)
-                        {
-                            uiMeasure.Width = (staves[partNumber].Width - indent) / 4;
-                            //staves[partNumber].Measures.Count;
-                            Canvas.SetLeft(uiMeasure, currentEnd);
-                            currentEnd += (int)uiMeasure.Width;
-                        }
-
-                        /*
+                    /*
             // Correct width 
             if (measure != null && measure.TimeSignature != null && measure.Parts != null && measure.Parts[0].ListOfSymbols.Count > 0)
             {
@@ -226,16 +173,14 @@ namespace Musicista.UI
             }
             */
 
-                        // Draw Notes
+                    // Draw Notes
 
-                        foreach (var symbol in measure.Parts[partNumber].ListOfSymbols)
-                        {
-                            if (symbol.GetType() == typeof(Note))
-                                DrawNote((Note)symbol, measures[partNumber]);
-                            else if (symbol.GetType() == typeof(Rest))
-                                DrawRest((Rest)symbol, measures[partNumber]);
-                        }
-                    }
+                    foreach (var symbol in measure.Parts[partNumber].ListOfSymbols)
+                        if (symbol.GetType() == typeof(Note))
+                            DrawNote((Note)symbol, measures[partNumber]);
+                        else if (symbol.GetType() == typeof(Rest))
+                            DrawRest((Rest)symbol, measures[partNumber]);
+                }
 
             return measures;
         }

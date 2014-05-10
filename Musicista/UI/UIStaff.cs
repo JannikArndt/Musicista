@@ -15,20 +15,20 @@ namespace Musicista.UI
         public Line Line4 { get; set; }
         public Line Line5 { get; set; }
         public List<UIMeasure> Measures = new List<UIMeasure>();
-        public UIStaff(Panel page, int top, int left, int width)
+        public UIStaff(Panel system, int top)
         {
             const int spacing = 6;
 
-            Width = width;
+            Width = system.Width;
 
-            SetLeft(this, left);
+            SetLeft(this, 0);
             SetTop(this, top);
 
-            Line1 = new Line { X1 = 0, Y1 = 0 * spacing, X2 = width, Y2 = 0 * spacing, StrokeThickness = 1, Stroke = Brushes.Black, SnapsToDevicePixels = true };
-            Line2 = new Line { X1 = 0, Y1 = 1 * spacing, X2 = width, Y2 = 1 * spacing, StrokeThickness = 1, Stroke = Brushes.Black, SnapsToDevicePixels = true };
-            Line3 = new Line { X1 = 0, Y1 = 2 * spacing, X2 = width, Y2 = 2 * spacing, StrokeThickness = 1, Stroke = Brushes.Black, SnapsToDevicePixels = true };
-            Line4 = new Line { X1 = 0, Y1 = 3 * spacing, X2 = width, Y2 = 3 * spacing, StrokeThickness = 1, Stroke = Brushes.Black, SnapsToDevicePixels = true };
-            Line5 = new Line { X1 = 0, Y1 = 4 * spacing, X2 = width, Y2 = 4 * spacing, StrokeThickness = 1, Stroke = Brushes.Black, SnapsToDevicePixels = true };
+            Line1 = new Line { X1 = 0, Y1 = 0 * spacing, X2 = Width, Y2 = 0 * spacing, StrokeThickness = 1, Stroke = Brushes.Black, SnapsToDevicePixels = true };
+            Line2 = new Line { X1 = 0, Y1 = 1 * spacing, X2 = Width, Y2 = 1 * spacing, StrokeThickness = 1, Stroke = Brushes.Black, SnapsToDevicePixels = true };
+            Line3 = new Line { X1 = 0, Y1 = 2 * spacing, X2 = Width, Y2 = 2 * spacing, StrokeThickness = 1, Stroke = Brushes.Black, SnapsToDevicePixels = true };
+            Line4 = new Line { X1 = 0, Y1 = 3 * spacing, X2 = Width, Y2 = 3 * spacing, StrokeThickness = 1, Stroke = Brushes.Black, SnapsToDevicePixels = true };
+            Line5 = new Line { X1 = 0, Y1 = 4 * spacing, X2 = Width, Y2 = 4 * spacing, StrokeThickness = 1, Stroke = Brushes.Black, SnapsToDevicePixels = true };
 
             Line1.SetBinding(Line.X2Property, new Binding { Path = new PropertyPath(WidthProperty), Source = this });
             Line2.SetBinding(Line.X2Property, new Binding { Path = new PropertyPath(WidthProperty), Source = this });
@@ -47,8 +47,6 @@ namespace Musicista.UI
             Children.Add(Line3);
             Children.Add(Line4);
             Children.Add(Line5);
-
-            page.Children.Add(this);
         }
     }
 }

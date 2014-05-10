@@ -71,6 +71,7 @@
     <Compile Include="UI\UIHelper.cs" />
     <Compile Include="UI\UIMeasure.cs" />
     <Compile Include="UI\UIStaff.cs" />
+    <Compile Include="UI\UISystem.cs" />
     <Compile Include="UI\UITitle.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

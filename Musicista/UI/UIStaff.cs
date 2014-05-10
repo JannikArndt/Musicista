@@ -1,38 +1,54 @@
 ﻿using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
 namespace Musicista.UI
 {
-    public class UIStaff
+    public class UIStaff : Canvas
     {
-        public int Left { get; set; }
-        public int Top { get; set; }
-        public int Width { get; set; }
-        public Line line1 { get; set; }
-        public Line line2 { get; set; }
-        public Line line3 { get; set; }
-        public Line line4 { get; set; }
-        public Line line5 { get; set; }
+        public Line Line1 { get; set; }
+        public Line Line2 { get; set; }
+        public Line Line3 { get; set; }
+        public Line Line4 { get; set; }
+        public Line Line5 { get; set; }
         public List<UIMeasure> Measures = new List<UIMeasure>();
-        public UIStaff(int top, int left, int width)
+        public UIStaff(Panel page, int top, int left, int width)
         {
             const int spacing = 6;
-            Left = left;
-            Top = top;
+
             Width = width;
 
-            line1 = new Line { X1 = left, Y1 = top + 0 * spacing, X2 = left + width, Y2 = top + 0 * spacing, StrokeThickness = 1, Stroke = Brushes.Black, SnapsToDevicePixels = true };
-            line2 = new Line { X1 = left, Y1 = top + 1 * spacing, X2 = left + width, Y2 = top + 1 * spacing, StrokeThickness = 1, Stroke = Brushes.Black, SnapsToDevicePixels = true };
-            line3 = new Line { X1 = left, Y1 = top + 2 * spacing, X2 = left + width, Y2 = top + 2 * spacing, StrokeThickness = 1, Stroke = Brushes.Black, SnapsToDevicePixels = true };
-            line4 = new Line { X1 = left, Y1 = top + 3 * spacing, X2 = left + width, Y2 = top + 3 * spacing, StrokeThickness = 1, Stroke = Brushes.Black, SnapsToDevicePixels = true };
-            line5 = new Line { X1 = left, Y1 = top + 4 * spacing, X2 = left + width, Y2 = top + 4 * spacing, StrokeThickness = 1, Stroke = Brushes.Black, SnapsToDevicePixels = true };
+            SetLeft(this, left);
+            SetTop(this, top);
 
-            line1.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
-            line2.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
-            line3.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
-            line4.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
-            line5.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
+            Line1 = new Line { X1 = 0, Y1 = 0 * spacing, X2 = width, Y2 = 0 * spacing, StrokeThickness = 1, Stroke = Brushes.Black, SnapsToDevicePixels = true };
+            Line2 = new Line { X1 = 0, Y1 = 1 * spacing, X2 = width, Y2 = 1 * spacing, StrokeThickness = 1, Stroke = Brushes.Black, SnapsToDevicePixels = true };
+            Line3 = new Line { X1 = 0, Y1 = 2 * spacing, X2 = width, Y2 = 2 * spacing, StrokeThickness = 1, Stroke = Brushes.Black, SnapsToDevicePixels = true };
+            Line4 = new Line { X1 = 0, Y1 = 3 * spacing, X2 = width, Y2 = 3 * spacing, StrokeThickness = 1, Stroke = Brushes.Black, SnapsToDevicePixels = true };
+            Line5 = new Line { X1 = 0, Y1 = 4 * spacing, X2 = width, Y2 = 4 * spacing, StrokeThickness = 1, Stroke = Brushes.Black, SnapsToDevicePixels = true };
+
+            Line1.SetBinding(Line.X2Property, new Binding { Path = new PropertyPath(WidthProperty), Source = this });
+            Line2.SetBinding(Line.X2Property, new Binding { Path = new PropertyPath(WidthProperty), Source = this });
+            Line3.SetBinding(Line.X2Property, new Binding { Path = new PropertyPath(WidthProperty), Source = this });
+            Line4.SetBinding(Line.X2Property, new Binding { Path = new PropertyPath(WidthProperty), Source = this });
+            Line5.SetBinding(Line.X2Property, new Binding { Path = new PropertyPath(WidthProperty), Source = this });
+
+            Line1.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
+            Line2.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
+            Line3.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
+            Line4.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
+            Line5.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
+
+            Children.Add(Line1);
+            Children.Add(Line2);
+            Children.Add(Line3);
+            Children.Add(Line4);
+            Children.Add(Line5);
+
+            page.Children.Add(this);
         }
     }
 }

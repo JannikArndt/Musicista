@@ -68,7 +68,7 @@ namespace Musicista.UI
                                                     for (int i = 0; i < maxStaves; i++)
                                                     {
                                                         UIStaff staff = DrawStaff(currentPage, currentTop);
-                                                        DrawTrebleClef(currentPage, staff);
+                                                        DrawTrebleClef(staff);
                                                         staves.Add(staff);
                                                         currentTop += staffSpacing; // Spacing between staves
                                                     }
@@ -92,9 +92,9 @@ namespace Musicista.UI
                 return;
 
             // Left side, top, bottom
-            int x = staves.First().Left;
-            int y1 = staves.First().Top;
-            int y2 = staves.Last().Top + 24;
+            var x = (int)Canvas.GetLeft(staves.First());
+            var y1 = (int)Canvas.GetTop(staves.First());
+            var y2 = (int)Canvas.GetTop(staves.Last()) + 24;
 
             // First line
             var line = new Line
@@ -113,7 +113,7 @@ namespace Musicista.UI
             // Barlines
             foreach (var measure in staves.First().Measures)
             {
-                x = (int)Canvas.GetLeft(measure) + (int)measure.Width;
+                x = (int)Canvas.GetLeft(staves.First()) + (int)Canvas.GetLeft(measure) + (int)measure.Width;
                 line = new Line
                 {
                     X1 = x,
@@ -161,13 +161,7 @@ namespace Musicista.UI
         {
             const int left = 50;
             int width = (int)page.Width - 2 * 50;
-            var staff = new UIStaff(top, left, width);
-
-            page.Children.Add(staff.line1);
-            page.Children.Add(staff.line2);
-            page.Children.Add(staff.line3);
-            page.Children.Add(staff.line4);
-            page.Children.Add(staff.line5);
+            var staff = new UIStaff(page, top, left, width);
 
             return staff;
         }
@@ -183,14 +177,14 @@ namespace Musicista.UI
                 for (var partNumber = 0; partNumber < measure.Parts.Count; partNumber++)
                     if (measure.Parts[partNumber] != null && measure.Parts[partNumber].ListOfSymbols.Count > 0)
                     {
-                        int top = staves[partNumber].Top - 10;
+                        int top = -10;
                         int left;
                         // measure 2 to n
                         if (staves[partNumber].Measures.Count > 0)
                             left = (int)(Canvas.GetLeft(staves[partNumber].Measures.Last()) + staves[partNumber].Measures.Last().Width);
                         // measure 1
                         else
-                            left = staves[partNumber].Left + indent;
+                            left = indent;
 
 
                         // 1. noten pro schlag (z.B. 4 auf 1, 4 auf 2, 1 auf 3, 1 Pause auf 4)
@@ -199,11 +193,11 @@ namespace Musicista.UI
                         // 4. Für alle Takte berechnen und aufaddieren
                         // 6. Absolute Breite = Spezifische Breite / Aufsummierte Breite * Zielbreite
 
-                        var newMeasure = new UIMeasure(page, top, left, width, measure);
+                        var newMeasure = new UIMeasure(staves[partNumber], top, left, width, measure);
                         staves[partNumber].Measures.Add(newMeasure);
                         measures.Add(newMeasure);
 
-                        int currentEnd = staves[partNumber].Left + indent;
+                        int currentEnd = indent;
                         foreach (var uiMeasure in staves[partNumber].Measures)
                         {
                             uiMeasure.Width = (staves[partNumber].Width - indent) / 4;
@@ -246,10 +240,10 @@ namespace Musicista.UI
             return measures;
         }
 
-        public static void DrawTrebleClef(Canvas page, UIStaff staff)
+        public static void DrawTrebleClef(UIStaff staff)
         {
-            int top = staff.Top - 10;
-            int left = staff.Left + 10;
+            const int top = -10;
+            const int left = 10;
 
             var clef = new Path
             {
@@ -260,7 +254,7 @@ namespace Musicista.UI
 
             Canvas.SetTop(clef, top);
             Canvas.SetLeft(clef, left);
-            page.Children.Add(clef);
+            staff.Children.Add(clef);
         }
 
         public static void DrawRest(Rest rest, UIMeasure measure)

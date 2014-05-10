@@ -11,7 +11,7 @@ namespace Musicista.UI
     {
         public readonly Measure InnerMeasure = new Measure();
 
-        public UIMeasure(Canvas canvas, int top, int left, int width, Measure innerMeasure = null)
+        public UIMeasure(Panel staff, int top, int left, int width, Measure innerMeasure = null)
         {
             Width = width;
             Height = 40;
@@ -39,7 +39,7 @@ namespace Musicista.UI
 
             Children.Add(Barline);
 
-            canvas.Children.Add(this);
+            staff.Children.Add(this);
         }
 
         public Line Barline { get; set; }

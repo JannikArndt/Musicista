@@ -11,7 +11,7 @@ namespace Musicista.UI
     {
         public readonly Measure InnerMeasure = new Measure();
 
-        public UIMeasure(Panel staff, int top, int left, int width, Measure innerMeasure = null)
+        public UIMeasure(Panel staff, double top, double left, double width, Measure innerMeasure = null)
         {
             Width = width;
             Height = 40;

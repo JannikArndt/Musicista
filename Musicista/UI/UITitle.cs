@@ -8,10 +8,10 @@ namespace Musicista.UI
 {
     public class UITitle : TextBlock
     {
-        private int _left;
-        private int _top;
+        private double _left;
+        private double _top;
 
-        public UITitle(string text, int top, Canvas page)
+        public UITitle(string text, double top, Canvas page)
         {
             Text = text;
             FontSize = 50;
@@ -29,7 +29,7 @@ namespace Musicista.UI
             page.Children.Add(this);
         }
 
-        public int Top
+        public double Top
         {
             get { return _top; }
             set
@@ -39,7 +39,7 @@ namespace Musicista.UI
             }
         }
 
-        public int Left
+        public double Left
         {
             get { return _left; }
             set
@@ -49,7 +49,7 @@ namespace Musicista.UI
             }
         }
 
-        public int DrawnWidth
+        public double DrawnWidth
         {
             get
             {
@@ -60,11 +60,11 @@ namespace Musicista.UI
                     new Typeface(FontFamily, FontStyle, FontWeight, FontStretch),
                     FontSize,
                     Brushes.Black);
-                return (int)formattedText.Width;
+                return formattedText.Width;
             }
         }
 
-        public int DrawnHeight
+        public double DrawnHeight
         {
             get
             {
@@ -75,7 +75,7 @@ namespace Musicista.UI
                     new Typeface(FontFamily, FontStyle, FontWeight, FontStretch),
                     FontSize,
                     Brushes.Black);
-                return (int)formattedText.Height;
+                return formattedText.Height;
             }
         }
     }

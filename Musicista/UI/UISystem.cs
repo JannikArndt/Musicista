@@ -13,9 +13,9 @@ namespace Musicista.UI
         public List<UIStaff> Staves = new List<UIStaff>();
         private double _currentTop;
 
-        public UISystem(Panel page, int top, int left, int right, double staffSpacing = 55, double systemSpacing = 40)
+        public UISystem(Panel page, double top, double left, double right, double staffSpacing = 55, double systemSpacing = 40)
         {
-            Width = (int)page.Width - left - right;
+            Width = page.Width - left - right;
 
             _staffSpacing = staffSpacing;
             _additionalSystemSpacing = systemSpacing;
@@ -47,9 +47,9 @@ namespace Musicista.UI
                 return;
 
             // Left side, top, bottom
-            var x = (int)GetLeft(Staves.First());
-            var y1 = (int)GetTop(Staves.First());
-            var y2 = (int)GetTop(Staves.Last()) + 24;
+            var x = GetLeft(Staves.First());
+            var y1 = GetTop(Staves.First());
+            var y2 = GetTop(Staves.Last()) + 24;
 
             // First line
             var line = new Line
@@ -68,7 +68,7 @@ namespace Musicista.UI
             // Barlines
             foreach (var measure in Staves.First().Measures)
             {
-                x = (int)GetLeft(Staves.First()) + (int)GetLeft(measure) + (int)measure.Width;
+                x = GetLeft(Staves.First()) + GetLeft(measure) + measure.Width;
                 line = new Line
                 {
                     X1 = x,

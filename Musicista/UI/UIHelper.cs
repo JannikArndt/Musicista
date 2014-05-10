@@ -26,8 +26,8 @@ namespace Musicista.UI
                 foreach (var composer in piece.ListOfComposers)
                     DrawComposer(composer.FullName, pageList.First());
 
-            int measuresPerSystem = 4;
-            int systemsPerPage = 0;
+            var measuresPerSystem = 4;
+            var systemsPerPage = 0;
 
             if (piece.ListOfSections == null || piece.ListOfSections.Count <= 0)
                 return pageList;
@@ -41,7 +41,7 @@ namespace Musicista.UI
                                         if (passage.ListOfMeasures != null && passage.ListOfMeasures.Count > 0)
                                         {
                                             var maxStaves = passage.ListOfMeasures.Select(measure => measure.Parts.Count).Max();
-                                            var currentTop = 200;
+                                            double currentTop = 200;
                                             double staffSpacing = 50;
                                             double systemSpacing = 30;
 
@@ -74,7 +74,7 @@ namespace Musicista.UI
                                                     }
                                                     measuresPerSystem = 0;
                                                     systemsPerPage++;
-                                                    currentTop += (int)currentSystem.Bottom; // Beginning of the next system
+                                                    currentTop += currentSystem.Bottom; // Beginning of the next system
                                                 }
                                                 measuresPerSystem++;
                                                 DrawMeasure(currentSystem, measure);
@@ -113,8 +113,8 @@ namespace Musicista.UI
 
         public static List<UIMeasure> DrawMeasure(UISystem system, Measure measure = null)
         {
-            const int indent = 40;
-            const int width = 150;
+            const double indent = 40;
+            const double width = 150;
 
             var measures = new List<UIMeasure>();
 
@@ -125,11 +125,11 @@ namespace Musicista.UI
                 if (measure.Parts[partNumber] != null && measure.Parts[partNumber].ListOfSymbols.Count > 0)
                 {
                     var staff = system.Staves[partNumber];
-                    const int top = -10;
-                    int left;
+                    const double top = -10;
+                    double left;
                     // measure 2 to n
                     if (staff.Measures.Count > 0)
-                        left = (int)(Canvas.GetLeft(staff.Measures.Last()) + staff.Measures.Last().Width);
+                        left = Canvas.GetLeft(staff.Measures.Last()) + staff.Measures.Last().Width;
                     // measure 1
                     else
                         left = indent;
@@ -145,12 +145,12 @@ namespace Musicista.UI
                     staff.Measures.Add(newMeasure);
                     measures.Add(newMeasure);
 
-                    int currentEnd = indent;
+                    var currentEnd = indent;
                     foreach (var uiMeasure in staff.Measures)
                     {
                         uiMeasure.Width = (staff.Width - indent) / 4;
                         Canvas.SetLeft(uiMeasure, currentEnd);
-                        currentEnd += (int)uiMeasure.Width;
+                        currentEnd += uiMeasure.Width;
                     }
 
                     /*
@@ -169,7 +169,7 @@ namespace Musicista.UI
                 foreach (var MyMeasure in staff.Measures)
                     TotalWidth += MyMeasure.Width;
 
-                InnerMeasure.Width = (int)((SpecificWidth / TotalWidth) * (staff.Width - Indent));
+                InnerMeasure.Width = ((SpecificWidth / TotalWidth) * (staff.Width - Indent));
             }
             */
 
@@ -187,8 +187,8 @@ namespace Musicista.UI
 
         public static void DrawTrebleClef(UIStaff staff)
         {
-            const int top = -10;
-            const int left = 10;
+            const double top = -10;
+            const double left = 10;
 
             var clef = new Path
             {
@@ -415,14 +415,14 @@ namespace Musicista.UI
 
         public static void DrawLedger(UIMeasure measure, bool below, int count, double left)
         {
-            const int width = 15;
-            const int spacing = 6;
+            const double width = 15;
+            const double spacing = 6;
 
             if (below)
             {
-                const int top = 41;
+                const double top = 41;
 
-                for (int i = 0; i < count; i++)
+                for (var i = 0; i < count; i++)
                 {
                     var ledger = new Line
                     {
@@ -440,9 +440,9 @@ namespace Musicista.UI
             }
             else
             {
-                const int top = 3;
+                const double top = 3;
 
-                for (int i = 0; i < count; i++)
+                for (var i = 0; i < count; i++)
                 {
                     var ledger = new Line
                     {

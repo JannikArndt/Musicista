@@ -15,7 +15,7 @@ namespace Musicista.UI
         public Line Line4 { get; set; }
         public Line Line5 { get; set; }
         public List<UIMeasure> Measures = new List<UIMeasure>();
-        public UIStaff(Panel system, int top)
+        public UIStaff(Panel system, double top)
         {
             const int spacing = 6;
 

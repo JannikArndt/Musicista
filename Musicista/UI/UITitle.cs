@@ -1,31 +1,33 @@
 ﻿using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace Musicista.UI
 {
-    public class UITitle
+    public class UITitle : TextBlock
     {
         private int _left;
         private int _top;
 
-        public UITitle(string text, int top, int left)
+        public UITitle(string text, int top, Canvas page)
         {
             Text = text;
+            FontSize = 50;
 
-            TitleTextBlock = new TextBlock
+            Top = top;
+            // center title
+            Left = (int)((page.Width / 2) - (DrawnWidth / 2));
+
+            PreviewMouseDown += delegate(object sender, MouseButtonEventArgs args)
             {
-                Text = text,
-                FontSize = 50
+                if (MainWindow.SidebarInformation != null)
+                    MainWindow.SidebarInformation.ShowUIElement(sender);
             };
 
-            Canvas.SetTop(TitleTextBlock, top);
-            Canvas.SetLeft(TitleTextBlock, left);
+            page.Children.Add(this);
         }
-
-        private string Text { get; set; }
-        public TextBlock TitleTextBlock { get; set; }
 
         public int Top
         {
@@ -33,7 +35,7 @@ namespace Musicista.UI
             set
             {
                 _top = value;
-                Canvas.SetTop(TitleTextBlock, value);
+                Canvas.SetTop(this, value);
             }
         }
 
@@ -43,11 +45,11 @@ namespace Musicista.UI
             set
             {
                 _left = value;
-                Canvas.SetLeft(TitleTextBlock, value);
+                Canvas.SetLeft(this, value);
             }
         }
 
-        public int Width
+        public int DrawnWidth
         {
             get
             {
@@ -55,15 +57,14 @@ namespace Musicista.UI
                     Text,
                     CultureInfo.CurrentUICulture,
                     FlowDirection.LeftToRight,
-                    new Typeface(TitleTextBlock.FontFamily, TitleTextBlock.FontStyle, TitleTextBlock.FontWeight,
-                        TitleTextBlock.FontStretch),
-                    TitleTextBlock.FontSize,
+                    new Typeface(FontFamily, FontStyle, FontWeight, FontStretch),
+                    FontSize,
                     Brushes.Black);
                 return (int)formattedText.Width;
             }
         }
 
-        public int Height
+        public int DrawnHeight
         {
             get
             {
@@ -71,9 +72,8 @@ namespace Musicista.UI
                     Text,
                     CultureInfo.CurrentUICulture,
                     FlowDirection.LeftToRight,
-                    new Typeface(TitleTextBlock.FontFamily, TitleTextBlock.FontStyle, TitleTextBlock.FontWeight,
-                        TitleTextBlock.FontStretch),
-                    TitleTextBlock.FontSize,
+                    new Typeface(FontFamily, FontStyle, FontWeight, FontStretch),
+                    FontSize,
                     Brushes.Black);
                 return (int)formattedText.Height;
             }

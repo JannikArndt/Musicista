@@ -4,7 +4,6 @@ using Musicista.UI;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -134,7 +133,6 @@ namespace Musicista
             using (var fileStream = new FileStream("score.xml", FileMode.Open))
             {
                 var result = (scorepartwise)serializer.Deserialize(fileStream);
-                UIHelper.DrawTitle(result.work.worktitle, pageList.First());
 
                 currentPiece = Mapper.MapMusicXMLPartwiseToMusicistaPiece(result);
                 pageList = UIHelper.DrawPiece(currentPiece);

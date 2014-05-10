@@ -6,7 +6,6 @@ using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
 using System.Windows.Shapes;
@@ -22,7 +21,7 @@ namespace Musicista.UI
             var pageList = new List<Canvas> { currentPage };
 
             if (!String.IsNullOrEmpty(piece.Title))
-                DrawTitle(piece.Title, pageList.First());
+                new UITitle(piece.Title, 60, pageList.First());
 
             if (piece.ListOfComposers != null && piece.ListOfComposers.Count > 0)
                 foreach (Composer composer in piece.ListOfComposers)
@@ -127,25 +126,6 @@ namespace Musicista.UI
             };
             Panel.SetZIndex(canvas, 0);
             return canvas;
-        }
-
-        public static UITitle DrawTitle(string text, Canvas page)
-        {
-            var title = new UITitle(text, 60, 0);
-
-            // center title
-            title.Left = (int)((page.Width / 2) - (title.Width / 2));
-
-            title.TitleTextBlock.PreviewMouseDown += TitleClick;
-
-            page.Children.Add(title.TitleTextBlock);
-            return title;
-        }
-
-        private static void TitleClick(object sender, MouseButtonEventArgs mouseButtonEventArgs)
-        {
-            if (MainWindow.SidebarInformation != null)
-                MainWindow.SidebarInformation.ShowUIElement(sender);
         }
 
         public static void DrawComposer(string text, Canvas page)

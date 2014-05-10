@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Controls;
+﻿using System.Collections.Generic;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -21,7 +17,7 @@ namespace Musicista.UI
         public List<UIMeasure> Measures = new List<UIMeasure>();
         public UIStaff(int top, int left, int width)
         {
-            int spacing = 6;
+            const int spacing = 6;
             Left = left;
             Top = top;
             Width = width;

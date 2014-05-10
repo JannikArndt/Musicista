@@ -2,7 +2,6 @@
 using Model.Meta;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,7 +23,7 @@ namespace Musicista.UI
                 new UITitle(piece.Title, 60, pageList.First());
 
             if (piece.ListOfComposers != null && piece.ListOfComposers.Count > 0)
-                foreach (Composer composer in piece.ListOfComposers)
+                foreach (var composer in piece.ListOfComposers)
                     DrawComposer(composer.FullName, pageList.First());
 
             int count = 4;
@@ -32,13 +31,13 @@ namespace Musicista.UI
 
             if (piece.ListOfSections == null || piece.ListOfSections.Count <= 0)
                 return pageList;
-            foreach (Section section in piece.ListOfSections)
+            foreach (var section in piece.ListOfSections)
                 if (section.ListOfMovements != null && section.ListOfMovements.Count > 0)
-                    foreach (Movement movement in section.ListOfMovements)
+                    foreach (var movement in section.ListOfMovements)
                         if (movement.ListOfSegments != null && movement.ListOfSegments.Count > 0)
-                            foreach (Segment segment in movement.ListOfSegments)
+                            foreach (var segment in movement.ListOfSegments)
                                 if (segment.ListOfPassages != null && segment.ListOfPassages.Count > 0)
-                                    foreach (Passage passage in segment.ListOfPassages)
+                                    foreach (var passage in segment.ListOfPassages)
                                         if (passage.ListOfMeasures != null && passage.ListOfMeasures.Count > 0)
                                         {
                                             int maxStaves =
@@ -48,7 +47,7 @@ namespace Musicista.UI
                                             int staffSpacing = 50;
                                             int additionalSystemSpacing = 30;
 
-                                            foreach (Measure measure in passage.ListOfMeasures)
+                                            foreach (var measure in passage.ListOfMeasures)
                                             {
                                                 // pagebreak every 16 measures
                                                 if (measuresPerPage > 15)
@@ -93,20 +92,38 @@ namespace Musicista.UI
                 return;
 
             // Left side, top, bottom
-            var x = staves.First().Left;
-            var y1 = staves.First().Top;
-            var y2 = staves.Last().Top + 24;
+            int x = staves.First().Left;
+            int y1 = staves.First().Top;
+            int y2 = staves.Last().Top + 24;
 
             // First line
-            var line = new Line { X1 = x, Y1 = y1, X2 = x, Y2 = y2, StrokeThickness = 2, Stroke = Brushes.Black, SnapsToDevicePixels = true };
+            var line = new Line
+            {
+                X1 = x,
+                Y1 = y1,
+                X2 = x,
+                Y2 = y2,
+                StrokeThickness = 2,
+                Stroke = Brushes.Black,
+                SnapsToDevicePixels = true
+            };
             line.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
             page.Children.Add(line);
 
             // Barlines
             foreach (var measure in staves.First().Measures)
             {
-                x = measure.Left + measure.Width;
-                line = new Line { X1 = x, Y1 = y1, X2 = x, Y2 = y2, StrokeThickness = 2, Stroke = Brushes.Black, SnapsToDevicePixels = true };
+                x = (int)Canvas.GetLeft(measure) + (int)measure.Width;
+                line = new Line
+                {
+                    X1 = x,
+                    Y1 = y1,
+                    X2 = x,
+                    Y2 = y2,
+                    StrokeThickness = 2,
+                    Stroke = Brushes.Black,
+                    SnapsToDevicePixels = true
+                };
                 line.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
                 page.Children.Add(line);
             }
@@ -140,20 +157,6 @@ namespace Musicista.UI
             page.Children.Add(composerTextBlock);
         }
 
-        public static Size MeasureString(string candidate)
-        {
-            var textBlock = new TextBlock();
-            var formattedText = new FormattedText(
-                candidate,
-                CultureInfo.CurrentUICulture,
-                FlowDirection.LeftToRight,
-                new Typeface(textBlock.FontFamily, textBlock.FontStyle, textBlock.FontWeight, textBlock.FontStretch),
-                textBlock.FontSize,
-                Brushes.Black);
-
-            return new Size(formattedText.Width, formattedText.Height);
-        }
-
         public static UIStaff DrawStaff(Canvas page, int top)
         {
             const int left = 50;
@@ -177,14 +180,14 @@ namespace Musicista.UI
             var measures = new List<UIMeasure>();
 
             if (measure != null && measure.Parts != null && measure.Parts.Count > 0)
-                for (int partNumber = 0; partNumber < measure.Parts.Count; partNumber++)
+                for (var partNumber = 0; partNumber < measure.Parts.Count; partNumber++)
                     if (measure.Parts[partNumber] != null && measure.Parts[partNumber].ListOfSymbols.Count > 0)
                     {
                         int top = staves[partNumber].Top - 10;
                         int left;
                         // measure 2 to n
                         if (staves[partNumber].Measures.Count > 0)
-                            left = staves[partNumber].Measures.Last().Left + staves[partNumber].Measures.Last().Width;
+                            left = (int)(Canvas.GetLeft(staves[partNumber].Measures.Last()) + staves[partNumber].Measures.Last().Width);
                         // measure 1
                         else
                             left = staves[partNumber].Left + indent;
@@ -201,12 +204,12 @@ namespace Musicista.UI
                         measures.Add(newMeasure);
 
                         int currentEnd = staves[partNumber].Left + indent;
-                        foreach (UIMeasure uiMeasure in staves[partNumber].Measures)
+                        foreach (var uiMeasure in staves[partNumber].Measures)
                         {
                             uiMeasure.Width = (staves[partNumber].Width - indent) / 4;
                             //staves[partNumber].Measures.Count;
-                            uiMeasure.Left = currentEnd;
-                            currentEnd += uiMeasure.Width;
+                            Canvas.SetLeft(uiMeasure, currentEnd);
+                            currentEnd += (int)uiMeasure.Width;
                         }
 
                         /*
@@ -225,14 +228,19 @@ namespace Musicista.UI
                 foreach (var MyMeasure in staff.Measures)
                     TotalWidth += MyMeasure.Width;
 
-                Measure.Width = (int)((SpecificWidth / TotalWidth) * (staff.Width - Indent));
+                InnerMeasure.Width = (int)((SpecificWidth / TotalWidth) * (staff.Width - Indent));
             }
             */
 
                         // Draw Notes
 
-                        foreach (Symbol symbol in measure.Parts[partNumber].ListOfSymbols)
-                            DrawSymbol(page, symbol, measures[partNumber]);
+                        foreach (var symbol in measure.Parts[partNumber].ListOfSymbols)
+                        {
+                            if (symbol.GetType() == typeof(Note))
+                                DrawNote((Note)symbol, measures[partNumber]);
+                            else if (symbol.GetType() == typeof(Rest))
+                                DrawRest((Rest)symbol, measures[partNumber]);
+                        }
                     }
 
             return measures;
@@ -255,15 +263,7 @@ namespace Musicista.UI
             page.Children.Add(clef);
         }
 
-        public static void DrawSymbol(Canvas page, Symbol symbol, UIMeasure measure)
-        {
-            if (symbol.GetType() == typeof(Note))
-                DrawNote(page, (Note)symbol, measure);
-            else if (symbol.GetType() == typeof(Rest))
-                DrawRest(page, (Rest)symbol, measure);
-        }
-
-        public static void DrawRest(Canvas page, Rest rest, UIMeasure measure)
+        public static void DrawRest(Rest rest, UIMeasure measure)
         {
             var newRest = new Path
             {
@@ -277,9 +277,9 @@ namespace Musicista.UI
             newRest.SetValue(RenderOptions.CachingHintProperty, CachingHint.Cache);
 
             // Left
-            double left = measure.Left + ((measure.Width - 10) / 4 * (rest.Beat - 1)) + 10;
+            var left = ((measure.Width - 10) / 4 * (rest.Beat - 1)) + 10;
             if (rest.Duration == Duration.whole)
-                left = measure.Left + measure.Width / 2;
+                left = measure.Width / 2;
 
             // Top
             const double top = 11;
@@ -303,12 +303,12 @@ namespace Musicista.UI
                     break;
             }
 
-            Canvas.SetTop(newRest, measure.Top + top);
+            Canvas.SetTop(newRest, top);
             Canvas.SetLeft(newRest, left);
-            page.Children.Add(newRest);
+            measure.Children.Add(newRest);
         }
 
-        public static void DrawNote(Canvas page, Note note, UIMeasure measure)
+        public static void DrawNote(Note note, UIMeasure measure)
         {
             var newNote = new Path
             {
@@ -321,7 +321,7 @@ namespace Musicista.UI
             newNote.SetValue(RenderOptions.ClearTypeHintProperty, ClearTypeHint.Enabled);
             newNote.SetValue(RenderOptions.CachingHintProperty, CachingHint.Cache);
 
-            double left = measure.Left + ((measure.Width - 12) / 4 * (note.Beat - 1)) + 12;
+            double left = ((measure.Width - 12) / 4 * (note.Beat - 1)) + 12;
             double top = 0;
 
             switch (note.Octave)
@@ -350,80 +350,80 @@ namespace Musicista.UI
                     break;
                 case Pitch.CSharp:
                     top += 18;
-                    DrawAccidental(page, measure, Accidental.Sharp, top, left);
+                    DrawAccidental(measure, Accidental.Sharp, top, left);
                     break;
                 case Pitch.DFlat:
                     top += 14;
-                    DrawAccidental(page, measure, Accidental.Flat, top, left);
+                    DrawAccidental(measure, Accidental.Flat, top, left);
                     break;
                 case Pitch.D:
                     top += 14;
                     break;
                 case Pitch.DSharp:
                     top += 14;
-                    DrawAccidental(page, measure, Accidental.Sharp, top, left);
+                    DrawAccidental(measure, Accidental.Sharp, top, left);
                     break;
                 case Pitch.EFlat:
                     top += 11;
-                    DrawAccidental(page, measure, Accidental.Flat, top, left);
+                    DrawAccidental(measure, Accidental.Flat, top, left);
                     break;
                 case Pitch.E:
                     top += 11;
                     break;
                 case Pitch.ESharp:
                     top += 11;
-                    DrawAccidental(page, measure, Accidental.Sharp, top, left);
+                    DrawAccidental(measure, Accidental.Sharp, top, left);
                     break;
                 case Pitch.FFlat:
                     top += 8;
-                    DrawAccidental(page, measure, Accidental.Flat, top, left);
+                    DrawAccidental(measure, Accidental.Flat, top, left);
                     break;
                 case Pitch.F:
                     top += 8;
                     break;
                 case Pitch.FSharp:
                     top += 8;
-                    DrawAccidental(page, measure, Accidental.Sharp, top, left);
+                    DrawAccidental(measure, Accidental.Sharp, top, left);
                     break;
                 case Pitch.GFlat:
                     top += 5;
-                    DrawAccidental(page, measure, Accidental.Flat, top, left);
+                    DrawAccidental(measure, Accidental.Flat, top, left);
                     break;
                 case Pitch.G:
                     top += 5;
                     break;
                 case Pitch.GSharp:
                     top += 5;
-                    DrawAccidental(page, measure, Accidental.Sharp, top, left);
+                    DrawAccidental(measure, Accidental.Sharp, top, left);
                     break;
                 case Pitch.AFlat:
                     top += 2;
-                    DrawAccidental(page, measure, Accidental.Flat, top, left);
+                    DrawAccidental(measure, Accidental.Flat, top, left);
                     break;
                 case Pitch.A:
                     top += 2;
                     break;
                 case Pitch.ASharp:
                     top += 2;
-                    DrawAccidental(page, measure, Accidental.Sharp, top, left);
+                    DrawAccidental(measure, Accidental.Sharp, top, left);
                     break;
                 case Pitch.BFlat:
                     top += -1;
-                    DrawAccidental(page, measure, Accidental.Flat, top, left);
+                    DrawAccidental(measure, Accidental.Flat, top, left);
                     break;
                 case Pitch.B:
                     top += -1;
                     break;
                 case Pitch.BSharp:
                     top += -1;
-                    DrawAccidental(page, measure, Accidental.Sharp, top, left);
+                    DrawAccidental(measure, Accidental.Sharp, top, left);
                     break;
             }
 
             if (top >= 17)
-                DrawLedger(page, measure, true, (int)((top - 10) / 6), left);
+                DrawLedger(measure, true, (int)((top - 10) / 6), left);
             else if (top < -15)
-                DrawLedger(page, measure, false, (int)((Math.Abs(top) - 15) / 6), left);
+                DrawLedger(measure, false, (int)((Math.Abs(top) - 15) / 6), left);
 
             switch (note.Duration)
             {
@@ -469,19 +469,19 @@ namespace Musicista.UI
                     break;
             }
 
-            Canvas.SetTop(newNote, measure.Top + top);
+            Canvas.SetTop(newNote, top);
             Canvas.SetLeft(newNote, left);
-            page.Children.Add(newNote);
+            measure.Children.Add(newNote);
         }
 
-        public static void DrawLedger(Canvas page, UIMeasure measure, bool below, int count, double left)
+        public static void DrawLedger(UIMeasure measure, bool below, int count, double left)
         {
             const int width = 15;
             const int spacing = 6;
 
             if (below)
             {
-                int top = measure.Top + 41;
+                const int top = 41;
 
                 for (int i = 0; i < count; i++)
                 {
@@ -496,12 +496,12 @@ namespace Musicista.UI
                         SnapsToDevicePixels = true
                     };
                     ledger.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
-                    page.Children.Add(ledger);
+                    measure.Children.Add(ledger);
                 }
             }
             else
             {
-                int top = measure.Top + 3;
+                const int top = 3;
 
                 for (int i = 0; i < count; i++)
                 {
@@ -516,15 +516,14 @@ namespace Musicista.UI
                         SnapsToDevicePixels = true
                     };
                     ledger.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
-                    page.Children.Add(ledger);
+                    measure.Children.Add(ledger);
                 }
             }
         }
 
-        public static void DrawAccidental(Canvas page, UIMeasure measure, Accidental accidentalKind, double setTop,
-            double setLeft)
+        public static void DrawAccidental(UIMeasure measure, Accidental accidentalKind, double setTop, double setLeft)
         {
-            double top = measure.Top + setTop + 16;
+            double top = setTop + 16;
             double left = setLeft - 7;
 
             var newAccidental = new Path
@@ -556,7 +555,7 @@ namespace Musicista.UI
 
             Canvas.SetTop(newAccidental, top);
             Canvas.SetLeft(newAccidental, left);
-            page.Children.Add(newAccidental);
+            measure.Children.Add(newAccidental);
         }
     }
 }

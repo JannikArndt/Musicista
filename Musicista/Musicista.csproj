@@ -56,6 +56,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DragAndDrop.cs" />
     <Compile Include="Engraving.cs" />
     <Compile Include="Mapper.cs" />
     <Compile Include="Sidebar\SidebarAlgorithms.xaml.cs">

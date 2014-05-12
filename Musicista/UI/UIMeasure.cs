@@ -13,6 +13,7 @@ namespace Musicista.UI
         public readonly UISystem ParentSystem;
         public readonly UIStaff ParentStaff;
         public readonly UIMeasureGroup ParentMeasureGroup;
+        public readonly int Part;
 
         public Line Line1 { get; set; }
         public Line Line2 { get; set; }
@@ -20,16 +21,17 @@ namespace Musicista.UI
         public Line Line4 { get; set; }
         public Line Line5 { get; set; }
 
-        public UIMeasure(UIMeasureGroup parentMeasureGroup, double top, double left, Measure innerMeasure = null, UISystem system = null, UIStaff staff = null)
+        public UIMeasure(UIMeasureGroup parentMeasureGroup, double top, int part, Measure innerMeasure = null, UISystem system = null, UIStaff staff = null)
         {
             Height = 40;
             Background = Brushes.Transparent;
+            Part = part;
             ParentStaff = staff;
             ParentSystem = system;
             ParentMeasureGroup = parentMeasureGroup;
 
             SetTop(this, top);
-            SetLeft(this, left);
+            SetLeft(this, 0);
 
             SetBinding(WidthProperty, new Binding { Path = new PropertyPath(WidthProperty), Source = parentMeasureGroup });
 

@@ -144,7 +144,7 @@ namespace Musicista.UI
                 return;
 
             var top = Canvas.GetTop(measureGroup.ParentSystem.Staves[part - 1]) - 10;
-            var newMeasure = new UIMeasure(measureGroup, top, 0, measure);
+            var newMeasure = new UIMeasure(measureGroup, top, part, measure);
             measureGroup.Measures.Add(newMeasure);
 
             foreach (var symbol in measure.ListOfSymbols)

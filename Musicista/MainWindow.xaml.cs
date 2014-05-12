@@ -18,8 +18,9 @@ namespace Musicista
     public partial class MainWindow
     {
         private static List<Canvas> _pageList;
-        private Piece _currentPiece;
         public static SidebarInformation SidebarInformation;
+        private Piece _currentPiece;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -53,7 +54,6 @@ namespace Musicista
             pages.Children.Add(new Canvas { Height = 200 });
             CanvasScrollViewer.Content = pages;
              */
-
         }
 
         private void ShowCollection(object sender, RoutedEventArgs e)
@@ -115,7 +115,9 @@ namespace Musicista
 
                 if (dialog.ShowDialog() != true)
                     return;
-                dialog.PrintVisual(CanvasScrollViewer.Content as Canvas, "Drawing");
+                var visual = CanvasScrollViewer.Content as Canvas;
+                if (visual != null)
+                    dialog.PrintVisual(visual, "Drawing");
             }
             catch (Exception ex)
             {

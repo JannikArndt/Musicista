@@ -36,6 +36,9 @@
   <PropertyGroup>
     <StartupObject>Musicista.App</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Properties\AppIcon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -158,6 +161,11 @@
     <Resource Include="Icons\Select_over.png" />
     <Resource Include="Icons\View.png" />
     <Resource Include="Icons\View_over.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\AppIcon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

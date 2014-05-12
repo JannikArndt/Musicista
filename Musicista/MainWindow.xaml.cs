@@ -115,7 +115,10 @@ namespace Musicista
 
                 if (dialog.ShowDialog() != true)
                     return;
-                var visual = CanvasScrollViewer.Content as Canvas;
+                var stackPanel = CanvasScrollViewer.Content as StackPanel;
+                if (stackPanel == null)
+                    return;
+                var visual = stackPanel.Children[0] as Canvas;
                 if (visual != null)
                     dialog.PrintVisual(visual, "Drawing");
             }

@@ -52,7 +52,7 @@ namespace Musicista
             }
 
             var tempCanvas = _originalParentCanvas;
-            while (!Equals(tempCanvas, _rootCanvas) && tempCanvas != null)
+            while (tempCanvas != null && (!(LogicalTreeHelper.GetParent(tempCanvas) is StackPanel)))
             {
                 _left += Canvas.GetLeft(tempCanvas);
                 _top += Canvas.GetTop(tempCanvas);

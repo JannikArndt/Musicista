@@ -10,13 +10,16 @@ namespace Musicista.UI
     public class UIMeasure : Canvas
     {
         public readonly Measure InnerMeasure = new Measure();
+        public readonly UISystem ParentSystem;
+        public readonly UIStaff ParentStaff;
 
-        public UIMeasure(Panel staff, double top, double left, double width, Measure innerMeasure = null)
+        public UIMeasure(UIStaff staff, double top, double left, double width, Measure innerMeasure = null, UISystem system = null)
         {
             Width = width;
             Height = 40;
-            Background = Brushes.Yellow;
-            //Opacity = 0.5;
+            Background = Brushes.Transparent;
+            ParentStaff = staff;
+            ParentSystem = system;
 
             SetTop(this, top);
             SetLeft(this, left);

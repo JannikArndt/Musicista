@@ -134,14 +134,7 @@ namespace Musicista.UI
                     else
                         left = indent;
 
-
-                    // 1. noten pro schlag (z.B. 4 auf 1, 4 auf 2, 1 auf 3, 1 Pause auf 4)
-                    // 2. Maximum finden (z.B. 4 pro Schlag)
-                    // 3. Maximum x Schläge = spezifische Breite
-                    // 4. Für alle Takte berechnen und aufaddieren
-                    // 6. Absolute Breite = Spezifische Breite / Aufsummierte Breite * Zielbreite
-
-                    var newMeasure = new UIMeasure(staff, top, left, width, measure);
+                    var newMeasure = new UIMeasure(staff, top, left, width, measure, system);
                     staff.Measures.Add(newMeasure);
                     measures.Add(newMeasure);
 
@@ -152,26 +145,6 @@ namespace Musicista.UI
                         Canvas.SetLeft(uiMeasure, currentEnd);
                         currentEnd += uiMeasure.Width;
                     }
-
-                    /*
-            // Correct width 
-            if (measure != null && measure.TimeSignature != null && measure.Parts != null && measure.Parts[0].ListOfSymbols.Count > 0)
-            {
-                Model.Duration ShortestNote = Model.Duration.whole;
-                foreach (var Part in measure.Parts)
-                    foreach (var Symbol in Part.ListOfSymbols)
-                        if (Symbol.Duration.CompareTo(ShortestNote) < 0)
-                            ShortestNote = Symbol.Duration;
-
-                var SpecificWidth = (1024 - (int)ShortestNote) / 10 * measure.TimeSignature.Beats;
-
-                var TotalWidth = 0;
-                foreach (var MyMeasure in staff.Measures)
-                    TotalWidth += MyMeasure.Width;
-
-                InnerMeasure.Width = ((SpecificWidth / TotalWidth) * (staff.Width - Indent));
-            }
-            */
 
                     // Draw Notes
 

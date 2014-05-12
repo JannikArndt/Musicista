@@ -157,9 +157,14 @@ namespace Musicista
         private static Canvas _draggedOverCanvas;
         private static Canvas _originalParentCanvas;
         private static Canvas _rootCanvas;
+        private static Brush originalBackground;
 
         public static void DragStart(object sender, MouseButtonEventArgs e)
         {
+
+            if (_captured)
+                DragEnd(sender, e);
+
             _rootCanvas = _pageList[0];
             _draggedElement = (UIElement)sender;
             Mouse.Capture(_draggedElement);
@@ -182,22 +187,31 @@ namespace Musicista
             {
                 _originalParentCanvas.Children.Remove(_draggedElement);
                 _rootCanvas.Children.Add(_draggedElement);
-
-                _left += Canvas.GetLeft(_originalParentCanvas);
-                _top += Canvas.GetTop(_originalParentCanvas);
             }
+
+            var tempCanvas = _originalParentCanvas;
+            while (tempCanvas != _rootCanvas && tempCanvas != null)
+            {
+                _left += Canvas.GetLeft(tempCanvas);
+                _top += Canvas.GetTop(tempCanvas);
+                tempCanvas = (Canvas)LogicalTreeHelper.GetParent(tempCanvas);
+            }
+
+            // Set HitTestVisible to false, otherwise this element would be it'
+            _draggedElement.IsHitTestVisible = false;
 
             // Do not drag any other objects
             e.Handled = true;
+            Console.WriteLine("Start dragging " + _draggedElement);
         }
 
         public static void Drag(object sender, MouseEventArgs e)
         {
-            if (_captured)
+            if (_captured && Mouse.LeftButton == MouseButtonState.Pressed)
             {
                 // Get new mouse position relative to root canvas
-                double x = e.GetPosition(_rootCanvas).X;
-                double y = e.GetPosition(_rootCanvas).Y;
+                var x = e.GetPosition(_rootCanvas).X;
+                var y = e.GetPosition(_rootCanvas).Y;
                 // Change left and top of UIElement by the mouse-movement (new position - old position)
                 _left += x - _canvasX;
                 _top += y - _canvasY;
@@ -212,11 +226,12 @@ namespace Musicista
                 if (hitTestResult != null && hitTestResult.VisualHit != null)
                 {
                     var hit = hitTestResult.VisualHit as Canvas;
-                    if (hit != null && hit != _draggedOverCanvas)
+                    if (hit != null && hit != _draggedOverCanvas && hit != _rootCanvas && hit != _draggedElement)
                     {
                         if (_draggedOverCanvas != null)
-                            _draggedOverCanvas.Background = Brushes.Aquamarine;
+                            _draggedOverCanvas.Background = originalBackground;
                         _draggedOverCanvas = hit;
+                        originalBackground = _draggedOverCanvas.Background;
                         hit.Background = Brushes.Yellow;
                     }
 
@@ -224,7 +239,7 @@ namespace Musicista
                 else
                 {
                     if (_draggedOverCanvas != null)
-                        _draggedOverCanvas.Background = Brushes.Aquamarine;
+                        _draggedOverCanvas.Background = originalBackground;
                     _draggedOverCanvas = null;
                 }
             }
@@ -235,40 +250,46 @@ namespace Musicista
         {
             Mouse.Capture(null);
             _captured = false;
+            Console.WriteLine("End dragging");
 
-            // if there is a target canvas
-            if (_draggedOverCanvas != null)
-            {
-                _draggedOverCanvas.Background = Brushes.Aquamarine;
-                // and you are not dragging a canvas itself
-                if (_draggedElement.GetType() != typeof(Canvas))
+            if (_draggedElement != null && _draggedElement.GetType() == typeof(UIMeasure))
+
+                // if there is a target canvas
+                if (_draggedOverCanvas != null)
                 {
+                    // and you are not dragging a canvas itself
                     // add the element to the new canvas
-                    _rootCanvas.Children.Remove(_draggedElement);
-                    _draggedOverCanvas.Children.Add(_draggedElement);
+                    var parent = (Canvas)LogicalTreeHelper.GetParent(_draggedElement);
+                    if (parent != null)
+                        parent.Children.Remove(_draggedElement);
+
 
                     // and update its coordinates
-                    var newLeft = _left - Canvas.GetLeft(_draggedOverCanvas);
-                    var newTop = _top - Canvas.GetTop(_draggedOverCanvas);
-                    Canvas.SetLeft(_draggedElement, newLeft);
-                    Canvas.SetTop(_draggedElement, newTop);
+                    Canvas.SetLeft(_draggedElement, Canvas.GetLeft(_draggedOverCanvas));
+                    Canvas.SetTop(_draggedElement, Canvas.GetTop(_draggedOverCanvas));
+
+                    var parentOfMeasureToBeReplaced = (Canvas)LogicalTreeHelper.GetParent(_draggedOverCanvas);
+                    parentOfMeasureToBeReplaced.Children.Remove(_draggedOverCanvas);
+                    _draggedOverCanvas = null;
+
+                    parentOfMeasureToBeReplaced.Children.Add(_draggedElement);
                 }
-                _draggedOverCanvas = null;
-            }
-            // otherwise reset the element to its original position
-            else
-            {
-                if (_draggedElement.GetType() != typeof(Canvas))
+                // otherwise reset the element to its original position
+                else
                 {
                     // add the element to the original canvas
-                    _rootCanvas.Children.Remove(_draggedElement);
-                    _originalParentCanvas.Children.Add(_draggedElement);
+                    var parent = (Canvas)LogicalTreeHelper.GetParent(_draggedElement);
+                    parent.Children.Remove(_draggedElement);
+                    if (_originalParentCanvas != null)
+                        _originalParentCanvas.Children.Add(_draggedElement);
 
                     // and restore its coordinates
                     Canvas.SetLeft(_draggedElement, _originalLeft);
                     Canvas.SetTop(_draggedElement, _originalTop);
                 }
-            }
+
+            if (e != null)
+                e.Handled = true;
         }
         #endregion
     }

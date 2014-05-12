@@ -34,7 +34,7 @@ namespace Musicista
                                                     ListOfPassages =
                                                         new List<Passage>
                                                         {
-                                                            new Passage {ListOfMeasures = new List<Measure>()}
+                                                            new Passage {ListOfMeasures = new List<MeasureGroup>()}
                                                         }
                                                 }
                                             }
@@ -59,17 +59,17 @@ namespace Musicista
             for (int measureNumber = 0; measureNumber < mxml.part[0].measure.Length; measureNumber++)
             {
                 scorepartwisePartMeasure measure = mxml.part[0].measure[measureNumber];
-                var m = new Measure
+                var m = new MeasureGroup
                 {
                     MeasureNumber = int.Parse(Regex.Match(measure.number, @"\d+").Value),
                     TimeSignature = null,
                     KeySignature = null,
-                    Parts = new List<Part>()
+                    Measures = new List<Measure>()
                 };
 
                 for (int partNumber = 0; partNumber < mxml.part.Length; partNumber++)
                 {
-                    var part = new Part
+                    var part = new Measure
                     {
                         Instrument = piece.ListOfInstruments[partNumber],
                         ListOfSymbols = new List<Symbol>()
@@ -85,7 +85,7 @@ namespace Musicista
                         part.ListOfSymbols.Add(newNote);
                     }
 
-                    m.Parts.Add(part);
+                    m.Measures.Add(part);
                 }
                 piece.ListOfSections[0].ListOfMovements[0].ListOfSegments[0].ListOfPassages[0].ListOfMeasures.Add(m);
             }

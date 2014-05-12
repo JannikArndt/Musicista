@@ -39,16 +39,16 @@ namespace Musicista.Examples
                                             new Passage 
                                             {
                                                 Title = "Beginning",
-                                                ListOfMeasures = new List<Measure>
+                                                ListOfMeasures = new List<MeasureGroup>
                                                 {
-                                                    new Measure
+                                                    new MeasureGroup
                                                     {
                                                         MeasureNumber = 1,
                                                         TimeSignature = new TimeSignature(isCommon: true),
                                                         KeySignature = new MusicalKey(Pitch.A, Gender.Major),
-                                                        Parts = new List<Part>
+                                                        Measures = new List<Measure>
                                                         {
-                                                            new Part 
+                                                            new Measure 
                                                             {
                                                                 Instrument = Flute,
                                                                 ListOfSymbols = new List<Symbol>
@@ -59,7 +59,7 @@ namespace Musicista.Examples
                                                                     new Rest { Beat = 3, Voice = 2, Duration = Duration.half}
                                                                 }
                                                             },
-                                                            new Part 
+                                                            new Measure 
                                                             {
                                                                 Instrument = Oboe,
                                                                 ListOfSymbols = new List<Symbol>
@@ -73,14 +73,14 @@ namespace Musicista.Examples
                                                             }
                                                         }
                                                     },
-                                                    new Measure
+                                                    new MeasureGroup
                                                     {
                                                         MeasureNumber = 2,
                                                         TimeSignature = new TimeSignature(isCommon: true),
                                                         KeySignature = new MusicalKey(Pitch.A, Gender.Major),
-                                                        Parts = new List<Part>
+                                                        Measures = new List<Measure>
                                                         {
-                                                            new Part 
+                                                            new Measure 
                                                             {
                                                                 Instrument = Flute,
                                                                 ListOfSymbols = new List<Symbol>
@@ -89,7 +89,7 @@ namespace Musicista.Examples
                                                                     new Rest { Beat = 1, Voice = 2, Duration = Duration.whole}
                                                                 }
                                                             },
-                                                            new Part 
+                                                            new Measure 
                                                             {
                                                                 Instrument = Oboe,
                                                                 ListOfSymbols = new List<Symbol>
@@ -122,12 +122,12 @@ namespace Musicista.Examples
 
         public static void More()
         {
-            var m1 = new Measure
+            var m1 = new MeasureGroup
             {
                 TimeSignature = new TimeSignature(4, 4),
-                Parts = new List<Part>
+                Measures = new List<Measure>
                 {
-                    new Part
+                    new Measure
                     {
                         ListOfSymbols = new List<Symbol>
                         {
@@ -139,12 +139,12 @@ namespace Musicista.Examples
                     }
                 }
             };
-            var m2 = new Measure
+            var m2 = new MeasureGroup
             {
                 TimeSignature = new TimeSignature(4, 4),
-                Parts = new List<Part>
+                Measures = new List<Measure>
                 {
-                    new Part
+                    new Measure
                     {
                         ListOfSymbols = new List<Symbol>
                         {
@@ -158,12 +158,12 @@ namespace Musicista.Examples
                     }
                 }
             };
-            var m3 = new Measure
+            var m3 = new MeasureGroup
             {
                 TimeSignature = new TimeSignature(4, 4),
-                Parts = new List<Part>
+                Measures = new List<Measure>
                 {
-                    new Part
+                    new Measure
                     {
                         ListOfSymbols = new List<Symbol>
                         {

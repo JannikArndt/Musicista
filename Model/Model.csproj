@@ -52,9 +52,9 @@
     <Compile Include="Meta\Ornament.cs" />
     <Compile Include="Meta\Pitch.cs" />
     <Compile Include="Meta\TimeSignature.cs" />
-    <Compile Include="Part.cs" />
-    <Compile Include="People\Composer.cs" />
     <Compile Include="Measure.cs" />
+    <Compile Include="People\Composer.cs" />
+    <Compile Include="MeasureGroup.cs" />
     <Compile Include="Movement.cs" />
     <Compile Include="Note.cs" />
     <Compile Include="Passage.cs" />

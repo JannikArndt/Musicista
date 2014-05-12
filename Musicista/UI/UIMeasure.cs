@@ -9,11 +9,11 @@ namespace Musicista.UI
 {
     public class UIMeasure : Canvas
     {
-        public readonly Measure InnerMeasure = new Measure();
+        public readonly MeasureGroup InnerMeasureGroup = new MeasureGroup();
         public readonly UISystem ParentSystem;
         public readonly UIStaff ParentStaff;
 
-        public UIMeasure(UIStaff staff, double top, double left, double width, Measure innerMeasure = null, UISystem system = null)
+        public UIMeasure(UIStaff staff, double top, double left, double width, MeasureGroup innerMeasureGroup = null, UISystem system = null)
         {
             Width = width;
             Height = 40;
@@ -24,7 +24,7 @@ namespace Musicista.UI
             SetTop(this, top);
             SetLeft(this, left);
 
-            InnerMeasure = innerMeasure;
+            InnerMeasureGroup = innerMeasureGroup;
 
             Barline = new Line
             {
@@ -53,7 +53,7 @@ namespace Musicista.UI
 
         public override string ToString()
         {
-            return "Measure #" + InnerMeasure.MeasureNumber;
+            return "MeasureGroup #" + InnerMeasureGroup.MeasureNumber;
         }
     }
 }

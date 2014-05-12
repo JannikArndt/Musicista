@@ -111,18 +111,18 @@ namespace Musicista.UI
             page.Children.Add(composerTextBlock);
         }
 
-        public static List<UIMeasure> DrawMeasure(UISystem system, Measure measure = null)
+        public static List<UIMeasure> DrawMeasure(UISystem system, MeasureGroup measureGroup = null)
         {
             const double indent = 40;
             const double width = 150;
 
             var measures = new List<UIMeasure>();
 
-            if (measure == null || measure.Parts == null || measure.Parts.Count <= 0)
+            if (measureGroup == null || measureGroup.Parts == null || measureGroup.Parts.Count <= 0)
                 return measures;
 
-            for (var partNumber = 0; partNumber < measure.Parts.Count; partNumber++)
-                if (measure.Parts[partNumber] != null && measure.Parts[partNumber].ListOfSymbols.Count > 0)
+            for (var partNumber = 0; partNumber < measureGroup.Parts.Count; partNumber++)
+                if (measureGroup.Parts[partNumber] != null && measureGroup.Parts[partNumber].ListOfSymbols.Count > 0)
                 {
                     var staff = system.Staves[partNumber];
                     const double top = -10;
@@ -134,7 +134,7 @@ namespace Musicista.UI
                     else
                         left = indent;
 
-                    var newMeasure = new UIMeasure(staff, top, left, width, measure, system);
+                    var newMeasure = new UIMeasure(staff, top, left, width, measureGroup, system);
                     staff.Measures.Add(newMeasure);
                     measures.Add(newMeasure);
 
@@ -148,7 +148,7 @@ namespace Musicista.UI
 
                     // Draw Notes
 
-                    foreach (var symbol in measure.Parts[partNumber].ListOfSymbols)
+                    foreach (var symbol in measureGroup.Parts[partNumber].ListOfSymbols)
                         if (symbol.GetType() == typeof(Note))
                             DrawNote((Note)symbol, measures[partNumber]);
                         else if (symbol.GetType() == typeof(Rest))

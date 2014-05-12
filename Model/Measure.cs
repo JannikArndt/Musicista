@@ -1,16 +1,10 @@
-﻿using Model.Meta;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Model
 {
     public class Measure
     {
-        public int MeasureNumber { get; set; }
-        public TimeSignature TimeSignature { get; set; }
-        public MusicalKey KeySignature { get; set; }
-        public List<Part> Parts { get; set; }
+        public Instrument Instrument { get; set; }
+        public List<Symbol> ListOfSymbols { get; set; }
     }
 }

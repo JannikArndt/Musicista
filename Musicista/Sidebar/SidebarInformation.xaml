@@ -6,8 +6,12 @@
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="300">
     <Grid Background="#FFEDEDED">
-        <StackPanel Orientation="Vertical">
-            <TextBlock>Informationen</TextBlock>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Name="TitleTextBlock" FontSize="20" HorizontalAlignment="Center">Informationen</TextBlock>
+        <StackPanel Grid.Row="1" Orientation="Vertical" Name="SidebarPanel">
             <TextBlock Name="Clicked"></TextBlock>
         </StackPanel>
     </Grid>

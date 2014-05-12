@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -21,7 +22,7 @@ namespace Musicista.UI
         public Line Line4 { get; set; }
         public Line Line5 { get; set; }
 
-        public UIMeasure(UIMeasureGroup parentMeasureGroup, double top, int part, Measure innerMeasure = null, UISystem system = null, UIStaff staff = null)
+        public UIMeasure(UIMeasureGroup parentMeasureGroup, double top, int part, Measure innerMeasure = null, UISystem system = null, UIStaff staff = null, bool suppressEventHandlers = false)
         {
             Height = 40;
             Background = Brushes.Transparent;
@@ -53,9 +54,18 @@ namespace Musicista.UI
 
             Children.Add(Barline);
 
-            MouseLeftButtonDown += MainWindow.DragStart;
-            MouseMove += MainWindow.Drag;
-            MouseLeftButtonUp += MainWindow.DragEnd;
+            if (!suppressEventHandlers)
+            {
+                MouseLeftButtonDown += MainWindow.DragStart;
+                MouseMove += MainWindow.Drag;
+                MouseLeftButtonUp += MainWindow.DragEnd;
+
+                PreviewMouseDown += delegate(object sender, MouseButtonEventArgs args)
+                {
+                    if (MainWindow.SidebarInformation != null)
+                        MainWindow.SidebarInformation.ShowUIElement(sender);
+                };
+            }
 
             parentMeasureGroup.Children.Add(this);
 

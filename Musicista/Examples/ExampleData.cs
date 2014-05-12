@@ -39,7 +39,7 @@ namespace Musicista.Examples
                                             new Passage 
                                             {
                                                 Title = "Beginning",
-                                                ListOfMeasures = new List<MeasureGroup>
+                                                ListOfMeasureGroups = new List<MeasureGroup>
                                                 {
                                                     new MeasureGroup
                                                     {

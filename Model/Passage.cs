@@ -4,7 +4,7 @@ namespace Model
 {
     public class Passage
     {
-        public List<MeasureGroup> ListOfMeasures { get; set; }
+        public List<MeasureGroup> ListOfMeasureGroups { get; set; }
         public string Title { get; set; }
     }
 }

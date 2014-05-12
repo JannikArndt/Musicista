@@ -38,16 +38,17 @@ namespace Musicista.UI
                             foreach (var segment in movement.ListOfSegments)
                                 if (segment.ListOfPassages != null && segment.ListOfPassages.Count > 0)
                                     foreach (var passage in segment.ListOfPassages)
-                                        if (passage.ListOfMeasures != null && passage.ListOfMeasures.Count > 0)
+                                        if (passage.ListOfMeasureGroups != null && passage.ListOfMeasureGroups.Count > 0)
                                         {
-                                            var maxStaves = passage.ListOfMeasures.Select(measure => measure.Measures.Count).Max();
+                                            var maxStaves = passage.ListOfMeasureGroups.Select(measure => measure.Measures.Count).Max();
                                             double currentTop = 200;
                                             double staffSpacing = 50;
                                             double systemSpacing = 30;
 
+                                            // 1. New System
                                             var currentSystem = new UISystem(currentPage, currentTop, 50, 50, staffSpacing, systemSpacing);
 
-                                            foreach (var measure in passage.ListOfMeasures)
+                                            foreach (var measureGroup in passage.ListOfMeasureGroups)
                                             {
                                                 // pagebreak every 4 systems
                                                 if (systemsPerPage > 3)
@@ -63,7 +64,11 @@ namespace Musicista.UI
                                                 // systembreak every 4 measures
                                                 if (measuresPerSystem > 3)
                                                 {
-                                                    currentSystem.ConnectStaves();
+                                                    // print Barline in front of the system
+                                                    if (currentSystem.MeasureGroups.Any())
+                                                        currentSystem.BarlineFront.Y2 = Canvas.GetTop(currentSystem.MeasureGroups[0].Measures.Last()) + 36;
+
+                                                    // New System with lines (staves)
                                                     currentSystem = new UISystem(currentPage, currentTop, 50, 50, staffSpacing, systemSpacing);
 
                                                     for (var i = 0; i < maxStaves; i++)
@@ -77,7 +82,7 @@ namespace Musicista.UI
                                                     currentTop += currentSystem.Bottom; // Beginning of the next system
                                                 }
                                                 measuresPerSystem++;
-                                                DrawMeasureGroup(currentSystem, measure);
+                                                DrawMeasureGroup(currentSystem, measureGroup);
                                             }
                                         }
             return pageList;
@@ -111,51 +116,42 @@ namespace Musicista.UI
             page.Children.Add(composerTextBlock);
         }
 
-        public static List<UIMeasure> DrawMeasureGroup(UISystem system, MeasureGroup measureGroup = null)
+        public static void DrawMeasureGroup(UISystem system, MeasureGroup measureGroup = null)
         {
-            const double indent = 40;
-            const double width = 150;
-
-            var measures = new List<UIMeasure>();
-
             if (measureGroup == null || measureGroup.Measures == null || measureGroup.Measures.Count <= 0)
-                return measures;
+                return;
 
-            for (var partNumber = 0; partNumber < measureGroup.Measures.Count; partNumber++)
-                if (measureGroup.Measures[partNumber] != null && measureGroup.Measures[partNumber].ListOfSymbols.Count > 0)
-                {
-                    var staff = system.Staves[partNumber];
-                    const double top = -10;
-                    double left;
-                    // measure 2 to n
-                    if (staff.Measures.Count > 0)
-                        left = Canvas.GetLeft(staff.Measures.Last()) + staff.Measures.Last().Width;
-                    // measure 1
-                    else
-                        left = indent;
+            var left = system.Indent;
+            // measure 2 to n
+            if (system.MeasureGroups.Count > 0)
+                left = Canvas.GetLeft(system.MeasureGroups.Last()) + system.MeasureGroups.Last().Width;
 
-                    var newMeasure = new UIMeasure(staff, top, left, width, measureGroup, system);
-                    staff.Measures.Add(newMeasure);
-                    measures.Add(newMeasure);
+            // Create UIMeasureGroup
+            var uiMeasureGroup = new UIMeasureGroup(system, left, measureGroup);
+            system.MeasureGroups.Add(uiMeasureGroup);
 
-                    var currentEnd = indent;
-                    foreach (var uiMeasure in staff.Measures)
-                    {
-                        uiMeasure.Width = (staff.Width - indent) / 4;
-                        Canvas.SetLeft(uiMeasure, currentEnd);
-                        currentEnd += uiMeasure.Width;
-                    }
+            // Fill UIMeasureGroup.Measures with UIMeasures
+            for (var part = 0; part < measureGroup.Measures.Count; part++)
+                DrawMeasure(uiMeasureGroup, measureGroup.Measures[part], part + 1);
 
-                    // Draw Notes
+            // set connecting barlines
+            uiMeasureGroup.Barline.Y2 = Canvas.GetTop(uiMeasureGroup.Measures.Last()) + 36;
+        }
 
-                    foreach (var symbol in measureGroup.Measures[partNumber].ListOfSymbols)
-                        if (symbol.GetType() == typeof(Note))
-                            DrawNote((Note)symbol, measures[partNumber]);
-                        else if (symbol.GetType() == typeof(Rest))
-                            DrawRest((Rest)symbol, measures[partNumber]);
-                }
+        public static void DrawMeasure(UIMeasureGroup measureGroup, Measure measure, int part)
+        {
+            if (measure.ListOfSymbols == null || measure.ListOfSymbols.Count <= 0)
+                return;
 
-            return measures;
+            var top = Canvas.GetTop(measureGroup.ParentSystem.Staves[part - 1]) - 10;
+            var newMeasure = new UIMeasure(measureGroup, top, 0, measure);
+            measureGroup.Measures.Add(newMeasure);
+
+            foreach (var symbol in measure.ListOfSymbols)
+                if (symbol.GetType() == typeof(Note))
+                    DrawNote((Note)symbol, newMeasure);
+                else if (symbol.GetType() == typeof(Rest))
+                    DrawRest((Rest)symbol, newMeasure);
         }
 
         public static void DrawTrebleClef(UIStaff staff)

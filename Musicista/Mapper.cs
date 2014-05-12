@@ -34,7 +34,7 @@ namespace Musicista
                                                     ListOfPassages =
                                                         new List<Passage>
                                                         {
-                                                            new Passage {ListOfMeasures = new List<MeasureGroup>()}
+                                                            new Passage {ListOfMeasureGroups = new List<MeasureGroup>()}
                                                         }
                                                 }
                                             }
@@ -59,7 +59,7 @@ namespace Musicista
             for (int measureNumber = 0; measureNumber < mxml.part[0].measure.Length; measureNumber++)
             {
                 scorepartwisePartMeasure measure = mxml.part[0].measure[measureNumber];
-                var m = new MeasureGroup
+                var measureGroup = new MeasureGroup
                 {
                     MeasureNumber = int.Parse(Regex.Match(measure.number, @"\d+").Value),
                     TimeSignature = null,
@@ -72,7 +72,8 @@ namespace Musicista
                     var part = new Measure
                     {
                         Instrument = piece.ListOfInstruments[partNumber],
-                        ListOfSymbols = new List<Symbol>()
+                        ListOfSymbols = new List<Symbol>(),
+                        ParentMeasureGroup = measureGroup
                     };
                     var notes = mxml.part[partNumber].measure[measureNumber].Items.Where(item => item.GetType() == typeof(note));
 
@@ -85,9 +86,9 @@ namespace Musicista
                         part.ListOfSymbols.Add(newNote);
                     }
 
-                    m.Measures.Add(part);
+                    measureGroup.Measures.Add(part);
                 }
-                piece.ListOfSections[0].ListOfMovements[0].ListOfSegments[0].ListOfPassages[0].ListOfMeasures.Add(m);
+                piece.ListOfSections[0].ListOfMovements[0].ListOfSegments[0].ListOfPassages[0].ListOfMeasureGroups.Add(measureGroup);
             }
 
             return piece;

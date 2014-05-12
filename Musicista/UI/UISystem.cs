@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -11,7 +10,11 @@ namespace Musicista.UI
         private readonly double _additionalSystemSpacing;
         private readonly double _staffSpacing;
         public List<UIStaff> Staves = new List<UIStaff>();
+        public List<UIMeasureGroup> MeasureGroups = new List<UIMeasureGroup>();
         private double _currentTop;
+        public double Indent = 40;
+        public Line BarlineFront { get; set; }
+
 
         public UISystem(Panel page, double top, double left, double right, double staffSpacing = 55, double systemSpacing = 40)
         {
@@ -22,6 +25,20 @@ namespace Musicista.UI
 
             SetLeft(this, left);
             SetTop(this, top);
+
+
+            // Line in front of the system
+            BarlineFront = new Line
+            {
+                X1 = 0,
+                Y1 = 0,
+                X2 = 0,
+                Y2 = 24,
+                StrokeThickness = 2,
+                Stroke = Brushes.Black
+            };
+
+            Children.Add(BarlineFront);
 
             page.Children.Add(this);
         }
@@ -39,49 +56,6 @@ namespace Musicista.UI
             _currentTop += staff.ActualHeight + _staffSpacing;
 
             Children.Add(staff);
-        }
-
-        public void ConnectStaves()
-        {
-            if (Staves == null || Staves.Count == 0)
-                return;
-
-            // Left side, top, bottom
-            var x = GetLeft(Staves.First());
-            var y1 = GetTop(Staves.First());
-            var y2 = GetTop(Staves.Last()) + 24;
-
-            // First line
-            var line = new Line
-            {
-                X1 = x,
-                Y1 = y1,
-                X2 = x,
-                Y2 = y2,
-                StrokeThickness = 2,
-                Stroke = Brushes.Black,
-                SnapsToDevicePixels = true
-            };
-            line.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
-            Children.Add(line);
-
-            // Barlines
-            foreach (var measure in Staves.First().Measures)
-            {
-                x = GetLeft(Staves.First()) + GetLeft(measure) + measure.Width;
-                line = new Line
-                {
-                    X1 = x,
-                    Y1 = y1,
-                    X2 = x,
-                    Y2 = y2,
-                    StrokeThickness = 2,
-                    Stroke = Brushes.Black,
-                    SnapsToDevicePixels = true
-                };
-                line.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
-                Children.Add(line);
-            }
         }
     }
 }

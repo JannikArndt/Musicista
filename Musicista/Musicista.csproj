@@ -62,6 +62,7 @@
     <Compile Include="DragAndDrop.cs" />
     <Compile Include="Engraving.cs" />
     <Compile Include="Mapper.cs" />
+    <Compile Include="MenuBar.cs" />
     <Compile Include="Sidebar\SidebarKind.cs" />
     <Compile Include="Sidebar\SidebarAlgorithms.xaml.cs">
       <DependentUpon>SidebarAlgorithms.xaml</DependentUpon>
@@ -144,24 +145,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="View\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icons\Add.png" />
-    <Resource Include="Icons\Add_over.png" />
-    <Resource Include="Icons\Algorithms.png" />
-    <Resource Include="Icons\Algorithms_over.png" />
-    <Resource Include="Icons\AppIcon.png" />
-    <Resource Include="Icons\Collection.png" />
-    <Resource Include="Icons\Collection_over.png" />
-    <Resource Include="Icons\Edit.png" />
-    <Resource Include="Icons\Edit_over.png" />
-    <Resource Include="Icons\Information.png" />
-    <Resource Include="Icons\Information_over.png" />
-    <Resource Include="Icons\Musicista.png" />
-    <Resource Include="Icons\Select.png" />
-    <Resource Include="Icons\Select_over.png" />
-    <Resource Include="Icons\View.png" />
-    <Resource Include="Icons\View_over.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Properties\AppIcon.ico">

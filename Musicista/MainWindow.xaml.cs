@@ -32,6 +32,7 @@ namespace Musicista
             SidebarAlgorithms = new SidebarAlgorithms();
             Sidebar.Content = SidebarInformation;
             ButtonPathInformation.Fill = Brushes.DodgerBlue;
+            ButtonPathSelect.Fill = Brushes.DodgerBlue;
 
             var serializer = new XmlSerializer(typeof(ScorePartwise));
             using (var fileStream = new FileStream("score.xml", FileMode.Open))

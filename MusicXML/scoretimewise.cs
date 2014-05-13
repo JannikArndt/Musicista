@@ -4,99 +4,46 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Serialization;
 
-[GeneratedCode("xsd", "4.0.30319.33440")]
-[Serializable]
-[DebuggerStepThrough]
-[DesignerCategory("code")]
-[XmlType(AnonymousType = true)]
-[XmlRoot("score-timewise", Namespace = "", IsNullable = false)]
-public class scoretimewise
+namespace MusicXML
 {
-    private credit[] creditField;
-    private defaults defaultsField;
-    private identification identificationField;
-    private scoretimewiseMeasure[] measureField;
-    private string movementnumberField;
-
-    private string movementtitleField;
-
-    private partlist partlistField;
-
-    private string versionField;
-    private work workField;
-
-    public scoretimewise()
+    [GeneratedCode("xsd", "4.0.30319.33440")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType(AnonymousType = true)]
+    [XmlRoot("score-timewise", Namespace = "", IsNullable = false)]
+    public class ScoreTimewise
     {
-        versionField = "1.0";
-    }
+        public ScoreTimewise()
+        {
+            Version = "2.0";
+        }
 
+        [XmlElement("work")]
+        public work Work { get; set; }
 
-    public work work
-    {
-        get { return workField; }
-        set { workField = value; }
-    }
+        [XmlElement("movement-number")]
+        public string MovementNumber { get; set; }
 
+        [XmlElement("movement-title")]
+        public string MovementTitle { get; set; }
 
-    [XmlElement("movement-number")]
-    public string movementnumber
-    {
-        get { return movementnumberField; }
-        set { movementnumberField = value; }
-    }
+        [XmlElement("identification")]
+        public identification Identification { get; set; }
 
+        [XmlElement("defaults")]
+        public defaults Defaults { get; set; }
 
-    [XmlElement("movement-title")]
-    public string movementtitle
-    {
-        get { return movementtitleField; }
-        set { movementtitleField = value; }
-    }
+        [XmlElement("credit")]
+        public credit[] Credit { get; set; }
 
+        [XmlElement("part-list")]
+        public partlist PartList { get; set; }
 
-    public identification identification
-    {
-        get { return identificationField; }
-        set { identificationField = value; }
-    }
+        [XmlElement("measure")]
+        public scoretimewiseMeasure[] Measure { get; set; }
 
-
-    public defaults defaults
-    {
-        get { return defaultsField; }
-        set { defaultsField = value; }
-    }
-
-
-    [XmlElement("credit")]
-    public credit[] credit
-    {
-        get { return creditField; }
-        set { creditField = value; }
-    }
-
-
-    [XmlElement("part-list")]
-    public partlist partlist
-    {
-        get { return partlistField; }
-        set { partlistField = value; }
-    }
-
-
-    [XmlElement("measure")]
-    public scoretimewiseMeasure[] measure
-    {
-        get { return measureField; }
-        set { measureField = value; }
-    }
-
-
-    [XmlAttribute(DataType = "token")]
-    [DefaultValue("1.0")]
-    public string version
-    {
-        get { return versionField; }
-        set { versionField = value; }
+        [XmlAttribute("version", DataType = "token"), DefaultValue("1.0")]
+        public string Version { get; set; }
     }
 }

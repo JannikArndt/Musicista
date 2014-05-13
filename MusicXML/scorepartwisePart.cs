@@ -4,29 +4,19 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Serialization;
 
-[GeneratedCode("xsd", "4.0.30319.33440")]
-[Serializable]
-[DebuggerStepThrough]
-[DesignerCategory("code")]
-[XmlType(AnonymousType = true)]
-public class scorepartwisePart
+namespace MusicXML
 {
-    private string idField;
-    private scorepartwisePartMeasure[] measureField;
-
-
-    [XmlElement("measure")]
-    public scorepartwisePartMeasure[] measure
+    [GeneratedCode("xsd", "4.0.30319.33440")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType(AnonymousType = true)]
+    public class ScorePartwisePart
     {
-        get { return measureField; }
-        set { measureField = value; }
-    }
+        [XmlElement("measure")]
+        public ScorePartwisePartMeasure[] Measure { get; set; }
 
-
-    [XmlAttribute(DataType = "IDREF")]
-    public string id
-    {
-        get { return idField; }
-        set { idField = value; }
+        [XmlAttribute(DataType = "IDREF")]
+        public string id { get; set; }
     }
 }

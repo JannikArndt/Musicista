@@ -4,20 +4,6 @@
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 public partial class instrument
 {
-
-    private string idField;
-
-
     [System.Xml.Serialization.XmlAttributeAttribute(DataType = "IDREF")]
-    public string id
-    {
-        get
-        {
-            return this.idField;
-        }
-        set
-        {
-            this.idField = value;
-        }
-    }
+    public string id { get; set; }
 }

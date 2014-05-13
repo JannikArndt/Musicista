@@ -4,38 +4,20 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Serialization;
 
-
-[GeneratedCode("xsd", "4.0.30319.33440")]
-[Serializable]
-[DebuggerStepThrough]
-[DesignerCategory("code")]
-public class work
+namespace MusicXML
 {
-    private opus opusField;
-    private string worknumberField;
-
-    private string worktitleField;
-
-    
-    [XmlElement("work-number")]
-    public string worknumber
+    [GeneratedCode("xsd", "4.0.30319.33440")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    public class work
     {
-        get { return worknumberField; }
-        set { worknumberField = value; }
-    }
+        [XmlElement("work-number")]
+        public string WorkNumber { get; set; }
 
-    
-    [XmlElement("work-title")]
-    public string worktitle
-    {
-        get { return worktitleField; }
-        set { worktitleField = value; }
-    }
-
-    
-    public opus opus
-    {
-        get { return opusField; }
-        set { opusField = value; }
+        [XmlElement("work-title")]
+        public string WorkTitle { get; set; }
+        [XmlElement("opus")]
+        public opus Opus { get; set; }
     }
 }

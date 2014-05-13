@@ -4,468 +4,194 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Serialization;
 
-[GeneratedCode("xsd", "4.0.30319.33440")]
-[Serializable]
-[DebuggerStepThrough]
-[DesignerCategory("code")]
-public class note
+namespace MusicXML
 {
-    private accidental accidentalField;
-    private decimal attackField;
-
-    private bool attackFieldSpecified;
-
-    private beam[] beamField;
-    private string colorField;
-
-    private decimal defaultxField;
-
-    private bool defaultxFieldSpecified;
-
-    private decimal defaultyField;
-
-    private bool defaultyFieldSpecified;
-    private emptyplacement[] dotField;
-    private decimal dynamicsField;
-
-    private bool dynamicsFieldSpecified;
-
-    private decimal enddynamicsField;
-
-    private bool enddynamicsFieldSpecified;
-
-    private string fontfamilyField;
-    private string fontsizeField;
-
-    private fontstyle fontstyleField;
-
-    private bool fontstyleFieldSpecified;
-
-    private fontweight fontweightField;
-
-    private bool fontweightFieldSpecified;
-    private formattedtext footnoteField;
-    private instrument instrumentField;
-    private ItemsChoiceType1[] itemsElementNameField;
-    private object[] itemsField;
-    private level levelField;
-    private lyric[] lyricField;
-    private notations[] notationsField;
-    private notehead noteheadField;
-
-    private noteheadtext noteheadtextField;
-    private yesno pizzicatoField;
-
-    private bool pizzicatoFieldSpecified;
-    private play playField;
-
-    private yesno printdotField;
-
-    private bool printdotFieldSpecified;
-
-    private yesno printlyricField;
-
-    private bool printlyricFieldSpecified;
-    private decimal relativexField;
-
-    private bool relativexFieldSpecified;
-
-    private decimal relativeyField;
-
-    private bool relativeyFieldSpecified;
-
-    private decimal releaseField;
-
-    private bool releaseFieldSpecified;
-    private string staffField;
-    private stem stemField;
-    private timemodification timemodificationField;
-
-    private string timeonlyField;
-    private notetype typeField;
-    private string voiceField;
-
-
-    [XmlElement("chord", typeof(empty))]
-    [XmlElement("cue", typeof(empty))]
-    [XmlElement("duration", typeof(decimal))]
-    [XmlElement("grace", typeof(grace))]
-    [XmlElement("pitch", typeof(pitch))]
-    [XmlElement("rest", typeof(rest))]
-    [XmlElement("tie", typeof(tie))]
-    [XmlElement("unpitched", typeof(unpitched))]
-    [XmlChoiceIdentifier("ItemsElementName")]
-    public object[] Items
+    [GeneratedCode("xsd", "4.0.30319.33440")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    public class note
     {
-        get { return itemsField; }
-        set { itemsField = value; }
-    }
+        [XmlElement("chord", typeof(empty)), XmlElement("cue", typeof(empty)), XmlElement("duration", typeof(decimal)), XmlElement("grace", typeof(grace)), XmlElement("pitch", typeof(pitch)), XmlElement("rest", typeof(rest)), XmlElement("tie", typeof(tie)), XmlElement("unpitched", typeof(unpitched)), XmlChoiceIdentifier("ItemsElementName")]
+        public object[] Items { get; set; }
 
 
-    [XmlElement("ItemsElementName")]
-    [XmlIgnore]
-    public ItemsChoiceType1[] ItemsElementName
-    {
-        get { return itemsElementNameField; }
-        set { itemsElementNameField = value; }
-    }
+        [XmlElement("ItemsElementName"), XmlIgnore]
+        public ItemsChoiceType1[] ItemsElementName { get; set; }
 
 
-    public instrument instrument
-    {
-        get { return instrumentField; }
-        set { instrumentField = value; }
-    }
+        public instrument instrument { get; set; }
 
 
-    public formattedtext footnote
-    {
-        get { return footnoteField; }
-        set { footnoteField = value; }
-    }
+        public formattedtext footnote { get; set; }
 
 
-    public level level
-    {
-        get { return levelField; }
-        set { levelField = value; }
-    }
+        public level level { get; set; }
 
 
-    public string voice
-    {
-        get { return voiceField; }
-        set { voiceField = value; }
-    }
+        public string voice { get; set; }
 
 
-    public notetype type
-    {
-        get { return typeField; }
-        set { typeField = value; }
-    }
+        public notetype type { get; set; }
 
 
-    [XmlElement("dot")]
-    public emptyplacement[] dot
-    {
-        get { return dotField; }
-        set { dotField = value; }
-    }
+        [XmlElement("dot")]
+        public emptyplacement[] dot { get; set; }
 
 
-    public accidental accidental
-    {
-        get { return accidentalField; }
-        set { accidentalField = value; }
-    }
+        public accidental accidental { get; set; }
 
 
-    [XmlElement("time-modification")]
-    public timemodification timemodification
-    {
-        get { return timemodificationField; }
-        set { timemodificationField = value; }
-    }
+        [XmlElement("time-modification")]
+        public timemodification timemodification { get; set; }
 
 
-    public stem stem
-    {
-        get { return stemField; }
-        set { stemField = value; }
-    }
+        public stem stem { get; set; }
 
 
-    public notehead notehead
-    {
-        get { return noteheadField; }
-        set { noteheadField = value; }
-    }
+        public notehead notehead { get; set; }
 
 
-    [XmlElement("notehead-text")]
-    public noteheadtext noteheadtext
-    {
-        get { return noteheadtextField; }
-        set { noteheadtextField = value; }
-    }
+        [XmlElement("notehead-text")]
+        public noteheadtext noteheadtext { get; set; }
 
 
-    [XmlElement(DataType = "positiveInteger")]
-    public string staff
-    {
-        get { return staffField; }
-        set { staffField = value; }
-    }
+        [XmlElement(DataType = "positiveInteger")]
+        public string staff { get; set; }
 
 
-    [XmlElement("beam")]
-    public beam[] beam
-    {
-        get { return beamField; }
-        set { beamField = value; }
-    }
+        [XmlElement("beam")]
+        public beam[] beam { get; set; }
 
 
-    [XmlElement("notations")]
-    public notations[] notations
-    {
-        get { return notationsField; }
-        set { notationsField = value; }
-    }
+        [XmlElement("notations")]
+        public notations[] notations { get; set; }
 
 
-    [XmlElement("lyric")]
-    public lyric[] lyric
-    {
-        get { return lyricField; }
-        set { lyricField = value; }
-    }
+        [XmlElement("lyric")]
+        public lyric[] lyric { get; set; }
 
 
-    public play play
-    {
-        get { return playField; }
-        set { playField = value; }
-    }
+        public play play { get; set; }
 
 
-    [XmlAttribute("default-x")]
-    public decimal defaultx
-    {
-        get { return defaultxField; }
-        set { defaultxField = value; }
-    }
+        [XmlAttribute("default-x")]
+        public decimal defaultx { get; set; }
 
 
-    [XmlIgnore]
-    public bool defaultxSpecified
-    {
-        get { return defaultxFieldSpecified; }
-        set { defaultxFieldSpecified = value; }
-    }
+        [XmlIgnore]
+        public bool defaultxSpecified { get; set; }
 
 
-    [XmlAttribute("default-y")]
-    public decimal defaulty
-    {
-        get { return defaultyField; }
-        set { defaultyField = value; }
-    }
+        [XmlAttribute("default-y")]
+        public decimal defaulty { get; set; }
 
 
-    [XmlIgnore]
-    public bool defaultySpecified
-    {
-        get { return defaultyFieldSpecified; }
-        set { defaultyFieldSpecified = value; }
-    }
+        [XmlIgnore]
+        public bool defaultySpecified { get; set; }
 
 
-    [XmlAttribute("relative-x")]
-    public decimal relativex
-    {
-        get { return relativexField; }
-        set { relativexField = value; }
-    }
+        [XmlAttribute("relative-x")]
+        public decimal relativex { get; set; }
 
 
-    [XmlIgnore]
-    public bool relativexSpecified
-    {
-        get { return relativexFieldSpecified; }
-        set { relativexFieldSpecified = value; }
-    }
+        [XmlIgnore]
+        public bool relativexSpecified { get; set; }
 
 
-    [XmlAttribute("relative-y")]
-    public decimal relativey
-    {
-        get { return relativeyField; }
-        set { relativeyField = value; }
-    }
+        [XmlAttribute("relative-y")]
+        public decimal relativey { get; set; }
 
 
-    [XmlIgnore]
-    public bool relativeySpecified
-    {
-        get { return relativeyFieldSpecified; }
-        set { relativeyFieldSpecified = value; }
-    }
+        [XmlIgnore]
+        public bool relativeySpecified { get; set; }
 
 
-    [XmlAttribute("font-family", DataType = "token")]
-    public string fontfamily
-    {
-        get { return fontfamilyField; }
-        set { fontfamilyField = value; }
-    }
+        [XmlAttribute("font-family", DataType = "token")]
+        public string fontfamily { get; set; }
 
 
-    [XmlAttribute("font-style")]
-    public fontstyle fontstyle
-    {
-        get { return fontstyleField; }
-        set { fontstyleField = value; }
-    }
+        [XmlAttribute("font-style")]
+        public fontstyle fontstyle { get; set; }
 
 
-    [XmlIgnore]
-    public bool fontstyleSpecified
-    {
-        get { return fontstyleFieldSpecified; }
-        set { fontstyleFieldSpecified = value; }
-    }
+        [XmlIgnore]
+        public bool fontstyleSpecified { get; set; }
 
 
-    [XmlAttribute("font-size")]
-    public string fontsize
-    {
-        get { return fontsizeField; }
-        set { fontsizeField = value; }
-    }
+        [XmlAttribute("font-size")]
+        public string fontsize { get; set; }
 
 
-    [XmlAttribute("font-weight")]
-    public fontweight fontweight
-    {
-        get { return fontweightField; }
-        set { fontweightField = value; }
-    }
+        [XmlAttribute("font-weight")]
+        public fontweight fontweight { get; set; }
 
 
-    [XmlIgnore]
-    public bool fontweightSpecified
-    {
-        get { return fontweightFieldSpecified; }
-        set { fontweightFieldSpecified = value; }
-    }
+        [XmlIgnore]
+        public bool fontweightSpecified { get; set; }
 
 
-    [XmlAttribute(DataType = "token")]
-    public string color
-    {
-        get { return colorField; }
-        set { colorField = value; }
-    }
+        [XmlAttribute(DataType = "token")]
+        public string color { get; set; }
 
 
-    [XmlAttribute("print-dot")]
-    public yesno printdot
-    {
-        get { return printdotField; }
-        set { printdotField = value; }
-    }
+        [XmlAttribute("print-dot")]
+        public yesno printdot { get; set; }
 
 
-    [XmlIgnore]
-    public bool printdotSpecified
-    {
-        get { return printdotFieldSpecified; }
-        set { printdotFieldSpecified = value; }
-    }
+        [XmlIgnore]
+        public bool printdotSpecified { get; set; }
 
 
-    [XmlAttribute("print-lyric")]
-    public yesno printlyric
-    {
-        get { return printlyricField; }
-        set { printlyricField = value; }
-    }
+        [XmlAttribute("print-lyric")]
+        public yesno printlyric { get; set; }
 
 
-    [XmlIgnore]
-    public bool printlyricSpecified
-    {
-        get { return printlyricFieldSpecified; }
-        set { printlyricFieldSpecified = value; }
-    }
+        [XmlIgnore]
+        public bool printlyricSpecified { get; set; }
 
 
-    [XmlAttribute]
-    public decimal dynamics
-    {
-        get { return dynamicsField; }
-        set { dynamicsField = value; }
-    }
+        [XmlAttribute]
+        public decimal dynamics { get; set; }
 
 
-    [XmlIgnore]
-    public bool dynamicsSpecified
-    {
-        get { return dynamicsFieldSpecified; }
-        set { dynamicsFieldSpecified = value; }
-    }
+        [XmlIgnore]
+        public bool dynamicsSpecified { get; set; }
 
 
-    [XmlAttribute("end-dynamics")]
-    public decimal enddynamics
-    {
-        get { return enddynamicsField; }
-        set { enddynamicsField = value; }
-    }
+        [XmlAttribute("end-dynamics")]
+        public decimal enddynamics { get; set; }
 
 
-    [XmlIgnore]
-    public bool enddynamicsSpecified
-    {
-        get { return enddynamicsFieldSpecified; }
-        set { enddynamicsFieldSpecified = value; }
-    }
+        [XmlIgnore]
+        public bool enddynamicsSpecified { get; set; }
 
 
-    [XmlAttribute]
-    public decimal attack
-    {
-        get { return attackField; }
-        set { attackField = value; }
-    }
+        [XmlAttribute]
+        public decimal attack { get; set; }
 
 
-    [XmlIgnore]
-    public bool attackSpecified
-    {
-        get { return attackFieldSpecified; }
-        set { attackFieldSpecified = value; }
-    }
+        [XmlIgnore]
+        public bool attackSpecified { get; set; }
 
 
-    [XmlAttribute]
-    public decimal release
-    {
-        get { return releaseField; }
-        set { releaseField = value; }
-    }
+        [XmlAttribute]
+        public decimal release { get; set; }
 
 
-    [XmlIgnore]
-    public bool releaseSpecified
-    {
-        get { return releaseFieldSpecified; }
-        set { releaseFieldSpecified = value; }
-    }
+        [XmlIgnore]
+        public bool releaseSpecified { get; set; }
 
 
-    [XmlAttribute("time-only", DataType = "token")]
-    public string timeonly
-    {
-        get { return timeonlyField; }
-        set { timeonlyField = value; }
-    }
+        [XmlAttribute("time-only", DataType = "token")]
+        public string timeonly { get; set; }
 
 
-    [XmlAttribute]
-    public yesno pizzicato
-    {
-        get { return pizzicatoField; }
-        set { pizzicatoField = value; }
-    }
+        [XmlAttribute]
+        public yesno pizzicato { get; set; }
 
 
-    [XmlIgnore]
-    public bool pizzicatoSpecified
-    {
-        get { return pizzicatoFieldSpecified; }
-        set { pizzicatoFieldSpecified = value; }
+        [XmlIgnore]
+        public bool pizzicatoSpecified { get; set; }
     }
 }

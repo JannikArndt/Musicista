@@ -1,5 +1,6 @@
 ﻿using Model;
 using Model.Meta;
+using MusicXML;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,11 @@ namespace Musicista
 {
     public static class Mapper
     {
-        public static Piece MapMusicXMLPartwiseToMusicistaPiece(scorepartwise mxml)
+        public static Piece MapMusicXMLPartwiseToMusicistaPiece(ScorePartwise mxml)
         {
             var piece = new Piece
             {
-                Title = mxml.work.worktitle,
+                Title = mxml.Work.WorkTitle,
                 ListOfComposers = new List<Composer>(),
                 ListOfInstruments = new List<Instrument>(),
                 ListOfSections =
@@ -44,21 +45,21 @@ namespace Musicista
                     }
             };
 
-            foreach (typedtext creator in mxml.identification.creator.Where(creator => creator.type == "composer"))
+            foreach (typedtext creator in mxml.Identification.creator.Where(creator => creator.type == "composer"))
                 piece.ListOfComposers.Add(new Composer { FullName = creator.Value });
 
 
-            // Partlist.scorepart = first <score-part/>, partlist.items except last one = other <score-parts/>
-            piece.ListOfInstruments.Add(new Instrument(mxml.partlist.scorepart.partname.Value,
-                int.Parse(Regex.Match(mxml.partlist.scorepart.id, @"\d+").Value)));
-            foreach (scorepart scorepart in mxml.partlist.Items.Where(item => item.GetType() == typeof(scorepart)))
+            // Partlist.scorepart = first <score-part/>, PartList.items except last one = other <score-parts/>
+            piece.ListOfInstruments.Add(new Instrument(mxml.PartList.scorepart.partname.Value,
+                int.Parse(Regex.Match(mxml.PartList.scorepart.id, @"\d+").Value)));
+            foreach (scorepart scorepart in mxml.PartList.Items.Where(item => item.GetType() == typeof(scorepart)))
                 piece.ListOfInstruments.Add(new Instrument(scorepart.partname.Value,
                     int.Parse(Regex.Match(scorepart.id, @"\d+").Value)));
 
             // take the first part, go through all measure, for each measure look up the other parts
-            for (int measureNumber = 0; measureNumber < mxml.part[0].measure.Length; measureNumber++)
+            for (int measureNumber = 0; measureNumber < mxml.Part[0].Measure.Length; measureNumber++)
             {
-                scorepartwisePartMeasure measure = mxml.part[0].measure[measureNumber];
+                ScorePartwisePartMeasure measure = mxml.Part[0].Measure[measureNumber];
                 var measureGroup = new MeasureGroup
                 {
                     MeasureNumber = int.Parse(Regex.Match(measure.number, @"\d+").Value),
@@ -67,7 +68,7 @@ namespace Musicista
                     Measures = new List<Measure>()
                 };
 
-                for (int partNumber = 0; partNumber < mxml.part.Length; partNumber++)
+                for (int partNumber = 0; partNumber < mxml.Part.Length; partNumber++)
                 {
                     var part = new Measure
                     {
@@ -75,7 +76,7 @@ namespace Musicista
                         ListOfSymbols = new List<Symbol>(),
                         ParentMeasureGroup = measureGroup
                     };
-                    var notes = mxml.part[partNumber].measure[measureNumber].Items.Where(item => item.GetType() == typeof(note));
+                    var notes = mxml.Part[partNumber].Measure[measureNumber].Items.Where(item => item.GetType() == typeof(note));
 
                     double beat = 256;
 

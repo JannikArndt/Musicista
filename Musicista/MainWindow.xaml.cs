@@ -1,6 +1,7 @@
 ﻿using Model;
 using Musicista.Sidebar;
 using Musicista.UI;
+using MusicXML;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -29,10 +30,10 @@ namespace Musicista
             SidebarInformation = new SidebarInformation();
             Sidebar.Content = SidebarInformation;
 
-            var serializer = new XmlSerializer(typeof(scorepartwise));
+            var serializer = new XmlSerializer(typeof(ScorePartwise));
             using (var fileStream = new FileStream("score.xml", FileMode.Open))
             {
-                var result = (scorepartwise)serializer.Deserialize(fileStream);
+                var result = (ScorePartwise)serializer.Deserialize(fileStream);
 
                 _currentPiece = Mapper.MapMusicXMLPartwiseToMusicistaPiece(result);
                 _pageList = UIHelper.DrawPiece(_currentPiece);
@@ -136,10 +137,10 @@ namespace Musicista
             if (openFileDialog1.ShowDialog() == true)
                 filepath = openFileDialog1.FileName;
             */
-            var serializer = new XmlSerializer(typeof(scorepartwise));
+            var serializer = new XmlSerializer(typeof(ScorePartwise));
             using (var fileStream = new FileStream("score.xml", FileMode.Open))
             {
-                var result = (scorepartwise)serializer.Deserialize(fileStream);
+                var result = (ScorePartwise)serializer.Deserialize(fileStream);
 
                 _currentPiece = Mapper.MapMusicXMLPartwiseToMusicistaPiece(result);
                 _pageList = UIHelper.DrawPiece(_currentPiece);

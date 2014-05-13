@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using Microsoft.Win32;
+using Model;
 using Musicista.Sidebar;
 using Musicista.UI;
 using MusicXML;
@@ -20,6 +21,8 @@ namespace Musicista
     {
         private static List<Canvas> _pageList;
         public static SidebarInformation SidebarInformation;
+        public static SidebarView SidebarView;
+        public static SidebarAlgorithms SidebarAlgorithms;
         private Piece _currentPiece;
 
         public MainWindow()
@@ -28,33 +31,16 @@ namespace Musicista
             PreviewMouseWheel += Zoom;
 
             SidebarInformation = new SidebarInformation();
+            SidebarView = new SidebarView();
+            SidebarAlgorithms = new SidebarAlgorithms();
             Sidebar.Content = SidebarInformation;
 
             var serializer = new XmlSerializer(typeof(ScorePartwise));
             using (var fileStream = new FileStream("score.xml", FileMode.Open))
             {
                 var result = (ScorePartwise)serializer.Deserialize(fileStream);
-
-                _currentPiece = Mapper.MapMusicXMLPartwiseToMusicistaPiece(result);
-                _pageList = UIHelper.DrawPiece(_currentPiece);
-
-                var pages = new StackPanel();
-                foreach (var page in _pageList)
-                    pages.Children.Add(page);
-                pages.Children.Add(new Canvas { Height = 200 });
-                CanvasScrollViewer.Content = pages;
+                DrawPiece(Mapper.MapMusicXMLPartwiseToMusicistaPiece(result));
             }
-
-            /*
-
-            pageList = UIHelper.DrawPiece(Examples.ExampleData.GetBeethoven7());
-
-            var pages = new StackPanel();
-            foreach (var page in pageList)
-                pages.Children.Add(page);
-            pages.Children.Add(new Canvas { Height = 200 });
-            CanvasScrollViewer.Content = pages;
-             */
         }
 
         private void ShowCollection(object sender, RoutedEventArgs e)
@@ -75,17 +61,17 @@ namespace Musicista
 
         private void ShowSidebarInformation(object sender, RoutedEventArgs e)
         {
-            Sidebar.Content = new SidebarInformation();
+            Sidebar.Content = SidebarInformation;
         }
 
         private void ShowSidebarView(object sender, RoutedEventArgs e)
         {
-            Sidebar.Content = new SidebarView();
+            Sidebar.Content = SidebarView;
         }
 
         private void ShowSidebarAlgorithms(object sender, RoutedEventArgs e)
         {
-            Sidebar.Content = new SidebarAlgorithms();
+            Sidebar.Content = SidebarAlgorithms;
         }
 
         public void Zoom(object sender, MouseWheelEventArgs e)
@@ -131,25 +117,36 @@ namespace Musicista
 
         private void Open(object sender, RoutedEventArgs e)
         {
-            /*
-            string filepath = "";
-            var openFileDialog1 = new OpenFileDialog {Filter = "MusicXML (*.xml)|*.xml|All files (*.*)|*.*"};
-            if (openFileDialog1.ShowDialog() == true)
-                filepath = openFileDialog1.FileName;
-            */
-            var serializer = new XmlSerializer(typeof(ScorePartwise));
-            using (var fileStream = new FileStream("score.xml", FileMode.Open))
+            var openFileDialog = new OpenFileDialog { Filter = "Supported Files|*.xml;*.musicista|MusicXML (*.xml)|*.xml|Musicista (*.musicista)|*.musicista|All files (*.*)|*.*" };
+            if (openFileDialog.ShowDialog() != true)
+                return;
+
+            try
             {
-                var result = (ScorePartwise)serializer.Deserialize(fileStream);
+                using (var fileStream = new FileStream(openFileDialog.FileName, FileMode.Open))
+                {
+                    switch (Path.GetExtension(openFileDialog.FileName))
+                    {
+                        case ".xml":
+                            var xmlSerializer = new XmlSerializer(typeof(ScorePartwise));
+                            var result = (ScorePartwise)xmlSerializer.Deserialize(fileStream);
+                            DrawPiece(Mapper.MapMusicXMLPartwiseToMusicistaPiece(result));
+                            break;
+                        case ".musicista":
+                            var musicistaSerializer = new XmlSerializer(typeof(Piece));
+                            DrawPiece((Piece)musicistaSerializer.Deserialize(fileStream));
+                            break;
+                        default:
+                            Console.WriteLine(@"Cannot open filetype " + Path.GetExtension(openFileDialog.FileName));
+                            break;
+                    }
 
-                _currentPiece = Mapper.MapMusicXMLPartwiseToMusicistaPiece(result);
-                _pageList = UIHelper.DrawPiece(_currentPiece);
 
-                var pages = new StackPanel();
-                foreach (var page in _pageList)
-                    pages.Children.Add(page);
-                pages.Children.Add(new Canvas { Height = 200 });
-                CanvasScrollViewer.Content = pages;
+                }
+            }
+            catch (IOException exception)
+            {
+                MessageBox.Show("Error while loading file: " + exception.Message, "Error");
             }
         }
 
@@ -165,6 +162,18 @@ namespace Musicista
         private void ClickSaveAs(object sender, RoutedEventArgs e)
         {
             throw new NotImplementedException();
+        }
+
+        private void DrawPiece(Piece piece)
+        {
+            _currentPiece = piece;
+            _pageList = UIHelper.DrawPiece(_currentPiece);
+
+            var pages = new StackPanel();
+            foreach (var page in _pageList)
+                pages.Children.Add(page);
+            pages.Children.Add(new Canvas { Height = 200 });
+            CanvasScrollViewer.Content = pages;
         }
     }
 }

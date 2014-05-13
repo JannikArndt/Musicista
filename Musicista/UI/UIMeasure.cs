@@ -100,7 +100,9 @@ namespace Musicista.UI
 
         public override string ToString()
         {
-            return "Measure #" + InnerMeasure.ParentMeasureGroup.MeasureNumber;
+            if (InnerMeasure.ParentMeasureGroup != null)
+                return "Measure #" + InnerMeasure.ParentMeasureGroup.MeasureNumber;
+            return "Measure";
         }
     }
 }

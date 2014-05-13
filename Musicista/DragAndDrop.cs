@@ -88,7 +88,7 @@ namespace Musicista
                 if (hitTestResult != null && hitTestResult.VisualHit != null)
                 {
                     var hit = hitTestResult.VisualHit as Canvas;
-                    if (hit != null && !Equals(hit, _draggedOverCanvas) && !Equals(hit, _rootCanvas) && !Equals(hit, _draggedElement))
+                    if (hit != null && !Equals(hit, _draggedOverCanvas) && !Equals(hit, _rootCanvas) && !Equals(hit, _draggedElement) && hit.GetType() == typeof(UIMeasure))
                     {
                         if (_draggedOverCanvas != null)
                             _draggedOverCanvas.Background = _originalBackground;

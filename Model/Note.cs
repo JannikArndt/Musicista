@@ -9,6 +9,7 @@ namespace Model
         public int Octave { get; set; }
         public int Velocity { get; set; } // 0-127, c.f. midi
 
+        public Note() { }
         public int PitchIsHigherThan(Pitch otherStep, int otherOctave)
         {
             if (Octave == otherOctave)

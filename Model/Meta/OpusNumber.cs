@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace Model
 {
     public class OpusNumber
@@ -23,7 +19,8 @@ namespace Model
                 return "-";
             }
         }
-
+        public OpusNumber()
+        { }
         public OpusNumber(int number = 0, int subnumber = 0, bool posthum = false)
         {
             Number = number;

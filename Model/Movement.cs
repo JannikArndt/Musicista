@@ -9,5 +9,6 @@ namespace Model
         public string Tempo { get; set; } // Adagio
         public string Name { get; set; } // Mahler 2, IV: "Urlicht"
         public int BeatsPerMinute { get; set; } // see Beethovens symphonies
+        public Movement() { }
     }
 }

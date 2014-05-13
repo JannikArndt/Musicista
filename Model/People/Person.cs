@@ -38,6 +38,7 @@ namespace Model
         public DateTime Born { get; set; }
         public DateTime Died { get; set; }
 
+        public Person() { }
         public override string ToString()
         {
             return FullName;

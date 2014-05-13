@@ -9,5 +9,6 @@ namespace Model
     {
         public List<Passage> ListOfPassages { get; set; }
         public string Title { get; set; }
+        public Segment() { }
     }
 }

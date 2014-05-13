@@ -151,5 +151,19 @@ namespace Musicista
                 CanvasScrollViewer.Content = pages;
             }
         }
+
+        private void ClickSave(object sender, RoutedEventArgs e)
+        {
+            var serializer = new XmlSerializer(typeof(Piece));
+            using (TextWriter writer = new StreamWriter(@"newFile.musicista"))
+            {
+                serializer.Serialize(writer, _currentPiece);
+            }
+        }
+
+        private void ClickSaveAs(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

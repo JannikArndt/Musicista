@@ -19,8 +19,8 @@
                 <Separator />
                 <MenuItem Header="_Open..."></MenuItem>
                 <Separator />
-                <MenuItem Header="_Save"></MenuItem>
-                <MenuItem Header="_Save as..."></MenuItem>
+                <MenuItem Header="_Save" Click="ClickSave"></MenuItem>
+                <MenuItem Header="_Save as..." Click="ClickSaveAs"></MenuItem>
                 <Separator />
                 <MenuItem Header="Print..." Click="Print"></MenuItem>
                 <Separator />

@@ -30,7 +30,7 @@ namespace Model
         public string Copyright { get; set; }
         public string Publisher { get; set; }
         public string Reduction { get; set; }
-        public Uri Weblink { get; set; }
+        public string Weblink { get; set; }
         public string Notes { get; set; }
 
 

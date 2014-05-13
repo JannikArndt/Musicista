@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace Model
 {
     /// <summary>
@@ -15,6 +11,7 @@ namespace Model
         public bool IsCommon = false; // 4/4 = c
         public bool IsCutCommon = false; // 2/2 = </:
 
+        public TimeSignature() { }
         public TimeSignature(int beats, int beatUnit)
         {
             Beats = beats;
@@ -23,7 +20,7 @@ namespace Model
 
         public TimeSignature(bool isCommon = false, bool isCutCommon = false)
         {
-            if(isCommon)
+            if (isCommon)
             {
                 IsCommon = true;
                 Beats = 4;

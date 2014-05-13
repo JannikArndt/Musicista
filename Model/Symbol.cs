@@ -10,5 +10,6 @@ namespace Model
         public string Text { get; set; }
         public List<Expression> ListOfExpressionalModifiers { get; set; }
         public List<Ornament> ListOfOrnaments { get; set; }
+        public Symbol() { }
     }
 }

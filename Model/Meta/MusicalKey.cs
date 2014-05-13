@@ -6,6 +6,7 @@ namespace Model.Meta
         public Pitch Pitch;
         public Gender Gender;
 
+        public MusicalKey() { }
         public MusicalKey(Pitch pitch, Gender gender)
         {
             Pitch = pitch;
@@ -17,9 +18,16 @@ namespace Model.Meta
             var item = obj as MusicalKey;
             if (item == null)
                 return false;
+            // ReSharper disable once BaseObjectEqualsIsObjectEquals
             if (base.Equals(obj))
                 return true;
             return (Pitch.Equals(item.Pitch) && Gender.Equals(item.Gender));
+        }
+
+        public override int GetHashCode()
+        {
+            // ReSharper disable once BaseObjectGetHashCodeCallInGetHashCode
+            return base.GetHashCode();
         }
     }
 }

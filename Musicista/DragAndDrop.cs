@@ -24,6 +24,9 @@ namespace Musicista
 
         public static void DragStart(object sender, MouseButtonEventArgs e)
         {
+            if (SelectedTool != ToolKind.Edit)
+                return;
+
             if (_captured)
                 DragEnd(sender, e);
 
@@ -69,6 +72,9 @@ namespace Musicista
 
         public static void Drag(object sender, MouseEventArgs e)
         {
+            if (SelectedTool != ToolKind.Edit)
+                return;
+
             if (_captured && Mouse.LeftButton == MouseButtonState.Pressed)
             {
                 // Get new mouse position relative to root canvas
@@ -109,6 +115,9 @@ namespace Musicista
 
         public static void DragEnd(object sender, MouseButtonEventArgs e)
         {
+            if (SelectedTool != ToolKind.Edit)
+                return;
+
             Mouse.Capture(null);
             _captured = false;
             Console.WriteLine(@"End dragging");

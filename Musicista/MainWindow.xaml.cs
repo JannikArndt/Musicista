@@ -24,6 +24,7 @@ namespace Musicista
         public static SidebarView SidebarView;
         public static SidebarAlgorithms SidebarAlgorithms;
         private Piece _currentPiece;
+        private SidebarKind _sidebarKind;
 
         public MainWindow()
         {
@@ -34,6 +35,8 @@ namespace Musicista
             SidebarView = new SidebarView();
             SidebarAlgorithms = new SidebarAlgorithms();
             Sidebar.Content = SidebarInformation;
+            _sidebarKind = SidebarKind.Information;
+            ButtonPathInformation.Fill = Brushes.DodgerBlue;
 
             var serializer = new XmlSerializer(typeof(ScorePartwise));
             using (var fileStream = new FileStream("score.xml", FileMode.Open))
@@ -62,16 +65,41 @@ namespace Musicista
         private void ShowSidebarInformation(object sender, RoutedEventArgs e)
         {
             Sidebar.Content = SidebarInformation;
+            SetSidebarButtonPathFill(SidebarKind.Information);
         }
 
         private void ShowSidebarView(object sender, RoutedEventArgs e)
         {
             Sidebar.Content = SidebarView;
+            SetSidebarButtonPathFill(SidebarKind.View);
         }
 
         private void ShowSidebarAlgorithms(object sender, RoutedEventArgs e)
         {
             Sidebar.Content = SidebarAlgorithms;
+            SetSidebarButtonPathFill(SidebarKind.Algorithms);
+        }
+
+        private void SetSidebarButtonPathFill(SidebarKind selected)
+        {
+            switch (selected)
+            {
+                case SidebarKind.Information:
+                    ButtonPathInformation.Fill = Brushes.DodgerBlue;
+                    ButtonPathView.Fill = Brushes.Black;
+                    ButtonPathAlgorithms.Fill = Brushes.Black;
+                    break;
+                case SidebarKind.View:
+                    ButtonPathInformation.Fill = Brushes.Black;
+                    ButtonPathView.Fill = Brushes.DodgerBlue;
+                    ButtonPathAlgorithms.Fill = Brushes.Black;
+                    break;
+                case SidebarKind.Algorithms:
+                    ButtonPathInformation.Fill = Brushes.Black;
+                    ButtonPathView.Fill = Brushes.Black;
+                    ButtonPathAlgorithms.Fill = Brushes.DodgerBlue;
+                    break;
+            }
         }
 
         public void Zoom(object sender, MouseWheelEventArgs e)

@@ -62,6 +62,7 @@
     <Compile Include="DragAndDrop.cs" />
     <Compile Include="Engraving.cs" />
     <Compile Include="Mapper.cs" />
+    <Compile Include="Sidebar\SidebarKind.cs" />
     <Compile Include="Sidebar\SidebarAlgorithms.xaml.cs">
       <DependentUpon>SidebarAlgorithms.xaml</DependentUpon>
     </Compile>

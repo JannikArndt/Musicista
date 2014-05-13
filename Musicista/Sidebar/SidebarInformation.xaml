@@ -10,7 +10,7 @@
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Name="TitleTextBlock" FontSize="20" HorizontalAlignment="Center">Informationen</TextBlock>
+        <TextBlock Grid.Row="0" Name="TitleTextBlock" FontSize="20" HorizontalAlignment="Center">Information</TextBlock>
         <StackPanel Grid.Row="1" Orientation="Vertical" Name="SidebarPanel">
             <TextBlock Name="Clicked"></TextBlock>
         </StackPanel>

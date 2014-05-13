@@ -20,8 +20,8 @@ namespace Musicista
     public partial class MainWindow
     {
         private static List<Canvas> _pageList;
-        private Piece _currentPiece;
-        private string fileName = "";
+        public static Piece CurrentPiece;
+        private string _fileName = "";
 
         public MainWindow()
         {
@@ -41,6 +41,8 @@ namespace Musicista
                 var result = (ScorePartwise)serializer.Deserialize(fileStream);
                 DrawPiece(Mapper.MapMusicXMLPartwiseToMusicistaPiece(result));
             }
+
+            SidebarInformation.ShowPiece();
         }
 
         public void Zoom(object sender, MouseWheelEventArgs e)
@@ -104,15 +106,16 @@ namespace Musicista
                         case ".musicista":
                             var musicistaSerializer = new XmlSerializer(typeof(Piece));
                             DrawPiece((Piece)musicistaSerializer.Deserialize(fileStream));
-                            fileName = openFileDialog.FileName;
+                            _fileName = openFileDialog.FileName;
                             break;
                         default:
                             MessageBox.Show(@"Cannot open filetype " + Path.GetExtension(openFileDialog.FileName), "Error");
                             break;
                     }
-
-
                 }
+                SidebarInformation.ShowPiece();
+                Sidebar.Content = SidebarInformation;
+                SetSidebarButtonPathFill(SidebarKind.Information);
             }
             catch (IOException exception)
             {
@@ -122,36 +125,36 @@ namespace Musicista
 
         private void ClickSave(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(fileName))
+            if (string.IsNullOrEmpty(_fileName))
                 ClickSaveAs(sender, e);
             else
             {
                 var serializer = new XmlSerializer(typeof(Piece));
-                using (TextWriter writer = new StreamWriter(fileName))
+                using (TextWriter writer = new StreamWriter(_fileName))
                 {
-                    serializer.Serialize(writer, _currentPiece);
+                    serializer.Serialize(writer, CurrentPiece);
                 }
             }
         }
 
         private void ClickSaveAs(object sender, RoutedEventArgs e)
         {
-            var saveFileDialog = new SaveFileDialog { DefaultExt = ".musicista", Filter = "Musicista (*.musicista)|*.musicista", OverwritePrompt = true, FileName = _currentPiece.Title };
+            var saveFileDialog = new SaveFileDialog { DefaultExt = ".musicista", Filter = "Musicista (*.musicista)|*.musicista", OverwritePrompt = true, FileName = CurrentPiece.Title };
             if (saveFileDialog.ShowDialog() != true)
                 return;
 
-            fileName = saveFileDialog.FileName;
+            _fileName = saveFileDialog.FileName;
             var serializer = new XmlSerializer(typeof(Piece));
-            using (TextWriter writer = new StreamWriter(fileName))
+            using (TextWriter writer = new StreamWriter(_fileName))
             {
-                serializer.Serialize(writer, _currentPiece);
+                serializer.Serialize(writer, CurrentPiece);
             }
         }
 
         private void DrawPiece(Piece piece)
         {
-            _currentPiece = piece;
-            _pageList = UIHelper.DrawPiece(_currentPiece);
+            CurrentPiece = piece;
+            _pageList = UIHelper.DrawPiece(CurrentPiece);
 
             var pages = new StackPanel();
             foreach (var page in _pageList)

@@ -60,5 +60,44 @@ namespace Musicista.Sidebar
             SidebarPanel.Children.Add(instrument);
 
         }
+
+        public void ShowPiece()
+        {
+            if (MainWindow.CurrentPiece == null)
+                return;
+            var piece = MainWindow.CurrentPiece;
+            TitleTextBlock.Text = piece.Title;
+            SidebarPanel.Children.Clear();
+
+            var grid = new Grid { Margin = new Thickness(10) };
+            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(30) });
+            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(30) });
+            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(30) });
+            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(60) });
+            grid.ColumnDefinitions.Add(new ColumnDefinition());
+
+            var tbTitle = new TextBlock { Text = "Title" };
+            Grid.SetRow(tbTitle, 0);
+            Grid.SetColumn(tbTitle, 0);
+
+            var txTitle = new TextBox { Text = piece.Title };
+            Grid.SetRow(txTitle, 0);
+            Grid.SetColumn(txTitle, 1);
+
+            var tbComposer = new TextBlock { Text = "Composer" };
+            Grid.SetRow(tbComposer, 1);
+            Grid.SetColumn(tbComposer, 0);
+
+            var txComposer = new TextBox { Text = piece.ListOfComposers[0].FullName };
+            Grid.SetRow(txComposer, 1);
+            Grid.SetColumn(txComposer, 1);
+
+            grid.Children.Add(tbTitle);
+            grid.Children.Add(txTitle);
+            grid.Children.Add(tbComposer);
+            grid.Children.Add(txComposer);
+
+            SidebarPanel.Children.Add(grid);
+        }
     }
 }

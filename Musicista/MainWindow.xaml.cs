@@ -21,6 +21,7 @@ namespace Musicista
     {
         private static List<Canvas> _pageList;
         private Piece _currentPiece;
+        private string fileName = "";
 
         public MainWindow()
         {
@@ -103,9 +104,10 @@ namespace Musicista
                         case ".musicista":
                             var musicistaSerializer = new XmlSerializer(typeof(Piece));
                             DrawPiece((Piece)musicistaSerializer.Deserialize(fileStream));
+                            fileName = openFileDialog.FileName;
                             break;
                         default:
-                            Console.WriteLine(@"Cannot open filetype " + Path.GetExtension(openFileDialog.FileName));
+                            MessageBox.Show(@"Cannot open filetype " + Path.GetExtension(openFileDialog.FileName), "Error");
                             break;
                     }
 
@@ -120,16 +122,30 @@ namespace Musicista
 
         private void ClickSave(object sender, RoutedEventArgs e)
         {
-            var serializer = new XmlSerializer(typeof(Piece));
-            using (TextWriter writer = new StreamWriter(@"newFile.musicista"))
+            if (string.IsNullOrEmpty(fileName))
+                ClickSaveAs(sender, e);
+            else
             {
-                serializer.Serialize(writer, _currentPiece);
+                var serializer = new XmlSerializer(typeof(Piece));
+                using (TextWriter writer = new StreamWriter(fileName))
+                {
+                    serializer.Serialize(writer, _currentPiece);
+                }
             }
         }
 
         private void ClickSaveAs(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            var saveFileDialog = new SaveFileDialog { DefaultExt = ".musicista", Filter = "Musicista (*.musicista)|*.musicista", OverwritePrompt = true, FileName = _currentPiece.Title };
+            if (saveFileDialog.ShowDialog() != true)
+                return;
+
+            fileName = saveFileDialog.FileName;
+            var serializer = new XmlSerializer(typeof(Piece));
+            using (TextWriter writer = new StreamWriter(fileName))
+            {
+                serializer.Serialize(writer, _currentPiece);
+            }
         }
 
         private void DrawPiece(Piece piece)

@@ -88,7 +88,9 @@ namespace Musicista.Sidebar
             Grid.SetRow(tbComposer, 1);
             Grid.SetColumn(tbComposer, 0);
 
-            var txComposer = new TextBox { Text = piece.ListOfComposers[0].FullName };
+            var txComposer = new TextBox();
+            if (piece.ListOfComposers != null && piece.ListOfComposers.Count > 0 && piece.ListOfComposers[0].FullName != null)
+                txComposer.Text = piece.ListOfComposers[0].FullName;
             Grid.SetRow(txComposer, 1);
             Grid.SetColumn(txComposer, 1);
 

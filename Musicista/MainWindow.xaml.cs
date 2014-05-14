@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace Musicista
@@ -94,24 +95,45 @@ namespace Musicista
 
             try
             {
-                using (var fileStream = new FileStream(openFileDialog.FileName, FileMode.Open))
+
+                switch (Path.GetExtension(openFileDialog.FileName))
                 {
-                    switch (Path.GetExtension(openFileDialog.FileName))
-                    {
-                        case ".xml":
-                            var xmlSerializer = new XmlSerializer(typeof(ScorePartwise));
-                            var result = (ScorePartwise)xmlSerializer.Deserialize(fileStream);
-                            DrawPiece(Mapper.MapMusicXMLPartwiseToMusicistaPiece(result));
-                            break;
-                        case ".musicista":
+                    case ".xml":
+                        var xdoc = XDocument.Load(openFileDialog.FileName);
+                        if (xdoc.Root != null)
+                            switch (xdoc.Root.Name.LocalName)
+                            {
+                                case "score-partwise":
+                                    {
+                                        var xmlSerializer = new XmlSerializer(typeof(ScorePartwise));
+                                        var result = (ScorePartwise)xmlSerializer.Deserialize(xdoc.CreateReader());
+                                        DrawPiece(Mapper.MapMusicXMLPartwiseToMusicistaPiece(result));
+                                    }
+                                    break;
+                                case "score-timewise":
+                                    {
+                                        var xmlSerializer = new XmlSerializer(typeof(ScoreTimewise));
+                                        var result = (ScoreTimewise)xmlSerializer.Deserialize(xdoc.CreateReader());
+                                        DrawPiece(Mapper.MapMusicXMLTimewiseToMusicistaPiece(result));
+                                    }
+                                    break;
+                                default:
+                                    MessageBox.Show(@"Cannot open file " + Path.GetExtension(openFileDialog.FileName) + " because it does not seem to be valid MusicXML.", "Error");
+                                    break;
+                            }
+                        break;
+                    case ".musicista":
+                        using (var fileStream = new FileStream(openFileDialog.FileName, FileMode.Open))
+                        {
                             var musicistaSerializer = new XmlSerializer(typeof(Piece));
                             DrawPiece((Piece)musicistaSerializer.Deserialize(fileStream));
                             _fileName = openFileDialog.FileName;
-                            break;
-                        default:
-                            MessageBox.Show(@"Cannot open filetype " + Path.GetExtension(openFileDialog.FileName), "Error");
-                            break;
-                    }
+                        }
+                        break;
+                    default:
+                        MessageBox.Show(@"Cannot open filetype " + Path.GetExtension(openFileDialog.FileName), "Error");
+                        break;
+
                 }
                 SidebarInformation.ShowPiece();
                 Sidebar.Content = SidebarInformation;

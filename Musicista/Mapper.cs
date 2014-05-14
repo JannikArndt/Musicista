@@ -95,6 +95,11 @@ namespace Musicista
             return piece;
         }
 
+        public static Piece MapMusicXMLTimewiseToMusicistaPiece(ScoreTimewise mxml)
+        {
+            return new Piece { Title = "Timewise: " + mxml.Work.WorkTitle };
+        }
+
         public static Symbol CreateNoteFromMXMLNote(note mxmlNote, double beat = 1.0)
         {
             if (mxmlNote == null || mxmlNote.Items == null || !mxmlNote.Items.Any())

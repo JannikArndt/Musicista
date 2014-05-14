@@ -12,37 +12,14 @@ namespace MusicXML
     [DesignerCategory("code")]
     [XmlType(AnonymousType = true)]
     [XmlRoot("score-partwise", Namespace = "", IsNullable = false)]
-    public class ScorePartwise
+    public class ScorePartwise : MusicXMLScore
     {
         public ScorePartwise()
         {
             Version = "2.0";
         }
-        [XmlElement("work")]
-        public work Work { get; set; }
-
-        [XmlElement("movement-number")]
-        public string MovementNumber { get; set; }
-
-        [XmlElement("movement-title")]
-        public string MovementTitle { get; set; }
-
-        [XmlElement("identification")]
-        public identification Identification { get; set; }
-
-        [XmlElement("defaults")]
-        public defaults Defaults { get; set; }
-
-        [XmlElement("credit")]
-        public credit[] Credit { get; set; }
-
-        [XmlElement("part-list")]
-        public partlist PartList { get; set; }
 
         [XmlElement("part")]
         public ScorePartwisePart[] Part { get; set; }
-
-        [XmlAttribute("version", DataType = "token"), DefaultValue("1.0")]
-        public string Version { get; set; }
     }
 }

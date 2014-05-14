@@ -190,6 +190,7 @@
     <Compile Include="miscellaneousfield.cs" />
     <Compile Include="mordent.cs" />
     <Compile Include="multiplerest.cs" />
+    <Compile Include="MusicXMLScore.cs" />
     <Compile Include="mute.cs" />
     <Compile Include="namedisplay.cs" />
     <Compile Include="nonarpeggiate.cs" />

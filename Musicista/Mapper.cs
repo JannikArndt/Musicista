@@ -10,7 +10,7 @@ namespace Musicista
 {
     public static class Mapper
     {
-        public static Piece MapMusicXMLPartwiseToMusicistaPiece(ScorePartwise mxml)
+        public static Piece MacMusicXMLToMusicista(MusicXMLScore mxml)
         {
             var piece = new Piece
             {
@@ -44,10 +44,9 @@ namespace Musicista
                         }
                     }
             };
-
-            foreach (typedtext creator in mxml.Identification.creator.Where(creator => creator.type == "composer"))
-                piece.ListOfComposers.Add(new Composer { FullName = creator.Value });
-
+            if (mxml.Identification != null && mxml.Identification.creator != null)
+                foreach (var creator in mxml.Identification.creator.Where(creator => creator.type == "composer"))
+                    piece.ListOfComposers.Add(new Composer { FullName = creator.Value });
 
             // Partlist.scorepart = first <score-part/>, PartList.items except last one = other <score-parts/>
             piece.ListOfInstruments.Add(new Instrument(mxml.PartList.scorepart.partname.Value,
@@ -56,8 +55,17 @@ namespace Musicista
                 piece.ListOfInstruments.Add(new Instrument(scorepart.partname.Value,
                     int.Parse(Regex.Match(scorepart.id, @"\d+").Value)));
 
+            if (mxml.GetType() == typeof(ScorePartwise))
+                MapPartwiseMeasuresToPiece((ScorePartwise)mxml, piece);
+            else if (mxml.GetType() == typeof(ScoreTimewise))
+                MapTimewiseMeasuresToPiece((ScoreTimewise)mxml, piece);
+
+            return piece;
+        }
+        public static Piece MapPartwiseMeasuresToPiece(ScorePartwise mxml, Piece piece)
+        {
             // take the first part, go through all measure, for each measure look up the other parts
-            for (int measureNumber = 0; measureNumber < mxml.Part[0].Measure.Length; measureNumber++)
+            for (var measureNumber = 0; measureNumber < mxml.Part[0].Measure.Length; measureNumber++)
             {
                 ScorePartwisePartMeasure measure = mxml.Part[0].Measure[measureNumber];
                 var measureGroup = new MeasureGroup
@@ -68,7 +76,7 @@ namespace Musicista
                     Measures = new List<Measure>()
                 };
 
-                for (int partNumber = 0; partNumber < mxml.Part.Length; partNumber++)
+                for (var partNumber = 0; partNumber < mxml.Part.Length; partNumber++)
                 {
                     var part = new Measure
                     {
@@ -95,9 +103,9 @@ namespace Musicista
             return piece;
         }
 
-        public static Piece MapMusicXMLTimewiseToMusicistaPiece(ScoreTimewise mxml)
+        public static Piece MapTimewiseMeasuresToPiece(ScoreTimewise mxml, Piece piece)
         {
-            return new Piece { Title = "Timewise: " + mxml.Work.WorkTitle };
+            return piece;
         }
 
         public static Symbol CreateNoteFromMXMLNote(note mxmlNote, double beat = 1.0)

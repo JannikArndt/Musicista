@@ -40,7 +40,7 @@ namespace Musicista
             using (var fileStream = new FileStream("score.xml", FileMode.Open))
             {
                 var result = (ScorePartwise)serializer.Deserialize(fileStream);
-                DrawPiece(Mapper.MapMusicXMLPartwiseToMusicistaPiece(result));
+                DrawPiece(Mapper.MacMusicXMLToMusicista(result));
             }
 
             SidebarInformation.ShowPiece();
@@ -95,10 +95,10 @@ namespace Musicista
 
             try
             {
-
                 switch (Path.GetExtension(openFileDialog.FileName))
                 {
                     case ".xml":
+                        // based upon http://stackoverflow.com/a/23663586/1507481
                         var xdoc = XDocument.Load(openFileDialog.FileName);
                         if (xdoc.Root != null)
                             switch (xdoc.Root.Name.LocalName)
@@ -107,14 +107,14 @@ namespace Musicista
                                     {
                                         var xmlSerializer = new XmlSerializer(typeof(ScorePartwise));
                                         var result = (ScorePartwise)xmlSerializer.Deserialize(xdoc.CreateReader());
-                                        DrawPiece(Mapper.MapMusicXMLPartwiseToMusicistaPiece(result));
+                                        DrawPiece(Mapper.MacMusicXMLToMusicista(result));
                                     }
                                     break;
                                 case "score-timewise":
                                     {
                                         var xmlSerializer = new XmlSerializer(typeof(ScoreTimewise));
                                         var result = (ScoreTimewise)xmlSerializer.Deserialize(xdoc.CreateReader());
-                                        DrawPiece(Mapper.MapMusicXMLTimewiseToMusicistaPiece(result));
+                                        DrawPiece(Mapper.MacMusicXMLToMusicista(result));
                                     }
                                     break;
                                 default:

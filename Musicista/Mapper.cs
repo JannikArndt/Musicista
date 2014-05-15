@@ -62,11 +62,19 @@ namespace Musicista
 
             return piece;
         }
+        /// <summary>
+        /// Maps a partwise-MusicXML-Object to a Musicista Piece. The structure is 
+        /// <score-partwise><part id="P1"><measure number="1"></measure><measure number="2"></measure>...</part><part id="P2">...</part></score-partwise>
+        /// </summary>
+        /// <param name="mxml">A ScorePartwise-object</param>
+        /// <param name="piece">The Piece-object the measures will be added to</param>
+        /// <returns>The given Piece with the measures in it.</returns>
         public static Piece MapPartwiseMeasuresToPiece(ScorePartwise mxml, Piece piece)
         {
             // take the first part, go through all measure, for each measure look up the other parts
             for (var measureNumber = 0; measureNumber < mxml.Part[0].Measure.Length; measureNumber++)
             {
+                // 1. Create a parent MeasureGroup
                 ScorePartwisePartMeasure measure = mxml.Part[0].Measure[measureNumber];
                 var measureGroup = new MeasureGroup
                 {
@@ -76,14 +84,17 @@ namespace Musicista
                     Measures = new List<Measure>()
                 };
 
+                // 2. Go through all <Part>s, 
                 for (var partNumber = 0; partNumber < mxml.Part.Length; partNumber++)
                 {
-                    var part = new Measure
+                    // 3. create a new measure for each part
+                    var newMeasure = new Measure
                     {
                         Instrument = piece.ListOfInstruments[partNumber],
                         ListOfSymbols = new List<Symbol>(),
                         ParentMeasureGroup = measureGroup
                     };
+                    // 4. and add the Notes and Rests of each Measure
                     var notes = mxml.Part[partNumber].Measure[measureNumber].Items.Where(item => item.GetType() == typeof(note));
 
                     double beat = 256;
@@ -92,10 +103,10 @@ namespace Musicista
                     {
                         var newNote = CreateNoteFromMXMLNote(mxmlNote, beat / 256);
                         beat += (int)newNote.Duration;
-                        part.ListOfSymbols.Add(newNote);
+                        newMeasure.ListOfSymbols.Add(newNote);
                     }
 
-                    measureGroup.Measures.Add(part);
+                    measureGroup.Measures.Add(newMeasure);
                 }
                 piece.ListOfSections[0].ListOfMovements[0].ListOfSegments[0].ListOfPassages[0].ListOfMeasureGroups.Add(measureGroup);
             }
@@ -103,8 +114,51 @@ namespace Musicista
             return piece;
         }
 
+        /// <summary>
+        /// Maps a timewise-MusicXML-Object to a Musicista Piece. The structure is 
+        /// <score-timewise><measure number="1"><part id="P1"><note></note>...</part><part id="P2">...</part></measure></score-timewise>
+        /// </summary>
+        /// <param name="mxml">A ScoreTimewise-object</param>
+        /// <param name="piece">The Piece-object the measures will be added to</param>
+        /// <returns>The given Piece with the measures in it.</returns>
         public static Piece MapTimewiseMeasuresToPiece(ScoreTimewise mxml, Piece piece)
         {
+            foreach (var measure in mxml.Measure)
+            {
+                var measureGroup = new MeasureGroup
+                {
+                    MeasureNumber = int.Parse(Regex.Match(measure.number, @"\d+").Value),
+                    TimeSignature = null,
+                    KeySignature = null,
+                    Measures = new List<Measure>()
+                };
+
+                for (var partNumber = 0; partNumber < measure.part.Length; partNumber++)
+                {
+                    var newMeasure = new Measure
+                    {
+                        Instrument = piece.ListOfInstruments[partNumber],
+                        ListOfSymbols = new List<Symbol>(),
+                        ParentMeasureGroup = measureGroup
+                    };
+
+                    // Grab all Notes and Rests from the current <Part>
+                    var notes = measure.part[partNumber].Items.Where(item => item.GetType() == typeof(note));
+
+                    double beat = 256;
+
+                    foreach (note mxmlNote in notes)
+                    {
+                        var newNote = CreateNoteFromMXMLNote(mxmlNote, beat / 256);
+                        beat += (int)newNote.Duration;
+                        newMeasure.ListOfSymbols.Add(newNote);
+                    }
+
+                    measureGroup.Measures.Add(newMeasure);
+                }
+                piece.ListOfSections[0].ListOfMovements[0].ListOfSegments[0].ListOfPassages[0].ListOfMeasureGroups.Add(measureGroup);
+            }
+
             return piece;
         }
 
@@ -143,7 +197,7 @@ namespace Musicista
                 var durationString = mxmlNote.Items.First(item => item is decimal).ToString();
                 newNote.Duration = (Duration)int.Parse(durationString);
                 if (!Enum.IsDefined(typeof(Duration), newNote.Duration))
-                    Console.WriteLine("Error parsing duration " + durationString);
+                    Console.WriteLine(@"Error parsing duration " + durationString);
                 newNote.Octave = int.Parse(((pitch)mxmlNote.Items.First(item => item is pitch)).octave);
 
                 newNote.Step = GetPitchFromMXMLNote(mxmlNote);

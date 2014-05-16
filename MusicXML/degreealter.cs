@@ -1,56 +1,59 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "degree-alter")]
-public partial class degreealter
+namespace MusicXML
 {
-
-    private yesno plusminusField;
-
-    private bool plusminusFieldSpecified;
-
-    private decimal valueField;
-
-
-    [System.Xml.Serialization.XmlAttributeAttribute("plus-minus")]
-    public yesno plusminus
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "degree-alter")]
+    public partial class degreealter
     {
-        get
-        {
-            return this.plusminusField;
-        }
-        set
-        {
-            this.plusminusField = value;
-        }
-    }
+
+        private yesno plusminusField;
+
+        private bool plusminusFieldSpecified;
+
+        private decimal valueField;
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool plusminusSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("plus-minus")]
+        public yesno plusminus
         {
-            return this.plusminusFieldSpecified;
+            get
+            {
+                return this.plusminusField;
+            }
+            set
+            {
+                this.plusminusField = value;
+            }
         }
-        set
-        {
-            this.plusminusFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlTextAttribute()]
-    public decimal Value
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool plusminusSpecified
         {
-            return this.valueField;
+            get
+            {
+                return this.plusminusFieldSpecified;
+            }
+            set
+            {
+                this.plusminusFieldSpecified = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public decimal Value
         {
-            this.valueField = value;
+            get
+            {
+                return this.valueField;
+            }
+            set
+            {
+                this.valueField = value;
+            }
         }
     }
 }

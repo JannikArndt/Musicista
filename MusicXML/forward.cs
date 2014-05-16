@@ -1,83 +1,86 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class forward
+namespace MusicXML
 {
-
-    private decimal durationField;
-
-    private formattedtext footnoteField;
-
-    private level levelField;
-
-    private string voiceField;
-
-    private string staffField;
-
-
-    public decimal duration
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class forward
     {
-        get
-        {
-            return this.durationField;
-        }
-        set
-        {
-            this.durationField = value;
-        }
-    }
+
+        private decimal durationField;
+
+        private formattedtext footnoteField;
+
+        private level levelField;
+
+        private string voiceField;
+
+        private string staffField;
 
 
-    public formattedtext footnote
-    {
-        get
+        public decimal duration
         {
-            return this.footnoteField;
+            get
+            {
+                return this.durationField;
+            }
+            set
+            {
+                this.durationField = value;
+            }
         }
-        set
-        {
-            this.footnoteField = value;
-        }
-    }
 
 
-    public level level
-    {
-        get
+        public formattedtext footnote
         {
-            return this.levelField;
+            get
+            {
+                return this.footnoteField;
+            }
+            set
+            {
+                this.footnoteField = value;
+            }
         }
-        set
-        {
-            this.levelField = value;
-        }
-    }
 
 
-    public string voice
-    {
-        get
+        public level level
         {
-            return this.voiceField;
+            get
+            {
+                return this.levelField;
+            }
+            set
+            {
+                this.levelField = value;
+            }
         }
-        set
-        {
-            this.voiceField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute(DataType = "positiveInteger")]
-    public string staff
-    {
-        get
+        public string voice
         {
-            return this.staffField;
+            get
+            {
+                return this.voiceField;
+            }
+            set
+            {
+                this.voiceField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlElementAttribute(DataType = "positiveInteger")]
+        public string staff
         {
-            this.staffField = value;
+            get
+            {
+                return this.staffField;
+            }
+            set
+            {
+                this.staffField = value;
+            }
         }
     }
 }

@@ -1,24 +1,27 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(IncludeInSchema = false)]
-public enum ItemsChoiceType6
+namespace MusicXML
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(IncludeInSchema = false)]
+    public enum ItemsChoiceType6
+    {
 
 
-    elision,
+        elision,
 
 
-    extend,
+        extend,
 
 
-    humming,
+        humming,
 
 
-    laughing,
+        laughing,
 
 
-    syllabic,
+        syllabic,
 
 
-    text,
+        text,
+    }
 }

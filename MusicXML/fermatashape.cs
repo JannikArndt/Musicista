@@ -2,20 +2,23 @@ using System;
 using System.CodeDom.Compiler;
 using System.Xml.Serialization;
 
-[GeneratedCode("xsd", "4.0.30319.33440")]
-[Serializable]
-[XmlType(TypeName = "fermata-shape")]
-public enum fermatashape
+namespace MusicXML
 {
-    normal,
+    [GeneratedCode("xsd", "4.0.30319.33440")]
+    [Serializable]
+    [XmlType(TypeName = "fermata-shape")]
+    public enum fermatashape
+    {
+        normal,
 
 
-    angled,
+        angled,
 
 
-    square,
+        square,
 
 
-    [XmlEnum("")]
-    Item,
+        [XmlEnum("")]
+        Item,
+    }
 }

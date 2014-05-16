@@ -1,88 +1,91 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "metronome-tuplet")]
-public partial class metronometuplet : timemodification
+namespace MusicXML
 {
-
-    private startstop typeField;
-
-    private yesno bracketField;
-
-    private bool bracketFieldSpecified;
-
-    private showtuplet shownumberField;
-
-    private bool shownumberFieldSpecified;
-
-
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public startstop type
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "metronome-tuplet")]
+    public partial class metronometuplet : timemodification
     {
-        get
-        {
-            return this.typeField;
-        }
-        set
-        {
-            this.typeField = value;
-        }
-    }
+
+        private startstop typeField;
+
+        private yesno bracketField;
+
+        private bool bracketFieldSpecified;
+
+        private showtuplet shownumberField;
+
+        private bool shownumberFieldSpecified;
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public yesno bracket
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public startstop type
         {
-            return this.bracketField;
+            get
+            {
+                return this.typeField;
+            }
+            set
+            {
+                this.typeField = value;
+            }
         }
-        set
-        {
-            this.bracketField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool bracketSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public yesno bracket
         {
-            return this.bracketFieldSpecified;
+            get
+            {
+                return this.bracketField;
+            }
+            set
+            {
+                this.bracketField = value;
+            }
         }
-        set
-        {
-            this.bracketFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("show-number")]
-    public showtuplet shownumber
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool bracketSpecified
         {
-            return this.shownumberField;
+            get
+            {
+                return this.bracketFieldSpecified;
+            }
+            set
+            {
+                this.bracketFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.shownumberField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool shownumberSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("show-number")]
+        public showtuplet shownumber
         {
-            return this.shownumberFieldSpecified;
+            get
+            {
+                return this.shownumberField;
+            }
+            set
+            {
+                this.shownumberField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool shownumberSpecified
         {
-            this.shownumberFieldSpecified = value;
+            get
+            {
+                return this.shownumberFieldSpecified;
+            }
+            set
+            {
+                this.shownumberFieldSpecified = value;
+            }
         }
     }
 }

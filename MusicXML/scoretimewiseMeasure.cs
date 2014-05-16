@@ -1,136 +1,139 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-public partial class scoretimewiseMeasure
+namespace MusicXML
 {
-
-    private scoretimewiseMeasurePart[] partField;
-
-    private string numberField;
-
-    private yesno implicitField;
-
-    private bool implicitFieldSpecified;
-
-    private yesno noncontrollingField;
-
-    private bool noncontrollingFieldSpecified;
-
-    private decimal widthField;
-
-    private bool widthFieldSpecified;
-
-
-    [System.Xml.Serialization.XmlElementAttribute("part")]
-    public scoretimewiseMeasurePart[] part
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class scoretimewiseMeasure
     {
-        get
-        {
-            return this.partField;
-        }
-        set
-        {
-            this.partField = value;
-        }
-    }
+
+        private scoretimewiseMeasurePart[] partField;
+
+        private string numberField;
+
+        private yesno implicitField;
+
+        private bool implicitFieldSpecified;
+
+        private yesno noncontrollingField;
+
+        private bool noncontrollingFieldSpecified;
+
+        private decimal widthField;
+
+        private bool widthFieldSpecified;
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
-    public string number
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("part")]
+        public scoretimewiseMeasurePart[] part
         {
-            return this.numberField;
+            get
+            {
+                return this.partField;
+            }
+            set
+            {
+                this.partField = value;
+            }
         }
-        set
-        {
-            this.numberField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public yesno @implicit
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
+        public string number
         {
-            return this.implicitField;
+            get
+            {
+                return this.numberField;
+            }
+            set
+            {
+                this.numberField = value;
+            }
         }
-        set
-        {
-            this.implicitField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool implicitSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public yesno @implicit
         {
-            return this.implicitFieldSpecified;
+            get
+            {
+                return this.implicitField;
+            }
+            set
+            {
+                this.implicitField = value;
+            }
         }
-        set
-        {
-            this.implicitFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("non-controlling")]
-    public yesno noncontrolling
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool implicitSpecified
         {
-            return this.noncontrollingField;
+            get
+            {
+                return this.implicitFieldSpecified;
+            }
+            set
+            {
+                this.implicitFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.noncontrollingField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool noncontrollingSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("non-controlling")]
+        public yesno noncontrolling
         {
-            return this.noncontrollingFieldSpecified;
+            get
+            {
+                return this.noncontrollingField;
+            }
+            set
+            {
+                this.noncontrollingField = value;
+            }
         }
-        set
-        {
-            this.noncontrollingFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public decimal width
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool noncontrollingSpecified
         {
-            return this.widthField;
+            get
+            {
+                return this.noncontrollingFieldSpecified;
+            }
+            set
+            {
+                this.noncontrollingFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.widthField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool widthSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public decimal width
         {
-            return this.widthFieldSpecified;
+            get
+            {
+                return this.widthField;
+            }
+            set
+            {
+                this.widthField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool widthSpecified
         {
-            this.widthFieldSpecified = value;
+            get
+            {
+                return this.widthFieldSpecified;
+            }
+            set
+            {
+                this.widthFieldSpecified = value;
+            }
         }
     }
 }

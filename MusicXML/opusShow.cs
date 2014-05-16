@@ -2,24 +2,26 @@ using System;
 using System.CodeDom.Compiler;
 using System.Xml.Serialization;
 
-
-[GeneratedCode("xsd", "4.0.30319.33440")]
-[Serializable]
-[XmlType(AnonymousType = true, Namespace = "http://www.w3.org/1999/xlink")]
-public enum opusShow
+namespace MusicXML
 {
+    [GeneratedCode("xsd", "4.0.30319.33440")]
+    [Serializable]
+    [XmlType(AnonymousType = true, Namespace = "http://www.w3.org/1999/xlink")]
+    public enum opusShow
+    {
     
-    @new,
+        @new,
 
     
-    replace,
+        replace,
 
     
-    embed,
+        embed,
 
     
-    other,
+        other,
 
     
-    none,
+        none,
+    }
 }

@@ -1,39 +1,42 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class distance
+namespace MusicXML
 {
-
-    private string typeField;
-
-    private decimal valueField;
-
-
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
-    public string type
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class distance
     {
-        get
-        {
-            return this.typeField;
-        }
-        set
-        {
-            this.typeField = value;
-        }
-    }
+
+        private string typeField;
+
+        private decimal valueField;
 
 
-    [System.Xml.Serialization.XmlTextAttribute()]
-    public decimal Value
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
+        public string type
         {
-            return this.valueField;
+            get
+            {
+                return this.typeField;
+            }
+            set
+            {
+                this.typeField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public decimal Value
         {
-            this.valueField = value;
+            get
+            {
+                return this.valueField;
+            }
+            set
+            {
+                this.valueField = value;
+            }
         }
     }
 }

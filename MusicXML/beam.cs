@@ -1,125 +1,128 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class beam
+namespace MusicXML
 {
-
-    private string numberField;
-
-    private yesno repeaterField;
-
-    private bool repeaterFieldSpecified;
-
-    private fan fanField;
-
-    private bool fanFieldSpecified;
-
-    private string colorField;
-
-    private beamvalue valueField;
-
-    public beam()
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class beam
     {
-        this.numberField = "1";
-    }
 
+        private string numberField;
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "positiveInteger")]
-    [System.ComponentModel.DefaultValueAttribute("1")]
-    public string number
-    {
-        get
+        private yesno repeaterField;
+
+        private bool repeaterFieldSpecified;
+
+        private fan fanField;
+
+        private bool fanFieldSpecified;
+
+        private string colorField;
+
+        private beamvalue valueField;
+
+        public beam()
         {
-            return this.numberField;
+            this.numberField = "1";
         }
-        set
-        {
-            this.numberField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public yesno repeater
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "positiveInteger")]
+        [System.ComponentModel.DefaultValueAttribute("1")]
+        public string number
         {
-            return this.repeaterField;
+            get
+            {
+                return this.numberField;
+            }
+            set
+            {
+                this.numberField = value;
+            }
         }
-        set
-        {
-            this.repeaterField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool repeaterSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public yesno repeater
         {
-            return this.repeaterFieldSpecified;
+            get
+            {
+                return this.repeaterField;
+            }
+            set
+            {
+                this.repeaterField = value;
+            }
         }
-        set
-        {
-            this.repeaterFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public fan fan
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool repeaterSpecified
         {
-            return this.fanField;
+            get
+            {
+                return this.repeaterFieldSpecified;
+            }
+            set
+            {
+                this.repeaterFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.fanField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool fanSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public fan fan
         {
-            return this.fanFieldSpecified;
+            get
+            {
+                return this.fanField;
+            }
+            set
+            {
+                this.fanField = value;
+            }
         }
-        set
-        {
-            this.fanFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
-    public string color
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool fanSpecified
         {
-            return this.colorField;
+            get
+            {
+                return this.fanFieldSpecified;
+            }
+            set
+            {
+                this.fanFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.colorField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlTextAttribute()]
-    public beamvalue Value
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
+        public string color
         {
-            return this.valueField;
+            get
+            {
+                return this.colorField;
+            }
+            set
+            {
+                this.colorField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public beamvalue Value
         {
-            this.valueField = value;
+            get
+            {
+                return this.valueField;
+            }
+            set
+            {
+                this.valueField = value;
+            }
         }
     }
 }

@@ -1,18 +1,21 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "start-stop-change-continue")]
-public enum startstopchangecontinue
+namespace MusicXML
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "start-stop-change-continue")]
+    public enum startstopchangecontinue
+    {
 
 
-    start,
+        start,
 
 
-    stop,
+        stop,
 
 
-    change,
+        change,
 
 
-    @continue,
+        @continue,
+    }
 }

@@ -1,39 +1,42 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class barre
+namespace MusicXML
 {
-
-    private startstop typeField;
-
-    private string colorField;
-
-
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public startstop type
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class barre
     {
-        get
-        {
-            return this.typeField;
-        }
-        set
-        {
-            this.typeField = value;
-        }
-    }
+
+        private startstop typeField;
+
+        private string colorField;
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
-    public string color
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public startstop type
         {
-            return this.colorField;
+            get
+            {
+                return this.typeField;
+            }
+            set
+            {
+                this.typeField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
+        public string color
         {
-            this.colorField = value;
+            get
+            {
+                return this.colorField;
+            }
+            set
+            {
+                this.colorField = value;
+            }
         }
     }
 }

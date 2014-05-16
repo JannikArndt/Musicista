@@ -1,280 +1,283 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "text-font-color")]
-public partial class textfontcolor
+namespace MusicXML
 {
-
-    private string fontfamilyField;
-
-    private fontstyle fontstyleField;
-
-    private bool fontstyleFieldSpecified;
-
-    private string fontsizeField;
-
-    private fontweight fontweightField;
-
-    private bool fontweightFieldSpecified;
-
-    private string colorField;
-
-    private string underlineField;
-
-    private string overlineField;
-
-    private string linethroughField;
-
-    private decimal rotationField;
-
-    private bool rotationFieldSpecified;
-
-    private string letterspacingField;
-
-    private string langField;
-
-    private textdirection dirField;
-
-    private bool dirFieldSpecified;
-
-    private string valueField;
-
-
-    [System.Xml.Serialization.XmlAttributeAttribute("font-family", DataType = "token")]
-    public string fontfamily
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "text-font-color")]
+    public partial class textfontcolor
     {
-        get
-        {
-            return this.fontfamilyField;
-        }
-        set
-        {
-            this.fontfamilyField = value;
-        }
-    }
+
+        private string fontfamilyField;
+
+        private fontstyle fontstyleField;
+
+        private bool fontstyleFieldSpecified;
+
+        private string fontsizeField;
+
+        private fontweight fontweightField;
+
+        private bool fontweightFieldSpecified;
+
+        private string colorField;
+
+        private string underlineField;
+
+        private string overlineField;
+
+        private string linethroughField;
+
+        private decimal rotationField;
+
+        private bool rotationFieldSpecified;
+
+        private string letterspacingField;
+
+        private string langField;
+
+        private textdirection dirField;
+
+        private bool dirFieldSpecified;
+
+        private string valueField;
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("font-style")]
-    public fontstyle fontstyle
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("font-family", DataType = "token")]
+        public string fontfamily
         {
-            return this.fontstyleField;
+            get
+            {
+                return this.fontfamilyField;
+            }
+            set
+            {
+                this.fontfamilyField = value;
+            }
         }
-        set
-        {
-            this.fontstyleField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool fontstyleSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("font-style")]
+        public fontstyle fontstyle
         {
-            return this.fontstyleFieldSpecified;
+            get
+            {
+                return this.fontstyleField;
+            }
+            set
+            {
+                this.fontstyleField = value;
+            }
         }
-        set
-        {
-            this.fontstyleFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("font-size")]
-    public string fontsize
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool fontstyleSpecified
         {
-            return this.fontsizeField;
+            get
+            {
+                return this.fontstyleFieldSpecified;
+            }
+            set
+            {
+                this.fontstyleFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.fontsizeField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("font-weight")]
-    public fontweight fontweight
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("font-size")]
+        public string fontsize
         {
-            return this.fontweightField;
+            get
+            {
+                return this.fontsizeField;
+            }
+            set
+            {
+                this.fontsizeField = value;
+            }
         }
-        set
-        {
-            this.fontweightField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool fontweightSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("font-weight")]
+        public fontweight fontweight
         {
-            return this.fontweightFieldSpecified;
+            get
+            {
+                return this.fontweightField;
+            }
+            set
+            {
+                this.fontweightField = value;
+            }
         }
-        set
-        {
-            this.fontweightFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
-    public string color
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool fontweightSpecified
         {
-            return this.colorField;
+            get
+            {
+                return this.fontweightFieldSpecified;
+            }
+            set
+            {
+                this.fontweightFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.colorField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "nonNegativeInteger")]
-    public string underline
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
+        public string color
         {
-            return this.underlineField;
+            get
+            {
+                return this.colorField;
+            }
+            set
+            {
+                this.colorField = value;
+            }
         }
-        set
-        {
-            this.underlineField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "nonNegativeInteger")]
-    public string overline
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "nonNegativeInteger")]
+        public string underline
         {
-            return this.overlineField;
+            get
+            {
+                return this.underlineField;
+            }
+            set
+            {
+                this.underlineField = value;
+            }
         }
-        set
-        {
-            this.overlineField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("line-through", DataType = "nonNegativeInteger")]
-    public string linethrough
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "nonNegativeInteger")]
+        public string overline
         {
-            return this.linethroughField;
+            get
+            {
+                return this.overlineField;
+            }
+            set
+            {
+                this.overlineField = value;
+            }
         }
-        set
-        {
-            this.linethroughField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public decimal rotation
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("line-through", DataType = "nonNegativeInteger")]
+        public string linethrough
         {
-            return this.rotationField;
+            get
+            {
+                return this.linethroughField;
+            }
+            set
+            {
+                this.linethroughField = value;
+            }
         }
-        set
-        {
-            this.rotationField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool rotationSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public decimal rotation
         {
-            return this.rotationFieldSpecified;
+            get
+            {
+                return this.rotationField;
+            }
+            set
+            {
+                this.rotationField = value;
+            }
         }
-        set
-        {
-            this.rotationFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("letter-spacing")]
-    public string letterspacing
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool rotationSpecified
         {
-            return this.letterspacingField;
+            get
+            {
+                return this.rotationFieldSpecified;
+            }
+            set
+            {
+                this.rotationFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.letterspacingField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://www.w3.org/XML/1998/namespace")]
-    public string lang
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("letter-spacing")]
+        public string letterspacing
         {
-            return this.langField;
+            get
+            {
+                return this.letterspacingField;
+            }
+            set
+            {
+                this.letterspacingField = value;
+            }
         }
-        set
-        {
-            this.langField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public textdirection dir
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://www.w3.org/XML/1998/namespace")]
+        public string lang
         {
-            return this.dirField;
+            get
+            {
+                return this.langField;
+            }
+            set
+            {
+                this.langField = value;
+            }
         }
-        set
-        {
-            this.dirField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool dirSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public textdirection dir
         {
-            return this.dirFieldSpecified;
+            get
+            {
+                return this.dirField;
+            }
+            set
+            {
+                this.dirField = value;
+            }
         }
-        set
-        {
-            this.dirFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlTextAttribute()]
-    public string Value
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool dirSpecified
         {
-            return this.valueField;
+            get
+            {
+                return this.dirFieldSpecified;
+            }
+            set
+            {
+                this.dirFieldSpecified = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public string Value
         {
-            this.valueField = value;
+            get
+            {
+                return this.valueField;
+            }
+            set
+            {
+                this.valueField = value;
+            }
         }
     }
 }

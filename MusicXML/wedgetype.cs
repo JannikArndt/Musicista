@@ -1,18 +1,21 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "wedge-type")]
-public enum wedgetype
+namespace MusicXML
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "wedge-type")]
+    public enum wedgetype
+    {
 
 
-    crescendo,
+        crescendo,
 
 
-    diminuendo,
+        diminuendo,
 
 
-    stop,
+        stop,
 
 
-    @continue,
+        @continue,
+    }
 }

@@ -1,79 +1,82 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(IncludeInSchema = false)]
-public enum ItemsChoiceType7
+namespace MusicXML
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(IncludeInSchema = false)]
+    public enum ItemsChoiceType7
+    {
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("accordion-registration")]
-    accordionregistration,
+        [System.Xml.Serialization.XmlEnumAttribute("accordion-registration")]
+        accordionregistration,
 
 
-    bracket,
+        bracket,
 
 
-    coda,
+        coda,
 
 
-    damp,
+        damp,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("damp-all")]
-    dampall,
+        [System.Xml.Serialization.XmlEnumAttribute("damp-all")]
+        dampall,
 
 
-    dashes,
+        dashes,
 
 
-    dynamics,
+        dynamics,
 
 
-    eyeglasses,
+        eyeglasses,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("harp-pedals")]
-    harppedals,
+        [System.Xml.Serialization.XmlEnumAttribute("harp-pedals")]
+        harppedals,
 
 
-    image,
+        image,
 
 
-    metronome,
+        metronome,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("octave-shift")]
-    octaveshift,
+        [System.Xml.Serialization.XmlEnumAttribute("octave-shift")]
+        octaveshift,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("other-direction")]
-    otherdirection,
+        [System.Xml.Serialization.XmlEnumAttribute("other-direction")]
+        otherdirection,
 
 
-    pedal,
+        pedal,
 
 
-    percussion,
+        percussion,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("principal-voice")]
-    principalvoice,
+        [System.Xml.Serialization.XmlEnumAttribute("principal-voice")]
+        principalvoice,
 
 
-    rehearsal,
+        rehearsal,
 
 
-    scordatura,
+        scordatura,
 
 
-    segno,
+        segno,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("string-mute")]
-    stringmute,
+        [System.Xml.Serialization.XmlEnumAttribute("string-mute")]
+        stringmute,
 
 
-    wedge,
+        wedge,
 
 
-    words,
+        words,
+    }
 }

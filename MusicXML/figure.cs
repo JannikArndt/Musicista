@@ -1,68 +1,71 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class figure
+namespace MusicXML
 {
-
-    private styletext prefixField;
-
-    private styletext figurenumberField;
-
-    private styletext suffixField;
-
-    private extend extendField;
-
-
-    public styletext prefix
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class figure
     {
-        get
-        {
-            return this.prefixField;
-        }
-        set
-        {
-            this.prefixField = value;
-        }
-    }
+
+        private styletext prefixField;
+
+        private styletext figurenumberField;
+
+        private styletext suffixField;
+
+        private extend extendField;
 
 
-    [System.Xml.Serialization.XmlElementAttribute("figure-number")]
-    public styletext figurenumber
-    {
-        get
+        public styletext prefix
         {
-            return this.figurenumberField;
+            get
+            {
+                return this.prefixField;
+            }
+            set
+            {
+                this.prefixField = value;
+            }
         }
-        set
-        {
-            this.figurenumberField = value;
-        }
-    }
 
 
-    public styletext suffix
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("figure-number")]
+        public styletext figurenumber
         {
-            return this.suffixField;
+            get
+            {
+                return this.figurenumberField;
+            }
+            set
+            {
+                this.figurenumberField = value;
+            }
         }
-        set
-        {
-            this.suffixField = value;
-        }
-    }
 
 
-    public extend extend
-    {
-        get
+        public styletext suffix
         {
-            return this.extendField;
+            get
+            {
+                return this.suffixField;
+            }
+            set
+            {
+                this.suffixField = value;
+            }
         }
-        set
+
+
+        public extend extend
         {
-            this.extendField = value;
+            get
+            {
+                return this.extendField;
+            }
+            set
+            {
+                this.extendField = value;
+            }
         }
     }
 }

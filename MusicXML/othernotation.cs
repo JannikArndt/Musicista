@@ -1,126 +1,129 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "other-notation")]
-public partial class othernotation
+namespace MusicXML
 {
-
-    private startstopsingle typeField;
-
-    private string numberField;
-
-    private yesno printobjectField;
-
-    private bool printobjectFieldSpecified;
-
-    private abovebelow placementField;
-
-    private bool placementFieldSpecified;
-
-    private string valueField;
-
-    public othernotation()
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "other-notation")]
+    public partial class othernotation
     {
-        this.numberField = "1";
-    }
 
+        private startstopsingle typeField;
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public startstopsingle type
-    {
-        get
+        private string numberField;
+
+        private yesno printobjectField;
+
+        private bool printobjectFieldSpecified;
+
+        private abovebelow placementField;
+
+        private bool placementFieldSpecified;
+
+        private string valueField;
+
+        public othernotation()
         {
-            return this.typeField;
+            this.numberField = "1";
         }
-        set
-        {
-            this.typeField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "positiveInteger")]
-    [System.ComponentModel.DefaultValueAttribute("1")]
-    public string number
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public startstopsingle type
         {
-            return this.numberField;
+            get
+            {
+                return this.typeField;
+            }
+            set
+            {
+                this.typeField = value;
+            }
         }
-        set
-        {
-            this.numberField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("print-object")]
-    public yesno printobject
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "positiveInteger")]
+        [System.ComponentModel.DefaultValueAttribute("1")]
+        public string number
         {
-            return this.printobjectField;
+            get
+            {
+                return this.numberField;
+            }
+            set
+            {
+                this.numberField = value;
+            }
         }
-        set
-        {
-            this.printobjectField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool printobjectSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("print-object")]
+        public yesno printobject
         {
-            return this.printobjectFieldSpecified;
+            get
+            {
+                return this.printobjectField;
+            }
+            set
+            {
+                this.printobjectField = value;
+            }
         }
-        set
-        {
-            this.printobjectFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public abovebelow placement
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool printobjectSpecified
         {
-            return this.placementField;
+            get
+            {
+                return this.printobjectFieldSpecified;
+            }
+            set
+            {
+                this.printobjectFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.placementField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool placementSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public abovebelow placement
         {
-            return this.placementFieldSpecified;
+            get
+            {
+                return this.placementField;
+            }
+            set
+            {
+                this.placementField = value;
+            }
         }
-        set
-        {
-            this.placementFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlTextAttribute()]
-    public string Value
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool placementSpecified
         {
-            return this.valueField;
+            get
+            {
+                return this.placementFieldSpecified;
+            }
+            set
+            {
+                this.placementFieldSpecified = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public string Value
         {
-            this.valueField = value;
+            get
+            {
+                return this.valueField;
+            }
+            set
+            {
+                this.valueField = value;
+            }
         }
     }
 }

@@ -1,39 +1,42 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class unpitched
+namespace MusicXML
 {
-
-    private step displaystepField;
-
-    private string displayoctaveField;
-
-
-    [System.Xml.Serialization.XmlElementAttribute("display-step")]
-    public step displaystep
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class unpitched
     {
-        get
-        {
-            return this.displaystepField;
-        }
-        set
-        {
-            this.displaystepField = value;
-        }
-    }
+
+        private step displaystepField;
+
+        private string displayoctaveField;
 
 
-    [System.Xml.Serialization.XmlElementAttribute("display-octave", DataType = "integer")]
-    public string displayoctave
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("display-step")]
+        public step displaystep
         {
-            return this.displayoctaveField;
+            get
+            {
+                return this.displaystepField;
+            }
+            set
+            {
+                this.displaystepField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlElementAttribute("display-octave", DataType = "integer")]
+        public string displayoctave
         {
-            this.displayoctaveField = value;
+            get
+            {
+                return this.displayoctaveField;
+            }
+            set
+            {
+                this.displayoctaveField = value;
+            }
         }
     }
 }

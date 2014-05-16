@@ -1,73 +1,76 @@
-[System.Xml.Serialization.XmlIncludeAttribute(typeof(metronometuplet))]
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "time-modification")]
-public partial class timemodification
+namespace MusicXML
 {
-
-    private string actualnotesField;
-
-    private string normalnotesField;
-
-    private notetypevalue normaltypeField;
-
-    private empty[] normaldotField;
-
-
-    [System.Xml.Serialization.XmlElementAttribute("actual-notes", DataType = "nonNegativeInteger")]
-    public string actualnotes
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(metronometuplet))]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "time-modification")]
+    public partial class timemodification
     {
-        get
-        {
-            return this.actualnotesField;
-        }
-        set
-        {
-            this.actualnotesField = value;
-        }
-    }
+
+        private string actualnotesField;
+
+        private string normalnotesField;
+
+        private notetypevalue normaltypeField;
+
+        private empty[] normaldotField;
 
 
-    [System.Xml.Serialization.XmlElementAttribute("normal-notes", DataType = "nonNegativeInteger")]
-    public string normalnotes
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("actual-notes", DataType = "nonNegativeInteger")]
+        public string actualnotes
         {
-            return this.normalnotesField;
+            get
+            {
+                return this.actualnotesField;
+            }
+            set
+            {
+                this.actualnotesField = value;
+            }
         }
-        set
-        {
-            this.normalnotesField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("normal-type")]
-    public notetypevalue normaltype
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("normal-notes", DataType = "nonNegativeInteger")]
+        public string normalnotes
         {
-            return this.normaltypeField;
+            get
+            {
+                return this.normalnotesField;
+            }
+            set
+            {
+                this.normalnotesField = value;
+            }
         }
-        set
-        {
-            this.normaltypeField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("normal-dot")]
-    public empty[] normaldot
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("normal-type")]
+        public notetypevalue normaltype
         {
-            return this.normaldotField;
+            get
+            {
+                return this.normaltypeField;
+            }
+            set
+            {
+                this.normaltypeField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlElementAttribute("normal-dot")]
+        public empty[] normaldot
         {
-            this.normaldotField = value;
+            get
+            {
+                return this.normaldotField;
+            }
+            set
+            {
+                this.normaldotField = value;
+            }
         }
     }
 }

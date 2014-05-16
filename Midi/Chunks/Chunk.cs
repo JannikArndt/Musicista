@@ -31,7 +31,7 @@ namespace Midi.Chunks
             ChunkId = chunkId;
         }
 
-        override public string ToString()
+        public override string ToString()
         {
             return "Chunk(chunk_ID: " + ChunkId + ")";
         }

@@ -1,21 +1,24 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "line-end")]
-public enum lineend
+namespace MusicXML
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "line-end")]
+    public enum lineend
+    {
 
 
-    up,
+        up,
 
 
-    down,
+        down,
 
 
-    both,
+        both,
 
 
-    arrow,
+        arrow,
 
 
-    none,
+        none,
+    }
 }

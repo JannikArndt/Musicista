@@ -1,55 +1,58 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class handbell
+namespace MusicXML
 {
-
-    private abovebelow placementField;
-
-    private bool placementFieldSpecified;
-
-    private handbellvalue valueField;
-
-
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public abovebelow placement
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class handbell
     {
-        get
-        {
-            return this.placementField;
-        }
-        set
-        {
-            this.placementField = value;
-        }
-    }
+
+        private abovebelow placementField;
+
+        private bool placementFieldSpecified;
+
+        private handbellvalue valueField;
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool placementSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public abovebelow placement
         {
-            return this.placementFieldSpecified;
+            get
+            {
+                return this.placementField;
+            }
+            set
+            {
+                this.placementField = value;
+            }
         }
-        set
-        {
-            this.placementFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlTextAttribute()]
-    public handbellvalue Value
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool placementSpecified
         {
-            return this.valueField;
+            get
+            {
+                return this.placementFieldSpecified;
+            }
+            set
+            {
+                this.placementFieldSpecified = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public handbellvalue Value
         {
-            this.valueField = value;
+            get
+            {
+                return this.valueField;
+            }
+            set
+            {
+                this.valueField = value;
+            }
         }
     }
 }

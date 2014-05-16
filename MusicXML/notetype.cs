@@ -1,56 +1,59 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "note-type")]
-public partial class notetype
+namespace MusicXML
 {
-
-    private symbolsize sizeField;
-
-    private bool sizeFieldSpecified;
-
-    private notetypevalue valueField;
-
-
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public symbolsize size
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "note-type")]
+    public partial class notetype
     {
-        get
-        {
-            return this.sizeField;
-        }
-        set
-        {
-            this.sizeField = value;
-        }
-    }
+
+        private symbolsize sizeField;
+
+        private bool sizeFieldSpecified;
+
+        private notetypevalue valueField;
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool sizeSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public symbolsize size
         {
-            return this.sizeFieldSpecified;
+            get
+            {
+                return this.sizeField;
+            }
+            set
+            {
+                this.sizeField = value;
+            }
         }
-        set
-        {
-            this.sizeFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlTextAttribute()]
-    public notetypevalue Value
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool sizeSpecified
         {
-            return this.valueField;
+            get
+            {
+                return this.sizeFieldSpecified;
+            }
+            set
+            {
+                this.sizeFieldSpecified = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public notetypevalue Value
         {
-            this.valueField = value;
+            get
+            {
+                return this.valueField;
+            }
+            set
+            {
+                this.valueField = value;
+            }
         }
     }
 }

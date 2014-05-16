@@ -1,71 +1,74 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class rest
+namespace MusicXML
 {
-
-    private step displaystepField;
-
-    private string displayoctaveField;
-
-    private yesno measureField;
-
-    private bool measureFieldSpecified;
-
-
-    [System.Xml.Serialization.XmlElementAttribute("display-step")]
-    public step displaystep
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class rest
     {
-        get
-        {
-            return this.displaystepField;
-        }
-        set
-        {
-            this.displaystepField = value;
-        }
-    }
+
+        private step displaystepField;
+
+        private string displayoctaveField;
+
+        private yesno measureField;
+
+        private bool measureFieldSpecified;
 
 
-    [System.Xml.Serialization.XmlElementAttribute("display-octave", DataType = "integer")]
-    public string displayoctave
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("display-step")]
+        public step displaystep
         {
-            return this.displayoctaveField;
+            get
+            {
+                return this.displaystepField;
+            }
+            set
+            {
+                this.displaystepField = value;
+            }
         }
-        set
-        {
-            this.displayoctaveField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public yesno measure
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("display-octave", DataType = "integer")]
+        public string displayoctave
         {
-            return this.measureField;
+            get
+            {
+                return this.displayoctaveField;
+            }
+            set
+            {
+                this.displayoctaveField = value;
+            }
         }
-        set
-        {
-            this.measureField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool measureSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public yesno measure
         {
-            return this.measureFieldSpecified;
+            get
+            {
+                return this.measureField;
+            }
+            set
+            {
+                this.measureField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool measureSpecified
         {
-            this.measureFieldSpecified = value;
+            get
+            {
+                return this.measureFieldSpecified;
+            }
+            set
+            {
+                this.measureFieldSpecified = value;
+            }
         }
     }
 }

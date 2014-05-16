@@ -15,250 +15,253 @@
 
 
 
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class print
+namespace MusicXML
 {
-
-    private pagelayout pagelayoutField;
-
-    private systemlayout systemlayoutField;
-
-    private stafflayout[] stafflayoutField;
-
-    private measurelayout measurelayoutField;
-
-    private measurenumbering measurenumberingField;
-
-    private namedisplay partnamedisplayField;
-
-    private namedisplay partabbreviationdisplayField;
-
-    private decimal staffspacingField;
-
-    private bool staffspacingFieldSpecified;
-
-    private yesno newsystemField;
-
-    private bool newsystemFieldSpecified;
-
-    private yesno newpageField;
-
-    private bool newpageFieldSpecified;
-
-    private string blankpageField;
-
-    private string pagenumberField;
-
-
-    [System.Xml.Serialization.XmlElementAttribute("page-layout")]
-    public pagelayout pagelayout
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class print
     {
-        get
-        {
-            return this.pagelayoutField;
-        }
-        set
-        {
-            this.pagelayoutField = value;
-        }
-    }
+
+        private pagelayout pagelayoutField;
+
+        private systemlayout systemlayoutField;
+
+        private stafflayout[] stafflayoutField;
+
+        private measurelayout measurelayoutField;
+
+        private measurenumbering measurenumberingField;
+
+        private namedisplay partnamedisplayField;
+
+        private namedisplay partabbreviationdisplayField;
+
+        private decimal staffspacingField;
+
+        private bool staffspacingFieldSpecified;
+
+        private yesno newsystemField;
+
+        private bool newsystemFieldSpecified;
+
+        private yesno newpageField;
+
+        private bool newpageFieldSpecified;
+
+        private string blankpageField;
+
+        private string pagenumberField;
 
 
-    [System.Xml.Serialization.XmlElementAttribute("system-layout")]
-    public systemlayout systemlayout
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("page-layout")]
+        public pagelayout pagelayout
         {
-            return this.systemlayoutField;
+            get
+            {
+                return this.pagelayoutField;
+            }
+            set
+            {
+                this.pagelayoutField = value;
+            }
         }
-        set
-        {
-            this.systemlayoutField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("staff-layout")]
-    public stafflayout[] stafflayout
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("system-layout")]
+        public systemlayout systemlayout
         {
-            return this.stafflayoutField;
+            get
+            {
+                return this.systemlayoutField;
+            }
+            set
+            {
+                this.systemlayoutField = value;
+            }
         }
-        set
-        {
-            this.stafflayoutField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("measure-layout")]
-    public measurelayout measurelayout
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("staff-layout")]
+        public stafflayout[] stafflayout
         {
-            return this.measurelayoutField;
+            get
+            {
+                return this.stafflayoutField;
+            }
+            set
+            {
+                this.stafflayoutField = value;
+            }
         }
-        set
-        {
-            this.measurelayoutField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("measure-numbering")]
-    public measurenumbering measurenumbering
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("measure-layout")]
+        public measurelayout measurelayout
         {
-            return this.measurenumberingField;
+            get
+            {
+                return this.measurelayoutField;
+            }
+            set
+            {
+                this.measurelayoutField = value;
+            }
         }
-        set
-        {
-            this.measurenumberingField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("part-name-display")]
-    public namedisplay partnamedisplay
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("measure-numbering")]
+        public measurenumbering measurenumbering
         {
-            return this.partnamedisplayField;
+            get
+            {
+                return this.measurenumberingField;
+            }
+            set
+            {
+                this.measurenumberingField = value;
+            }
         }
-        set
-        {
-            this.partnamedisplayField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("part-abbreviation-display")]
-    public namedisplay partabbreviationdisplay
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("part-name-display")]
+        public namedisplay partnamedisplay
         {
-            return this.partabbreviationdisplayField;
+            get
+            {
+                return this.partnamedisplayField;
+            }
+            set
+            {
+                this.partnamedisplayField = value;
+            }
         }
-        set
-        {
-            this.partabbreviationdisplayField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("staff-spacing")]
-    public decimal staffspacing
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("part-abbreviation-display")]
+        public namedisplay partabbreviationdisplay
         {
-            return this.staffspacingField;
+            get
+            {
+                return this.partabbreviationdisplayField;
+            }
+            set
+            {
+                this.partabbreviationdisplayField = value;
+            }
         }
-        set
-        {
-            this.staffspacingField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool staffspacingSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("staff-spacing")]
+        public decimal staffspacing
         {
-            return this.staffspacingFieldSpecified;
+            get
+            {
+                return this.staffspacingField;
+            }
+            set
+            {
+                this.staffspacingField = value;
+            }
         }
-        set
-        {
-            this.staffspacingFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("new-system")]
-    public yesno newsystem
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool staffspacingSpecified
         {
-            return this.newsystemField;
+            get
+            {
+                return this.staffspacingFieldSpecified;
+            }
+            set
+            {
+                this.staffspacingFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.newsystemField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool newsystemSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("new-system")]
+        public yesno newsystem
         {
-            return this.newsystemFieldSpecified;
+            get
+            {
+                return this.newsystemField;
+            }
+            set
+            {
+                this.newsystemField = value;
+            }
         }
-        set
-        {
-            this.newsystemFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("new-page")]
-    public yesno newpage
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool newsystemSpecified
         {
-            return this.newpageField;
+            get
+            {
+                return this.newsystemFieldSpecified;
+            }
+            set
+            {
+                this.newsystemFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.newpageField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool newpageSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("new-page")]
+        public yesno newpage
         {
-            return this.newpageFieldSpecified;
+            get
+            {
+                return this.newpageField;
+            }
+            set
+            {
+                this.newpageField = value;
+            }
         }
-        set
-        {
-            this.newpageFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("blank-page", DataType = "positiveInteger")]
-    public string blankpage
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool newpageSpecified
         {
-            return this.blankpageField;
+            get
+            {
+                return this.newpageFieldSpecified;
+            }
+            set
+            {
+                this.newpageFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.blankpageField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("page-number", DataType = "token")]
-    public string pagenumber
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("blank-page", DataType = "positiveInteger")]
+        public string blankpage
         {
-            return this.pagenumberField;
+            get
+            {
+                return this.blankpageField;
+            }
+            set
+            {
+                this.blankpageField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlAttributeAttribute("page-number", DataType = "token")]
+        public string pagenumber
         {
-            this.pagenumberField = value;
+            get
+            {
+                return this.pagenumberField;
+            }
+            set
+            {
+                this.pagenumberField = value;
+            }
         }
     }
 }

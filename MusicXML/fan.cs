@@ -1,14 +1,17 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-public enum fan
+namespace MusicXML
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    public enum fan
+    {
 
 
-    accel,
+        accel,
 
 
-    rit,
+        rit,
 
 
-    none,
+        none,
+    }
 }

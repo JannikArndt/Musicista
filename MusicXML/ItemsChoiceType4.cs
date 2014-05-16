@@ -1,58 +1,61 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(IncludeInSchema = false)]
-public enum ItemsChoiceType4
+namespace MusicXML
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(IncludeInSchema = false)]
+    public enum ItemsChoiceType4
+    {
 
 
-    accent,
+        accent,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("breath-mark")]
-    breathmark,
+        [System.Xml.Serialization.XmlEnumAttribute("breath-mark")]
+        breathmark,
 
 
-    caesura,
+        caesura,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("detached-legato")]
-    detachedlegato,
+        [System.Xml.Serialization.XmlEnumAttribute("detached-legato")]
+        detachedlegato,
 
 
-    doit,
+        doit,
 
 
-    falloff,
+        falloff,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("other-articulation")]
-    otherarticulation,
+        [System.Xml.Serialization.XmlEnumAttribute("other-articulation")]
+        otherarticulation,
 
 
-    plop,
+        plop,
 
 
-    scoop,
+        scoop,
 
 
-    spiccato,
+        spiccato,
 
 
-    staccatissimo,
+        staccatissimo,
 
 
-    staccato,
+        staccato,
 
 
-    stress,
+        stress,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("strong-accent")]
-    strongaccent,
+        [System.Xml.Serialization.XmlEnumAttribute("strong-accent")]
+        strongaccent,
 
 
-    tenuto,
+        tenuto,
 
 
-    unstress,
+        unstress,
+    }
 }

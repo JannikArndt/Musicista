@@ -1,92 +1,95 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "notehead-value")]
-public enum noteheadvalue
+namespace MusicXML
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "notehead-value")]
+    public enum noteheadvalue
+    {
 
 
-    slash,
+        slash,
 
 
-    triangle,
+        triangle,
 
 
-    diamond,
+        diamond,
 
 
-    square,
+        square,
 
 
-    cross,
+        cross,
 
 
-    x,
+        x,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("circle-x")]
-    circlex,
+        [System.Xml.Serialization.XmlEnumAttribute("circle-x")]
+        circlex,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("inverted triangle")]
-    invertedtriangle,
+        [System.Xml.Serialization.XmlEnumAttribute("inverted triangle")]
+        invertedtriangle,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("arrow down")]
-    arrowdown,
+        [System.Xml.Serialization.XmlEnumAttribute("arrow down")]
+        arrowdown,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("arrow up")]
-    arrowup,
+        [System.Xml.Serialization.XmlEnumAttribute("arrow up")]
+        arrowup,
 
 
-    slashed,
+        slashed,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("back slashed")]
-    backslashed,
+        [System.Xml.Serialization.XmlEnumAttribute("back slashed")]
+        backslashed,
 
 
-    normal,
+        normal,
 
 
-    cluster,
+        cluster,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("circle dot")]
-    circledot,
+        [System.Xml.Serialization.XmlEnumAttribute("circle dot")]
+        circledot,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("left triangle")]
-    lefttriangle,
+        [System.Xml.Serialization.XmlEnumAttribute("left triangle")]
+        lefttriangle,
 
 
-    rectangle,
+        rectangle,
 
 
-    none,
+        none,
 
 
-    @do,
+        @do,
 
 
-    re,
+        re,
 
 
-    mi,
+        mi,
 
 
-    fa,
+        fa,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("fa up")]
-    faup,
+        [System.Xml.Serialization.XmlEnumAttribute("fa up")]
+        faup,
 
 
-    so,
+        so,
 
 
-    la,
+        la,
 
 
-    ti,
+        ti,
+    }
 }

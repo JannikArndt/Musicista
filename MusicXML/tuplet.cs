@@ -1,359 +1,362 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class tuplet
+namespace MusicXML
 {
-
-    private tupletportion tupletactualField;
-
-    private tupletportion tupletnormalField;
-
-    private startstop typeField;
-
-    private string numberField;
-
-    private yesno bracketField;
-
-    private bool bracketFieldSpecified;
-
-    private showtuplet shownumberField;
-
-    private bool shownumberFieldSpecified;
-
-    private showtuplet showtypeField;
-
-    private bool showtypeFieldSpecified;
-
-    private lineshape lineshapeField;
-
-    private bool lineshapeFieldSpecified;
-
-    private decimal defaultxField;
-
-    private bool defaultxFieldSpecified;
-
-    private decimal defaultyField;
-
-    private bool defaultyFieldSpecified;
-
-    private decimal relativexField;
-
-    private bool relativexFieldSpecified;
-
-    private decimal relativeyField;
-
-    private bool relativeyFieldSpecified;
-
-    private abovebelow placementField;
-
-    private bool placementFieldSpecified;
-
-
-    [System.Xml.Serialization.XmlElementAttribute("tuplet-actual")]
-    public tupletportion tupletactual
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class tuplet
     {
-        get
-        {
-            return this.tupletactualField;
-        }
-        set
-        {
-            this.tupletactualField = value;
-        }
-    }
+
+        private tupletportion tupletactualField;
+
+        private tupletportion tupletnormalField;
+
+        private startstop typeField;
+
+        private string numberField;
+
+        private yesno bracketField;
+
+        private bool bracketFieldSpecified;
+
+        private showtuplet shownumberField;
+
+        private bool shownumberFieldSpecified;
+
+        private showtuplet showtypeField;
+
+        private bool showtypeFieldSpecified;
+
+        private lineshape lineshapeField;
+
+        private bool lineshapeFieldSpecified;
+
+        private decimal defaultxField;
+
+        private bool defaultxFieldSpecified;
+
+        private decimal defaultyField;
+
+        private bool defaultyFieldSpecified;
+
+        private decimal relativexField;
+
+        private bool relativexFieldSpecified;
+
+        private decimal relativeyField;
+
+        private bool relativeyFieldSpecified;
+
+        private abovebelow placementField;
+
+        private bool placementFieldSpecified;
 
 
-    [System.Xml.Serialization.XmlElementAttribute("tuplet-normal")]
-    public tupletportion tupletnormal
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("tuplet-actual")]
+        public tupletportion tupletactual
         {
-            return this.tupletnormalField;
+            get
+            {
+                return this.tupletactualField;
+            }
+            set
+            {
+                this.tupletactualField = value;
+            }
         }
-        set
-        {
-            this.tupletnormalField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public startstop type
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("tuplet-normal")]
+        public tupletportion tupletnormal
         {
-            return this.typeField;
+            get
+            {
+                return this.tupletnormalField;
+            }
+            set
+            {
+                this.tupletnormalField = value;
+            }
         }
-        set
-        {
-            this.typeField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "positiveInteger")]
-    public string number
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public startstop type
         {
-            return this.numberField;
+            get
+            {
+                return this.typeField;
+            }
+            set
+            {
+                this.typeField = value;
+            }
         }
-        set
-        {
-            this.numberField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public yesno bracket
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "positiveInteger")]
+        public string number
         {
-            return this.bracketField;
+            get
+            {
+                return this.numberField;
+            }
+            set
+            {
+                this.numberField = value;
+            }
         }
-        set
-        {
-            this.bracketField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool bracketSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public yesno bracket
         {
-            return this.bracketFieldSpecified;
+            get
+            {
+                return this.bracketField;
+            }
+            set
+            {
+                this.bracketField = value;
+            }
         }
-        set
-        {
-            this.bracketFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("show-number")]
-    public showtuplet shownumber
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool bracketSpecified
         {
-            return this.shownumberField;
+            get
+            {
+                return this.bracketFieldSpecified;
+            }
+            set
+            {
+                this.bracketFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.shownumberField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool shownumberSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("show-number")]
+        public showtuplet shownumber
         {
-            return this.shownumberFieldSpecified;
+            get
+            {
+                return this.shownumberField;
+            }
+            set
+            {
+                this.shownumberField = value;
+            }
         }
-        set
-        {
-            this.shownumberFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("show-type")]
-    public showtuplet showtype
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool shownumberSpecified
         {
-            return this.showtypeField;
+            get
+            {
+                return this.shownumberFieldSpecified;
+            }
+            set
+            {
+                this.shownumberFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.showtypeField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool showtypeSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("show-type")]
+        public showtuplet showtype
         {
-            return this.showtypeFieldSpecified;
+            get
+            {
+                return this.showtypeField;
+            }
+            set
+            {
+                this.showtypeField = value;
+            }
         }
-        set
-        {
-            this.showtypeFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("line-shape")]
-    public lineshape lineshape
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool showtypeSpecified
         {
-            return this.lineshapeField;
+            get
+            {
+                return this.showtypeFieldSpecified;
+            }
+            set
+            {
+                this.showtypeFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.lineshapeField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool lineshapeSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("line-shape")]
+        public lineshape lineshape
         {
-            return this.lineshapeFieldSpecified;
+            get
+            {
+                return this.lineshapeField;
+            }
+            set
+            {
+                this.lineshapeField = value;
+            }
         }
-        set
-        {
-            this.lineshapeFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("default-x")]
-    public decimal defaultx
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool lineshapeSpecified
         {
-            return this.defaultxField;
+            get
+            {
+                return this.lineshapeFieldSpecified;
+            }
+            set
+            {
+                this.lineshapeFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.defaultxField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool defaultxSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("default-x")]
+        public decimal defaultx
         {
-            return this.defaultxFieldSpecified;
+            get
+            {
+                return this.defaultxField;
+            }
+            set
+            {
+                this.defaultxField = value;
+            }
         }
-        set
-        {
-            this.defaultxFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("default-y")]
-    public decimal defaulty
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool defaultxSpecified
         {
-            return this.defaultyField;
+            get
+            {
+                return this.defaultxFieldSpecified;
+            }
+            set
+            {
+                this.defaultxFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.defaultyField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool defaultySpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("default-y")]
+        public decimal defaulty
         {
-            return this.defaultyFieldSpecified;
+            get
+            {
+                return this.defaultyField;
+            }
+            set
+            {
+                this.defaultyField = value;
+            }
         }
-        set
-        {
-            this.defaultyFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("relative-x")]
-    public decimal relativex
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool defaultySpecified
         {
-            return this.relativexField;
+            get
+            {
+                return this.defaultyFieldSpecified;
+            }
+            set
+            {
+                this.defaultyFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.relativexField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool relativexSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("relative-x")]
+        public decimal relativex
         {
-            return this.relativexFieldSpecified;
+            get
+            {
+                return this.relativexField;
+            }
+            set
+            {
+                this.relativexField = value;
+            }
         }
-        set
-        {
-            this.relativexFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("relative-y")]
-    public decimal relativey
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool relativexSpecified
         {
-            return this.relativeyField;
+            get
+            {
+                return this.relativexFieldSpecified;
+            }
+            set
+            {
+                this.relativexFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.relativeyField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool relativeySpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("relative-y")]
+        public decimal relativey
         {
-            return this.relativeyFieldSpecified;
+            get
+            {
+                return this.relativeyField;
+            }
+            set
+            {
+                this.relativeyField = value;
+            }
         }
-        set
-        {
-            this.relativeyFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public abovebelow placement
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool relativeySpecified
         {
-            return this.placementField;
+            get
+            {
+                return this.relativeyFieldSpecified;
+            }
+            set
+            {
+                this.relativeyFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.placementField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool placementSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public abovebelow placement
         {
-            return this.placementFieldSpecified;
+            get
+            {
+                return this.placementField;
+            }
+            set
+            {
+                this.placementField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool placementSpecified
         {
-            this.placementFieldSpecified = value;
+            get
+            {
+                return this.placementFieldSpecified;
+            }
+            set
+            {
+                this.placementFieldSpecified = value;
+            }
         }
     }
 }

@@ -1,18 +1,21 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "up-down-stop-continue")]
-public enum updownstopcontinue
+namespace MusicXML
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "up-down-stop-continue")]
+    public enum updownstopcontinue
+    {
 
 
-    up,
+        up,
 
 
-    down,
+        down,
 
 
-    stop,
+        stop,
 
 
-    @continue,
+        @continue,
+    }
 }

@@ -1,20 +1,23 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "stick-location")]
-public enum sticklocation
+namespace MusicXML
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "stick-location")]
+    public enum sticklocation
+    {
 
 
-    center,
+        center,
 
 
-    rim,
+        rim,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("cymbal bell")]
-    cymbalbell,
+        [System.Xml.Serialization.XmlEnumAttribute("cymbal bell")]
+        cymbalbell,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("cymbal edge")]
-    cymbaledge,
+        [System.Xml.Serialization.XmlEnumAttribute("cymbal edge")]
+        cymbaledge,
+    }
 }

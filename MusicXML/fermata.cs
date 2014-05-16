@@ -4,39 +4,42 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Serialization;
 
-[GeneratedCode("xsd", "4.0.30319.33440")]
-[Serializable]
-[DebuggerStepThrough]
-[DesignerCategory("code")]
-public class fermata
+namespace MusicXML
 {
-    private uprightinverted typeField;
-
-    private bool typeFieldSpecified;
-
-    private fermatashape valueField;
-
-
-    [XmlAttribute]
-    public uprightinverted type
+    [GeneratedCode("xsd", "4.0.30319.33440")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    public class fermata
     {
-        get { return typeField; }
-        set { typeField = value; }
-    }
+        private uprightinverted typeField;
+
+        private bool typeFieldSpecified;
+
+        private fermatashape valueField;
 
 
-    [XmlIgnore]
-    public bool typeSpecified
-    {
-        get { return typeFieldSpecified; }
-        set { typeFieldSpecified = value; }
-    }
+        [XmlAttribute]
+        public uprightinverted type
+        {
+            get { return typeField; }
+            set { typeField = value; }
+        }
 
 
-    [XmlText]
-    public fermatashape Value
-    {
-        get { return valueField; }
-        set { valueField = value; }
+        [XmlIgnore]
+        public bool typeSpecified
+        {
+            get { return typeFieldSpecified; }
+            set { typeFieldSpecified = value; }
+        }
+
+
+        [XmlText]
+        public fermatashape Value
+        {
+            get { return valueField; }
+            set { valueField = value; }
+        }
     }
 }

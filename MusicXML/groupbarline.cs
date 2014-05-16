@@ -1,40 +1,43 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "group-barline")]
-public partial class groupbarline
+namespace MusicXML
 {
-
-    private string colorField;
-
-    private groupbarlinevalue valueField;
-
-
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
-    public string color
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "group-barline")]
+    public partial class groupbarline
     {
-        get
-        {
-            return this.colorField;
-        }
-        set
-        {
-            this.colorField = value;
-        }
-    }
+
+        private string colorField;
+
+        private groupbarlinevalue valueField;
 
 
-    [System.Xml.Serialization.XmlTextAttribute()]
-    public groupbarlinevalue Value
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
+        public string color
         {
-            return this.valueField;
+            get
+            {
+                return this.colorField;
+            }
+            set
+            {
+                this.colorField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public groupbarlinevalue Value
         {
-            this.valueField = value;
+            get
+            {
+                return this.valueField;
+            }
+            set
+            {
+                this.valueField = value;
+            }
         }
     }
 }

@@ -1,56 +1,59 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "multiple-rest")]
-public partial class multiplerest
+namespace MusicXML
 {
-
-    private yesno usesymbolsField;
-
-    private bool usesymbolsFieldSpecified;
-
-    private string valueField;
-
-
-    [System.Xml.Serialization.XmlAttributeAttribute("use-symbols")]
-    public yesno usesymbols
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "multiple-rest")]
+    public partial class multiplerest
     {
-        get
-        {
-            return this.usesymbolsField;
-        }
-        set
-        {
-            this.usesymbolsField = value;
-        }
-    }
+
+        private yesno usesymbolsField;
+
+        private bool usesymbolsFieldSpecified;
+
+        private string valueField;
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool usesymbolsSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("use-symbols")]
+        public yesno usesymbols
         {
-            return this.usesymbolsFieldSpecified;
+            get
+            {
+                return this.usesymbolsField;
+            }
+            set
+            {
+                this.usesymbolsField = value;
+            }
         }
-        set
-        {
-            this.usesymbolsFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlTextAttribute()]
-    public string Value
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool usesymbolsSpecified
         {
-            return this.valueField;
+            get
+            {
+                return this.usesymbolsFieldSpecified;
+            }
+            set
+            {
+                this.usesymbolsFieldSpecified = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public string Value
         {
-            this.valueField = value;
+            get
+            {
+                return this.valueField;
+            }
+            set
+            {
+                this.valueField = value;
+            }
         }
     }
 }

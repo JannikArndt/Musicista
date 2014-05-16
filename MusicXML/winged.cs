@@ -2,25 +2,27 @@ using System;
 using System.CodeDom.Compiler;
 using System.Xml.Serialization;
 
-
-[GeneratedCode("xsd", "4.0.30319.33440")]
-[Serializable]
-public enum winged
+namespace MusicXML
 {
+    [GeneratedCode("xsd", "4.0.30319.33440")]
+    [Serializable]
+    public enum winged
+    {
     
-    none,
+        none,
 
     
-    straight,
+        straight,
 
     
-    curved,
+        curved,
 
     
-    [XmlEnum("double-straight")]
-    doublestraight,
+        [XmlEnum("double-straight")]
+        doublestraight,
 
     
-    [XmlEnum("double-curved")]
-    doublecurved,
+        [XmlEnum("double-curved")]
+        doublecurved,
+    }
 }

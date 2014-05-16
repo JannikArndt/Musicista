@@ -1,126 +1,129 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "octave-shift")]
-public partial class octaveshift
+namespace MusicXML
 {
-
-    private updownstopcontinue typeField;
-
-    private string numberField;
-
-    private string sizeField;
-
-    private decimal dashlengthField;
-
-    private bool dashlengthFieldSpecified;
-
-    private decimal spacelengthField;
-
-    private bool spacelengthFieldSpecified;
-
-    public octaveshift()
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "octave-shift")]
+    public partial class octaveshift
     {
-        this.sizeField = "8";
-    }
 
+        private updownstopcontinue typeField;
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public updownstopcontinue type
-    {
-        get
+        private string numberField;
+
+        private string sizeField;
+
+        private decimal dashlengthField;
+
+        private bool dashlengthFieldSpecified;
+
+        private decimal spacelengthField;
+
+        private bool spacelengthFieldSpecified;
+
+        public octaveshift()
         {
-            return this.typeField;
+            this.sizeField = "8";
         }
-        set
-        {
-            this.typeField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "positiveInteger")]
-    public string number
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public updownstopcontinue type
         {
-            return this.numberField;
+            get
+            {
+                return this.typeField;
+            }
+            set
+            {
+                this.typeField = value;
+            }
         }
-        set
-        {
-            this.numberField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "positiveInteger")]
-    [System.ComponentModel.DefaultValueAttribute("8")]
-    public string size
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "positiveInteger")]
+        public string number
         {
-            return this.sizeField;
+            get
+            {
+                return this.numberField;
+            }
+            set
+            {
+                this.numberField = value;
+            }
         }
-        set
-        {
-            this.sizeField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("dash-length")]
-    public decimal dashlength
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "positiveInteger")]
+        [System.ComponentModel.DefaultValueAttribute("8")]
+        public string size
         {
-            return this.dashlengthField;
+            get
+            {
+                return this.sizeField;
+            }
+            set
+            {
+                this.sizeField = value;
+            }
         }
-        set
-        {
-            this.dashlengthField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool dashlengthSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("dash-length")]
+        public decimal dashlength
         {
-            return this.dashlengthFieldSpecified;
+            get
+            {
+                return this.dashlengthField;
+            }
+            set
+            {
+                this.dashlengthField = value;
+            }
         }
-        set
-        {
-            this.dashlengthFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("space-length")]
-    public decimal spacelength
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool dashlengthSpecified
         {
-            return this.spacelengthField;
+            get
+            {
+                return this.dashlengthFieldSpecified;
+            }
+            set
+            {
+                this.dashlengthFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.spacelengthField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool spacelengthSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("space-length")]
+        public decimal spacelength
         {
-            return this.spacelengthFieldSpecified;
+            get
+            {
+                return this.spacelengthField;
+            }
+            set
+            {
+                this.spacelengthField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool spacelengthSpecified
         {
-            this.spacelengthFieldSpecified = value;
+            get
+            {
+                return this.spacelengthFieldSpecified;
+            }
+            set
+            {
+                this.spacelengthFieldSpecified = value;
+            }
         }
     }
 }

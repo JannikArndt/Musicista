@@ -1,247 +1,250 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class dashes
+namespace MusicXML
 {
-
-    private startstopcontinue typeField;
-
-    private string numberField;
-
-    private decimal dashlengthField;
-
-    private bool dashlengthFieldSpecified;
-
-    private decimal spacelengthField;
-
-    private bool spacelengthFieldSpecified;
-
-    private decimal defaultxField;
-
-    private bool defaultxFieldSpecified;
-
-    private decimal defaultyField;
-
-    private bool defaultyFieldSpecified;
-
-    private decimal relativexField;
-
-    private bool relativexFieldSpecified;
-
-    private decimal relativeyField;
-
-    private bool relativeyFieldSpecified;
-
-    private string colorField;
-
-
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public startstopcontinue type
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class dashes
     {
-        get
-        {
-            return this.typeField;
-        }
-        set
-        {
-            this.typeField = value;
-        }
-    }
+
+        private startstopcontinue typeField;
+
+        private string numberField;
+
+        private decimal dashlengthField;
+
+        private bool dashlengthFieldSpecified;
+
+        private decimal spacelengthField;
+
+        private bool spacelengthFieldSpecified;
+
+        private decimal defaultxField;
+
+        private bool defaultxFieldSpecified;
+
+        private decimal defaultyField;
+
+        private bool defaultyFieldSpecified;
+
+        private decimal relativexField;
+
+        private bool relativexFieldSpecified;
+
+        private decimal relativeyField;
+
+        private bool relativeyFieldSpecified;
+
+        private string colorField;
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "positiveInteger")]
-    public string number
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public startstopcontinue type
         {
-            return this.numberField;
+            get
+            {
+                return this.typeField;
+            }
+            set
+            {
+                this.typeField = value;
+            }
         }
-        set
-        {
-            this.numberField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("dash-length")]
-    public decimal dashlength
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "positiveInteger")]
+        public string number
         {
-            return this.dashlengthField;
+            get
+            {
+                return this.numberField;
+            }
+            set
+            {
+                this.numberField = value;
+            }
         }
-        set
-        {
-            this.dashlengthField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool dashlengthSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("dash-length")]
+        public decimal dashlength
         {
-            return this.dashlengthFieldSpecified;
+            get
+            {
+                return this.dashlengthField;
+            }
+            set
+            {
+                this.dashlengthField = value;
+            }
         }
-        set
-        {
-            this.dashlengthFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("space-length")]
-    public decimal spacelength
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool dashlengthSpecified
         {
-            return this.spacelengthField;
+            get
+            {
+                return this.dashlengthFieldSpecified;
+            }
+            set
+            {
+                this.dashlengthFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.spacelengthField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool spacelengthSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("space-length")]
+        public decimal spacelength
         {
-            return this.spacelengthFieldSpecified;
+            get
+            {
+                return this.spacelengthField;
+            }
+            set
+            {
+                this.spacelengthField = value;
+            }
         }
-        set
-        {
-            this.spacelengthFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("default-x")]
-    public decimal defaultx
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool spacelengthSpecified
         {
-            return this.defaultxField;
+            get
+            {
+                return this.spacelengthFieldSpecified;
+            }
+            set
+            {
+                this.spacelengthFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.defaultxField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool defaultxSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("default-x")]
+        public decimal defaultx
         {
-            return this.defaultxFieldSpecified;
+            get
+            {
+                return this.defaultxField;
+            }
+            set
+            {
+                this.defaultxField = value;
+            }
         }
-        set
-        {
-            this.defaultxFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("default-y")]
-    public decimal defaulty
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool defaultxSpecified
         {
-            return this.defaultyField;
+            get
+            {
+                return this.defaultxFieldSpecified;
+            }
+            set
+            {
+                this.defaultxFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.defaultyField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool defaultySpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("default-y")]
+        public decimal defaulty
         {
-            return this.defaultyFieldSpecified;
+            get
+            {
+                return this.defaultyField;
+            }
+            set
+            {
+                this.defaultyField = value;
+            }
         }
-        set
-        {
-            this.defaultyFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("relative-x")]
-    public decimal relativex
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool defaultySpecified
         {
-            return this.relativexField;
+            get
+            {
+                return this.defaultyFieldSpecified;
+            }
+            set
+            {
+                this.defaultyFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.relativexField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool relativexSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("relative-x")]
+        public decimal relativex
         {
-            return this.relativexFieldSpecified;
+            get
+            {
+                return this.relativexField;
+            }
+            set
+            {
+                this.relativexField = value;
+            }
         }
-        set
-        {
-            this.relativexFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("relative-y")]
-    public decimal relativey
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool relativexSpecified
         {
-            return this.relativeyField;
+            get
+            {
+                return this.relativexFieldSpecified;
+            }
+            set
+            {
+                this.relativexFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.relativeyField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool relativeySpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("relative-y")]
+        public decimal relativey
         {
-            return this.relativeyFieldSpecified;
+            get
+            {
+                return this.relativeyField;
+            }
+            set
+            {
+                this.relativeyField = value;
+            }
         }
-        set
-        {
-            this.relativeyFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
-    public string color
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool relativeySpecified
         {
-            return this.colorField;
+            get
+            {
+                return this.relativeyFieldSpecified;
+            }
+            set
+            {
+                this.relativeyFieldSpecified = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
+        public string color
         {
-            this.colorField = value;
+            get
+            {
+                return this.colorField;
+            }
+            set
+            {
+                this.colorField = value;
+            }
         }
     }
 }

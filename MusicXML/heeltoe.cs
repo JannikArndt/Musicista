@@ -1,40 +1,43 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "heel-toe")]
-public partial class heeltoe : emptyplacement
+namespace MusicXML
 {
-
-    private yesno substitutionField;
-
-    private bool substitutionFieldSpecified;
-
-
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public yesno substitution
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "heel-toe")]
+    public partial class heeltoe : emptyplacement
     {
-        get
-        {
-            return this.substitutionField;
-        }
-        set
-        {
-            this.substitutionField = value;
-        }
-    }
+
+        private yesno substitutionField;
+
+        private bool substitutionFieldSpecified;
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool substitutionSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public yesno substitution
         {
-            return this.substitutionFieldSpecified;
+            get
+            {
+                return this.substitutionField;
+            }
+            set
+            {
+                this.substitutionField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool substitutionSpecified
         {
-            this.substitutionFieldSpecified = value;
+            get
+            {
+                return this.substitutionFieldSpecified;
+            }
+            set
+            {
+                this.substitutionFieldSpecified = value;
+            }
         }
     }
 }

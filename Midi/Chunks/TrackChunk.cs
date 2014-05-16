@@ -28,15 +28,15 @@ namespace Midi.Chunks
 {
     public class TrackChunk : Chunk
     {
-        public List<MidiEvent> Events { get; set; }
-
         public TrackChunk(List<MidiEvent> events)
             : base("MTrk")
         {
             Events = events;
         }
 
-        override public string ToString()
+        public List<MidiEvent> Events { get; set; }
+
+        public override string ToString()
         {
             var eventsString = Events.Aggregate("", (a, b) => a + b + ", ");
             eventsString = eventsString.Remove(eventsString.Length - 2);

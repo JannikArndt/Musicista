@@ -1,201 +1,204 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class bend
+namespace MusicXML
 {
-
-    private decimal bendalterField;
-
-    private empty itemField;
-
-    private ItemChoiceType1 itemElementNameField;
-
-    private placementtext withbarField;
-
-    private yesno accelerateField;
-
-    private bool accelerateFieldSpecified;
-
-    private decimal beatsField;
-
-    private bool beatsFieldSpecified;
-
-    private decimal firstbeatField;
-
-    private bool firstbeatFieldSpecified;
-
-    private decimal lastbeatField;
-
-    private bool lastbeatFieldSpecified;
-
-
-    [System.Xml.Serialization.XmlElementAttribute("bend-alter")]
-    public decimal bendalter
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class bend
     {
-        get
-        {
-            return this.bendalterField;
-        }
-        set
-        {
-            this.bendalterField = value;
-        }
-    }
+
+        private decimal bendalterField;
+
+        private empty itemField;
+
+        private ItemChoiceType1 itemElementNameField;
+
+        private placementtext withbarField;
+
+        private yesno accelerateField;
+
+        private bool accelerateFieldSpecified;
+
+        private decimal beatsField;
+
+        private bool beatsFieldSpecified;
+
+        private decimal firstbeatField;
+
+        private bool firstbeatFieldSpecified;
+
+        private decimal lastbeatField;
+
+        private bool lastbeatFieldSpecified;
 
 
-    [System.Xml.Serialization.XmlElementAttribute("pre-bend", typeof(empty))]
-    [System.Xml.Serialization.XmlElementAttribute("release", typeof(empty))]
-    [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemElementName")]
-    public empty Item
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("bend-alter")]
+        public decimal bendalter
         {
-            return this.itemField;
+            get
+            {
+                return this.bendalterField;
+            }
+            set
+            {
+                this.bendalterField = value;
+            }
         }
-        set
-        {
-            this.itemField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public ItemChoiceType1 ItemElementName
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("pre-bend", typeof(empty))]
+        [System.Xml.Serialization.XmlElementAttribute("release", typeof(empty))]
+        [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemElementName")]
+        public empty Item
         {
-            return this.itemElementNameField;
+            get
+            {
+                return this.itemField;
+            }
+            set
+            {
+                this.itemField = value;
+            }
         }
-        set
-        {
-            this.itemElementNameField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("with-bar")]
-    public placementtext withbar
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public ItemChoiceType1 ItemElementName
         {
-            return this.withbarField;
+            get
+            {
+                return this.itemElementNameField;
+            }
+            set
+            {
+                this.itemElementNameField = value;
+            }
         }
-        set
-        {
-            this.withbarField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public yesno accelerate
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("with-bar")]
+        public placementtext withbar
         {
-            return this.accelerateField;
+            get
+            {
+                return this.withbarField;
+            }
+            set
+            {
+                this.withbarField = value;
+            }
         }
-        set
-        {
-            this.accelerateField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool accelerateSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public yesno accelerate
         {
-            return this.accelerateFieldSpecified;
+            get
+            {
+                return this.accelerateField;
+            }
+            set
+            {
+                this.accelerateField = value;
+            }
         }
-        set
-        {
-            this.accelerateFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public decimal beats
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool accelerateSpecified
         {
-            return this.beatsField;
+            get
+            {
+                return this.accelerateFieldSpecified;
+            }
+            set
+            {
+                this.accelerateFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.beatsField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool beatsSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public decimal beats
         {
-            return this.beatsFieldSpecified;
+            get
+            {
+                return this.beatsField;
+            }
+            set
+            {
+                this.beatsField = value;
+            }
         }
-        set
-        {
-            this.beatsFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("first-beat")]
-    public decimal firstbeat
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool beatsSpecified
         {
-            return this.firstbeatField;
+            get
+            {
+                return this.beatsFieldSpecified;
+            }
+            set
+            {
+                this.beatsFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.firstbeatField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool firstbeatSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("first-beat")]
+        public decimal firstbeat
         {
-            return this.firstbeatFieldSpecified;
+            get
+            {
+                return this.firstbeatField;
+            }
+            set
+            {
+                this.firstbeatField = value;
+            }
         }
-        set
-        {
-            this.firstbeatFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("last-beat")]
-    public decimal lastbeat
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool firstbeatSpecified
         {
-            return this.lastbeatField;
+            get
+            {
+                return this.firstbeatFieldSpecified;
+            }
+            set
+            {
+                this.firstbeatFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.lastbeatField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool lastbeatSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("last-beat")]
+        public decimal lastbeat
         {
-            return this.lastbeatFieldSpecified;
+            get
+            {
+                return this.lastbeatField;
+            }
+            set
+            {
+                this.lastbeatField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool lastbeatSpecified
         {
-            this.lastbeatFieldSpecified = value;
+            get
+            {
+                return this.lastbeatFieldSpecified;
+            }
+            set
+            {
+                this.lastbeatFieldSpecified = value;
+            }
         }
     }
 }

@@ -1,39 +1,42 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class root
+namespace MusicXML
 {
-
-    private rootstep rootstepField;
-
-    private rootalter rootalterField;
-
-
-    [System.Xml.Serialization.XmlElementAttribute("root-step")]
-    public rootstep rootstep
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class root
     {
-        get
-        {
-            return this.rootstepField;
-        }
-        set
-        {
-            this.rootstepField = value;
-        }
-    }
+
+        private rootstep rootstepField;
+
+        private rootalter rootalterField;
 
 
-    [System.Xml.Serialization.XmlElementAttribute("root-alter")]
-    public rootalter rootalter
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("root-step")]
+        public rootstep rootstep
         {
-            return this.rootalterField;
+            get
+            {
+                return this.rootstepField;
+            }
+            set
+            {
+                this.rootstepField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlElementAttribute("root-alter")]
+        public rootalter rootalter
         {
-            this.rootalterField = value;
+            get
+            {
+                return this.rootalterField;
+            }
+            set
+            {
+                this.rootalterField = value;
+            }
         }
     }
 }

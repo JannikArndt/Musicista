@@ -4,20 +4,23 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Serialization;
 
-[GeneratedCode("xsd", "4.0.30319.33440")]
-[Serializable]
-[DebuggerStepThrough]
-[DesignerCategory("code")]
-[XmlType(TypeName = "measure-numbering")]
-public class measurenumbering
+namespace MusicXML
 {
-    private measurenumberingvalue valueField;
-
-
-    [XmlText]
-    public measurenumberingvalue Value
+    [GeneratedCode("xsd", "4.0.30319.33440")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType(TypeName = "measure-numbering")]
+    public class measurenumbering
     {
-        get { return valueField; }
-        set { valueField = value; }
+        private measurenumberingvalue valueField;
+
+
+        [XmlText]
+        public measurenumberingvalue Value
+        {
+            get { return valueField; }
+            set { valueField = value; }
+        }
     }
 }

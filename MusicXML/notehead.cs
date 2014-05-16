@@ -1,199 +1,202 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class notehead
+namespace MusicXML
 {
-
-    private yesno filledField;
-
-    private bool filledFieldSpecified;
-
-    private yesno parenthesesField;
-
-    private bool parenthesesFieldSpecified;
-
-    private string fontfamilyField;
-
-    private fontstyle fontstyleField;
-
-    private bool fontstyleFieldSpecified;
-
-    private string fontsizeField;
-
-    private fontweight fontweightField;
-
-    private bool fontweightFieldSpecified;
-
-    private string colorField;
-
-    private noteheadvalue valueField;
-
-
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public yesno filled
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class notehead
     {
-        get
-        {
-            return this.filledField;
-        }
-        set
-        {
-            this.filledField = value;
-        }
-    }
+
+        private yesno filledField;
+
+        private bool filledFieldSpecified;
+
+        private yesno parenthesesField;
+
+        private bool parenthesesFieldSpecified;
+
+        private string fontfamilyField;
+
+        private fontstyle fontstyleField;
+
+        private bool fontstyleFieldSpecified;
+
+        private string fontsizeField;
+
+        private fontweight fontweightField;
+
+        private bool fontweightFieldSpecified;
+
+        private string colorField;
+
+        private noteheadvalue valueField;
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool filledSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public yesno filled
         {
-            return this.filledFieldSpecified;
+            get
+            {
+                return this.filledField;
+            }
+            set
+            {
+                this.filledField = value;
+            }
         }
-        set
-        {
-            this.filledFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public yesno parentheses
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool filledSpecified
         {
-            return this.parenthesesField;
+            get
+            {
+                return this.filledFieldSpecified;
+            }
+            set
+            {
+                this.filledFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.parenthesesField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool parenthesesSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public yesno parentheses
         {
-            return this.parenthesesFieldSpecified;
+            get
+            {
+                return this.parenthesesField;
+            }
+            set
+            {
+                this.parenthesesField = value;
+            }
         }
-        set
-        {
-            this.parenthesesFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("font-family", DataType = "token")]
-    public string fontfamily
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool parenthesesSpecified
         {
-            return this.fontfamilyField;
+            get
+            {
+                return this.parenthesesFieldSpecified;
+            }
+            set
+            {
+                this.parenthesesFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.fontfamilyField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("font-style")]
-    public fontstyle fontstyle
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("font-family", DataType = "token")]
+        public string fontfamily
         {
-            return this.fontstyleField;
+            get
+            {
+                return this.fontfamilyField;
+            }
+            set
+            {
+                this.fontfamilyField = value;
+            }
         }
-        set
-        {
-            this.fontstyleField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool fontstyleSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("font-style")]
+        public fontstyle fontstyle
         {
-            return this.fontstyleFieldSpecified;
+            get
+            {
+                return this.fontstyleField;
+            }
+            set
+            {
+                this.fontstyleField = value;
+            }
         }
-        set
-        {
-            this.fontstyleFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("font-size")]
-    public string fontsize
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool fontstyleSpecified
         {
-            return this.fontsizeField;
+            get
+            {
+                return this.fontstyleFieldSpecified;
+            }
+            set
+            {
+                this.fontstyleFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.fontsizeField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("font-weight")]
-    public fontweight fontweight
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("font-size")]
+        public string fontsize
         {
-            return this.fontweightField;
+            get
+            {
+                return this.fontsizeField;
+            }
+            set
+            {
+                this.fontsizeField = value;
+            }
         }
-        set
-        {
-            this.fontweightField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool fontweightSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("font-weight")]
+        public fontweight fontweight
         {
-            return this.fontweightFieldSpecified;
+            get
+            {
+                return this.fontweightField;
+            }
+            set
+            {
+                this.fontweightField = value;
+            }
         }
-        set
-        {
-            this.fontweightFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
-    public string color
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool fontweightSpecified
         {
-            return this.colorField;
+            get
+            {
+                return this.fontweightFieldSpecified;
+            }
+            set
+            {
+                this.fontweightFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.colorField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlTextAttribute()]
-    public noteheadvalue Value
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
+        public string color
         {
-            return this.valueField;
+            get
+            {
+                return this.colorField;
+            }
+            set
+            {
+                this.colorField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public noteheadvalue Value
         {
-            this.valueField = value;
+            get
+            {
+                return this.valueField;
+            }
+            set
+            {
+                this.valueField = value;
+            }
         }
     }
 }

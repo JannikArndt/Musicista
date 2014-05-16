@@ -1,72 +1,75 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "key-octave")]
-public partial class keyoctave
+namespace MusicXML
 {
-
-    private string numberField;
-
-    private yesno cancelField;
-
-    private bool cancelFieldSpecified;
-
-    private string valueField;
-
-
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "positiveInteger")]
-    public string number
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "key-octave")]
+    public partial class keyoctave
     {
-        get
-        {
-            return this.numberField;
-        }
-        set
-        {
-            this.numberField = value;
-        }
-    }
+
+        private string numberField;
+
+        private yesno cancelField;
+
+        private bool cancelFieldSpecified;
+
+        private string valueField;
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public yesno cancel
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "positiveInteger")]
+        public string number
         {
-            return this.cancelField;
+            get
+            {
+                return this.numberField;
+            }
+            set
+            {
+                this.numberField = value;
+            }
         }
-        set
-        {
-            this.cancelField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool cancelSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public yesno cancel
         {
-            return this.cancelFieldSpecified;
+            get
+            {
+                return this.cancelField;
+            }
+            set
+            {
+                this.cancelField = value;
+            }
         }
-        set
-        {
-            this.cancelFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlTextAttribute(DataType = "integer")]
-    public string Value
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool cancelSpecified
         {
-            return this.valueField;
+            get
+            {
+                return this.cancelFieldSpecified;
+            }
+            set
+            {
+                this.cancelFieldSpecified = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlTextAttribute(DataType = "integer")]
+        public string Value
         {
-            this.valueField = value;
+            get
+            {
+                return this.valueField;
+            }
+            set
+            {
+                this.valueField = value;
+            }
         }
     }
 }

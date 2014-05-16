@@ -1,56 +1,59 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "midi-device")]
-public partial class mididevice
+namespace MusicXML
 {
-
-    private string portField;
-
-    private string idField;
-
-    private string valueField;
-
-
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "positiveInteger")]
-    public string port
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "midi-device")]
+    public partial class mididevice
     {
-        get
-        {
-            return this.portField;
-        }
-        set
-        {
-            this.portField = value;
-        }
-    }
+
+        private string portField;
+
+        private string idField;
+
+        private string valueField;
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "IDREF")]
-    public string id
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "positiveInteger")]
+        public string port
         {
-            return this.idField;
+            get
+            {
+                return this.portField;
+            }
+            set
+            {
+                this.portField = value;
+            }
         }
-        set
-        {
-            this.idField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlTextAttribute()]
-    public string Value
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "IDREF")]
+        public string id
         {
-            return this.valueField;
+            get
+            {
+                return this.idField;
+            }
+            set
+            {
+                this.idField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public string Value
         {
-            this.valueField = value;
+            get
+            {
+                return this.valueField;
+            }
+            set
+            {
+                this.valueField = value;
+            }
         }
     }
 }

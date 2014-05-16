@@ -1,94 +1,97 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "hammer-on-pull-off")]
-public partial class hammeronpulloff
+namespace MusicXML
 {
-
-    private startstop typeField;
-
-    private string numberField;
-
-    private abovebelow placementField;
-
-    private bool placementFieldSpecified;
-
-    private string valueField;
-
-    public hammeronpulloff()
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "hammer-on-pull-off")]
+    public partial class hammeronpulloff
     {
-        this.numberField = "1";
-    }
 
+        private startstop typeField;
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public startstop type
-    {
-        get
+        private string numberField;
+
+        private abovebelow placementField;
+
+        private bool placementFieldSpecified;
+
+        private string valueField;
+
+        public hammeronpulloff()
         {
-            return this.typeField;
+            this.numberField = "1";
         }
-        set
-        {
-            this.typeField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "positiveInteger")]
-    [System.ComponentModel.DefaultValueAttribute("1")]
-    public string number
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public startstop type
         {
-            return this.numberField;
+            get
+            {
+                return this.typeField;
+            }
+            set
+            {
+                this.typeField = value;
+            }
         }
-        set
-        {
-            this.numberField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public abovebelow placement
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "positiveInteger")]
+        [System.ComponentModel.DefaultValueAttribute("1")]
+        public string number
         {
-            return this.placementField;
+            get
+            {
+                return this.numberField;
+            }
+            set
+            {
+                this.numberField = value;
+            }
         }
-        set
-        {
-            this.placementField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool placementSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public abovebelow placement
         {
-            return this.placementFieldSpecified;
+            get
+            {
+                return this.placementField;
+            }
+            set
+            {
+                this.placementField = value;
+            }
         }
-        set
-        {
-            this.placementFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlTextAttribute()]
-    public string Value
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool placementSpecified
         {
-            return this.valueField;
+            get
+            {
+                return this.placementFieldSpecified;
+            }
+            set
+            {
+                this.placementFieldSpecified = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public string Value
         {
-            this.valueField = value;
+            get
+            {
+                return this.valueField;
+            }
+            set
+            {
+                this.valueField = value;
+            }
         }
     }
 }

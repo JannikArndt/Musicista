@@ -1,42 +1,45 @@
-[System.Xml.Serialization.XmlIncludeAttribute(typeof(strongaccent))]
-[System.Xml.Serialization.XmlIncludeAttribute(typeof(heeltoe))]
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "empty-placement")]
-public partial class emptyplacement
+namespace MusicXML
 {
-
-    private abovebelow placementField;
-
-    private bool placementFieldSpecified;
-
-
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public abovebelow placement
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(strongaccent))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(heeltoe))]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "empty-placement")]
+    public partial class emptyplacement
     {
-        get
-        {
-            return this.placementField;
-        }
-        set
-        {
-            this.placementField = value;
-        }
-    }
+
+        private abovebelow placementField;
+
+        private bool placementFieldSpecified;
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool placementSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public abovebelow placement
         {
-            return this.placementFieldSpecified;
+            get
+            {
+                return this.placementField;
+            }
+            set
+            {
+                this.placementField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool placementSpecified
         {
-            this.placementFieldSpecified = value;
+            get
+            {
+                return this.placementFieldSpecified;
+            }
+            set
+            {
+                this.placementFieldSpecified = value;
+            }
         }
     }
 }

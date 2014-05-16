@@ -1,27 +1,30 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-public enum pitched
+namespace MusicXML
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    public enum pitched
+    {
 
 
-    chimes,
+        chimes,
 
 
-    glockenspiel,
+        glockenspiel,
 
 
-    mallet,
+        mallet,
 
 
-    marimba,
+        marimba,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("tubular chimes")]
-    tubularchimes,
+        [System.Xml.Serialization.XmlEnumAttribute("tubular chimes")]
+        tubularchimes,
 
 
-    vibraphone,
+        vibraphone,
 
 
-    xylophone,
+        xylophone,
+    }
 }

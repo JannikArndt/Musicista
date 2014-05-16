@@ -1,56 +1,59 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "staff-layout")]
-public partial class stafflayout
+namespace MusicXML
 {
-
-    private decimal staffdistanceField;
-
-    private bool staffdistanceFieldSpecified;
-
-    private string numberField;
-
-
-    [System.Xml.Serialization.XmlElementAttribute("staff-distance")]
-    public decimal staffdistance
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "staff-layout")]
+    public partial class stafflayout
     {
-        get
-        {
-            return this.staffdistanceField;
-        }
-        set
-        {
-            this.staffdistanceField = value;
-        }
-    }
+
+        private decimal staffdistanceField;
+
+        private bool staffdistanceFieldSpecified;
+
+        private string numberField;
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool staffdistanceSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("staff-distance")]
+        public decimal staffdistance
         {
-            return this.staffdistanceFieldSpecified;
+            get
+            {
+                return this.staffdistanceField;
+            }
+            set
+            {
+                this.staffdistanceField = value;
+            }
         }
-        set
-        {
-            this.staffdistanceFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "positiveInteger")]
-    public string number
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool staffdistanceSpecified
         {
-            return this.numberField;
+            get
+            {
+                return this.staffdistanceFieldSpecified;
+            }
+            set
+            {
+                this.staffdistanceFieldSpecified = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "positiveInteger")]
+        public string number
         {
-            this.numberField = value;
+            get
+            {
+                return this.numberField;
+            }
+            set
+            {
+                this.numberField = value;
+            }
         }
     }
 }

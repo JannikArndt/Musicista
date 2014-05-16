@@ -1,27 +1,30 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "arrow-style")]
-public enum arrowstyle
+namespace MusicXML
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "arrow-style")]
+    public enum arrowstyle
+    {
 
 
-    single,
+        single,
 
 
-    @double,
+        @double,
 
 
-    filled,
+        filled,
 
 
-    hollow,
+        hollow,
 
 
-    paired,
+        paired,
 
 
-    combined,
+        combined,
 
 
-    other,
+        other,
+    }
 }

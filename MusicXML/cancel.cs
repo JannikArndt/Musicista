@@ -1,55 +1,58 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class cancel
+namespace MusicXML
 {
-
-    private cancellocation locationField;
-
-    private bool locationFieldSpecified;
-
-    private string valueField;
-
-
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public cancellocation location
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class cancel
     {
-        get
-        {
-            return this.locationField;
-        }
-        set
-        {
-            this.locationField = value;
-        }
-    }
+
+        private cancellocation locationField;
+
+        private bool locationFieldSpecified;
+
+        private string valueField;
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool locationSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public cancellocation location
         {
-            return this.locationFieldSpecified;
+            get
+            {
+                return this.locationField;
+            }
+            set
+            {
+                this.locationField = value;
+            }
         }
-        set
-        {
-            this.locationFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlTextAttribute(DataType = "integer")]
-    public string Value
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool locationSpecified
         {
-            return this.valueField;
+            get
+            {
+                return this.locationFieldSpecified;
+            }
+            set
+            {
+                this.locationFieldSpecified = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlTextAttribute(DataType = "integer")]
+        public string Value
         {
-            this.valueField = value;
+            get
+            {
+                return this.valueField;
+            }
+            set
+            {
+                this.valueField = value;
+            }
         }
     }
 }

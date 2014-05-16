@@ -1,27 +1,30 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "semi-pitched")]
-public enum semipitched
+namespace MusicXML
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "semi-pitched")]
+    public enum semipitched
+    {
 
 
-    high,
+        high,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("medium-high")]
-    mediumhigh,
+        [System.Xml.Serialization.XmlEnumAttribute("medium-high")]
+        mediumhigh,
 
 
-    medium,
+        medium,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("medium-low")]
-    mediumlow,
+        [System.Xml.Serialization.XmlEnumAttribute("medium-low")]
+        mediumlow,
 
 
-    low,
+        low,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("very-low")]
-    verylow,
+        [System.Xml.Serialization.XmlEnumAttribute("very-low")]
+        verylow,
+    }
 }

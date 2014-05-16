@@ -1,40 +1,43 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "bass-step")]
-public partial class bassstep
+namespace MusicXML
 {
-
-    private string textField;
-
-    private step valueField;
-
-
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
-    public string text
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "bass-step")]
+    public partial class bassstep
     {
-        get
-        {
-            return this.textField;
-        }
-        set
-        {
-            this.textField = value;
-        }
-    }
+
+        private string textField;
+
+        private step valueField;
 
 
-    [System.Xml.Serialization.XmlTextAttribute()]
-    public step Value
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
+        public string text
         {
-            return this.valueField;
+            get
+            {
+                return this.textField;
+            }
+            set
+            {
+                this.textField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public step Value
         {
-            this.valueField = value;
+            get
+            {
+                return this.valueField;
+            }
+            set
+            {
+                this.valueField = value;
+            }
         }
     }
 }

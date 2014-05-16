@@ -1,149 +1,152 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class defaults
+namespace MusicXML
 {
-
-    private scaling scalingField;
-
-    private pagelayout pagelayoutField;
-
-    private systemlayout systemlayoutField;
-
-    private stafflayout[] stafflayoutField;
-
-    private appearance appearanceField;
-
-    private emptyfont musicfontField;
-
-    private emptyfont wordfontField;
-
-    private lyricfont[] lyricfontField;
-
-    private lyriclanguage[] lyriclanguageField;
-
-
-    public scaling scaling
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class defaults
     {
-        get
-        {
-            return this.scalingField;
-        }
-        set
-        {
-            this.scalingField = value;
-        }
-    }
+
+        private scaling scalingField;
+
+        private pagelayout pagelayoutField;
+
+        private systemlayout systemlayoutField;
+
+        private stafflayout[] stafflayoutField;
+
+        private appearance appearanceField;
+
+        private emptyfont musicfontField;
+
+        private emptyfont wordfontField;
+
+        private lyricfont[] lyricfontField;
+
+        private lyriclanguage[] lyriclanguageField;
 
 
-    [System.Xml.Serialization.XmlElementAttribute("page-layout")]
-    public pagelayout pagelayout
-    {
-        get
+        public scaling scaling
         {
-            return this.pagelayoutField;
+            get
+            {
+                return this.scalingField;
+            }
+            set
+            {
+                this.scalingField = value;
+            }
         }
-        set
-        {
-            this.pagelayoutField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("system-layout")]
-    public systemlayout systemlayout
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("page-layout")]
+        public pagelayout pagelayout
         {
-            return this.systemlayoutField;
+            get
+            {
+                return this.pagelayoutField;
+            }
+            set
+            {
+                this.pagelayoutField = value;
+            }
         }
-        set
-        {
-            this.systemlayoutField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("staff-layout")]
-    public stafflayout[] stafflayout
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("system-layout")]
+        public systemlayout systemlayout
         {
-            return this.stafflayoutField;
+            get
+            {
+                return this.systemlayoutField;
+            }
+            set
+            {
+                this.systemlayoutField = value;
+            }
         }
-        set
-        {
-            this.stafflayoutField = value;
-        }
-    }
 
 
-    public appearance appearance
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("staff-layout")]
+        public stafflayout[] stafflayout
         {
-            return this.appearanceField;
+            get
+            {
+                return this.stafflayoutField;
+            }
+            set
+            {
+                this.stafflayoutField = value;
+            }
         }
-        set
-        {
-            this.appearanceField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("music-font")]
-    public emptyfont musicfont
-    {
-        get
+        public appearance appearance
         {
-            return this.musicfontField;
+            get
+            {
+                return this.appearanceField;
+            }
+            set
+            {
+                this.appearanceField = value;
+            }
         }
-        set
-        {
-            this.musicfontField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("word-font")]
-    public emptyfont wordfont
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("music-font")]
+        public emptyfont musicfont
         {
-            return this.wordfontField;
+            get
+            {
+                return this.musicfontField;
+            }
+            set
+            {
+                this.musicfontField = value;
+            }
         }
-        set
-        {
-            this.wordfontField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("lyric-font")]
-    public lyricfont[] lyricfont
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("word-font")]
+        public emptyfont wordfont
         {
-            return this.lyricfontField;
+            get
+            {
+                return this.wordfontField;
+            }
+            set
+            {
+                this.wordfontField = value;
+            }
         }
-        set
-        {
-            this.lyricfontField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("lyric-language")]
-    public lyriclanguage[] lyriclanguage
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("lyric-font")]
+        public lyricfont[] lyricfont
         {
-            return this.lyriclanguageField;
+            get
+            {
+                return this.lyricfontField;
+            }
+            set
+            {
+                this.lyricfontField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlElementAttribute("lyric-language")]
+        public lyriclanguage[] lyriclanguage
         {
-            this.lyriclanguageField = value;
+            get
+            {
+                return this.lyriclanguageField;
+            }
+            set
+            {
+                this.lyriclanguageField = value;
+            }
         }
     }
 }

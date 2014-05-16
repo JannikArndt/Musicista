@@ -1,25 +1,28 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "notehead-text")]
-public partial class noteheadtext
+namespace MusicXML
 {
-
-    private object[] itemsField;
-
-
-    [System.Xml.Serialization.XmlElementAttribute("accidental-text", typeof(accidentaltext))]
-    [System.Xml.Serialization.XmlElementAttribute("display-text", typeof(formattedtext))]
-    public object[] Items
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "notehead-text")]
+    public partial class noteheadtext
     {
-        get
+
+        private object[] itemsField;
+
+
+        [System.Xml.Serialization.XmlElementAttribute("accidental-text", typeof(accidentaltext))]
+        [System.Xml.Serialization.XmlElementAttribute("display-text", typeof(formattedtext))]
+        public object[] Items
         {
-            return this.itemsField;
-        }
-        set
-        {
-            this.itemsField = value;
+            get
+            {
+                return this.itemsField;
+            }
+            set
+            {
+                this.itemsField = value;
+            }
         }
     }
 }

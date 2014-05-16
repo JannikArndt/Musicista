@@ -1,27 +1,30 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(IncludeInSchema = false)]
-public enum ItemsChoiceType8
+namespace MusicXML
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(IncludeInSchema = false)]
+    public enum ItemsChoiceType8
+    {
 
 
-    cancel,
+        cancel,
 
 
-    fifths,
+        fifths,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("key-accidental")]
-    keyaccidental,
+        [System.Xml.Serialization.XmlEnumAttribute("key-accidental")]
+        keyaccidental,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("key-alter")]
-    keyalter,
+        [System.Xml.Serialization.XmlEnumAttribute("key-alter")]
+        keyalter,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("key-step")]
-    keystep,
+        [System.Xml.Serialization.XmlEnumAttribute("key-step")]
+        keystep,
 
 
-    mode,
+        mode,
+    }
 }

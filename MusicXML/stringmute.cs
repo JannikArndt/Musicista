@@ -1,24 +1,27 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "string-mute")]
-public partial class stringmute
+namespace MusicXML
 {
-
-    private onoff typeField;
-
-
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public onoff type
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "string-mute")]
+    public partial class stringmute
     {
-        get
+
+        private onoff typeField;
+
+
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public onoff type
         {
-            return this.typeField;
-        }
-        set
-        {
-            this.typeField = value;
+            get
+            {
+                return this.typeField;
+            }
+            set
+            {
+                this.typeField = value;
+            }
         }
     }
 }

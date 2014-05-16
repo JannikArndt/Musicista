@@ -1,85 +1,88 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class transpose
+namespace MusicXML
 {
-
-    private string diatonicField;
-
-    private decimal chromaticField;
-
-    private string octavechangeField;
-
-    private empty doubleField;
-
-    private string numberField;
-
-
-    [System.Xml.Serialization.XmlElementAttribute(DataType = "integer")]
-    public string diatonic
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class transpose
     {
-        get
-        {
-            return this.diatonicField;
-        }
-        set
-        {
-            this.diatonicField = value;
-        }
-    }
+
+        private string diatonicField;
+
+        private decimal chromaticField;
+
+        private string octavechangeField;
+
+        private empty doubleField;
+
+        private string numberField;
 
 
-    public decimal chromatic
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute(DataType = "integer")]
+        public string diatonic
         {
-            return this.chromaticField;
+            get
+            {
+                return this.diatonicField;
+            }
+            set
+            {
+                this.diatonicField = value;
+            }
         }
-        set
-        {
-            this.chromaticField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("octave-change", DataType = "integer")]
-    public string octavechange
-    {
-        get
+        public decimal chromatic
         {
-            return this.octavechangeField;
+            get
+            {
+                return this.chromaticField;
+            }
+            set
+            {
+                this.chromaticField = value;
+            }
         }
-        set
-        {
-            this.octavechangeField = value;
-        }
-    }
 
 
-    public empty @double
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("octave-change", DataType = "integer")]
+        public string octavechange
         {
-            return this.doubleField;
+            get
+            {
+                return this.octavechangeField;
+            }
+            set
+            {
+                this.octavechangeField = value;
+            }
         }
-        set
-        {
-            this.doubleField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "positiveInteger")]
-    public string number
-    {
-        get
+        public empty @double
         {
-            return this.numberField;
+            get
+            {
+                return this.doubleField;
+            }
+            set
+            {
+                this.doubleField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "positiveInteger")]
+        public string number
         {
-            this.numberField = value;
+            get
+            {
+                return this.numberField;
+            }
+            set
+            {
+                this.numberField = value;
+            }
         }
     }
 }

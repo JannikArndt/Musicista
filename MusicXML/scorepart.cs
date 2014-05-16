@@ -4,105 +4,108 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Serialization;
 
-[GeneratedCode("xsd", "4.0.30319.33440")]
-[Serializable]
-[DebuggerStepThrough]
-[DesignerCategory("code")]
-[XmlType(TypeName = "score-part")]
-public class scorepart
+namespace MusicXML
 {
-    private string[] groupField;
-    private string idField;
-    private identification identificationField;
-    private mididevice[] midideviceField;
-
-    private midiinstrument[] midiinstrumentField;
-
-    private partname partabbreviationField;
-
-    private namedisplay partabbreviationdisplayField;
-    private partname partnameField;
-
-    private namedisplay partnamedisplayField;
-
-    private scoreinstrument[] scoreinstrumentField;
-
-
-    public identification identification
+    [GeneratedCode("xsd", "4.0.30319.33440")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType(TypeName = "score-part")]
+    public class scorepart
     {
-        get { return identificationField; }
-        set { identificationField = value; }
-    }
+        private string[] groupField;
+        private string idField;
+        private identification identificationField;
+        private mididevice[] midideviceField;
+
+        private midiinstrument[] midiinstrumentField;
+
+        private partname partabbreviationField;
+
+        private namedisplay partabbreviationdisplayField;
+        private partname partnameField;
+
+        private namedisplay partnamedisplayField;
+
+        private scoreinstrument[] scoreinstrumentField;
 
 
-    [XmlElement("part-name")]
-    public partname partname
-    {
-        get { return partnameField; }
-        set { partnameField = value; }
-    }
+        public identification identification
+        {
+            get { return identificationField; }
+            set { identificationField = value; }
+        }
 
 
-    [XmlElement("part-name-display")]
-    public namedisplay partnamedisplay
-    {
-        get { return partnamedisplayField; }
-        set { partnamedisplayField = value; }
-    }
+        [XmlElement("part-name")]
+        public partname partname
+        {
+            get { return partnameField; }
+            set { partnameField = value; }
+        }
 
 
-    [XmlElement("part-abbreviation")]
-    public partname partabbreviation
-    {
-        get { return partabbreviationField; }
-        set { partabbreviationField = value; }
-    }
+        [XmlElement("part-name-display")]
+        public namedisplay partnamedisplay
+        {
+            get { return partnamedisplayField; }
+            set { partnamedisplayField = value; }
+        }
 
 
-    [XmlElement("part-abbreviation-display")]
-    public namedisplay partabbreviationdisplay
-    {
-        get { return partabbreviationdisplayField; }
-        set { partabbreviationdisplayField = value; }
-    }
+        [XmlElement("part-abbreviation")]
+        public partname partabbreviation
+        {
+            get { return partabbreviationField; }
+            set { partabbreviationField = value; }
+        }
 
 
-    [XmlElement("group")]
-    public string[] group
-    {
-        get { return groupField; }
-        set { groupField = value; }
-    }
+        [XmlElement("part-abbreviation-display")]
+        public namedisplay partabbreviationdisplay
+        {
+            get { return partabbreviationdisplayField; }
+            set { partabbreviationdisplayField = value; }
+        }
 
 
-    [XmlElement("score-instrument")]
-    public scoreinstrument[] scoreinstrument
-    {
-        get { return scoreinstrumentField; }
-        set { scoreinstrumentField = value; }
-    }
+        [XmlElement("group")]
+        public string[] group
+        {
+            get { return groupField; }
+            set { groupField = value; }
+        }
 
 
-    [XmlElement("midi-device")]
-    public mididevice[] mididevice
-    {
-        get { return midideviceField; }
-        set { midideviceField = value; }
-    }
+        [XmlElement("score-instrument")]
+        public scoreinstrument[] scoreinstrument
+        {
+            get { return scoreinstrumentField; }
+            set { scoreinstrumentField = value; }
+        }
 
 
-    [XmlElement("midi-instrument")]
-    public midiinstrument[] midiinstrument
-    {
-        get { return midiinstrumentField; }
-        set { midiinstrumentField = value; }
-    }
+        [XmlElement("midi-device")]
+        public mididevice[] mididevice
+        {
+            get { return midideviceField; }
+            set { midideviceField = value; }
+        }
 
 
-    [XmlAttribute(DataType = "ID")]
-    public string id
-    {
-        get { return idField; }
-        set { idField = value; }
+        [XmlElement("midi-instrument")]
+        public midiinstrument[] midiinstrument
+        {
+            get { return midiinstrumentField; }
+            set { midiinstrumentField = value; }
+        }
+
+
+        [XmlAttribute(DataType = "ID")]
+        public string id
+        {
+            get { return idField; }
+            set { idField = value; }
+        }
     }
 }

@@ -1,40 +1,43 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "pedal-tuning")]
-public partial class pedaltuning
+namespace MusicXML
 {
-
-    private step pedalstepField;
-
-    private decimal pedalalterField;
-
-
-    [System.Xml.Serialization.XmlElementAttribute("pedal-step")]
-    public step pedalstep
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "pedal-tuning")]
+    public partial class pedaltuning
     {
-        get
-        {
-            return this.pedalstepField;
-        }
-        set
-        {
-            this.pedalstepField = value;
-        }
-    }
+
+        private step pedalstepField;
+
+        private decimal pedalalterField;
 
 
-    [System.Xml.Serialization.XmlElementAttribute("pedal-alter")]
-    public decimal pedalalter
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("pedal-step")]
+        public step pedalstep
         {
-            return this.pedalalterField;
+            get
+            {
+                return this.pedalstepField;
+            }
+            set
+            {
+                this.pedalstepField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlElementAttribute("pedal-alter")]
+        public decimal pedalalter
         {
-            this.pedalalterField = value;
+            get
+            {
+                return this.pedalalterField;
+            }
+            set
+            {
+                this.pedalalterField = value;
+            }
         }
     }
 }

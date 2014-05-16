@@ -1,198 +1,201 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class clef
+namespace MusicXML
 {
-
-    private clefsign signField;
-
-    private string lineField;
-
-    private string clefoctavechangeField;
-
-    private string numberField;
-
-    private yesno additionalField;
-
-    private bool additionalFieldSpecified;
-
-    private symbolsize sizeField;
-
-    private bool sizeFieldSpecified;
-
-    private yesno afterbarlineField;
-
-    private bool afterbarlineFieldSpecified;
-
-    private yesno printobjectField;
-
-    private bool printobjectFieldSpecified;
-
-
-    public clefsign sign
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class clef
     {
-        get
-        {
-            return this.signField;
-        }
-        set
-        {
-            this.signField = value;
-        }
-    }
+
+        private clefsign signField;
+
+        private string lineField;
+
+        private string clefoctavechangeField;
+
+        private string numberField;
+
+        private yesno additionalField;
+
+        private bool additionalFieldSpecified;
+
+        private symbolsize sizeField;
+
+        private bool sizeFieldSpecified;
+
+        private yesno afterbarlineField;
+
+        private bool afterbarlineFieldSpecified;
+
+        private yesno printobjectField;
+
+        private bool printobjectFieldSpecified;
 
 
-    [System.Xml.Serialization.XmlElementAttribute(DataType = "integer")]
-    public string line
-    {
-        get
+        public clefsign sign
         {
-            return this.lineField;
+            get
+            {
+                return this.signField;
+            }
+            set
+            {
+                this.signField = value;
+            }
         }
-        set
-        {
-            this.lineField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("clef-octave-change", DataType = "integer")]
-    public string clefoctavechange
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute(DataType = "integer")]
+        public string line
         {
-            return this.clefoctavechangeField;
+            get
+            {
+                return this.lineField;
+            }
+            set
+            {
+                this.lineField = value;
+            }
         }
-        set
-        {
-            this.clefoctavechangeField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "positiveInteger")]
-    public string number
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("clef-octave-change", DataType = "integer")]
+        public string clefoctavechange
         {
-            return this.numberField;
+            get
+            {
+                return this.clefoctavechangeField;
+            }
+            set
+            {
+                this.clefoctavechangeField = value;
+            }
         }
-        set
-        {
-            this.numberField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public yesno additional
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "positiveInteger")]
+        public string number
         {
-            return this.additionalField;
+            get
+            {
+                return this.numberField;
+            }
+            set
+            {
+                this.numberField = value;
+            }
         }
-        set
-        {
-            this.additionalField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool additionalSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public yesno additional
         {
-            return this.additionalFieldSpecified;
+            get
+            {
+                return this.additionalField;
+            }
+            set
+            {
+                this.additionalField = value;
+            }
         }
-        set
-        {
-            this.additionalFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public symbolsize size
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool additionalSpecified
         {
-            return this.sizeField;
+            get
+            {
+                return this.additionalFieldSpecified;
+            }
+            set
+            {
+                this.additionalFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.sizeField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool sizeSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public symbolsize size
         {
-            return this.sizeFieldSpecified;
+            get
+            {
+                return this.sizeField;
+            }
+            set
+            {
+                this.sizeField = value;
+            }
         }
-        set
-        {
-            this.sizeFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("after-barline")]
-    public yesno afterbarline
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool sizeSpecified
         {
-            return this.afterbarlineField;
+            get
+            {
+                return this.sizeFieldSpecified;
+            }
+            set
+            {
+                this.sizeFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.afterbarlineField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool afterbarlineSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("after-barline")]
+        public yesno afterbarline
         {
-            return this.afterbarlineFieldSpecified;
+            get
+            {
+                return this.afterbarlineField;
+            }
+            set
+            {
+                this.afterbarlineField = value;
+            }
         }
-        set
-        {
-            this.afterbarlineFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("print-object")]
-    public yesno printobject
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool afterbarlineSpecified
         {
-            return this.printobjectField;
+            get
+            {
+                return this.afterbarlineFieldSpecified;
+            }
+            set
+            {
+                this.afterbarlineFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.printobjectField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool printobjectSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("print-object")]
+        public yesno printobject
         {
-            return this.printobjectFieldSpecified;
+            get
+            {
+                return this.printobjectField;
+            }
+            set
+            {
+                this.printobjectField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool printobjectSpecified
         {
-            this.printobjectFieldSpecified = value;
+            get
+            {
+                return this.printobjectFieldSpecified;
+            }
+            set
+            {
+                this.printobjectFieldSpecified = value;
+            }
         }
     }
 }

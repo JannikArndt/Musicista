@@ -1,72 +1,75 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "degree-value")]
-public partial class degreevalue
+namespace MusicXML
 {
-
-    private degreesymbolvalue symbolField;
-
-    private bool symbolFieldSpecified;
-
-    private string textField;
-
-    private string valueField;
-
-
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public degreesymbolvalue symbol
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "degree-value")]
+    public partial class degreevalue
     {
-        get
-        {
-            return this.symbolField;
-        }
-        set
-        {
-            this.symbolField = value;
-        }
-    }
+
+        private degreesymbolvalue symbolField;
+
+        private bool symbolFieldSpecified;
+
+        private string textField;
+
+        private string valueField;
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool symbolSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public degreesymbolvalue symbol
         {
-            return this.symbolFieldSpecified;
+            get
+            {
+                return this.symbolField;
+            }
+            set
+            {
+                this.symbolField = value;
+            }
         }
-        set
-        {
-            this.symbolFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
-    public string text
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool symbolSpecified
         {
-            return this.textField;
+            get
+            {
+                return this.symbolFieldSpecified;
+            }
+            set
+            {
+                this.symbolFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.textField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlTextAttribute(DataType = "positiveInteger")]
-    public string Value
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
+        public string text
         {
-            return this.valueField;
+            get
+            {
+                return this.textField;
+            }
+            set
+            {
+                this.textField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlTextAttribute(DataType = "positiveInteger")]
+        public string Value
         {
-            this.valueField = value;
+            get
+            {
+                return this.valueField;
+            }
+            set
+            {
+                this.valueField = value;
+            }
         }
     }
 }

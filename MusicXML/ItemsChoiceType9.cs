@@ -1,20 +1,23 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(IncludeInSchema = false)]
-public enum ItemsChoiceType9
+namespace MusicXML
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(IncludeInSchema = false)]
+    public enum ItemsChoiceType9
+    {
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("beat-type")]
-    beattype,
+        [System.Xml.Serialization.XmlEnumAttribute("beat-type")]
+        beattype,
 
 
-    beats,
+        beats,
 
 
-    interchangeable,
+        interchangeable,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("senza-misura")]
-    senzamisura,
+        [System.Xml.Serialization.XmlEnumAttribute("senza-misura")]
+        senzamisura,
+    }
 }

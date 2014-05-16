@@ -1,39 +1,42 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class bass
+namespace MusicXML
 {
-
-    private bassstep bassstepField;
-
-    private bassalter bassalterField;
-
-
-    [System.Xml.Serialization.XmlElementAttribute("bass-step")]
-    public bassstep bassstep
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class bass
     {
-        get
-        {
-            return this.bassstepField;
-        }
-        set
-        {
-            this.bassstepField = value;
-        }
-    }
+
+        private bassstep bassstepField;
+
+        private bassalter bassalterField;
 
 
-    [System.Xml.Serialization.XmlElementAttribute("bass-alter")]
-    public bassalter bassalter
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("bass-step")]
+        public bassstep bassstep
         {
-            return this.bassalterField;
+            get
+            {
+                return this.bassstepField;
+            }
+            set
+            {
+                this.bassstepField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlElementAttribute("bass-alter")]
+        public bassalter bassalter
         {
-            this.bassalterField = value;
+            get
+            {
+                return this.bassalterField;
+            }
+            set
+            {
+                this.bassalterField = value;
+            }
         }
     }
 }

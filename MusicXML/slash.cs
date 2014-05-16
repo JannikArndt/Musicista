@@ -1,119 +1,122 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class slash
+namespace MusicXML
 {
-
-    private notetypevalue slashtypeField;
-
-    private empty[] slashdotField;
-
-    private startstop typeField;
-
-    private yesno usedotsField;
-
-    private bool usedotsFieldSpecified;
-
-    private yesno usestemsField;
-
-    private bool usestemsFieldSpecified;
-
-
-    [System.Xml.Serialization.XmlElementAttribute("slash-type")]
-    public notetypevalue slashtype
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class slash
     {
-        get
-        {
-            return this.slashtypeField;
-        }
-        set
-        {
-            this.slashtypeField = value;
-        }
-    }
+
+        private notetypevalue slashtypeField;
+
+        private empty[] slashdotField;
+
+        private startstop typeField;
+
+        private yesno usedotsField;
+
+        private bool usedotsFieldSpecified;
+
+        private yesno usestemsField;
+
+        private bool usestemsFieldSpecified;
 
 
-    [System.Xml.Serialization.XmlElementAttribute("slash-dot")]
-    public empty[] slashdot
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("slash-type")]
+        public notetypevalue slashtype
         {
-            return this.slashdotField;
+            get
+            {
+                return this.slashtypeField;
+            }
+            set
+            {
+                this.slashtypeField = value;
+            }
         }
-        set
-        {
-            this.slashdotField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public startstop type
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("slash-dot")]
+        public empty[] slashdot
         {
-            return this.typeField;
+            get
+            {
+                return this.slashdotField;
+            }
+            set
+            {
+                this.slashdotField = value;
+            }
         }
-        set
-        {
-            this.typeField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("use-dots")]
-    public yesno usedots
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public startstop type
         {
-            return this.usedotsField;
+            get
+            {
+                return this.typeField;
+            }
+            set
+            {
+                this.typeField = value;
+            }
         }
-        set
-        {
-            this.usedotsField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool usedotsSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("use-dots")]
+        public yesno usedots
         {
-            return this.usedotsFieldSpecified;
+            get
+            {
+                return this.usedotsField;
+            }
+            set
+            {
+                this.usedotsField = value;
+            }
         }
-        set
-        {
-            this.usedotsFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("use-stems")]
-    public yesno usestems
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool usedotsSpecified
         {
-            return this.usestemsField;
+            get
+            {
+                return this.usedotsFieldSpecified;
+            }
+            set
+            {
+                this.usedotsFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.usestemsField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool usestemsSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("use-stems")]
+        public yesno usestems
         {
-            return this.usestemsFieldSpecified;
+            get
+            {
+                return this.usestemsField;
+            }
+            set
+            {
+                this.usestemsField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool usestemsSpecified
         {
-            this.usestemsFieldSpecified = value;
+            get
+            {
+                return this.usestemsFieldSpecified;
+            }
+            set
+            {
+                this.usestemsFieldSpecified = value;
+            }
         }
     }
 }

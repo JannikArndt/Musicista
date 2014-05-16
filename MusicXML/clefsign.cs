@@ -1,27 +1,30 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "clef-sign")]
-public enum clefsign
+namespace MusicXML
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "clef-sign")]
+    public enum clefsign
+    {
 
 
-    G,
+        G,
 
 
-    F,
+        F,
 
 
-    C,
+        C,
 
 
-    percussion,
+        percussion,
 
 
-    TAB,
+        TAB,
 
 
-    jianpu,
+        jianpu,
 
 
-    none,
+        none,
+    }
 }

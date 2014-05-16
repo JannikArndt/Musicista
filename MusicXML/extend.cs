@@ -1,39 +1,42 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class extend
+namespace MusicXML
 {
-
-    private startstopcontinue typeField;
-
-    private bool typeFieldSpecified;
-
-
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public startstopcontinue type
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class extend
     {
-        get
-        {
-            return this.typeField;
-        }
-        set
-        {
-            this.typeField = value;
-        }
-    }
+
+        private startstopcontinue typeField;
+
+        private bool typeFieldSpecified;
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool typeSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public startstopcontinue type
         {
-            return this.typeFieldSpecified;
+            get
+            {
+                return this.typeField;
+            }
+            set
+            {
+                this.typeField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool typeSpecified
         {
-            this.typeFieldSpecified = value;
+            get
+            {
+                return this.typeFieldSpecified;
+            }
+            set
+            {
+                this.typeFieldSpecified = value;
+            }
         }
     }
 }

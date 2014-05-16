@@ -1,40 +1,43 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "degree-type")]
-public partial class degreetype
+namespace MusicXML
 {
-
-    private string textField;
-
-    private degreetypevalue valueField;
-
-
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
-    public string text
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "degree-type")]
+    public partial class degreetype
     {
-        get
-        {
-            return this.textField;
-        }
-        set
-        {
-            this.textField = value;
-        }
-    }
+
+        private string textField;
+
+        private degreetypevalue valueField;
 
 
-    [System.Xml.Serialization.XmlTextAttribute()]
-    public degreetypevalue Value
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
+        public string text
         {
-            return this.valueField;
+            get
+            {
+                return this.textField;
+            }
+            set
+            {
+                this.textField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public degreetypevalue Value
         {
-            this.valueField = value;
+            get
+            {
+                return this.valueField;
+            }
+            set
+            {
+                this.valueField = value;
+            }
         }
     }
 }

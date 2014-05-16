@@ -4,9 +4,6 @@ using Midi.Events.ChannelEvents;
 using Midi.Events.MetaEvents;
 using Midi.Util;
 using Midi.Util.Option;
-using System;
-using System.Collections.Generic;
-using System.IO;
 /*
 Copyright (c) 2013 Christoph Fabritz
 
@@ -28,6 +25,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
+using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -35,7 +35,7 @@ namespace Midi
 {
     public class FileParser
     {
-        private readonly static UTF7Encoding StringEncoder = new UTF7Encoding();
+        private static readonly UTF7Encoding StringEncoder = new UTF7Encoding();
 
         public static MidiData Parse(FileStream inputFileStream)
         {
@@ -63,7 +63,7 @@ namespace Midi
 
                     return Tuple.Create(trackChunkSize, trackChunkData);
                 }).ToList()
-                .Select(rawTrack => new TrackChunk(ParseEvents(rawTrack.Item2.ToList(), rawTrack.Item1))).ToList();
+                    .Select(rawTrack => new TrackChunk(ParseEvents(rawTrack.Item2.ToList(), rawTrack.Item1))).ToList();
 
             return new MidiData(headerChunk, tracks);
         }
@@ -111,7 +111,6 @@ namespace Midi
                 // MIDI Channel Events
                 if ((eventTypeValue & 0xF0) < 0xF0)
                 {
-
                     var midiChannelEventType = (byte)(eventTypeValue & 0xF0);
                     var midiChannel = (byte)(eventTypeValue & 0x0F);
                     i += 1;

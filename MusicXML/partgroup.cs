@@ -1,188 +1,191 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "part-group")]
-public partial class partgroup
+namespace MusicXML
 {
-
-    private groupname groupnameField;
-
-    private namedisplay groupnamedisplayField;
-
-    private groupname groupabbreviationField;
-
-    private namedisplay groupabbreviationdisplayField;
-
-    private groupsymbol groupsymbolField;
-
-    private groupbarline groupbarlineField;
-
-    private empty grouptimeField;
-
-    private formattedtext footnoteField;
-
-    private level levelField;
-
-    private startstop typeField;
-
-    private string numberField;
-
-    public partgroup()
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "part-group")]
+    public partial class partgroup
     {
-        this.numberField = "1";
-    }
 
+        private groupname groupnameField;
 
-    [System.Xml.Serialization.XmlElementAttribute("group-name")]
-    public groupname groupname
-    {
-        get
+        private namedisplay groupnamedisplayField;
+
+        private groupname groupabbreviationField;
+
+        private namedisplay groupabbreviationdisplayField;
+
+        private groupsymbol groupsymbolField;
+
+        private groupbarline groupbarlineField;
+
+        private empty grouptimeField;
+
+        private formattedtext footnoteField;
+
+        private level levelField;
+
+        private startstop typeField;
+
+        private string numberField;
+
+        public partgroup()
         {
-            return this.groupnameField;
+            this.numberField = "1";
         }
-        set
-        {
-            this.groupnameField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("group-name-display")]
-    public namedisplay groupnamedisplay
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("group-name")]
+        public groupname groupname
         {
-            return this.groupnamedisplayField;
+            get
+            {
+                return this.groupnameField;
+            }
+            set
+            {
+                this.groupnameField = value;
+            }
         }
-        set
-        {
-            this.groupnamedisplayField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("group-abbreviation")]
-    public groupname groupabbreviation
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("group-name-display")]
+        public namedisplay groupnamedisplay
         {
-            return this.groupabbreviationField;
+            get
+            {
+                return this.groupnamedisplayField;
+            }
+            set
+            {
+                this.groupnamedisplayField = value;
+            }
         }
-        set
-        {
-            this.groupabbreviationField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("group-abbreviation-display")]
-    public namedisplay groupabbreviationdisplay
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("group-abbreviation")]
+        public groupname groupabbreviation
         {
-            return this.groupabbreviationdisplayField;
+            get
+            {
+                return this.groupabbreviationField;
+            }
+            set
+            {
+                this.groupabbreviationField = value;
+            }
         }
-        set
-        {
-            this.groupabbreviationdisplayField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("group-symbol")]
-    public groupsymbol groupsymbol
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("group-abbreviation-display")]
+        public namedisplay groupabbreviationdisplay
         {
-            return this.groupsymbolField;
+            get
+            {
+                return this.groupabbreviationdisplayField;
+            }
+            set
+            {
+                this.groupabbreviationdisplayField = value;
+            }
         }
-        set
-        {
-            this.groupsymbolField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("group-barline")]
-    public groupbarline groupbarline
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("group-symbol")]
+        public groupsymbol groupsymbol
         {
-            return this.groupbarlineField;
+            get
+            {
+                return this.groupsymbolField;
+            }
+            set
+            {
+                this.groupsymbolField = value;
+            }
         }
-        set
-        {
-            this.groupbarlineField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("group-time")]
-    public empty grouptime
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("group-barline")]
+        public groupbarline groupbarline
         {
-            return this.grouptimeField;
+            get
+            {
+                return this.groupbarlineField;
+            }
+            set
+            {
+                this.groupbarlineField = value;
+            }
         }
-        set
-        {
-            this.grouptimeField = value;
-        }
-    }
 
 
-    public formattedtext footnote
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("group-time")]
+        public empty grouptime
         {
-            return this.footnoteField;
+            get
+            {
+                return this.grouptimeField;
+            }
+            set
+            {
+                this.grouptimeField = value;
+            }
         }
-        set
-        {
-            this.footnoteField = value;
-        }
-    }
 
 
-    public level level
-    {
-        get
+        public formattedtext footnote
         {
-            return this.levelField;
+            get
+            {
+                return this.footnoteField;
+            }
+            set
+            {
+                this.footnoteField = value;
+            }
         }
-        set
-        {
-            this.levelField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public startstop type
-    {
-        get
+        public level level
         {
-            return this.typeField;
+            get
+            {
+                return this.levelField;
+            }
+            set
+            {
+                this.levelField = value;
+            }
         }
-        set
-        {
-            this.typeField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
-    [System.ComponentModel.DefaultValueAttribute("1")]
-    public string number
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public startstop type
         {
-            return this.numberField;
+            get
+            {
+                return this.typeField;
+            }
+            set
+            {
+                this.typeField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
+        [System.ComponentModel.DefaultValueAttribute("1")]
+        public string number
         {
-            this.numberField = value;
+            get
+            {
+                return this.numberField;
+            }
+            set
+            {
+                this.numberField = value;
+            }
         }
     }
 }

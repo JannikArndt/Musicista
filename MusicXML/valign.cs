@@ -1,17 +1,20 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-public enum valign
+namespace MusicXML
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    public enum valign
+    {
 
 
-    top,
+        top,
 
 
-    middle,
+        middle,
 
 
-    bottom,
+        bottom,
 
 
-    baseline,
+        baseline,
+    }
 }

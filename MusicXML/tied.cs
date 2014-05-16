@@ -1,535 +1,538 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class tied
+namespace MusicXML
 {
-
-    private startstopcontinue typeField;
-
-    private string numberField;
-
-    private linetype linetypeField;
-
-    private bool linetypeFieldSpecified;
-
-    private decimal dashlengthField;
-
-    private bool dashlengthFieldSpecified;
-
-    private decimal spacelengthField;
-
-    private bool spacelengthFieldSpecified;
-
-    private decimal defaultxField;
-
-    private bool defaultxFieldSpecified;
-
-    private decimal defaultyField;
-
-    private bool defaultyFieldSpecified;
-
-    private decimal relativexField;
-
-    private bool relativexFieldSpecified;
-
-    private decimal relativeyField;
-
-    private bool relativeyFieldSpecified;
-
-    private abovebelow placementField;
-
-    private bool placementFieldSpecified;
-
-    private overunder orientationField;
-
-    private bool orientationFieldSpecified;
-
-    private decimal bezieroffsetField;
-
-    private bool bezieroffsetFieldSpecified;
-
-    private decimal bezieroffset2Field;
-
-    private bool bezieroffset2FieldSpecified;
-
-    private decimal bezierxField;
-
-    private bool bezierxFieldSpecified;
-
-    private decimal bezieryField;
-
-    private bool bezieryFieldSpecified;
-
-    private decimal bezierx2Field;
-
-    private bool bezierx2FieldSpecified;
-
-    private decimal beziery2Field;
-
-    private bool beziery2FieldSpecified;
-
-    private string colorField;
-
-
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public startstopcontinue type
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class tied
     {
-        get
-        {
-            return this.typeField;
-        }
-        set
-        {
-            this.typeField = value;
-        }
-    }
 
+        private startstopcontinue typeField;
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "positiveInteger")]
-    public string number
-    {
-        get
-        {
-            return this.numberField;
-        }
-        set
-        {
-            this.numberField = value;
-        }
-    }
+        private string numberField;
 
+        private linetype linetypeField;
 
-    [System.Xml.Serialization.XmlAttributeAttribute("line-type")]
-    public linetype linetype
-    {
-        get
-        {
-            return this.linetypeField;
-        }
-        set
-        {
-            this.linetypeField = value;
-        }
-    }
+        private bool linetypeFieldSpecified;
 
+        private decimal dashlengthField;
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool linetypeSpecified
-    {
-        get
-        {
-            return this.linetypeFieldSpecified;
-        }
-        set
-        {
-            this.linetypeFieldSpecified = value;
-        }
-    }
+        private bool dashlengthFieldSpecified;
 
+        private decimal spacelengthField;
 
-    [System.Xml.Serialization.XmlAttributeAttribute("dash-length")]
-    public decimal dashlength
-    {
-        get
-        {
-            return this.dashlengthField;
-        }
-        set
-        {
-            this.dashlengthField = value;
-        }
-    }
+        private bool spacelengthFieldSpecified;
 
+        private decimal defaultxField;
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool dashlengthSpecified
-    {
-        get
-        {
-            return this.dashlengthFieldSpecified;
-        }
-        set
-        {
-            this.dashlengthFieldSpecified = value;
-        }
-    }
+        private bool defaultxFieldSpecified;
 
+        private decimal defaultyField;
 
-    [System.Xml.Serialization.XmlAttributeAttribute("space-length")]
-    public decimal spacelength
-    {
-        get
-        {
-            return this.spacelengthField;
-        }
-        set
-        {
-            this.spacelengthField = value;
-        }
-    }
+        private bool defaultyFieldSpecified;
 
+        private decimal relativexField;
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool spacelengthSpecified
-    {
-        get
-        {
-            return this.spacelengthFieldSpecified;
-        }
-        set
-        {
-            this.spacelengthFieldSpecified = value;
-        }
-    }
+        private bool relativexFieldSpecified;
 
+        private decimal relativeyField;
 
-    [System.Xml.Serialization.XmlAttributeAttribute("default-x")]
-    public decimal defaultx
-    {
-        get
-        {
-            return this.defaultxField;
-        }
-        set
-        {
-            this.defaultxField = value;
-        }
-    }
+        private bool relativeyFieldSpecified;
 
+        private abovebelow placementField;
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool defaultxSpecified
-    {
-        get
-        {
-            return this.defaultxFieldSpecified;
-        }
-        set
-        {
-            this.defaultxFieldSpecified = value;
-        }
-    }
+        private bool placementFieldSpecified;
 
+        private overunder orientationField;
 
-    [System.Xml.Serialization.XmlAttributeAttribute("default-y")]
-    public decimal defaulty
-    {
-        get
-        {
-            return this.defaultyField;
-        }
-        set
-        {
-            this.defaultyField = value;
-        }
-    }
+        private bool orientationFieldSpecified;
 
+        private decimal bezieroffsetField;
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool defaultySpecified
-    {
-        get
-        {
-            return this.defaultyFieldSpecified;
-        }
-        set
-        {
-            this.defaultyFieldSpecified = value;
-        }
-    }
+        private bool bezieroffsetFieldSpecified;
 
+        private decimal bezieroffset2Field;
 
-    [System.Xml.Serialization.XmlAttributeAttribute("relative-x")]
-    public decimal relativex
-    {
-        get
-        {
-            return this.relativexField;
-        }
-        set
-        {
-            this.relativexField = value;
-        }
-    }
+        private bool bezieroffset2FieldSpecified;
 
+        private decimal bezierxField;
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool relativexSpecified
-    {
-        get
-        {
-            return this.relativexFieldSpecified;
-        }
-        set
-        {
-            this.relativexFieldSpecified = value;
-        }
-    }
+        private bool bezierxFieldSpecified;
 
+        private decimal bezieryField;
 
-    [System.Xml.Serialization.XmlAttributeAttribute("relative-y")]
-    public decimal relativey
-    {
-        get
-        {
-            return this.relativeyField;
-        }
-        set
-        {
-            this.relativeyField = value;
-        }
-    }
+        private bool bezieryFieldSpecified;
 
+        private decimal bezierx2Field;
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool relativeySpecified
-    {
-        get
-        {
-            return this.relativeyFieldSpecified;
-        }
-        set
-        {
-            this.relativeyFieldSpecified = value;
-        }
-    }
+        private bool bezierx2FieldSpecified;
 
+        private decimal beziery2Field;
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public abovebelow placement
-    {
-        get
-        {
-            return this.placementField;
-        }
-        set
+        private bool beziery2FieldSpecified;
+
+        private string colorField;
+
+
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public startstopcontinue type
         {
-            this.placementField = value;
+            get
+            {
+                return this.typeField;
+            }
+            set
+            {
+                this.typeField = value;
+            }
         }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool placementSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "positiveInteger")]
+        public string number
         {
-            return this.placementFieldSpecified;
+            get
+            {
+                return this.numberField;
+            }
+            set
+            {
+                this.numberField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlAttributeAttribute("line-type")]
+        public linetype linetype
         {
-            this.placementFieldSpecified = value;
+            get
+            {
+                return this.linetypeField;
+            }
+            set
+            {
+                this.linetypeField = value;
+            }
         }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public overunder orientation
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool linetypeSpecified
         {
-            return this.orientationField;
+            get
+            {
+                return this.linetypeFieldSpecified;
+            }
+            set
+            {
+                this.linetypeFieldSpecified = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlAttributeAttribute("dash-length")]
+        public decimal dashlength
         {
-            this.orientationField = value;
+            get
+            {
+                return this.dashlengthField;
+            }
+            set
+            {
+                this.dashlengthField = value;
+            }
         }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool orientationSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool dashlengthSpecified
         {
-            return this.orientationFieldSpecified;
+            get
+            {
+                return this.dashlengthFieldSpecified;
+            }
+            set
+            {
+                this.dashlengthFieldSpecified = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlAttributeAttribute("space-length")]
+        public decimal spacelength
         {
-            this.orientationFieldSpecified = value;
+            get
+            {
+                return this.spacelengthField;
+            }
+            set
+            {
+                this.spacelengthField = value;
+            }
         }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("bezier-offset")]
-    public decimal bezieroffset
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool spacelengthSpecified
         {
-            return this.bezieroffsetField;
+            get
+            {
+                return this.spacelengthFieldSpecified;
+            }
+            set
+            {
+                this.spacelengthFieldSpecified = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlAttributeAttribute("default-x")]
+        public decimal defaultx
         {
-            this.bezieroffsetField = value;
+            get
+            {
+                return this.defaultxField;
+            }
+            set
+            {
+                this.defaultxField = value;
+            }
         }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool bezieroffsetSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool defaultxSpecified
         {
-            return this.bezieroffsetFieldSpecified;
+            get
+            {
+                return this.defaultxFieldSpecified;
+            }
+            set
+            {
+                this.defaultxFieldSpecified = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlAttributeAttribute("default-y")]
+        public decimal defaulty
         {
-            this.bezieroffsetFieldSpecified = value;
+            get
+            {
+                return this.defaultyField;
+            }
+            set
+            {
+                this.defaultyField = value;
+            }
         }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("bezier-offset2")]
-    public decimal bezieroffset2
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool defaultySpecified
         {
-            return this.bezieroffset2Field;
+            get
+            {
+                return this.defaultyFieldSpecified;
+            }
+            set
+            {
+                this.defaultyFieldSpecified = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlAttributeAttribute("relative-x")]
+        public decimal relativex
         {
-            this.bezieroffset2Field = value;
+            get
+            {
+                return this.relativexField;
+            }
+            set
+            {
+                this.relativexField = value;
+            }
         }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool bezieroffset2Specified
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool relativexSpecified
         {
-            return this.bezieroffset2FieldSpecified;
+            get
+            {
+                return this.relativexFieldSpecified;
+            }
+            set
+            {
+                this.relativexFieldSpecified = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlAttributeAttribute("relative-y")]
+        public decimal relativey
         {
-            this.bezieroffset2FieldSpecified = value;
+            get
+            {
+                return this.relativeyField;
+            }
+            set
+            {
+                this.relativeyField = value;
+            }
         }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("bezier-x")]
-    public decimal bezierx
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool relativeySpecified
         {
-            return this.bezierxField;
+            get
+            {
+                return this.relativeyFieldSpecified;
+            }
+            set
+            {
+                this.relativeyFieldSpecified = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public abovebelow placement
         {
-            this.bezierxField = value;
+            get
+            {
+                return this.placementField;
+            }
+            set
+            {
+                this.placementField = value;
+            }
         }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool bezierxSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool placementSpecified
         {
-            return this.bezierxFieldSpecified;
+            get
+            {
+                return this.placementFieldSpecified;
+            }
+            set
+            {
+                this.placementFieldSpecified = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public overunder orientation
         {
-            this.bezierxFieldSpecified = value;
+            get
+            {
+                return this.orientationField;
+            }
+            set
+            {
+                this.orientationField = value;
+            }
         }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("bezier-y")]
-    public decimal beziery
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool orientationSpecified
         {
-            return this.bezieryField;
+            get
+            {
+                return this.orientationFieldSpecified;
+            }
+            set
+            {
+                this.orientationFieldSpecified = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlAttributeAttribute("bezier-offset")]
+        public decimal bezieroffset
         {
-            this.bezieryField = value;
+            get
+            {
+                return this.bezieroffsetField;
+            }
+            set
+            {
+                this.bezieroffsetField = value;
+            }
         }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool bezierySpecified
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool bezieroffsetSpecified
         {
-            return this.bezieryFieldSpecified;
+            get
+            {
+                return this.bezieroffsetFieldSpecified;
+            }
+            set
+            {
+                this.bezieroffsetFieldSpecified = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlAttributeAttribute("bezier-offset2")]
+        public decimal bezieroffset2
         {
-            this.bezieryFieldSpecified = value;
+            get
+            {
+                return this.bezieroffset2Field;
+            }
+            set
+            {
+                this.bezieroffset2Field = value;
+            }
         }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("bezier-x2")]
-    public decimal bezierx2
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool bezieroffset2Specified
         {
-            return this.bezierx2Field;
+            get
+            {
+                return this.bezieroffset2FieldSpecified;
+            }
+            set
+            {
+                this.bezieroffset2FieldSpecified = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlAttributeAttribute("bezier-x")]
+        public decimal bezierx
         {
-            this.bezierx2Field = value;
+            get
+            {
+                return this.bezierxField;
+            }
+            set
+            {
+                this.bezierxField = value;
+            }
         }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool bezierx2Specified
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool bezierxSpecified
         {
-            return this.bezierx2FieldSpecified;
+            get
+            {
+                return this.bezierxFieldSpecified;
+            }
+            set
+            {
+                this.bezierxFieldSpecified = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlAttributeAttribute("bezier-y")]
+        public decimal beziery
         {
-            this.bezierx2FieldSpecified = value;
+            get
+            {
+                return this.bezieryField;
+            }
+            set
+            {
+                this.bezieryField = value;
+            }
         }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("bezier-y2")]
-    public decimal beziery2
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool bezierySpecified
         {
-            return this.beziery2Field;
+            get
+            {
+                return this.bezieryFieldSpecified;
+            }
+            set
+            {
+                this.bezieryFieldSpecified = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlAttributeAttribute("bezier-x2")]
+        public decimal bezierx2
         {
-            this.beziery2Field = value;
+            get
+            {
+                return this.bezierx2Field;
+            }
+            set
+            {
+                this.bezierx2Field = value;
+            }
         }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool beziery2Specified
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool bezierx2Specified
         {
-            return this.beziery2FieldSpecified;
+            get
+            {
+                return this.bezierx2FieldSpecified;
+            }
+            set
+            {
+                this.bezierx2FieldSpecified = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlAttributeAttribute("bezier-y2")]
+        public decimal beziery2
         {
-            this.beziery2FieldSpecified = value;
+            get
+            {
+                return this.beziery2Field;
+            }
+            set
+            {
+                this.beziery2Field = value;
+            }
         }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
-    public string color
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool beziery2Specified
         {
-            return this.colorField;
+            get
+            {
+                return this.beziery2FieldSpecified;
+            }
+            set
+            {
+                this.beziery2FieldSpecified = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
+        public string color
         {
-            this.colorField = value;
+            get
+            {
+                return this.colorField;
+            }
+            set
+            {
+                this.colorField = value;
+            }
         }
     }
 }

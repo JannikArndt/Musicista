@@ -1,71 +1,74 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class appearance
+namespace MusicXML
 {
-
-    private linewidth[] linewidthField;
-
-    private notesize[] notesizeField;
-
-    private distance[] distanceField;
-
-    private otherappearance[] otherappearanceField;
-
-
-    [System.Xml.Serialization.XmlElementAttribute("line-width")]
-    public linewidth[] linewidth
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class appearance
     {
-        get
-        {
-            return this.linewidthField;
-        }
-        set
-        {
-            this.linewidthField = value;
-        }
-    }
+
+        private linewidth[] linewidthField;
+
+        private notesize[] notesizeField;
+
+        private distance[] distanceField;
+
+        private otherappearance[] otherappearanceField;
 
 
-    [System.Xml.Serialization.XmlElementAttribute("note-size")]
-    public notesize[] notesize
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("line-width")]
+        public linewidth[] linewidth
         {
-            return this.notesizeField;
+            get
+            {
+                return this.linewidthField;
+            }
+            set
+            {
+                this.linewidthField = value;
+            }
         }
-        set
-        {
-            this.notesizeField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("distance")]
-    public distance[] distance
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("note-size")]
+        public notesize[] notesize
         {
-            return this.distanceField;
+            get
+            {
+                return this.notesizeField;
+            }
+            set
+            {
+                this.notesizeField = value;
+            }
         }
-        set
-        {
-            this.distanceField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("other-appearance")]
-    public otherappearance[] otherappearance
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("distance")]
+        public distance[] distance
         {
-            return this.otherappearanceField;
+            get
+            {
+                return this.distanceField;
+            }
+            set
+            {
+                this.distanceField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlElementAttribute("other-appearance")]
+        public otherappearance[] otherappearance
         {
-            this.otherappearanceField = value;
+            get
+            {
+                return this.otherappearanceField;
+            }
+            set
+            {
+                this.otherappearanceField = value;
+            }
         }
     }
 }

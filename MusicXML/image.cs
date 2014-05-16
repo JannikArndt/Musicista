@@ -1,39 +1,42 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class image
+namespace MusicXML
 {
-
-    private string sourceField;
-
-    private string typeField;
-
-
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "anyURI")]
-    public string source
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class image
     {
-        get
-        {
-            return this.sourceField;
-        }
-        set
-        {
-            this.sourceField = value;
-        }
-    }
+
+        private string sourceField;
+
+        private string typeField;
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
-    public string type
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "anyURI")]
+        public string source
         {
-            return this.typeField;
+            get
+            {
+                return this.sourceField;
+            }
+            set
+            {
+                this.sourceField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
+        public string type
         {
-            this.typeField = value;
+            get
+            {
+                return this.typeField;
+            }
+            set
+            {
+                this.typeField = value;
+            }
         }
     }
 }

@@ -1,56 +1,59 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "principal-voice")]
-public partial class principalvoice
+namespace MusicXML
 {
-
-    private startstop typeField;
-
-    private principalvoicesymbol symbolField;
-
-    private string valueField;
-
-
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public startstop type
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "principal-voice")]
+    public partial class principalvoice
     {
-        get
-        {
-            return this.typeField;
-        }
-        set
-        {
-            this.typeField = value;
-        }
-    }
+
+        private startstop typeField;
+
+        private principalvoicesymbol symbolField;
+
+        private string valueField;
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public principalvoicesymbol symbol
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public startstop type
         {
-            return this.symbolField;
+            get
+            {
+                return this.typeField;
+            }
+            set
+            {
+                this.typeField = value;
+            }
         }
-        set
-        {
-            this.symbolField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlTextAttribute()]
-    public string Value
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public principalvoicesymbol symbol
         {
-            return this.valueField;
+            get
+            {
+                return this.symbolField;
+            }
+            set
+            {
+                this.symbolField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public string Value
         {
-            this.valueField = value;
+            get
+            {
+                return this.valueField;
+            }
+            set
+            {
+                this.valueField = value;
+            }
         }
     }
 }

@@ -1,135 +1,138 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class interchangeable
+namespace MusicXML
 {
-
-    private timerelation timerelationField;
-
-    private bool timerelationFieldSpecified;
-
-    private string[] beatsField;
-
-    private string[] beattypeField;
-
-    private timesymbol symbolField;
-
-    private bool symbolFieldSpecified;
-
-    private timeseparator separatorField;
-
-    private bool separatorFieldSpecified;
-
-
-    [System.Xml.Serialization.XmlElementAttribute("time-relation")]
-    public timerelation timerelation
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class interchangeable
     {
-        get
-        {
-            return this.timerelationField;
-        }
-        set
-        {
-            this.timerelationField = value;
-        }
-    }
+
+        private timerelation timerelationField;
+
+        private bool timerelationFieldSpecified;
+
+        private string[] beatsField;
+
+        private string[] beattypeField;
+
+        private timesymbol symbolField;
+
+        private bool symbolFieldSpecified;
+
+        private timeseparator separatorField;
+
+        private bool separatorFieldSpecified;
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool timerelationSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("time-relation")]
+        public timerelation timerelation
         {
-            return this.timerelationFieldSpecified;
+            get
+            {
+                return this.timerelationField;
+            }
+            set
+            {
+                this.timerelationField = value;
+            }
         }
-        set
-        {
-            this.timerelationFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("beats")]
-    public string[] beats
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool timerelationSpecified
         {
-            return this.beatsField;
+            get
+            {
+                return this.timerelationFieldSpecified;
+            }
+            set
+            {
+                this.timerelationFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.beatsField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("beat-type")]
-    public string[] beattype
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("beats")]
+        public string[] beats
         {
-            return this.beattypeField;
+            get
+            {
+                return this.beatsField;
+            }
+            set
+            {
+                this.beatsField = value;
+            }
         }
-        set
-        {
-            this.beattypeField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public timesymbol symbol
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("beat-type")]
+        public string[] beattype
         {
-            return this.symbolField;
+            get
+            {
+                return this.beattypeField;
+            }
+            set
+            {
+                this.beattypeField = value;
+            }
         }
-        set
-        {
-            this.symbolField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool symbolSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public timesymbol symbol
         {
-            return this.symbolFieldSpecified;
+            get
+            {
+                return this.symbolField;
+            }
+            set
+            {
+                this.symbolField = value;
+            }
         }
-        set
-        {
-            this.symbolFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public timeseparator separator
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool symbolSpecified
         {
-            return this.separatorField;
+            get
+            {
+                return this.symbolFieldSpecified;
+            }
+            set
+            {
+                this.symbolFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.separatorField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool separatorSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public timeseparator separator
         {
-            return this.separatorFieldSpecified;
+            get
+            {
+                return this.separatorField;
+            }
+            set
+            {
+                this.separatorField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool separatorSpecified
         {
-            this.separatorFieldSpecified = value;
+            get
+            {
+                return this.separatorFieldSpecified;
+            }
+            set
+            {
+                this.separatorFieldSpecified = value;
+            }
         }
     }
 }

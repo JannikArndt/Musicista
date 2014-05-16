@@ -1,42 +1,45 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class play
+namespace MusicXML
 {
-
-    private object[] itemsField;
-
-    private string idField;
-
-
-    [System.Xml.Serialization.XmlElementAttribute("ipa", typeof(string))]
-    [System.Xml.Serialization.XmlElementAttribute("mute", typeof(mute))]
-    [System.Xml.Serialization.XmlElementAttribute("other-play", typeof(otherplay))]
-    [System.Xml.Serialization.XmlElementAttribute("semi-pitched", typeof(semipitched))]
-    public object[] Items
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class play
     {
-        get
-        {
-            return this.itemsField;
-        }
-        set
-        {
-            this.itemsField = value;
-        }
-    }
+
+        private object[] itemsField;
+
+        private string idField;
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "IDREF")]
-    public string id
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("ipa", typeof(string))]
+        [System.Xml.Serialization.XmlElementAttribute("mute", typeof(mute))]
+        [System.Xml.Serialization.XmlElementAttribute("other-play", typeof(otherplay))]
+        [System.Xml.Serialization.XmlElementAttribute("semi-pitched", typeof(semipitched))]
+        public object[] Items
         {
-            return this.idField;
+            get
+            {
+                return this.itemsField;
+            }
+            set
+            {
+                this.itemsField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "IDREF")]
+        public string id
         {
-            this.idField = value;
+            get
+            {
+                return this.idField;
+            }
+            set
+            {
+                this.idField = value;
+            }
         }
     }
 }

@@ -1,56 +1,59 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "accordion-registration")]
-public partial class accordionregistration
+namespace MusicXML
 {
-
-    private empty accordionhighField;
-
-    private string accordionmiddleField;
-
-    private empty accordionlowField;
-
-
-    [System.Xml.Serialization.XmlElementAttribute("accordion-high")]
-    public empty accordionhigh
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "accordion-registration")]
+    public partial class accordionregistration
     {
-        get
-        {
-            return this.accordionhighField;
-        }
-        set
-        {
-            this.accordionhighField = value;
-        }
-    }
+
+        private empty accordionhighField;
+
+        private string accordionmiddleField;
+
+        private empty accordionlowField;
 
 
-    [System.Xml.Serialization.XmlElementAttribute("accordion-middle", DataType = "positiveInteger")]
-    public string accordionmiddle
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("accordion-high")]
+        public empty accordionhigh
         {
-            return this.accordionmiddleField;
+            get
+            {
+                return this.accordionhighField;
+            }
+            set
+            {
+                this.accordionhighField = value;
+            }
         }
-        set
-        {
-            this.accordionmiddleField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("accordion-low")]
-    public empty accordionlow
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("accordion-middle", DataType = "positiveInteger")]
+        public string accordionmiddle
         {
-            return this.accordionlowField;
+            get
+            {
+                return this.accordionmiddleField;
+            }
+            set
+            {
+                this.accordionmiddleField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlElementAttribute("accordion-low")]
+        public empty accordionlow
         {
-            this.accordionlowField = value;
+            get
+            {
+                return this.accordionlowField;
+            }
+            set
+            {
+                this.accordionlowField = value;
+            }
         }
     }
 }

@@ -24,10 +24,10 @@ namespace Midi.Chunks
 {
     public sealed class HeaderChunk : Chunk
     {
-        public ushort FormatType { get; set; }
-        public ushort TimeDivision { get; set; }
+        public HeaderChunk() : base("MThd")
+        {
+        }
 
-        public HeaderChunk() : base("MThd") { }
         public HeaderChunk(ushort formatType, ushort timeDivision)
             : base("MThd")
         {
@@ -35,7 +35,10 @@ namespace Midi.Chunks
             TimeDivision = timeDivision;
         }
 
-        override public string ToString()
+        public ushort FormatType { get; set; }
+        public ushort TimeDivision { get; set; }
+
+        public override string ToString()
         {
             return "HeaderChunk(" + base.ToString() + ", format_type: " + FormatType + ", time_division: " + TimeDivision + ")";
         }

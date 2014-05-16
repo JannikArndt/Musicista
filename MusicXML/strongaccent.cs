@@ -1,30 +1,33 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "strong-accent")]
-public partial class strongaccent : emptyplacement
+namespace MusicXML
 {
-
-    private updown typeField;
-
-    public strongaccent()
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "strong-accent")]
+    public partial class strongaccent : emptyplacement
     {
-        this.typeField = updown.up;
-    }
 
+        private updown typeField;
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    [System.ComponentModel.DefaultValueAttribute(updown.up)]
-    public updown type
-    {
-        get
+        public strongaccent()
         {
-            return this.typeField;
+            this.typeField = updown.up;
         }
-        set
+
+
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(updown.up)]
+        public updown type
         {
-            this.typeField = value;
+            get
+            {
+                return this.typeField;
+            }
+            set
+            {
+                this.typeField = value;
+            }
         }
     }
 }

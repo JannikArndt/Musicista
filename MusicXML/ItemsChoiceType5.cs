@@ -1,79 +1,82 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(IncludeInSchema = false)]
-public enum ItemsChoiceType5
+namespace MusicXML
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(IncludeInSchema = false)]
+    public enum ItemsChoiceType5
+    {
 
 
-    f,
+        f,
 
 
-    ff,
+        ff,
 
 
-    fff,
+        fff,
 
 
-    ffff,
+        ffff,
 
 
-    fffff,
+        fffff,
 
 
-    ffffff,
+        ffffff,
 
 
-    fp,
+        fp,
 
 
-    fz,
+        fz,
 
 
-    mf,
+        mf,
 
 
-    mp,
+        mp,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("other-dynamics")]
-    otherdynamics,
+        [System.Xml.Serialization.XmlEnumAttribute("other-dynamics")]
+        otherdynamics,
 
 
-    p,
+        p,
 
 
-    pp,
+        pp,
 
 
-    ppp,
+        ppp,
 
 
-    pppp,
+        pppp,
 
 
-    ppppp,
+        ppppp,
 
 
-    pppppp,
+        pppppp,
 
 
-    rf,
+        rf,
 
 
-    rfz,
+        rfz,
 
 
-    sf,
+        sf,
 
 
-    sffz,
+        sffz,
 
 
-    sfp,
+        sfp,
 
 
-    sfpp,
+        sfpp,
 
 
-    sfz,
+        sfz,
+    }
 }

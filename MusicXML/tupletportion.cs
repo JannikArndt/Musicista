@@ -1,56 +1,59 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "tuplet-portion")]
-public partial class tupletportion
+namespace MusicXML
 {
-
-    private tupletnumber tupletnumberField;
-
-    private tuplettype tuplettypeField;
-
-    private tupletdot[] tupletdotField;
-
-
-    [System.Xml.Serialization.XmlElementAttribute("tuplet-number")]
-    public tupletnumber tupletnumber
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "tuplet-portion")]
+    public partial class tupletportion
     {
-        get
-        {
-            return this.tupletnumberField;
-        }
-        set
-        {
-            this.tupletnumberField = value;
-        }
-    }
+
+        private tupletnumber tupletnumberField;
+
+        private tuplettype tuplettypeField;
+
+        private tupletdot[] tupletdotField;
 
 
-    [System.Xml.Serialization.XmlElementAttribute("tuplet-type")]
-    public tuplettype tuplettype
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("tuplet-number")]
+        public tupletnumber tupletnumber
         {
-            return this.tuplettypeField;
+            get
+            {
+                return this.tupletnumberField;
+            }
+            set
+            {
+                this.tupletnumberField = value;
+            }
         }
-        set
-        {
-            this.tuplettypeField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("tuplet-dot")]
-    public tupletdot[] tupletdot
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("tuplet-type")]
+        public tuplettype tuplettype
         {
-            return this.tupletdotField;
+            get
+            {
+                return this.tuplettypeField;
+            }
+            set
+            {
+                this.tuplettypeField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlElementAttribute("tuplet-dot")]
+        public tupletdot[] tupletdot
         {
-            this.tupletdotField = value;
+            get
+            {
+                return this.tupletdotField;
+            }
+            set
+            {
+                this.tupletdotField = value;
+            }
         }
     }
 }

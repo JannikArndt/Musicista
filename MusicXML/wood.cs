@@ -1,53 +1,56 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-public enum wood
+namespace MusicXML
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    public enum wood
+    {
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("board clapper")]
-    boardclapper,
+        [System.Xml.Serialization.XmlEnumAttribute("board clapper")]
+        boardclapper,
 
 
-    cabasa,
+        cabasa,
 
 
-    castanets,
+        castanets,
 
 
-    claves,
+        claves,
 
 
-    guiro,
+        guiro,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("log drum")]
-    logdrum,
+        [System.Xml.Serialization.XmlEnumAttribute("log drum")]
+        logdrum,
 
 
-    maraca,
+        maraca,
 
 
-    maracas,
+        maracas,
 
 
-    ratchet,
+        ratchet,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("sandpaper blocks")]
-    sandpaperblocks,
+        [System.Xml.Serialization.XmlEnumAttribute("sandpaper blocks")]
+        sandpaperblocks,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("slit drum")]
-    slitdrum,
+        [System.Xml.Serialization.XmlEnumAttribute("slit drum")]
+        slitdrum,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("temple block")]
-    templeblock,
+        [System.Xml.Serialization.XmlEnumAttribute("temple block")]
+        templeblock,
 
 
-    vibraslap,
+        vibraslap,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("wood block")]
-    woodblock,
+        [System.Xml.Serialization.XmlEnumAttribute("wood block")]
+        woodblock,
+    }
 }

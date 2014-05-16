@@ -1,304 +1,307 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class link
+namespace MusicXML
 {
-
-    private string hrefField;
-
-    private opusType typeField;
-
-    private bool typeFieldSpecified;
-
-    private string roleField;
-
-    private string titleField;
-
-    private opusShow showField;
-
-    private opusActuate actuateField;
-
-    private string nameField;
-
-    private string elementField;
-
-    private string positionField;
-
-    private decimal defaultxField;
-
-    private bool defaultxFieldSpecified;
-
-    private decimal defaultyField;
-
-    private bool defaultyFieldSpecified;
-
-    private decimal relativexField;
-
-    private bool relativexFieldSpecified;
-
-    private decimal relativeyField;
-
-    private bool relativeyFieldSpecified;
-
-    public link()
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class link
     {
-        this.typeField = opusType.simple;
-        this.showField = opusShow.replace;
-        this.actuateField = opusActuate.onRequest;
-    }
 
+        private string hrefField;
 
-    [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://www.w3.org/1999/xlink", DataType = "anyURI")]
-    public string href
-    {
-        get
+        private opusType typeField;
+
+        private bool typeFieldSpecified;
+
+        private string roleField;
+
+        private string titleField;
+
+        private opusShow showField;
+
+        private opusActuate actuateField;
+
+        private string nameField;
+
+        private string elementField;
+
+        private string positionField;
+
+        private decimal defaultxField;
+
+        private bool defaultxFieldSpecified;
+
+        private decimal defaultyField;
+
+        private bool defaultyFieldSpecified;
+
+        private decimal relativexField;
+
+        private bool relativexFieldSpecified;
+
+        private decimal relativeyField;
+
+        private bool relativeyFieldSpecified;
+
+        public link()
         {
-            return this.hrefField;
+            this.typeField = opusType.simple;
+            this.showField = opusShow.replace;
+            this.actuateField = opusActuate.onRequest;
         }
-        set
-        {
-            this.hrefField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://www.w3.org/1999/xlink")]
-    public opusType type
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://www.w3.org/1999/xlink", DataType = "anyURI")]
+        public string href
         {
-            return this.typeField;
+            get
+            {
+                return this.hrefField;
+            }
+            set
+            {
+                this.hrefField = value;
+            }
         }
-        set
-        {
-            this.typeField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool typeSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://www.w3.org/1999/xlink")]
+        public opusType type
         {
-            return this.typeFieldSpecified;
+            get
+            {
+                return this.typeField;
+            }
+            set
+            {
+                this.typeField = value;
+            }
         }
-        set
-        {
-            this.typeFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://www.w3.org/1999/xlink", DataType = "token")]
-    public string role
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool typeSpecified
         {
-            return this.roleField;
+            get
+            {
+                return this.typeFieldSpecified;
+            }
+            set
+            {
+                this.typeFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.roleField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://www.w3.org/1999/xlink", DataType = "token")]
-    public string title
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://www.w3.org/1999/xlink", DataType = "token")]
+        public string role
         {
-            return this.titleField;
+            get
+            {
+                return this.roleField;
+            }
+            set
+            {
+                this.roleField = value;
+            }
         }
-        set
-        {
-            this.titleField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://www.w3.org/1999/xlink")]
-    [System.ComponentModel.DefaultValueAttribute(opusShow.replace)]
-    public opusShow show
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://www.w3.org/1999/xlink", DataType = "token")]
+        public string title
         {
-            return this.showField;
+            get
+            {
+                return this.titleField;
+            }
+            set
+            {
+                this.titleField = value;
+            }
         }
-        set
-        {
-            this.showField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://www.w3.org/1999/xlink")]
-    [System.ComponentModel.DefaultValueAttribute(opusActuate.onRequest)]
-    public opusActuate actuate
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://www.w3.org/1999/xlink")]
+        [System.ComponentModel.DefaultValueAttribute(opusShow.replace)]
+        public opusShow show
         {
-            return this.actuateField;
+            get
+            {
+                return this.showField;
+            }
+            set
+            {
+                this.showField = value;
+            }
         }
-        set
-        {
-            this.actuateField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
-    public string name
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://www.w3.org/1999/xlink")]
+        [System.ComponentModel.DefaultValueAttribute(opusActuate.onRequest)]
+        public opusActuate actuate
         {
-            return this.nameField;
+            get
+            {
+                return this.actuateField;
+            }
+            set
+            {
+                this.actuateField = value;
+            }
         }
-        set
-        {
-            this.nameField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NMTOKEN")]
-    public string element
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
+        public string name
         {
-            return this.elementField;
+            get
+            {
+                return this.nameField;
+            }
+            set
+            {
+                this.nameField = value;
+            }
         }
-        set
-        {
-            this.elementField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "positiveInteger")]
-    public string position
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NMTOKEN")]
+        public string element
         {
-            return this.positionField;
+            get
+            {
+                return this.elementField;
+            }
+            set
+            {
+                this.elementField = value;
+            }
         }
-        set
-        {
-            this.positionField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("default-x")]
-    public decimal defaultx
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "positiveInteger")]
+        public string position
         {
-            return this.defaultxField;
+            get
+            {
+                return this.positionField;
+            }
+            set
+            {
+                this.positionField = value;
+            }
         }
-        set
-        {
-            this.defaultxField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool defaultxSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("default-x")]
+        public decimal defaultx
         {
-            return this.defaultxFieldSpecified;
+            get
+            {
+                return this.defaultxField;
+            }
+            set
+            {
+                this.defaultxField = value;
+            }
         }
-        set
-        {
-            this.defaultxFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("default-y")]
-    public decimal defaulty
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool defaultxSpecified
         {
-            return this.defaultyField;
+            get
+            {
+                return this.defaultxFieldSpecified;
+            }
+            set
+            {
+                this.defaultxFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.defaultyField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool defaultySpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("default-y")]
+        public decimal defaulty
         {
-            return this.defaultyFieldSpecified;
+            get
+            {
+                return this.defaultyField;
+            }
+            set
+            {
+                this.defaultyField = value;
+            }
         }
-        set
-        {
-            this.defaultyFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("relative-x")]
-    public decimal relativex
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool defaultySpecified
         {
-            return this.relativexField;
+            get
+            {
+                return this.defaultyFieldSpecified;
+            }
+            set
+            {
+                this.defaultyFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.relativexField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool relativexSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("relative-x")]
+        public decimal relativex
         {
-            return this.relativexFieldSpecified;
+            get
+            {
+                return this.relativexField;
+            }
+            set
+            {
+                this.relativexField = value;
+            }
         }
-        set
-        {
-            this.relativexFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("relative-y")]
-    public decimal relativey
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool relativexSpecified
         {
-            return this.relativeyField;
+            get
+            {
+                return this.relativexFieldSpecified;
+            }
+            set
+            {
+                this.relativexFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.relativeyField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool relativeySpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("relative-y")]
+        public decimal relativey
         {
-            return this.relativeyFieldSpecified;
+            get
+            {
+                return this.relativeyField;
+            }
+            set
+            {
+                this.relativeyField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool relativeySpecified
         {
-            this.relativeyFieldSpecified = value;
+            get
+            {
+                return this.relativeyFieldSpecified;
+            }
+            set
+            {
+                this.relativeyFieldSpecified = value;
+            }
         }
     }
 }

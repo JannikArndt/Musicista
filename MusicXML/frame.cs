@@ -1,359 +1,362 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class frame
+namespace MusicXML
 {
-
-    private string framestringsField;
-
-    private string framefretsField;
-
-    private firstfret firstfretField;
-
-    private framenote[] framenoteField;
-
-    private decimal defaultxField;
-
-    private bool defaultxFieldSpecified;
-
-    private decimal defaultyField;
-
-    private bool defaultyFieldSpecified;
-
-    private decimal relativexField;
-
-    private bool relativexFieldSpecified;
-
-    private decimal relativeyField;
-
-    private bool relativeyFieldSpecified;
-
-    private string colorField;
-
-    private leftcenterright halignField;
-
-    private bool halignFieldSpecified;
-
-    private valignimage valignField;
-
-    private bool valignFieldSpecified;
-
-    private decimal heightField;
-
-    private bool heightFieldSpecified;
-
-    private decimal widthField;
-
-    private bool widthFieldSpecified;
-
-    private string unplayedField;
-
-
-    [System.Xml.Serialization.XmlElementAttribute("frame-strings", DataType = "positiveInteger")]
-    public string framestrings
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class frame
     {
-        get
-        {
-            return this.framestringsField;
-        }
-        set
-        {
-            this.framestringsField = value;
-        }
-    }
+
+        private string framestringsField;
+
+        private string framefretsField;
+
+        private firstfret firstfretField;
+
+        private framenote[] framenoteField;
+
+        private decimal defaultxField;
+
+        private bool defaultxFieldSpecified;
+
+        private decimal defaultyField;
+
+        private bool defaultyFieldSpecified;
+
+        private decimal relativexField;
+
+        private bool relativexFieldSpecified;
+
+        private decimal relativeyField;
+
+        private bool relativeyFieldSpecified;
+
+        private string colorField;
+
+        private leftcenterright halignField;
+
+        private bool halignFieldSpecified;
+
+        private valignimage valignField;
+
+        private bool valignFieldSpecified;
+
+        private decimal heightField;
+
+        private bool heightFieldSpecified;
+
+        private decimal widthField;
+
+        private bool widthFieldSpecified;
+
+        private string unplayedField;
 
 
-    [System.Xml.Serialization.XmlElementAttribute("frame-frets", DataType = "positiveInteger")]
-    public string framefrets
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("frame-strings", DataType = "positiveInteger")]
+        public string framestrings
         {
-            return this.framefretsField;
+            get
+            {
+                return this.framestringsField;
+            }
+            set
+            {
+                this.framestringsField = value;
+            }
         }
-        set
-        {
-            this.framefretsField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("first-fret")]
-    public firstfret firstfret
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("frame-frets", DataType = "positiveInteger")]
+        public string framefrets
         {
-            return this.firstfretField;
+            get
+            {
+                return this.framefretsField;
+            }
+            set
+            {
+                this.framefretsField = value;
+            }
         }
-        set
-        {
-            this.firstfretField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("frame-note")]
-    public framenote[] framenote
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("first-fret")]
+        public firstfret firstfret
         {
-            return this.framenoteField;
+            get
+            {
+                return this.firstfretField;
+            }
+            set
+            {
+                this.firstfretField = value;
+            }
         }
-        set
-        {
-            this.framenoteField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("default-x")]
-    public decimal defaultx
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("frame-note")]
+        public framenote[] framenote
         {
-            return this.defaultxField;
+            get
+            {
+                return this.framenoteField;
+            }
+            set
+            {
+                this.framenoteField = value;
+            }
         }
-        set
-        {
-            this.defaultxField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool defaultxSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("default-x")]
+        public decimal defaultx
         {
-            return this.defaultxFieldSpecified;
+            get
+            {
+                return this.defaultxField;
+            }
+            set
+            {
+                this.defaultxField = value;
+            }
         }
-        set
-        {
-            this.defaultxFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("default-y")]
-    public decimal defaulty
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool defaultxSpecified
         {
-            return this.defaultyField;
+            get
+            {
+                return this.defaultxFieldSpecified;
+            }
+            set
+            {
+                this.defaultxFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.defaultyField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool defaultySpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("default-y")]
+        public decimal defaulty
         {
-            return this.defaultyFieldSpecified;
+            get
+            {
+                return this.defaultyField;
+            }
+            set
+            {
+                this.defaultyField = value;
+            }
         }
-        set
-        {
-            this.defaultyFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("relative-x")]
-    public decimal relativex
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool defaultySpecified
         {
-            return this.relativexField;
+            get
+            {
+                return this.defaultyFieldSpecified;
+            }
+            set
+            {
+                this.defaultyFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.relativexField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool relativexSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("relative-x")]
+        public decimal relativex
         {
-            return this.relativexFieldSpecified;
+            get
+            {
+                return this.relativexField;
+            }
+            set
+            {
+                this.relativexField = value;
+            }
         }
-        set
-        {
-            this.relativexFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("relative-y")]
-    public decimal relativey
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool relativexSpecified
         {
-            return this.relativeyField;
+            get
+            {
+                return this.relativexFieldSpecified;
+            }
+            set
+            {
+                this.relativexFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.relativeyField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool relativeySpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("relative-y")]
+        public decimal relativey
         {
-            return this.relativeyFieldSpecified;
+            get
+            {
+                return this.relativeyField;
+            }
+            set
+            {
+                this.relativeyField = value;
+            }
         }
-        set
-        {
-            this.relativeyFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
-    public string color
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool relativeySpecified
         {
-            return this.colorField;
+            get
+            {
+                return this.relativeyFieldSpecified;
+            }
+            set
+            {
+                this.relativeyFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.colorField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public leftcenterright halign
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
+        public string color
         {
-            return this.halignField;
+            get
+            {
+                return this.colorField;
+            }
+            set
+            {
+                this.colorField = value;
+            }
         }
-        set
-        {
-            this.halignField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool halignSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public leftcenterright halign
         {
-            return this.halignFieldSpecified;
+            get
+            {
+                return this.halignField;
+            }
+            set
+            {
+                this.halignField = value;
+            }
         }
-        set
-        {
-            this.halignFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public valignimage valign
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool halignSpecified
         {
-            return this.valignField;
+            get
+            {
+                return this.halignFieldSpecified;
+            }
+            set
+            {
+                this.halignFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.valignField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool valignSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public valignimage valign
         {
-            return this.valignFieldSpecified;
+            get
+            {
+                return this.valignField;
+            }
+            set
+            {
+                this.valignField = value;
+            }
         }
-        set
-        {
-            this.valignFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public decimal height
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool valignSpecified
         {
-            return this.heightField;
+            get
+            {
+                return this.valignFieldSpecified;
+            }
+            set
+            {
+                this.valignFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.heightField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool heightSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public decimal height
         {
-            return this.heightFieldSpecified;
+            get
+            {
+                return this.heightField;
+            }
+            set
+            {
+                this.heightField = value;
+            }
         }
-        set
-        {
-            this.heightFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public decimal width
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool heightSpecified
         {
-            return this.widthField;
+            get
+            {
+                return this.heightFieldSpecified;
+            }
+            set
+            {
+                this.heightFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.widthField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool widthSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public decimal width
         {
-            return this.widthFieldSpecified;
+            get
+            {
+                return this.widthField;
+            }
+            set
+            {
+                this.widthField = value;
+            }
         }
-        set
-        {
-            this.widthFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
-    public string unplayed
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool widthSpecified
         {
-            return this.unplayedField;
+            get
+            {
+                return this.widthFieldSpecified;
+            }
+            set
+            {
+                this.widthFieldSpecified = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
+        public string unplayed
         {
-            this.unplayedField = value;
+            get
+            {
+                return this.unplayedField;
+            }
+            set
+            {
+                this.unplayedField = value;
+            }
         }
     }
 }

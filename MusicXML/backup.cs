@@ -1,52 +1,55 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class backup
+namespace MusicXML
 {
-
-    private decimal durationField;
-
-    private formattedtext footnoteField;
-
-    private level levelField;
-
-
-    public decimal duration
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class backup
     {
-        get
-        {
-            return this.durationField;
-        }
-        set
-        {
-            this.durationField = value;
-        }
-    }
+
+        private decimal durationField;
+
+        private formattedtext footnoteField;
+
+        private level levelField;
 
 
-    public formattedtext footnote
-    {
-        get
+        public decimal duration
         {
-            return this.footnoteField;
+            get
+            {
+                return this.durationField;
+            }
+            set
+            {
+                this.durationField = value;
+            }
         }
-        set
-        {
-            this.footnoteField = value;
-        }
-    }
 
 
-    public level level
-    {
-        get
+        public formattedtext footnote
         {
-            return this.levelField;
+            get
+            {
+                return this.footnoteField;
+            }
+            set
+            {
+                this.footnoteField = value;
+            }
         }
-        set
+
+
+        public level level
         {
-            this.levelField = value;
+            get
+            {
+                return this.levelField;
+            }
+            set
+            {
+                this.levelField = value;
+            }
         }
     }
 }

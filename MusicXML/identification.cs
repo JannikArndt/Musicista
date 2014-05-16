@@ -4,64 +4,67 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Serialization;
 
-[GeneratedCode("xsd", "4.0.30319.33440")]
-[Serializable]
-[DebuggerStepThrough]
-[DesignerCategory("code")]
-public class identification
+namespace MusicXML
 {
-    private typedtext[] creatorField;
-
-    private encoding encodingField;
-
-    private miscellaneousfield[] miscellaneousField;
-    private typedtext[] relationField;
-    private typedtext[] rightsField;
-    private string sourceField;
-
-
-    [XmlElement("creator")]
-    public typedtext[] creator
+    [GeneratedCode("xsd", "4.0.30319.33440")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    public class identification
     {
-        get { return creatorField; }
-        set { creatorField = value; }
-    }
+        private typedtext[] creatorField;
+
+        private encoding encodingField;
+
+        private miscellaneousfield[] miscellaneousField;
+        private typedtext[] relationField;
+        private typedtext[] rightsField;
+        private string sourceField;
 
 
-    [XmlElement("rights")]
-    public typedtext[] rights
-    {
-        get { return rightsField; }
-        set { rightsField = value; }
-    }
+        [XmlElement("creator")]
+        public typedtext[] creator
+        {
+            get { return creatorField; }
+            set { creatorField = value; }
+        }
 
 
-    public encoding encoding
-    {
-        get { return encodingField; }
-        set { encodingField = value; }
-    }
+        [XmlElement("rights")]
+        public typedtext[] rights
+        {
+            get { return rightsField; }
+            set { rightsField = value; }
+        }
 
 
-    public string source
-    {
-        get { return sourceField; }
-        set { sourceField = value; }
-    }
+        public encoding encoding
+        {
+            get { return encodingField; }
+            set { encodingField = value; }
+        }
 
 
-    [XmlElement("relation")]
-    public typedtext[] relation
-    {
-        get { return relationField; }
-        set { relationField = value; }
-    }
+        public string source
+        {
+            get { return sourceField; }
+            set { sourceField = value; }
+        }
 
 
-    [XmlArrayItem(IsNullable = false)]
-    public miscellaneousfield[] miscellaneous
-    {
-        get { return miscellaneousField; }
-        set { miscellaneousField = value; }
+        [XmlElement("relation")]
+        public typedtext[] relation
+        {
+            get { return relationField; }
+            set { relationField = value; }
+        }
+
+
+        [XmlArrayItem(IsNullable = false)]
+        public miscellaneousfield[] miscellaneous
+        {
+            get { return miscellaneousField; }
+            set { miscellaneousField = value; }
+        }
     }
 }

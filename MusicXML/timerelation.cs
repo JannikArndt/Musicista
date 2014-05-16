@@ -1,24 +1,27 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "time-relation")]
-public enum timerelation
+namespace MusicXML
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "time-relation")]
+    public enum timerelation
+    {
 
 
-    parentheses,
+        parentheses,
 
 
-    bracket,
+        bracket,
 
 
-    equals,
+        equals,
 
 
-    slash,
+        slash,
 
 
-    space,
+        space,
 
 
-    hyphen,
+        hyphen,
+    }
 }

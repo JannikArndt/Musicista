@@ -1,176 +1,179 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class dynamics
+namespace MusicXML
 {
-
-    private object[] itemsField;
-
-    private ItemsChoiceType5[] itemsElementNameField;
-
-    private abovebelow placementField;
-
-    private bool placementFieldSpecified;
-
-    private string underlineField;
-
-    private string overlineField;
-
-    private string linethroughField;
-
-    private enclosureshape enclosureField;
-
-    private bool enclosureFieldSpecified;
-
-
-    [System.Xml.Serialization.XmlElementAttribute("f", typeof(empty))]
-    [System.Xml.Serialization.XmlElementAttribute("ff", typeof(empty))]
-    [System.Xml.Serialization.XmlElementAttribute("fff", typeof(empty))]
-    [System.Xml.Serialization.XmlElementAttribute("ffff", typeof(empty))]
-    [System.Xml.Serialization.XmlElementAttribute("fffff", typeof(empty))]
-    [System.Xml.Serialization.XmlElementAttribute("ffffff", typeof(empty))]
-    [System.Xml.Serialization.XmlElementAttribute("fp", typeof(empty))]
-    [System.Xml.Serialization.XmlElementAttribute("fz", typeof(empty))]
-    [System.Xml.Serialization.XmlElementAttribute("mf", typeof(empty))]
-    [System.Xml.Serialization.XmlElementAttribute("mp", typeof(empty))]
-    [System.Xml.Serialization.XmlElementAttribute("other-dynamics", typeof(string))]
-    [System.Xml.Serialization.XmlElementAttribute("p", typeof(empty))]
-    [System.Xml.Serialization.XmlElementAttribute("pp", typeof(empty))]
-    [System.Xml.Serialization.XmlElementAttribute("ppp", typeof(empty))]
-    [System.Xml.Serialization.XmlElementAttribute("pppp", typeof(empty))]
-    [System.Xml.Serialization.XmlElementAttribute("ppppp", typeof(empty))]
-    [System.Xml.Serialization.XmlElementAttribute("pppppp", typeof(empty))]
-    [System.Xml.Serialization.XmlElementAttribute("rf", typeof(empty))]
-    [System.Xml.Serialization.XmlElementAttribute("rfz", typeof(empty))]
-    [System.Xml.Serialization.XmlElementAttribute("sf", typeof(empty))]
-    [System.Xml.Serialization.XmlElementAttribute("sffz", typeof(empty))]
-    [System.Xml.Serialization.XmlElementAttribute("sfp", typeof(empty))]
-    [System.Xml.Serialization.XmlElementAttribute("sfpp", typeof(empty))]
-    [System.Xml.Serialization.XmlElementAttribute("sfz", typeof(empty))]
-    [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemsElementName")]
-    public object[] Items
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class dynamics
     {
-        get
-        {
-            return this.itemsField;
-        }
-        set
-        {
-            this.itemsField = value;
-        }
-    }
+
+        private object[] itemsField;
+
+        private ItemsChoiceType5[] itemsElementNameField;
+
+        private abovebelow placementField;
+
+        private bool placementFieldSpecified;
+
+        private string underlineField;
+
+        private string overlineField;
+
+        private string linethroughField;
+
+        private enclosureshape enclosureField;
+
+        private bool enclosureFieldSpecified;
 
 
-    [System.Xml.Serialization.XmlElementAttribute("ItemsElementName")]
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public ItemsChoiceType5[] ItemsElementName
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("f", typeof(empty))]
+        [System.Xml.Serialization.XmlElementAttribute("ff", typeof(empty))]
+        [System.Xml.Serialization.XmlElementAttribute("fff", typeof(empty))]
+        [System.Xml.Serialization.XmlElementAttribute("ffff", typeof(empty))]
+        [System.Xml.Serialization.XmlElementAttribute("fffff", typeof(empty))]
+        [System.Xml.Serialization.XmlElementAttribute("ffffff", typeof(empty))]
+        [System.Xml.Serialization.XmlElementAttribute("fp", typeof(empty))]
+        [System.Xml.Serialization.XmlElementAttribute("fz", typeof(empty))]
+        [System.Xml.Serialization.XmlElementAttribute("mf", typeof(empty))]
+        [System.Xml.Serialization.XmlElementAttribute("mp", typeof(empty))]
+        [System.Xml.Serialization.XmlElementAttribute("other-dynamics", typeof(string))]
+        [System.Xml.Serialization.XmlElementAttribute("p", typeof(empty))]
+        [System.Xml.Serialization.XmlElementAttribute("pp", typeof(empty))]
+        [System.Xml.Serialization.XmlElementAttribute("ppp", typeof(empty))]
+        [System.Xml.Serialization.XmlElementAttribute("pppp", typeof(empty))]
+        [System.Xml.Serialization.XmlElementAttribute("ppppp", typeof(empty))]
+        [System.Xml.Serialization.XmlElementAttribute("pppppp", typeof(empty))]
+        [System.Xml.Serialization.XmlElementAttribute("rf", typeof(empty))]
+        [System.Xml.Serialization.XmlElementAttribute("rfz", typeof(empty))]
+        [System.Xml.Serialization.XmlElementAttribute("sf", typeof(empty))]
+        [System.Xml.Serialization.XmlElementAttribute("sffz", typeof(empty))]
+        [System.Xml.Serialization.XmlElementAttribute("sfp", typeof(empty))]
+        [System.Xml.Serialization.XmlElementAttribute("sfpp", typeof(empty))]
+        [System.Xml.Serialization.XmlElementAttribute("sfz", typeof(empty))]
+        [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemsElementName")]
+        public object[] Items
         {
-            return this.itemsElementNameField;
+            get
+            {
+                return this.itemsField;
+            }
+            set
+            {
+                this.itemsField = value;
+            }
         }
-        set
-        {
-            this.itemsElementNameField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public abovebelow placement
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("ItemsElementName")]
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public ItemsChoiceType5[] ItemsElementName
         {
-            return this.placementField;
+            get
+            {
+                return this.itemsElementNameField;
+            }
+            set
+            {
+                this.itemsElementNameField = value;
+            }
         }
-        set
-        {
-            this.placementField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool placementSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public abovebelow placement
         {
-            return this.placementFieldSpecified;
+            get
+            {
+                return this.placementField;
+            }
+            set
+            {
+                this.placementField = value;
+            }
         }
-        set
-        {
-            this.placementFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "nonNegativeInteger")]
-    public string underline
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool placementSpecified
         {
-            return this.underlineField;
+            get
+            {
+                return this.placementFieldSpecified;
+            }
+            set
+            {
+                this.placementFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.underlineField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "nonNegativeInteger")]
-    public string overline
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "nonNegativeInteger")]
+        public string underline
         {
-            return this.overlineField;
+            get
+            {
+                return this.underlineField;
+            }
+            set
+            {
+                this.underlineField = value;
+            }
         }
-        set
-        {
-            this.overlineField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("line-through", DataType = "nonNegativeInteger")]
-    public string linethrough
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "nonNegativeInteger")]
+        public string overline
         {
-            return this.linethroughField;
+            get
+            {
+                return this.overlineField;
+            }
+            set
+            {
+                this.overlineField = value;
+            }
         }
-        set
-        {
-            this.linethroughField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public enclosureshape enclosure
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("line-through", DataType = "nonNegativeInteger")]
+        public string linethrough
         {
-            return this.enclosureField;
+            get
+            {
+                return this.linethroughField;
+            }
+            set
+            {
+                this.linethroughField = value;
+            }
         }
-        set
-        {
-            this.enclosureField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool enclosureSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public enclosureshape enclosure
         {
-            return this.enclosureFieldSpecified;
+            get
+            {
+                return this.enclosureField;
+            }
+            set
+            {
+                this.enclosureField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool enclosureSpecified
         {
-            this.enclosureFieldSpecified = value;
+            get
+            {
+                return this.enclosureFieldSpecified;
+            }
+            set
+            {
+                this.enclosureFieldSpecified = value;
+            }
         }
     }
 }

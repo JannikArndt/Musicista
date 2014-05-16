@@ -1,55 +1,58 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class offset
+namespace MusicXML
 {
-
-    private yesno soundField;
-
-    private bool soundFieldSpecified;
-
-    private decimal valueField;
-
-
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public yesno sound
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class offset
     {
-        get
-        {
-            return this.soundField;
-        }
-        set
-        {
-            this.soundField = value;
-        }
-    }
+
+        private yesno soundField;
+
+        private bool soundFieldSpecified;
+
+        private decimal valueField;
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool soundSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public yesno sound
         {
-            return this.soundFieldSpecified;
+            get
+            {
+                return this.soundField;
+            }
+            set
+            {
+                this.soundField = value;
+            }
         }
-        set
-        {
-            this.soundFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlTextAttribute()]
-    public decimal Value
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool soundSpecified
         {
-            return this.valueField;
+            get
+            {
+                return this.soundFieldSpecified;
+            }
+            set
+            {
+                this.soundFieldSpecified = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public decimal Value
         {
-            this.valueField = value;
+            get
+            {
+                return this.valueField;
+            }
+            set
+            {
+                this.valueField = value;
+            }
         }
     }
 }

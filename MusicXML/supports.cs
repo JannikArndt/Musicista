@@ -1,71 +1,74 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class supports
+namespace MusicXML
 {
-
-    private yesno typeField;
-
-    private string elementField;
-
-    private string attributeField;
-
-    private string valueField;
-
-
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public yesno type
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class supports
     {
-        get
-        {
-            return this.typeField;
-        }
-        set
-        {
-            this.typeField = value;
-        }
-    }
+
+        private yesno typeField;
+
+        private string elementField;
+
+        private string attributeField;
+
+        private string valueField;
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NMTOKEN")]
-    public string element
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public yesno type
         {
-            return this.elementField;
+            get
+            {
+                return this.typeField;
+            }
+            set
+            {
+                this.typeField = value;
+            }
         }
-        set
-        {
-            this.elementField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NMTOKEN")]
-    public string attribute
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NMTOKEN")]
+        public string element
         {
-            return this.attributeField;
+            get
+            {
+                return this.elementField;
+            }
+            set
+            {
+                this.elementField = value;
+            }
         }
-        set
-        {
-            this.attributeField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
-    public string value
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NMTOKEN")]
+        public string attribute
         {
-            return this.valueField;
+            get
+            {
+                return this.attributeField;
+            }
+            set
+            {
+                this.attributeField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
+        public string value
         {
-            this.valueField = value;
+            get
+            {
+                return this.valueField;
+            }
+            set
+            {
+                this.valueField = value;
+            }
         }
     }
 }

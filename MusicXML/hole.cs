@@ -1,87 +1,90 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class hole
+namespace MusicXML
 {
-
-    private string holetypeField;
-
-    private holeclosed holeclosedField;
-
-    private string holeshapeField;
-
-    private abovebelow placementField;
-
-    private bool placementFieldSpecified;
-
-
-    [System.Xml.Serialization.XmlElementAttribute("hole-type")]
-    public string holetype
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class hole
     {
-        get
-        {
-            return this.holetypeField;
-        }
-        set
-        {
-            this.holetypeField = value;
-        }
-    }
+
+        private string holetypeField;
+
+        private holeclosed holeclosedField;
+
+        private string holeshapeField;
+
+        private abovebelow placementField;
+
+        private bool placementFieldSpecified;
 
 
-    [System.Xml.Serialization.XmlElementAttribute("hole-closed")]
-    public holeclosed holeclosed
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("hole-type")]
+        public string holetype
         {
-            return this.holeclosedField;
+            get
+            {
+                return this.holetypeField;
+            }
+            set
+            {
+                this.holetypeField = value;
+            }
         }
-        set
-        {
-            this.holeclosedField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("hole-shape")]
-    public string holeshape
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("hole-closed")]
+        public holeclosed holeclosed
         {
-            return this.holeshapeField;
+            get
+            {
+                return this.holeclosedField;
+            }
+            set
+            {
+                this.holeclosedField = value;
+            }
         }
-        set
-        {
-            this.holeshapeField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public abovebelow placement
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("hole-shape")]
+        public string holeshape
         {
-            return this.placementField;
+            get
+            {
+                return this.holeshapeField;
+            }
+            set
+            {
+                this.holeshapeField = value;
+            }
         }
-        set
-        {
-            this.placementField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool placementSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public abovebelow placement
         {
-            return this.placementFieldSpecified;
+            get
+            {
+                return this.placementField;
+            }
+            set
+            {
+                this.placementField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool placementSpecified
         {
-            this.placementFieldSpecified = value;
+            get
+            {
+                return this.placementFieldSpecified;
+            }
+            set
+            {
+                this.placementFieldSpecified = value;
+            }
         }
     }
 }

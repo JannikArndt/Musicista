@@ -1,71 +1,74 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class stick
+namespace MusicXML
 {
-
-    private sticktype sticktypeField;
-
-    private stickmaterial stickmaterialField;
-
-    private tipdirection tipField;
-
-    private bool tipFieldSpecified;
-
-
-    [System.Xml.Serialization.XmlElementAttribute("stick-type")]
-    public sticktype sticktype
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class stick
     {
-        get
-        {
-            return this.sticktypeField;
-        }
-        set
-        {
-            this.sticktypeField = value;
-        }
-    }
+
+        private sticktype sticktypeField;
+
+        private stickmaterial stickmaterialField;
+
+        private tipdirection tipField;
+
+        private bool tipFieldSpecified;
 
 
-    [System.Xml.Serialization.XmlElementAttribute("stick-material")]
-    public stickmaterial stickmaterial
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("stick-type")]
+        public sticktype sticktype
         {
-            return this.stickmaterialField;
+            get
+            {
+                return this.sticktypeField;
+            }
+            set
+            {
+                this.sticktypeField = value;
+            }
         }
-        set
-        {
-            this.stickmaterialField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public tipdirection tip
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("stick-material")]
+        public stickmaterial stickmaterial
         {
-            return this.tipField;
+            get
+            {
+                return this.stickmaterialField;
+            }
+            set
+            {
+                this.stickmaterialField = value;
+            }
         }
-        set
-        {
-            this.tipField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool tipSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public tipdirection tip
         {
-            return this.tipFieldSpecified;
+            get
+            {
+                return this.tipField;
+            }
+            set
+            {
+                this.tipField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool tipSpecified
         {
-            this.tipFieldSpecified = value;
+            get
+            {
+                return this.tipFieldSpecified;
+            }
+            set
+            {
+                this.tipFieldSpecified = value;
+            }
         }
     }
 }

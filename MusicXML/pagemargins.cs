@@ -1,104 +1,107 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "page-margins")]
-public partial class pagemargins
+namespace MusicXML
 {
-
-    private decimal leftmarginField;
-
-    private decimal rightmarginField;
-
-    private decimal topmarginField;
-
-    private decimal bottommarginField;
-
-    private margintype typeField;
-
-    private bool typeFieldSpecified;
-
-
-    [System.Xml.Serialization.XmlElementAttribute("left-margin")]
-    public decimal leftmargin
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "page-margins")]
+    public partial class pagemargins
     {
-        get
-        {
-            return this.leftmarginField;
-        }
-        set
-        {
-            this.leftmarginField = value;
-        }
-    }
+
+        private decimal leftmarginField;
+
+        private decimal rightmarginField;
+
+        private decimal topmarginField;
+
+        private decimal bottommarginField;
+
+        private margintype typeField;
+
+        private bool typeFieldSpecified;
 
 
-    [System.Xml.Serialization.XmlElementAttribute("right-margin")]
-    public decimal rightmargin
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("left-margin")]
+        public decimal leftmargin
         {
-            return this.rightmarginField;
+            get
+            {
+                return this.leftmarginField;
+            }
+            set
+            {
+                this.leftmarginField = value;
+            }
         }
-        set
-        {
-            this.rightmarginField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("top-margin")]
-    public decimal topmargin
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("right-margin")]
+        public decimal rightmargin
         {
-            return this.topmarginField;
+            get
+            {
+                return this.rightmarginField;
+            }
+            set
+            {
+                this.rightmarginField = value;
+            }
         }
-        set
-        {
-            this.topmarginField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("bottom-margin")]
-    public decimal bottommargin
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("top-margin")]
+        public decimal topmargin
         {
-            return this.bottommarginField;
+            get
+            {
+                return this.topmarginField;
+            }
+            set
+            {
+                this.topmarginField = value;
+            }
         }
-        set
-        {
-            this.bottommarginField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public margintype type
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("bottom-margin")]
+        public decimal bottommargin
         {
-            return this.typeField;
+            get
+            {
+                return this.bottommarginField;
+            }
+            set
+            {
+                this.bottommarginField = value;
+            }
         }
-        set
-        {
-            this.typeField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool typeSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public margintype type
         {
-            return this.typeFieldSpecified;
+            get
+            {
+                return this.typeField;
+            }
+            set
+            {
+                this.typeField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool typeSpecified
         {
-            this.typeFieldSpecified = value;
+            get
+            {
+                return this.typeFieldSpecified;
+            }
+            set
+            {
+                this.typeFieldSpecified = value;
+            }
         }
     }
 }

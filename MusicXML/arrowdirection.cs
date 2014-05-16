@@ -1,49 +1,52 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "arrow-direction")]
-public enum arrowdirection
+namespace MusicXML
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "arrow-direction")]
+    public enum arrowdirection
+    {
 
 
-    left,
+        left,
 
 
-    up,
+        up,
 
 
-    right,
+        right,
 
 
-    down,
+        down,
 
 
-    northwest,
+        northwest,
 
 
-    northeast,
+        northeast,
 
 
-    southeast,
+        southeast,
 
 
-    southwest,
+        southwest,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("left right")]
-    leftright,
+        [System.Xml.Serialization.XmlEnumAttribute("left right")]
+        leftright,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("up down")]
-    updown,
+        [System.Xml.Serialization.XmlEnumAttribute("up down")]
+        updown,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("northwest southeast")]
-    northwestsoutheast,
+        [System.Xml.Serialization.XmlEnumAttribute("northwest southeast")]
+        northwestsoutheast,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("northeast southwest")]
-    northeastsouthwest,
+        [System.Xml.Serialization.XmlEnumAttribute("northeast southwest")]
+        northeastsouthwest,
 
 
-    other,
+        other,
+    }
 }

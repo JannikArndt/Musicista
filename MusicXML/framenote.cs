@@ -1,68 +1,71 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "frame-note")]
-public partial class framenote
+namespace MusicXML
 {
-
-    private @string stringField;
-
-    private fret fretField;
-
-    private fingering fingeringField;
-
-    private barre barreField;
-
-
-    public @string @string
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "frame-note")]
+    public partial class framenote
     {
-        get
-        {
-            return this.stringField;
-        }
-        set
-        {
-            this.stringField = value;
-        }
-    }
+
+        private @string stringField;
+
+        private fret fretField;
+
+        private fingering fingeringField;
+
+        private barre barreField;
 
 
-    public fret fret
-    {
-        get
+        public @string @string
         {
-            return this.fretField;
+            get
+            {
+                return this.stringField;
+            }
+            set
+            {
+                this.stringField = value;
+            }
         }
-        set
-        {
-            this.fretField = value;
-        }
-    }
 
 
-    public fingering fingering
-    {
-        get
+        public fret fret
         {
-            return this.fingeringField;
+            get
+            {
+                return this.fretField;
+            }
+            set
+            {
+                this.fretField = value;
+            }
         }
-        set
-        {
-            this.fingeringField = value;
-        }
-    }
 
 
-    public barre barre
-    {
-        get
+        public fingering fingering
         {
-            return this.barreField;
+            get
+            {
+                return this.fingeringField;
+            }
+            set
+            {
+                this.fingeringField = value;
+            }
         }
-        set
+
+
+        public barre barre
         {
-            this.barreField = value;
+            get
+            {
+                return this.barreField;
+            }
+            set
+            {
+                this.barreField = value;
+            }
         }
     }
 }

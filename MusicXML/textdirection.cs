@@ -1,18 +1,21 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "text-direction")]
-public enum textdirection
+namespace MusicXML
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "text-direction")]
+    public enum textdirection
+    {
 
 
-    ltr,
+        ltr,
 
 
-    rtl,
+        rtl,
 
 
-    lro,
+        lro,
 
 
-    rlo,
+        rlo,
+    }
 }

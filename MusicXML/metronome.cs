@@ -1,91 +1,94 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class metronome
+namespace MusicXML
 {
-
-    private object[] itemsField;
-
-    private leftcenterright justifyField;
-
-    private bool justifyFieldSpecified;
-
-    private yesno parenthesesField;
-
-    private bool parenthesesFieldSpecified;
-
-
-    [System.Xml.Serialization.XmlElementAttribute("beat-unit", typeof(notetypevalue))]
-    [System.Xml.Serialization.XmlElementAttribute("beat-unit-dot", typeof(empty))]
-    [System.Xml.Serialization.XmlElementAttribute("metronome-note", typeof(metronomenote))]
-    [System.Xml.Serialization.XmlElementAttribute("metronome-relation", typeof(string))]
-    [System.Xml.Serialization.XmlElementAttribute("per-minute", typeof(perminute))]
-    public object[] Items
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class metronome
     {
-        get
-        {
-            return this.itemsField;
-        }
-        set
-        {
-            this.itemsField = value;
-        }
-    }
+
+        private object[] itemsField;
+
+        private leftcenterright justifyField;
+
+        private bool justifyFieldSpecified;
+
+        private yesno parenthesesField;
+
+        private bool parenthesesFieldSpecified;
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public leftcenterright justify
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("beat-unit", typeof(notetypevalue))]
+        [System.Xml.Serialization.XmlElementAttribute("beat-unit-dot", typeof(empty))]
+        [System.Xml.Serialization.XmlElementAttribute("metronome-note", typeof(metronomenote))]
+        [System.Xml.Serialization.XmlElementAttribute("metronome-relation", typeof(string))]
+        [System.Xml.Serialization.XmlElementAttribute("per-minute", typeof(perminute))]
+        public object[] Items
         {
-            return this.justifyField;
+            get
+            {
+                return this.itemsField;
+            }
+            set
+            {
+                this.itemsField = value;
+            }
         }
-        set
-        {
-            this.justifyField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool justifySpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public leftcenterright justify
         {
-            return this.justifyFieldSpecified;
+            get
+            {
+                return this.justifyField;
+            }
+            set
+            {
+                this.justifyField = value;
+            }
         }
-        set
-        {
-            this.justifyFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public yesno parentheses
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool justifySpecified
         {
-            return this.parenthesesField;
+            get
+            {
+                return this.justifyFieldSpecified;
+            }
+            set
+            {
+                this.justifyFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.parenthesesField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool parenthesesSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public yesno parentheses
         {
-            return this.parenthesesFieldSpecified;
+            get
+            {
+                return this.parenthesesField;
+            }
+            set
+            {
+                this.parenthesesField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool parenthesesSpecified
         {
-            this.parenthesesFieldSpecified = value;
+            get
+            {
+                return this.parenthesesFieldSpecified;
+            }
+            set
+            {
+                this.parenthesesFieldSpecified = value;
+            }
         }
     }
 }

@@ -1,53 +1,56 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(IncludeInSchema = false)]
-public enum ItemsChoiceType2
+namespace MusicXML
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(IncludeInSchema = false)]
+    public enum ItemsChoiceType2
+    {
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("delayed-inverted-turn")]
-    delayedinvertedturn,
+        [System.Xml.Serialization.XmlEnumAttribute("delayed-inverted-turn")]
+        delayedinvertedturn,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("delayed-turn")]
-    delayedturn,
+        [System.Xml.Serialization.XmlEnumAttribute("delayed-turn")]
+        delayedturn,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("inverted-mordent")]
-    invertedmordent,
+        [System.Xml.Serialization.XmlEnumAttribute("inverted-mordent")]
+        invertedmordent,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("inverted-turn")]
-    invertedturn,
+        [System.Xml.Serialization.XmlEnumAttribute("inverted-turn")]
+        invertedturn,
 
 
-    mordent,
+        mordent,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("other-ornament")]
-    otherornament,
+        [System.Xml.Serialization.XmlEnumAttribute("other-ornament")]
+        otherornament,
 
 
-    schleifer,
+        schleifer,
 
 
-    shake,
+        shake,
 
 
-    tremolo,
+        tremolo,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("trill-mark")]
-    trillmark,
+        [System.Xml.Serialization.XmlEnumAttribute("trill-mark")]
+        trillmark,
 
 
-    turn,
+        turn,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("vertical-turn")]
-    verticalturn,
+        [System.Xml.Serialization.XmlEnumAttribute("vertical-turn")]
+        verticalturn,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("wavy-line")]
-    wavyline,
+        [System.Xml.Serialization.XmlEnumAttribute("wavy-line")]
+        wavyline,
+    }
 }

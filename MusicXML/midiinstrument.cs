@@ -1,197 +1,200 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "midi-instrument")]
-public partial class midiinstrument
+namespace MusicXML
 {
-
-    private string midichannelField;
-
-    private string midinameField;
-
-    private string midibankField;
-
-    private string midiprogramField;
-
-    private string midiunpitchedField;
-
-    private decimal volumeField;
-
-    private bool volumeFieldSpecified;
-
-    private decimal panField;
-
-    private bool panFieldSpecified;
-
-    private decimal elevationField;
-
-    private bool elevationFieldSpecified;
-
-    private string idField;
-
-
-    [System.Xml.Serialization.XmlElementAttribute("midi-channel", DataType = "positiveInteger")]
-    public string midichannel
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "midi-instrument")]
+    public partial class midiinstrument
     {
-        get
-        {
-            return this.midichannelField;
-        }
-        set
-        {
-            this.midichannelField = value;
-        }
-    }
+
+        private string midichannelField;
+
+        private string midinameField;
+
+        private string midibankField;
+
+        private string midiprogramField;
+
+        private string midiunpitchedField;
+
+        private decimal volumeField;
+
+        private bool volumeFieldSpecified;
+
+        private decimal panField;
+
+        private bool panFieldSpecified;
+
+        private decimal elevationField;
+
+        private bool elevationFieldSpecified;
+
+        private string idField;
 
 
-    [System.Xml.Serialization.XmlElementAttribute("midi-name")]
-    public string midiname
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("midi-channel", DataType = "positiveInteger")]
+        public string midichannel
         {
-            return this.midinameField;
+            get
+            {
+                return this.midichannelField;
+            }
+            set
+            {
+                this.midichannelField = value;
+            }
         }
-        set
-        {
-            this.midinameField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("midi-bank", DataType = "positiveInteger")]
-    public string midibank
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("midi-name")]
+        public string midiname
         {
-            return this.midibankField;
+            get
+            {
+                return this.midinameField;
+            }
+            set
+            {
+                this.midinameField = value;
+            }
         }
-        set
-        {
-            this.midibankField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("midi-program", DataType = "positiveInteger")]
-    public string midiprogram
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("midi-bank", DataType = "positiveInteger")]
+        public string midibank
         {
-            return this.midiprogramField;
+            get
+            {
+                return this.midibankField;
+            }
+            set
+            {
+                this.midibankField = value;
+            }
         }
-        set
-        {
-            this.midiprogramField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("midi-unpitched", DataType = "positiveInteger")]
-    public string midiunpitched
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("midi-program", DataType = "positiveInteger")]
+        public string midiprogram
         {
-            return this.midiunpitchedField;
+            get
+            {
+                return this.midiprogramField;
+            }
+            set
+            {
+                this.midiprogramField = value;
+            }
         }
-        set
-        {
-            this.midiunpitchedField = value;
-        }
-    }
 
 
-    public decimal volume
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("midi-unpitched", DataType = "positiveInteger")]
+        public string midiunpitched
         {
-            return this.volumeField;
+            get
+            {
+                return this.midiunpitchedField;
+            }
+            set
+            {
+                this.midiunpitchedField = value;
+            }
         }
-        set
-        {
-            this.volumeField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool volumeSpecified
-    {
-        get
+        public decimal volume
         {
-            return this.volumeFieldSpecified;
+            get
+            {
+                return this.volumeField;
+            }
+            set
+            {
+                this.volumeField = value;
+            }
         }
-        set
-        {
-            this.volumeFieldSpecified = value;
-        }
-    }
 
 
-    public decimal pan
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool volumeSpecified
         {
-            return this.panField;
+            get
+            {
+                return this.volumeFieldSpecified;
+            }
+            set
+            {
+                this.volumeFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.panField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool panSpecified
-    {
-        get
+        public decimal pan
         {
-            return this.panFieldSpecified;
+            get
+            {
+                return this.panField;
+            }
+            set
+            {
+                this.panField = value;
+            }
         }
-        set
-        {
-            this.panFieldSpecified = value;
-        }
-    }
 
 
-    public decimal elevation
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool panSpecified
         {
-            return this.elevationField;
+            get
+            {
+                return this.panFieldSpecified;
+            }
+            set
+            {
+                this.panFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.elevationField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool elevationSpecified
-    {
-        get
+        public decimal elevation
         {
-            return this.elevationFieldSpecified;
+            get
+            {
+                return this.elevationField;
+            }
+            set
+            {
+                this.elevationField = value;
+            }
         }
-        set
-        {
-            this.elevationFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "IDREF")]
-    public string id
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool elevationSpecified
         {
-            return this.idField;
+            get
+            {
+                return this.elevationFieldSpecified;
+            }
+            set
+            {
+                this.elevationFieldSpecified = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "IDREF")]
+        public string id
         {
-            this.idField = value;
+            get
+            {
+                return this.idField;
+            }
+            set
+            {
+                this.idField = value;
+            }
         }
     }
 }

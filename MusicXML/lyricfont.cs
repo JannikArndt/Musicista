@@ -1,136 +1,139 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "lyric-font")]
-public partial class lyricfont
+namespace MusicXML
 {
-
-    private string numberField;
-
-    private string nameField;
-
-    private string fontfamilyField;
-
-    private fontstyle fontstyleField;
-
-    private bool fontstyleFieldSpecified;
-
-    private string fontsizeField;
-
-    private fontweight fontweightField;
-
-    private bool fontweightFieldSpecified;
-
-
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NMTOKEN")]
-    public string number
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "lyric-font")]
+    public partial class lyricfont
     {
-        get
-        {
-            return this.numberField;
-        }
-        set
-        {
-            this.numberField = value;
-        }
-    }
+
+        private string numberField;
+
+        private string nameField;
+
+        private string fontfamilyField;
+
+        private fontstyle fontstyleField;
+
+        private bool fontstyleFieldSpecified;
+
+        private string fontsizeField;
+
+        private fontweight fontweightField;
+
+        private bool fontweightFieldSpecified;
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
-    public string name
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NMTOKEN")]
+        public string number
         {
-            return this.nameField;
+            get
+            {
+                return this.numberField;
+            }
+            set
+            {
+                this.numberField = value;
+            }
         }
-        set
-        {
-            this.nameField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("font-family", DataType = "token")]
-    public string fontfamily
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
+        public string name
         {
-            return this.fontfamilyField;
+            get
+            {
+                return this.nameField;
+            }
+            set
+            {
+                this.nameField = value;
+            }
         }
-        set
-        {
-            this.fontfamilyField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("font-style")]
-    public fontstyle fontstyle
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("font-family", DataType = "token")]
+        public string fontfamily
         {
-            return this.fontstyleField;
+            get
+            {
+                return this.fontfamilyField;
+            }
+            set
+            {
+                this.fontfamilyField = value;
+            }
         }
-        set
-        {
-            this.fontstyleField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool fontstyleSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("font-style")]
+        public fontstyle fontstyle
         {
-            return this.fontstyleFieldSpecified;
+            get
+            {
+                return this.fontstyleField;
+            }
+            set
+            {
+                this.fontstyleField = value;
+            }
         }
-        set
-        {
-            this.fontstyleFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("font-size")]
-    public string fontsize
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool fontstyleSpecified
         {
-            return this.fontsizeField;
+            get
+            {
+                return this.fontstyleFieldSpecified;
+            }
+            set
+            {
+                this.fontstyleFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.fontsizeField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("font-weight")]
-    public fontweight fontweight
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("font-size")]
+        public string fontsize
         {
-            return this.fontweightField;
+            get
+            {
+                return this.fontsizeField;
+            }
+            set
+            {
+                this.fontsizeField = value;
+            }
         }
-        set
-        {
-            this.fontweightField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool fontweightSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("font-weight")]
+        public fontweight fontweight
         {
-            return this.fontweightFieldSpecified;
+            get
+            {
+                return this.fontweightField;
+            }
+            set
+            {
+                this.fontweightField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool fontweightSpecified
         {
-            this.fontweightFieldSpecified = value;
+            get
+            {
+                return this.fontweightFieldSpecified;
+            }
+            set
+            {
+                this.fontweightFieldSpecified = value;
+            }
         }
     }
 }

@@ -1,54 +1,57 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-public enum mute
+namespace MusicXML
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    public enum mute
+    {
 
 
-    on,
+        on,
 
 
-    off,
+        off,
 
 
-    straight,
+        straight,
 
 
-    cup,
+        cup,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("harmon-no-stem")]
-    harmonnostem,
+        [System.Xml.Serialization.XmlEnumAttribute("harmon-no-stem")]
+        harmonnostem,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("harmon-stem")]
-    harmonstem,
+        [System.Xml.Serialization.XmlEnumAttribute("harmon-stem")]
+        harmonstem,
 
 
-    bucket,
+        bucket,
 
 
-    plunger,
+        plunger,
 
 
-    hat,
+        hat,
 
 
-    solotone,
+        solotone,
 
 
-    practice,
+        practice,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("stop-mute")]
-    stopmute,
+        [System.Xml.Serialization.XmlEnumAttribute("stop-mute")]
+        stopmute,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("stop-hand")]
-    stophand,
+        [System.Xml.Serialization.XmlEnumAttribute("stop-hand")]
+        stophand,
 
 
-    echo,
+        echo,
 
 
-    palm,
+        palm,
+    }
 }

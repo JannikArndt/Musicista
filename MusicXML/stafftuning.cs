@@ -1,88 +1,91 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "staff-tuning")]
-public partial class stafftuning
+namespace MusicXML
 {
-
-    private step tuningstepField;
-
-    private decimal tuningalterField;
-
-    private bool tuningalterFieldSpecified;
-
-    private string tuningoctaveField;
-
-    private string lineField;
-
-
-    [System.Xml.Serialization.XmlElementAttribute("tuning-step")]
-    public step tuningstep
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "staff-tuning")]
+    public partial class stafftuning
     {
-        get
-        {
-            return this.tuningstepField;
-        }
-        set
-        {
-            this.tuningstepField = value;
-        }
-    }
+
+        private step tuningstepField;
+
+        private decimal tuningalterField;
+
+        private bool tuningalterFieldSpecified;
+
+        private string tuningoctaveField;
+
+        private string lineField;
 
 
-    [System.Xml.Serialization.XmlElementAttribute("tuning-alter")]
-    public decimal tuningalter
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("tuning-step")]
+        public step tuningstep
         {
-            return this.tuningalterField;
+            get
+            {
+                return this.tuningstepField;
+            }
+            set
+            {
+                this.tuningstepField = value;
+            }
         }
-        set
-        {
-            this.tuningalterField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool tuningalterSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("tuning-alter")]
+        public decimal tuningalter
         {
-            return this.tuningalterFieldSpecified;
+            get
+            {
+                return this.tuningalterField;
+            }
+            set
+            {
+                this.tuningalterField = value;
+            }
         }
-        set
-        {
-            this.tuningalterFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("tuning-octave", DataType = "integer")]
-    public string tuningoctave
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool tuningalterSpecified
         {
-            return this.tuningoctaveField;
+            get
+            {
+                return this.tuningalterFieldSpecified;
+            }
+            set
+            {
+                this.tuningalterFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.tuningoctaveField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "integer")]
-    public string line
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("tuning-octave", DataType = "integer")]
+        public string tuningoctave
         {
-            return this.lineField;
+            get
+            {
+                return this.tuningoctaveField;
+            }
+            set
+            {
+                this.tuningoctaveField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "integer")]
+        public string line
         {
-            this.lineField = value;
+            get
+            {
+                return this.lineField;
+            }
+            set
+            {
+                this.lineField = value;
+            }
         }
     }
 }

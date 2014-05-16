@@ -1,22 +1,25 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "degree-symbol-value")]
-public enum degreesymbolvalue
+namespace MusicXML
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "degree-symbol-value")]
+    public enum degreesymbolvalue
+    {
 
 
-    major,
+        major,
 
 
-    minor,
+        minor,
 
 
-    augmented,
+        augmented,
 
 
-    diminished,
+        diminished,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("half-diminished")]
-    halfdiminished,
+        [System.Xml.Serialization.XmlEnumAttribute("half-diminished")]
+        halfdiminished,
+    }
 }

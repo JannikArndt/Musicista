@@ -1,292 +1,295 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class harmony
+namespace MusicXML
 {
-
-    private object[] itemsField;
-
-    private kind[] kindField;
-
-    private inversion[] inversionField;
-
-    private bass[] bassField;
-
-    private degree[] degreeField;
-
-    private frame frameField;
-
-    private offset offsetField;
-
-    private formattedtext footnoteField;
-
-    private level levelField;
-
-    private string staffField;
-
-    private harmonytype typeField;
-
-    private bool typeFieldSpecified;
-
-    private yesno printobjectField;
-
-    private bool printobjectFieldSpecified;
-
-    private yesno printframeField;
-
-    private bool printframeFieldSpecified;
-
-    private abovebelow placementField;
-
-    private bool placementFieldSpecified;
-
-
-    [System.Xml.Serialization.XmlElementAttribute("function", typeof(styletext))]
-    [System.Xml.Serialization.XmlElementAttribute("root", typeof(root))]
-    public object[] Items
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class harmony
     {
-        get
-        {
-            return this.itemsField;
-        }
-        set
-        {
-            this.itemsField = value;
-        }
-    }
+
+        private object[] itemsField;
+
+        private kind[] kindField;
+
+        private inversion[] inversionField;
+
+        private bass[] bassField;
+
+        private degree[] degreeField;
+
+        private frame frameField;
+
+        private offset offsetField;
+
+        private formattedtext footnoteField;
+
+        private level levelField;
+
+        private string staffField;
+
+        private harmonytype typeField;
+
+        private bool typeFieldSpecified;
+
+        private yesno printobjectField;
+
+        private bool printobjectFieldSpecified;
+
+        private yesno printframeField;
+
+        private bool printframeFieldSpecified;
+
+        private abovebelow placementField;
+
+        private bool placementFieldSpecified;
 
 
-    [System.Xml.Serialization.XmlElementAttribute("kind")]
-    public kind[] kind
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("function", typeof(styletext))]
+        [System.Xml.Serialization.XmlElementAttribute("root", typeof(root))]
+        public object[] Items
         {
-            return this.kindField;
+            get
+            {
+                return this.itemsField;
+            }
+            set
+            {
+                this.itemsField = value;
+            }
         }
-        set
-        {
-            this.kindField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("inversion")]
-    public inversion[] inversion
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("kind")]
+        public kind[] kind
         {
-            return this.inversionField;
+            get
+            {
+                return this.kindField;
+            }
+            set
+            {
+                this.kindField = value;
+            }
         }
-        set
-        {
-            this.inversionField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("bass")]
-    public bass[] bass
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("inversion")]
+        public inversion[] inversion
         {
-            return this.bassField;
+            get
+            {
+                return this.inversionField;
+            }
+            set
+            {
+                this.inversionField = value;
+            }
         }
-        set
-        {
-            this.bassField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("degree")]
-    public degree[] degree
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("bass")]
+        public bass[] bass
         {
-            return this.degreeField;
+            get
+            {
+                return this.bassField;
+            }
+            set
+            {
+                this.bassField = value;
+            }
         }
-        set
-        {
-            this.degreeField = value;
-        }
-    }
 
 
-    public frame frame
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("degree")]
+        public degree[] degree
         {
-            return this.frameField;
+            get
+            {
+                return this.degreeField;
+            }
+            set
+            {
+                this.degreeField = value;
+            }
         }
-        set
-        {
-            this.frameField = value;
-        }
-    }
 
 
-    public offset offset
-    {
-        get
+        public frame frame
         {
-            return this.offsetField;
+            get
+            {
+                return this.frameField;
+            }
+            set
+            {
+                this.frameField = value;
+            }
         }
-        set
-        {
-            this.offsetField = value;
-        }
-    }
 
 
-    public formattedtext footnote
-    {
-        get
+        public offset offset
         {
-            return this.footnoteField;
+            get
+            {
+                return this.offsetField;
+            }
+            set
+            {
+                this.offsetField = value;
+            }
         }
-        set
-        {
-            this.footnoteField = value;
-        }
-    }
 
 
-    public level level
-    {
-        get
+        public formattedtext footnote
         {
-            return this.levelField;
+            get
+            {
+                return this.footnoteField;
+            }
+            set
+            {
+                this.footnoteField = value;
+            }
         }
-        set
-        {
-            this.levelField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute(DataType = "positiveInteger")]
-    public string staff
-    {
-        get
+        public level level
         {
-            return this.staffField;
+            get
+            {
+                return this.levelField;
+            }
+            set
+            {
+                this.levelField = value;
+            }
         }
-        set
-        {
-            this.staffField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public harmonytype type
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute(DataType = "positiveInteger")]
+        public string staff
         {
-            return this.typeField;
+            get
+            {
+                return this.staffField;
+            }
+            set
+            {
+                this.staffField = value;
+            }
         }
-        set
-        {
-            this.typeField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool typeSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public harmonytype type
         {
-            return this.typeFieldSpecified;
+            get
+            {
+                return this.typeField;
+            }
+            set
+            {
+                this.typeField = value;
+            }
         }
-        set
-        {
-            this.typeFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("print-object")]
-    public yesno printobject
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool typeSpecified
         {
-            return this.printobjectField;
+            get
+            {
+                return this.typeFieldSpecified;
+            }
+            set
+            {
+                this.typeFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.printobjectField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool printobjectSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("print-object")]
+        public yesno printobject
         {
-            return this.printobjectFieldSpecified;
+            get
+            {
+                return this.printobjectField;
+            }
+            set
+            {
+                this.printobjectField = value;
+            }
         }
-        set
-        {
-            this.printobjectFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("print-frame")]
-    public yesno printframe
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool printobjectSpecified
         {
-            return this.printframeField;
+            get
+            {
+                return this.printobjectFieldSpecified;
+            }
+            set
+            {
+                this.printobjectFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.printframeField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool printframeSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("print-frame")]
+        public yesno printframe
         {
-            return this.printframeFieldSpecified;
+            get
+            {
+                return this.printframeField;
+            }
+            set
+            {
+                this.printframeField = value;
+            }
         }
-        set
-        {
-            this.printframeFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public abovebelow placement
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool printframeSpecified
         {
-            return this.placementField;
+            get
+            {
+                return this.printframeFieldSpecified;
+            }
+            set
+            {
+                this.printframeFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.placementField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool placementSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public abovebelow placement
         {
-            return this.placementFieldSpecified;
+            get
+            {
+                return this.placementField;
+            }
+            set
+            {
+                this.placementField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool placementSpecified
         {
-            this.placementFieldSpecified = value;
+            get
+            {
+                return this.placementFieldSpecified;
+            }
+            set
+            {
+                this.placementFieldSpecified = value;
+            }
         }
     }
 }

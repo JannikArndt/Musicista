@@ -1,40 +1,43 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "system-margins")]
-public partial class systemmargins
+namespace MusicXML
 {
-
-    private decimal leftmarginField;
-
-    private decimal rightmarginField;
-
-
-    [System.Xml.Serialization.XmlElementAttribute("left-margin")]
-    public decimal leftmargin
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "system-margins")]
+    public partial class systemmargins
     {
-        get
-        {
-            return this.leftmarginField;
-        }
-        set
-        {
-            this.leftmarginField = value;
-        }
-    }
+
+        private decimal leftmarginField;
+
+        private decimal rightmarginField;
 
 
-    [System.Xml.Serialization.XmlElementAttribute("right-margin")]
-    public decimal rightmargin
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("left-margin")]
+        public decimal leftmargin
         {
-            return this.rightmarginField;
+            get
+            {
+                return this.leftmarginField;
+            }
+            set
+            {
+                this.leftmarginField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlElementAttribute("right-margin")]
+        public decimal rightmargin
         {
-            this.rightmarginField = value;
+            get
+            {
+                return this.rightmarginField;
+            }
+            set
+            {
+                this.rightmarginField = value;
+            }
         }
     }
 }

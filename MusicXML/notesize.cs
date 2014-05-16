@@ -1,40 +1,43 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "note-size")]
-public partial class notesize
+namespace MusicXML
 {
-
-    private notesizetype typeField;
-
-    private decimal valueField;
-
-
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public notesizetype type
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "note-size")]
+    public partial class notesize
     {
-        get
-        {
-            return this.typeField;
-        }
-        set
-        {
-            this.typeField = value;
-        }
-    }
+
+        private notesizetype typeField;
+
+        private decimal valueField;
 
 
-    [System.Xml.Serialization.XmlTextAttribute()]
-    public decimal Value
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public notesizetype type
         {
-            return this.valueField;
+            get
+            {
+                return this.typeField;
+            }
+            set
+            {
+                this.typeField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public decimal Value
         {
-            this.valueField = value;
+            get
+            {
+                return this.valueField;
+            }
+            set
+            {
+                this.valueField = value;
+            }
         }
     }
 }

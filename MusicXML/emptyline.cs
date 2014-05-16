@@ -1,168 +1,171 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "empty-line")]
-public partial class emptyline
+namespace MusicXML
 {
-
-    private lineshape lineshapeField;
-
-    private bool lineshapeFieldSpecified;
-
-    private linetype linetypeField;
-
-    private bool linetypeFieldSpecified;
-
-    private decimal dashlengthField;
-
-    private bool dashlengthFieldSpecified;
-
-    private decimal spacelengthField;
-
-    private bool spacelengthFieldSpecified;
-
-    private abovebelow placementField;
-
-    private bool placementFieldSpecified;
-
-
-    [System.Xml.Serialization.XmlAttributeAttribute("line-shape")]
-    public lineshape lineshape
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "empty-line")]
+    public partial class emptyline
     {
-        get
-        {
-            return this.lineshapeField;
-        }
-        set
-        {
-            this.lineshapeField = value;
-        }
-    }
+
+        private lineshape lineshapeField;
+
+        private bool lineshapeFieldSpecified;
+
+        private linetype linetypeField;
+
+        private bool linetypeFieldSpecified;
+
+        private decimal dashlengthField;
+
+        private bool dashlengthFieldSpecified;
+
+        private decimal spacelengthField;
+
+        private bool spacelengthFieldSpecified;
+
+        private abovebelow placementField;
+
+        private bool placementFieldSpecified;
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool lineshapeSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("line-shape")]
+        public lineshape lineshape
         {
-            return this.lineshapeFieldSpecified;
+            get
+            {
+                return this.lineshapeField;
+            }
+            set
+            {
+                this.lineshapeField = value;
+            }
         }
-        set
-        {
-            this.lineshapeFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("line-type")]
-    public linetype linetype
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool lineshapeSpecified
         {
-            return this.linetypeField;
+            get
+            {
+                return this.lineshapeFieldSpecified;
+            }
+            set
+            {
+                this.lineshapeFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.linetypeField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool linetypeSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("line-type")]
+        public linetype linetype
         {
-            return this.linetypeFieldSpecified;
+            get
+            {
+                return this.linetypeField;
+            }
+            set
+            {
+                this.linetypeField = value;
+            }
         }
-        set
-        {
-            this.linetypeFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("dash-length")]
-    public decimal dashlength
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool linetypeSpecified
         {
-            return this.dashlengthField;
+            get
+            {
+                return this.linetypeFieldSpecified;
+            }
+            set
+            {
+                this.linetypeFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.dashlengthField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool dashlengthSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("dash-length")]
+        public decimal dashlength
         {
-            return this.dashlengthFieldSpecified;
+            get
+            {
+                return this.dashlengthField;
+            }
+            set
+            {
+                this.dashlengthField = value;
+            }
         }
-        set
-        {
-            this.dashlengthFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute("space-length")]
-    public decimal spacelength
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool dashlengthSpecified
         {
-            return this.spacelengthField;
+            get
+            {
+                return this.dashlengthFieldSpecified;
+            }
+            set
+            {
+                this.dashlengthFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.spacelengthField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool spacelengthSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("space-length")]
+        public decimal spacelength
         {
-            return this.spacelengthFieldSpecified;
+            get
+            {
+                return this.spacelengthField;
+            }
+            set
+            {
+                this.spacelengthField = value;
+            }
         }
-        set
-        {
-            this.spacelengthFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public abovebelow placement
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool spacelengthSpecified
         {
-            return this.placementField;
+            get
+            {
+                return this.spacelengthFieldSpecified;
+            }
+            set
+            {
+                this.spacelengthFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.placementField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool placementSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public abovebelow placement
         {
-            return this.placementFieldSpecified;
+            get
+            {
+                return this.placementField;
+            }
+            set
+            {
+                this.placementField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool placementSpecified
         {
-            this.placementFieldSpecified = value;
+            get
+            {
+                return this.placementFieldSpecified;
+            }
+            set
+            {
+                this.placementFieldSpecified = value;
+            }
         }
     }
 }

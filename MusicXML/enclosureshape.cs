@@ -1,30 +1,33 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "enclosure-shape")]
-public enum enclosureshape
+namespace MusicXML
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "enclosure-shape")]
+    public enum enclosureshape
+    {
 
 
-    rectangle,
+        rectangle,
 
 
-    square,
+        square,
 
 
-    oval,
+        oval,
 
 
-    circle,
+        circle,
 
 
-    bracket,
+        bracket,
 
 
-    triangle,
+        triangle,
 
 
-    diamond,
+        diamond,
 
 
-    none,
+        none,
+    }
 }

@@ -4,30 +4,33 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Serialization;
 
-[GeneratedCode("xsd", "4.0.30319.33440")]
-[Serializable]
-[DebuggerStepThrough]
-[DesignerCategory("code")]
-[XmlType(TypeName = "measure-layout")]
-public class measurelayout
+namespace MusicXML
 {
-    private decimal measuredistanceField;
-
-    private bool measuredistanceFieldSpecified;
-
-
-    [XmlElement("measure-distance")]
-    public decimal measuredistance
+    [GeneratedCode("xsd", "4.0.30319.33440")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType(TypeName = "measure-layout")]
+    public class measurelayout
     {
-        get { return measuredistanceField; }
-        set { measuredistanceField = value; }
-    }
+        private decimal measuredistanceField;
+
+        private bool measuredistanceFieldSpecified;
 
 
-    [XmlIgnore]
-    public bool measuredistanceSpecified
-    {
-        get { return measuredistanceFieldSpecified; }
-        set { measuredistanceFieldSpecified = value; }
+        [XmlElement("measure-distance")]
+        public decimal measuredistance
+        {
+            get { return measuredistanceField; }
+            set { measuredistanceField = value; }
+        }
+
+
+        [XmlIgnore]
+        public bool measuredistanceSpecified
+        {
+            get { return measuredistanceFieldSpecified; }
+            set { measuredistanceFieldSpecified = value; }
+        }
     }
 }

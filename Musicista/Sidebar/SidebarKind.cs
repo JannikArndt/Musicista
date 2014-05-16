@@ -1,5 +1,5 @@
 ﻿
-namespace Musicista
+namespace Musicista.Sidebar
 {
     public enum SidebarKind
     {

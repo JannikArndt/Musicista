@@ -1,88 +1,91 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(IncludeInSchema = false)]
-public enum ItemsChoiceType3
+namespace MusicXML
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(IncludeInSchema = false)]
+    public enum ItemsChoiceType3
+    {
 
 
-    arrow,
+        arrow,
 
 
-    bend,
+        bend,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("double-tongue")]
-    doubletongue,
+        [System.Xml.Serialization.XmlEnumAttribute("double-tongue")]
+        doubletongue,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("down-bow")]
-    downbow,
+        [System.Xml.Serialization.XmlEnumAttribute("down-bow")]
+        downbow,
 
 
-    fingering,
+        fingering,
 
 
-    fingernails,
+        fingernails,
 
 
-    fret,
+        fret,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("hammer-on")]
-    hammeron,
+        [System.Xml.Serialization.XmlEnumAttribute("hammer-on")]
+        hammeron,
 
 
-    handbell,
+        handbell,
 
 
-    harmonic,
+        harmonic,
 
 
-    heel,
+        heel,
 
 
-    hole,
+        hole,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("open-string")]
-    openstring,
+        [System.Xml.Serialization.XmlEnumAttribute("open-string")]
+        openstring,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("other-technical")]
-    othertechnical,
+        [System.Xml.Serialization.XmlEnumAttribute("other-technical")]
+        othertechnical,
 
 
-    pluck,
+        pluck,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("pull-off")]
-    pulloff,
+        [System.Xml.Serialization.XmlEnumAttribute("pull-off")]
+        pulloff,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("snap-pizzicato")]
-    snappizzicato,
+        [System.Xml.Serialization.XmlEnumAttribute("snap-pizzicato")]
+        snappizzicato,
 
 
-    stopped,
+        stopped,
 
 
-    @string,
+        @string,
 
 
-    tap,
+        tap,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("thumb-position")]
-    thumbposition,
+        [System.Xml.Serialization.XmlEnumAttribute("thumb-position")]
+        thumbposition,
 
 
-    toe,
+        toe,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("triple-tongue")]
-    tripletongue,
+        [System.Xml.Serialization.XmlEnumAttribute("triple-tongue")]
+        tripletongue,
 
 
-    [System.Xml.Serialization.XmlEnumAttribute("up-bow")]
-    upbow,
+        [System.Xml.Serialization.XmlEnumAttribute("up-bow")]
+        upbow,
+    }
 }

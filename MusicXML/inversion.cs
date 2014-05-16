@@ -1,23 +1,26 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class inversion
+namespace MusicXML
 {
-
-    private string valueField;
-
-
-    [System.Xml.Serialization.XmlTextAttribute(DataType = "nonNegativeInteger")]
-    public string Value
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class inversion
     {
-        get
+
+        private string valueField;
+
+
+        [System.Xml.Serialization.XmlTextAttribute(DataType = "nonNegativeInteger")]
+        public string Value
         {
-            return this.valueField;
-        }
-        set
-        {
-            this.valueField = value;
+            get
+            {
+                return this.valueField;
+            }
+            set
+            {
+                this.valueField = value;
+            }
         }
     }
 }

@@ -1,183 +1,186 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class accidental
+namespace MusicXML
 {
-
-    private yesno cautionaryField;
-
-    private bool cautionaryFieldSpecified;
-
-    private yesno editorialField;
-
-    private bool editorialFieldSpecified;
-
-    private yesno parenthesesField;
-
-    private bool parenthesesFieldSpecified;
-
-    private yesno bracketField;
-
-    private bool bracketFieldSpecified;
-
-    private symbolsize sizeField;
-
-    private bool sizeFieldSpecified;
-
-    private accidentalvalue valueField;
-
-
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public yesno cautionary
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class accidental
     {
-        get
-        {
-            return this.cautionaryField;
-        }
-        set
-        {
-            this.cautionaryField = value;
-        }
-    }
+
+        private yesno cautionaryField;
+
+        private bool cautionaryFieldSpecified;
+
+        private yesno editorialField;
+
+        private bool editorialFieldSpecified;
+
+        private yesno parenthesesField;
+
+        private bool parenthesesFieldSpecified;
+
+        private yesno bracketField;
+
+        private bool bracketFieldSpecified;
+
+        private symbolsize sizeField;
+
+        private bool sizeFieldSpecified;
+
+        private accidentalvalue valueField;
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool cautionarySpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public yesno cautionary
         {
-            return this.cautionaryFieldSpecified;
+            get
+            {
+                return this.cautionaryField;
+            }
+            set
+            {
+                this.cautionaryField = value;
+            }
         }
-        set
-        {
-            this.cautionaryFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public yesno editorial
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool cautionarySpecified
         {
-            return this.editorialField;
+            get
+            {
+                return this.cautionaryFieldSpecified;
+            }
+            set
+            {
+                this.cautionaryFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.editorialField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool editorialSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public yesno editorial
         {
-            return this.editorialFieldSpecified;
+            get
+            {
+                return this.editorialField;
+            }
+            set
+            {
+                this.editorialField = value;
+            }
         }
-        set
-        {
-            this.editorialFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public yesno parentheses
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool editorialSpecified
         {
-            return this.parenthesesField;
+            get
+            {
+                return this.editorialFieldSpecified;
+            }
+            set
+            {
+                this.editorialFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.parenthesesField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool parenthesesSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public yesno parentheses
         {
-            return this.parenthesesFieldSpecified;
+            get
+            {
+                return this.parenthesesField;
+            }
+            set
+            {
+                this.parenthesesField = value;
+            }
         }
-        set
-        {
-            this.parenthesesFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public yesno bracket
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool parenthesesSpecified
         {
-            return this.bracketField;
+            get
+            {
+                return this.parenthesesFieldSpecified;
+            }
+            set
+            {
+                this.parenthesesFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.bracketField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool bracketSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public yesno bracket
         {
-            return this.bracketFieldSpecified;
+            get
+            {
+                return this.bracketField;
+            }
+            set
+            {
+                this.bracketField = value;
+            }
         }
-        set
-        {
-            this.bracketFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public symbolsize size
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool bracketSpecified
         {
-            return this.sizeField;
+            get
+            {
+                return this.bracketFieldSpecified;
+            }
+            set
+            {
+                this.bracketFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.sizeField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool sizeSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public symbolsize size
         {
-            return this.sizeFieldSpecified;
+            get
+            {
+                return this.sizeField;
+            }
+            set
+            {
+                this.sizeField = value;
+            }
         }
-        set
-        {
-            this.sizeFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlTextAttribute()]
-    public accidentalvalue Value
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool sizeSpecified
         {
-            return this.valueField;
+            get
+            {
+                return this.sizeFieldSpecified;
+            }
+            set
+            {
+                this.sizeFieldSpecified = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public accidentalvalue Value
         {
-            this.valueField = value;
+            get
+            {
+                return this.valueField;
+            }
+            set
+            {
+                this.valueField = value;
+            }
         }
     }
 }

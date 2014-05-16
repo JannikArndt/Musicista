@@ -1,30 +1,33 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(IncludeInSchema = false)]
-public enum ItemsChoiceType1
+namespace MusicXML
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(IncludeInSchema = false)]
+    public enum ItemsChoiceType1
+    {
 
 
-    chord,
+        chord,
 
 
-    cue,
+        cue,
 
 
-    duration,
+        duration,
 
 
-    grace,
+        grace,
 
 
-    pitch,
+        pitch,
 
 
-    rest,
+        rest,
 
 
-    tie,
+        tie,
 
 
-    unpitched,
+        unpitched,
+    }
 }

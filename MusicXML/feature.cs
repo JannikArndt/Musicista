@@ -4,27 +4,30 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Serialization;
 
-[GeneratedCode("xsd", "4.0.30319.33440")]
-[Serializable]
-[DebuggerStepThrough]
-[DesignerCategory("code")]
-public class feature
+namespace MusicXML
 {
-    private string typeField;
-
-    private string valueField;
-
-    [XmlAttribute(DataType = "token")]
-    public string type
+    [GeneratedCode("xsd", "4.0.30319.33440")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    public class feature
     {
-        get { return typeField; }
-        set { typeField = value; }
-    }
+        private string typeField;
 
-    [XmlText]
-    public string Value
-    {
-        get { return valueField; }
-        set { valueField = value; }
+        private string valueField;
+
+        [XmlAttribute(DataType = "token")]
+        public string type
+        {
+            get { return typeField; }
+            set { typeField = value; }
+        }
+
+        [XmlText]
+        public string Value
+        {
+            get { return valueField; }
+            set { valueField = value; }
+        }
     }
 }

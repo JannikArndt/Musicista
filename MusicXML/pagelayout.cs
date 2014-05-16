@@ -1,56 +1,59 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "page-layout")]
-public partial class pagelayout
+namespace MusicXML
 {
-
-    private decimal pageheightField;
-
-    private decimal pagewidthField;
-
-    private pagemargins[] pagemarginsField;
-
-
-    [System.Xml.Serialization.XmlElementAttribute("page-height")]
-    public decimal pageheight
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "page-layout")]
+    public partial class pagelayout
     {
-        get
-        {
-            return this.pageheightField;
-        }
-        set
-        {
-            this.pageheightField = value;
-        }
-    }
+
+        private decimal pageheightField;
+
+        private decimal pagewidthField;
+
+        private pagemargins[] pagemarginsField;
 
 
-    [System.Xml.Serialization.XmlElementAttribute("page-width")]
-    public decimal pagewidth
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("page-height")]
+        public decimal pageheight
         {
-            return this.pagewidthField;
+            get
+            {
+                return this.pageheightField;
+            }
+            set
+            {
+                this.pageheightField = value;
+            }
         }
-        set
-        {
-            this.pagewidthField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlElementAttribute("page-margins")]
-    public pagemargins[] pagemargins
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("page-width")]
+        public decimal pagewidth
         {
-            return this.pagemarginsField;
+            get
+            {
+                return this.pagewidthField;
+            }
+            set
+            {
+                this.pagewidthField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlElementAttribute("page-margins")]
+        public pagemargins[] pagemargins
         {
-            this.pagemarginsField = value;
+            get
+            {
+                return this.pagemarginsField;
+            }
+            set
+            {
+                this.pagemarginsField = value;
+            }
         }
     }
 }

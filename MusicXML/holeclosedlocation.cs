@@ -1,18 +1,21 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "hole-closed-location")]
-public enum holeclosedlocation
+namespace MusicXML
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "hole-closed-location")]
+    public enum holeclosedlocation
+    {
 
 
-    right,
+        right,
 
 
-    bottom,
+        bottom,
 
 
-    left,
+        left,
 
 
-    top,
+        top,
+    }
 }

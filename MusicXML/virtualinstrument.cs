@@ -1,40 +1,43 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "virtual-instrument")]
-public partial class virtualinstrument
+namespace MusicXML
 {
-
-    private string virtuallibraryField;
-
-    private string virtualnameField;
-
-
-    [System.Xml.Serialization.XmlElementAttribute("virtual-library")]
-    public string virtuallibrary
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "virtual-instrument")]
+    public partial class virtualinstrument
     {
-        get
-        {
-            return this.virtuallibraryField;
-        }
-        set
-        {
-            this.virtuallibraryField = value;
-        }
-    }
+
+        private string virtuallibraryField;
+
+        private string virtualnameField;
 
 
-    [System.Xml.Serialization.XmlElementAttribute("virtual-name")]
-    public string virtualname
-    {
-        get
+        [System.Xml.Serialization.XmlElementAttribute("virtual-library")]
+        public string virtuallibrary
         {
-            return this.virtualnameField;
+            get
+            {
+                return this.virtuallibraryField;
+            }
+            set
+            {
+                this.virtuallibraryField = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlElementAttribute("virtual-name")]
+        public string virtualname
         {
-            this.virtualnameField = value;
+            get
+            {
+                return this.virtualnameField;
+            }
+            set
+            {
+                this.virtualnameField = value;
+            }
         }
     }
 }

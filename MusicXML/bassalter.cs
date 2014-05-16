@@ -1,88 +1,91 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "bass-alter")]
-public partial class bassalter
+namespace MusicXML
 {
-
-    private yesno printobjectField;
-
-    private bool printobjectFieldSpecified;
-
-    private leftright locationField;
-
-    private bool locationFieldSpecified;
-
-    private decimal valueField;
-
-
-    [System.Xml.Serialization.XmlAttributeAttribute("print-object")]
-    public yesno printobject
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "bass-alter")]
+    public partial class bassalter
     {
-        get
-        {
-            return this.printobjectField;
-        }
-        set
-        {
-            this.printobjectField = value;
-        }
-    }
+
+        private yesno printobjectField;
+
+        private bool printobjectFieldSpecified;
+
+        private leftright locationField;
+
+        private bool locationFieldSpecified;
+
+        private decimal valueField;
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool printobjectSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute("print-object")]
+        public yesno printobject
         {
-            return this.printobjectFieldSpecified;
+            get
+            {
+                return this.printobjectField;
+            }
+            set
+            {
+                this.printobjectField = value;
+            }
         }
-        set
-        {
-            this.printobjectFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public leftright location
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool printobjectSpecified
         {
-            return this.locationField;
+            get
+            {
+                return this.printobjectFieldSpecified;
+            }
+            set
+            {
+                this.printobjectFieldSpecified = value;
+            }
         }
-        set
-        {
-            this.locationField = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool locationSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public leftright location
         {
-            return this.locationFieldSpecified;
+            get
+            {
+                return this.locationField;
+            }
+            set
+            {
+                this.locationField = value;
+            }
         }
-        set
-        {
-            this.locationFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlTextAttribute()]
-    public decimal Value
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool locationSpecified
         {
-            return this.valueField;
+            get
+            {
+                return this.locationFieldSpecified;
+            }
+            set
+            {
+                this.locationFieldSpecified = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public decimal Value
         {
-            this.valueField = value;
+            get
+            {
+                return this.valueField;
+            }
+            set
+            {
+                this.valueField = value;
+            }
         }
     }
 }

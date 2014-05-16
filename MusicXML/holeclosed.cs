@@ -1,56 +1,59 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName = "hole-closed")]
-public partial class holeclosed
+namespace MusicXML
 {
-
-    private holeclosedlocation locationField;
-
-    private bool locationFieldSpecified;
-
-    private holeclosedvalue valueField;
-
-
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public holeclosedlocation location
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "hole-closed")]
+    public partial class holeclosed
     {
-        get
-        {
-            return this.locationField;
-        }
-        set
-        {
-            this.locationField = value;
-        }
-    }
+
+        private holeclosedlocation locationField;
+
+        private bool locationFieldSpecified;
+
+        private holeclosedvalue valueField;
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool locationSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public holeclosedlocation location
         {
-            return this.locationFieldSpecified;
+            get
+            {
+                return this.locationField;
+            }
+            set
+            {
+                this.locationField = value;
+            }
         }
-        set
-        {
-            this.locationFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlTextAttribute()]
-    public holeclosedvalue Value
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool locationSpecified
         {
-            return this.valueField;
+            get
+            {
+                return this.locationFieldSpecified;
+            }
+            set
+            {
+                this.locationFieldSpecified = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public holeclosedvalue Value
         {
-            this.valueField = value;
+            get
+            {
+                return this.valueField;
+            }
+            set
+            {
+                this.valueField = value;
+            }
         }
     }
 }

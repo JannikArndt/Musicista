@@ -1,55 +1,58 @@
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class beater
+namespace MusicXML
 {
-
-    private tipdirection tipField;
-
-    private bool tipFieldSpecified;
-
-    private beatervalue valueField;
-
-
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public tipdirection tip
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class beater
     {
-        get
-        {
-            return this.tipField;
-        }
-        set
-        {
-            this.tipField = value;
-        }
-    }
+
+        private tipdirection tipField;
+
+        private bool tipFieldSpecified;
+
+        private beatervalue valueField;
 
 
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool tipSpecified
-    {
-        get
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public tipdirection tip
         {
-            return this.tipFieldSpecified;
+            get
+            {
+                return this.tipField;
+            }
+            set
+            {
+                this.tipField = value;
+            }
         }
-        set
-        {
-            this.tipFieldSpecified = value;
-        }
-    }
 
 
-    [System.Xml.Serialization.XmlTextAttribute()]
-    public beatervalue Value
-    {
-        get
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool tipSpecified
         {
-            return this.valueField;
+            get
+            {
+                return this.tipFieldSpecified;
+            }
+            set
+            {
+                this.tipFieldSpecified = value;
+            }
         }
-        set
+
+
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public beatervalue Value
         {
-            this.valueField = value;
+            get
+            {
+                return this.valueField;
+            }
+            set
+            {
+                this.valueField = value;
+            }
         }
     }
 }

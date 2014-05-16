@@ -41,12 +41,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
@@ -61,7 +58,8 @@
     </ApplicationDefinition>
     <Compile Include="DragAndDrop.cs" />
     <Compile Include="Engraving.cs" />
-    <Compile Include="Mapper.cs" />
+    <Compile Include="Mappers\MidiMapper.cs" />
+    <Compile Include="Mappers\MusicXMLMapper.cs" />
     <Compile Include="MenuBar.cs" />
     <Compile Include="Sidebar\SidebarKind.cs" />
     <Compile Include="Sidebar\SidebarAlgorithms.xaml.cs">
@@ -135,6 +133,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Midi\Midi.csproj">
+      <Project>{acf70141-ff57-4394-b7d3-846dfb6c53e7}</Project>
+      <Name>Midi</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{482ea0c1-bb86-4d52-af7f-0eb53928f341}</Project>
       <Name>Model</Name>

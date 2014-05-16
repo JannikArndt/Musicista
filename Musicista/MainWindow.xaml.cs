@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using Model;
+using Musicista.Mappers;
 using Musicista.Sidebar;
 using Musicista.UI;
 using MusicXML;
@@ -40,10 +41,12 @@ namespace Musicista
             using (var fileStream = new FileStream("score.xml", FileMode.Open))
             {
                 var result = (ScorePartwise)serializer.Deserialize(fileStream);
-                DrawPiece(Mapper.MacMusicXMLToMusicista(result));
+                DrawPiece(MusicXMLMapper.MacMusicXMLToMusicista(result));
             }
 
             SidebarInformation.ShowPiece();
+
+            MidiMapper.MapMidiToPiece();
         }
 
         public void Zoom(object sender, MouseWheelEventArgs e)
@@ -107,14 +110,14 @@ namespace Musicista
                                     {
                                         var xmlSerializer = new XmlSerializer(typeof(ScorePartwise));
                                         var result = (ScorePartwise)xmlSerializer.Deserialize(xdoc.CreateReader());
-                                        DrawPiece(Mapper.MacMusicXMLToMusicista(result));
+                                        DrawPiece(MusicXMLMapper.MacMusicXMLToMusicista(result));
                                     }
                                     break;
                                 case "score-timewise":
                                     {
                                         var xmlSerializer = new XmlSerializer(typeof(ScoreTimewise));
                                         var result = (ScoreTimewise)xmlSerializer.Deserialize(xdoc.CreateReader());
-                                        DrawPiece(Mapper.MacMusicXMLToMusicista(result));
+                                        DrawPiece(MusicXMLMapper.MacMusicXMLToMusicista(result));
                                     }
                                     break;
                                 default:

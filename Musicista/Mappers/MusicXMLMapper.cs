@@ -6,9 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Musicista
+namespace Musicista.Mappers
 {
-    public static class Mapper
+    public static class MusicXMLMapper
     {
         public static Piece MacMusicXMLToMusicista(MusicXMLScore mxml)
         {

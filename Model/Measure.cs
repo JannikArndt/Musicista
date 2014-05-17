@@ -5,7 +5,11 @@ namespace Model
 {
     public class Measure
     {
-        public Measure() { }
+        public Measure()
+        {
+            ListOfSymbols = new List<Symbol>();
+            Instrument = new Instrument();
+        }
         [XmlIgnore]
         public MeasureGroup ParentMeasureGroup { get; set; }
         public Instrument Instrument { get; set; }

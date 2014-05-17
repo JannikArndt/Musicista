@@ -12,38 +12,10 @@ namespace Musicista.Mappers
     {
         public static Piece MacMusicXMLToMusicista(MusicXMLScore mxml)
         {
-            var piece = new Piece
-            {
-                Title = mxml.Work.WorkTitle,
-                ListOfComposers = new List<Composer>(),
-                ListOfInstruments = new List<Instrument>(),
-                ListOfSections =
-                    new List<Section>
-                    {
-                        new Section
-                        {
-                            ListOfMovements =
-                                new List<Movement>
-                                {
-                                    new Movement
-                                    {
-                                        ListOfSegments =
-                                            new List<Segment>
-                                            {
-                                                new Segment
-                                                {
-                                                    ListOfPassages =
-                                                        new List<Passage>
-                                                        {
-                                                            new Passage {ListOfMeasureGroups = new List<MeasureGroup>()}
-                                                        }
-                                                }
-                                            }
-                                    }
-                                }
-                        }
-                    }
-            };
+            var piece = Mapper.CreateEmptyPiece();
+
+            piece.Title = mxml.Work.WorkTitle;
+
             if (mxml.Identification != null && mxml.Identification.creator != null)
                 foreach (var creator in mxml.Identification.creator.Where(creator => creator.type == "composer"))
                     piece.ListOfComposers.Add(new Composer { FullName = creator.Value });

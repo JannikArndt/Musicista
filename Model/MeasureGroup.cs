@@ -6,7 +6,10 @@ namespace Model
 {
     public class MeasureGroup
     {
-        public MeasureGroup() { }
+        public MeasureGroup()
+        {
+            Measures = new List<Measure>();
+        }
         [XmlAttribute("MeasureNumber")]
         public int MeasureNumber { get; set; }
         public TimeSignature TimeSignature { get; set; }

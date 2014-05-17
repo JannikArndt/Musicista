@@ -36,17 +36,17 @@ namespace Musicista
             Sidebar.Content = SidebarInformation;
             ButtonPathInformation.Fill = Brushes.DodgerBlue;
             ButtonPathSelect.Fill = Brushes.DodgerBlue;
-
+            /*
             var serializer = new XmlSerializer(typeof(ScorePartwise));
             using (var fileStream = new FileStream("score.xml", FileMode.Open))
             {
                 var result = (ScorePartwise)serializer.Deserialize(fileStream);
                 DrawPiece(MusicXMLMapper.MacMusicXMLToMusicista(result));
             }
-
+            
+            */
+            DrawPiece(MidiMapper.MapMidiToPiece());
             SidebarInformation.ShowPiece();
-
-            MidiMapper.MapMidiToPiece();
         }
 
         public void Zoom(object sender, MouseWheelEventArgs e)

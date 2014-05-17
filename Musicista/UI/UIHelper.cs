@@ -65,7 +65,7 @@ namespace Musicista.UI
                                                 if (measuresPerSystem > 3)
                                                 {
                                                     // print Barline in front of the system
-                                                    if (currentSystem.MeasureGroups.Any())
+                                                    if (currentSystem.MeasureGroups.Any() && currentSystem.MeasureGroups[0].Measures.Any())
                                                         currentSystem.BarlineFront.Y2 = Canvas.GetTop(currentSystem.MeasureGroups[0].Measures.Last()) + 36;
 
                                                     // New System with lines (staves)
@@ -135,7 +135,8 @@ namespace Musicista.UI
                 DrawMeasure(uiMeasureGroup, measureGroup.Measures[part], part + 1);
 
             // set connecting barlines
-            uiMeasureGroup.Barline.Y2 = Canvas.GetTop(uiMeasureGroup.Measures.Last()) + 36;
+            if (uiMeasureGroup.Measures.Count > 0)
+                uiMeasureGroup.Barline.Y2 = Canvas.GetTop(uiMeasureGroup.Measures.Last()) + 36;
         }
 
         public static void DrawMeasure(UIMeasureGroup measureGroup, Measure measure, int part)

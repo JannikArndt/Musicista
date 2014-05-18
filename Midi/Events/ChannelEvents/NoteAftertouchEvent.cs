@@ -31,12 +31,12 @@ namespace Midi.Events.ChannelEvents
 
         public byte note_number
         {
-            get { return parameter_1; }
+            get { return Parameter1; }
         }
 
         public byte aftertouch_value
         {
-            get { return parameter_2; }
+            get { return Parameter2; }
         }
 
         public override string ToString()

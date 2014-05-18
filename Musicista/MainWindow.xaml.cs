@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using Midi;
 using Model;
 using Musicista.Mappers;
 using Musicista.Sidebar;
@@ -36,16 +37,18 @@ namespace Musicista
             Sidebar.Content = SidebarInformation;
             ButtonPathInformation.Fill = Brushes.DodgerBlue;
             ButtonPathSelect.Fill = Brushes.DodgerBlue;
+
             /*
             var serializer = new XmlSerializer(typeof(ScorePartwise));
             using (var fileStream = new FileStream("score.xml", FileMode.Open))
             {
                 var result = (ScorePartwise)serializer.Deserialize(fileStream);
-                DrawPiece(MusicXMLMapper.MacMusicXMLToMusicista(result));
+                DrawPiece(MusicXMLMapper.MapMusicXMLToMusicista(result));
             }
-            
             */
-            DrawPiece(MidiMapper.MapMidiToPiece());
+            const string filePath = @"C:\Users\Jannik\test.mid";
+            var file = File.OpenRead(filePath);
+            DrawPiece(MidiMapper.MapMidiToPiece(FileParser.Parse(file)));
             SidebarInformation.ShowPiece();
         }
 
@@ -110,14 +113,14 @@ namespace Musicista
                                     {
                                         var xmlSerializer = new XmlSerializer(typeof(ScorePartwise));
                                         var result = (ScorePartwise)xmlSerializer.Deserialize(xdoc.CreateReader());
-                                        DrawPiece(MusicXMLMapper.MacMusicXMLToMusicista(result));
+                                        DrawPiece(MusicXMLMapper.MapMusicXMLToMusicista(result));
                                     }
                                     break;
                                 case "score-timewise":
                                     {
                                         var xmlSerializer = new XmlSerializer(typeof(ScoreTimewise));
                                         var result = (ScoreTimewise)xmlSerializer.Deserialize(xdoc.CreateReader());
-                                        DrawPiece(MusicXMLMapper.MacMusicXMLToMusicista(result));
+                                        DrawPiece(MusicXMLMapper.MapMusicXMLToMusicista(result));
                                     }
                                     break;
                                 default:

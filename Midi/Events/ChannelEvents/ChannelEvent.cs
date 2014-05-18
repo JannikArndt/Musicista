@@ -24,21 +24,21 @@ namespace Midi.Events.ChannelEvents
 {
     public abstract class ChannelEvent : MidiEvent
     {
-        public readonly byte midi_channel;
-        public readonly byte parameter_1;
-        public readonly byte parameter_2;
+        public readonly byte MidiChannel;
+        public readonly byte Parameter1;
+        public readonly byte Parameter2;
 
-        public ChannelEvent(int delta_time, byte event_type, byte midi_channel, byte parameter_1, byte parameter_2)
-            : base(delta_time, event_type)
+        protected ChannelEvent(int deltaTime, byte eventType, byte midiChannel, byte parameter1, byte parameter2)
+            : base(deltaTime, eventType)
         {
-            this.midi_channel = midi_channel;
-            this.parameter_1 = parameter_1;
-            this.parameter_2 = parameter_2;
+            MidiChannel = midiChannel;
+            Parameter1 = parameter1;
+            Parameter2 = parameter2;
         }
 
         public override string ToString()
         {
-            return "ChannelEvent(" + base.ToString() + ", midi_channel: " + midi_channel + ")";
+            return "ChannelEvent(" + base.ToString() + ", midi_channel: " + MidiChannel + ")";
         }
     }
 }

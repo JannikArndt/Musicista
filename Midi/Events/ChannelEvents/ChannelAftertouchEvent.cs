@@ -31,7 +31,7 @@ namespace Midi.Events.ChannelEvents
 
         public byte aftertouch_value
         {
-            get { return parameter_1; }
+            get { return Parameter1; }
         }
 
         public override string ToString()

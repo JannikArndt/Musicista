@@ -10,7 +10,7 @@ namespace Musicista.Mappers
 {
     public static class MusicXMLMapper
     {
-        public static Piece MacMusicXMLToMusicista(MusicXMLScore mxml)
+        public static Piece MapMusicXMLToMusicista(MusicXMLScore mxml)
         {
             var piece = Mapper.CreateEmptyPiece();
 

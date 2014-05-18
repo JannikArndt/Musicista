@@ -24,24 +24,24 @@ namespace Midi.Events.ChannelEvents
 {
     public sealed class NoteOffEvent : ChannelEvent
     {
-        public NoteOffEvent(int delta_time, byte midi_channel, byte note_number, byte velocity)
-            : base(delta_time, 0x80, midi_channel, note_number, velocity)
+        public NoteOffEvent(int deltaTime, byte midiChannel, byte noteNumber, byte velocity)
+            : base(deltaTime, 0x80, midiChannel, noteNumber, velocity)
         {
         }
 
-        public byte note_number
+        public byte NoteNumber
         {
-            get { return parameter_1; }
+            get { return Parameter1; }
         }
 
-        public byte velocity
+        public byte Velocity
         {
-            get { return parameter_2; }
+            get { return Parameter2; }
         }
 
         public override string ToString()
         {
-            return "NoteOffEvent(" + base.ToString() + ", note_number: " + note_number + ", velocity: " + velocity + ")";
+            return "NoteOffEvent(" + base.ToString() + ", note_number: " + NoteNumber + ", velocity: " + Velocity + ")";
         }
     }
 }

@@ -31,12 +31,12 @@ namespace Midi.Events.ChannelEvents
 
         public byte pitch_value_LSB
         {
-            get { return parameter_1; }
+            get { return Parameter1; }
         }
 
         public byte pitch_value_MSB
         {
-            get { return parameter_2; }
+            get { return Parameter2; }
         }
 
         public override string ToString()

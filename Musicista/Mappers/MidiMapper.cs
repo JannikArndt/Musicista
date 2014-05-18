@@ -22,20 +22,20 @@ namespace Musicista.Mappers
             var piece = Mapper.CreateEmptyPiece();
             piece.Title = filePath;
             var passage = piece.ListOfSections[0].ListOfMovements[0].ListOfSegments[0].ListOfPassages[0];
-            passage.ListOfMeasureGroups.Add(new MeasureGroup { MeasureNumber = 1 });
-            var currentMeasureGroup = passage.ListOfMeasureGroups[0];
-            currentMeasureGroup.Measures.Add(new Measure());
 
             Console.WriteLine(@"Time Division = " + midiData.Header.TimeDivision);
 
             var nowPlayingDict = new Dictionary<int, MidiNote>();
-            var deltaTimeInThisMeasure = 0;
-            var measureNumber = 2;
+            var deltaTimeInThisMeasure = 100000; // force creating a new measure
+            var measureNumber = 1;
             var instrumentID = 1;
+            var currentPartNumber = 0;
+            var currentMeasure = new Measure();
 
             foreach (var track in midiData.Tracks)
             {
                 var currentInstrument = new Instrument("", ++instrumentID);
+                piece.ListOfInstruments.Add(currentInstrument);
                 Console.WriteLine(@"Track " + track.ChunkId);
                 foreach (var midiEvent in track.Events)
                 {
@@ -45,14 +45,24 @@ namespace Musicista.Mappers
 
                     deltaTimeInThisMeasure += midiEvent.DeltaTime;
 
-
+                    if (deltaTimeInThisMeasure >= midiData.Header.TimeDivision * 4)
+                    {
+                        // first run
+                        if (currentPartNumber == 0 || passage.ListOfMeasureGroups.Count < measureNumber)
+                            passage.ListOfMeasureGroups.Add(new MeasureGroup { MeasureNumber = measureNumber });
+                        var currentMeasureGroup = passage.ListOfMeasureGroups[measureNumber - 1];
+                        currentMeasure = new Measure {Instrument = currentInstrument};
+                        currentMeasureGroup.Measures.Add(currentMeasure);
+                        deltaTimeInThisMeasure = 0;
+                        measureNumber++;
+                    }
 
 
                     if (midiEvent is NoteOnEvent)
                     {
                         var newNote = new MidiNote(midiEvent as NoteOnEvent, deltaTimeInThisMeasure, midiData.Header.TimeDivision);
                         nowPlayingDict.Add((midiEvent as NoteOnEvent).note_number, newNote);
-                        currentMeasureGroup.Measures[0].ListOfSymbols.Add(newNote.Note);
+                        currentMeasure.ListOfSymbols.Add(newNote.Note);
                     }
                     else if (midiEvent is NoteOffEvent)
                     {
@@ -87,15 +97,10 @@ namespace Musicista.Mappers
                     }
 
 
-                    if (deltaTimeInThisMeasure >= midiData.Header.TimeDivision * 4)
-                    {
-                        passage.ListOfMeasureGroups.Add(new MeasureGroup { MeasureNumber = measureNumber });
-                        currentMeasureGroup = passage.ListOfMeasureGroups.Last();
-                        currentMeasureGroup.Measures.Add(new Measure { Instrument = currentInstrument });
-                        deltaTimeInThisMeasure = 0;
-                        measureNumber++;
-                    }
+
                 }
+                currentPartNumber++;
+                measureNumber = 1;
             }
 
             return piece;
@@ -106,7 +111,7 @@ namespace Musicista.Mappers
             // 1. Normalize devision to 960
             if (devision != 960)
                 time = time * (960 / devision);
-
+             
             // 2. Map time to intervals
             var cases = new Dictionary<Func<int, bool>, Duration>
                 { 

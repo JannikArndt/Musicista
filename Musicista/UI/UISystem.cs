@@ -35,7 +35,7 @@ namespace Musicista.UI
                 X2 = 0,
                 Y2 = 24,
                 StrokeThickness = 2,
-                Stroke = Brushes.Black
+                Stroke = Brushes.DimGray
             };
 
             Children.Add(BarlineFront);

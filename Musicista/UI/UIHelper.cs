@@ -426,7 +426,7 @@ namespace Musicista.UI
                         X2 = left + width - 15,
                         Y2 = top + i * spacing,
                         StrokeThickness = 5,
-                        Stroke = Brushes.Black,
+                        Stroke = Brushes.DimGray,
                         SnapsToDevicePixels = true
                     };
                     ledger.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
@@ -444,7 +444,7 @@ namespace Musicista.UI
                         X2 = left + width - 15,
                         Y2 = top - i * spacing,
                         StrokeThickness = 5,
-                        Stroke = Brushes.Black,
+                        Stroke = Brushes.DimGray,
                         SnapsToDevicePixels = true
                     };
                     ledger.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);

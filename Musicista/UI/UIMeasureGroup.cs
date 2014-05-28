@@ -36,7 +36,7 @@ namespace Musicista.UI
                 X2 = Width,
                 Y2 = 24,
                 StrokeThickness = 2,
-                Stroke = Brushes.Black
+                Stroke = Brushes.DimGray
             };
             Barline.SetBinding(Line.X1Property, new Binding { Path = new PropertyPath(WidthProperty), Source = this });
             Barline.SetBinding(Line.X2Property, new Binding { Path = new PropertyPath(WidthProperty), Source = this });

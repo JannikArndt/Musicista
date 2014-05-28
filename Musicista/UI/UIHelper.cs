@@ -176,7 +176,6 @@ namespace Musicista.UI
         {
             var newRest = new Path
             {
-                RenderTransform = new ScaleTransform(.21, .21),
                 Fill = Brushes.Black,
                 SnapsToDevicePixels = true
             };
@@ -185,13 +184,15 @@ namespace Musicista.UI
             newRest.SetValue(RenderOptions.ClearTypeHintProperty, ClearTypeHint.Enabled);
             newRest.SetValue(RenderOptions.CachingHintProperty, CachingHint.Cache);
 
+            const int beatsPerMeasure = 4; // TODO
+
             // Left
-            var left = ((measure.Width - 10) / 4 * (rest.Beat - 1)) + 10;
+            var left = ((measure.Width - measure.Indent) / beatsPerMeasure * (rest.Beat - 1)) + measure.Indent;
             if (rest.Duration == Duration.whole)
                 left = measure.Width / 2;
 
             // Top
-            const double top = 11;
+            const double top = 55;
 
             switch (rest.Duration)
             {
@@ -221,41 +222,50 @@ namespace Musicista.UI
         {
             var newNote = new Path
             {
-                RenderTransform = new ScaleTransform(.21, .21),
                 Fill = Brushes.Black,
                 SnapsToDevicePixels = true
             };
+
+            const int noteStepSpacing = 15;
 
             newNote.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Unspecified);
             newNote.SetValue(RenderOptions.ClearTypeHintProperty, ClearTypeHint.Enabled);
             newNote.SetValue(RenderOptions.CachingHintProperty, CachingHint.Cache);
 
-            double left = ((measure.Width - 12) / 4 * (note.Beat - 1)) + 12;
+            const int beatsPerMeasure = 4; // TODO measure.InnerMeasure.ParentMeasureGroup.TimeSignature.Beats
+
+            double left = ((measure.Width - measure.Indent) / beatsPerMeasure * (note.Beat - 1)) + measure.Indent;
             double top = 0;
+
+            // treble clef
+            top -= 16;
 
             switch (note.Octave)
             {
+                case 7:
+                    top -= 14 * noteStepSpacing;
+                    break;
                 case 6:
-                    top = -44;
+                    top -= 7 * noteStepSpacing;
                     break;
                 case 5:
-                    top = -21;
+                    top -= 0;
                     break;
                 case 4:
-                    top = 0;
+                    top += 7 * noteStepSpacing + 3;
                     break;
                 case 3:
-                    top = 21.5;
+                    top += 14 * noteStepSpacing + 4;
                     break;
                 case 2:
-                    top = 43;
+                    top += 21 * noteStepSpacing + 7;
                     break;
             }
 
             switch (note.Step)
             {
                 case Pitch.C:
-                    top += 18;
+                    top += 0; //18;
                     break;
                 case Pitch.CSharp:
                     top += 18;
@@ -266,7 +276,7 @@ namespace Musicista.UI
                     DrawAccidental(measure, Accidental.Flat, top, left);
                     break;
                 case Pitch.D:
-                    top += 14;
+                    top -= noteStepSpacing;
                     break;
                 case Pitch.DSharp:
                     top += 14;
@@ -277,7 +287,7 @@ namespace Musicista.UI
                     DrawAccidental(measure, Accidental.Flat, top, left);
                     break;
                 case Pitch.E:
-                    top += 11;
+                    top -= 2 * noteStepSpacing;
                     break;
                 case Pitch.ESharp:
                     top += 11;
@@ -288,7 +298,7 @@ namespace Musicista.UI
                     DrawAccidental(measure, Accidental.Flat, top, left);
                     break;
                 case Pitch.F:
-                    top += 8;
+                    top -= 3 * noteStepSpacing;
                     break;
                 case Pitch.FSharp:
                     top += 8;
@@ -299,7 +309,7 @@ namespace Musicista.UI
                     DrawAccidental(measure, Accidental.Flat, top, left);
                     break;
                 case Pitch.G:
-                    top += 5;
+                    top -= 4 * noteStepSpacing;
                     break;
                 case Pitch.GSharp:
                     top += 5;
@@ -310,7 +320,7 @@ namespace Musicista.UI
                     DrawAccidental(measure, Accidental.Flat, top, left);
                     break;
                 case Pitch.A:
-                    top += 2;
+                    top -= 5 * noteStepSpacing;
                     break;
                 case Pitch.ASharp:
                     top += 2;
@@ -321,7 +331,7 @@ namespace Musicista.UI
                     DrawAccidental(measure, Accidental.Flat, top, left);
                     break;
                 case Pitch.B:
-                    top += -1;
+                    top -= 6 * noteStepSpacing;
                     break;
                 case Pitch.BSharp:
                     top += -1;
@@ -329,49 +339,45 @@ namespace Musicista.UI
                     break;
             }
 
-            if (top >= 17)
-                DrawLedger(measure, true, (int)((top - 10) / 6), left);
-            else if (top < -15)
-                DrawLedger(measure, false, (int)((Math.Abs(top) - 15) / 6), left);
+            // top line = 50, first upper ledger = 20, bottom line = 170, first lower ledger = 200, note height = 110
+            if (top >= 89)
+                DrawLedger(measure, true, (int)((top - 59) / (2 * noteStepSpacing)), left);
+            else if (top < -89)
+                DrawLedger(measure, false, (int)((Math.Abs(top) - 60) / (2 * noteStepSpacing)), left);
 
             switch (note.Duration)
             {
                 case Duration.wholeDotted:
                     newNote.Data = Geometry.Parse(Engraving.Whole);
-                    newNote.Fill = Brushes.DarkRed;
-                    // TODO Punkt
+                    DrawDot(measure, top, left);
                     break;
                 case Duration.whole:
                     newNote.Data = Geometry.Parse(Engraving.Whole);
                     break;
                 case Duration.halfDotted:
                     newNote.Data = Geometry.Parse(top >= -1 ? Engraving.Half : Engraving.HalfUpsideDown);
-                    newNote.Fill = Brushes.DarkRed;
-                    // TODO Punkt
+                    DrawDot(measure, top, left);
                     break;
                 case Duration.half:
                     newNote.Data = Geometry.Parse(top >= -1 ? Engraving.Half : Engraving.HalfUpsideDown);
                     break;
                 case Duration.quarterDotted:
                     newNote.Data = Geometry.Parse(top >= -1 ? Engraving.Quarter : Engraving.QuarterUpsideDown);
-                    newNote.Fill = Brushes.DarkRed;
-                    // TODO Punkt
+                    DrawDot(measure, top, left);
                     break;
                 case Duration.quarter:
                     newNote.Data = Geometry.Parse(top >= -1 ? Engraving.Quarter : Engraving.QuarterUpsideDown);
                     break;
                 case Duration.eigthDotted:
                     newNote.Data = Geometry.Parse(top >= -1 ? Engraving.Eigth : Engraving.EightUpsideDown);
-                    newNote.Fill = Brushes.DarkRed;
-                    // TODO Punkt
+                    DrawDot(measure, top, left);
                     break;
                 case Duration.eigth:
                     newNote.Data = Geometry.Parse(top >= -1 ? Engraving.Eigth : Engraving.EightUpsideDown);
                     break;
                 case Duration.sixteenthDotted:
                     newNote.Data = Geometry.Parse(Engraving.Sixteenth);
-                    newNote.Fill = Brushes.DarkRed;
-                    // TODO Punkt
+                    DrawDot(measure, top, left);
                     break;
                 case Duration.sixteenth:
                     newNote.Data = Geometry.Parse(Engraving.Sixteenth);
@@ -385,22 +391,22 @@ namespace Musicista.UI
 
         public static void DrawLedger(UIMeasure measure, bool below, int count, double left)
         {
-            const double width = 15;
-            const double spacing = 6;
+
+            const double width = 75;
+            const double spacing = 30;
+            var top = below ? 170 + spacing : 50 - spacing;
 
             if (below)
             {
-                const double top = 41;
-
                 for (var i = 0; i < count; i++)
                 {
                     var ledger = new Line
                     {
-                        X1 = left - 3,
+                        X1 = left - 15,
                         Y1 = top + i * spacing,
-                        X2 = left + width - 3,
+                        X2 = left + width - 15,
                         Y2 = top + i * spacing,
-                        StrokeThickness = 1,
+                        StrokeThickness = 5,
                         Stroke = Brushes.Black,
                         SnapsToDevicePixels = true
                     };
@@ -410,17 +416,15 @@ namespace Musicista.UI
             }
             else
             {
-                const double top = 3;
-
                 for (var i = 0; i < count; i++)
                 {
                     var ledger = new Line
                     {
-                        X1 = left - 3,
+                        X1 = left - 15,
                         Y1 = top - i * spacing,
-                        X2 = left + width - 3,
+                        X2 = left + width - 15,
                         Y2 = top - i * spacing,
-                        StrokeThickness = 1,
+                        StrokeThickness = 5,
                         Stroke = Brushes.Black,
                         SnapsToDevicePixels = true
                     };
@@ -432,12 +436,12 @@ namespace Musicista.UI
 
         public static void DrawAccidental(UIMeasure measure, Accidental accidentalKind, double setTop, double setLeft)
         {
-            double top = setTop + 16;
-            double left = setLeft - 7;
+            var top = setTop + 80;
+            var left = setLeft - 35;
 
             var newAccidental = new Path
             {
-                RenderTransform = new ScaleTransform(.3, .3),
+                RenderTransform = new ScaleTransform(1.6, 1.6),
                 Fill = Brushes.Black,
             };
 
@@ -454,17 +458,39 @@ namespace Musicista.UI
                     break;
                 case Accidental.DoubleSharp:
                     newAccidental.Data = Geometry.Parse(Engraving.DoubleSharp);
-                    left -= 3;
+                    left -= 15;
                     break;
                 case Accidental.DoubleFlat:
                     newAccidental.Data = Geometry.Parse(Engraving.DoubleFlat);
-                    left -= 3;
+                    left -= 15;
                     break;
             }
 
             Canvas.SetTop(newAccidental, top);
             Canvas.SetLeft(newAccidental, left);
             measure.Children.Add(newAccidental);
+        }
+
+        public static void DrawDot(UIMeasure measure, double setTop, double setLeft)
+        {
+            double top;
+            if (Math.Abs(setTop % 30) < 5)
+                top = setTop + 88;
+            else
+                top = setTop + 103;
+
+            var left = setLeft + 50;
+
+            var newDot = new Ellipse
+            {
+                Fill = Brushes.Black,
+                Width = 18,
+                Height = 18
+            };
+
+            Canvas.SetTop(newDot, top);
+            Canvas.SetLeft(newDot, left);
+            measure.Children.Add(newDot);
         }
     }
 }

@@ -15,6 +15,8 @@ namespace Musicista.UI
         public readonly UIStaff ParentStaff;
         public readonly UIMeasureGroup ParentMeasureGroup;
         public readonly int Part;
+        public readonly int Indent = 60;
+        public readonly int ScaleTransform = 5;
 
         public Line Line1 { get; set; }
         public Line Line2 { get; set; }
@@ -24,27 +26,28 @@ namespace Musicista.UI
 
         public UIMeasure(UIMeasureGroup parentMeasureGroup, double top, int part, Measure innerMeasure = null, UISystem system = null, UIStaff staff = null, bool suppressEventHandlers = false)
         {
-            Height = 40;
+            Height = 40 * ScaleTransform;
             Background = Brushes.Transparent;
             Part = part;
             ParentStaff = staff;
             ParentSystem = system;
             ParentMeasureGroup = parentMeasureGroup;
+            RenderTransform = new ScaleTransform(1.0 / ScaleTransform, 1.0 / ScaleTransform);
 
             SetTop(this, top);
             SetLeft(this, 0);
 
-            SetBinding(WidthProperty, new Binding { Path = new PropertyPath(WidthProperty), Source = parentMeasureGroup });
+            SetBinding(WidthProperty, new Binding { Path = new PropertyPath(WidthProperty), Source = parentMeasureGroup, Converter = new Multiplier(), ConverterParameter = ScaleTransform });
 
             InnerMeasure = innerMeasure;
 
             Barline = new Line
             {
                 X1 = Width,
-                Y1 = 10,
+                Y1 = 50,
                 X2 = Width,
-                Y2 = 35,
-                StrokeThickness = 2,
+                Y2 = 175,
+                StrokeThickness = 2 * ScaleTransform,
                 Stroke = Brushes.Black,
                 SnapsToDevicePixels = true
             };
@@ -70,12 +73,12 @@ namespace Musicista.UI
             parentMeasureGroup.Children.Add(this);
 
             // Lines
-            const int spacing = 6;
-            Line1 = new Line { X1 = 0, Y1 = 10 + 0 * spacing, X2 = Width, Y2 = 10 + 0 * spacing, StrokeThickness = 1, Stroke = Brushes.Black, SnapsToDevicePixels = true };
-            Line2 = new Line { X1 = 0, Y1 = 10 + 1 * spacing, X2 = Width, Y2 = 10 + 1 * spacing, StrokeThickness = 1, Stroke = Brushes.Black, SnapsToDevicePixels = true };
-            Line3 = new Line { X1 = 0, Y1 = 10 + 2 * spacing, X2 = Width, Y2 = 10 + 2 * spacing, StrokeThickness = 1, Stroke = Brushes.Black, SnapsToDevicePixels = true };
-            Line4 = new Line { X1 = 0, Y1 = 10 + 3 * spacing, X2 = Width, Y2 = 10 + 3 * spacing, StrokeThickness = 1, Stroke = Brushes.Black, SnapsToDevicePixels = true };
-            Line5 = new Line { X1 = 0, Y1 = 10 + 4 * spacing, X2 = Width, Y2 = 10 + 4 * spacing, StrokeThickness = 1, Stroke = Brushes.Black, SnapsToDevicePixels = true };
+            var spacing = 6 * ScaleTransform;
+            Line1 = new Line { X1 = 0, Y1 = 50 + 0 * spacing, X2 = Width, Y2 = 50 + 0 * spacing, StrokeThickness = 1 * ScaleTransform, Stroke = Brushes.Black, SnapsToDevicePixels = true };
+            Line2 = new Line { X1 = 0, Y1 = 50 + 1 * spacing, X2 = Width, Y2 = 50 + 1 * spacing, StrokeThickness = 1 * ScaleTransform, Stroke = Brushes.Black, SnapsToDevicePixels = true };
+            Line3 = new Line { X1 = 0, Y1 = 50 + 2 * spacing, X2 = Width, Y2 = 50 + 2 * spacing, StrokeThickness = 1 * ScaleTransform, Stroke = Brushes.Black, SnapsToDevicePixels = true };
+            Line4 = new Line { X1 = 0, Y1 = 50 + 3 * spacing, X2 = Width, Y2 = 50 + 3 * spacing, StrokeThickness = 1 * ScaleTransform, Stroke = Brushes.Black, SnapsToDevicePixels = true };
+            Line5 = new Line { X1 = 0, Y1 = 50 + 4 * spacing, X2 = Width, Y2 = 50 + 4 * spacing, StrokeThickness = 1 * ScaleTransform, Stroke = Brushes.Black, SnapsToDevicePixels = true };
 
             Line1.SetBinding(Line.X2Property, new Binding { Path = new PropertyPath(WidthProperty), Source = this });
             Line2.SetBinding(Line.X2Property, new Binding { Path = new PropertyPath(WidthProperty), Source = this });

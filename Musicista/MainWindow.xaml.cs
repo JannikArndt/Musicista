@@ -1,5 +1,4 @@
 ﻿using Microsoft.Win32;
-using Midi;
 using Model;
 using Musicista.Mappers;
 using Musicista.Sidebar;
@@ -38,17 +37,18 @@ namespace Musicista
             ButtonPathInformation.Fill = Brushes.DodgerBlue;
             ButtonPathSelect.Fill = Brushes.DodgerBlue;
 
-            /*
+
             var serializer = new XmlSerializer(typeof(ScorePartwise));
-            using (var fileStream = new FileStream("score.xml", FileMode.Open))
+            using (var fileStream = new FileStream("example.xml", FileMode.Open))
             {
                 var result = (ScorePartwise)serializer.Deserialize(fileStream);
                 DrawPiece(MusicXMLMapper.MapMusicXMLToMusicista(result));
             }
-            */
+            /*
             const string filePath = @"C:\Users\Jannik\test.mid";
             var file = File.OpenRead(filePath);
             DrawPiece(MidiMapper.MapMidiToPiece(FileParser.Parse(file)));
+             */
             SidebarInformation.ShowPiece();
         }
 

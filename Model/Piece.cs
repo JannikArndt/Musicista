@@ -39,6 +39,7 @@ namespace Model
 
         public Piece()
         {
+            Title = "New Piece";
             ListOfComposers = new List<Composer>();
             ListOfInterpreters = new List<Person>();
             ListOfLyricists = new List<Person>();

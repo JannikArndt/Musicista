@@ -15,6 +15,7 @@ namespace Musicista.UI
     public static class UIHelper
     {
         private static readonly List<Path> NotYetConnectedEigths = new List<Path>();
+        private static readonly List<Path> NotYetConnectedSixteenths = new List<Path>();
         private static bool _stemDirectionUp = true;
         public static List<Canvas> DrawPiece(Piece piece)
         {
@@ -269,76 +270,76 @@ namespace Musicista.UI
             switch (note.Step)
             {
                 case Pitch.C:
-                    top += 0; //18;
+                    top += 0;
                     break;
                 case Pitch.CSharp:
-                    top += 18;
+                    top += 0;
                     DrawAccidental(measure, Accidental.Sharp, top, left);
                     break;
                 case Pitch.DFlat:
-                    top += 14;
+                    top -= noteStepSpacing;
                     DrawAccidental(measure, Accidental.Flat, top, left);
                     break;
                 case Pitch.D:
                     top -= noteStepSpacing;
                     break;
                 case Pitch.DSharp:
-                    top += 14;
+                    top -= noteStepSpacing;
                     DrawAccidental(measure, Accidental.Sharp, top, left);
                     break;
                 case Pitch.EFlat:
-                    top += 11;
+                    top -= 2 * noteStepSpacing;
                     DrawAccidental(measure, Accidental.Flat, top, left);
                     break;
                 case Pitch.E:
                     top -= 2 * noteStepSpacing;
                     break;
                 case Pitch.ESharp:
-                    top += 11;
+                    top -= 2 * noteStepSpacing;
                     DrawAccidental(measure, Accidental.Sharp, top, left);
                     break;
                 case Pitch.FFlat:
-                    top += 8;
+                    top -= 3 * noteStepSpacing;
                     DrawAccidental(measure, Accidental.Flat, top, left);
                     break;
                 case Pitch.F:
                     top -= 3 * noteStepSpacing;
                     break;
                 case Pitch.FSharp:
-                    top += 8;
+                    top -= 3 * noteStepSpacing;
                     DrawAccidental(measure, Accidental.Sharp, top, left);
                     break;
                 case Pitch.GFlat:
-                    top += 5;
+                    top -= 4 * noteStepSpacing;
                     DrawAccidental(measure, Accidental.Flat, top, left);
                     break;
                 case Pitch.G:
                     top -= 4 * noteStepSpacing;
                     break;
                 case Pitch.GSharp:
-                    top += 5;
+                    top -= 4 * noteStepSpacing;
                     DrawAccidental(measure, Accidental.Sharp, top, left);
                     break;
                 case Pitch.AFlat:
-                    top += 2;
+                    top -= 5 * noteStepSpacing;
                     DrawAccidental(measure, Accidental.Flat, top, left);
                     break;
                 case Pitch.A:
                     top -= 5 * noteStepSpacing;
                     break;
                 case Pitch.ASharp:
-                    top += 2;
+                    top -= 5 * noteStepSpacing;
                     DrawAccidental(measure, Accidental.Sharp, top, left);
                     break;
                 case Pitch.BFlat:
-                    top += -1;
+                    top -= 6 * noteStepSpacing;
                     DrawAccidental(measure, Accidental.Flat, top, left);
                     break;
                 case Pitch.B:
                     top -= 6 * noteStepSpacing;
                     break;
                 case Pitch.BSharp:
-                    top += -1;
+                    top -= 6 * noteStepSpacing;
                     DrawAccidental(measure, Accidental.Sharp, top, left);
                     break;
             }

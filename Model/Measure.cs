@@ -7,7 +7,6 @@ namespace Model
     {
         public Measure()
         {
-            ListOfSymbols = new List<Symbol>();
             Instrument = new Instrument();
         }
         [XmlIgnore]
@@ -15,6 +14,17 @@ namespace Model
         public Instrument Instrument { get; set; }
         [XmlElement("Note", Type = typeof(Note))]
         [XmlElement("Rest", Type = typeof(Rest))]
-        public List<Symbol> ListOfSymbols { get; set; }
+        private readonly List<Symbol> _listOfSymbols = new List<Symbol>();
+
+        public void AddSymbol(Symbol symbol)
+        {
+            _listOfSymbols.Add(symbol);
+            symbol.ParentMeasure = this;
+        }
+        public List<Symbol> Symbols
+        {
+            get { return _listOfSymbols; }
+        }
+
     }
 }

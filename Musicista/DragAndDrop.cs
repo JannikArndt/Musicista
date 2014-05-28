@@ -1,7 +1,6 @@
 ﻿using Model;
 using Musicista.UI;
 using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -160,8 +159,8 @@ namespace Musicista
                     {
                         Instrument = movedMeasure.Instrument,
                         ParentMeasureGroup = movedMeasure.ParentMeasureGroup,
-                        ListOfSymbols = new List<Symbol> { new Rest { Beat = 1, Duration = Duration.whole } }
                     };
+                    newMeasure.AddSymbol(new Rest { Beat = 1, Duration = Duration.whole });
                     newMeasure.ParentMeasureGroup.Measures.Add(newMeasure);
                     UIHelper.DrawMeasure(((UIMeasure)_draggedElement).ParentMeasureGroup, newMeasure, ((UIMeasure)_draggedElement).Part);
 

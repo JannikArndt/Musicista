@@ -20,8 +20,9 @@ namespace Musicista.Sidebar
         {
             if (uiObject is TextBlock)
                 Clicked.Text = (uiObject as TextBlock).Text;
-            if (uiObject is UIMeasure)
-                ShowMeasure((UIMeasure)uiObject);
+            var measure = uiObject as UIMeasure;
+            if (measure != null)
+                ShowMeasure(measure);
         }
 
         private void ShowMeasure(UIMeasure measure)
@@ -46,7 +47,7 @@ namespace Musicista.Sidebar
 
             var newMeasure = new UIMeasure(canvas, 0, 0, measure.InnerMeasure, suppressEventHandlers: true) { Width = 280 };
 
-            foreach (var symbol in measure.InnerMeasure.ListOfSymbols)
+            foreach (var symbol in measure.InnerMeasure.Symbols)
                 if (symbol.GetType() == typeof(Note))
                     UIHelper.DrawNote((Note)symbol, newMeasure);
                 else if (symbol.GetType() == typeof(Rest))

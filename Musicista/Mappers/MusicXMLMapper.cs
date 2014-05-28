@@ -63,7 +63,6 @@ namespace Musicista.Mappers
                     var newMeasure = new Measure
                     {
                         Instrument = piece.ListOfInstruments[partNumber],
-                        ListOfSymbols = new List<Symbol>(),
                         ParentMeasureGroup = measureGroup
                     };
                     // 4. and add the Notes and Rests of each Measure
@@ -75,7 +74,7 @@ namespace Musicista.Mappers
                     {
                         var newNote = CreateNoteFromMXMLNote(mxmlNote, beat / 256);
                         beat += (int)newNote.Duration;
-                        newMeasure.ListOfSymbols.Add(newNote);
+                        newMeasure.AddSymbol(newNote);
                     }
 
                     measureGroup.Measures.Add(newMeasure);
@@ -110,7 +109,6 @@ namespace Musicista.Mappers
                     var newMeasure = new Measure
                     {
                         Instrument = piece.ListOfInstruments[partNumber],
-                        ListOfSymbols = new List<Symbol>(),
                         ParentMeasureGroup = measureGroup
                     };
 
@@ -123,7 +121,7 @@ namespace Musicista.Mappers
                     {
                         var newNote = CreateNoteFromMXMLNote(mxmlNote, beat / 256);
                         beat += (int)newNote.Duration;
-                        newMeasure.ListOfSymbols.Add(newNote);
+                        newMeasure.AddSymbol(newNote);
                     }
 
                     measureGroup.Measures.Add(newMeasure);

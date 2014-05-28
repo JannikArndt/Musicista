@@ -14,6 +14,8 @@ namespace Musicista.UI
 {
     public static class UIHelper
     {
+        private static readonly List<Path> NotYetConnectedEigths = new List<Path>();
+        private static bool _stemDirectionUp = true;
         public static List<Canvas> DrawPiece(Piece piece)
         {
             Canvas currentPage = CreatePage();
@@ -141,14 +143,14 @@ namespace Musicista.UI
 
         public static void DrawMeasure(UIMeasureGroup measureGroup, Measure measure, int part)
         {
-            if (measure.ListOfSymbols == null || measure.ListOfSymbols.Count <= 0)
+            if (measure.Symbols == null || measure.Symbols.Count <= 0)
                 return;
 
             var top = Canvas.GetTop(measureGroup.ParentSystem.Staves[part - 1]) - 10;
             var newMeasure = new UIMeasure(measureGroup, top, part, measure);
             measureGroup.Measures.Add(newMeasure);
 
-            foreach (var symbol in measure.ListOfSymbols)
+            foreach (var symbol in measure.Symbols)
                 if (symbol.GetType() == typeof(Note))
                     DrawNote((Note)symbol, newMeasure);
                 else if (symbol.GetType() == typeof(Rest))
@@ -227,6 +229,8 @@ namespace Musicista.UI
             };
 
             const int noteStepSpacing = 15;
+
+            var connectEigthsAtEndOfRun = false;
 
             newNote.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Unspecified);
             newNote.SetValue(RenderOptions.ClearTypeHintProperty, ClearTypeHint.Enabled);
@@ -374,6 +378,19 @@ namespace Musicista.UI
                     break;
                 case Duration.eigth:
                     newNote.Data = Geometry.Parse(top >= -1 ? Engraving.Eigth : Engraving.EightUpsideDown);
+                    if (note.Next != null && note.Next.Duration == Duration.eigth && note.Next.Beat != 1 && note.Next.Beat != 3)
+                    {
+                        if (!NotYetConnectedEigths.Any())
+                            _stemDirectionUp = top >= -1;
+                        newNote.Data = Geometry.Parse(_stemDirectionUp ? Engraving.Quarter : Engraving.QuarterUpsideDown);
+                        NotYetConnectedEigths.Add(newNote);
+                    }
+                    else if (NotYetConnectedEigths.Any())
+                    {
+                        newNote.Data = Geometry.Parse(_stemDirectionUp ? Engraving.Quarter : Engraving.QuarterUpsideDown);
+                        NotYetConnectedEigths.Add(newNote);
+                        connectEigthsAtEndOfRun = true;
+                    }
                     break;
                 case Duration.sixteenthDotted:
                     newNote.Data = Geometry.Parse(Engraving.Sixteenth);
@@ -387,6 +404,8 @@ namespace Musicista.UI
             Canvas.SetTop(newNote, top);
             Canvas.SetLeft(newNote, left);
             measure.Children.Add(newNote);
+            if (connectEigthsAtEndOfRun || NotYetConnectedEigths.Count == 4 || (NotYetConnectedEigths.Any() && note.Next != null && (note.Next.Beat == 3 || note.Next.Beat == 1)))
+                ConnectEigths(measure);
         }
 
         public static void DrawLedger(UIMeasure measure, bool below, int count, double left)
@@ -491,6 +510,44 @@ namespace Musicista.UI
             Canvas.SetTop(newDot, top);
             Canvas.SetLeft(newDot, left);
             measure.Children.Add(newDot);
+        }
+
+        public static void ConnectEigths(UIMeasure measure)
+        {
+            double x1, x2, y1, y2;
+
+            if (_stemDirectionUp)
+            {
+                x1 = Canvas.GetLeft(NotYetConnectedEigths.First()) + 34;
+                y1 = Canvas.GetTop(NotYetConnectedEigths.First()) + 0;
+                x2 = Canvas.GetLeft(NotYetConnectedEigths.Last()) + 38;
+                y2 = Canvas.GetTop(NotYetConnectedEigths.Last()) + 0;
+            }
+            else
+            {
+                x1 = Canvas.GetLeft(NotYetConnectedEigths.First());
+                y1 = Canvas.GetTop(NotYetConnectedEigths.First()) + 225;
+                x2 = Canvas.GetLeft(NotYetConnectedEigths.Last()) + 5;
+                y2 = Canvas.GetTop(NotYetConnectedEigths.Last()) + 225;
+            }
+
+            for (int count = 0; count < 25; count = count + 5)
+            {
+                var beam = new Line
+                {
+                    X1 = x1,
+                    Y1 = y1 + count,
+                    X2 = x2,
+                    Y2 = y2 + count,
+                    StrokeThickness = 5,
+                    Stroke = Brushes.Black,
+                    SnapsToDevicePixels = true
+                };
+                beam.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Unspecified);
+                measure.Children.Add(beam);
+                NotYetConnectedEigths.Clear();
+            }
+
         }
     }
 }

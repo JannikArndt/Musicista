@@ -55,7 +55,7 @@ namespace Musicista.Mappers
                     {
                         var newNote = new MidiNote(midiEvent as NoteOnEvent, deltaTimeInThisMeasure, midi.Header.TimeDivision);
                         nowPlayingDict.Add((midiEvent as NoteOnEvent).NoteNumber, newNote);
-                        currentMeasure.ListOfSymbols.Add(newNote.Note);
+                        currentMeasure.AddSymbol(newNote.Note);
                     }
                     else if (midiEvent is NoteOffEvent && nowPlayingDict.ContainsKey((midiEvent as NoteOffEvent).NoteNumber))
                     {

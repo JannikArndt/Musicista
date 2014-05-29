@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Clef = Model.Clef;
 
 namespace Musicista.Mappers
 {
@@ -43,6 +44,10 @@ namespace Musicista.Mappers
         /// <returns>The given Piece with the measures in it.</returns>
         public static Piece MapPartwiseMeasuresToPiece(ScorePartwise mxml, Piece piece)
         {
+            var lastClef = new List<Clef>();
+            for (var i = 0; i < mxml.Part[0].Measure.Length; i++)
+                lastClef.Add(Clef.Treble);
+
             // take the first part, go through all measure, for each measure look up the other parts
             for (var measureNumber = 0; measureNumber < mxml.Part[0].Measure.Length; measureNumber++)
             {
@@ -59,11 +64,14 @@ namespace Musicista.Mappers
                 // 2. Go through all <Part>s, 
                 for (var partNumber = 0; partNumber < mxml.Part.Length; partNumber++)
                 {
+                    if (mxml.Part[partNumber].Measure[measureNumber].Items.Any(item => item.GetType() == typeof(attributes)))
+                        lastClef[partNumber] = GetClefFromAttributes(mxml.Part[partNumber].Measure[measureNumber].Items.First(item => item.GetType() == typeof(attributes)) as attributes) ?? lastClef[partNumber];
                     // 3. create a new measure for each part
                     var newMeasure = new Measure
                     {
                         Instrument = piece.ListOfInstruments[partNumber],
-                        ParentMeasureGroup = measureGroup
+                        ParentMeasureGroup = measureGroup,
+                        Clef = lastClef[partNumber]
                     };
                     // 4. and add the Notes and Rests of each Measure
                     var notes = mxml.Part[partNumber].Measure[measureNumber].Items.Where(item => item.GetType() == typeof(note));
@@ -85,6 +93,22 @@ namespace Musicista.Mappers
             return piece;
         }
 
+        private static Clef? GetClefFromAttributes(attributes attributes)
+        {
+            if (attributes == null || attributes.clef == null || attributes.clef[0] == null)
+                return null;
+
+            if (attributes.clef[0].sign == clefsign.G && attributes.clef[0].line == "2")
+                return Clef.Treble;
+            if (attributes.clef[0].sign == clefsign.C && attributes.clef[0].line == "3")
+                return Clef.Alto;
+            if (attributes.clef[0].sign == clefsign.C && attributes.clef[0].line == "4")
+                return Clef.Tenor;
+            if (attributes.clef[0].sign == clefsign.F && attributes.clef[0].line == "4")
+                return Clef.Bass;
+            return null;
+        }
+
         /// <summary>
         /// Maps a timewise-MusicXML-Object to a Musicista Piece. The structure is 
         /// <score-timewise><measure number="1"><part id="P1"><note></note>...</part><part id="P2">...</part></measure></score-timewise>
@@ -94,6 +118,10 @@ namespace Musicista.Mappers
         /// <returns>The given Piece with the measures in it.</returns>
         public static Piece MapTimewiseMeasuresToPiece(ScoreTimewise mxml, Piece piece)
         {
+            var lastClef = new List<Clef>();
+            for (var i = 0; i < mxml.Measure[0].part.Length; i++)
+                lastClef.Add(Clef.Treble);
+
             foreach (var measure in mxml.Measure)
             {
                 var measureGroup = new MeasureGroup
@@ -106,10 +134,14 @@ namespace Musicista.Mappers
 
                 for (var partNumber = 0; partNumber < measure.part.Length; partNumber++)
                 {
+                    if (measure.part[partNumber].Items.Any(item => item.GetType() == typeof(attributes)))
+                        lastClef[partNumber] = GetClefFromAttributes(measure.part[partNumber].Items.First(item => item.GetType() == typeof(attributes)) as attributes) ?? lastClef[partNumber];
+
                     var newMeasure = new Measure
                     {
                         Instrument = piece.ListOfInstruments[partNumber],
-                        ParentMeasureGroup = measureGroup
+                        ParentMeasureGroup = measureGroup,
+                        Clef = lastClef[partNumber]
                     };
 
                     // Grab all Notes and Rests from the current <Part>

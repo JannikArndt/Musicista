@@ -5,6 +5,7 @@ namespace Model
 {
     public class Measure
     {
+        public Clef Clef { get; set; }
         public Measure()
         {
             Instrument = new Instrument();
@@ -21,6 +22,7 @@ namespace Model
             _listOfSymbols.Add(symbol);
             symbol.ParentMeasure = this;
         }
+        [XmlIgnore]
         public List<Symbol> Symbols
         {
             get { return _listOfSymbols; }

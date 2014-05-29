@@ -78,7 +78,7 @@ namespace Musicista.UI
                                                     {
                                                         var staff = new UIStaff(currentSystem, currentTop);
                                                         currentSystem.AddStaff(staff);
-                                                        DrawTrebleClef(staff);
+                                                        DrawClef(staff, measureGroup.Measures[i].Clef);
                                                     }
                                                     measuresPerSystem = 0;
                                                     systemsPerPage++;
@@ -158,20 +158,29 @@ namespace Musicista.UI
                     DrawRest((Rest)symbol, newMeasure);
         }
 
-        public static void DrawTrebleClef(UIStaff staff)
+        public static void DrawClef(UIStaff staff, Clef clefType)
         {
-            const double top = -10;
-            const double left = 10;
-
             var clef = new Path
             {
-                RenderTransform = new ScaleTransform(.5, .5),
                 Fill = Brushes.Black,
-                Data = Geometry.Parse(Engraving.TrebleClef)
             };
 
-            Canvas.SetTop(clef, top);
-            Canvas.SetLeft(clef, left);
+            switch (clefType)
+            {
+                case Clef.Treble:
+                    clef.RenderTransform = new ScaleTransform(.5, .5);
+                    clef.Data = Geometry.Parse(Engraving.TrebleClef);
+                    Canvas.SetTop(clef, -10);
+                    Canvas.SetLeft(clef, 10);
+                    break;
+                case Clef.Bass:
+                    clef.RenderTransform = new ScaleTransform(.13, .13);
+                    clef.Data = Geometry.Parse(Engraving.BassClef);
+                    Canvas.SetTop(clef, 1);
+                    Canvas.SetLeft(clef, 10);
+                    break;
+            }
+
             staff.Children.Add(clef);
         }
 
@@ -243,8 +252,16 @@ namespace Musicista.UI
             double left = ((measure.Width - measure.Indent) / beatsPerMeasure * (note.Beat - 1)) + measure.Indent;
             double top = 0;
 
-            // treble clef
-            top -= 16;
+            switch (measure.InnerMeasure.Clef)
+            {
+                case Clef.Treble:
+                    top -= 16;
+                    break;
+                case Clef.Bass:
+                    top -= 180 + 16;
+                    break;
+            }
+
 
             switch (note.Octave)
             {

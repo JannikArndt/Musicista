@@ -1,17 +1,26 @@
+using System;
+using System.CodeDom.Compiler;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class scoretimewiseMeasurePart
+    [GeneratedCode("xsd", "4.0.30319.33440")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType(AnonymousType = true)]
+    public class ScoretimewiseMeasurePart
     {
-        [System.Xml.Serialization.XmlElementAttribute("attributes", typeof(attributes)), System.Xml.Serialization.XmlElementAttribute("backup", typeof(backup)), System.Xml.Serialization.XmlElementAttribute("barline", typeof(barline)), System.Xml.Serialization.XmlElementAttribute("bookmark", typeof(bookmark)), System.Xml.Serialization.XmlElementAttribute("direction", typeof(direction)), System.Xml.Serialization.XmlElementAttribute("figured-bass", typeof(figuredbass)), System.Xml.Serialization.XmlElementAttribute("forward", typeof(forward)), System.Xml.Serialization.XmlElementAttribute("grouping", typeof(grouping)), System.Xml.Serialization.XmlElementAttribute("harmony", typeof(harmony)), System.Xml.Serialization.XmlElementAttribute("link", typeof(link)), System.Xml.Serialization.XmlElementAttribute("note", typeof(note)), System.Xml.Serialization.XmlElementAttribute("print", typeof(print)), System.Xml.Serialization.XmlElementAttribute("sound", typeof(sound))]
+        [XmlElement("attributes", typeof(attributes)), XmlElement("backup", typeof(backup)), XmlElement("barline", typeof(barline)),
+         XmlElement("bookmark", typeof(bookmark)), XmlElement("direction", typeof(direction)), XmlElement("figured-bass", typeof(figuredbass)),
+         XmlElement("forward", typeof(forward)), XmlElement("grouping", typeof(grouping)), XmlElement("harmony", typeof(harmony)),
+         XmlElement("link", typeof(link)), XmlElement("note", typeof(note)), XmlElement("print", typeof(print)), XmlElement("sound", typeof(sound))]
         public object[] Items { get; set; }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "IDREF")]
+        [XmlAttribute(DataType = "IDREF")]
         public string id { get; set; }
     }
 }

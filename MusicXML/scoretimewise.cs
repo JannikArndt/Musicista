@@ -20,6 +20,6 @@ namespace MusicXML
         }
 
         [XmlElement("measure")]
-        public scoretimewiseMeasure[] Measure { get; set; }
+        public ScoretimewiseMeasure[] Measure { get; set; }
     }
 }

@@ -1,17 +1,18 @@
+using System;
+using System.CodeDom.Compiler;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class scoretimewiseMeasure
+    [GeneratedCode("xsd", "4.0.30319.33440")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType(AnonymousType = true)]
+    public class ScoretimewiseMeasure
     {
-
-        private scoretimewiseMeasurePart[] partField;
-
-        private string numberField;
-
         private yesno implicitField;
 
         private bool implicitFieldSpecified;
@@ -19,121 +20,75 @@ namespace MusicXML
         private yesno noncontrollingField;
 
         private bool noncontrollingFieldSpecified;
+        private string numberField;
+        private ScoretimewiseMeasurePart[] partField;
 
         private decimal widthField;
 
         private bool widthFieldSpecified;
 
 
-        [System.Xml.Serialization.XmlElementAttribute("part")]
-        public scoretimewiseMeasurePart[] part
+        [XmlElement("part")]
+        public ScoretimewiseMeasurePart[] part
         {
-            get
-            {
-                return this.partField;
-            }
-            set
-            {
-                this.partField = value;
-            }
+            get { return partField; }
+            set { partField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
+        [XmlAttribute(DataType = "token")]
         public string number
         {
-            get
-            {
-                return this.numberField;
-            }
-            set
-            {
-                this.numberField = value;
-            }
+            get { return numberField; }
+            set { numberField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public yesno @implicit
         {
-            get
-            {
-                return this.implicitField;
-            }
-            set
-            {
-                this.implicitField = value;
-            }
+            get { return implicitField; }
+            set { implicitField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool implicitSpecified
         {
-            get
-            {
-                return this.implicitFieldSpecified;
-            }
-            set
-            {
-                this.implicitFieldSpecified = value;
-            }
+            get { return implicitFieldSpecified; }
+            set { implicitFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute("non-controlling")]
+        [XmlAttribute("non-controlling")]
         public yesno noncontrolling
         {
-            get
-            {
-                return this.noncontrollingField;
-            }
-            set
-            {
-                this.noncontrollingField = value;
-            }
+            get { return noncontrollingField; }
+            set { noncontrollingField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool noncontrollingSpecified
         {
-            get
-            {
-                return this.noncontrollingFieldSpecified;
-            }
-            set
-            {
-                this.noncontrollingFieldSpecified = value;
-            }
+            get { return noncontrollingFieldSpecified; }
+            set { noncontrollingFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public decimal width
         {
-            get
-            {
-                return this.widthField;
-            }
-            set
-            {
-                this.widthField = value;
-            }
+            get { return widthField; }
+            set { widthField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool widthSpecified
         {
-            get
-            {
-                return this.widthFieldSpecified;
-            }
-            set
-            {
-                this.widthFieldSpecified = value;
-            }
+            get { return widthFieldSpecified; }
+            set { widthFieldSpecified = value; }
         }
     }
 }

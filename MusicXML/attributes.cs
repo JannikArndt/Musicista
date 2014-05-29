@@ -25,7 +25,7 @@ namespace MusicXML
 
         private string instrumentsField;
 
-        private clef[] clefField;
+        private Clef[] clefField;
 
         private staffdetails[] staffdetailsField;
 
@@ -160,7 +160,7 @@ namespace MusicXML
 
 
         [System.Xml.Serialization.XmlElementAttribute("clef")]
-        public clef[] clef
+        public Clef[] clef
         {
             get
             {

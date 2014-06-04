@@ -109,6 +109,7 @@
     <Compile Include="UI\UIHelper.cs" />
     <Compile Include="UI\UIMeasure.cs" />
     <Compile Include="UI\UIMeasureGroup.cs" />
+    <Compile Include="UI\UINote.cs" />
     <Compile Include="UI\UIStaff.cs" />
     <Compile Include="UI\UISystem.cs" />
     <Compile Include="UI\UITitle.cs" />

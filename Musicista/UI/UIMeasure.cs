@@ -1,4 +1,6 @@
 ﻿using Model;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -17,6 +19,12 @@ namespace Musicista.UI
         public readonly int Part;
         public readonly int Indent = 60;
         public readonly int ScaleTransform = 5;
+
+        public readonly List<Path> NotYetConnectedEigths = new List<Path>();
+        public readonly List<Path> NotYetConnectedSixteenths = new List<Path>();
+        public bool StemDirectionUp = true;
+        public bool ConnectEigthsAtEndOfRun = false;
+        public bool ConnectSixteenthsAtEndOfRun = false;
 
         public Line Line1 { get; set; }
         public Line Line2 { get; set; }
@@ -106,6 +114,91 @@ namespace Musicista.UI
             if (InnerMeasure.ParentMeasureGroup != null)
                 return "Measure #" + InnerMeasure.ParentMeasureGroup.MeasureNumber;
             return "Measure";
+        }
+
+        public void ConnectEigths()
+        {
+            var x1 = GetLeft(NotYetConnectedEigths.First());
+            var y1 = GetTop(NotYetConnectedEigths.First());
+            var x2 = GetLeft(NotYetConnectedEigths.Last());
+            var y2 = GetTop(NotYetConnectedEigths.Last());
+
+            if (StemDirectionUp)
+            {
+                x1 += 34;
+                x2 += 38;
+            }
+            else
+            {
+                y1 += 225;
+                x2 += 5;
+                y2 += 225;
+            }
+
+            for (var count = 0; count < 25; count = count + 5)
+            {
+                var beam = new Line
+                {
+                    X1 = x1,
+                    Y1 = y1 + count,
+                    X2 = x2,
+                    Y2 = y2 + count,
+                    StrokeThickness = 5,
+                    Stroke = Brushes.Black,
+                    SnapsToDevicePixels = true
+                };
+                Children.Add(beam);
+            }
+            NotYetConnectedEigths.Clear();
+        }
+
+        public void ConnectSixteenths()
+        {
+            var x1 = GetLeft(NotYetConnectedSixteenths.First());
+            var y1 = GetTop(NotYetConnectedSixteenths.First());
+            var x2 = GetLeft(NotYetConnectedSixteenths.Last());
+            var y2 = GetTop(NotYetConnectedSixteenths.Last());
+
+            if (StemDirectionUp)
+            {
+                x1 += 34;
+                x2 += 38;
+            }
+            else
+            {
+                y1 += 225;
+                x2 += 5;
+                y2 += 225;
+            }
+
+            for (var beamCount = 0; beamCount < 2; beamCount++)
+            {
+                for (var count = 0; count < 20; count = count + 5)
+                {
+                    var beam = new Line
+                    {
+                        X1 = x1,
+                        Y1 = y1 + count,
+                        X2 = x2,
+                        Y2 = y2 + count,
+                        StrokeThickness = 5,
+                        Stroke = Brushes.Black,
+                        SnapsToDevicePixels = true
+                    };
+                    Children.Add(beam);
+                }
+                if (StemDirectionUp)
+                {
+                    y1 += 25;
+                    y2 += 25;
+                }
+                else
+                {
+                    y1 -= 25;
+                    y2 -= 25;
+                }
+            }
+            NotYetConnectedSixteenths.Clear();
         }
     }
 }

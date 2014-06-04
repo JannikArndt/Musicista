@@ -49,7 +49,7 @@ namespace Musicista.Sidebar
 
             foreach (var symbol in measure.InnerMeasure.Symbols)
                 if (symbol.GetType() == typeof(Note))
-                    UIHelper.DrawNote((Note)symbol, newMeasure);
+                    new UINote((Note)symbol, newMeasure);
                 else if (symbol.GetType() == typeof(Rest))
                     UIHelper.DrawRest((Rest)symbol, newMeasure);
 

@@ -19,8 +19,12 @@ namespace Model
                 return "-";
             }
         }
+
         public OpusNumber()
-        { }
+        {
+            Number = 0;
+            SubNumber = 0;
+        }
         public OpusNumber(int number = 0, int subnumber = 0, bool posthum = false)
         {
             Number = number;

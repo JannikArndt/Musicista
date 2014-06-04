@@ -70,35 +70,17 @@ namespace Musicista.Sidebar
             TitleTextBlock.Text = piece.Title;
             SidebarPanel.Children.Clear();
 
-            var grid = new Grid { Margin = new Thickness(10) };
-            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(30) });
-            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(30) });
-            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(30) });
-            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(60) });
-            grid.ColumnDefinitions.Add(new ColumnDefinition());
+            var grid = new GridTable(60);
+            grid.AddRowWithTextField("Title", "Title");
 
-            var tbTitle = new TextBlock { Text = "Title" };
-            Grid.SetRow(tbTitle, 0);
-            Grid.SetColumn(tbTitle, 0);
-
-            var txTitle = new TextBox { Text = piece.Title };
-            Grid.SetRow(txTitle, 0);
-            Grid.SetColumn(txTitle, 1);
-
-            var tbComposer = new TextBlock { Text = "Composer" };
-            Grid.SetRow(tbComposer, 1);
-            Grid.SetColumn(tbComposer, 0);
-
-            var txComposer = new TextBox();
             if (piece.ListOfComposers != null && piece.ListOfComposers.Count > 0 && piece.ListOfComposers[0].FullName != null)
-                txComposer.Text = piece.ListOfComposers[0].FullName;
-            Grid.SetRow(txComposer, 1);
-            Grid.SetColumn(txComposer, 1);
+                foreach (var composer in piece.ListOfComposers)
+                    if (composer.FullName != null)
+                        grid.AddRowWithPerson("Composer", composer);
 
-            grid.Children.Add(tbTitle);
-            grid.Children.Add(txTitle);
-            grid.Children.Add(tbComposer);
-            grid.Children.Add(txComposer);
+            grid.AddRowWithTextField("Opus", "Opus");
+            grid.AddRowWithTextField("Form", "Form");
+
 
             SidebarPanel.Children.Add(grid);
         }

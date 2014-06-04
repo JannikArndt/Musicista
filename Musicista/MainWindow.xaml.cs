@@ -37,7 +37,13 @@ namespace Musicista
             ButtonPathInformation.Fill = Brushes.DodgerBlue;
             ButtonPathSelect.Fill = Brushes.DodgerBlue;
 
-
+            using (var fileStream = new FileStream("exa.musicista", FileMode.Open))
+            {
+                var musicistaSerializer = new XmlSerializer(typeof(Piece));
+                DrawPiece((Piece)musicistaSerializer.Deserialize(fileStream));
+                _fileName = "exa.musicista";
+            }
+            /*
             var serializer = new XmlSerializer(typeof(ScorePartwise));
             using (var fileStream = new FileStream("example.xml", FileMode.Open))
             {

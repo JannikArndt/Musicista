@@ -46,7 +46,11 @@ namespace Model
             ListOfProducers = new List<Person>();
             ListOfInstruments = new List<Instrument>();
             ListOfSections = new List<Section>();
-        }
 
+            Collection = "";
+            Opus = new OpusNumber();
+            Epoch = Epoch.None;
+            Form = Form.Other;
+        }
     }
 }

@@ -8,6 +8,7 @@ namespace Model
     {
         public string Title { get; set; }
         public List<Composer> ListOfComposers { get; set; }
+        public String ComposersAsString { get { return String.Join(", ", ListOfComposers); } }
         public string Collection { get; set; }
         public OpusNumber Opus { get; set; }
         public Epoch Epoch { get; set; }

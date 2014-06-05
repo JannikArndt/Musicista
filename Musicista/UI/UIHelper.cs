@@ -19,11 +19,11 @@ namespace Musicista.UI
             var pageList = new List<Canvas> { currentPage };
 
             if (!String.IsNullOrEmpty(piece.Title))
-                new UITitle(piece.Title, 60, pageList.First());
+                new UITitle(piece, 60, pageList.First());
 
             if (piece.ListOfComposers != null && piece.ListOfComposers.Count > 0)
                 foreach (var composer in piece.ListOfComposers)
-                    DrawComposer(composer.FullName, pageList.First());
+                    DrawComposer(piece, pageList.First());
 
             var measuresPerSystem = 4;
             var systemsPerPage = 0;
@@ -103,13 +103,18 @@ namespace Musicista.UI
             return canvas;
         }
 
-        public static void DrawComposer(string text, Canvas page)
+        public static void DrawComposer(Piece piece, Canvas page)
         {
             var composerTextBlock = new TextBlock
             {
-                Text = text,
-                FontSize = 16
+                DataContext = piece,
+                FontSize = 16,
+                TextAlignment = TextAlignment.Right,
+                TextWrapping = TextWrapping.WrapWithOverflow,
+                Width = 200
             };
+            composerTextBlock.SetBinding(TextBlock.TextProperty, "ComposersAsString");
+
             Canvas.SetTop(composerTextBlock, 150);
             Canvas.SetRight(composerTextBlock, 50);
             page.Children.Add(composerTextBlock);

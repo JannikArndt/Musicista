@@ -11,7 +11,12 @@ namespace Model
 
         public string FullName
         {
-            get { return FirstName + " " + MiddleName + " " + LastName; }
+            get
+            {
+                if (String.IsNullOrEmpty(MiddleName))
+                    return FirstName + " " + LastName;
+                return FirstName + " " + MiddleName + " " + LastName;
+            }
             set
             {
                 string[] names = value.Split(' ');

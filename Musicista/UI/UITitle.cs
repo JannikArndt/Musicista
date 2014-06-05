@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using Model;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -11,14 +12,17 @@ namespace Musicista.UI
         private double _left;
         private double _top;
 
-        public UITitle(string text, double top, Canvas page)
+        public UITitle(Piece piece, double top, Canvas page)
         {
-            Text = text;
+            DataContext = piece;
+            SetBinding(TextProperty, "Title");
             FontSize = 50;
 
             Top = top;
-            // center title
-            Left = (int)((page.Width / 2) - (DrawnWidth / 2));
+            Left = 20;
+            Width = page.Width - 40;
+            HorizontalAlignment = HorizontalAlignment.Stretch;
+            TextAlignment = TextAlignment.Center;
 
             PreviewMouseDown += delegate(object sender, MouseButtonEventArgs args)
             {

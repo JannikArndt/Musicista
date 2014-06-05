@@ -2,6 +2,7 @@
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 
 namespace Musicista.UI
@@ -112,6 +113,46 @@ namespace Musicista.UI
 
             Children.Add(keyTextBlock);
             Children.Add(stackpanel);
+        }
+
+        public void AddRowWithComboBox(string key, string propertyName, Enum enumType)
+        {
+            if (string.IsNullOrEmpty(propertyName))
+                throw new ArgumentException(@"No property name given", propertyName);
+            if (MainWindow.CurrentPiece.GetType().GetProperty(propertyName) == null)
+                throw new Exception("Property " + propertyName + " not found in piece.");
+
+
+            RowDefinitions.Add(new RowDefinition { Height = new GridLength(30) });
+
+            var keyTextBlock = new TextBlock
+            {
+                Text = key,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            SetRow(keyTextBlock, RowDefinitions.Count - 1);
+            SetColumn(keyTextBlock, 0);
+
+            var valueComboBox = new ComboBox
+            {
+                DataContext = MainWindow.CurrentPiece,
+                Width = 200,
+                Height = 26,
+                Padding = new Thickness(3),
+                Margin = new Thickness(1),
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Center,
+                ItemsSource = Enum.GetValues(enumType.GetType())
+            };
+
+            valueComboBox.SetBinding(Selector.SelectedItemProperty, propertyName);
+
+            SetRow(valueComboBox, RowDefinitions.Count - 1);
+            SetColumn(valueComboBox, 1);
+
+            Children.Add(keyTextBlock);
+            Children.Add(valueComboBox);
         }
     }
 }

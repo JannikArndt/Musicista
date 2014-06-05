@@ -1,7 +1,9 @@
 ﻿using Model;
+using Model.Meta;
 using Musicista.UI;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media;
 
 namespace Musicista.Sidebar
@@ -67,7 +69,11 @@ namespace Musicista.Sidebar
             if (MainWindow.CurrentPiece == null)
                 return;
             var piece = MainWindow.CurrentPiece;
-            TitleTextBlock.Text = piece.Title;
+
+            TitleTextBlock.DataContext = piece;
+            TitleTextBlock.SetBinding(TextBlock.TextProperty, new Binding("Title"));
+
+
             SidebarPanel.Children.Clear();
 
             var grid = new GridTable(60);
@@ -78,8 +84,9 @@ namespace Musicista.Sidebar
                     if (composer.FullName != null)
                         grid.AddRowWithPerson("Composer", composer);
 
-            grid.AddRowWithTextField("Opus", "Opus");
-            grid.AddRowWithTextField("Form", "Form");
+            //grid.AddRowWithComboBox("Opus", "Opus", typeof(OpusNumber));
+            grid.AddRowWithComboBox("Epoch", "Epoch", Epoch.Classical);
+            grid.AddRowWithComboBox("Form", "Form", Form.Other);
 
 
             SidebarPanel.Children.Add(grid);

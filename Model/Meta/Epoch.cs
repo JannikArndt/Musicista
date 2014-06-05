@@ -1,4 +1,6 @@
 ﻿
+using System.ComponentModel;
+
 namespace Model
 {
     public enum Epoch
@@ -10,8 +12,10 @@ namespace Model
         Classical,
         Romantic,
         Modern,
+        [Description("Twentieth Century")]
         TwentiethCentury,
         Contemporary,
+        [Description("Twentyfirst Century")]
         TwentyFirstCentury,
         Pop
     }

@@ -1,6 +1,8 @@
 ﻿using Model.Meta;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Serialization;
 
 namespace Model
 {
@@ -37,6 +39,17 @@ namespace Model
 
         public List<Instrument> ListOfInstruments { get; set; }
         public List<Section> ListOfSections { get; set; }
+
+        [XmlIgnore]
+        public List<Movement> ListOfAllMovements { get { return ListOfSections.SelectMany(section => section.ListOfMovements).ToList(); } }
+        [XmlIgnore]
+        public List<Segment> ListOfAllSegments { get { return ListOfAllMovements.SelectMany(movement => movement.ListOfSegments).ToList(); } }
+        [XmlIgnore]
+        public List<Passage> ListOfAllPassages { get { return ListOfAllSegments.SelectMany(segment => segment.ListOfPassages).ToList(); } }
+        [XmlIgnore]
+        public List<MeasureGroup> ListOfAllMeasureGroups { get { return ListOfAllPassages.SelectMany(passage => passage.ListOfMeasureGroups).ToList(); } }
+        [XmlIgnore]
+        public List<Measure> ListOfAllMeasures { get { return ListOfAllMeasureGroups.SelectMany(measureGroup => measureGroup.Measures).ToList(); } }
 
         public Piece()
         {

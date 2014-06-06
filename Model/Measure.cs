@@ -13,8 +13,7 @@ namespace Model
         [XmlIgnore]
         public MeasureGroup ParentMeasureGroup { get; set; }
         public Instrument Instrument { get; set; }
-        [XmlElement("Note", Type = typeof(Note))]
-        [XmlElement("Rest", Type = typeof(Rest))]
+        [XmlIgnore]
         private readonly List<Symbol> _listOfSymbols = new List<Symbol>();
 
         public void AddSymbol(Symbol symbol)
@@ -22,7 +21,8 @@ namespace Model
             _listOfSymbols.Add(symbol);
             symbol.ParentMeasure = this;
         }
-        [XmlIgnore]
+        [XmlElement("Note", Type = typeof(Note))]
+        [XmlElement("Rest", Type = typeof(Rest))]
         public List<Symbol> Symbols
         {
             get { return _listOfSymbols; }

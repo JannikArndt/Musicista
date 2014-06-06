@@ -41,13 +41,13 @@ namespace Musicista.Sidebar
                 VerticalAlignment = VerticalAlignment.Top,
                 Background = Brushes.White
             };
-            var system = new UISystem(page, 0, 0, 0);
+            var system = new UISystem(page, 0, 0, 0) { MeasuresInSystem = 1 };
             system.Children.Remove(system.BarlineFront);
             var canvas = new UIMeasureGroup(system, 0);
             SidebarPanel.Children.Add(page);
             canvas.Children.Remove(canvas.Barline);
 
-            var newMeasure = new UIMeasure(canvas, 0, 0, measure.InnerMeasure, suppressEventHandlers: true) { Width = 280 };
+            var newMeasure = new UIMeasure(canvas, 0, 0, measure.InnerMeasure, suppressEventHandlers: true);
 
             foreach (var symbol in measure.InnerMeasure.Symbols)
                 if (symbol.GetType() == typeof(Note))

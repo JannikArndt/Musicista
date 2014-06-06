@@ -14,6 +14,7 @@ namespace Musicista.UI
         private double _currentTop;
         public double Indent = 40;
         public Line BarlineFront { get; set; }
+        public int MeasuresInSystem = 4;
 
 
         public UISystem(Panel page, double top, double left, double right, double staffSpacing = 55, double systemSpacing = 40)

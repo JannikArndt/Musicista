@@ -29,6 +29,7 @@ namespace Musicista
         {
             InitializeComponent();
             PreviewMouseWheel += Zoom;
+            SetUpKeyCommands();
 
             SidebarInformation = new SidebarInformation();
             SidebarView = new SidebarView();
@@ -78,6 +79,65 @@ namespace Musicista
                 }
             }
         }
+
+        public void SetUpKeyCommands()
+        {
+            // new
+            var newCommandBinding = new CommandBinding(ApplicationCommands.New, New, (sender, e) => { e.CanExecute = true; });
+            CommandBindings.Add(newCommandBinding);
+
+            // open
+            var openCommandBinding = new CommandBinding(ApplicationCommands.Open, Open, (sender, e) => { e.CanExecute = true; });
+            CommandBindings.Add(openCommandBinding);
+
+            // save
+            var saveCommandBinding = new CommandBinding(ApplicationCommands.Save, Save, (sender, e) => { e.CanExecute = CurrentPiece != null; });
+            CommandBindings.Add(saveCommandBinding);
+
+            // save as
+            var saveAsCommandBinding = new CommandBinding(ApplicationCommands.SaveAs, SaveAs, (sender, e) => { e.CanExecute = CurrentPiece != null; });
+            CommandBindings.Add(saveAsCommandBinding);
+
+            var saveAsKeyGesture = new KeyGesture(Key.S, ModifierKeys.Control | ModifierKeys.Shift);
+            var saveAsInputBinding = new InputBinding(ApplicationCommands.SaveAs, saveAsKeyGesture);
+            InputBindings.Add(saveAsInputBinding);
+
+            // print
+            var printCommandBinding = new CommandBinding(ApplicationCommands.Print, Print, (sender, e) => { e.CanExecute = CurrentPiece != null; });
+            CommandBindings.Add(printCommandBinding);
+
+            // close
+            var closeCommandBinding = new CommandBinding(ApplicationCommands.Close, Close, (sender, e) => { e.CanExecute = CurrentPiece != null; });
+            CommandBindings.Add(closeCommandBinding);
+
+            var closeKeyGesture = new KeyGesture(Key.W, ModifierKeys.Control);
+            var closeInputBinding = new InputBinding(ApplicationCommands.Close, closeKeyGesture);
+            InputBindings.Add(closeInputBinding);
+
+            // quit
+            var quitCommandBinding = new CommandBinding(MediaCommands.BoostBass, (s, e) => Application.Current.Shutdown(), (sender, e) => { e.CanExecute = true; });
+            CommandBindings.Add(quitCommandBinding);
+
+            var quitKeyGesture = new KeyGesture(Key.Q, ModifierKeys.Control);
+            var quitInputBinding = new InputBinding(MediaCommands.BoostBass, quitKeyGesture);
+            InputBindings.Add(quitInputBinding);
+        }
+
+        private void New(object sender, ExecutedRoutedEventArgs e)
+        {
+            CurrentPiece = new Piece();
+            DrawPiece(CurrentPiece);
+            _fileName = "";
+        }
+
+        private void Close(object sender, ExecutedRoutedEventArgs e)
+        {
+            CurrentPiece = null;
+            _pageList = null;
+            CanvasScrollViewer.Content = null;
+            _fileName = "";
+        }
+
 
         private void Print(object sender, RoutedEventArgs e)
         {
@@ -162,10 +222,10 @@ namespace Musicista
             }
         }
 
-        private void ClickSave(object sender, RoutedEventArgs e)
+        private void Save(object sender, ExecutedRoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(_fileName))
-                ClickSaveAs(sender, e);
+                SaveAs(sender, e);
             else
             {
                 var serializer = new XmlSerializer(typeof(Piece));
@@ -176,7 +236,7 @@ namespace Musicista
             }
         }
 
-        private void ClickSaveAs(object sender, RoutedEventArgs e)
+        private void SaveAs(object sender, RoutedEventArgs e)
         {
             var saveFileDialog = new SaveFileDialog { DefaultExt = ".musicista", Filter = "Musicista (*.musicista)|*.musicista", OverwritePrompt = true, FileName = CurrentPiece.Title };
             if (saveFileDialog.ShowDialog() != true)

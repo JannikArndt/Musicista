@@ -74,7 +74,8 @@ namespace Musicista.UI
                                                     {
                                                         var staff = new UIStaff(currentSystem, currentTop);
                                                         currentSystem.AddStaff(staff);
-                                                        DrawClef(staff, measureGroup.Measures[i].Clef);
+                                                        if (measureGroup.Measures.Count > i && measureGroup.Measures[i] != null)
+                                                            DrawClef(staff, measureGroup.Measures[i].Clef);
                                                     }
                                                     measuresPerSystem = 0;
                                                     systemsPerPage++;

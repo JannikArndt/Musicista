@@ -60,29 +60,29 @@ namespace Musicista.UI
                     newNote.Data = Geometry.Parse(Engraving.Whole);
                     break;
                 case Duration.halfDotted:
-                    newNote.Data = Geometry.Parse(Top >= -1 ? Engraving.Half : Engraving.HalfUpsideDown);
+                    newNote.Data = Geometry.Parse(note.StemShouldGoUp() ? Engraving.Half : Engraving.HalfUpsideDown);
                     DrawDot(measure);
                     break;
                 case Duration.half:
-                    newNote.Data = Geometry.Parse(Top >= -1 ? Engraving.Half : Engraving.HalfUpsideDown);
+                    newNote.Data = Geometry.Parse(note.StemShouldGoUp() ? Engraving.Half : Engraving.HalfUpsideDown);
                     break;
                 case Duration.quarterDotted:
-                    newNote.Data = Geometry.Parse(Top >= -1 ? Engraving.Quarter : Engraving.QuarterUpsideDown);
+                    newNote.Data = Geometry.Parse(note.StemShouldGoUp() ? Engraving.Quarter : Engraving.QuarterUpsideDown);
                     DrawDot(measure);
                     break;
                 case Duration.quarter:
-                    newNote.Data = Geometry.Parse(Top >= -1 ? Engraving.Quarter : Engraving.QuarterUpsideDown);
+                    newNote.Data = Geometry.Parse(note.StemShouldGoUp() ? Engraving.Quarter : Engraving.QuarterUpsideDown);
                     break;
                 case Duration.eigthDotted:
-                    newNote.Data = Geometry.Parse(Top >= -1 ? Engraving.Eigth : Engraving.EightUpsideDown);
+                    newNote.Data = Geometry.Parse(note.StemShouldGoUp() ? Engraving.Eigth : Engraving.EightUpsideDown);
                     DrawDot(measure);
                     break;
                 case Duration.eigth:
-                    newNote.Data = Geometry.Parse(Top >= -1 ? Engraving.Eigth : Engraving.EightUpsideDown);
+                    newNote.Data = Geometry.Parse(note.StemShouldGoUp() ? Engraving.Eigth : Engraving.EightUpsideDown);
                     if (note.Next != null && note.Next.Duration == Duration.eigth && note.Next.Beat != 1 && note.Next.Beat != 3)
                     {
                         if (!measure.NotYetConnectedEigths.Any())
-                            measure.StemDirectionUp = Top >= -1;
+                            measure.StemDirectionUp = StemOfGroupShouldGoUp(note);
                         newNote.Data = Geometry.Parse(measure.StemDirectionUp ? Engraving.Quarter : Engraving.QuarterUpsideDown);
                         measure.NotYetConnectedEigths.Add(newNote);
                     }
@@ -102,7 +102,7 @@ namespace Musicista.UI
                     if (note.Next != null && note.Next.Duration == Duration.sixteenth && note.Next.Beat != 1 && note.Next.Beat != 3)
                     {
                         if (!measure.NotYetConnectedSixteenths.Any())
-                            measure.StemDirectionUp = Top >= -1;
+                            measure.StemDirectionUp = StemOfGroupShouldGoUp(note);
                         newNote.Data = Geometry.Parse(measure.StemDirectionUp ? Engraving.Quarter : Engraving.QuarterUpsideDown);
                         measure.NotYetConnectedSixteenths.Add(newNote);
                     }
@@ -133,6 +133,9 @@ namespace Musicista.UI
 
             switch (note.Octave)
             {
+                case 8:
+                    top -= 21 * noteStepSpacing;
+                    break;
                 case 7:
                     top -= 14 * noteStepSpacing;
                     break;
@@ -150,6 +153,9 @@ namespace Musicista.UI
                     break;
                 case 2:
                     top += 21 * noteStepSpacing + 7;
+                    break;
+                case 1:
+                    top += 28 * noteStepSpacing + 7;
                     break;
             }
 
@@ -341,6 +347,28 @@ namespace Musicista.UI
             Canvas.SetTop(newDot, top);
             Canvas.SetLeft(newDot, left);
             measure.Children.Add(newDot);
+        }
+
+        public bool StemOfGroupShouldGoUp(Note note)
+        {
+            var duration = note.Duration;
+            var ups = 0;
+            var downs = 0;
+            var currentNote = note;
+            var numberOfNotesToInspect = ((note.Duration == Duration.eigth && (note.Beat == 1 || note.Beat == 3)) || (note.Duration == Duration.sixteenth)) ? 4 : 2;
+            while (currentNote.Duration == duration && currentNote.GetType() == typeof(Note) && numberOfNotesToInspect > 0)
+            {
+                if (currentNote.StemShouldGoUp())
+                    ups++;
+                else
+                    downs++;
+                if (currentNote.Next != null && currentNote.Next.GetType() == typeof(Note))
+                    currentNote = (Note)currentNote.Next;
+                else
+                    break;
+                numberOfNotesToInspect--;
+            }
+            return ups >= downs;
         }
     }
 }

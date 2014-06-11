@@ -51,5 +51,17 @@ namespace Model
         {
             return "" + Step + Octave + " on " + Beat + " for " + Duration;
         }
+
+        public bool StemShouldGoUp()
+        {
+            switch (ParentMeasure.Clef)
+            {
+                case Clef.Treble:
+                    return PitchIsHigherThan("B4") <= 0;
+                case Clef.Bass:
+                    return PitchIsHigherThan("D3") <= 0;
+            }
+            return true;
+        }
     }
 }

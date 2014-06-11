@@ -1,6 +1,7 @@
 ﻿using Model;
 using Model.Meta;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -166,75 +167,64 @@ namespace Musicista.UI
                     break;
                 case Pitch.CSharp:
                     top += 0;
-                    DrawAccidental(measure, Accidental.Sharp, top);
                     break;
                 case Pitch.DFlat:
                     top -= noteStepSpacing;
-                    DrawAccidental(measure, Accidental.Flat, top);
                     break;
                 case Pitch.D:
                     top -= noteStepSpacing;
                     break;
                 case Pitch.DSharp:
                     top -= noteStepSpacing;
-                    DrawAccidental(measure, Accidental.Sharp, top);
                     break;
                 case Pitch.EFlat:
                     top -= 2 * noteStepSpacing;
-                    DrawAccidental(measure, Accidental.Flat, top);
                     break;
                 case Pitch.E:
                     top -= 2 * noteStepSpacing;
                     break;
                 case Pitch.ESharp:
                     top -= 2 * noteStepSpacing;
-                    DrawAccidental(measure, Accidental.Sharp, top);
                     break;
                 case Pitch.FFlat:
                     top -= 3 * noteStepSpacing;
-                    DrawAccidental(measure, Accidental.Flat, top);
                     break;
                 case Pitch.F:
                     top -= 3 * noteStepSpacing;
                     break;
                 case Pitch.FSharp:
                     top -= 3 * noteStepSpacing;
-                    DrawAccidental(measure, Accidental.Sharp, top);
                     break;
                 case Pitch.GFlat:
                     top -= 4 * noteStepSpacing;
-                    DrawAccidental(measure, Accidental.Flat, top);
                     break;
                 case Pitch.G:
                     top -= 4 * noteStepSpacing;
                     break;
                 case Pitch.GSharp:
                     top -= 4 * noteStepSpacing;
-                    DrawAccidental(measure, Accidental.Sharp, top);
                     break;
                 case Pitch.AFlat:
                     top -= 5 * noteStepSpacing;
-                    DrawAccidental(measure, Accidental.Flat, top);
                     break;
                 case Pitch.A:
                     top -= 5 * noteStepSpacing;
                     break;
                 case Pitch.ASharp:
                     top -= 5 * noteStepSpacing;
-                    DrawAccidental(measure, Accidental.Sharp, top);
                     break;
                 case Pitch.BFlat:
                     top -= 6 * noteStepSpacing;
-                    DrawAccidental(measure, Accidental.Flat, top);
                     break;
                 case Pitch.B:
                     top -= 6 * noteStepSpacing;
                     break;
                 case Pitch.BSharp:
                     top -= 6 * noteStepSpacing;
-                    DrawAccidental(measure, Accidental.Sharp, top);
                     break;
             }
+
+            DrawAccidentalIfNeeded(measure, note, top);
 
             // top line = 50, first upper ledger = 20, bottom line = 170, first lower ledger = 200, note height = 110
             if (top >= 89)
@@ -287,6 +277,29 @@ namespace Musicista.UI
                     ledger.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
                     measure.Children.Add(ledger);
                 }
+            }
+        }
+
+        public void DrawAccidentalIfNeeded(UIMeasure measure, Note note, double setTop)
+        {
+            var currentKey = note.ParentMeasure.ParentMeasureGroup.KeySignature;
+            var accidentalKind = Accidental.Natural;
+            var naturalPitches = new List<Pitch> { Pitch.C, Pitch.D, Pitch.E, Pitch.F, Pitch.G, Pitch.A, Pitch.B };
+            var sharpPitches = new List<Pitch> { Pitch.CSharp, Pitch.DSharp, Pitch.ESharp, Pitch.FSharp, Pitch.GSharp, Pitch.ASharp, Pitch.BSharp };
+            var flatPitches = new List<Pitch> { Pitch.CFlat, Pitch.DFlat, Pitch.EFlat, Pitch.F, Pitch.GFlat, Pitch.AFlat, Pitch.BFlat };
+
+            if (!currentKey.NoteIsInKey(note.Step) && !measure.AlteredKeys.Contains(note.Step))
+            {
+                if (naturalPitches.Contains(note.Step))
+                    accidentalKind = Accidental.Natural;
+                else if (sharpPitches.Contains(note.Step))
+                    accidentalKind = Accidental.Sharp;
+                else if (flatPitches.Contains(note.Step))
+                    accidentalKind = Accidental.Flat;
+
+                measure.AlteredKeys.Add(note.Step);
+
+                DrawAccidental(measure, accidentalKind, setTop);
             }
         }
 

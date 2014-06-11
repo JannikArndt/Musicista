@@ -24,8 +24,9 @@ namespace Musicista.Mappers
             // Partlist.scorepart = first <score-part/>, PartList.items except last one = other <score-parts/>
             piece.ListOfInstruments.Add(new Instrument(mxml.PartList.scorepart.partname.Value,
                 int.Parse(Regex.Match(mxml.PartList.scorepart.id, @"\d+").Value)));
-            foreach (scorepart scorepart in mxml.PartList.Items.Where(item => item.GetType() == typeof(scorepart)))
-                piece.ListOfInstruments.Add(new Instrument(scorepart.partname.Value, int.Parse(Regex.Match(scorepart.id, @"\d+").Value)));
+            if (mxml.PartList.Items != null)
+                foreach (scorepart scorepart in mxml.PartList.Items.Where(item => item.GetType() == typeof(scorepart)))
+                    piece.ListOfInstruments.Add(new Instrument(scorepart.partname.Value, int.Parse(Regex.Match(scorepart.id, @"\d+").Value)));
 
             if (mxml.GetType() == typeof(ScorePartwise))
                 MapPartwiseMeasuresToPiece((ScorePartwise)mxml, piece);
@@ -53,6 +54,8 @@ namespace Musicista.Mappers
 
             var listOfAdditionalStaves = new Dictionary<int, List<Measure>>();
 
+            var lastKey = new MusicalKey(Pitch.C, Gender.Major);
+
             // take the first part, go through all measure, for each measure look up the other parts
             for (var measureNumber = 0; measureNumber < mxml.Part[0].Measure.Length; measureNumber++)
             {
@@ -62,9 +65,14 @@ namespace Musicista.Mappers
                 {
                     MeasureNumber = int.Parse(Regex.Match(measure.number, @"\d+").Value),
                     TimeSignature = null,
-                    KeySignature = null,
                     Measures = new List<Measure>()
                 };
+
+                var measureAttributes = measure.Items.First(item => item.GetType() == typeof(attributes)) as attributes;
+                if (measureAttributes != null && measureAttributes.key != null && measureAttributes.key.First() != null)
+                    lastKey = GetKeyFromMXMLKey(measureAttributes.key.First());
+                measureGroup.KeySignature = lastKey;
+
 
                 // 2. Go through all <Part>s, 
                 for (var partNumber = 0; partNumber < mxml.Part.Length; partNumber++)
@@ -331,6 +339,87 @@ namespace Musicista.Mappers
                 }
 
             return Pitch.Unknown;
+        }
+
+        public static MusicalKey GetKeyFromMXMLKey(key key)
+        {
+            var fifths = int.Parse(key.Items.First(item => item is string).ToString());
+            var mode = key.Items.Last(item => item is string).ToString();
+
+            switch (mode)
+            {
+                case "major":
+                    switch (fifths)
+                    {
+                        case 0:
+                            return new MusicalKey(Pitch.C, Gender.Major);
+                        case 1:
+                            return new MusicalKey(Pitch.G, Gender.Major);
+                        case 2:
+                            return new MusicalKey(Pitch.D, Gender.Major);
+                        case 3:
+                            return new MusicalKey(Pitch.A, Gender.Major);
+                        case 4:
+                            return new MusicalKey(Pitch.E, Gender.Major);
+                        case 5:
+                            return new MusicalKey(Pitch.B, Gender.Major);
+                        case 6:
+                            return new MusicalKey(Pitch.FSharp, Gender.Major);
+                        case 7:
+                            return new MusicalKey(Pitch.CSharp, Gender.Major);
+                        case -1:
+                            return new MusicalKey(Pitch.F, Gender.Major);
+                        case -2:
+                            return new MusicalKey(Pitch.BFlat, Gender.Major);
+                        case -3:
+                            return new MusicalKey(Pitch.EFlat, Gender.Major);
+                        case -4:
+                            return new MusicalKey(Pitch.AFlat, Gender.Major);
+                        case -5:
+                            return new MusicalKey(Pitch.DFlat, Gender.Major);
+                        case -6:
+                            return new MusicalKey(Pitch.GFlat, Gender.Major);
+                        case -7:
+                            return new MusicalKey(Pitch.CFlat, Gender.Major);
+                    }
+                    break;
+                case "minor":
+                    switch (fifths)
+                    {
+                        case 0:
+                            return new MusicalKey(Pitch.A, Gender.Minor);
+                        case 1:
+                            return new MusicalKey(Pitch.E, Gender.Minor);
+                        case 2:
+                            return new MusicalKey(Pitch.B, Gender.Minor);
+                        case 3:
+                            return new MusicalKey(Pitch.FSharp, Gender.Minor);
+                        case 4:
+                            return new MusicalKey(Pitch.CSharp, Gender.Minor);
+                        case 5:
+                            return new MusicalKey(Pitch.GSharp, Gender.Minor);
+                        case 6:
+                            return new MusicalKey(Pitch.DSharp, Gender.Minor);
+                        case 7:
+                            return new MusicalKey(Pitch.ASharp, Gender.Minor);
+                        case -1:
+                            return new MusicalKey(Pitch.D, Gender.Minor);
+                        case -2:
+                            return new MusicalKey(Pitch.G, Gender.Minor);
+                        case -3:
+                            return new MusicalKey(Pitch.C, Gender.Minor);
+                        case -4:
+                            return new MusicalKey(Pitch.F, Gender.Minor);
+                        case -5:
+                            return new MusicalKey(Pitch.BFlat, Gender.Minor);
+                        case -6:
+                            return new MusicalKey(Pitch.EFlat, Gender.Minor);
+                        case -7:
+                            return new MusicalKey(Pitch.AFlat, Gender.Minor);
+                    }
+                    break;
+            }
+            return new MusicalKey(Pitch.C, Gender.Major);
         }
     }
 }

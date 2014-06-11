@@ -1,4 +1,5 @@
 ﻿using Model;
+using Model.Meta;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,6 +25,8 @@ namespace Musicista.UI
         public bool StemDirectionUp = true;
         public bool ConnectEigthsAtEndOfRun = false;
         public bool ConnectSixteenthsAtEndOfRun = false;
+
+        public readonly List<Pitch> AlteredKeys = new List<Pitch>();
 
         public Line Line1 { get; set; }
         public Line Line2 { get; set; }

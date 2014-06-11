@@ -41,7 +41,7 @@ namespace Musicista.UI
                                         {
                                             var maxStaves = passage.ListOfMeasureGroups.Select(measure => measure.Measures.Count).Max();
                                             double currentTop = 200;
-                                            double staffSpacing = 50;
+                                            double staffSpacing = 70;
                                             double systemSpacing = 30;
 
                                             // 1. New System
@@ -84,6 +84,9 @@ namespace Musicista.UI
                                                 measuresPerSystem++;
                                                 DrawMeasureGroup(currentSystem, measureGroup);
                                             }
+                                            // print Barline in front of the system
+                                            if (currentSystem.MeasureGroups.Any() && currentSystem.MeasureGroups[0].Measures.Any())
+                                                currentSystem.BarlineFront.Y2 = Canvas.GetTop(currentSystem.MeasureGroups[0].Measures.Last()) + 36;
                                         }
             return pageList;
         }

@@ -286,7 +286,7 @@ namespace Musicista.UI
 
         public void DrawAccidental(UIMeasure measure, Accidental accidentalKind, double setTop)
         {
-            var top = setTop + 80;
+            var top = setTop + 68;
             var left = Left - 35;
 
             var newAccidental = new Path

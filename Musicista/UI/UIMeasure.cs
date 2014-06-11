@@ -1,6 +1,5 @@
 ﻿using Model;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -118,86 +117,76 @@ namespace Musicista.UI
 
         public void ConnectEigths()
         {
-            var x1 = GetLeft(NotYetConnectedEigths.First());
-            var y1 = GetTop(NotYetConnectedEigths.First());
-            var x2 = GetLeft(NotYetConnectedEigths.Last());
-            var y2 = GetTop(NotYetConnectedEigths.Last());
+            var shapeString = "";
+            var addToX = StemDirectionUp ? 38 : 5;
+            var addToY = StemDirectionUp ? 0 : 225;
 
-            if (StemDirectionUp)
+            switch (NotYetConnectedEigths.Count)
             {
-                x1 += 34;
-                x2 += 38;
-            }
-            else
-            {
-                y1 += 225;
-                x2 += 5;
-                y2 += 225;
+                case 2:
+                    shapeString = "F0 M "
+                        + (GetLeft(NotYetConnectedEigths[0]) + addToX) + "," + (GetTop(NotYetConnectedEigths[0]) + addToY) + " L "
+                        + (GetLeft(NotYetConnectedEigths[1]) + addToX) + "," + (GetTop(NotYetConnectedEigths[1]) + addToY) + "";
+                    break;
+                case 4:
+                    shapeString = "F0 M "
+                        + (GetLeft(NotYetConnectedEigths[0]) + addToX) + "," + (GetTop(NotYetConnectedEigths[0]) + addToY) + " C "
+                        + (GetLeft(NotYetConnectedEigths[1]) + addToX) + "," + (GetTop(NotYetConnectedEigths[1]) + addToY) + "  "
+                        + (GetLeft(NotYetConnectedEigths[2]) + addToX) + "," + (GetTop(NotYetConnectedEigths[2]) + addToY) + "  "
+                        + (GetLeft(NotYetConnectedEigths[3]) + addToX) + "," + (GetTop(NotYetConnectedEigths[3]) + addToY) + "";
+                    break;
             }
 
-            for (var count = 0; count < 25; count = count + 5)
+            var beam = new Path
             {
-                var beam = new Line
-                {
-                    X1 = x1,
-                    Y1 = y1 + count,
-                    X2 = x2,
-                    Y2 = y2 + count,
-                    StrokeThickness = 5,
-                    Stroke = Brushes.Black,
-                    SnapsToDevicePixels = true
-                };
-                Children.Add(beam);
-            }
+                Fill = Brushes.Transparent,
+                Stroke = Brushes.Black,
+                Data = Geometry.Parse(shapeString),
+                StrokeThickness = 15
+            };
+
+            Children.Add(beam);
             NotYetConnectedEigths.Clear();
         }
 
         public void ConnectSixteenths()
         {
-            var x1 = GetLeft(NotYetConnectedSixteenths.First());
-            var y1 = GetTop(NotYetConnectedSixteenths.First());
-            var x2 = GetLeft(NotYetConnectedSixteenths.Last());
-            var y2 = GetTop(NotYetConnectedSixteenths.Last());
+            var shapeString = "";
+            var addToX = StemDirectionUp ? 34 : 5;
+            var addToY = StemDirectionUp ? 0 : 225;
+            var offsetSecondBeam = StemDirectionUp ? -25 : 25;
 
-            if (StemDirectionUp)
+            switch (NotYetConnectedSixteenths.Count)
             {
-                x1 += 34;
-                x2 += 38;
-            }
-            else
-            {
-                y1 += 225;
-                x2 += 5;
-                y2 += 225;
+                case 2:
+                    shapeString = "F0 M "
+                        + (GetLeft(NotYetConnectedSixteenths[0]) + addToX) + "," + (GetTop(NotYetConnectedSixteenths[0]) + addToY) + " L "
+                        + (GetLeft(NotYetConnectedSixteenths[1]) + addToX) + "," + (GetTop(NotYetConnectedSixteenths[1]) + addToY) + " M "
+                        + (GetLeft(NotYetConnectedSixteenths[0]) + addToX) + "," + (GetTop(NotYetConnectedSixteenths[0]) + addToY + offsetSecondBeam) + " L "
+                        + (GetLeft(NotYetConnectedSixteenths[1]) + addToX) + "," + (GetTop(NotYetConnectedSixteenths[1]) + addToY + offsetSecondBeam) + "";
+                    break;
+                case 4:
+                    shapeString = "F0 M "
+                        + (GetLeft(NotYetConnectedSixteenths[0]) + addToX) + "," + (GetTop(NotYetConnectedSixteenths[0]) + addToY) + " C "
+                        + (GetLeft(NotYetConnectedSixteenths[1]) + addToX) + "," + (GetTop(NotYetConnectedSixteenths[1]) + addToY) + "  "
+                        + (GetLeft(NotYetConnectedSixteenths[2]) + addToX) + "," + (GetTop(NotYetConnectedSixteenths[2]) + addToY) + "  "
+                        + (GetLeft(NotYetConnectedSixteenths[3]) + addToX) + "," + (GetTop(NotYetConnectedSixteenths[3]) + addToY) + " M "
+                        + (GetLeft(NotYetConnectedSixteenths[0]) + addToX) + "," + (GetTop(NotYetConnectedSixteenths[0]) + addToY + offsetSecondBeam) + " C "
+                        + (GetLeft(NotYetConnectedSixteenths[1]) + addToX) + "," + (GetTop(NotYetConnectedSixteenths[1]) + addToY + offsetSecondBeam) + "  "
+                        + (GetLeft(NotYetConnectedSixteenths[2]) + addToX) + "," + (GetTop(NotYetConnectedSixteenths[2]) + addToY + offsetSecondBeam) + "  "
+                        + (GetLeft(NotYetConnectedSixteenths[3]) + addToX) + "," + (GetTop(NotYetConnectedSixteenths[3]) + addToY + offsetSecondBeam) + "";
+                    break;
             }
 
-            for (var beamCount = 0; beamCount < 2; beamCount++)
+            var beam = new Path
             {
-                for (var count = 0; count < 20; count = count + 5)
-                {
-                    var beam = new Line
-                    {
-                        X1 = x1,
-                        Y1 = y1 + count,
-                        X2 = x2,
-                        Y2 = y2 + count,
-                        StrokeThickness = 5,
-                        Stroke = Brushes.Black,
-                        SnapsToDevicePixels = true
-                    };
-                    Children.Add(beam);
-                }
-                if (StemDirectionUp)
-                {
-                    y1 += 25;
-                    y2 += 25;
-                }
-                else
-                {
-                    y1 -= 25;
-                    y2 -= 25;
-                }
-            }
+                Fill = Brushes.Transparent,
+                Stroke = Brushes.Black,
+                Data = Geometry.Parse(shapeString),
+                StrokeThickness = 10
+            };
+
+            Children.Add(beam);
             NotYetConnectedSixteenths.Clear();
         }
     }

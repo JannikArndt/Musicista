@@ -168,7 +168,7 @@ namespace Musicista.UI
                 case 2:
                     shapeString = "F0 M "
                         + (GetLeft(NotYetConnectedSixteenths[0]) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedSixteenths[0]) + addToY).ToString(CultureInfo.GetCultureInfo("en-US")) + " L "
-                        + (GetLeft(NotYetConnectedSixteenths[1]) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedSixteenths[1]).ToString(CultureInfo.GetCultureInfo("en-US")) + addToY) + " M "
+                        + (GetLeft(NotYetConnectedSixteenths[1]) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedSixteenths[1]) + addToY).ToString(CultureInfo.GetCultureInfo("en-US")) + " M "
                         + (GetLeft(NotYetConnectedSixteenths[0]) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedSixteenths[0]) + addToY + offsetSecondBeam).ToString(CultureInfo.GetCultureInfo("en-US")) + " L "
                         + (GetLeft(NotYetConnectedSixteenths[1]) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedSixteenths[1]) + addToY + offsetSecondBeam).ToString(CultureInfo.GetCultureInfo("en-US")) + "";
                     break;

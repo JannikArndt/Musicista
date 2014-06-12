@@ -28,5 +28,26 @@ namespace Model
             get { return _listOfSymbols; }
         }
 
+        [XmlIgnore]
+        public Measure Previous
+        {
+            get
+            {
+                if (ParentMeasureGroup != null && ParentMeasureGroup.Previous != null)
+                    return ParentMeasureGroup.Previous.Measures[ParentMeasureGroup.Measures.IndexOf(this)];
+                return null;
+            }
+        }
+        [XmlIgnore]
+        public Measure Next
+        {
+            get
+            {
+                if (ParentMeasureGroup != null && ParentMeasureGroup.Next != null)
+                    return ParentMeasureGroup.Next.Measures[ParentMeasureGroup.Measures.IndexOf(this)];
+                return null;
+            }
+        }
+
     }
 }

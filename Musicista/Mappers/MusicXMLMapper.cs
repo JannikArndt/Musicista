@@ -65,7 +65,8 @@ namespace Musicista.Mappers
                 {
                     MeasureNumber = int.Parse(Regex.Match(measure.number, @"\d+").Value),
                     TimeSignature = null,
-                    Measures = new List<Measure>()
+                    Measures = new List<Measure>(),
+                    ParentPassage = piece.ListOfSections[0].ListOfMovements[0].ListOfSegments[0].ListOfPassages[0]
                 };
 
                 var measureAttributes = measure.Items.First(item => item.GetType() == typeof(attributes)) as attributes;
@@ -191,7 +192,8 @@ namespace Musicista.Mappers
                     MeasureNumber = int.Parse(Regex.Match(measure.number, @"\d+").Value),
                     TimeSignature = null,
                     KeySignature = null,
-                    Measures = new List<Measure>()
+                    Measures = new List<Measure>(),
+                    ParentPassage = piece.ListOfSections[0].ListOfMovements[0].ListOfSegments[0].ListOfPassages[0]
                 };
 
                 for (var partNumber = 0; partNumber < measure.part.Length; partNumber++)

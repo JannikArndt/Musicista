@@ -41,7 +41,7 @@ namespace Musicista.Mappers
                     {
                         // first run or if a new track has more measures than all previous had
                         if (currentPartNumber == 0 || passage.ListOfMeasureGroups.Count < measureNumber)
-                            passage.ListOfMeasureGroups.Add(new MeasureGroup { MeasureNumber = measureNumber });
+                            passage.ListOfMeasureGroups.Add(new MeasureGroup { MeasureNumber = measureNumber, ParentPassage = passage });
                         // create a new measure and add it to the measureGroup
                         currentMeasure = new Measure { Instrument = currentInstrument };
                         passage.ListOfMeasureGroups[measureNumber - 1].Measures.Add(currentMeasure);

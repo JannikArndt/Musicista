@@ -200,9 +200,14 @@ namespace Musicista
                         {
                             var musicistaSerializer = new XmlSerializer(typeof(Piece));
                             var piece = (Piece)musicistaSerializer.Deserialize(fileStream);
-                            foreach (var measure in piece.ListOfAllMeasures)
-                                foreach (var symbol in measure.Symbols)
-                                    symbol.ParentMeasure = measure;
+                            // correct parent-relations
+                            foreach (var measureGroup in piece.ListOfAllMeasureGroups)
+                                foreach (var measure in measureGroup.Measures)
+                                {
+                                    measure.ParentMeasureGroup = measureGroup;
+                                    foreach (var symbol in measure.Symbols)
+                                        symbol.ParentMeasure = measure;
+                                }
                             DrawPiece(piece);
                             _fileName = openFileDialog.FileName;
                         }

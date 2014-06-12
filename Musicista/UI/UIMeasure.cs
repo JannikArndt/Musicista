@@ -1,6 +1,7 @@
 ﻿using Model;
 using Model.Meta;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -128,17 +129,20 @@ namespace Musicista.UI
             {
                 case 2:
                     shapeString = "F0 M "
-                        + (GetLeft(NotYetConnectedEigths[0]) + addToX) + "," + (GetTop(NotYetConnectedEigths[0]) + addToY) + " L "
-                        + (GetLeft(NotYetConnectedEigths[1]) + addToX) + "," + (GetTop(NotYetConnectedEigths[1]) + addToY) + "";
+                        + (GetLeft(NotYetConnectedEigths[0]) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedEigths[0]) + addToY).ToString(CultureInfo.GetCultureInfo("en-US")) + " L "
+                        + (GetLeft(NotYetConnectedEigths[1]) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedEigths[1]) + addToY).ToString(CultureInfo.GetCultureInfo("en-US")) + "";
                     break;
                 case 4:
                     shapeString = "F0 M "
-                        + (GetLeft(NotYetConnectedEigths[0]) + addToX) + "," + (GetTop(NotYetConnectedEigths[0]) + addToY) + " C "
-                        + (GetLeft(NotYetConnectedEigths[1]) + addToX) + "," + (GetTop(NotYetConnectedEigths[1]) + addToY) + "  "
-                        + (GetLeft(NotYetConnectedEigths[2]) + addToX) + "," + (GetTop(NotYetConnectedEigths[2]) + addToY) + "  "
-                        + (GetLeft(NotYetConnectedEigths[3]) + addToX) + "," + (GetTop(NotYetConnectedEigths[3]) + addToY) + "";
+                        + (GetLeft(NotYetConnectedEigths[0]) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedEigths[0]) + addToY).ToString(CultureInfo.GetCultureInfo("en-US")) + " C "
+                        + (GetLeft(NotYetConnectedEigths[1]) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedEigths[1]) + addToY).ToString(CultureInfo.GetCultureInfo("en-US")) + "  "
+                        + (GetLeft(NotYetConnectedEigths[2]) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedEigths[2]) + addToY).ToString(CultureInfo.GetCultureInfo("en-US")) + "  "
+                        + (GetLeft(NotYetConnectedEigths[3]) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedEigths[3]) + addToY).ToString(CultureInfo.GetCultureInfo("en-US")) + "";
                     break;
             }
+
+            if (shapeString.Contains("F0 M 302,0"))
+                shapeString += " ";
 
             var beam = new Path
             {
@@ -163,23 +167,26 @@ namespace Musicista.UI
             {
                 case 2:
                     shapeString = "F0 M "
-                        + (GetLeft(NotYetConnectedSixteenths[0]) + addToX) + "," + (GetTop(NotYetConnectedSixteenths[0]) + addToY) + " L "
-                        + (GetLeft(NotYetConnectedSixteenths[1]) + addToX) + "," + (GetTop(NotYetConnectedSixteenths[1]) + addToY) + " M "
-                        + (GetLeft(NotYetConnectedSixteenths[0]) + addToX) + "," + (GetTop(NotYetConnectedSixteenths[0]) + addToY + offsetSecondBeam) + " L "
-                        + (GetLeft(NotYetConnectedSixteenths[1]) + addToX) + "," + (GetTop(NotYetConnectedSixteenths[1]) + addToY + offsetSecondBeam) + "";
+                        + (GetLeft(NotYetConnectedSixteenths[0]) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedSixteenths[0]) + addToY).ToString(CultureInfo.GetCultureInfo("en-US")) + " L "
+                        + (GetLeft(NotYetConnectedSixteenths[1]) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedSixteenths[1]).ToString(CultureInfo.GetCultureInfo("en-US")) + addToY) + " M "
+                        + (GetLeft(NotYetConnectedSixteenths[0]) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedSixteenths[0]) + addToY + offsetSecondBeam).ToString(CultureInfo.GetCultureInfo("en-US")) + " L "
+                        + (GetLeft(NotYetConnectedSixteenths[1]) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedSixteenths[1]) + addToY + offsetSecondBeam).ToString(CultureInfo.GetCultureInfo("en-US")) + "";
                     break;
                 case 4:
                     shapeString = "F0 M "
-                        + (GetLeft(NotYetConnectedSixteenths[0]) + addToX) + "," + (GetTop(NotYetConnectedSixteenths[0]) + addToY) + " C "
-                        + (GetLeft(NotYetConnectedSixteenths[1]) + addToX) + "," + (GetTop(NotYetConnectedSixteenths[1]) + addToY) + "  "
-                        + (GetLeft(NotYetConnectedSixteenths[2]) + addToX) + "," + (GetTop(NotYetConnectedSixteenths[2]) + addToY) + "  "
-                        + (GetLeft(NotYetConnectedSixteenths[3]) + addToX) + "," + (GetTop(NotYetConnectedSixteenths[3]) + addToY) + " M "
-                        + (GetLeft(NotYetConnectedSixteenths[0]) + addToX) + "," + (GetTop(NotYetConnectedSixteenths[0]) + addToY + offsetSecondBeam) + " C "
-                        + (GetLeft(NotYetConnectedSixteenths[1]) + addToX) + "," + (GetTop(NotYetConnectedSixteenths[1]) + addToY + offsetSecondBeam) + "  "
-                        + (GetLeft(NotYetConnectedSixteenths[2]) + addToX) + "," + (GetTop(NotYetConnectedSixteenths[2]) + addToY + offsetSecondBeam) + "  "
-                        + (GetLeft(NotYetConnectedSixteenths[3]) + addToX) + "," + (GetTop(NotYetConnectedSixteenths[3]) + addToY + offsetSecondBeam) + "";
+                        + (GetLeft(NotYetConnectedSixteenths[0]) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedSixteenths[0]) + addToY).ToString(CultureInfo.GetCultureInfo("en-US")) + " C "
+                        + (GetLeft(NotYetConnectedSixteenths[1]) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedSixteenths[1]) + addToY).ToString(CultureInfo.GetCultureInfo("en-US")) + "  "
+                        + (GetLeft(NotYetConnectedSixteenths[2]) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedSixteenths[2]) + addToY).ToString(CultureInfo.GetCultureInfo("en-US")) + "  "
+                        + (GetLeft(NotYetConnectedSixteenths[3]) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedSixteenths[3]) + addToY).ToString(CultureInfo.GetCultureInfo("en-US")) + " M "
+                        + (GetLeft(NotYetConnectedSixteenths[0]) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedSixteenths[0]) + addToY + offsetSecondBeam).ToString(CultureInfo.GetCultureInfo("en-US")) + " C "
+                        + (GetLeft(NotYetConnectedSixteenths[1]) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedSixteenths[1]) + addToY + offsetSecondBeam).ToString(CultureInfo.GetCultureInfo("en-US")) + "  "
+                        + (GetLeft(NotYetConnectedSixteenths[2]) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedSixteenths[2]) + addToY + offsetSecondBeam).ToString(CultureInfo.GetCultureInfo("en-US")) + "  "
+                        + (GetLeft(NotYetConnectedSixteenths[3]) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedSixteenths[3]) + addToY + offsetSecondBeam).ToString(CultureInfo.GetCultureInfo("en-US")) + "";
                     break;
             }
+
+            if (shapeString.Contains("F0 M 302,0"))
+                shapeString += " ";
 
             var beam = new Path
             {

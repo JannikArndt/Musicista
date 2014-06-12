@@ -229,9 +229,8 @@ namespace Musicista.UI
             // top line = 50, first upper ledger = 20, bottom line = 170, first lower ledger = 200, note height = 110
             if (top >= 89)
                 DrawLedger(measure, true, (int)((top - 59) / (2 * noteStepSpacing)));
-            else if (top < -89)
-                DrawLedger(measure, false, (int)((Math.Abs(top) - 60) / (2 * noteStepSpacing)));
-
+            else if (top < -87)
+                DrawLedger(measure, false, (int)((Math.Abs(top) - 58) / (2 * noteStepSpacing)));
             return top;
         }
 

@@ -12,7 +12,7 @@ namespace MusicXML
     [DesignerCategory("code")]
     public class note
     {
-        [XmlElement("chord", typeof(empty)), XmlElement("cue", typeof(empty)), XmlElement("duration", typeof(decimal)), XmlElement("grace", typeof(grace)), XmlElement("pitch", typeof(pitch)), XmlElement("rest", typeof(rest)), XmlElement("tie", typeof(tie)), XmlElement("unpitched", typeof(unpitched)), XmlChoiceIdentifier("ItemsElementName")]
+        [XmlElement("chord", typeof(chord)), XmlElement("cue", typeof(empty)), XmlElement("duration", typeof(decimal)), XmlElement("grace", typeof(grace)), XmlElement("pitch", typeof(pitch)), XmlElement("rest", typeof(rest)), XmlElement("tie", typeof(tie)), XmlElement("unpitched", typeof(unpitched)), XmlChoiceIdentifier("ItemsElementName")]
         public object[] Items { get; set; }
 
 

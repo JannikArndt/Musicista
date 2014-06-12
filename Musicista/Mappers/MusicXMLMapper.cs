@@ -123,11 +123,17 @@ namespace Musicista.Mappers
                     for (var voice = 0; voice < voices.Count; voice++)
                     {
                         double beat = 256;
+                        double advanceBeat = 0;
                         foreach (var mxmlNote in voices[voice])
                         {
+                            if (mxmlNote.Items.All(item => item.GetType() != typeof(chord))) // advance beat-counter only if <chord>-Tag is not present
+                                beat += advanceBeat;
+
                             var newNote = CreateNoteFromMXMLNote(mxmlNote, beat / 256);
                             newNote.Voice = voice;
-                            beat += (int)newNote.Duration;
+
+                            advanceBeat = (int)newNote.Duration; // IF the next note advances the beat counter, it shloud be by this amout
+
                             if (mxmlNote.staff == "1")
                                 newMeasure.AddSymbol(newNote);
                             else if (listOfAdditionalStaves.ContainsKey(partNumber)) //crazy multiple staves-madness, part 3

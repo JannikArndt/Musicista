@@ -33,6 +33,11 @@ namespace Model.Meta
             return base.GetHashCode();
         }
 
+        public override string ToString()
+        {
+            return Pitch + " " + Gender;
+        }
+
         public bool NoteIsInKey(Pitch pitch)
         {
             if ((Pitch == Pitch.C && Gender == Gender.Major) || (Pitch == Pitch.A && Gender == Gender.Minor))

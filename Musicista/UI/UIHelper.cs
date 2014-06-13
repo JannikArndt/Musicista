@@ -143,22 +143,32 @@ namespace Musicista.UI
             var uiMeasureGroup = new UIMeasureGroup(system, left, measureGroup);
             system.MeasureGroups.Add(uiMeasureGroup);
 
+            // Add indent in special occasions
+            var indent = (measureGroup.Previous != null && !Equals(measureGroup.KeySignature, measureGroup.Previous.KeySignature)) ? 100 : 60;
+
             // Fill UIMeasureGroup.Measures with UIMeasures
             for (var part = 0; part < measureGroup.Measures.Count; part++)
-                DrawMeasure(uiMeasureGroup, measureGroup.Measures[part], part + 1);
+                DrawMeasure(uiMeasureGroup, measureGroup.Measures[part], part + 1, indent);
+
+            // Draw key signature changes
+            if (measureGroup.Previous != null && !Equals(measureGroup.KeySignature, measureGroup.Previous.KeySignature))
+                foreach (var uiMeasure in uiMeasureGroup.Measures)
+                {
+                    DrawKey(uiMeasure, measureGroup.KeySignature, uiMeasure.InnerMeasure.Clef);
+                }
 
             // set connecting barlines
             if (uiMeasureGroup.Measures.Count > 0)
                 uiMeasureGroup.Barline.Y2 = Canvas.GetTop(uiMeasureGroup.Measures.Last()) + 36;
         }
 
-        public static void DrawMeasure(UIMeasureGroup measureGroup, Measure measure, int part)
+        public static void DrawMeasure(UIMeasureGroup measureGroup, Measure measure, int part, int indent = 60)
         {
             if (measure.Symbols == null || measure.Symbols.Count <= 0)
                 return;
 
             var top = Canvas.GetTop(measureGroup.ParentSystem.Staves[part - 1]) - 10;
-            var newMeasure = new UIMeasure(measureGroup, top, part, measure);
+            var newMeasure = new UIMeasure(measureGroup, top, part, measure) { Indent = indent };
             measureGroup.Measures.Add(newMeasure);
 
             foreach (var symbol in measure.Symbols)
@@ -194,56 +204,64 @@ namespace Musicista.UI
             staff.Children.Add(clef);
         }
 
-        public static double DrawKey(UIStaff staff, MusicalKey musicalKey, Clef clef)
+        public static double DrawKey(Canvas canvas, MusicalKey musicalKey, Clef clef)
         {
+            var scale = 1;
+            var additionalTop = 0;
+
+            if (canvas.GetType() == typeof(UIMeasure))
+            {
+                scale = 5;
+                additionalTop = 45;
+            }
             var key = new Path
             {
                 Fill = Brushes.Black,
-                RenderTransform = new ScaleTransform(.32, .32)
+                RenderTransform = new ScaleTransform(.32 * scale, .32 * scale)
             };
 
             //if ((musicalKey.Pitch == Pitch.C        && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.A       && musicalKey.Gender == Gender.Minor))
             //key.Data = Geometry.Parse(Engraving.CMajor);
             if ((musicalKey.Pitch == Pitch.G && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.E && musicalKey.Gender == Gender.Minor))
                 key.Data = Geometry.Parse(Engraving.GMajor);
-            if ((musicalKey.Pitch == Pitch.D && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.B && musicalKey.Gender == Gender.Minor))
+            else if ((musicalKey.Pitch == Pitch.D && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.B && musicalKey.Gender == Gender.Minor))
                 key.Data = Geometry.Parse(Engraving.DMajor);
-            if ((musicalKey.Pitch == Pitch.A && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.FSharp && musicalKey.Gender == Gender.Minor))
+            else if ((musicalKey.Pitch == Pitch.A && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.FSharp && musicalKey.Gender == Gender.Minor))
                 key.Data = Geometry.Parse(Engraving.AMajor);
-            if ((musicalKey.Pitch == Pitch.E && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.CSharp && musicalKey.Gender == Gender.Minor))
+            else if ((musicalKey.Pitch == Pitch.E && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.CSharp && musicalKey.Gender == Gender.Minor))
                 key.Data = Geometry.Parse(Engraving.EMajor);
-            if ((musicalKey.Pitch == Pitch.B && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.GSharp && musicalKey.Gender == Gender.Minor))
+            else if ((musicalKey.Pitch == Pitch.B && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.GSharp && musicalKey.Gender == Gender.Minor))
                 key.Data = Geometry.Parse(Engraving.BMajor);
-            if ((musicalKey.Pitch == Pitch.FSharp && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.DSharp && musicalKey.Gender == Gender.Minor))
+            else if ((musicalKey.Pitch == Pitch.FSharp && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.DSharp && musicalKey.Gender == Gender.Minor))
                 key.Data = Geometry.Parse(Engraving.FSharpMajor);
-            if ((musicalKey.Pitch == Pitch.CSharp && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.ASharp && musicalKey.Gender == Gender.Minor))
+            else if ((musicalKey.Pitch == Pitch.CSharp && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.ASharp && musicalKey.Gender == Gender.Minor))
                 key.Data = Geometry.Parse(Engraving.CSharpMajor);
-            if ((musicalKey.Pitch == Pitch.F && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.D && musicalKey.Gender == Gender.Minor))
+            else if ((musicalKey.Pitch == Pitch.F && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.D && musicalKey.Gender == Gender.Minor))
                 key.Data = Geometry.Parse(Engraving.FMajor);
-            if ((musicalKey.Pitch == Pitch.BFlat && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.G && musicalKey.Gender == Gender.Minor))
+            else if ((musicalKey.Pitch == Pitch.BFlat && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.G && musicalKey.Gender == Gender.Minor))
                 key.Data = Geometry.Parse(Engraving.BFlatMajor);
-            if ((musicalKey.Pitch == Pitch.EFlat && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.C && musicalKey.Gender == Gender.Minor))
+            else if ((musicalKey.Pitch == Pitch.EFlat && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.C && musicalKey.Gender == Gender.Minor))
                 key.Data = Geometry.Parse(Engraving.EFlatMajor);
-            if ((musicalKey.Pitch == Pitch.AFlat && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.F && musicalKey.Gender == Gender.Minor))
+            else if ((musicalKey.Pitch == Pitch.AFlat && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.F && musicalKey.Gender == Gender.Minor))
                 key.Data = Geometry.Parse(Engraving.AFlatMajor);
-            if ((musicalKey.Pitch == Pitch.DFlat && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.BFlat && musicalKey.Gender == Gender.Minor))
+            else if ((musicalKey.Pitch == Pitch.DFlat && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.BFlat && musicalKey.Gender == Gender.Minor))
                 key.Data = Geometry.Parse(Engraving.DFlatMajor);
-            if ((musicalKey.Pitch == Pitch.GFlat && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.EFlat && musicalKey.Gender == Gender.Minor))
+            else if ((musicalKey.Pitch == Pitch.GFlat && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.EFlat && musicalKey.Gender == Gender.Minor))
                 key.Data = Geometry.Parse(Engraving.GFlatMajor);
-            if ((musicalKey.Pitch == Pitch.CFlat && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.AFlat && musicalKey.Gender == Gender.Minor))
+            else if ((musicalKey.Pitch == Pitch.CFlat && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.AFlat && musicalKey.Gender == Gender.Minor))
                 key.Data = Geometry.Parse(Engraving.CFlatMajor);
 
             switch (clef)
             {
                 case Clef.Treble:
-                    Canvas.SetTop(key, -11);
+                    Canvas.SetTop(key, -11 * scale + additionalTop);
                     break;
                 case Clef.Bass:
-                    Canvas.SetTop(key, -4);
+                    Canvas.SetTop(key, -4 * scale + additionalTop);
                     break;
             }
             Canvas.SetLeft(key, 30);
-            staff.Children.Add(key);
+            canvas.Children.Add(key);
             return key.ActualWidth;
         }
 

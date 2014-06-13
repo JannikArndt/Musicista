@@ -18,7 +18,7 @@ namespace Musicista.UI
         public readonly UIStaff ParentStaff;
         public readonly UIMeasureGroup ParentMeasureGroup;
         public readonly int Part;
-        public readonly int Indent = 60;
+        public int Indent = 60;
         public readonly int ScaleTransform = 5;
 
         public readonly List<Path> NotYetConnectedEigths = new List<Path>();
@@ -184,9 +184,6 @@ namespace Musicista.UI
                         + (GetLeft(NotYetConnectedSixteenths[3]) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedSixteenths[3]) + addToY + offsetSecondBeam).ToString(CultureInfo.GetCultureInfo("en-US")) + "";
                     break;
             }
-
-            if (shapeString.Contains("F0 M 302,0"))
-                shapeString += " ";
 
             var beam = new Path
             {

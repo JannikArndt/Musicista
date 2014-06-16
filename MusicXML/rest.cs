@@ -1,74 +1,28 @@
+using System;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class rest
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    public class rest
     {
-
-        private step displaystepField;
-
-        private string displayoctaveField;
-
-        private yesno measureField;
-
-        private bool measureFieldSpecified;
+        [XmlElement("display-step")]
+        public step Displaystep { get; set; }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("display-step")]
-        public step displaystep
-        {
-            get
-            {
-                return this.displaystepField;
-            }
-            set
-            {
-                this.displaystepField = value;
-            }
-        }
+        [XmlElement("display-octave", DataType = "integer")]
+        public string Displayoctave { get; set; }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("display-octave", DataType = "integer")]
-        public string displayoctave
-        {
-            get
-            {
-                return this.displayoctaveField;
-            }
-            set
-            {
-                this.displayoctaveField = value;
-            }
-        }
+        [XmlAttribute("measure")]
+        public yesno Measure { get; set; }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public yesno measure
-        {
-            get
-            {
-                return this.measureField;
-            }
-            set
-            {
-                this.measureField = value;
-            }
-        }
-
-
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool measureSpecified
-        {
-            get
-            {
-                return this.measureFieldSpecified;
-            }
-            set
-            {
-                this.measureFieldSpecified = value;
-            }
-        }
+        [XmlIgnore]
+        public bool MeasureSpecified { get; set; }
     }
 }

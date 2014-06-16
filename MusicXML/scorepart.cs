@@ -11,101 +11,50 @@ namespace MusicXML
     [DebuggerStepThrough]
     [DesignerCategory("code")]
     [XmlType(TypeName = "score-part")]
-    public class scorepart
+    public class ScorePart
     {
-        private string[] groupField;
-        private string idField;
-        private identification identificationField;
-        private mididevice[] midideviceField;
-
-        private midiinstrument[] midiinstrumentField;
-
-        private partname partabbreviationField;
-
-        private namedisplay partabbreviationdisplayField;
-        private partname partnameField;
-
-        private namedisplay partnamedisplayField;
-
-        private scoreinstrument[] scoreinstrumentField;
-
-
-        public identification identification
-        {
-            get { return identificationField; }
-            set { identificationField = value; }
-        }
+        [XmlElement("identification")]
+        public Identification Identification { get; set; }
 
 
         [XmlElement("part-name")]
-        public partname partname
-        {
-            get { return partnameField; }
-            set { partnameField = value; }
-        }
+        public string Partname { get; set; }
 
 
         [XmlElement("part-name-display")]
-        public namedisplay partnamedisplay
-        {
-            get { return partnamedisplayField; }
-            set { partnamedisplayField = value; }
-        }
+        public namedisplay Partnamedisplay { get; set; }
 
 
         [XmlElement("part-abbreviation")]
-        public partname partabbreviation
-        {
-            get { return partabbreviationField; }
-            set { partabbreviationField = value; }
-        }
+        public string Partabbreviation { get; set; }
 
 
         [XmlElement("part-abbreviation-display")]
-        public namedisplay partabbreviationdisplay
-        {
-            get { return partabbreviationdisplayField; }
-            set { partabbreviationdisplayField = value; }
-        }
+        public namedisplay Partabbreviationdisplay { get; set; }
 
 
         [XmlElement("group")]
-        public string[] group
-        {
-            get { return groupField; }
-            set { groupField = value; }
-        }
+        public string[] Group { get; set; }
 
 
         [XmlElement("score-instrument")]
-        public scoreinstrument[] scoreinstrument
-        {
-            get { return scoreinstrumentField; }
-            set { scoreinstrumentField = value; }
-        }
+        public scoreinstrument[] Scoreinstrument { get; set; }
 
 
         [XmlElement("midi-device")]
-        public mididevice[] mididevice
-        {
-            get { return midideviceField; }
-            set { midideviceField = value; }
-        }
+        public mididevice[] Mididevice { get; set; }
 
 
         [XmlElement("midi-instrument")]
-        public midiinstrument[] midiinstrument
-        {
-            get { return midiinstrumentField; }
-            set { midiinstrumentField = value; }
-        }
+        public midiinstrument[] Midiinstrument { get; set; }
 
 
         [XmlAttribute(DataType = "ID")]
-        public string id
+        public string id { get; set; }
+
+        public override string ToString()
         {
-            get { return idField; }
-            set { idField = value; }
+            return Partname;
         }
     }
 }

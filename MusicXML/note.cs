@@ -1,20 +1,45 @@
 using System;
-using System.CodeDom.Compiler;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Serialization;
 
 namespace MusicXML
 {
-    [GeneratedCode("xsd", "4.0.30319.33440")]
     [Serializable]
     [DebuggerStepThrough]
     [DesignerCategory("code")]
-    public class note
+    [XmlType(TypeName = "Note")]
+    public class Note
     {
-        [XmlElement("chord", typeof(chord)), XmlElement("cue", typeof(empty)), XmlElement("duration", typeof(decimal)), XmlElement("grace", typeof(grace)), XmlElement("pitch", typeof(pitch)), XmlElement("rest", typeof(rest)), XmlElement("tie", typeof(tie)), XmlElement("unpitched", typeof(unpitched)), XmlChoiceIdentifier("ItemsElementName")]
-        public object[] Items { get; set; }
 
+        [XmlElement("duration")]
+        public decimal Duration { get; set; }
+
+        [XmlElement("pitch")]
+        public pitch Pitch { get; set; }
+
+        // Rests
+        [XmlElement("rest", IsNullable = true)]
+        public rest Rest { get; set; }
+
+        [XmlIgnore]
+        public bool IsRest
+        {
+            get { return Rest != null; }
+        }
+
+        // Chords
+        [XmlElement("chord", IsNullable = true)]
+        public string Chord { get; set; }
+
+        [XmlIgnore]
+        public bool IsChord
+        {
+            get { return Chord != null; }
+        }
+
+        [XmlElement("cue", typeof(empty)), XmlElement("grace", typeof(grace)), XmlElement("tie", typeof(tie)), XmlElement("unpitched", typeof(unpitched)), XmlChoiceIdentifier("ItemsElementName")]
+        public object[] Items { get; set; }
 
         [XmlElement("ItemsElementName"), XmlIgnore]
         public ItemsChoiceType1[] ItemsElementName { get; set; }

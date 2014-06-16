@@ -13,79 +13,38 @@ namespace MusicXML
     [DesignerCategory("code")]
     public class opus
     {
-        private opusActuate actuateField;
-        private string hrefField;
-
-        private string roleField;
-
-        private opusShow showField;
-        private string titleField;
-        private opusType typeField;
-
-        private bool typeFieldSpecified;
-
         public opus()
         {
-            typeField = opusType.simple;
-            showField = opusShow.replace;
-            actuateField = opusActuate.onRequest;
+            type = opusType.simple;
+            show = opusShow.replace;
+            actuate = opusActuate.onRequest;
         }
 
         [XmlAttribute(Form = XmlSchemaForm.Qualified, Namespace = "http://www.w3.org/1999/xlink", DataType = "anyURI")]
-        public string href
-        {
-            get { return hrefField; }
-            set { hrefField = value; }
-        }
+        public string href { get; set; }
 
-    
+
         [XmlAttribute(Form = XmlSchemaForm.Qualified, Namespace = "http://www.w3.org/1999/xlink")]
-        public opusType type
-        {
-            get { return typeField; }
-            set { typeField = value; }
-        }
+        public opusType type { get; set; }
 
-    
+
         [XmlIgnore]
-        public bool typeSpecified
-        {
-            get { return typeFieldSpecified; }
-            set { typeFieldSpecified = value; }
-        }
+        public bool typeSpecified { get; set; }
 
-    
+
         [XmlAttribute(Form = XmlSchemaForm.Qualified, Namespace = "http://www.w3.org/1999/xlink", DataType = "token")]
-        public string role
-        {
-            get { return roleField; }
-            set { roleField = value; }
-        }
+        public string role { get; set; }
 
-    
+
         [XmlAttribute(Form = XmlSchemaForm.Qualified, Namespace = "http://www.w3.org/1999/xlink", DataType = "token")]
-        public string title
-        {
-            get { return titleField; }
-            set { titleField = value; }
-        }
+        public string title { get; set; }
 
-    
-        [XmlAttribute(Form = XmlSchemaForm.Qualified, Namespace = "http://www.w3.org/1999/xlink")]
-        [DefaultValue(opusShow.replace)]
-        public opusShow show
-        {
-            get { return showField; }
-            set { showField = value; }
-        }
 
-    
-        [XmlAttribute(Form = XmlSchemaForm.Qualified, Namespace = "http://www.w3.org/1999/xlink")]
-        [DefaultValue(opusActuate.onRequest)]
-        public opusActuate actuate
-        {
-            get { return actuateField; }
-            set { actuateField = value; }
-        }
+        [XmlAttribute(Form = XmlSchemaForm.Qualified, Namespace = "http://www.w3.org/1999/xlink"), DefaultValue(opusShow.replace)]
+        public opusShow show { get; set; }
+
+
+        [XmlAttribute(Form = XmlSchemaForm.Qualified, Namespace = "http://www.w3.org/1999/xlink"), DefaultValue(opusActuate.onRequest)]
+        public opusActuate actuate { get; set; }
     }
 }

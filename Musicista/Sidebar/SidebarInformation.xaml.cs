@@ -1,6 +1,7 @@
 ﻿using Model;
 using Model.Meta;
 using Musicista.UI;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -97,6 +98,46 @@ namespace Musicista.Sidebar
 
 
             SidebarPanel.Children.Add(grid);
+
+
+
+
+            var gridView = new GridView
+            {
+                ColumnHeaderContainerStyle = new Style
+                {
+                    TargetType = typeof(GridViewColumnHeader),
+                }
+            };
+            gridView.ColumnHeaderContainerStyle.Setters.Add(new Setter(VisibilityProperty, Visibility.Collapsed));
+
+            var gridViewColumn1 = new GridViewColumn
+            {
+                DisplayMemberBinding = new Binding("Key"),
+            };
+            var gridViewColumn2 = new GridViewColumn
+            {
+                DisplayMemberBinding = new Binding("Value"),
+            };
+            gridView.Columns.Add(gridViewColumn1);
+            gridView.Columns.Add(gridViewColumn2);
+
+            var listView = new ListView
+            {
+                Margin = new Thickness(0, 10, 0, 0),
+                Width = 280,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                View = gridView,
+                ItemsSource = new Dictionary<string, string>
+                {
+                    {"Typesetter", piece.TypeSetter},
+                    {"Date of typesetting", piece.DateOfTypesetting.ToShortDateString()},
+                    {"Copyright", piece.Copyright},
+                    {"Software", piece.Software},
+                    {"Notes", piece.Notes}
+                }
+            };
+            SidebarPanel.Children.Add(listView);
         }
     }
 }

@@ -16,7 +16,7 @@ namespace MusicXML
         [XmlElement("attributes", typeof(attributes)), XmlElement("backup", typeof(backup)), XmlElement("barline", typeof(barline)),
          XmlElement("bookmark", typeof(bookmark)), XmlElement("direction", typeof(direction)), XmlElement("figured-bass", typeof(figuredbass)),
          XmlElement("forward", typeof(forward)), XmlElement("grouping", typeof(grouping)), XmlElement("harmony", typeof(harmony)),
-         XmlElement("link", typeof(link)), XmlElement("note", typeof(note)), XmlElement("print", typeof(print)), XmlElement("sound", typeof(sound))]
+         XmlElement("link", typeof(link)), XmlElement("note", typeof(Note)), XmlElement("print", typeof(print)), XmlElement("sound", typeof(sound))]
         public object[] Items { get; set; }
 
 

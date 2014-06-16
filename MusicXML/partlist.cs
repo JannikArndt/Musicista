@@ -1,5 +1,6 @@
 using System;
 using System.CodeDom.Compiler;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Serialization;
@@ -11,36 +12,12 @@ namespace MusicXML
     [DebuggerStepThrough]
     [DesignerCategory("code")]
     [XmlType(TypeName = "part-list")]
-    public class partlist
+    public class Partlist
     {
-        private object[] itemsField;
-        private partgroup[] partgroupField;
+        [XmlElement("part-group")]
+        public List<partgroup> PartGroups { get; set; }
 
-        private scorepart scorepartField;
-
-
-        [XmlElement("part-group", Order = 0)]
-        public partgroup[] partgroup
-        {
-            get { return partgroupField; }
-            set { partgroupField = value; }
-        }
-
-
-        [XmlElement("score-part", Order = 1)]
-        public scorepart scorepart
-        {
-            get { return scorepartField; }
-            set { scorepartField = value; }
-        }
-
-
-        [XmlElement("part-group", typeof(partgroup), Order = 2)]
-        [XmlElement("score-part", typeof(scorepart), Order = 2)]
-        public object[] Items
-        {
-            get { return itemsField; }
-            set { itemsField = value; }
-        }
+        [XmlElement("score-part")]
+        public List<ScorePart> ScoreParts { get; set; }
     }
 }

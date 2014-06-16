@@ -1,113 +1,49 @@
+using System;
+using System.CodeDom.Compiler;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class key
+    [GeneratedCode("xsd", "4.0.30319.33440")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    public class key
     {
+        [XmlElement("fifths", DataType = "integer")]
+        public string Fifths { get; set; }
 
-        private object[] itemsField;
-
-        private ItemsChoiceType8[] itemsElementNameField;
-
-        private keyoctave[] keyoctaveField;
-
-        private string numberField;
-
-        private yesno printobjectField;
-
-        private bool printobjectFieldSpecified;
+        [XmlElement("mode", typeof(string))]
+        public string Mode { get; set; }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("cancel", typeof(cancel))]
-        [System.Xml.Serialization.XmlElementAttribute("fifths", typeof(string), DataType = "integer")]
-        [System.Xml.Serialization.XmlElementAttribute("key-accidental", typeof(accidentalvalue))]
-        [System.Xml.Serialization.XmlElementAttribute("key-alter", typeof(decimal))]
-        [System.Xml.Serialization.XmlElementAttribute("key-step", typeof(step))]
-        [System.Xml.Serialization.XmlElementAttribute("mode", typeof(string))]
-        [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemsElementName")]
-        public object[] Items
-        {
-            get
-            {
-                return this.itemsField;
-            }
-            set
-            {
-                this.itemsField = value;
-            }
-        }
+        [XmlElement("cancel", typeof(cancel))]
+        [XmlElement("key-accidental", typeof(accidentalvalue))]
+        [XmlElement("key-alter", typeof(decimal))]
+        [XmlElement("key-step", typeof(step))]
+        [XmlChoiceIdentifier("ItemsElementName")]
+        public object[] Items { get; set; }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("ItemsElementName")]
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public ItemsChoiceType8[] ItemsElementName
-        {
-            get
-            {
-                return this.itemsElementNameField;
-            }
-            set
-            {
-                this.itemsElementNameField = value;
-            }
-        }
+        [XmlElement("ItemsElementName")]
+        [XmlIgnore]
+        public ItemsChoiceType8[] ItemsElementName { get; set; }
+
+        [XmlElement("key-octave")]
+        public keyoctave[] Keyoctave { get; set; }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("key-octave")]
-        public keyoctave[] keyoctave
-        {
-            get
-            {
-                return this.keyoctaveField;
-            }
-            set
-            {
-                this.keyoctaveField = value;
-            }
-        }
+        [XmlAttribute(DataType = "positiveInteger")]
+        public string number { get; set; }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "positiveInteger")]
-        public string number
-        {
-            get
-            {
-                return this.numberField;
-            }
-            set
-            {
-                this.numberField = value;
-            }
-        }
+        [XmlAttribute("print-object")]
+        public yesno Printobject { get; set; }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute("print-object")]
-        public yesno printobject
-        {
-            get
-            {
-                return this.printobjectField;
-            }
-            set
-            {
-                this.printobjectField = value;
-            }
-        }
-
-
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool printobjectSpecified
-        {
-            get
-            {
-                return this.printobjectFieldSpecified;
-            }
-            set
-            {
-                this.printobjectFieldSpecified = value;
-            }
-        }
+        [XmlIgnore]
+        public bool printobjectSpecified { get; set; }
     }
 }

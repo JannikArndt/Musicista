@@ -12,231 +12,99 @@ namespace MusicXML
     [DesignerCategory("code")]
     public class lyric
     {
-        private string colorField;
-        private decimal defaultxField;
-
-        private bool defaultxFieldSpecified;
-
-        private decimal defaultyField;
-
-        private bool defaultyFieldSpecified;
-        private empty endlineField;
-
-        private empty endparagraphField;
-
-        private formattedtext footnoteField;
-        private ItemsChoiceType6[] itemsElementNameField;
-        private object[] itemsField;
-
-        private leftcenterright justifyField;
-
-        private bool justifyFieldSpecified;
-        private level levelField;
-        private string nameField;
-        private string numberField;
-
-        private abovebelow placementField;
-
-        private bool placementFieldSpecified;
-
-        private yesno printobjectField;
-
-        private bool printobjectFieldSpecified;
-        private decimal relativexField;
-
-        private bool relativexFieldSpecified;
-
-        private decimal relativeyField;
-
-        private bool relativeyFieldSpecified;
+        [XmlElement("text")]
+        public textelementdata Text { get; set; }
 
 
-        [XmlElement("elision", typeof(textfontcolor))]
-        [XmlElement("extend", typeof(extend))]
-        [XmlElement("humming", typeof(empty))]
-        [XmlElement("laughing", typeof(empty))]
-        [XmlElement("syllabic", typeof(syllabic))]
-        [XmlElement("text", typeof(textelementdata))]
-        [XmlChoiceIdentifier("ItemsElementName")]
-        public object[] Items
-        {
-            get { return itemsField; }
-            set { itemsField = value; }
-        }
 
 
-        [XmlElement("ItemsElementName")]
-        [XmlIgnore]
-        public ItemsChoiceType6[] ItemsElementName
-        {
-            get { return itemsElementNameField; }
-            set { itemsElementNameField = value; }
-        }
+        [XmlElement("elision", typeof(textfontcolor)), XmlElement("extend", typeof(extend)), XmlElement("humming", typeof(empty)), XmlElement("laughing", typeof(empty)), XmlElement("syllabic", typeof(syllabic)), XmlChoiceIdentifier("ItemsElementName")]
+        public object[] Items { get; set; }
+
+
+        [XmlElement("ItemsElementName"), XmlIgnore]
+        public ItemsChoiceType6[] ItemsElementName { get; set; }
 
 
         [XmlElement("end-line")]
-        public empty endline
-        {
-            get { return endlineField; }
-            set { endlineField = value; }
-        }
+        public empty Endline { get; set; }
 
 
         [XmlElement("end-paragraph")]
-        public empty endparagraph
-        {
-            get { return endparagraphField; }
-            set { endparagraphField = value; }
-        }
+        public empty endparagraph { get; set; }
 
 
-        public formattedtext footnote
-        {
-            get { return footnoteField; }
-            set { footnoteField = value; }
-        }
+        public formattedtext footnote { get; set; }
 
 
-        public level level
-        {
-            get { return levelField; }
-            set { levelField = value; }
-        }
+        public level level { get; set; }
 
 
         [XmlAttribute(DataType = "NMTOKEN")]
-        public string number
-        {
-            get { return numberField; }
-            set { numberField = value; }
-        }
+        public string number { get; set; }
 
 
         [XmlAttribute(DataType = "token")]
-        public string name
-        {
-            get { return nameField; }
-            set { nameField = value; }
-        }
+        public string name { get; set; }
 
 
         [XmlAttribute]
-        public leftcenterright justify
-        {
-            get { return justifyField; }
-            set { justifyField = value; }
-        }
+        public leftcenterright justify { get; set; }
 
 
         [XmlIgnore]
-        public bool justifySpecified
-        {
-            get { return justifyFieldSpecified; }
-            set { justifyFieldSpecified = value; }
-        }
+        public bool justifySpecified { get; set; }
 
 
         [XmlAttribute("default-x")]
-        public decimal defaultx
-        {
-            get { return defaultxField; }
-            set { defaultxField = value; }
-        }
+        public decimal defaultx { get; set; }
 
 
         [XmlIgnore]
-        public bool defaultxSpecified
-        {
-            get { return defaultxFieldSpecified; }
-            set { defaultxFieldSpecified = value; }
-        }
+        public bool defaultxSpecified { get; set; }
 
 
         [XmlAttribute("default-y")]
-        public decimal defaulty
-        {
-            get { return defaultyField; }
-            set { defaultyField = value; }
-        }
+        public decimal defaulty { get; set; }
 
 
         [XmlIgnore]
-        public bool defaultySpecified
-        {
-            get { return defaultyFieldSpecified; }
-            set { defaultyFieldSpecified = value; }
-        }
+        public bool defaultySpecified { get; set; }
 
 
         [XmlAttribute("relative-x")]
-        public decimal relativex
-        {
-            get { return relativexField; }
-            set { relativexField = value; }
-        }
+        public decimal relativex { get; set; }
 
 
         [XmlIgnore]
-        public bool relativexSpecified
-        {
-            get { return relativexFieldSpecified; }
-            set { relativexFieldSpecified = value; }
-        }
+        public bool relativexSpecified { get; set; }
 
 
         [XmlAttribute("relative-y")]
-        public decimal relativey
-        {
-            get { return relativeyField; }
-            set { relativeyField = value; }
-        }
+        public decimal relativey { get; set; }
 
 
         [XmlIgnore]
-        public bool relativeySpecified
-        {
-            get { return relativeyFieldSpecified; }
-            set { relativeyFieldSpecified = value; }
-        }
+        public bool relativeySpecified { get; set; }
 
 
         [XmlAttribute]
-        public abovebelow placement
-        {
-            get { return placementField; }
-            set { placementField = value; }
-        }
+        public abovebelow placement { get; set; }
 
 
         [XmlIgnore]
-        public bool placementSpecified
-        {
-            get { return placementFieldSpecified; }
-            set { placementFieldSpecified = value; }
-        }
+        public bool placementSpecified { get; set; }
 
 
         [XmlAttribute(DataType = "token")]
-        public string color
-        {
-            get { return colorField; }
-            set { colorField = value; }
-        }
+        public string color { get; set; }
 
 
         [XmlAttribute("print-object")]
-        public yesno printobject
-        {
-            get { return printobjectField; }
-            set { printobjectField = value; }
-        }
+        public yesno printobject { get; set; }
 
 
         [XmlIgnore]
-        public bool printobjectSpecified
-        {
-            get { return printobjectFieldSpecified; }
-            set { printobjectFieldSpecified = value; }
-        }
+        public bool printobjectSpecified { get; set; }
     }
 }

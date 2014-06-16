@@ -3,9 +3,11 @@ using Model.Meta;
 using MusicXML;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Clef = Model.Clef;
+using Note = MusicXML.Note;
 
 namespace Musicista.Mappers
 {
@@ -15,19 +17,51 @@ namespace Musicista.Mappers
         {
             var piece = Mapper.CreateEmptyPiece();
 
+            // Map work information
             piece.Title = mxml.Work.WorkTitle;
+            piece.Notes += "Work Number: " + mxml.Work.WorkNumber;
 
-            if (mxml.Identification != null && mxml.Identification.creator != null)
-                foreach (var creator in mxml.Identification.creator.Where(creator => creator.type == "composer"))
-                    piece.ListOfComposers.Add(new Composer { FullName = creator.Value });
+            // Map encoding information
+            if (mxml.Identification.Encoding.EncodingDate != null)
+                piece.DateOfTypesetting = DateTime.Parse(mxml.Identification.Encoding.EncodingDate.Value);
+            if (mxml.Identification.Encoding.Encoder != null)
+                piece.TypeSetter = mxml.Identification.Encoding.Encoder.Value;
+            if (mxml.Identification.Encoding.Software != null)
+                piece.Software = mxml.Identification.Encoding.Software.Value;
+            if (mxml.Identification.Rights != null)
+                piece.Copyright = String.Join(", ", mxml.Identification.Rights.Select(item => item.Value));
 
-            // Partlist.scorepart = first <score-part/>, PartList.items except last one = other <score-parts/>
-            piece.ListOfInstruments.Add(new Instrument(mxml.PartList.scorepart.partname.Value,
-                int.Parse(Regex.Match(mxml.PartList.scorepart.id, @"\d+").Value)));
-            if (mxml.PartList.Items != null)
-                foreach (scorepart scorepart in mxml.PartList.Items.Where(item => item.GetType() == typeof(scorepart)))
-                    piece.ListOfInstruments.Add(new Instrument(scorepart.partname.Value, int.Parse(Regex.Match(scorepart.id, @"\d+").Value)));
+            // Map composers and other people
+            if (mxml.Identification != null && mxml.Identification.Creator != null)
+                foreach (var creator in mxml.Identification.Creator)
+                    switch (creator.Type)
+                    {
+                        case "composer":
+                            piece.ListOfComposers.Add(new Composer { FullName = creator.Value });
+                            break;
+                        case "lyricist":
+                            piece.ListOfLyricists.Add(new Person { FullName = creator.Value });
+                            break;
+                        case "arranger":
+                            piece.ListOfArrangers.Add(new Person { FullName = creator.Value });
+                            break;
+                        default:
+                            piece.ListOfOtherPersons.Add(new Person { FullName = creator.Value });
+                            break;
+                    }
 
+            // Map the instruments
+            if (mxml.PartList.ScoreParts != null)
+                foreach (var scorepart in mxml.PartList.ScoreParts)
+                    piece.ListOfInstruments.Add(new Instrument(scorepart.Partname, int.Parse(Regex.Match(scorepart.id, @"\d+").Value)));
+
+            // Map movement information
+            if (mxml.MovementNumber != null)
+                piece.ListOfAllMovements.First().Number = int.Parse(mxml.MovementNumber);
+            if (mxml.MovementTitle != null)
+                piece.ListOfAllMovements.First().Name = mxml.MovementTitle;
+
+            // Map the music
             if (mxml.GetType() == typeof(ScorePartwise))
                 MapPartwiseMeasuresToPiece((ScorePartwise)mxml, piece);
             else if (mxml.GetType() == typeof(ScoreTimewise))
@@ -71,31 +105,29 @@ namespace Musicista.Mappers
                 };
 
                 // KeySignature
-                var measureAttributes = measure.Items.First(item => item.GetType() == typeof(attributes)) as attributes;
-                if (measureAttributes != null && measureAttributes.key != null && measureAttributes.key.First() != null)
-                    lastKey = GetKeyFromMXMLKey(measureAttributes.key.First());
+                if (measure.Attributes != null && measure.Attributes.key != null && measure.Attributes.key.First() != null)
+                    lastKey = GetKeyFromMXMLKey(measure.Attributes.key.First());
                 measureGroup.KeySignature = lastKey;
 
                 // TimeSignature
-                if (measureAttributes != null && measureAttributes.time != null && measureAttributes.time.First() != null)
-                    lastTime = new TimeSignature(measureAttributes.time.First().Beats, measureAttributes.time.First().BeatType);
+                if (measure.Attributes != null && measure.Attributes.time != null && measure.Attributes.time.First() != null)
+                    lastTime = new TimeSignature(measure.Attributes.time.First().Beats, measure.Attributes.time.First().BeatType);
                 measureGroup.TimeSignature = lastTime;
 
 
                 // 2. Go through all <Part>s, 
                 for (var partNumber = 0; partNumber < mxml.Part.Length; partNumber++)
                 {
+                    var currentMeasure = mxml.Part[partNumber].Measure[measureNumber];
                     var items = mxml.Part[partNumber].Measure[measureNumber].Items;
 
                     // crazy multiple staves-madness, part 1
-                    var attributes = items.First(item => item.GetType() == typeof(attributes)) as attributes;
-                    if (attributes != null && attributes.staves != null && int.Parse(attributes.staves) > 1)
+                    if (currentMeasure.Attributes != null && currentMeasure.Attributes.staves != null && int.Parse(currentMeasure.Attributes.staves) > 1)
                         listOfAdditionalStaves.Add(partNumber, new List<Measure>());
                     if (listOfAdditionalStaves.ContainsKey(partNumber))
                     {
-                        if (items.Any(item => item.GetType() == typeof(attributes)))
-                            lastClefAdditionalStaves[partNumber] =
-                                GetClefFromAttributes(items.First(item => item.GetType() == typeof(attributes)) as attributes, true) ?? lastClefAdditionalStaves[partNumber];
+                        if (currentMeasure.Attributes != null)
+                            lastClefAdditionalStaves[partNumber] = GetClefFromAttributes(currentMeasure.Attributes, true) ?? lastClefAdditionalStaves[partNumber];
                         listOfAdditionalStaves[partNumber].Add(new Measure
                         {
                             Instrument = piece.ListOfInstruments[partNumber],
@@ -106,8 +138,8 @@ namespace Musicista.Mappers
                     }
 
                     // get correct clef
-                    if (items.Any(item => item.GetType() == typeof(attributes)))
-                        lastClef[partNumber] = GetClefFromAttributes(items.First(item => item.GetType() == typeof(attributes)) as attributes) ?? lastClef[partNumber];
+                    if (currentMeasure.Attributes != null)
+                        lastClef[partNumber] = GetClefFromAttributes(currentMeasure.Attributes) ?? lastClef[partNumber];
 
                     // 3. create a new measure for each part
                     var newMeasure = new Measure
@@ -118,11 +150,11 @@ namespace Musicista.Mappers
                     };
 
                     // 4a. Split voices (crazy multiple staves-madness, part 2)
-                    var voices = items.Aggregate(new List<List<note>> { new List<note>() },
+                    var voices = items.Aggregate(new List<List<Note>> { new List<Note>() },
                                    (list, value) =>
                                    {
-                                       if (value.GetType() == typeof(note)) list.Last().Add((note)value);
-                                       if (value.GetType() == typeof(backup)) list.Add(new List<note>());
+                                       if (value.GetType() == typeof(Note)) list.Last().Add((Note)value);
+                                       if (value.GetType() == typeof(backup)) list.Add(new List<Note>());
                                        return list;
                                    });
 
@@ -133,13 +165,13 @@ namespace Musicista.Mappers
                         double advanceBeat = 0;
                         foreach (var mxmlNote in voices[voice])
                         {
-                            if (mxmlNote.Items.All(item => item.GetType() != typeof(chord))) // advance beat-counter only if <chord>-Tag is not present
+                            if (!mxmlNote.IsChord) // advance beat-counter only if <chord>-Tag is not present
                                 beat += advanceBeat;
 
                             var newNote = CreateNoteFromMXMLNote(mxmlNote, beat / 256);
                             newNote.Voice = voice;
 
-                            advanceBeat = (int)newNote.Duration; // IF the next note advances the beat counter, it shloud be by this amout
+                            advanceBeat = (int)newNote.Duration; // IF the next note advances the beat counter, it should be by this amount
 
                             if (mxmlNote.staff == "1")
                                 newMeasure.AddSymbol(newNote);
@@ -156,7 +188,7 @@ namespace Musicista.Mappers
             if (listOfAdditionalStaves.Count > 0)
                 foreach (var additionalStaff in listOfAdditionalStaves.Reverse())
                 {
-                    var instrument = new Instrument(piece.ListOfInstruments[additionalStaff.Key] + " 2");
+                    var instrument = new Instrument(piece.ListOfInstruments[additionalStaff.Key].Name);
                     piece.ListOfInstruments.Add(instrument);
                     foreach (var measure in additionalStaff.Value)
                     {
@@ -194,6 +226,7 @@ namespace Musicista.Mappers
         /// <returns>The given Piece with the measures in it.</returns>
         public static Piece MapTimewiseMeasuresToPiece(ScoreTimewise mxml, Piece piece)
         {
+            throw new Exception("This method is not currently working correctly.");
             var lastClef = new List<Clef>();
             for (var i = 0; i < mxml.Measure[0].part.Length; i++)
                 lastClef.Add(Clef.Treble);
@@ -222,11 +255,11 @@ namespace Musicista.Mappers
                     };
 
                     // Grab all Notes and Rests from the current <Part>
-                    var notes = measure.part[partNumber].Items.Where(item => item.GetType() == typeof(note));
+                    var notes = measure.part[partNumber].Items.Where(item => item.GetType() == typeof(Note));
 
                     double beat = 256;
 
-                    foreach (note mxmlNote in notes)
+                    foreach (Note mxmlNote in notes)
                     {
                         var newNote = CreateNoteFromMXMLNote(mxmlNote, beat / 256);
                         beat += (int)newNote.Duration;
@@ -241,125 +274,115 @@ namespace Musicista.Mappers
             return piece;
         }
 
-        public static Symbol CreateNoteFromMXMLNote(note mxmlNote, double beat = 1.0)
+        public static Symbol CreateNoteFromMXMLNote(Note mxmlNote, double beat = 1.0)
         {
-            if (mxmlNote == null || mxmlNote.Items == null || !mxmlNote.Items.Any())
-                return null;
+            if (mxmlNote == null) return null;
 
             // Rests
-            if (mxmlNote.Items.Any(item => item is rest))
+            if (mxmlNote.IsRest)
             {
                 var newRest = new Rest
                 {
-                    Beat = beat
+                    Beat = beat,
+                    Duration = (Duration)int.Parse(mxmlNote.Duration.ToString(CultureInfo.InvariantCulture))
                 };
-                if (mxmlNote.Items.Any(item => item is decimal))
-                {
-                    string durationString = mxmlNote.Items.First(item => item is decimal).ToString();
-                    newRest.Duration = (Duration)int.Parse(durationString);
-                }
                 if (!string.IsNullOrEmpty(mxmlNote.voice))
                     newRest.Voice = int.Parse(Regex.Match(mxmlNote.voice, @"\d+").Value);
                 return newRest;
             }
 
             // Notes
-            var newNote = new Note
+            var newNote = new Model.Note
             {
                 Beat = beat,
                 Velocity = 0,
-                Voice = 1
+                Voice = 1,
+                Duration = (Duration)int.Parse(mxmlNote.Duration.ToString(CultureInfo.InvariantCulture)),
+                Octave = int.Parse(mxmlNote.Pitch.octave)
             };
 
-            if (mxmlNote.Items.Any(item => item is decimal) && mxmlNote.Items.Any(item => item is pitch))
-            {
-                var durationString = mxmlNote.Items.First(item => item is decimal).ToString();
-                newNote.Duration = (Duration)int.Parse(durationString);
-                if (!Enum.IsDefined(typeof(Duration), newNote.Duration))
-                    Console.WriteLine(@"Error parsing duration " + durationString);
-                newNote.Octave = int.Parse(((pitch)mxmlNote.Items.First(item => item is pitch)).octave);
+            if (!Enum.IsDefined(typeof(Duration), newNote.Duration))
+                Console.WriteLine(@"Error parsing duration " + mxmlNote.Duration);
 
-                newNote.Step = GetPitchFromMXMLNote(mxmlNote);
-            }
+            newNote.Step = GetPitchFromMXMLNote(mxmlNote);
 
-            if (mxmlNote.Items.Any(item => item is textelementdata))
-                newNote.Text =
-                    ((textelementdata)mxmlNote.lyric[0].Items.First(item => item is textelementdata)).Value;
+            if (mxmlNote.lyric != null && mxmlNote.lyric[0] != null && mxmlNote.lyric[0].Text != null)
+                newNote.Text = mxmlNote.lyric[0].Text.Value;
 
             if (!string.IsNullOrEmpty(mxmlNote.voice))
                 newNote.Voice = int.Parse(Regex.Match(mxmlNote.voice, @"\d+").Value);
             return newNote;
         }
 
-        public static Pitch GetPitchFromMXMLNote(note mxmlNote)
+        public static Pitch GetPitchFromMXMLNote(Note mxmlNote)
         {
-            step step = ((pitch)mxmlNote.Items.First(item => item is pitch)).step;
-            decimal alter = ((pitch)mxmlNote.Items.First(item => item is pitch)).alter;
-
-            if (alter == 0)
-                switch (step)
-                {
-                    case step.A:
-                        return Pitch.A;
-                    case step.B:
-                        return Pitch.B;
-                    case step.C:
-                        return Pitch.C;
-                    case step.D:
-                        return Pitch.D;
-                    case step.E:
-                        return Pitch.E;
-                    case step.F:
-                        return Pitch.F;
-                    case step.G:
-                        return Pitch.G;
-                }
-
-            if (alter == 1)
-                switch (step)
-                {
-                    case step.A:
-                        return Pitch.ASharp;
-                    case step.B:
-                        return Pitch.BSharp;
-                    case step.C:
-                        return Pitch.CSharp;
-                    case step.D:
-                        return Pitch.DSharp;
-                    case step.E:
-                        return Pitch.ESharp;
-                    case step.F:
-                        return Pitch.FSharp;
-                    case step.G:
-                        return Pitch.GSharp;
-                }
-
-            if (alter == -1)
-                switch (step)
-                {
-                    case step.A:
-                        return Pitch.AFlat;
-                    case step.B:
-                        return Pitch.BFlat;
-                    case step.C:
-                        return Pitch.CFlat;
-                    case step.D:
-                        return Pitch.DFlat;
-                    case step.E:
-                        return Pitch.EFlat;
-                    case step.F:
-                        return Pitch.FFlat;
-                    case step.G:
-                        return Pitch.GFlat;
-                }
-
+            switch ((int)mxmlNote.Pitch.alter)
+            {
+                case 0:
+                    switch (mxmlNote.Pitch.step)
+                    {
+                        case step.A:
+                            return Pitch.A;
+                        case step.B:
+                            return Pitch.B;
+                        case step.C:
+                            return Pitch.C;
+                        case step.D:
+                            return Pitch.D;
+                        case step.E:
+                            return Pitch.E;
+                        case step.F:
+                            return Pitch.F;
+                        case step.G:
+                            return Pitch.G;
+                    }
+                    break;
+                case 1:
+                    switch (mxmlNote.Pitch.step)
+                    {
+                        case step.A:
+                            return Pitch.ASharp;
+                        case step.B:
+                            return Pitch.BSharp;
+                        case step.C:
+                            return Pitch.CSharp;
+                        case step.D:
+                            return Pitch.DSharp;
+                        case step.E:
+                            return Pitch.ESharp;
+                        case step.F:
+                            return Pitch.FSharp;
+                        case step.G:
+                            return Pitch.GSharp;
+                    }
+                    break;
+                case -1:
+                    switch (mxmlNote.Pitch.step)
+                    {
+                        case step.A:
+                            return Pitch.AFlat;
+                        case step.B:
+                            return Pitch.BFlat;
+                        case step.C:
+                            return Pitch.CFlat;
+                        case step.D:
+                            return Pitch.DFlat;
+                        case step.E:
+                            return Pitch.EFlat;
+                        case step.F:
+                            return Pitch.FFlat;
+                        case step.G:
+                            return Pitch.GFlat;
+                    }
+                    break;
+            }
             return Pitch.Unknown;
         }
 
         public static MusicalKey GetKeyFromMXMLKey(key key)
         {
-            var fifths = int.Parse(key.Items.First(item => item is string).ToString());
-            var mode = key.Items.Last(item => item is string).ToString();
+            var fifths = int.Parse(key.Fifths);
+            var mode = key.Mode;
 
             switch (mode)
             {

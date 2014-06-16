@@ -11,26 +11,13 @@ namespace MusicXML
     [DebuggerStepThrough]
     [DesignerCategory("code")]
     [XmlType(TypeName = "typed-text")]
-    public class typedtext
+    public class Typedtext
     {
-        private string typeField;
-
-        private string valueField;
-
-
-        [XmlAttribute(DataType = "token")]
-        public string type
-        {
-            get { return typeField; }
-            set { typeField = value; }
-        }
+        [XmlAttribute("type", DataType = "token")]
+        public string Type { get; set; }
 
 
         [XmlText]
-        public string Value
-        {
-            get { return valueField; }
-            set { valueField = value; }
-        }
+        public string Value { get; set; }
     }
 }

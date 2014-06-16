@@ -10,6 +10,7 @@ namespace Model
     {
         public string Title { get; set; }
         public List<Composer> ListOfComposers { get; set; }
+        [XmlIgnore]
         public String ComposersAsString { get { return String.Join(", ", ListOfComposers); } }
         public string Collection { get; set; }
         public OpusNumber Opus { get; set; }
@@ -22,8 +23,10 @@ namespace Model
         public string Dedication { get; set; }
         public double AverageDuration { get; set; }
         public List<Person> ListOfLyricists { get; set; }
+        public List<Person> ListOfArrangers { get; set; }
         public List<Person> ListOfProducers { get; set; }
         public List<Person> ListOfInterpreters { get; set; }
+        public List<Person> ListOfOtherPersons { get; set; }
         public int BeatsPerMinute { get; set; }
         public MusicalKey Key { get; set; }
         public Album Album { get; set; }
@@ -35,6 +38,7 @@ namespace Model
         public string Reduction { get; set; }
         public string Weblink { get; set; }
         public string Notes { get; set; }
+        public string Software { get; set; }
 
 
         public List<Instrument> ListOfInstruments { get; set; }

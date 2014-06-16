@@ -1,48 +1,27 @@
+using System;
+using System.CodeDom.Compiler;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class encoding
+    [GeneratedCode("xsd", "4.0.30319.33440")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType(TypeName = "encoding")]
+    public class Encoding
     {
-
-        private object[] itemsField;
-
-        private ItemsChoiceType[] itemsElementNameField;
-
-
-        [System.Xml.Serialization.XmlElementAttribute("encoder", typeof(typedtext))]
-        [System.Xml.Serialization.XmlElementAttribute("encoding-date", typeof(System.DateTime), DataType = "date")]
-        [System.Xml.Serialization.XmlElementAttribute("encoding-description", typeof(string))]
-        [System.Xml.Serialization.XmlElementAttribute("software", typeof(string))]
-        [System.Xml.Serialization.XmlElementAttribute("supports", typeof(supports))]
-        [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemsElementName")]
-        public object[] Items
-        {
-            get
-            {
-                return this.itemsField;
-            }
-            set
-            {
-                this.itemsField = value;
-            }
-        }
-
-
-        [System.Xml.Serialization.XmlElementAttribute("ItemsElementName")]
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public ItemsChoiceType[] ItemsElementName
-        {
-            get
-            {
-                return this.itemsElementNameField;
-            }
-            set
-            {
-                this.itemsElementNameField = value;
-            }
-        }
+        [XmlElement("encoder")]
+        public Typedtext Encoder;
+        [XmlElement("encoding-date")]
+        public Typedtext EncodingDate;
+        [XmlElement("encoding-description")]
+        public Typedtext EncodingDescription;
+        [XmlElement("software")]
+        public Typedtext Software;
+        [XmlElement("supports")]
+        public Typedtext Supports;
     }
 }

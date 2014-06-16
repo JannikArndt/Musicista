@@ -15,7 +15,7 @@ namespace MusicXML
         public string MovementTitle { get; set; }
 
         [XmlElement("identification")]
-        public identification Identification { get; set; }
+        public Identification Identification { get; set; }
 
         [XmlElement("defaults")]
         public defaults Defaults { get; set; }
@@ -24,7 +24,7 @@ namespace MusicXML
         public credit[] Credit { get; set; }
 
         [XmlElement("part-list")]
-        public partlist PartList { get; set; }
+        public Partlist PartList { get; set; }
 
         [XmlAttribute("version", DataType = "token"), DefaultValue("2.0")]
         public string Version { get; set; }

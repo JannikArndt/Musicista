@@ -9,10 +9,7 @@ namespace MusicXML
     [XmlType(TypeName = "yes-no")]
     public enum yesno
     {
-    
         yes,
-
-    
         no,
     }
 }

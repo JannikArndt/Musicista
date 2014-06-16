@@ -18,11 +18,11 @@ namespace Musicista.UI
 
         }
 
-        public void AddRowWithTextField(string key, string propertyName)
+        public void AddRowWithTextField(string key, object dataContext, string propertyName)
         {
             if (string.IsNullOrEmpty(propertyName))
                 throw new ArgumentException(@"No property name given", propertyName);
-            if (MainWindow.CurrentPiece.GetType().GetProperty(propertyName) == null)
+            if (dataContext.GetType().GetProperty(propertyName) == null)
                 throw new Exception("Property " + propertyName + " not found in piece.");
 
 
@@ -39,7 +39,7 @@ namespace Musicista.UI
 
             var valueTextBox = new TextBox
             {
-                DataContext = MainWindow.CurrentPiece,
+                DataContext = dataContext,
                 Width = 200,
                 Height = 26,
                 Padding = new Thickness(3),
@@ -115,11 +115,11 @@ namespace Musicista.UI
             Children.Add(stackpanel);
         }
 
-        public void AddRowWithComboBox(string key, string propertyName, Enum enumType)
+        public void AddRowWithComboBox(string key, object dataContext, string propertyName, Enum enumType)
         {
             if (string.IsNullOrEmpty(propertyName))
                 throw new ArgumentException(@"No property name given", propertyName);
-            if (MainWindow.CurrentPiece.GetType().GetProperty(propertyName) == null)
+            if (dataContext.GetType().GetProperty(propertyName) == null)
                 throw new Exception("Property " + propertyName + " not found in piece.");
 
 
@@ -136,7 +136,7 @@ namespace Musicista.UI
 
             var valueComboBox = new ComboBox
             {
-                DataContext = MainWindow.CurrentPiece,
+                DataContext = dataContext,
                 Width = 200,
                 Height = 26,
                 Padding = new Thickness(3),
@@ -153,6 +153,139 @@ namespace Musicista.UI
 
             Children.Add(keyTextBlock);
             Children.Add(valueComboBox);
+        }
+
+        public void AddRowWithTwoComboBoxes(string key, object dataContext, string property1Name, string property2Name, Enum enum1Type, Enum enum2Type)
+        {
+            if (string.IsNullOrEmpty(property1Name))
+                throw new ArgumentException(@"No property name given", property1Name);
+            if (string.IsNullOrEmpty(property2Name))
+                throw new ArgumentException(@"No property name given", property2Name);
+            if (dataContext.GetType().GetProperty(property1Name) == null)
+                throw new Exception("Property " + property1Name + " not found in piece.");
+            if (dataContext.GetType().GetProperty(property2Name) == null)
+                throw new Exception("Property " + property2Name + " not found in piece.");
+
+
+            RowDefinitions.Add(new RowDefinition { Height = new GridLength(30) });
+
+            var keyTextBlock = new TextBlock
+            {
+                Text = key,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            SetRow(keyTextBlock, RowDefinitions.Count - 1);
+            SetColumn(keyTextBlock, 0);
+
+            var value1ComboBox = new ComboBox
+            {
+                DataContext = dataContext,
+                Width = 90,
+                Height = 26,
+                Padding = new Thickness(3),
+                Margin = new Thickness(1),
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Center,
+                ItemsSource = Enum.GetValues(enum1Type.GetType())
+            };
+
+            value1ComboBox.SetBinding(Selector.SelectedItemProperty, property1Name);
+
+            var value2ComboBox = new ComboBox
+            {
+                DataContext = dataContext,
+                Width = 100,
+                Height = 26,
+                Padding = new Thickness(3),
+                Margin = new Thickness(1),
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Center,
+                ItemsSource = Enum.GetValues(enum2Type.GetType())
+            };
+
+            value2ComboBox.SetBinding(Selector.SelectedItemProperty, property2Name);
+
+            var stackpanel = new StackPanel { Orientation = Orientation.Horizontal };
+            stackpanel.Children.Add(value1ComboBox);
+            stackpanel.Children.Add(value2ComboBox);
+
+
+            SetRow(stackpanel, RowDefinitions.Count - 1);
+            SetColumn(stackpanel, 1);
+
+            Children.Add(keyTextBlock);
+            Children.Add(stackpanel);
+        }
+
+        public void AddRowWithTimeSignature(string key, object dataContext)
+        {
+            RowDefinitions.Add(new RowDefinition { Height = new GridLength(30) });
+
+            var keyTextBlock = new TextBlock
+            {
+                Text = key,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            SetRow(keyTextBlock, RowDefinitions.Count - 1);
+            SetColumn(keyTextBlock, 0);
+
+            var value1TextBox = new TextBox
+            {
+                DataContext = dataContext,
+                Width = 30,
+                Height = 26,
+                Padding = new Thickness(3),
+                Margin = new Thickness(1),
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            value1TextBox.SetBinding(TextBox.TextProperty, new Binding("Beats"));
+
+
+            var value2TextBox = new TextBox
+            {
+                DataContext = dataContext,
+                Width = 30,
+                Height = 26,
+                Padding = new Thickness(3),
+                Margin = new Thickness(1),
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            value2TextBox.SetBinding(TextBox.TextProperty, new Binding("BeatUnit"));
+
+            var commonCheckBox = new CheckBox
+            {
+                DataContext = dataContext,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            commonCheckBox.SetBinding(ToggleButton.IsCheckedProperty, new Binding("IsCommon"));
+
+            var cutCheckBox = new CheckBox
+            {
+                DataContext = dataContext,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            cutCheckBox.SetBinding(ToggleButton.IsCheckedProperty, new Binding("IsCutCommon"));
+
+            var stackpanel = new StackPanel { Orientation = Orientation.Horizontal };
+            stackpanel.Children.Add(value1TextBox);
+            stackpanel.Children.Add(new TextBlock { Text = " / ", VerticalAlignment = VerticalAlignment.Center });
+            stackpanel.Children.Add(value2TextBox);
+            stackpanel.Children.Add(new TextBlock { Text = " Common: ", VerticalAlignment = VerticalAlignment.Center });
+            stackpanel.Children.Add(commonCheckBox);
+            stackpanel.Children.Add(new TextBlock { Text = " Cut: ", VerticalAlignment = VerticalAlignment.Center });
+            stackpanel.Children.Add(cutCheckBox);
+
+            SetRow(stackpanel, RowDefinitions.Count - 1);
+            SetColumn(stackpanel, 1);
+
+            Children.Add(keyTextBlock);
+            Children.Add(stackpanel);
         }
     }
 }

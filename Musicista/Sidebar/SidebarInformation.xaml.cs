@@ -27,40 +27,47 @@ namespace Musicista.Sidebar
                 ShowMeasure(measure);
         }
 
-        private void ShowMeasure(UIMeasure measure)
+        private void ShowMeasure(UIMeasure uiMeasure)
         {
 
-            TitleTextBlock.Text = measure.ToString();
+            TitleTextBlock.Text = uiMeasure.ToString();
             SidebarPanel.Children.Clear();
 
-            // Display measure
+            // Display uiMeasure
             var page = new Canvas
             {
                 Width = 280,
                 Height = 50,
                 VerticalAlignment = VerticalAlignment.Top,
+                HorizontalAlignment = HorizontalAlignment.Center,
                 Background = Brushes.White
             };
             var system = new UISystem(page, 0, 0, 0) { MeasuresInSystem = 1 };
             system.Children.Remove(system.BarlineFront);
             var canvas = new UIMeasureGroup(system, 0);
-            SidebarPanel.Children.Add(page);
             canvas.Children.Remove(canvas.Barline);
 
-            var newMeasure = new UIMeasure(canvas, 0, 0, measure.InnerMeasure, suppressEventHandlers: true);
+            SidebarPanel.Children.Add(page);
 
-            foreach (var symbol in measure.InnerMeasure.Symbols)
+            var newMeasure = new UIMeasure(canvas, 0, 0, uiMeasure.InnerMeasure, suppressEventHandlers: true);
+
+            UIHelper.DrawClef(newMeasure, uiMeasure.InnerMeasure.Clef);
+            UIHelper.DrawKey(newMeasure, uiMeasure.InnerMeasure.ParentMeasureGroup.KeySignature, uiMeasure.InnerMeasure.Clef);
+
+            foreach (var symbol in uiMeasure.InnerMeasure.Symbols)
                 if (symbol.GetType() == typeof(Note))
                     new UINote((Note)symbol, newMeasure);
                 else if (symbol.GetType() == typeof(Rest))
                     UIHelper.DrawRest((Rest)symbol, newMeasure);
 
-            var instrument = new TextBlock
-            {
-                Text = "Instrument: " + measure.InnerMeasure.Instrument.Name,
-                FontSize = 12
-            };
-            SidebarPanel.Children.Add(instrument);
+            // Display info about the uiMeasure
+            var grid = new GridTable(60);
+            grid.AddRowWithTextField("Instrument", uiMeasure.InnerMeasure.Instrument, "Name");
+            grid.AddRowWithComboBox("Clef", uiMeasure.InnerMeasure, "Clef", Clef.Treble);
+            grid.AddRowWithTwoComboBoxes("Key", uiMeasure.ParentMeasureGroup.InnerMeasureGroup.KeySignature, "Pitch", "Gender", Pitch.C, Gender.Major);
+            grid.AddRowWithTimeSignature("Time", uiMeasure.ParentMeasureGroup.InnerMeasureGroup.TimeSignature);
+
+            SidebarPanel.Children.Add(grid);
 
         }
 
@@ -77,7 +84,7 @@ namespace Musicista.Sidebar
             SidebarPanel.Children.Clear();
 
             var grid = new GridTable(60);
-            grid.AddRowWithTextField("Title", "Title");
+            grid.AddRowWithTextField("Title", MainWindow.CurrentPiece, "Title");
 
             if (piece.ListOfComposers != null && piece.ListOfComposers.Count > 0 && piece.ListOfComposers[0].FullName != null)
                 foreach (var composer in piece.ListOfComposers)
@@ -85,8 +92,8 @@ namespace Musicista.Sidebar
                         grid.AddRowWithPerson("Composer", composer);
 
             //grid.AddRowWithComboBox("Opus", "Opus", typeof(OpusNumber));
-            grid.AddRowWithComboBox("Epoch", "Epoch", Epoch.Classical);
-            grid.AddRowWithComboBox("Form", "Form", Form.Other);
+            grid.AddRowWithComboBox("Epoch", MainWindow.CurrentPiece, "Epoch", Epoch.Classical);
+            grid.AddRowWithComboBox("Form", MainWindow.CurrentPiece, "Form", Form.Other);
 
 
             SidebarPanel.Children.Add(grid);

@@ -7,10 +7,10 @@
              d:DesignHeight="800" d:DesignWidth="300">
     <Grid Background="#FFEDEDED">
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Name="TitleTextBlock" FontSize="20" HorizontalAlignment="Center">Information</TextBlock>
+        <TextBlock Grid.Row="0" Name="TitleTextBlock" FontSize="20" HorizontalAlignment="Center" Margin="0,10,0,0">Information</TextBlock>
         <StackPanel Grid.Row="1" Orientation="Vertical" Name="SidebarPanel">
             <TextBlock Name="Clicked"></TextBlock>
         </StackPanel>

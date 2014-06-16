@@ -1,38 +1,107 @@
-﻿
-namespace Model
+﻿using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+
+namespace Model.Meta
 {
     /// <summary>
-    /// 3/4: Beats = 3, BeatUnit = 4
+    ///     3/4: Beats = 3, BeatUnit = 4
     /// </summary>
-    public class TimeSignature
+    public class TimeSignature : INotifyPropertyChanged
     {
-        public int Beats { get; set; }
-        public int BeatUnit { get; set; }
-        public bool IsCommon = false; // 4/4 = c
-        public bool IsCutCommon = false; // 2/2 = </:
+        private int _beatUnit = 4;
+        private int _beats = 4;
+        private bool _isCommon;
+        private bool _isCutCommon;
 
-        public TimeSignature() { }
+        public TimeSignature()
+        {
+        }
+
         public TimeSignature(int beats, int beatUnit)
         {
             Beats = beats;
             BeatUnit = beatUnit;
+            IsCommon = false;
+            IsCutCommon = false;
         }
 
         public TimeSignature(bool isCommon = false, bool isCutCommon = false)
         {
             if (isCommon)
-            {
                 IsCommon = true;
+            else if (isCutCommon)
+                IsCutCommon = true;
+            else
+            {
                 Beats = 4;
                 BeatUnit = 4;
             }
+        }
 
-            if (isCutCommon)
+        public int Beats
+        {
+            get { return _beats; }
+            set
             {
-                IsCutCommon = true;
-                Beats = 2;
-                BeatUnit = 2;
+                if (value == _beats) return;
+                _beats = value;
+                NotifyPropertyChanged();
             }
+        }
+
+        public int BeatUnit
+        {
+            get { return _beatUnit; }
+            set
+            {
+                if (value == _beatUnit) return;
+                _beatUnit = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+
+        public bool IsCommon // 4/4 = c
+        {
+            get { return _isCommon; }
+            set
+            {
+                if (_isCommon == value) return;
+                if (value)
+                {
+                    IsCutCommon = false;
+                    Beats = 4;
+                    BeatUnit = 4;
+                }
+                _isCommon = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public bool IsCutCommon // 2/2 = </:
+        {
+            get { return _isCutCommon; }
+            set
+            {
+                if (value == _isCutCommon) return;
+                if (value)
+                {
+                    IsCommon = false;
+                    Beats = 2;
+                    BeatUnit = 2;
+                }
+                _isCutCommon = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

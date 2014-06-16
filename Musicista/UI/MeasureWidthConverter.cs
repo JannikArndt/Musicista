@@ -9,6 +9,8 @@ namespace Musicista.UI
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            if (((UISystem)parameter).MeasuresInSystem == 1)
+                return (double)value;
             return ((double)value - ((UISystem)parameter).Indent) / ((UISystem)parameter).MeasuresInSystem;
         }
 

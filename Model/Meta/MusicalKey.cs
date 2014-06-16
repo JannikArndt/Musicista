@@ -6,8 +6,8 @@ namespace Model.Meta
 {
     public class MusicalKey
     {
-        public Pitch Pitch;
-        public Gender Gender;
+        public Pitch Pitch { get; set; }
+        public Gender Gender { get; set; }
 
         public MusicalKey() { }
         public MusicalKey(Pitch pitch, Gender gender)

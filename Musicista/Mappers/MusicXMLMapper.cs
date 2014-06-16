@@ -55,6 +55,7 @@ namespace Musicista.Mappers
             var listOfAdditionalStaves = new Dictionary<int, List<Measure>>();
 
             var lastKey = new MusicalKey(Pitch.C, Gender.Major);
+            var lastTime = new TimeSignature(4, 4);
 
             // take the first part, go through all measure, for each measure look up the other parts
             for (var measureNumber = 0; measureNumber < mxml.Part[0].Measure.Length; measureNumber++)
@@ -69,10 +70,16 @@ namespace Musicista.Mappers
                     ParentPassage = piece.ListOfSections[0].ListOfMovements[0].ListOfSegments[0].ListOfPassages[0]
                 };
 
+                // KeySignature
                 var measureAttributes = measure.Items.First(item => item.GetType() == typeof(attributes)) as attributes;
                 if (measureAttributes != null && measureAttributes.key != null && measureAttributes.key.First() != null)
                     lastKey = GetKeyFromMXMLKey(measureAttributes.key.First());
                 measureGroup.KeySignature = lastKey;
+
+                // TimeSignature
+                if (measureAttributes != null && measureAttributes.time != null && measureAttributes.time.First() != null)
+                    lastTime = new TimeSignature(measureAttributes.time.First().Beats, measureAttributes.time.First().BeatType);
+                measureGroup.TimeSignature = lastTime;
 
 
                 // 2. Go through all <Part>s, 

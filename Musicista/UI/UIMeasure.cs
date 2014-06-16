@@ -64,7 +64,6 @@ namespace Musicista.UI
             };
             Barline.SetBinding(Line.X1Property, new Binding { Path = new PropertyPath(WidthProperty), Source = this });
             Barline.SetBinding(Line.X2Property, new Binding { Path = new PropertyPath(WidthProperty), Source = this });
-            //Barline.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
 
             Children.Add(Barline);
 
@@ -78,6 +77,11 @@ namespace Musicista.UI
                 {
                     if (MainWindow.SidebarInformation != null)
                         MainWindow.SidebarInformation.ShowUIElement(sender);
+
+                    if (UIHelper.SelectedUIMeasure != null)
+                        UIHelper.SelectedUIMeasure.Background = Brushes.Transparent;
+                    Background = Brushes.SkyBlue;
+                    UIHelper.SelectedUIMeasure = this;
                 };
             }
 

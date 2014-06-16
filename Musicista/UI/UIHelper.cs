@@ -6,7 +6,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Effects;
 using System.Windows.Shapes;
 using Duration = Model.Duration;
 
@@ -14,9 +13,10 @@ namespace Musicista.UI
 {
     public static class UIHelper
     {
+        public static UIMeasure SelectedUIMeasure { get; set; }
         public static List<Canvas> DrawPiece(Piece piece)
         {
-            Canvas currentPage = CreatePage();
+            var currentPage = new UIPage();
             var pageList = new List<Canvas> { currentPage };
 
             if (!String.IsNullOrEmpty(piece.Title))
@@ -53,7 +53,7 @@ namespace Musicista.UI
                                                 // pagebreak every 4 systems
                                                 if (systemsPerPage > 3)
                                                 {
-                                                    currentPage = CreatePage();
+                                                    currentPage = new UIPage();
                                                     pageList.Add(currentPage);
                                                     systemsPerPage = 0;
                                                     currentTop = 60;
@@ -94,22 +94,6 @@ namespace Musicista.UI
                                                 currentSystem.BarlineFront.Y2 = Canvas.GetTop(currentSystem.MeasureGroups[0].Measures.Last()) + 36;
                                         }
             return pageList;
-        }
-
-        public static Canvas CreatePage()
-        {
-            var canvas = new Canvas
-            {
-                Width = 841, // A0 in mm
-                Height = 1189,
-                Margin = new Thickness(0, 20, 0, 0),
-                VerticalAlignment = VerticalAlignment.Top,
-                Background = Brushes.White,
-                LayoutTransform = new ScaleTransform(1, 1),
-                Effect = new DropShadowEffect { RenderingBias = RenderingBias.Performance }
-            };
-            Panel.SetZIndex(canvas, 0);
-            return canvas;
         }
 
         public static void DrawComposer(Piece piece, Canvas page)
@@ -153,9 +137,7 @@ namespace Musicista.UI
             // Draw key signature changes
             if (measureGroup.Previous != null && !Equals(measureGroup.KeySignature, measureGroup.Previous.KeySignature))
                 foreach (var uiMeasure in uiMeasureGroup.Measures)
-                {
                     DrawKey(uiMeasure, measureGroup.KeySignature, uiMeasure.InnerMeasure.Clef);
-                }
 
             // set connecting barlines
             if (uiMeasureGroup.Measures.Count > 0)
@@ -178,41 +160,53 @@ namespace Musicista.UI
                     DrawRest((Rest)symbol, newMeasure);
         }
 
-        public static void DrawClef(UIStaff staff, Clef clefType)
+        public static void DrawClef(Canvas canvas, Clef clefType)
         {
             var clef = new Path
             {
                 Fill = Brushes.Black,
             };
 
+            var scale = 1;
+            var additionalTop = 0;
+            if (canvas.GetType() == typeof(UIMeasure))
+            {
+                scale = 5;
+                additionalTop = 45;
+                ((UIMeasure)canvas).Indent += 100;
+            }
+
             switch (clefType)
             {
                 case Clef.Treble:
-                    clef.RenderTransform = new ScaleTransform(.5, .5);
+                    clef.RenderTransform = new ScaleTransform(.5 * scale, .5 * scale);
                     clef.Data = Geometry.Parse(Engraving.TrebleClef);
-                    Canvas.SetTop(clef, -10);
+                    Canvas.SetTop(clef, -10 * scale + additionalTop);
                     Canvas.SetLeft(clef, 10);
                     break;
                 case Clef.Bass:
-                    clef.RenderTransform = new ScaleTransform(.13, .13);
+                    clef.RenderTransform = new ScaleTransform(.14 * scale, .14 * scale);
                     clef.Data = Geometry.Parse(Engraving.BassClef);
-                    Canvas.SetTop(clef, 1);
+                    Canvas.SetTop(clef, 1 * scale + additionalTop);
                     Canvas.SetLeft(clef, 10);
                     break;
             }
 
-            staff.Children.Add(clef);
+            canvas.Children.Add(clef);
         }
 
         public static double DrawKey(Canvas canvas, MusicalKey musicalKey, Clef clef)
         {
             var scale = 1;
             var additionalTop = 0;
+            var indent = 30;
 
             if (canvas.GetType() == typeof(UIMeasure))
             {
                 scale = 5;
                 additionalTop = 45;
+                indent = ((UIMeasure)canvas).Indent - 60;
+                ((UIMeasure)canvas).Indent += 200;
             }
             var key = new Path
             {
@@ -260,7 +254,7 @@ namespace Musicista.UI
                     Canvas.SetTop(key, -4 * scale + additionalTop);
                     break;
             }
-            Canvas.SetLeft(key, 30);
+            Canvas.SetLeft(key, indent);
             canvas.Children.Add(key);
             return key.ActualWidth;
         }

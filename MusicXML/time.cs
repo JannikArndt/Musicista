@@ -1,159 +1,59 @@
+using System;
+using System.CodeDom.Compiler;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class time
+    [GeneratedCode("xsd", "4.0.30319.33440")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    public class time
     {
+        [XmlElement("beat-type")]
+        public int BeatType { get; set; }
 
-        private object[] itemsField;
+        [XmlElement("beats")]
+        public int Beats { get; set; }
 
-        private ItemsChoiceType9[] itemsElementNameField;
+        [XmlElement("interchangeable")]
+        public interchangeable Interchangeable { get; set; }
 
-        private string numberField;
-
-        private timesymbol symbolField;
-
-        private bool symbolFieldSpecified;
-
-        private timeseparator separatorField;
-
-        private bool separatorFieldSpecified;
-
-        private yesno printobjectField;
-
-        private bool printobjectFieldSpecified;
+        [XmlElement("senza-misura")]
+        public string SenzaMisura { get; set; }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("beat-type", typeof(string))]
-        [System.Xml.Serialization.XmlElementAttribute("beats", typeof(string))]
-        [System.Xml.Serialization.XmlElementAttribute("interchangeable", typeof(interchangeable))]
-        [System.Xml.Serialization.XmlElementAttribute("senza-misura", typeof(string))]
-        [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemsElementName")]
-        public object[] Items
-        {
-            get
-            {
-                return this.itemsField;
-            }
-            set
-            {
-                this.itemsField = value;
-            }
-        }
+        [XmlElement("ItemsElementName"), XmlIgnore]
+        public ItemsChoiceType9[] ItemsElementName { get; set; }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("ItemsElementName")]
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public ItemsChoiceType9[] ItemsElementName
-        {
-            get
-            {
-                return this.itemsElementNameField;
-            }
-            set
-            {
-                this.itemsElementNameField = value;
-            }
-        }
+        [XmlAttribute(DataType = "positiveInteger")]
+        public string number { get; set; }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "positiveInteger")]
-        public string number
-        {
-            get
-            {
-                return this.numberField;
-            }
-            set
-            {
-                this.numberField = value;
-            }
-        }
+        [XmlAttribute]
+        public timesymbol symbol { get; set; }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public timesymbol symbol
-        {
-            get
-            {
-                return this.symbolField;
-            }
-            set
-            {
-                this.symbolField = value;
-            }
-        }
+        [XmlIgnore]
+        public bool symbolSpecified { get; set; }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool symbolSpecified
-        {
-            get
-            {
-                return this.symbolFieldSpecified;
-            }
-            set
-            {
-                this.symbolFieldSpecified = value;
-            }
-        }
+        [XmlAttribute]
+        public timeseparator separator { get; set; }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public timeseparator separator
-        {
-            get
-            {
-                return this.separatorField;
-            }
-            set
-            {
-                this.separatorField = value;
-            }
-        }
+        [XmlIgnore]
+        public bool separatorSpecified { get; set; }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool separatorSpecified
-        {
-            get
-            {
-                return this.separatorFieldSpecified;
-            }
-            set
-            {
-                this.separatorFieldSpecified = value;
-            }
-        }
+        [XmlAttribute("print-object")]
+        public yesno printobject { get; set; }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute("print-object")]
-        public yesno printobject
-        {
-            get
-            {
-                return this.printobjectField;
-            }
-            set
-            {
-                this.printobjectField = value;
-            }
-        }
-
-
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool printobjectSpecified
-        {
-            get
-            {
-                return this.printobjectFieldSpecified;
-            }
-            set
-            {
-                this.printobjectFieldSpecified = value;
-            }
-        }
+        [XmlIgnore]
+        public bool printobjectSpecified { get; set; }
     }
 }

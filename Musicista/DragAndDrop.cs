@@ -29,7 +29,7 @@ namespace Musicista
             if (_captured)
                 DragEnd(sender, e);
 
-            _rootCanvas = _pageList[0];
+            _rootCanvas = PageList[0];
             _draggedElement = (UIElement)sender;
             Mouse.Capture(_draggedElement);
             _captured = true;

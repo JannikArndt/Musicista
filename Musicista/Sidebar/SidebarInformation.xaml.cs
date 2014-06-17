@@ -35,7 +35,7 @@ namespace Musicista.Sidebar
             SidebarPanel.Children.Clear();
 
             // Display uiMeasure
-            var page = new Canvas
+            var page = new UIPage
             {
                 Width = 280,
                 Height = 50,

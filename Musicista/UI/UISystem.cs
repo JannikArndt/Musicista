@@ -11,14 +11,20 @@ namespace Musicista.UI
         private readonly double _staffSpacing;
         public List<UIStaff> Staves = new List<UIStaff>();
         public List<UIMeasureGroup> MeasureGroups = new List<UIMeasureGroup>();
+        public readonly UIPage ParentPage;
         private double _currentTop;
         public double Indent = 40;
         public Line BarlineFront { get; set; }
         public int MeasuresInSystem = 4;
 
 
-        public UISystem(Panel page, double top, double left, double right, double staffSpacing = 55, double systemSpacing = 40)
+        public UISystem(UIPage page, double top, double left, double right, double staffSpacing = 55, double systemSpacing = 40)
         {
+            // Logical connection
+            ParentPage = page;
+            page.Systems.Add(this);
+
+            // geometry
             Width = page.Width - left - right;
 
             _staffSpacing = staffSpacing;
@@ -57,6 +63,22 @@ namespace Musicista.UI
             _currentTop += staff.ActualHeight + _staffSpacing;
 
             Children.Add(staff);
+        }
+
+        public UISystem NextUISystem
+        {
+            get
+            {
+                if (ParentPage == null || ParentPage.Systems == null) return null;
+                var index = ParentPage.Systems.IndexOf(this);
+                if (index > -1 && ParentPage.Systems.Count > index + 1)
+                    return ParentPage.Systems[index + 1];
+
+                var pageIndex = MainWindow.PageList.IndexOf(ParentPage);
+                if (MainWindow.PageList.Count > pageIndex + 1 && MainWindow.PageList[pageIndex + 1].Systems.Count > 0)
+                    return MainWindow.PageList[pageIndex + 1].Systems[0];
+                return null;
+            }
         }
     }
 }

@@ -51,5 +51,19 @@ namespace Musicista.UI
 
             system.Children.Add(this);
         }
+
+        public UIMeasureGroup NextUIMeasureGroup
+        {
+            get
+            {
+                var index = ParentSystem.MeasureGroups.IndexOf(this);
+                if (index > -1 && ParentSystem.MeasureGroups.Count > index + 1)
+                    return ParentSystem.MeasureGroups[index + 1];
+                if (ParentSystem.NextUISystem != null && ParentSystem.NextUISystem.MeasureGroups != null &&
+                    ParentSystem.NextUISystem.MeasureGroups.Count > 0 && ParentSystem.NextUISystem.MeasureGroups[0] != null)
+                    return ParentSystem.NextUISystem.MeasureGroups[0];
+                return null;
+            }
+        }
     }
 }

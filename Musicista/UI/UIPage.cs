@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
@@ -7,6 +8,7 @@ namespace Musicista.UI
 {
     public class UIPage : Canvas
     {
+        public List<UISystem> Systems = new List<UISystem>();
         public UIPage()
         {
             Width = 841; // A0 in mm

@@ -21,7 +21,7 @@ namespace Musicista
     /// </summary>
     public partial class MainWindow
     {
-        private static List<Canvas> _pageList;
+        public static List<UIPage> PageList;
         public static Piece CurrentPiece;
         private string _fileName = "";
 
@@ -133,7 +133,7 @@ namespace Musicista
         private void Close(object sender, ExecutedRoutedEventArgs e)
         {
             CurrentPiece = null;
-            _pageList = null;
+            PageList = null;
             CanvasScrollViewer.Content = null;
             _fileName = "";
         }
@@ -262,10 +262,10 @@ namespace Musicista
         private void DrawPiece(Piece piece)
         {
             CurrentPiece = piece;
-            _pageList = UIHelper.DrawPiece(CurrentPiece);
+            PageList = UIHelper.DrawPiece(CurrentPiece);
 
             var pages = new StackPanel();
-            foreach (var page in _pageList)
+            foreach (var page in PageList)
                 pages.Children.Add(page);
             pages.Children.Add(new Canvas { Height = 200 });
             CanvasScrollViewer.Content = pages;

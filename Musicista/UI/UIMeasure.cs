@@ -2,6 +2,7 @@
 using Model.Meta;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -91,6 +92,37 @@ namespace Musicista.UI
                             Background = Brushes.SkyBlue;
                         }
                     }
+                    else if (Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
+                    {
+                        var next = UIHelper.SelectedUIMeasures.FirstOrDefault();
+                        // first click on an earlier measure
+                        if (next != null && ParentMeasureGroup.InnerMeasureGroup.MeasureNumber > next.ParentMeasureGroup.InnerMeasureGroup.MeasureNumber)
+                        {
+                            while (next != null && next != this)
+                            {
+                                next.Background = Brushes.SkyBlue;
+                                UIHelper.SelectedUIMeasures.Add(next);
+                                next = next.NextUIMeasure;
+                            }
+                            Background = Brushes.SkyBlue;
+                            UIHelper.SelectedUIMeasures.Add(this);
+                        }
+                        // first click on a later measure
+                        else if (next != null)
+                        {
+                            var final = next;
+                            next = this;
+                            while (next != null && next != final)
+                            {
+                                next.Background = Brushes.SkyBlue;
+                                UIHelper.SelectedUIMeasures.Add(next);
+                                next = next.NextUIMeasure;
+                            }
+                            final.Background = Brushes.SkyBlue;
+                            UIHelper.SelectedUIMeasures.Add(final);
+                        }
+
+                    }
                     else
                     {
                         foreach (var uiMeasure in UIHelper.SelectedUIMeasures)
@@ -130,6 +162,18 @@ namespace Musicista.UI
             Children.Add(Line3);
             Children.Add(Line4);
             Children.Add(Line5);
+        }
+
+        public UIMeasure NextUIMeasure
+        {
+            get
+            {
+                if (ParentMeasureGroup == null || ParentMeasureGroup.NextUIMeasureGroup == null) return null;
+                var currentIndex = ParentMeasureGroup.Measures.IndexOf(this);
+                if (currentIndex > -1 && ParentMeasureGroup.NextUIMeasureGroup.Measures.Count > currentIndex)
+                    return ParentMeasureGroup.NextUIMeasureGroup.Measures[currentIndex];
+                return null;
+            }
         }
 
         public Line Barline { get; set; }

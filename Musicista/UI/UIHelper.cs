@@ -19,10 +19,10 @@ namespace Musicista.UI
             get { return _selectedUIMeasures; }
             set { _selectedUIMeasures = value; }
         }
-        public static List<Canvas> DrawPiece(Piece piece)
+        public static List<UIPage> DrawPiece(Piece piece)
         {
             var currentPage = new UIPage();
-            var pageList = new List<Canvas> { currentPage };
+            var pageList = new List<UIPage> { currentPage };
 
             if (!String.IsNullOrEmpty(piece.Title))
                 new UITitle(piece, 60, pageList.First());

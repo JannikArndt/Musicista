@@ -13,7 +13,12 @@ namespace Musicista.UI
 {
     public static class UIHelper
     {
-        public static UIMeasure SelectedUIMeasure { get; set; }
+        private static List<UIMeasure> _selectedUIMeasures = new List<UIMeasure>();
+        public static List<UIMeasure> SelectedUIMeasures
+        {
+            get { return _selectedUIMeasures; }
+            set { _selectedUIMeasures = value; }
+        }
         public static List<Canvas> DrawPiece(Piece piece)
         {
             var currentPage = new UIPage();

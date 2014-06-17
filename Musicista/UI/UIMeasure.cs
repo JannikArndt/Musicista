@@ -78,10 +78,28 @@ namespace Musicista.UI
                     if (MainWindow.SidebarInformation != null)
                         MainWindow.SidebarInformation.ShowUIElement(sender);
 
-                    if (UIHelper.SelectedUIMeasure != null)
-                        UIHelper.SelectedUIMeasure.Background = Brushes.Transparent;
-                    Background = Brushes.SkyBlue;
-                    UIHelper.SelectedUIMeasure = this;
+                    if (Keyboard.Modifiers.HasFlag(ModifierKeys.Control))
+                    {
+                        if (UIHelper.SelectedUIMeasures.Contains(this))
+                        {
+                            Background = Brushes.Transparent;
+                            UIHelper.SelectedUIMeasures.Remove(this);
+                        }
+                        else
+                        {
+                            UIHelper.SelectedUIMeasures.Add(this);
+                            Background = Brushes.SkyBlue;
+                        }
+                    }
+                    else
+                    {
+                        foreach (var uiMeasure in UIHelper.SelectedUIMeasures)
+                            uiMeasure.Background = Brushes.Transparent;
+                        UIHelper.SelectedUIMeasures.Clear();
+                        Background = Brushes.SkyBlue;
+                        UIHelper.SelectedUIMeasures.Add(this);
+                    }
+                    args.Handled = true;
                 };
             }
 

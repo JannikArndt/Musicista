@@ -18,12 +18,13 @@ namespace Musicista.UI
             Effect = new DropShadowEffect { RenderingBias = RenderingBias.Performance };
             SetZIndex(this, 0);
 
-            PreviewMouseDown += delegate
+            MouseDown += delegate
             {
                 if (MainWindow.SidebarInformation != null)
                     MainWindow.SidebarInformation.ShowPiece();
-                if (UIHelper.SelectedUIMeasure != null)
-                    UIHelper.SelectedUIMeasure.Background = Brushes.Transparent;
+                foreach (var uiMeasure in UIHelper.SelectedUIMeasures)
+                    uiMeasure.Background = Brushes.Transparent;
+                UIHelper.SelectedUIMeasures.Clear();
             };
         }
     }

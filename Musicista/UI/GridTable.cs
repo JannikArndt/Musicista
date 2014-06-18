@@ -55,6 +55,37 @@ namespace Musicista.UI
             Children.Add(valueTextBox);
         }
 
+        public void AddRowWithReadonlyTextField(string key, string text)
+        {
+            RowDefinitions.Add(new RowDefinition { Height = new GridLength(30) });
+
+            var keyTextBlock = new TextBlock
+            {
+                Text = key,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            SetRow(keyTextBlock, RowDefinitions.Count - 1);
+            SetColumn(keyTextBlock, 0);
+
+            var valueTextBox = new TextBox
+            {
+                Text = text,
+                Width = 200,
+                Height = 26,
+                Padding = new Thickness(3),
+                Margin = new Thickness(1),
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Center,
+                IsReadOnly = true
+            };
+            SetRow(valueTextBox, RowDefinitions.Count - 1);
+            SetColumn(valueTextBox, 1);
+
+            Children.Add(keyTextBlock);
+            Children.Add(valueTextBox);
+        }
+
         public void AddRowWithPerson(string key, Person person)
         {
             RowDefinitions.Add(new RowDefinition { Height = new GridLength(30) });

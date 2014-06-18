@@ -76,9 +76,6 @@ namespace Musicista.UI
 
                 PreviewMouseDown += delegate(object sender, MouseButtonEventArgs args)
                 {
-                    if (MainWindow.SidebarInformation != null)
-                        MainWindow.SidebarInformation.ShowUIElement(sender);
-
                     if (Keyboard.Modifiers.HasFlag(ModifierKeys.Control))
                     {
                         if (UIHelper.SelectedUIMeasures.Contains(this))
@@ -106,6 +103,7 @@ namespace Musicista.UI
                             }
                             Background = Brushes.SkyBlue;
                             UIHelper.SelectedUIMeasures.Add(this);
+
                         }
                         // first click on a later measure
                         else if (next != null)
@@ -121,7 +119,7 @@ namespace Musicista.UI
                             final.Background = Brushes.SkyBlue;
                             UIHelper.SelectedUIMeasures.Add(final);
                         }
-
+                        UIHelper.SelectedUIMeasures = UIHelper.SelectedUIMeasures.Distinct().ToList();
                     }
                     else
                     {
@@ -132,6 +130,9 @@ namespace Musicista.UI
                         UIHelper.SelectedUIMeasures.Add(this);
                     }
                     args.Handled = true;
+
+                    if (MainWindow.SidebarInformation != null)
+                        MainWindow.SidebarInformation.ShowUIElement(sender);
                 };
             }
 

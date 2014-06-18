@@ -310,5 +310,39 @@ namespace Musicista.UI
             Canvas.SetLeft(newRest, left);
             measure.Children.Add(newRest);
         }
+
+        public static string NumbersToString(List<int> numbers)
+        {
+            // from http://stackoverflow.com/a/13628257/1507481
+            numbers.Sort();
+            var result = "";
+            var start = numbers[0];  // track start and end
+            var end = start;
+            for (var i = 1; i < numbers.Count; i++)
+            {
+                // as long as entries are consecutive, move end forward
+                if (numbers[i] == (numbers[i - 1] + 1))
+                    end = numbers[i];
+                else
+                {
+                    // when no longer consecutive, add group to result
+                    // depending on whether start=end (single item) or not
+                    if (start == end)
+                        result += start + ",";
+                    else
+                        result += start + "-" + end + ",";
+
+                    start = end = numbers[i];
+                }
+            }
+
+            // handle the final group
+            if (start == end)
+                result += start;
+            else
+                result += start + "-" + end;
+
+            return result;
+        }
     }
 }

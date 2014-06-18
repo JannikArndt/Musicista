@@ -2,10 +2,10 @@
 using Model.Meta;
 using Musicista.UI;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Media;
 
 namespace Musicista.Sidebar
 {
@@ -30,46 +30,64 @@ namespace Musicista.Sidebar
 
         private void ShowMeasure(UIMeasure uiMeasure)
         {
-
-            TitleTextBlock.Text = uiMeasure.ToString();
-            SidebarPanel.Children.Clear();
-
-            // Display uiMeasure
-            var page = new UIPage
+            if (UIHelper.SelectedUIMeasures.Count == 1)
             {
-                Width = 280,
-                Height = 50,
-                VerticalAlignment = VerticalAlignment.Top,
-                HorizontalAlignment = HorizontalAlignment.Center,
-                Background = Brushes.White
-            };
-            var system = new UISystem(page, 0, 0, 0) { MeasuresInSystem = 1 };
-            system.Children.Remove(system.BarlineFront);
-            var canvas = new UIMeasureGroup(system, 0);
-            canvas.Children.Remove(canvas.Barline);
+                TitleTextBlock.Text = uiMeasure.ToString();
+                SidebarPanel.Children.Clear();
 
-            SidebarPanel.Children.Add(page);
+                // Display uiMeasure
+                var page = new UIPage
+                {
+                    Width = 280,
+                    Height = 50,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    Effect = null
+                };
+                var system = new UISystem(page, 0, 0, 0) { MeasuresInSystem = 1 };
+                system.Children.Remove(system.BarlineFront);
+                var canvas = new UIMeasureGroup(system, 0);
+                canvas.Children.Remove(canvas.Barline);
 
-            var newMeasure = new UIMeasure(canvas, 0, 0, uiMeasure.InnerMeasure, suppressEventHandlers: true);
+                SidebarPanel.Children.Add(page);
 
-            UIHelper.DrawClef(newMeasure, uiMeasure.InnerMeasure.Clef);
-            UIHelper.DrawKey(newMeasure, uiMeasure.InnerMeasure.ParentMeasureGroup.KeySignature, uiMeasure.InnerMeasure.Clef);
+                var newMeasure = new UIMeasure(canvas, 0, 0, uiMeasure.InnerMeasure, suppressEventHandlers: true);
 
-            foreach (var symbol in uiMeasure.InnerMeasure.Symbols)
-                if (symbol.GetType() == typeof(Note))
-                    new UINote((Note)symbol, newMeasure);
-                else if (symbol.GetType() == typeof(Rest))
-                    UIHelper.DrawRest((Rest)symbol, newMeasure);
+                // Clef and key
+                UIHelper.DrawClef(newMeasure, uiMeasure.InnerMeasure.Clef);
+                UIHelper.DrawKey(newMeasure, uiMeasure.InnerMeasure.ParentMeasureGroup.KeySignature, uiMeasure.InnerMeasure.Clef);
 
-            // Display info about the uiMeasure
-            var grid = new GridTable(60);
-            grid.AddRowWithTextField("Instrument", uiMeasure.InnerMeasure.Instrument, "Name");
-            grid.AddRowWithComboBox("Clef", uiMeasure.InnerMeasure, "Clef", Clef.Treble);
-            grid.AddRowWithTwoComboBoxes("Key", uiMeasure.ParentMeasureGroup.InnerMeasureGroup.KeySignature, "Pitch", "Gender", Pitch.C, Gender.Major);
-            grid.AddRowWithTimeSignature("Time", uiMeasure.ParentMeasureGroup.InnerMeasureGroup.TimeSignature);
+                // Notes and rests
+                foreach (var symbol in uiMeasure.InnerMeasure.Symbols)
+                    if (symbol.GetType() == typeof(Note))
+                        new UINote((Note)symbol, newMeasure);
+                    else if (symbol.GetType() == typeof(Rest))
+                        UIHelper.DrawRest((Rest)symbol, newMeasure);
 
-            SidebarPanel.Children.Add(grid);
+                // Display info about the uiMeasure
+                var grid = new GridTable(60);
+                grid.AddRowWithTextField("Instrument", uiMeasure.InnerMeasure.Instrument, "Name");
+                grid.AddRowWithComboBox("Clef", uiMeasure.InnerMeasure, "Clef", Clef.Treble);
+                grid.AddRowWithTwoComboBoxes("Key", uiMeasure.ParentMeasureGroup.InnerMeasureGroup.KeySignature, "Pitch", "Gender", Pitch.C, Gender.Major);
+                grid.AddRowWithTimeSignature("Time", uiMeasure.ParentMeasureGroup.InnerMeasureGroup.TimeSignature);
 
+                SidebarPanel.Children.Add(grid);
+            }
+            else if (UIHelper.SelectedUIMeasures.Count > 1)
+            {
+                TitleTextBlock.Text = "Measures #" + UIHelper.NumbersToString(UIHelper.SelectedUIMeasures.Select(item => item.InnerMeasure.ParentMeasureGroup.MeasureNumber).ToList());
+                SidebarPanel.Children.Clear();
+
+                // Display info about the uiMeasure(s)
+                var grid = new GridTable(60);
+                var keys = UIHelper.SelectedUIMeasures.Select(item => item.InnerMeasure.ParentMeasureGroup.KeySignature).Distinct().ToList();
+                if (keys.Count() == 1)
+                    grid.AddRowWithTwoComboBoxes("Key", uiMeasure.ParentMeasureGroup.InnerMeasureGroup.KeySignature, "Pitch", "Gender", Pitch.C, Gender.Major);
+                else
+                    grid.AddRowWithReadonlyTextField("Keys", string.Join(", ", keys));
+
+
+                SidebarPanel.Children.Add(grid);
+            }
         }
 
         public void ShowPiece()

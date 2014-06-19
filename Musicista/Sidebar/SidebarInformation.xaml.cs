@@ -61,7 +61,7 @@ namespace Musicista.Sidebar
                     if (symbol.GetType() == typeof(Note))
                         new UINote((Note)symbol, newMeasure);
                     else if (symbol.GetType() == typeof(Rest))
-                        UIHelper.DrawRest((Rest)symbol, newMeasure);
+                        new UIRest((Rest)symbol, newMeasure);
 
                 // Display info about the uiMeasure
                 var grid = new GridTable(60);

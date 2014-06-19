@@ -10,110 +10,117 @@ using Duration = Model.Duration;
 
 namespace Musicista.UI
 {
-    public class UINote
+    public class UINote : UISymbol
     {
         public Note Note { get; set; }
-        public UIMeasure ParentMeasure { get; set; }
-        public double Top { get; set; }
-        public double Left { get; set; }
+
         public UINote(Note note, UIMeasure parentMeasure)
         {
             const int beatsPerMeasure = 4; // TODO measure.InnerMeasure.ParentMeasureGroup.TimeSignature.Beats
-            parentMeasure.ConnectEigthsAtEndOfRun = false;
-            parentMeasure.ConnectSixteenthsAtEndOfRun = false;
+            parentMeasure.ConnectNotesAtEndOfRun = false;
 
             Note = note;
             ParentMeasure = parentMeasure;
+            ParentMeasure.Symbols.Add(this);
             Top = 0;
             Left = ((parentMeasure.Width - parentMeasure.Indent) / beatsPerMeasure * (note.Beat - 1)) + parentMeasure.Indent;
 
-            var newNote = new Path
+            Path = new Path
             {
                 Fill = Brushes.Black,
                 SnapsToDevicePixels = true
             };
-            newNote.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Unspecified);
-            newNote.SetValue(RenderOptions.ClearTypeHintProperty, ClearTypeHint.Enabled);
-            newNote.SetValue(RenderOptions.CachingHintProperty, CachingHint.Cache);
+            Path.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Unspecified);
+            Path.SetValue(RenderOptions.ClearTypeHintProperty, ClearTypeHint.Enabled);
+            Path.SetValue(RenderOptions.CachingHintProperty, CachingHint.Cache);
 
             Top = SetTop(note, parentMeasure);
-            SetDuration(note, parentMeasure, newNote);
+            SetDuration(note, parentMeasure);
 
-            Canvas.SetTop(newNote, Top);
-            Canvas.SetLeft(newNote, Left);
-            parentMeasure.Children.Add(newNote);
+            Canvas.SetTop(Path, Top);
+            Canvas.SetLeft(Path, Left);
+            parentMeasure.Children.Add(Path);
 
-            if (parentMeasure.ConnectEigthsAtEndOfRun || parentMeasure.NotYetConnectedEigths.Count == 4 || (parentMeasure.NotYetConnectedEigths.Any() && note.Next != null && (note.Next.Beat == 3 || note.Next.Beat == 1)))
-                parentMeasure.ConnectEigths();
-            if (parentMeasure.ConnectSixteenthsAtEndOfRun || parentMeasure.NotYetConnectedSixteenths.Count == 4 || (parentMeasure.NotYetConnectedSixteenths.Any() && note.Next != null && (note.Next.Beat == 3 || note.Next.Beat == 1)))
-                parentMeasure.ConnectSixteenths();
+            if (parentMeasure.ConnectNotesAtEndOfRun || parentMeasure.NotYetConnectedNotes.Count == 4
+                || (parentMeasure.NotYetConnectedNotes.Any() && note.Next != null && (note.Next.Beat == 3 || note.Next.Beat == 1))
+                || (parentMeasure.NotYetConnectedNotes.Any(item => item.Note.Duration == Duration.sixteenth) && note.Next != null && (note.Next.Beat == 2 || note.Next.Beat == 4)))
+                parentMeasure.ConnectNotes();
         }
 
-        private void SetDuration(Note note, UIMeasure measure, Path newNote)
+        public UINote NextUINote
+        {
+            get
+            {
+                var index = ParentMeasure.Notes.IndexOf(this);
+                if (ParentMeasure.Notes.Count > index + 1)
+                    return ParentMeasure.Notes[index + 1];
+                return null;
+            }
+        }
+
+        private void SetDuration(Note note, UIMeasure measure)
         {
             switch (note.Duration)
             {
                 case Duration.wholeDotted:
-                    newNote.Data = Geometry.Parse(Engraving.Whole);
+                    Path.Data = Geometry.Parse(Engraving.Whole);
                     DrawDot(measure);
                     break;
                 case Duration.whole:
-                    newNote.Data = Geometry.Parse(Engraving.Whole);
+                    Path.Data = Geometry.Parse(Engraving.Whole);
                     break;
                 case Duration.halfDotted:
-                    newNote.Data = Geometry.Parse(note.StemShouldGoUp() ? Engraving.Half : Engraving.HalfUpsideDown);
+                    Path.Data = Geometry.Parse(note.StemShouldGoUp() ? Engraving.Half : Engraving.HalfUpsideDown);
                     DrawDot(measure);
                     break;
                 case Duration.half:
-                    newNote.Data = Geometry.Parse(note.StemShouldGoUp() ? Engraving.Half : Engraving.HalfUpsideDown);
+                    Path.Data = Geometry.Parse(note.StemShouldGoUp() ? Engraving.Half : Engraving.HalfUpsideDown);
                     break;
                 case Duration.quarterDotted:
-                    newNote.Data = Geometry.Parse(note.StemShouldGoUp() ? Engraving.Quarter : Engraving.QuarterUpsideDown);
+                    Path.Data = Geometry.Parse(note.StemShouldGoUp() ? Engraving.Quarter : Engraving.QuarterUpsideDown);
                     DrawDot(measure);
                     break;
                 case Duration.quarter:
-                    newNote.Data = Geometry.Parse(note.StemShouldGoUp() ? Engraving.Quarter : Engraving.QuarterUpsideDown);
+                    Path.Data = Geometry.Parse(note.StemShouldGoUp() ? Engraving.Quarter : Engraving.QuarterUpsideDown);
                     break;
                 case Duration.eigthDotted:
-                    newNote.Data = Geometry.Parse(note.StemShouldGoUp() ? Engraving.Eigth : Engraving.EightUpsideDown);
+                    Path.Data = Geometry.Parse(note.StemShouldGoUp() ? Engraving.Eigth : Engraving.EightUpsideDown);
                     DrawDot(measure);
+                    HandleConnectedNotes(note, measure);
                     break;
                 case Duration.eigth:
-                    newNote.Data = Geometry.Parse(note.StemShouldGoUp() ? Engraving.Eigth : Engraving.EightUpsideDown);
-                    if (note.Next != null && note.Next.Duration == Duration.eigth && note.Next.Beat != 1 && note.Next.Beat != 3)
-                    {
-                        if (!measure.NotYetConnectedEigths.Any())
-                            measure.StemDirectionUp = StemOfGroupShouldGoUp(note);
-                        newNote.Data = Geometry.Parse(measure.StemDirectionUp ? Engraving.Quarter : Engraving.QuarterUpsideDown);
-                        measure.NotYetConnectedEigths.Add(newNote);
-                    }
-                    else if (measure.NotYetConnectedEigths.Any())
-                    {
-                        newNote.Data = Geometry.Parse(measure.StemDirectionUp ? Engraving.Quarter : Engraving.QuarterUpsideDown);
-                        measure.NotYetConnectedEigths.Add(newNote);
-                        measure.ConnectEigthsAtEndOfRun = true;
-                    }
+                    Path.Data = Geometry.Parse(note.StemShouldGoUp() ? Engraving.Eigth : Engraving.EightUpsideDown);
+                    HandleConnectedNotes(note, measure);
                     break;
                 case Duration.sixteenthDotted:
-                    newNote.Data = Geometry.Parse(Engraving.Sixteenth);
+                    Path.Data = Geometry.Parse(Engraving.Sixteenth);
                     DrawDot(measure);
+                    HandleConnectedNotes(note, measure);
                     break;
                 case Duration.sixteenth:
-                    newNote.Data = Geometry.Parse(Engraving.Sixteenth);
-                    if (note.Next != null && note.Next.Duration == Duration.sixteenth && note.Next.Beat != 1 && note.Next.Beat != 3)
-                    {
-                        if (!measure.NotYetConnectedSixteenths.Any())
-                            measure.StemDirectionUp = StemOfGroupShouldGoUp(note);
-                        newNote.Data = Geometry.Parse(measure.StemDirectionUp ? Engraving.Quarter : Engraving.QuarterUpsideDown);
-                        measure.NotYetConnectedSixteenths.Add(newNote);
-                    }
-                    else if (measure.NotYetConnectedSixteenths.Any())
-                    {
-                        newNote.Data = Geometry.Parse(measure.StemDirectionUp ? Engraving.Quarter : Engraving.QuarterUpsideDown);
-                        measure.NotYetConnectedSixteenths.Add(newNote);
-                        measure.ConnectSixteenthsAtEndOfRun = true;
-                    }
+                    Path.Data = Geometry.Parse(Engraving.Sixteenth);
+                    HandleConnectedNotes(note, measure);
                     break;
+            }
+        }
+
+        private void HandleConnectedNotes(Note note, UIMeasure measure)
+        {
+            if (note.Next != null
+                && (note.Next.Duration == Duration.eigth || note.Next.Duration == Duration.sixteenth
+                || note.Next.Duration == Duration.eigthDotted || note.Next.Duration == Duration.sixteenthDotted)
+                && note.Next.Beat != 1 && note.Next.Beat != 3)
+            {
+                if (!measure.NotYetConnectedNotes.Any())
+                    measure.StemDirectionUp = StemOfGroupShouldGoUp(note);
+                Path.Data = Geometry.Parse(measure.StemDirectionUp ? Engraving.Quarter : Engraving.QuarterUpsideDown);
+                measure.NotYetConnectedNotes.Add(this);
+            }
+            else if (measure.NotYetConnectedNotes.Any())
+            {
+                Path.Data = Geometry.Parse(measure.StemDirectionUp ? Engraving.Quarter : Engraving.QuarterUpsideDown);
+                measure.NotYetConnectedNotes.Add(this);
+                measure.ConnectNotesAtEndOfRun = true;
             }
         }
 

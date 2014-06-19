@@ -7,7 +7,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using Duration = Model.Duration;
 
 namespace Musicista.UI
 {
@@ -162,7 +161,7 @@ namespace Musicista.UI
                 if (symbol.GetType() == typeof(Note))
                     new UINote((Note)symbol, newMeasure);
                 else if (symbol.GetType() == typeof(Rest))
-                    DrawRest((Rest)symbol, newMeasure);
+                    new UIRest((Rest)symbol, newMeasure);
         }
 
         public static void DrawClef(Canvas canvas, Clef clefType)
@@ -262,53 +261,6 @@ namespace Musicista.UI
             Canvas.SetLeft(key, indent);
             canvas.Children.Add(key);
             return key.ActualWidth;
-        }
-
-
-        public static void DrawRest(Rest rest, UIMeasure measure)
-        {
-            var newRest = new Path
-            {
-                Fill = Brushes.Black,
-                SnapsToDevicePixels = true
-            };
-
-            newRest.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Unspecified);
-            newRest.SetValue(RenderOptions.ClearTypeHintProperty, ClearTypeHint.Enabled);
-            newRest.SetValue(RenderOptions.CachingHintProperty, CachingHint.Cache);
-
-            const int beatsPerMeasure = 4; // TODO
-
-            // Left
-            var left = ((measure.Width - measure.Indent) / beatsPerMeasure * (rest.Beat - 1)) + measure.Indent;
-            if (rest.Duration == Duration.whole)
-                left = measure.Width / 2;
-
-            // Top
-            const double top = 55;
-
-            switch (rest.Duration)
-            {
-                case Duration.whole:
-                    newRest.Data = Geometry.Parse(Engraving.RestWhole);
-                    break;
-                case Duration.half:
-                    newRest.Data = Geometry.Parse(Engraving.RestHalf);
-                    break;
-                case Duration.quarter:
-                    newRest.Data = Geometry.Parse(Engraving.RestQuarter);
-                    break;
-                case Duration.eigth:
-                    newRest.Data = Geometry.Parse(Engraving.RestEigth);
-                    break;
-                case Duration.sixteenth:
-                    newRest.Data = Geometry.Parse(Engraving.RestSixteenth);
-                    break;
-            }
-
-            Canvas.SetTop(newRest, top);
-            Canvas.SetLeft(newRest, left);
-            measure.Children.Add(newRest);
         }
 
         public static string NumbersToString(List<int> numbers)

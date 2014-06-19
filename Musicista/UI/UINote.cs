@@ -16,29 +16,17 @@ namespace Musicista.UI
 
         public UINote(Note note, UIMeasure parentMeasure)
         {
-            const int beatsPerMeasure = 4; // TODO measure.InnerMeasure.ParentMeasureGroup.TimeSignature.Beats
+            BeatsPerMeasure = parentMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.Beats;
             parentMeasure.ConnectNotesAtEndOfRun = false;
-
             Note = note;
             ParentMeasure = parentMeasure;
             ParentMeasure.Symbols.Add(this);
-            Top = 0;
-            Left = ((parentMeasure.Width - parentMeasure.Indent) / beatsPerMeasure * (note.Beat - 1)) + parentMeasure.Indent;
 
-            Path = new Path
-            {
-                Fill = Brushes.Black,
-                SnapsToDevicePixels = true
-            };
-            Path.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Unspecified);
-            Path.SetValue(RenderOptions.ClearTypeHintProperty, ClearTypeHint.Enabled);
-            Path.SetValue(RenderOptions.CachingHintProperty, CachingHint.Cache);
-
+            Left = ((parentMeasure.Width - parentMeasure.Indent) / BeatsPerMeasure * (note.Beat - 1)) + parentMeasure.Indent;
             Top = SetTop(note, parentMeasure);
             SetDuration(note, parentMeasure);
 
-            Canvas.SetTop(Path, Top);
-            Canvas.SetLeft(Path, Left);
+
             parentMeasure.Children.Add(Path);
 
             if (parentMeasure.ConnectNotesAtEndOfRun || parentMeasure.NotYetConnectedNotes.Count == 4

@@ -227,51 +227,53 @@ namespace Musicista.Mappers
         public static Piece MapTimewiseMeasuresToPiece(ScoreTimewise mxml, Piece piece)
         {
             throw new Exception("This method is not currently working correctly.");
-            var lastClef = new List<Clef>();
-            for (var i = 0; i < mxml.Measure[0].part.Length; i++)
-                lastClef.Add(Clef.Treble);
+            /*
+                        var lastClef = new List<Clef>();
+                        for (var i = 0; i < mxml.Measure[0].part.Length; i++)
+                            lastClef.Add(Clef.Treble);
 
-            foreach (var measure in mxml.Measure)
-            {
-                var measureGroup = new MeasureGroup
-                {
-                    MeasureNumber = int.Parse(Regex.Match(measure.number, @"\d+").Value),
-                    TimeSignature = null,
-                    KeySignature = null,
-                    Measures = new List<Measure>(),
-                    ParentPassage = piece.ListOfSections[0].ListOfMovements[0].ListOfSegments[0].ListOfPassages[0]
-                };
+                        foreach (var measure in mxml.Measure)
+                        {
+                            var measureGroup = new MeasureGroup
+                            {
+                                MeasureNumber = int.Parse(Regex.Match(measure.number, @"\d+").Value),
+                                TimeSignature = null,
+                                KeySignature = null,
+                                Measures = new List<Measure>(),
+                                ParentPassage = piece.ListOfSections[0].ListOfMovements[0].ListOfSegments[0].ListOfPassages[0]
+                            };
 
-                for (var partNumber = 0; partNumber < measure.part.Length; partNumber++)
-                {
-                    if (measure.part[partNumber].Items.Any(item => item.GetType() == typeof(attributes)))
-                        lastClef[partNumber] = GetClefFromAttributes(measure.part[partNumber].Items.First(item => item.GetType() == typeof(attributes)) as attributes) ?? lastClef[partNumber];
+                            for (var partNumber = 0; partNumber < measure.part.Length; partNumber++)
+                            {
+                                if (measure.part[partNumber].Items.Any(item => item.GetType() == typeof(attributes)))
+                                    lastClef[partNumber] = GetClefFromAttributes(measure.part[partNumber].Items.First(item => item.GetType() == typeof(attributes)) as attributes) ?? lastClef[partNumber];
 
-                    var newMeasure = new Measure
-                    {
-                        Instrument = piece.ListOfInstruments[partNumber],
-                        ParentMeasureGroup = measureGroup,
-                        Clef = lastClef[partNumber]
-                    };
+                                var newMeasure = new Measure
+                                {
+                                    Instrument = piece.ListOfInstruments[partNumber],
+                                    ParentMeasureGroup = measureGroup,
+                                    Clef = lastClef[partNumber]
+                                };
 
-                    // Grab all Notes and Rests from the current <Part>
-                    var notes = measure.part[partNumber].Items.Where(item => item.GetType() == typeof(Note));
+                                // Grab all Notes and Rests from the current <Part>
+                                var notes = measure.part[partNumber].Items.Where(item => item.GetType() == typeof(Note));
 
-                    double beat = 256;
+                                double beat = 256;
 
-                    foreach (Note mxmlNote in notes)
-                    {
-                        var newNote = CreateNoteFromMXMLNote(mxmlNote, beat / 256);
-                        beat += (int)newNote.Duration;
-                        newMeasure.AddSymbol(newNote);
-                    }
+                                foreach (Note mxmlNote in notes)
+                                {
+                                    var newNote = CreateNoteFromMXMLNote(mxmlNote, beat / 256);
+                                    beat += (int)newNote.Duration;
+                                    newMeasure.AddSymbol(newNote);
+                                }
 
-                    measureGroup.Measures.Add(newMeasure);
-                }
-                piece.ListOfSections[0].ListOfMovements[0].ListOfSegments[0].ListOfPassages[0].ListOfMeasureGroups.Add(measureGroup);
-            }
+                                measureGroup.Measures.Add(newMeasure);
+                            }
+                            piece.ListOfSections[0].ListOfMovements[0].ListOfSegments[0].ListOfPassages[0].ListOfMeasureGroups.Add(measureGroup);
+                        }
 
-            return piece;
+                        return piece;
+            */
         }
 
         public static Symbol CreateNoteFromMXMLNote(Note mxmlNote, double beat = 1.0)

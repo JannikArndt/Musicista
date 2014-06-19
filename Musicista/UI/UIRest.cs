@@ -13,26 +13,16 @@ namespace Musicista.UI
         public Rest Rest { get; set; }
         public UIRest(Rest rest, UIMeasure parentMeasure)
         {
-            const int beatsPerMeasure = 4; // TODO measure.InnerMeasure.ParentMeasureGroup.TimeSignature.Beats
+            BeatsPerMeasure = parentMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.Beats;
             parentMeasure.ConnectNotesAtEndOfRun = false;
-
             Rest = rest;
             ParentMeasure = parentMeasure;
-            ParentMeasure.Symbols.Add(this); // TODO Rests?
+            ParentMeasure.Rests.Add(this);
+
             Top = 55;
-            Left = ((parentMeasure.Width - parentMeasure.Indent) / beatsPerMeasure * (rest.Beat - 1)) + parentMeasure.Indent;
+            Left = ((parentMeasure.Width - parentMeasure.Indent) / BeatsPerMeasure * (rest.Beat - 1)) + parentMeasure.Indent;
             if (rest.Duration == Duration.whole)
                 Left = parentMeasure.Width / 2;
-
-            Path = new Path
-            {
-                Fill = Brushes.Black,
-                SnapsToDevicePixels = true
-            };
-            Path.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Unspecified);
-            Path.SetValue(RenderOptions.ClearTypeHintProperty, ClearTypeHint.Enabled);
-            Path.SetValue(RenderOptions.CachingHintProperty, CachingHint.Cache);
-
             SetDuration(rest, parentMeasure);
 
             Canvas.SetTop(Path, Top);

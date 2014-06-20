@@ -9,8 +9,12 @@ namespace Musicista.UI
     public class UIPage : Canvas
     {
         public List<UISystem> Systems = new List<UISystem>();
-        public UIPage()
+        public UITitle Title { get; set; }
+        public UISettings Settings { get; set; }
+        public UIPage(bool firstPage = false)
         {
+            Settings = new UISettings(firstPage);
+
             Width = 841; // A0 in mm
             Height = 1189;
             Margin = new Thickness(0, 20, 0, 0);

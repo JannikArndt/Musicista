@@ -9,11 +9,11 @@ namespace Musicista.UI
 {
     public class UITitle : TextBlock
     {
-        private double _left;
-        private double _top;
+        public UIPage ParentPage { get; set; }
 
-        public UITitle(Piece piece, double top, Canvas page)
+        public UITitle(Piece piece, double top, UIPage page)
         {
+            ParentPage = page;
             DataContext = piece;
             SetBinding(TextProperty, "Title");
             FontSize = 50;
@@ -35,22 +35,14 @@ namespace Musicista.UI
 
         public double Top
         {
-            get { return _top; }
-            set
-            {
-                _top = value;
-                Canvas.SetTop(this, value);
-            }
+            get { return Canvas.GetTop(this); }
+            set { Canvas.SetTop(this, value); }
         }
 
         public double Left
         {
-            get { return _left; }
-            set
-            {
-                _left = value;
-                Canvas.SetLeft(this, value);
-            }
+            get { return Canvas.GetLeft(this); }
+            set { Canvas.SetLeft(this, value); }
         }
 
         public double DrawnWidth

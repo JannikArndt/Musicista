@@ -20,14 +20,14 @@ namespace Musicista.UI
         }
         public static List<UIPage> DrawPiece(Piece piece)
         {
-            var currentPage = new UIPage();
+            var currentPage = new UIPage(firstPage: true);
             var pageList = new List<UIPage> { currentPage };
 
             if (!String.IsNullOrEmpty(piece.Title))
-                new UITitle(piece, 60, pageList.First());
+                currentPage.Title = new UITitle(piece, 60, currentPage);
 
             if (piece.ListOfComposers != null && piece.ListOfComposers.Count > 0)
-                foreach (var composer in piece.ListOfComposers)
+                for (var index = 0; index < piece.ListOfComposers.Count; index++)
                     DrawComposer(piece, pageList.First());
 
             var measuresPerSystem = 4;
@@ -45,12 +45,10 @@ namespace Musicista.UI
                                         if (passage.ListOfMeasureGroups != null && passage.ListOfMeasureGroups.Count > 0)
                                         {
                                             var maxStaves = passage.ListOfMeasureGroups.Select(measure => measure.Measures.Count).Max();
-                                            double currentTop = 200;
-                                            double staffSpacing = 70;
-                                            double systemSpacing = 30;
+                                            var currentTop = currentPage.Settings.MarginTop;
 
                                             // 1. New System
-                                            var currentSystem = new UISystem(currentPage, currentTop, 50, 50, staffSpacing, systemSpacing);
+                                            var currentSystem = new UISystem(currentPage, currentTop);
 
                                             foreach (var measureGroup in passage.ListOfMeasureGroups)
                                             {
@@ -60,9 +58,7 @@ namespace Musicista.UI
                                                     currentPage = new UIPage();
                                                     pageList.Add(currentPage);
                                                     systemsPerPage = 0;
-                                                    currentTop = 60;
-                                                    staffSpacing = 55;
-                                                    systemSpacing = 40;
+                                                    currentTop = currentPage.Settings.MarginTop;
                                                 }
 
                                                 // systembreak every 4 measures
@@ -73,7 +69,7 @@ namespace Musicista.UI
                                                         currentSystem.BarlineFront.Y2 = Canvas.GetTop(currentSystem.MeasureGroups[0].Measures.Last()) + 36;
 
                                                     // New System with lines (staves)
-                                                    currentSystem = new UISystem(currentPage, currentTop, 50, 50, staffSpacing, systemSpacing);
+                                                    currentSystem = new UISystem(currentPage, currentTop);
 
                                                     for (var i = 0; i < maxStaves; i++)
                                                     {
@@ -91,6 +87,7 @@ namespace Musicista.UI
                                                     currentTop += currentSystem.Bottom; // Beginning of the next system
                                                 }
                                                 measuresPerSystem++;
+                                                // Now draw the measures and notes
                                                 DrawMeasureGroup(currentSystem, measureGroup);
                                             }
                                             // print Barline in front of the system

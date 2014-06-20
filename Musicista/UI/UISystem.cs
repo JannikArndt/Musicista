@@ -18,19 +18,19 @@ namespace Musicista.UI
         public int MeasuresInSystem = 4;
 
 
-        public UISystem(UIPage page, double top, double left, double right, double staffSpacing = 55, double systemSpacing = 40)
+        public UISystem(UIPage page, double top)
         {
             // Logical connection
             ParentPage = page;
             page.Systems.Add(this);
 
             // geometry
-            Width = page.Width - left - right;
+            Width = page.Width - page.Settings.SystemMarginLeft - page.Settings.SystemMarginRight;
 
-            _staffSpacing = staffSpacing;
-            _additionalSystemSpacing = systemSpacing;
+            _staffSpacing = page.Settings.StaffSpacing;
+            _additionalSystemSpacing = page.Settings.SystemSpacing;
 
-            SetLeft(this, left);
+            SetLeft(this, page.Settings.SystemMarginLeft);
             SetTop(this, top);
 
 

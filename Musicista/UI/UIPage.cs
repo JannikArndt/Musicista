@@ -28,6 +28,8 @@ namespace Musicista.UI
             {
                 if (MainWindow.SidebarInformation != null)
                     MainWindow.SidebarInformation.ShowPiece();
+                if (MainWindow.SidebarView != null)
+                    MainWindow.SidebarView.ShowPageSettings(this);
                 foreach (var uiMeasure in UIHelper.SelectedUIMeasures)
                     uiMeasure.Background = Brushes.Transparent;
                 UIHelper.SelectedUIMeasures.Clear();

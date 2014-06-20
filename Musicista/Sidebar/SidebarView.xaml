@@ -5,7 +5,39 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary Source="Icons/PageDimensions.xaml"></ResourceDictionary>
+    </UserControl.Resources>
     <Grid Background="#FFEDEDED">
-        <TextBlock>View</TextBlock>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Name="TitleTextBlock" FontSize="20" HorizontalAlignment="Center" Margin="0,10,0,0">View</TextBlock>
+        <StackPanel Grid.Row="1" Orientation="Vertical" Name="SidebarPanel">
+            <Grid HorizontalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="26" />
+                    <RowDefinition Height="22" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="36" />
+                    <RowDefinition Height="84" />
+                    <RowDefinition Height="30" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition Width="68" />
+                    <ColumnDefinition Width="12" />
+                    <ColumnDefinition Width="40" />
+                </Grid.ColumnDefinitions>
+                <Rectangle Grid.Row="0" Grid.RowSpan="6" Grid.Column="0" Grid.ColumnSpan="3" Fill="{DynamicResource PageDimensionsIcon}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" Height="200"></Rectangle>
+                <TextBox Grid.Row="0" Grid.Column="3" Width="40" Height="20" HorizontalAlignment="Left" VerticalAlignment="Center" Name="TextBoxMarginTop" />
+                <TextBox Grid.Row="2" Grid.Column="3" Width="40" Height="20" HorizontalAlignment="Left" VerticalAlignment="Center" Name="TextBoxStaffSpacing" />
+                <TextBox Grid.Row="4" Grid.Column="3" Width="40" Height="20" HorizontalAlignment="Left" VerticalAlignment="Center" Name="TextBoxSystemSpacing" />
+                <TextBox Grid.Row="6" Grid.Column="0" Width="40" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top"    Name="TextBoxLeftMargin" />
+                <TextBox Grid.Row="6" Grid.Column="1" Width="40" Height="20" HorizontalAlignment="Right" VerticalAlignment="Top"   Name="TextBoxRightMargin" />
+            </Grid>
+        </StackPanel>
     </Grid>
 </UserControl>

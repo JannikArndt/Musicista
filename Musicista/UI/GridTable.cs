@@ -9,8 +9,10 @@ namespace Musicista.UI
 {
     public class GridTable : Grid
     {
+        readonly int _leftColumnWidth = 60;
         public GridTable(int columnOneWidth)
         {
+            _leftColumnWidth = columnOneWidth;
             Margin = new Thickness(10);
 
             ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(columnOneWidth) });
@@ -40,7 +42,7 @@ namespace Musicista.UI
             var valueTextBox = new TextBox
             {
                 DataContext = dataContext,
-                Width = 200,
+                Width = 260 - _leftColumnWidth,
                 Height = 26,
                 Padding = new Thickness(3),
                 Margin = new Thickness(1),

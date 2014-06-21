@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -15,14 +16,16 @@ namespace Musicista.UI
         public Line Line4 { get; set; }
         public Line Line5 { get; set; }
         public List<UIMeasure> Measures = new List<UIMeasure>();
+        public UISystem ParentSystem { get; set; }
         public UIStaff(UISystem system)
         {
+            ParentSystem = system;
             const int spacing = 6;
 
             Width = system.Width;
 
             SetLeft(this, 0);
-            SetTop(this, Canvas.GetTop(system));
+            SetTop(this, CalculateStaffTop());
 
             Line1 = new Line { X1 = 0, Y1 = 0 * spacing, X2 = Width, Y2 = 0 * spacing, StrokeThickness = 1, Stroke = Brushes.DimGray, SnapsToDevicePixels = true };
             Line2 = new Line { X1 = 0, Y1 = 1 * spacing, X2 = Width, Y2 = 1 * spacing, StrokeThickness = 1, Stroke = Brushes.DimGray, SnapsToDevicePixels = true };
@@ -41,6 +44,18 @@ namespace Musicista.UI
             Children.Add(Line3);
             Children.Add(Line4);
             Children.Add(Line5);
+        }
+
+        public double CalculateStaffTop()
+        {
+            if (ParentSystem.Staves.Contains(this))
+                if (ParentSystem.Staves.IndexOf(this) == 0)
+                    return 0;
+                else
+                    return GetTop(ParentSystem.Staves[ParentSystem.Staves.IndexOf(this) - 1]) + 24 + ParentSystem.ParentPage.Settings.StaffSpacing;
+            if (ParentSystem.Staves.Count == 0)
+                return 0;
+            return GetTop(ParentSystem.Staves.Last()) + 24 + ParentSystem.ParentPage.Settings.StaffSpacing;
         }
     }
 }

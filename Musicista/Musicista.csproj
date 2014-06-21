@@ -107,6 +107,7 @@
     </Compile>
     <Compile Include="ToolKind.cs" />
     <Compile Include="UI\MeasureWidthConverter.cs" />
+    <Compile Include="UI\Adder.cs" />
     <Compile Include="UI\Multiplier.cs" />
     <Compile Include="UI\UIHelper.cs" />
     <Compile Include="UI\UIMeasure.cs" />

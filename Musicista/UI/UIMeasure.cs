@@ -46,22 +46,27 @@ namespace Musicista.UI
         public Line Line4 { get; set; }
         public Line Line5 { get; set; }
 
-        public UIMeasure(UIMeasureGroup parentMeasureGroup, double top, int part, Measure innerMeasure = null, UISystem system = null, UIStaff staff = null, bool suppressEventHandlers = false)
+        public UIMeasure(UIMeasureGroup parentMeasureGroup, int part, Measure innerMeasure, UISystem system = null, UIStaff staff = null, double top = -1, bool suppressEventHandlers = false)
         {
-            Height = 40 * ScaleTransform;
-            Background = Brushes.Transparent;
-            Part = part;
+            InnerMeasure = innerMeasure;
             ParentStaff = staff;
             ParentSystem = system;
             ParentMeasureGroup = parentMeasureGroup;
+
+            Height = 40 * ScaleTransform;
+            Background = Brushes.Transparent;
+            Part = part;
+
+
             RenderTransform = new ScaleTransform(1.0 / ScaleTransform, 1.0 / ScaleTransform);
 
-            SetTop(this, top);
+            if (top < 0)
+                SetBinding(TopProperty, new Binding { Path = new PropertyPath(TopProperty), Source = ParentMeasureGroup.ParentSystem.Staves[part - 1], Converter = new Adder(), ConverterParameter = -10 });
+            else
+                SetTop(this, top);
             SetLeft(this, 0);
 
             SetBinding(WidthProperty, new Binding { Path = new PropertyPath(WidthProperty), Source = parentMeasureGroup, Converter = new Multiplier(), ConverterParameter = ScaleTransform });
-
-            InnerMeasure = innerMeasure;
 
             Barline = new Line
             {

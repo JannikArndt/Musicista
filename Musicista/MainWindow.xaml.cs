@@ -7,6 +7,7 @@ using MusicXML;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -224,6 +225,7 @@ namespace Musicista
                 SidebarInformation.ShowPiece();
                 Sidebar.Content = SidebarInformation;
                 SetSidebarButtonPathFill(SidebarKind.Information);
+                SidebarView.ShowPageSettings(PageList.First());
             }
             catch (IOException exception)
             {

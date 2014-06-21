@@ -21,16 +21,18 @@ namespace Musicista.Mappers
             piece.Title = mxml.Work.WorkTitle;
             piece.Notes += "Work Number: " + mxml.Work.WorkNumber;
 
-            // Map encoding information
-            if (mxml.Identification.Encoding.EncodingDate != null)
-                piece.DateOfTypesetting = DateTime.Parse(mxml.Identification.Encoding.EncodingDate.Value);
-            if (mxml.Identification.Encoding.Encoder != null)
-                piece.TypeSetter = mxml.Identification.Encoding.Encoder.Value;
-            if (mxml.Identification.Encoding.Software != null)
-                piece.Software = mxml.Identification.Encoding.Software.Value;
-            if (mxml.Identification.Rights != null)
-                piece.Copyright = String.Join(", ", mxml.Identification.Rights.Select(item => item.Value));
-
+            // Map Identification information
+            if (mxml.Identification != null && mxml.Identification.Encoding != null)
+            {
+                if (mxml.Identification.Encoding.EncodingDate != null)
+                    piece.DateOfTypesetting = DateTime.Parse(mxml.Identification.Encoding.EncodingDate.Value);
+                if (mxml.Identification.Encoding.Encoder != null)
+                    piece.TypeSetter = mxml.Identification.Encoding.Encoder.Value;
+                if (mxml.Identification.Encoding.Software != null)
+                    piece.Software = mxml.Identification.Encoding.Software.Value;
+                if (mxml.Identification.Rights != null)
+                    piece.Copyright = String.Join(", ", mxml.Identification.Rights.Select(item => item.Value));
+            }
             // Map composers and other people
             if (mxml.Identification != null && mxml.Identification.Creator != null)
                 foreach (var creator in mxml.Identification.Creator)

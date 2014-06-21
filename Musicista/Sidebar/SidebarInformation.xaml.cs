@@ -51,7 +51,7 @@ namespace Musicista.Sidebar
 
                 SidebarPanel.Children.Add(page);
 
-                var newMeasure = new UIMeasure(canvas, 0, 0, uiMeasure.InnerMeasure, suppressEventHandlers: true);
+                var newMeasure = new UIMeasure(canvas, 0, uiMeasure.InnerMeasure, top: 0, suppressEventHandlers: true);
 
                 // Clef and key
                 UIHelper.DrawClef(newMeasure, uiMeasure.InnerMeasure.Clef);

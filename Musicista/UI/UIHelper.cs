@@ -131,8 +131,7 @@ namespace Musicista.UI
             if (measure.Symbols == null || measure.Symbols.Count <= 0)
                 return;
 
-            var top = Canvas.GetTop(measureGroup.ParentSystem.Staves[part - 1]) - 10;
-            var newMeasure = new UIMeasure(measureGroup, top, part, measure) { Indent = indent };
+            var newMeasure = new UIMeasure(measureGroup, part, measure) { Indent = indent };
             measureGroup.Measures.Add(newMeasure);
 
             foreach (var symbol in measure.Symbols)

@@ -23,17 +23,9 @@ namespace Musicista.UI
 
             // geometry
             Width = page.Width - page.Settings.SystemMarginLeft - page.Settings.SystemMarginRight;
-            double top;
-            if (ParentPage.Systems.Count == 0)
-                if (ParentPage.Title != null)
-                    top = ParentPage.Settings.MarginTop + ParentPage.Title.DrawnHeight + ParentPage.Settings.MarginBelowTitle;
-                else
-                    top = ParentPage.Settings.MarginTop;
-            else
-                top = ParentPage.Systems.Last().Bottom + ParentPage.Settings.SystemSpacing;
 
             SetLeft(this, page.Settings.SystemMarginLeft);
-            SetTop(this, top);
+            SetTop(this, CalculateTop());
 
 
             // Line in front of the system
@@ -52,6 +44,19 @@ namespace Musicista.UI
             page.Children.Add(this);
         }
 
+        public double CalculateTop()
+        {
+            if (ParentPage.Systems.Count == 0 || ParentPage.Systems.IndexOf(this) == 0)
+                if (ParentPage.Title != null)
+                    return ParentPage.Settings.MarginTop + ParentPage.Title.DrawnHeight + ParentPage.Settings.MarginBelowTitle;
+                else
+                    return ParentPage.Settings.MarginTop;
+            if (ParentPage.Systems.Contains(this))
+                return ParentPage.Systems[ParentPage.Systems.IndexOf(this) - 1].Bottom + ParentPage.Settings.SystemSpacing;
+            return ParentPage.Systems.Last().Bottom + ParentPage.Settings.SystemSpacing;
+
+        }
+
         public double Bottom
         {
             get { return GetTop(this) + CalculatedHeight; }
@@ -64,12 +69,8 @@ namespace Musicista.UI
 
         public void AddStaff(UIStaff staff)
         {
-
-            var top = Staves.LastOrDefault() != null ? GetTop(Staves.Last()) + 24 + ParentPage.Settings.StaffSpacing : 0;
             Staves.Add(staff);
             SetLeft(staff, 0);
-            SetTop(staff, top);
-
             Children.Add(staff);
 
             BarlineFront.Y2 = GetTop(staff) + 24;

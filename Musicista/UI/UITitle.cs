@@ -11,14 +11,17 @@ namespace Musicista.UI
     {
         public UIPage ParentPage { get; set; }
 
-        public UITitle(Piece piece, double top, UIPage page)
+        public UITitle(Piece piece, UIPage page)
         {
             ParentPage = page;
             DataContext = piece;
             SetBinding(TextProperty, "Title");
             FontSize = 50;
 
-            Top = top;
+            //DataContext = page.Settings;
+            //SetBinding(Canvas.TopProperty, "MarginTop");
+
+            Top = page.Settings.MarginTop; // top;
             Left = 20;
             Width = page.Width - 40;
             HorizontalAlignment = HorizontalAlignment.Stretch;

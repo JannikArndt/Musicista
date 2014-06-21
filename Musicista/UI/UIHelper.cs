@@ -24,14 +24,13 @@ namespace Musicista.UI
             var pageList = new List<UIPage> { currentPage };
 
             if (!String.IsNullOrEmpty(piece.Title))
-                currentPage.Title = new UITitle(piece, 60, currentPage);
+                currentPage.Title = new UITitle(piece, currentPage);
 
             if (piece.ListOfComposers != null && piece.ListOfComposers.Count > 0)
                 for (var index = 0; index < piece.ListOfComposers.Count; index++)
                     DrawComposer(piece, pageList.First());
 
-            var measuresPerSystem = 4;
-            var systemsPerPage = 0;
+            var measuresPerSystem = 0;
 
             if (piece.ListOfSections == null || piece.ListOfSections.Count <= 0)
                 return pageList;
@@ -45,54 +44,46 @@ namespace Musicista.UI
                                         if (passage.ListOfMeasureGroups != null && passage.ListOfMeasureGroups.Count > 0)
                                         {
                                             var maxStaves = passage.ListOfMeasureGroups.Select(measure => measure.Measures.Count).Max();
-                                            var currentTop = currentPage.Settings.MarginTop;
-
-                                            // 1. New System
-                                            var currentSystem = new UISystem(currentPage, currentTop);
 
                                             foreach (var measureGroup in passage.ListOfMeasureGroups)
                                             {
-                                                // pagebreak every 4 systems
-                                                if (systemsPerPage > 3)
+                                                // pagebreak
+                                                if (measuresPerSystem == 0 && currentPage.Systems.Count > 0 && currentPage.Systems.Last().Bottom > (currentPage.Height - (currentPage.Systems.Last().CalculatedHeight + 50)))
                                                 {
                                                     currentPage = new UIPage();
                                                     pageList.Add(currentPage);
-                                                    systemsPerPage = 0;
-                                                    currentTop = currentPage.Settings.MarginTop;
                                                 }
 
                                                 // systembreak every 4 measures
-                                                if (measuresPerSystem > 3)
+                                                if (measuresPerSystem == 0)
                                                 {
                                                     // print Barline in front of the system
-                                                    if (currentSystem.MeasureGroups.Any() && currentSystem.MeasureGroups[0].Measures.Any())
-                                                        currentSystem.BarlineFront.Y2 = Canvas.GetTop(currentSystem.MeasureGroups[0].Measures.Last()) + 36;
+                                                    if (currentPage.Systems.Count > 0 && currentPage.Systems.Last().MeasureGroups.Any() && currentPage.Systems.Last().MeasureGroups[0].Measures.Any())
+                                                        currentPage.Systems.Last().BarlineFront.Y2 = Canvas.GetTop(currentPage.Systems.Last().MeasureGroups[0].Measures.Last()) + 36;
 
                                                     // New System with lines (staves)
-                                                    currentSystem = new UISystem(currentPage, currentTop);
+                                                    currentPage.Systems.Add(new UISystem(currentPage));
 
                                                     for (var i = 0; i < maxStaves; i++)
                                                     {
-                                                        var staff = new UIStaff(currentSystem, currentTop);
-                                                        currentSystem.AddStaff(staff);
+                                                        var staff = new UIStaff(currentPage.Systems.Last());
+                                                        currentPage.Systems.Last().AddStaff(staff);
                                                         if (measureGroup.Measures.Count > i && measureGroup.Measures[i] != null)
                                                         {
                                                             DrawClef(staff, measureGroup.Measures[i].Clef);
                                                             var keyWidth = DrawKey(staff, measureGroup.KeySignature, measureGroup.Measures[i].Clef);
-                                                            currentSystem.Indent += keyWidth;
+                                                            currentPage.Systems.Last().Indent += keyWidth;
                                                         }
                                                     }
-                                                    measuresPerSystem = 0;
-                                                    systemsPerPage++;
-                                                    currentTop += currentSystem.Bottom; // Beginning of the next system
+                                                    measuresPerSystem = 4;
                                                 }
-                                                measuresPerSystem++;
+                                                measuresPerSystem--;
                                                 // Now draw the measures and notes
-                                                DrawMeasureGroup(currentSystem, measureGroup);
+                                                DrawMeasureGroup(currentPage.Systems.Last(), measureGroup);
                                             }
                                             // print Barline in front of the system
-                                            if (currentSystem.MeasureGroups.Any() && currentSystem.MeasureGroups[0].Measures.Any())
-                                                currentSystem.BarlineFront.Y2 = Canvas.GetTop(currentSystem.MeasureGroups[0].Measures.Last()) + 36;
+                                            if (currentPage.Systems.Last().MeasureGroups.Any() && currentPage.Systems.Last().MeasureGroups[0].Measures.Any())
+                                                currentPage.Systems.Last().BarlineFront.Y2 = Canvas.GetTop(currentPage.Systems.Last().MeasureGroups[0].Measures.Last()) + 36;
                                         }
             return pageList;
         }

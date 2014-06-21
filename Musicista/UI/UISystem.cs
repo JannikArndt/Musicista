@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -7,8 +8,6 @@ namespace Musicista.UI
 {
     public class UISystem : Canvas
     {
-        private readonly double _additionalSystemSpacing;
-        private readonly double _staffSpacing;
         public List<UIStaff> Staves = new List<UIStaff>();
         public List<UIMeasureGroup> MeasureGroups = new List<UIMeasureGroup>();
         public readonly UIPage ParentPage;
@@ -18,17 +17,21 @@ namespace Musicista.UI
         public int MeasuresInSystem = 4;
 
 
-        public UISystem(UIPage page, double top)
+        public UISystem(UIPage page)
         {
             // Logical connection
             ParentPage = page;
-            page.Systems.Add(this);
 
             // geometry
             Width = page.Width - page.Settings.SystemMarginLeft - page.Settings.SystemMarginRight;
-
-            _staffSpacing = page.Settings.StaffSpacing;
-            _additionalSystemSpacing = page.Settings.SystemSpacing;
+            double top;
+            if (ParentPage.Systems.Count == 0)
+                if (ParentPage.Title != null)
+                    top = ParentPage.Settings.MarginTop + ParentPage.Title.ActualHeight + 60 + ParentPage.Settings.MarginBelowTitle;
+                else
+                    top = ParentPage.Settings.MarginTop;
+            else
+                top = ParentPage.Systems.Last().Bottom + ParentPage.Settings.SystemSpacing;
 
             SetLeft(this, page.Settings.SystemMarginLeft);
             SetTop(this, top);
@@ -52,7 +55,12 @@ namespace Musicista.UI
 
         public double Bottom
         {
-            get { return _currentTop + _additionalSystemSpacing; }
+            get { return GetTop(this) + CalculatedHeight; }
+        }
+
+        public double CalculatedHeight
+        {
+            get { return ((6 * 5) + ParentPage.Settings.StaffSpacing) * Staves.Count - ParentPage.Settings.StaffSpacing; }
         }
 
         public void AddStaff(UIStaff staff)
@@ -60,7 +68,7 @@ namespace Musicista.UI
             Staves.Add(staff);
             SetLeft(staff, 0);
             SetTop(staff, _currentTop);
-            _currentTop += staff.ActualHeight + _staffSpacing;
+            _currentTop += staff.ActualHeight + ParentPage.Settings.StaffSpacing;
 
             Children.Add(staff);
         }

@@ -15,14 +15,14 @@ namespace Musicista.UI
         public Line Line4 { get; set; }
         public Line Line5 { get; set; }
         public List<UIMeasure> Measures = new List<UIMeasure>();
-        public UIStaff(Panel system, double top)
+        public UIStaff(UISystem system)
         {
             const int spacing = 6;
 
             Width = system.Width;
 
             SetLeft(this, 0);
-            SetTop(this, top);
+            SetTop(this, Canvas.GetTop(system));
 
             Line1 = new Line { X1 = 0, Y1 = 0 * spacing, X2 = Width, Y2 = 0 * spacing, StrokeThickness = 1, Stroke = Brushes.DimGray, SnapsToDevicePixels = true };
             Line2 = new Line { X1 = 0, Y1 = 1 * spacing, X2 = Width, Y2 = 1 * spacing, StrokeThickness = 1, Stroke = Brushes.DimGray, SnapsToDevicePixels = true };
@@ -35,12 +35,6 @@ namespace Musicista.UI
             Line3.SetBinding(Line.X2Property, new Binding { Path = new PropertyPath(WidthProperty), Source = this });
             Line4.SetBinding(Line.X2Property, new Binding { Path = new PropertyPath(WidthProperty), Source = this });
             Line5.SetBinding(Line.X2Property, new Binding { Path = new PropertyPath(WidthProperty), Source = this });
-
-            //Line1.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
-            //Line2.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
-            //Line3.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
-            //Line4.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
-            //Line5.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
 
             Children.Add(Line1);
             Children.Add(Line2);

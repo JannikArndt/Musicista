@@ -43,7 +43,8 @@ namespace Musicista.Sidebar
                     HorizontalAlignment = HorizontalAlignment.Center,
                     Effect = null
                 };
-                var system = new UISystem(page, 0) { MeasuresInSystem = 1 };
+                var system = new UISystem(page) { MeasuresInSystem = 1 };
+                Canvas.SetTop(system, 0);
                 system.Children.Remove(system.BarlineFront);
                 var canvas = new UIMeasureGroup(system, 0);
                 canvas.Children.Remove(canvas.Barline);

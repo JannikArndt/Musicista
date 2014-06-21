@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Model;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -11,6 +12,7 @@ namespace Musicista.UI
         public List<UISystem> Systems = new List<UISystem>();
         public UITitle Title { get; set; }
         public UISettings Settings { get; set; }
+        public Piece Piece { get; set; }
         public UIPage(bool firstPage = false)
         {
             Settings = new UISettings(firstPage);

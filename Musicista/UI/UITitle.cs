@@ -1,5 +1,4 @@
-﻿using Model;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -11,19 +10,16 @@ namespace Musicista.UI
     {
         public UIPage ParentPage { get; set; }
 
-        public UITitle(Piece piece, UIPage page)
+        public UITitle(UIPage page)
         {
             ParentPage = page;
-            DataContext = piece;
-            SetBinding(TextProperty, "Title");
+
+            DataContext = ParentPage;
+            SetBinding(TextProperty, "Piece.Title");
             FontSize = 50;
-
-            //DataContext = page.Settings;
-            //SetBinding(Canvas.TopProperty, "MarginTop");
-
-            Top = page.Settings.MarginTop; // top;
+            SetBinding(Canvas.TopProperty, "Settings.MarginTop");
             Left = 20;
-            Width = page.Width - 40;
+            Width = ParentPage.Width - 40;
             HorizontalAlignment = HorizontalAlignment.Stretch;
             TextAlignment = TextAlignment.Center;
 
@@ -33,13 +29,7 @@ namespace Musicista.UI
                     MainWindow.SidebarInformation.ShowUIElement(sender);
             };
 
-            page.Children.Add(this);
-        }
-
-        public double Top
-        {
-            get { return Canvas.GetTop(this); }
-            set { Canvas.SetTop(this, value); }
+            ParentPage.Children.Add(this);
         }
 
         public double Left

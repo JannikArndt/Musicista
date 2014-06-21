@@ -14,8 +14,8 @@ namespace Musicista.UI
         {
             MarginTop = 60;
             MarginBelowTitle = 60;
-            StaffSpacing = 70;
-            SystemSpacing = 30;
+            StaffSpacing = 50;
+            SystemSpacing = 60;
             SystemMarginLeft = 50;
             SystemMarginRight = 50;
         }

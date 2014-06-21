@@ -11,7 +11,6 @@ namespace Musicista.UI
         public List<UIStaff> Staves = new List<UIStaff>();
         public List<UIMeasureGroup> MeasureGroups = new List<UIMeasureGroup>();
         public readonly UIPage ParentPage;
-        private double _currentTop;
         public double Indent = 40;
         public Line BarlineFront { get; set; }
         public int MeasuresInSystem = 4;
@@ -27,7 +26,7 @@ namespace Musicista.UI
             double top;
             if (ParentPage.Systems.Count == 0)
                 if (ParentPage.Title != null)
-                    top = ParentPage.Settings.MarginTop + ParentPage.Title.ActualHeight + 60 + ParentPage.Settings.MarginBelowTitle;
+                    top = ParentPage.Settings.MarginTop + ParentPage.Title.DrawnHeight + ParentPage.Settings.MarginBelowTitle;
                 else
                     top = ParentPage.Settings.MarginTop;
             else
@@ -65,12 +64,15 @@ namespace Musicista.UI
 
         public void AddStaff(UIStaff staff)
         {
+
+            var top = Staves.LastOrDefault() != null ? GetTop(Staves.Last()) + 24 + ParentPage.Settings.StaffSpacing : 0;
             Staves.Add(staff);
             SetLeft(staff, 0);
-            SetTop(staff, _currentTop);
-            _currentTop += staff.ActualHeight + ParentPage.Settings.StaffSpacing;
+            SetTop(staff, top);
 
             Children.Add(staff);
+
+            BarlineFront.Y2 = GetTop(staff) + 24;
         }
 
         public UISystem NextUISystem

@@ -20,17 +20,15 @@ namespace Musicista.UI
         }
         public static List<UIPage> DrawPiece(Piece piece)
         {
-            var currentPage = new UIPage(firstPage: true);
+            var currentPage = new UIPage(firstPage: true) { Piece = piece };
             var pageList = new List<UIPage> { currentPage };
 
             if (!String.IsNullOrEmpty(piece.Title))
-                currentPage.Title = new UITitle(piece, currentPage);
+                currentPage.Title = new UITitle(currentPage);
 
             if (piece.ListOfComposers != null && piece.ListOfComposers.Count > 0)
                 for (var index = 0; index < piece.ListOfComposers.Count; index++)
                     DrawComposer(piece, pageList.First());
-
-            var measuresPerSystem = 0;
 
             if (piece.ListOfSections == null || piece.ListOfSections.Count <= 0)
                 return pageList;
@@ -47,20 +45,17 @@ namespace Musicista.UI
 
                                             foreach (var measureGroup in passage.ListOfMeasureGroups)
                                             {
-                                                // pagebreak
-                                                if (measuresPerSystem == 0 && currentPage.Systems.Count > 0 && currentPage.Systems.Last().Bottom > (currentPage.Height - (currentPage.Systems.Last().CalculatedHeight + 50)))
+                                                // pagebreak if page is full
+                                                if (currentPage.Systems.Count > 0 && currentPage.Systems.Last().MeasureGroups.Count > 3
+                                                    && currentPage.Systems.Last().Bottom > (currentPage.Height - (currentPage.Systems.Last().CalculatedHeight + 50)))
                                                 {
                                                     currentPage = new UIPage();
                                                     pageList.Add(currentPage);
                                                 }
 
                                                 // systembreak every 4 measures
-                                                if (measuresPerSystem == 0)
+                                                if (currentPage.Systems.Count == 0 || currentPage.Systems.Last().MeasureGroups.Count >= currentPage.Systems.Last().MeasuresInSystem)
                                                 {
-                                                    // print Barline in front of the system
-                                                    if (currentPage.Systems.Count > 0 && currentPage.Systems.Last().MeasureGroups.Any() && currentPage.Systems.Last().MeasureGroups[0].Measures.Any())
-                                                        currentPage.Systems.Last().BarlineFront.Y2 = Canvas.GetTop(currentPage.Systems.Last().MeasureGroups[0].Measures.Last()) + 36;
-
                                                     // New System with lines (staves)
                                                     currentPage.Systems.Add(new UISystem(currentPage));
 
@@ -75,15 +70,10 @@ namespace Musicista.UI
                                                             currentPage.Systems.Last().Indent += keyWidth;
                                                         }
                                                     }
-                                                    measuresPerSystem = 4;
                                                 }
-                                                measuresPerSystem--;
                                                 // Now draw the measures and notes
                                                 DrawMeasureGroup(currentPage.Systems.Last(), measureGroup);
                                             }
-                                            // print Barline in front of the system
-                                            if (currentPage.Systems.Last().MeasureGroups.Any() && currentPage.Systems.Last().MeasureGroups[0].Measures.Any())
-                                                currentPage.Systems.Last().BarlineFront.Y2 = Canvas.GetTop(currentPage.Systems.Last().MeasureGroups[0].Measures.Last()) + 36;
                                         }
             return pageList;
         }

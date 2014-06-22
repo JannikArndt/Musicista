@@ -3,7 +3,6 @@ using Model.Meta;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -16,22 +15,24 @@ namespace Musicista.UI
             ParentMeasure = parentMeasure;
             Note = note;
             ParentMeasure.Symbols.Add(this);
+            Symbol = note;
 
-            BeatsPerMeasure = parentMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.Beats;
-            parentMeasure.ConnectNotesAtEndOfRun = false;
+            BeatsPerMeasure = ParentMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.Beats;
+            ParentMeasure.ConnectNotesAtEndOfRun = false;
 
-            Left = ((parentMeasure.Width - parentMeasure.Indent) / BeatsPerMeasure * (note.Beat - 1)) + parentMeasure.Indent;
-            Top = SetTop(note, parentMeasure);
-            SetDuration(note, parentMeasure);
+            CanvasLeft = ((ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * (note.Beat - 1)) + ParentMeasure.Indent;
+            PathTop = CalculateTop(note, ParentMeasure);
+            SetDuration(note, ParentMeasure);
 
-            parentMeasure.Children.Add(Path);
+            Children.Add(Path);
+            ParentMeasure.Children.Add(this);
 
-            if (parentMeasure.ConnectNotesAtEndOfRun || parentMeasure.NotYetConnectedNotes.Count == 4
-                || (parentMeasure.NotYetConnectedNotes.Any() && note.Next != null && (note.Next.Beat == 3 || note.Next.Beat == 1))
+            if (ParentMeasure.ConnectNotesAtEndOfRun || ParentMeasure.NotYetConnectedNotes.Count == 4
+                || (ParentMeasure.NotYetConnectedNotes.Any() && note.Next != null && (note.Next.Beat == 3 || note.Next.Beat == 1))
                 ||
-                (parentMeasure.NotYetConnectedNotes.Any(item => item.Note.Duration == Duration.sixteenth) && note.Next != null &&
+                (ParentMeasure.NotYetConnectedNotes.Any(item => item.Note.Duration == Duration.sixteenth) && note.Next != null &&
                  (note.Next.Beat == 2 || note.Next.Beat == 4)))
-                parentMeasure.ConnectNotes();
+                ParentMeasure.ConnectNotes();
         }
 
         public Note Note { get; set; }
@@ -51,43 +52,48 @@ namespace Musicista.UI
         {
             switch (note.Duration)
             {
-                case Duration.wholeDotted:
-                    Path.Data = Geometry.Parse(Engraving.Whole);
-                    DrawDot(measure);
-                    break;
                 case Duration.whole:
                     Path.Data = Geometry.Parse(Engraving.Whole);
+                    Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure;
                     break;
                 case Duration.halfDotted:
                     Path.Data = Geometry.Parse(note.StemShouldGoUp() ? Engraving.Half : Engraving.HalfUpsideDown);
-                    DrawDot(measure);
+                    Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 3;
+                    DrawDot();
                     break;
                 case Duration.half:
                     Path.Data = Geometry.Parse(note.StemShouldGoUp() ? Engraving.Half : Engraving.HalfUpsideDown);
+                    Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 2;
                     break;
                 case Duration.quarterDotted:
                     Path.Data = Geometry.Parse(note.StemShouldGoUp() ? Engraving.Quarter : Engraving.QuarterUpsideDown);
-                    DrawDot(measure);
+                    Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 1.5;
+                    DrawDot();
                     break;
                 case Duration.quarter:
                     Path.Data = Geometry.Parse(note.StemShouldGoUp() ? Engraving.Quarter : Engraving.QuarterUpsideDown);
+                    Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure;
                     break;
                 case Duration.eigthDotted:
                     Path.Data = Geometry.Parse(note.StemShouldGoUp() ? Engraving.Eigth : Engraving.EightUpsideDown);
-                    DrawDot(measure);
+                    Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 0.75;
+                    DrawDot();
                     HandleConnectedNotes(note, measure);
                     break;
                 case Duration.eigth:
                     Path.Data = Geometry.Parse(note.StemShouldGoUp() ? Engraving.Eigth : Engraving.EightUpsideDown);
+                    Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 0.5;
                     HandleConnectedNotes(note, measure);
                     break;
                 case Duration.sixteenthDotted:
                     Path.Data = Geometry.Parse(Engraving.Sixteenth);
-                    DrawDot(measure);
+                    Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 0.37;
+                    DrawDot();
                     HandleConnectedNotes(note, measure);
                     break;
                 case Duration.sixteenth:
                     Path.Data = Geometry.Parse(Engraving.Sixteenth);
+                    Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 0.25;
                     HandleConnectedNotes(note, measure);
                     break;
             }
@@ -101,7 +107,7 @@ namespace Musicista.UI
                 && note.Next.Beat != 1 && note.Next.Beat != 3)
             {
                 if (!measure.NotYetConnectedNotes.Any())
-                    measure.StemDirectionUp = StemOfGroupShouldGoUp(note);
+                    measure.StemDirectionUp = StemOfGroupShouldGoUp;
                 Path.Data = Geometry.Parse(measure.StemDirectionUp ? Engraving.Quarter : Engraving.QuarterUpsideDown);
                 measure.NotYetConnectedNotes.Add(this);
             }
@@ -113,9 +119,9 @@ namespace Musicista.UI
             }
         }
 
-        private double SetTop(Note note, UIMeasure measure)
+        private double CalculateTop(Note note, UIMeasure measure)
         {
-            double top = 0;
+            double top = -TopRelativeToMeasure;
             const int noteStepSpacing = 15;
 
             switch (measure.InnerMeasure.Clef)
@@ -223,10 +229,10 @@ namespace Musicista.UI
             DrawAccidentalIfNeeded(measure, note, top);
 
             // top line = 50, first upper ledger = 20, bottom line = 170, first lower ledger = 200, note height = 110
-            if (top >= 89)
-                DrawLedger(measure, true, (int)((top - 59) / (2 * noteStepSpacing)));
-            else if (top < -87)
-                DrawLedger(measure, false, (int)((Math.Abs(top) - 58) / (2 * noteStepSpacing)));
+            if (top >= 89 - TopRelativeToMeasure)
+                DrawLedger(measure, true, (int)((top - 59 + TopRelativeToMeasure) / (2 * noteStepSpacing)));
+            else if (top < -87 - TopRelativeToMeasure)
+                DrawLedger(measure, false, (int)((Math.Abs(top) - 58 - TopRelativeToMeasure) / (2 * noteStepSpacing)));
             return top;
         }
 
@@ -234,43 +240,30 @@ namespace Musicista.UI
         {
             const double width = 75;
             const double spacing = 30;
-            var top = below ? 170 + spacing : 50 - spacing;
+            var top = below ? 170 - TopRelativeToMeasure + spacing : 50 - TopRelativeToMeasure - spacing;
 
-            if (below)
+            for (var i = 0; i < count; i++)
             {
-                for (var i = 0; i < count; i++)
-                {
-                    var ledger = new Line
+                var ledger = new Line
                     {
-                        X1 = Left - 15,
-                        Y1 = top + i * spacing,
-                        X2 = Left + width - 15,
-                        Y2 = top + i * spacing,
+                        X1 = -5,
+                        X2 = width - 5,
                         StrokeThickness = 5,
                         Stroke = Brushes.DimGray,
                         SnapsToDevicePixels = true
                     };
-                    ledger.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
-                    measure.Children.Add(ledger);
-                }
-            }
-            else
-            {
-                for (var i = 0; i < count; i++)
+                if (below)
                 {
-                    var ledger = new Line
-                    {
-                        X1 = Left - 15,
-                        Y1 = top - i * spacing,
-                        X2 = Left + width - 15,
-                        Y2 = top - i * spacing,
-                        StrokeThickness = 5,
-                        Stroke = Brushes.DimGray,
-                        SnapsToDevicePixels = true
-                    };
-                    ledger.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
-                    measure.Children.Add(ledger);
+                    ledger.Y1 = top + i * spacing;
+                    ledger.Y2 = top + i * spacing;
                 }
+                else
+                {
+                    ledger.Y1 = top - i * spacing;
+                    ledger.Y2 = top - i * spacing;
+                }
+                ledger.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
+                Children.Add(ledger);
             }
         }
 
@@ -299,8 +292,8 @@ namespace Musicista.UI
 
         public void DrawAccidental(UIMeasure measure, Accidental accidentalKind, double setTop)
         {
-            var top = setTop + 68;
-            var left = Left - 35;
+            var top = setTop + 56 - TopRelativeToMeasure;
+            var left = -25;
 
             var newAccidental = new Path
             {
@@ -329,20 +322,18 @@ namespace Musicista.UI
                     break;
             }
 
-            Canvas.SetTop(newAccidental, top);
-            Canvas.SetLeft(newAccidental, left);
-            measure.Children.Add(newAccidental);
+            SetTop(newAccidental, top);
+            SetLeft(newAccidental, left);
+            Children.Add(newAccidental);
         }
 
-        public void DrawDot(UIMeasure measure)
+        public void DrawDot()
         {
             double top;
-            if (Math.Abs(Top % 30) < 5)
-                top = Top + 88;
+            if (Math.Abs(PathTop % 30) < 5)
+                top = PathTop + 88 - TopRelativeToMeasure;
             else
-                top = Top + 103;
-
-            var left = Left + 50;
+                top = PathTop + 103 - 30 - TopRelativeToMeasure;
 
             var newDot = new Ellipse
             {
@@ -351,31 +342,36 @@ namespace Musicista.UI
                 Height = 18
             };
 
-            Canvas.SetTop(newDot, top);
-            Canvas.SetLeft(newDot, left);
-            measure.Children.Add(newDot);
+            SetTop(newDot, top);
+            SetLeft(newDot, 60);
+            Children.Add(newDot);
         }
 
-        public bool StemOfGroupShouldGoUp(Note note)
+        public bool StemOfGroupShouldGoUp
         {
-            var duration = note.Duration;
-            var ups = 0;
-            var downs = 0;
-            var currentNote = note;
-            var numberOfNotesToInspect = ((note.Duration == Duration.eigth && (note.Beat == 1 || note.Beat == 3)) || (note.Duration == Duration.sixteenth)) ? 4 : 2;
-            while (currentNote.Duration == duration && currentNote.GetType() == typeof(Note) && numberOfNotesToInspect > 0)
+            get
             {
-                if (currentNote.StemShouldGoUp())
-                    ups++;
-                else
-                    downs++;
-                if (currentNote.Next != null && currentNote.Next.GetType() == typeof(Note))
-                    currentNote = (Note)currentNote.Next;
-                else
-                    break;
-                numberOfNotesToInspect--;
+                var duration = Note.Duration;
+                var ups = 0;
+                var downs = 0;
+                var currentNote = Note;
+                var numberOfNotesToInspect = ((Note.Duration == Duration.eigth && (Note.Beat == 1 || Note.Beat == 3)) || (Note.Duration == Duration.sixteenth))
+                    ? 4
+                    : 2;
+                while (currentNote.Duration == duration && currentNote.GetType() == typeof(Note) && numberOfNotesToInspect > 0)
+                {
+                    if (currentNote.StemShouldGoUp())
+                        ups++;
+                    else
+                        downs++;
+                    if (currentNote.Next != null && currentNote.Next.GetType() == typeof(Note))
+                        currentNote = (Note)currentNote.Next;
+                    else
+                        break;
+                    numberOfNotesToInspect--;
+                }
+                return ups >= downs;
             }
-            return ups >= downs;
         }
     }
 }

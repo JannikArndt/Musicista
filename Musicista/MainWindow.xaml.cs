@@ -219,8 +219,7 @@ namespace Musicista
                         break;
                     default:
                         MessageBox.Show(@"Cannot open filetype " + Path.GetExtension(openFileDialog.FileName), "Error");
-                        break;
-
+                        return;
                 }
                 SidebarInformation.ShowPiece();
                 Sidebar.Content = SidebarInformation;

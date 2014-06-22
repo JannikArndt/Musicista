@@ -21,6 +21,7 @@ namespace Musicista.UI
         public readonly UIStaff ParentStaff;
         public readonly UIMeasureGroup ParentMeasureGroup;
         public List<UISymbol> Symbols = new List<UISymbol>();
+        public int MeasureNumber { get { return ParentMeasureGroup.InnerMeasureGroup.MeasureNumber; } }
 
         public List<UINote> Notes
         {
@@ -54,7 +55,7 @@ namespace Musicista.UI
             ParentSystem = system;
             ParentMeasureGroup = parentMeasureGroup;
 
-            Height = 40 * ScaleTransform;
+            Height = 54 * ScaleTransform;
             Background = Brushes.Transparent;
             Part = part;
 
@@ -90,66 +91,7 @@ namespace Musicista.UI
                 MouseMove += MainWindow.Drag;
                 MouseLeftButtonUp += MainWindow.DragEnd;
 
-                PreviewMouseDown += delegate(object sender, MouseButtonEventArgs args)
-                {
-                    if (Keyboard.Modifiers.HasFlag(ModifierKeys.Control))
-                    {
-                        if (UIHelper.SelectedUIMeasures.Contains(this))
-                        {
-                            Background = Brushes.Transparent;
-                            UIHelper.SelectedUIMeasures.Remove(this);
-                        }
-                        else
-                        {
-                            UIHelper.SelectedUIMeasures.Add(this);
-                            Background = Brushes.SkyBlue;
-                        }
-                    }
-                    else if (Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
-                    {
-                        var next = UIHelper.SelectedUIMeasures.FirstOrDefault();
-                        // first click on an earlier measure
-                        if (next != null && ParentMeasureGroup.InnerMeasureGroup.MeasureNumber > next.ParentMeasureGroup.InnerMeasureGroup.MeasureNumber)
-                        {
-                            while (next != null && next != this)
-                            {
-                                next.Background = Brushes.SkyBlue;
-                                UIHelper.SelectedUIMeasures.Add(next);
-                                next = next.NextUIMeasure;
-                            }
-                            Background = Brushes.SkyBlue;
-                            UIHelper.SelectedUIMeasures.Add(this);
-
-                        }
-                        // first click on a later measure
-                        else if (next != null)
-                        {
-                            var final = next;
-                            next = this;
-                            while (next != null && next != final)
-                            {
-                                next.Background = Brushes.SkyBlue;
-                                UIHelper.SelectedUIMeasures.Add(next);
-                                next = next.NextUIMeasure;
-                            }
-                            final.Background = Brushes.SkyBlue;
-                            UIHelper.SelectedUIMeasures.Add(final);
-                        }
-                        UIHelper.SelectedUIMeasures = UIHelper.SelectedUIMeasures.Distinct().ToList();
-                    }
-                    else
-                    {
-                        foreach (var uiMeasure in UIHelper.SelectedUIMeasures)
-                            uiMeasure.Background = Brushes.Transparent;
-                        UIHelper.SelectedUIMeasures.Clear();
-                        Background = Brushes.SkyBlue;
-                        UIHelper.SelectedUIMeasures.Add(this);
-                    }
-                    args.Handled = true;
-
-                    if (MainWindow.SidebarInformation != null)
-                        MainWindow.SidebarInformation.ShowUIElement(sender);
-                };
+                MouseDown += ClickToSelectMeasures;
             }
 
             parentMeasureGroup.Children.Add(this);
@@ -181,6 +123,70 @@ namespace Musicista.UI
             Children.Add(Line5);
         }
 
+        private void ClickToSelectMeasures(object sender, MouseButtonEventArgs args)
+        {
+            if (Keyboard.Modifiers.HasFlag(ModifierKeys.Control))
+            {
+                if (UIHelper.SelectedUIMeasures.Contains(this))
+                {
+                    Background = Brushes.Transparent;
+                    UIHelper.SelectedUIMeasures.Remove(this);
+                }
+                else
+                {
+                    UIHelper.SelectedUIMeasures.Add(this);
+                    Background = UIHelper.SelectColor;
+                }
+            }
+            else if (Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
+            {
+                var next = UIHelper.SelectedUIMeasures.FirstOrDefault();
+                // first click on an earlier measure
+                if (next != null && ParentMeasureGroup.InnerMeasureGroup.MeasureNumber > next.ParentMeasureGroup.InnerMeasureGroup.MeasureNumber)
+                {
+                    while (next != null && next != this)
+                    {
+                        next.Background = UIHelper.SelectColor;
+                        UIHelper.SelectedUIMeasures.Add(next);
+                        next = next.NextUIMeasure;
+                    }
+                    Background = UIHelper.SelectColor;
+                    UIHelper.SelectedUIMeasures.Add(this);
+                }
+                // first click on a later measure
+                else if (next != null)
+                {
+                    var final = next;
+                    next = this;
+                    while (next != null && next != final)
+                    {
+                        next.Background = UIHelper.SelectColor;
+                        UIHelper.SelectedUIMeasures.Add(next);
+                        next = next.NextUIMeasure;
+                    }
+                    final.Background = UIHelper.SelectColor;
+                    UIHelper.SelectedUIMeasures.Add(final);
+                }
+                UIHelper.SelectedUIMeasures = UIHelper.SelectedUIMeasures.Distinct().ToList();
+            }
+            else
+            {
+                foreach (var uiMeasure in UIHelper.SelectedUIMeasures)
+                    uiMeasure.Background = Brushes.Transparent;
+                UIHelper.SelectedUIMeasures.Clear();
+                Background = UIHelper.SelectColor;
+                UIHelper.SelectedUIMeasures.Add(this);
+            }
+            args.Handled = true;
+
+            foreach (var uiSymbol in UIHelper.SelectedUISymbols)
+                uiSymbol.Background = Brushes.Transparent;
+            UIHelper.SelectedUISymbols.Clear();
+
+            if (MainWindow.SidebarInformation != null)
+                MainWindow.SidebarInformation.ShowUIElement(sender);
+        }
+
         public UIMeasure NextUIMeasure
         {
             get
@@ -208,18 +214,19 @@ namespace Musicista.UI
             var onlySixteenths = NotYetConnectedNotes.All(item => item.Note.Duration == Duration.sixteenth);
 
             var shapeString = "";
+            var c = CultureInfo.GetCultureInfo("en-US");
 
             int addToX, addToY, offsetSecondBeam = 0, strokeThickness;
             if (onlyEights)
             {
-                addToX = StemDirectionUp ? 38 : 5;
-                addToY = StemDirectionUp ? 0 : 225;
+                addToX = StemDirectionUp ? 45 : 5; // 38 : 5;
+                addToY = StemDirectionUp ? -15 : 200;
                 strokeThickness = 15;
             }
             else
             {
-                addToX = StemDirectionUp ? 34 : 5;
-                addToY = StemDirectionUp ? 0 : 225;
+                addToX = StemDirectionUp ? 45 : 5;
+                addToY = StemDirectionUp ? -15 : 200;
                 offsetSecondBeam = StemDirectionUp ? 25 : -25;
                 strokeThickness = 13;
             }
@@ -229,22 +236,22 @@ namespace Musicista.UI
             {
                 case 2:
                     shapeString = "F0 M "
-                        + (GetLeft(NotYetConnectedNotes[0].Path) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedNotes[0].Path) + addToY).ToString(CultureInfo.GetCultureInfo("en-US")) + " L "
-                        + (GetLeft(NotYetConnectedNotes[1].Path) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedNotes[1].Path) + addToY).ToString(CultureInfo.GetCultureInfo("en-US")) + "";
+                        + (NotYetConnectedNotes[0].CanvasLeft + addToX).ToString(c) + "," + (NotYetConnectedNotes[0].PathTop + addToY).ToString(c) + " L "
+                        + (NotYetConnectedNotes[1].CanvasLeft + addToX + 5).ToString(c) + "," + (NotYetConnectedNotes[1].PathTop + addToY).ToString(c) + "";
                     break;
                 case 3:
                     shapeString = "F0 M "
-                        + (GetLeft(NotYetConnectedNotes[0].Path) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedNotes[0].Path) + addToY).ToString(CultureInfo.GetCultureInfo("en-US")) + " C "
-                        + (GetLeft(NotYetConnectedNotes[1].Path) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedNotes[1].Path) + addToY).ToString(CultureInfo.GetCultureInfo("en-US")) + "  "
-                        + (GetLeft(NotYetConnectedNotes[1].Path) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedNotes[1].Path) + addToY).ToString(CultureInfo.GetCultureInfo("en-US")) + "  "
-                        + (GetLeft(NotYetConnectedNotes[2].Path) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedNotes[2].Path) + addToY).ToString(CultureInfo.GetCultureInfo("en-US")) + "";
+                        + (NotYetConnectedNotes[0].CanvasLeft + addToX).ToString(c) + "," + (NotYetConnectedNotes[0].PathTop + addToY).ToString(c) + " C "
+                        + (NotYetConnectedNotes[1].CanvasLeft + addToX).ToString(c) + "," + (NotYetConnectedNotes[1].PathTop + addToY).ToString(c) + "  "
+                        + (NotYetConnectedNotes[1].CanvasLeft + addToX).ToString(c) + "," + (NotYetConnectedNotes[1].PathTop + addToY).ToString(c) + "  "
+                        + (NotYetConnectedNotes[2].CanvasLeft + addToX + 5).ToString(c) + "," + (NotYetConnectedNotes[2].PathTop + addToY).ToString(c) + "";
                     break;
                 case 4:
                     shapeString = "F0 M "
-                        + (GetLeft(NotYetConnectedNotes[0].Path) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedNotes[0].Path) + addToY).ToString(CultureInfo.GetCultureInfo("en-US")) + " C "
-                        + (GetLeft(NotYetConnectedNotes[1].Path) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedNotes[1].Path) + addToY).ToString(CultureInfo.GetCultureInfo("en-US")) + "  "
-                        + (GetLeft(NotYetConnectedNotes[2].Path) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedNotes[2].Path) + addToY).ToString(CultureInfo.GetCultureInfo("en-US")) + "  "
-                        + (GetLeft(NotYetConnectedNotes[3].Path) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedNotes[3].Path) + addToY).ToString(CultureInfo.GetCultureInfo("en-US")) + "";
+                        + (NotYetConnectedNotes[0].CanvasLeft + addToX).ToString(c) + "," + (NotYetConnectedNotes[0].PathTop + addToY).ToString(c) + " C "
+                        + (NotYetConnectedNotes[1].CanvasLeft + addToX).ToString(c) + "," + (NotYetConnectedNotes[1].PathTop + addToY).ToString(c) + "  "
+                        + (NotYetConnectedNotes[2].CanvasLeft + addToX).ToString(c) + "," + (NotYetConnectedNotes[2].PathTop + addToY).ToString(c) + "  "
+                        + (NotYetConnectedNotes[3].CanvasLeft + addToX + 5).ToString(c) + "," + (NotYetConnectedNotes[3].PathTop + addToY).ToString(c) + "";
                     break;
             }
 
@@ -256,22 +263,22 @@ namespace Musicista.UI
                 {
                     case 2:
                         shapeString += " M "
-                            + (GetLeft(NotYetConnectedNotes[0].Path) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedNotes[0].Path) + addToY + offsetSecondBeam).ToString(CultureInfo.GetCultureInfo("en-US")) + " L "
-                            + (GetLeft(NotYetConnectedNotes[1].Path) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedNotes[1].Path) + addToY + offsetSecondBeam).ToString(CultureInfo.GetCultureInfo("en-US")) + "";
+                            + (NotYetConnectedNotes[0].CanvasLeft + addToX).ToString(c) + "," + (NotYetConnectedNotes[0].PathTop + addToY + offsetSecondBeam).ToString(c) + " L "
+                            + (NotYetConnectedNotes[1].CanvasLeft + addToX + 5).ToString(c) + "," + (NotYetConnectedNotes[1].PathTop + addToY + offsetSecondBeam).ToString(c) + "";
                         break;
                     case 3:
                         shapeString += " M "
-                            + (GetLeft(NotYetConnectedNotes[0].Path) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedNotes[0].Path) + addToY + offsetSecondBeam).ToString(CultureInfo.GetCultureInfo("en-US")) + " C "
-                            + (GetLeft(NotYetConnectedNotes[1].Path) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedNotes[1].Path) + addToY + offsetSecondBeam).ToString(CultureInfo.GetCultureInfo("en-US")) + "  "
-                            + (GetLeft(NotYetConnectedNotes[1].Path) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedNotes[1].Path) + addToY + offsetSecondBeam).ToString(CultureInfo.GetCultureInfo("en-US")) + "  "
-                            + (GetLeft(NotYetConnectedNotes[2].Path) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedNotes[2].Path) + addToY + offsetSecondBeam).ToString(CultureInfo.GetCultureInfo("en-US")) + "";
+                            + (NotYetConnectedNotes[0].CanvasLeft + addToX).ToString(c) + "," + (NotYetConnectedNotes[0].PathTop + addToY + offsetSecondBeam).ToString(c) + " C "
+                            + (NotYetConnectedNotes[1].CanvasLeft + addToX).ToString(c) + "," + (NotYetConnectedNotes[1].PathTop + addToY + offsetSecondBeam).ToString(c) + "  "
+                            + (NotYetConnectedNotes[1].CanvasLeft + addToX).ToString(c) + "," + (NotYetConnectedNotes[1].PathTop + addToY + offsetSecondBeam).ToString(c) + "  "
+                            + (NotYetConnectedNotes[2].CanvasLeft + addToX + 5).ToString(c) + "," + (NotYetConnectedNotes[2].PathTop + addToY + offsetSecondBeam).ToString(c) + "";
                         break;
                     case 4:
                         shapeString += " M "
-                            + (GetLeft(NotYetConnectedNotes[0].Path) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedNotes[0].Path) + addToY + offsetSecondBeam).ToString(CultureInfo.GetCultureInfo("en-US")) + " C "
-                            + (GetLeft(NotYetConnectedNotes[1].Path) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedNotes[1].Path) + addToY + offsetSecondBeam).ToString(CultureInfo.GetCultureInfo("en-US")) + "  "
-                            + (GetLeft(NotYetConnectedNotes[2].Path) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedNotes[2].Path) + addToY + offsetSecondBeam).ToString(CultureInfo.GetCultureInfo("en-US")) + "  "
-                            + (GetLeft(NotYetConnectedNotes[3].Path) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedNotes[3].Path) + addToY + offsetSecondBeam).ToString(CultureInfo.GetCultureInfo("en-US")) + "";
+                            + (NotYetConnectedNotes[0].CanvasLeft + addToX).ToString(c) + "," + (NotYetConnectedNotes[0].PathTop + addToY + offsetSecondBeam).ToString(c) + " C "
+                            + (NotYetConnectedNotes[1].CanvasLeft + addToX).ToString(c) + "," + (NotYetConnectedNotes[1].PathTop + addToY + offsetSecondBeam).ToString(c) + "  "
+                            + (NotYetConnectedNotes[2].CanvasLeft + addToX).ToString(c) + "," + (NotYetConnectedNotes[2].PathTop + addToY + offsetSecondBeam).ToString(c) + "  "
+                            + (NotYetConnectedNotes[3].CanvasLeft + addToX + 5).ToString(c) + "," + (NotYetConnectedNotes[3].PathTop + addToY + offsetSecondBeam).ToString(c) + "";
                         break;
                 }
             }
@@ -285,22 +292,20 @@ namespace Musicista.UI
                     // two sixteenths and some eights
                     if (uiNote.Note.Duration == Duration.sixteenth && uiNote.NextUINote.Note.Duration == Duration.sixteenth)
                         shapeString += " M "
-                                       + (GetLeft(uiNote.Path) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," +
-                                       (GetTop(uiNote.Path) + addToY + offsetSecondBeam).ToString(CultureInfo.GetCultureInfo("en-US")) + " L "
-                                       + (GetLeft(uiNote.NextUINote.Path) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," +
-                                       (GetTop(uiNote.NextUINote.Path) + addToY + offsetSecondBeam).ToString(CultureInfo.GetCultureInfo("en-US")) + "";
+                                       + (uiNote.CanvasLeft + addToX).ToString(c) + "," + (uiNote.PathTop + addToY + offsetSecondBeam).ToString(c) + " L "
+                                       + (uiNote.NextUINote.CanvasLeft + addToX).ToString(c) + "," + (uiNote.NextUINote.PathTop + addToY + offsetSecondBeam).ToString(c) + "";
                     // dotted eigth followed by a sixteenth
                     if (uiNote.Note.Duration == Duration.eigthDotted && uiNote.NextUINote.Note.Duration == Duration.sixteenth)
                         shapeString += " M "
-                                       + (GetLeft(uiNote.Path) + addToX + (GetLeft(uiNote.NextUINote.Path) - GetLeft(uiNote.Path)) * 0.6).ToString(CultureInfo.GetCultureInfo("en-US")) + ","
-                                       + (GetTop(uiNote.Path) + addToY + (GetTop(uiNote.NextUINote.Path) - GetTop(uiNote.Path)) * 0.6 + offsetSecondBeam).ToString(CultureInfo.GetCultureInfo("en-US")) + " L "
-                                       + (GetLeft(uiNote.NextUINote.Path) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(uiNote.NextUINote.Path) + addToY + offsetSecondBeam).ToString(CultureInfo.GetCultureInfo("en-US")) + "";
+                                       + (uiNote.CanvasLeft + addToX + (uiNote.NextUINote.CanvasLeft - uiNote.CanvasLeft) * 0.6).ToString(c) + ","
+                                       + (uiNote.PathTop + addToY + (uiNote.NextUINote.PathTop - uiNote.PathTop) * 0.6 + offsetSecondBeam).ToString(c) + " L "
+                                       + (uiNote.NextUINote.CanvasLeft + addToX).ToString(c) + "," + (uiNote.NextUINote.PathTop + addToY + offsetSecondBeam).ToString(c) + "";
                     // sixteenth followed by a dotted eigth
                     if (uiNote.Note.Duration == Duration.sixteenth && uiNote.NextUINote.Note.Duration == Duration.eigthDotted)
                         shapeString += " M "
-                                       + (GetLeft(NotYetConnectedNotes[1].Path) + addToX + (GetLeft(NotYetConnectedNotes[0].Path) - GetLeft(NotYetConnectedNotes[1].Path)) * 0.4).ToString(CultureInfo.GetCultureInfo("en-US")) + ","
-                                       + (GetTop(NotYetConnectedNotes[1].Path) + addToY + (GetTop(NotYetConnectedNotes[0].Path) - GetTop(NotYetConnectedNotes[1].Path)) * 0.4 + offsetSecondBeam).ToString(CultureInfo.GetCultureInfo("en-US")) + " L "
-                                       + (GetLeft(NotYetConnectedNotes[0].Path) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedNotes[0].Path) + addToY + offsetSecondBeam).ToString(CultureInfo.GetCultureInfo("en-US")) + "";
+                                       + (NotYetConnectedNotes[1].CanvasLeft + addToX + (NotYetConnectedNotes[0].CanvasLeft - NotYetConnectedNotes[1].CanvasLeft) * 0.4).ToString(c) + ","
+                                       + (NotYetConnectedNotes[1].PathTop + addToY + (NotYetConnectedNotes[0].PathTop - NotYetConnectedNotes[1].PathTop) * 0.4 + offsetSecondBeam).ToString(c) + " L "
+                                       + (NotYetConnectedNotes[0].CanvasLeft + addToX).ToString(c) + "," + (NotYetConnectedNotes[0].PathTop + addToY + offsetSecondBeam).ToString(c) + "";
                 }
                 // 16th - 8th - 16th
                 if (NotYetConnectedNotes.Count == 3
@@ -308,17 +313,17 @@ namespace Musicista.UI
                     && NotYetConnectedNotes[1].Note.Duration == Duration.eigth
                     && NotYetConnectedNotes[2].Note.Duration == Duration.sixteenth)
                 {
-                    NotYetConnectedNotes[1].Left = (NotYetConnectedNotes[0].Left + NotYetConnectedNotes[2].Left) / 2;
+                    NotYetConnectedNotes[1].CanvasLeft = (NotYetConnectedNotes[0].CanvasLeft + NotYetConnectedNotes[2].CanvasLeft) / 2;
                     // First 16th to middle 8th
                     shapeString += " M "
-                                       + (GetLeft(NotYetConnectedNotes[1].Path) + addToX + (GetLeft(NotYetConnectedNotes[0].Path) - GetLeft(NotYetConnectedNotes[1].Path)) * 0.5).ToString(CultureInfo.GetCultureInfo("en-US")) + ","
-                                       + (GetTop(NotYetConnectedNotes[1].Path) + addToY + (GetTop(NotYetConnectedNotes[0].Path) - GetTop(NotYetConnectedNotes[1].Path)) * 0.5 + offsetSecondBeam).ToString(CultureInfo.GetCultureInfo("en-US")) + " L "
-                                       + (GetLeft(NotYetConnectedNotes[0].Path) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedNotes[0].Path) + addToY + offsetSecondBeam).ToString(CultureInfo.GetCultureInfo("en-US")) + "";
+                                       + (NotYetConnectedNotes[1].CanvasLeft + addToX + (NotYetConnectedNotes[0].CanvasLeft - NotYetConnectedNotes[1].CanvasLeft) * 0.5).ToString(c) + ","
+                                       + (NotYetConnectedNotes[1].PathTop + addToY + (NotYetConnectedNotes[0].PathTop - NotYetConnectedNotes[1].PathTop) * 0.5 + offsetSecondBeam).ToString(c) + " L "
+                                       + (NotYetConnectedNotes[0].CanvasLeft + addToX).ToString(c) + "," + (NotYetConnectedNotes[0].PathTop + addToY + offsetSecondBeam).ToString(c) + "";
                     // Middle 8th to second 16th
                     shapeString += " M "
-                                       + (GetLeft(NotYetConnectedNotes[1].Path) + addToX + (GetLeft(NotYetConnectedNotes[2].Path) - GetLeft(NotYetConnectedNotes[1].Path)) * 0.6).ToString(CultureInfo.GetCultureInfo("en-US")) + ","
-                                       + (GetTop(NotYetConnectedNotes[1].Path) + addToY + (GetTop(NotYetConnectedNotes[2].Path) - GetTop(NotYetConnectedNotes[1].Path)) * 0.6 + offsetSecondBeam).ToString(CultureInfo.GetCultureInfo("en-US")) + " L "
-                                       + (GetLeft(NotYetConnectedNotes[2].Path) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedNotes[2].Path) + addToY + offsetSecondBeam).ToString(CultureInfo.GetCultureInfo("en-US")) + "";
+                                       + (NotYetConnectedNotes[1].CanvasLeft + addToX + (NotYetConnectedNotes[2].CanvasLeft - NotYetConnectedNotes[1].CanvasLeft) * 0.6).ToString(c) + ","
+                                       + (NotYetConnectedNotes[1].PathTop + addToY + (NotYetConnectedNotes[2].PathTop - NotYetConnectedNotes[1].PathTop) * 0.6 + offsetSecondBeam).ToString(c) + " L "
+                                       + (NotYetConnectedNotes[2].CanvasLeft + addToX).ToString(c) + "," + (NotYetConnectedNotes[2].PathTop + addToY + offsetSecondBeam).ToString(c) + "";
 
                 }
                 // 16th - 16th rest - 8th
@@ -326,9 +331,9 @@ namespace Musicista.UI
                     && NotYetConnectedNotes[0].Note.Duration == Duration.sixteenth
                     && NotYetConnectedNotes[1].Note.Duration == Duration.eigth)
                     shapeString += " M "
-                                       + (GetLeft(NotYetConnectedNotes[1].Path) + addToX + (GetLeft(NotYetConnectedNotes[0].Path) - GetLeft(NotYetConnectedNotes[1].Path)) * 0.5).ToString(CultureInfo.GetCultureInfo("en-US")) + ","
-                                       + (GetTop(NotYetConnectedNotes[1].Path) + addToY + (GetTop(NotYetConnectedNotes[0].Path) - GetTop(NotYetConnectedNotes[1].Path)) * 0.5 + offsetSecondBeam).ToString(CultureInfo.GetCultureInfo("en-US")) + " L "
-                                       + (GetLeft(NotYetConnectedNotes[0].Path) + addToX).ToString(CultureInfo.GetCultureInfo("en-US")) + "," + (GetTop(NotYetConnectedNotes[0].Path) + addToY + offsetSecondBeam).ToString(CultureInfo.GetCultureInfo("en-US")) + "";
+                                       + (NotYetConnectedNotes[1].CanvasLeft + addToX + (NotYetConnectedNotes[0].CanvasLeft - NotYetConnectedNotes[1].CanvasLeft) * 0.5).ToString(c) + ","
+                                       + (NotYetConnectedNotes[1].PathTop + addToY + (NotYetConnectedNotes[0].PathTop - NotYetConnectedNotes[1].PathTop) * 0.5 + offsetSecondBeam).ToString(c) + " L "
+                                       + (NotYetConnectedNotes[0].CanvasLeft + addToX).ToString(c) + "," + (NotYetConnectedNotes[0].PathTop + addToY + offsetSecondBeam).ToString(c) + "";
             }
 
             var beam = new Path

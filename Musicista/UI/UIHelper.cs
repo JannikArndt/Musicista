@@ -13,11 +13,20 @@ namespace Musicista.UI
     public static class UIHelper
     {
         private static List<UIMeasure> _selectedUIMeasures = new List<UIMeasure>();
+        public static SolidColorBrush SelectColor = new SolidColorBrush(Color.FromArgb(150, 135, 206, 235));
 
         public static List<UIMeasure> SelectedUIMeasures
         {
             get { return _selectedUIMeasures; }
             set { _selectedUIMeasures = value; }
+        }
+
+        private static List<UISymbol> _selectedUISymbols = new List<UISymbol>();
+
+        public static List<UISymbol> SelectedUISymbols
+        {
+            get { return _selectedUISymbols; }
+            set { _selectedUISymbols = value; }
         }
 
         public static List<UIPage> DrawPiece(Piece piece)

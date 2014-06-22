@@ -30,9 +30,14 @@ namespace Musicista.UI
                     MainWindow.SidebarInformation.ShowPiece();
                 if (MainWindow.SidebarView != null)
                     MainWindow.SidebarView.ShowPageSettings(this);
+
                 foreach (var uiMeasure in UIHelper.SelectedUIMeasures)
                     uiMeasure.Background = Brushes.Transparent;
                 UIHelper.SelectedUIMeasures.Clear();
+
+                foreach (var uiSymbol in UIHelper.SelectedUISymbols)
+                    uiSymbol.Background = Brushes.Transparent;
+                UIHelper.SelectedUISymbols.Clear();
             };
         }
 

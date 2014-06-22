@@ -14,26 +14,26 @@ namespace Musicista.UI
             ParentMeasure = parentMeasure;
             Rest = rest;
             ParentMeasure.Symbols.Add(this);
+            Symbol = rest;
 
-            BeatsPerMeasure = parentMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.Beats;
-            parentMeasure.ConnectNotesAtEndOfRun = false;
+            BeatsPerMeasure = ParentMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.Beats;
+            ParentMeasure.ConnectNotesAtEndOfRun = false;
 
-            Top = 55;
-            Left = ((parentMeasure.Width - parentMeasure.Indent) / BeatsPerMeasure * (rest.Beat - 1)) + parentMeasure.Indent;
+            PathTop = 55 + -TopRelativeToMeasure;
+            CanvasLeft = ((ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * (rest.Beat - 1)) + ParentMeasure.Indent;
             if (rest.Duration == Duration.whole)
-                Left = parentMeasure.Width / 2;
-            SetDuration(rest, parentMeasure);
+                CanvasLeft = ParentMeasure.Width / 2;
+            SetDuration(rest, ParentMeasure);
 
-            Canvas.SetTop(Path, Top);
-            Canvas.SetLeft(Path, Left);
+            Children.Add(Path);
+            ParentMeasure.Children.Add(this);
 
-            parentMeasure.Children.Add(Path);
 
-            if (parentMeasure.ConnectNotesAtEndOfRun || parentMeasure.NotYetConnectedNotes.Count == 4
-                || (parentMeasure.NotYetConnectedNotes.Any() && rest.Next == null)
-                || (parentMeasure.NotYetConnectedNotes.Any() && rest.Next != null && (rest.Next.Beat == 3 || rest.Next.Beat == 1))
-                || (parentMeasure.NotYetConnectedNotes.Any(item => item.Note.Duration == Duration.sixteenth) && rest.Next != null && (rest.Next.Beat == 2 || rest.Next.Beat == 4)))
-                parentMeasure.ConnectNotes();
+            if (ParentMeasure.ConnectNotesAtEndOfRun || ParentMeasure.NotYetConnectedNotes.Count == 4
+                || (ParentMeasure.NotYetConnectedNotes.Any() && rest.Next == null)
+                || (ParentMeasure.NotYetConnectedNotes.Any() && rest.Next != null && (rest.Next.Beat == 3 || rest.Next.Beat == 1))
+                || (ParentMeasure.NotYetConnectedNotes.Any(item => item.Note.Duration == Duration.sixteenth) && rest.Next != null && (rest.Next.Beat == 2 || rest.Next.Beat == 4)))
+                ParentMeasure.ConnectNotes();
         }
 
         public Rest Rest { get; set; }
@@ -90,12 +90,12 @@ namespace Musicista.UI
         public void DrawDot(UIMeasure measure)
         {
             double top;
-            if (Math.Abs(Top % 30) < 5)
-                top = Top + 88;
+            if (Math.Abs(PathTop % 30) < 5)
+                top = PathTop + 88;
             else
-                top = Top + 103;
+                top = PathTop + 103;
 
-            var left = Left + 50;
+            var left = CanvasLeft + 50;
 
             var newDot = new Ellipse
             {

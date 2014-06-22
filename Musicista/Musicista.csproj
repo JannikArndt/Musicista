@@ -94,7 +94,7 @@
     <Compile Include="Mappers\MidiNote.cs" />
     <Compile Include="Mappers\MusicXMLMapper.cs" />
     <Compile Include="MenuBar.cs" />
-    <Compile Include="UI\GridTable.cs" />
+    <Compile Include="View\GridTable.cs" />
     <Compile Include="Sidebar\SidebarKind.cs" />
     <Compile Include="Sidebar\SidebarAlgorithms.xaml.cs">
       <DependentUpon>SidebarAlgorithms.xaml</DependentUpon>
@@ -106,9 +106,9 @@
       <DependentUpon>SidebarView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ToolKind.cs" />
-    <Compile Include="UI\MeasureWidthConverter.cs" />
-    <Compile Include="UI\Adder.cs" />
-    <Compile Include="UI\Multiplier.cs" />
+    <Compile Include="UI\Converters\MeasureWidthConverter.cs" />
+    <Compile Include="UI\Converters\Adder.cs" />
+    <Compile Include="UI\Converters\Multiplier.cs" />
     <Compile Include="UI\UIHelper.cs" />
     <Compile Include="UI\UIMeasure.cs" />
     <Compile Include="UI\UIMeasureGroup.cs" />
@@ -190,9 +190,7 @@
       <Name>MusicXML</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="View\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Properties\AppIcon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

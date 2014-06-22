@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 
-namespace Musicista.UI
+namespace Musicista.View
 {
     public class GridTable : Grid
     {
@@ -17,7 +17,6 @@ namespace Musicista.UI
 
             ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(columnOneWidth) });
             ColumnDefinitions.Add(new ColumnDefinition());
-
         }
 
         public void AddRowWithTextField(string key, object dataContext, string propertyName)

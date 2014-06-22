@@ -2,7 +2,7 @@ using System;
 using System.Globalization;
 using System.Windows.Data;
 
-namespace Musicista.UI
+namespace Musicista.UI.Converters
 {
     [ValueConversion(typeof(double), typeof(double))]
     public class MeasureWidthConverter : IValueConverter

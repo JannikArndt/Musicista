@@ -13,14 +13,16 @@ namespace Musicista.UI
     public static class UIHelper
     {
         private static List<UIMeasure> _selectedUIMeasures = new List<UIMeasure>();
+
         public static List<UIMeasure> SelectedUIMeasures
         {
             get { return _selectedUIMeasures; }
             set { _selectedUIMeasures = value; }
         }
+
         public static List<UIPage> DrawPiece(Piece piece)
         {
-            var currentPage = new UIPage(firstPage: true) { Piece = piece };
+            var currentPage = new UIPage { Piece = piece };
             var pageList = new List<UIPage> { currentPage };
 
             if (!String.IsNullOrEmpty(piece.Title))
@@ -195,8 +197,6 @@ namespace Musicista.UI
                 RenderTransform = new ScaleTransform(.32 * scale, .32 * scale)
             };
 
-            //if ((musicalKey.Pitch == Pitch.C        && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.A       && musicalKey.Gender == Gender.Minor))
-            //key.Data = Geometry.Parse(Engraving.CMajor);
             if ((musicalKey.Pitch == Pitch.G && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.E && musicalKey.Gender == Gender.Minor))
                 key.Data = Geometry.Parse(Engraving.GMajor);
             else if ((musicalKey.Pitch == Pitch.D && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.B && musicalKey.Gender == Gender.Minor))
@@ -245,7 +245,7 @@ namespace Musicista.UI
             // from http://stackoverflow.com/a/13628257/1507481
             numbers.Sort();
             var result = "";
-            var start = numbers[0];  // track start and end
+            var start = numbers[0]; // track start and end
             var end = start;
             for (var i = 1; i < numbers.Count; i++)
             {

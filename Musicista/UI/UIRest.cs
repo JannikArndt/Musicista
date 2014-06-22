@@ -4,20 +4,19 @@ using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using Duration = Model.Duration;
 
 namespace Musicista.UI
 {
     public class UIRest : UISymbol
     {
-        public Rest Rest { get; set; }
         public UIRest(Rest rest, UIMeasure parentMeasure)
         {
+            ParentMeasure = parentMeasure;
+            Rest = rest;
+            ParentMeasure.Symbols.Add(this);
+
             BeatsPerMeasure = parentMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.Beats;
             parentMeasure.ConnectNotesAtEndOfRun = false;
-            Rest = rest;
-            ParentMeasure = parentMeasure;
-            ParentMeasure.Rests.Add(this);
 
             Top = 55;
             Left = ((parentMeasure.Width - parentMeasure.Indent) / BeatsPerMeasure * (rest.Beat - 1)) + parentMeasure.Indent;
@@ -27,6 +26,7 @@ namespace Musicista.UI
 
             Canvas.SetTop(Path, Top);
             Canvas.SetLeft(Path, Left);
+
             parentMeasure.Children.Add(Path);
 
             if (parentMeasure.ConnectNotesAtEndOfRun || parentMeasure.NotYetConnectedNotes.Count == 4
@@ -35,6 +35,8 @@ namespace Musicista.UI
                 || (parentMeasure.NotYetConnectedNotes.Any(item => item.Note.Duration == Duration.sixteenth) && rest.Next != null && (rest.Next.Beat == 2 || rest.Next.Beat == 4)))
                 parentMeasure.ConnectNotes();
         }
+
+        public Rest Rest { get; set; }
 
         public UIRest NextUIRest
         {

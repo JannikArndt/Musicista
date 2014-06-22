@@ -6,34 +6,35 @@ using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using Duration = Model.Duration;
 
 namespace Musicista.UI
 {
     public class UINote : UISymbol
     {
-        public Note Note { get; set; }
-
         public UINote(Note note, UIMeasure parentMeasure)
         {
+            ParentMeasure = parentMeasure;
+            Note = note;
+            ParentMeasure.Symbols.Add(this);
+
             BeatsPerMeasure = parentMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.Beats;
             parentMeasure.ConnectNotesAtEndOfRun = false;
-            Note = note;
-            ParentMeasure = parentMeasure;
-            ParentMeasure.Symbols.Add(this);
 
             Left = ((parentMeasure.Width - parentMeasure.Indent) / BeatsPerMeasure * (note.Beat - 1)) + parentMeasure.Indent;
             Top = SetTop(note, parentMeasure);
             SetDuration(note, parentMeasure);
 
-
             parentMeasure.Children.Add(Path);
 
             if (parentMeasure.ConnectNotesAtEndOfRun || parentMeasure.NotYetConnectedNotes.Count == 4
                 || (parentMeasure.NotYetConnectedNotes.Any() && note.Next != null && (note.Next.Beat == 3 || note.Next.Beat == 1))
-                || (parentMeasure.NotYetConnectedNotes.Any(item => item.Note.Duration == Duration.sixteenth) && note.Next != null && (note.Next.Beat == 2 || note.Next.Beat == 4)))
+                ||
+                (parentMeasure.NotYetConnectedNotes.Any(item => item.Note.Duration == Duration.sixteenth) && note.Next != null &&
+                 (note.Next.Beat == 2 || note.Next.Beat == 4)))
                 parentMeasure.ConnectNotes();
         }
+
+        public Note Note { get; set; }
 
         public UINote NextUINote
         {
@@ -96,7 +97,7 @@ namespace Musicista.UI
         {
             if (note.Next != null
                 && (note.Next.Duration == Duration.eigth || note.Next.Duration == Duration.sixteenth
-                || note.Next.Duration == Duration.eigthDotted || note.Next.Duration == Duration.sixteenthDotted)
+                    || note.Next.Duration == Duration.eigthDotted || note.Next.Duration == Duration.sixteenthDotted)
                 && note.Next.Beat != 1 && note.Next.Beat != 3)
             {
                 if (!measure.NotYetConnectedNotes.Any())
@@ -231,7 +232,6 @@ namespace Musicista.UI
 
         public void DrawLedger(UIMeasure measure, bool below, int count)
         {
-
             const double width = 75;
             const double spacing = 30;
             var top = below ? 170 + spacing : 50 - spacing;

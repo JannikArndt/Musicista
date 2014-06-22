@@ -1,4 +1,5 @@
 ﻿using Model;
+using Musicista.UI.Converters;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,22 +13,21 @@ namespace Musicista.UI
     {
         public readonly MeasureGroup InnerMeasureGroup = new MeasureGroup();
         public readonly UISystem ParentSystem;
-        public Line Barline { get; set; }
 
         public List<UIMeasure> Measures = new List<UIMeasure>();
 
         public UIMeasureGroup(UISystem system, double left, MeasureGroup innerMeasureGroup = null)
         {
+            InnerMeasureGroup = innerMeasureGroup;
+            ParentSystem = system;
+
             Height = system.ActualHeight;
             Background = Brushes.Transparent;
-            ParentSystem = system;
 
             SetTop(this, 0);
             SetLeft(this, left);
-
-            SetBinding(WidthProperty, new Binding { Path = new PropertyPath(WidthProperty), Source = system, Converter = new MeasureWidthConverter(), ConverterParameter = system });
-
-            InnerMeasureGroup = innerMeasureGroup;
+            SetBinding(WidthProperty,
+                new Binding { Path = new PropertyPath(WidthProperty), Source = system, Converter = new MeasureWidthConverter(), ConverterParameter = system });
 
             Barline = new Line
             {
@@ -43,14 +43,10 @@ namespace Musicista.UI
 
             Children.Add(Barline);
 
-            /*
-            MouseLeftButtonDown += MainWindow.DragStart;
-            MouseMove += MainWindow.Drag;
-            MouseLeftButtonUp += MainWindow.DragEnd;
-            */
-
             system.Children.Add(this);
         }
+
+        public Line Barline { get; set; }
 
         public UIMeasureGroup NextUIMeasureGroup
         {

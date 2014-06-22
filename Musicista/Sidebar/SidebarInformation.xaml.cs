@@ -1,6 +1,7 @@
 ﻿using Model;
 using Model.Meta;
 using Musicista.UI;
+using Musicista.View;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -10,7 +11,7 @@ using System.Windows.Data;
 namespace Musicista.Sidebar
 {
     /// <summary>
-    /// Interaction logic for SidebarInformation.xaml
+    ///     Interaction logic for SidebarInformation.xaml
     /// </summary>
     public partial class SidebarInformation
     {
@@ -60,9 +61,9 @@ namespace Musicista.Sidebar
                 // Notes and rests
                 foreach (var symbol in uiMeasure.InnerMeasure.Symbols)
                     if (symbol.GetType() == typeof(Note))
-                        new UINote((Note)symbol, newMeasure);
+                        newMeasure.Symbols.Add(new UINote((Note)symbol, newMeasure));
                     else if (symbol.GetType() == typeof(Rest))
-                        new UIRest((Rest)symbol, newMeasure);
+                        newMeasure.Symbols.Add(new UIRest((Rest)symbol, newMeasure));
 
                 // Display info about the uiMeasure
                 var grid = new GridTable(60);
@@ -100,44 +101,31 @@ namespace Musicista.Sidebar
             TitleTextBlock.DataContext = piece;
             TitleTextBlock.SetBinding(TextBlock.TextProperty, new Binding("Title"));
 
-
             SidebarPanel.Children.Clear();
 
             var grid = new GridTable(60);
             grid.AddRowWithTextField("Title", MainWindow.CurrentPiece, "Title");
 
-            if (piece.ListOfComposers != null && piece.ListOfComposers.Count > 0 && piece.ListOfComposers[0].FullName != null)
-                foreach (var composer in piece.ListOfComposers)
-                    if (composer.FullName != null)
-                        grid.AddRowWithPerson("Composer", composer);
+            if (piece.ListOfComposers == null || piece.ListOfComposers.Count == 0)
+                piece.ListOfComposers = new List<Composer> { new Composer() };
+            foreach (var composer in piece.ListOfComposers)
+                grid.AddRowWithPerson("Composer", composer);
 
-            //grid.AddRowWithComboBox("Opus", "Opus", typeof(OpusNumber));
+
             grid.AddRowWithComboBox("Epoch", MainWindow.CurrentPiece, "Epoch", Epoch.Classical);
             grid.AddRowWithComboBox("Form", MainWindow.CurrentPiece, "Form", Form.Other);
-
 
             SidebarPanel.Children.Add(grid);
 
 
-
-
             var gridView = new GridView
             {
-                ColumnHeaderContainerStyle = new Style
-                {
-                    TargetType = typeof(GridViewColumnHeader),
-                }
+                ColumnHeaderContainerStyle = new Style { TargetType = typeof(GridViewColumnHeader) }
             };
             gridView.ColumnHeaderContainerStyle.Setters.Add(new Setter(VisibilityProperty, Visibility.Collapsed));
 
-            var gridViewColumn1 = new GridViewColumn
-            {
-                DisplayMemberBinding = new Binding("Key"),
-            };
-            var gridViewColumn2 = new GridViewColumn
-            {
-                DisplayMemberBinding = new Binding("Value"),
-            };
+            var gridViewColumn1 = new GridViewColumn { DisplayMemberBinding = new Binding("Key") };
+            var gridViewColumn2 = new GridViewColumn { DisplayMemberBinding = new Binding("Value") };
             gridView.Columns.Add(gridViewColumn1);
             gridView.Columns.Add(gridViewColumn2);
 

@@ -10,12 +10,10 @@ namespace Musicista.UI
     public class UIPage : Canvas
     {
         public List<UISystem> Systems = new List<UISystem>();
-        public UITitle Title { get; set; }
-        public UISettings Settings { get; set; }
-        public Piece Piece { get; set; }
-        public UIPage(bool firstPage = false)
+
+        public UIPage()
         {
-            Settings = new UISettings(firstPage);
+            Settings = new UISettings();
 
             Width = 841; // A0 in mm
             Height = 1189;
@@ -37,5 +35,9 @@ namespace Musicista.UI
                 UIHelper.SelectedUIMeasures.Clear();
             };
         }
+
+        public UITitle Title { get; set; }
+        public UISettings Settings { get; set; }
+        public Piece Piece { get; set; }
     }
 }

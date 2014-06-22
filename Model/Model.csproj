@@ -66,6 +66,7 @@
     <Compile Include="Section.cs" />
     <Compile Include="Segment.cs" />
     <Compile Include="Symbol.cs" />
+    <Compile Include="View\Metrics.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

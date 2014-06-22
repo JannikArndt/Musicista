@@ -1,4 +1,4 @@
-﻿
+﻿using Model.View;
 using System.Linq;
 using System.Windows.Controls;
 
@@ -6,14 +6,39 @@ namespace Musicista.UI
 {
     public class UISettings
     {
-        public double MarginTop { get; set; }
-        public double MarginBelowTitle { get; set; }
+        private readonly Metrics _metrics = new Metrics();
+
+        public UISettings()
+        {
+            _metrics = new Metrics
+            {
+                MarginTop = 60,
+                MarginBelowTitle = 60,
+                StaffSpacing = 50,
+                SystemSpacing = 60,
+                SystemMarginLeft = 50,
+                SystemMarginRight = 50
+            };
+        }
+
+        public double MarginTop
+        {
+            get { return _metrics.MarginTop; }
+            set { _metrics.MarginTop = value; }
+        }
+
+        public double MarginBelowTitle
+        {
+            get { return _metrics.MarginBelowTitle; }
+            set { _metrics.MarginBelowTitle = value; }
+        }
+
         public double StaffSpacing
         {
-            get { return _staffSpacing; }
+            get { return _metrics.StaffSpacing; }
             set
             {
-                _staffSpacing = value;
+                _metrics.StaffSpacing = value;
                 if (MainWindow.PageList == null || MainWindow.PageList.Count == 0) return;
                 foreach (var uiSystem in MainWindow.PageList.SelectMany(page => page.Systems))
                 {
@@ -26,30 +51,26 @@ namespace Musicista.UI
 
         public double SystemSpacing
         {
-            get { return _systemSpacing; }
+            get { return _metrics.SystemSpacing; }
             set
             {
-                _systemSpacing = value;
+                _metrics.SystemSpacing = value;
                 if (MainWindow.PageList == null || MainWindow.PageList.Count == 0) return;
                 foreach (var uiSystem in MainWindow.PageList.SelectMany(page => page.Systems))
                     Canvas.SetTop(uiSystem, uiSystem.CalculateTop());
             }
         }
 
-        public double SystemMarginLeft { get; set; }
-        public double SystemMarginRight { get; set; }
-
-        private double _systemSpacing;
-        private double _staffSpacing;
-
-        public UISettings(bool firstPage = false)
+        public double SystemMarginLeft
         {
-            MarginTop = 60;
-            MarginBelowTitle = 60;
-            _staffSpacing = 50;
-            _systemSpacing = 60;
-            SystemMarginLeft = 50;
-            SystemMarginRight = 50;
+            get { return _metrics.SystemMarginLeft; }
+            set { _metrics.SystemMarginLeft = value; }
+        }
+
+        public double SystemMarginRight
+        {
+            get { return _metrics.SystemMarginRight; }
+            set { _metrics.SystemMarginRight = value; }
         }
     }
 }

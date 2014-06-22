@@ -14,6 +14,7 @@ namespace Musicista.UI
     {
         private static List<UIMeasure> _selectedUIMeasures = new List<UIMeasure>();
         public static SolidColorBrush SelectColor = new SolidColorBrush(Color.FromArgb(150, 135, 206, 235));
+        public static bool SelectionModeIsMeasures { get { return SelectedUIMeasures.Count > 0; } }
 
         public static List<UIMeasure> SelectedUIMeasures
         {

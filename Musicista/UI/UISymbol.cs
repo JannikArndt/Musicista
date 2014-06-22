@@ -54,6 +54,9 @@ namespace Musicista.UI
 
         private void ClickToSelectSymbols(object sender, MouseButtonEventArgs args)
         {
+            if (UIHelper.SelectedUISymbols.Contains(this) || UIHelper.SelectionModeIsMeasures)
+                return;
+
             if (Keyboard.Modifiers.HasFlag(ModifierKeys.Control))
             {
                 if (UIHelper.SelectedUISymbols.Contains(this))

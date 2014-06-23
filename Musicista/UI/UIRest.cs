@@ -49,6 +49,11 @@ namespace Musicista.UI
             }
         }
 
+        public override string ToString()
+        {
+            return Rest.ToString();
+        }
+
         private void SetDuration(Rest rest, UIMeasure measure)
         {
             switch (rest.Duration)

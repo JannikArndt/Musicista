@@ -24,6 +24,12 @@ namespace Model
         {
             get { return ParentMeasure.Symbols.Find(s => s.Voice == Voice && s.Beat > Beat); }
         }
+
+        [XmlIgnore]
+        public int MeasureNumber
+        {
+            get { return ParentMeasure.ParentMeasureGroup.MeasureNumber; }
+        }
         public Symbol() { }
     }
 }

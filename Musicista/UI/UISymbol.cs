@@ -73,7 +73,7 @@ namespace Musicista.UI
             else if (Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
             {
                 var next = UIHelper.SelectedUISymbols.FirstOrDefault();
-                // first click on an earlier measure
+                // first click on an earlier symbol
                 if (next != null && (ParentMeasure.MeasureNumber > next.ParentMeasure.MeasureNumber
                     || (ParentMeasure.MeasureNumber == next.ParentMeasure.MeasureNumber && Symbol.Beat > next.Symbol.Beat)))
                 {
@@ -86,7 +86,7 @@ namespace Musicista.UI
                     Background = UIHelper.SelectColor;
                     UIHelper.SelectedUISymbols.Add(this);
                 }
-                // first click on a later measure
+                // first click on a later symbol
                 else if (next != null)
                 {
                     var final = next;

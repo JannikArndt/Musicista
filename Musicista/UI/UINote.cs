@@ -48,6 +48,11 @@ namespace Musicista.UI
             }
         }
 
+        public override string ToString()
+        {
+            return Note.ToString();
+        }
+
         private void SetDuration(Note note, UIMeasure measure)
         {
             switch (note.Duration)

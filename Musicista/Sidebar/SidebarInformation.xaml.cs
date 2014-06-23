@@ -24,9 +24,82 @@ namespace Musicista.Sidebar
         {
             if (uiObject is TextBlock)
                 Clicked.Text = (uiObject as TextBlock).Text;
-            var measure = uiObject as UIMeasure;
-            if (measure != null)
-                ShowMeasure(measure);
+            var uiMeasure = uiObject as UIMeasure;
+            if (uiMeasure != null)
+                ShowMeasure(uiMeasure);
+            var uiSymbol = uiObject as UISymbol;
+            if (uiSymbol != null)
+                ShowSymbol(uiSymbol);
+        }
+
+        private void ShowSymbol(UISymbol uiSymbol)
+        {
+            if (UIHelper.SelectedUISymbols.Count == 1)
+            {
+                TitleTextBlock.Text = uiSymbol.ToString();
+                SidebarPanel.Children.Clear();
+
+                // Draw note
+                var selectedPassage = new Passage(UIHelper.SelectedUISymbols.Select(item => item.Symbol));
+                SidebarPanel.Children.Add(DrawPassage(selectedPassage));
+
+                // Display info about the uiSymbol
+                var grid = new GridTable(70);
+                grid.AddRowWithTextField("Measure No.", uiSymbol.Symbol.ParentMeasure.ParentMeasureGroup, "MeasureNumber");
+                grid.AddRowWithTextField("Beat", uiSymbol.Symbol, "Beat");
+                grid.AddRowWithComboBox("Duration", uiSymbol.Symbol, "Duration", Model.Duration.unknown);
+                grid.AddRowWithTextField("Voice", uiSymbol.Symbol, "Voice");
+                grid.AddRowWithTextField("Text", uiSymbol.Symbol, "Text");
+
+
+                SidebarPanel.Children.Add(grid);
+            }
+            else if (UIHelper.SelectedUISymbols.Count > 1)
+            {
+                TitleTextBlock.Text = "Passage";
+                SidebarPanel.Children.Clear();
+
+                // Draw notes
+                if (UIHelper.SelectedUISymbols.Count < 40)
+                {
+                    var selectedPassage = new Passage(UIHelper.SelectedUISymbols.Select(item => item.Symbol));
+                    SidebarPanel.Children.Add(DrawPassage(selectedPassage));
+                }
+            }
+        }
+
+        private UIPage DrawPassage(Passage passage)
+        {
+            var page = new UIPage
+            {
+                Width = 280,
+                Height = 50,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                Effect = null,
+                Settings = new UISettings
+                {
+                    MarginTop = 10,
+                    MarginBelowTitle = 0,
+                    StaffSpacing = 0,
+                    SystemSpacing = 0,
+                    SystemMarginLeft = 0,
+                    SystemMarginRight = 0
+                }
+            };
+
+            page.Systems.Add(new UISystem(page) { MeasuresInSystem = passage.ListOfMeasureGroups.Count });
+
+            var staff = new UIStaff(page.Systems.Last());
+            page.Systems.Last().AddStaff(staff);
+
+            UIHelper.DrawClef(staff, passage.ListOfMeasureGroups[0].Measures[0].Clef);
+            var keyWidth = UIHelper.DrawKey(staff, passage.ListOfMeasureGroups[0].KeySignature, passage.ListOfMeasureGroups[0].Measures[0].Clef);
+            page.Systems.Last().Indent += keyWidth;
+
+            foreach (var measureGroup in passage.ListOfMeasureGroups)
+                UIHelper.DrawMeasureGroup(page.Systems.Last(), measureGroup);
+
+            return page;
         }
 
         private void ShowMeasure(UIMeasure uiMeasure)
@@ -36,34 +109,12 @@ namespace Musicista.Sidebar
                 TitleTextBlock.Text = uiMeasure.ToString();
                 SidebarPanel.Children.Clear();
 
-                // Display uiMeasure
-                var page = new UIPage
+                // Display selected passage
+                if (UIHelper.SelectedUIMeasures.Count < 10)
                 {
-                    Width = 280,
-                    Height = 50,
-                    HorizontalAlignment = HorizontalAlignment.Center,
-                    Effect = null
-                };
-                var system = new UISystem(page) { MeasuresInSystem = 1 };
-                Canvas.SetTop(system, 0);
-                system.Children.Remove(system.BarlineFront);
-                var canvas = new UIMeasureGroup(system, 0);
-                canvas.Children.Remove(canvas.Barline);
-
-                SidebarPanel.Children.Add(page);
-
-                var newMeasure = new UIMeasure(canvas, 0, uiMeasure.InnerMeasure, top: 0, suppressEventHandlers: true);
-
-                // Clef and key
-                UIHelper.DrawClef(newMeasure, uiMeasure.InnerMeasure.Clef);
-                UIHelper.DrawKey(newMeasure, uiMeasure.InnerMeasure.ParentMeasureGroup.KeySignature, uiMeasure.InnerMeasure.Clef);
-
-                // Notes and rests
-                foreach (var symbol in uiMeasure.InnerMeasure.Symbols)
-                    if (symbol.GetType() == typeof(Note))
-                        newMeasure.Symbols.Add(new UINote((Note)symbol, newMeasure));
-                    else if (symbol.GetType() == typeof(Rest))
-                        newMeasure.Symbols.Add(new UIRest((Rest)symbol, newMeasure));
+                    var selectedPassage = new Passage(UIHelper.SelectedUIMeasures.Select(item => item.InnerMeasure));
+                    SidebarPanel.Children.Add(DrawPassage(selectedPassage));
+                }
 
                 // Display info about the uiMeasure
                 var grid = new GridTable(60);
@@ -78,6 +129,10 @@ namespace Musicista.Sidebar
             {
                 TitleTextBlock.Text = "Measures #" + UIHelper.NumbersToString(UIHelper.SelectedUIMeasures.Select(item => item.InnerMeasure.ParentMeasureGroup.MeasureNumber).ToList());
                 SidebarPanel.Children.Clear();
+
+                // Display selected passage
+                var selectedPassage = new Passage(UIHelper.SelectedUIMeasures.Select(item => item.InnerMeasure));
+                SidebarPanel.Children.Add(DrawPassage(selectedPassage));
 
                 // Display info about the uiMeasure(s)
                 var grid = new GridTable(60);

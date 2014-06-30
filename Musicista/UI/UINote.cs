@@ -21,10 +21,40 @@ namespace Musicista.UI
             ParentMeasure.ConnectNotesAtEndOfRun = false;
 
             CanvasLeft = ((ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * (note.Beat - 1)) + ParentMeasure.Indent;
-            PathTop = CalculateTop(note, ParentMeasure);
+
+            // Note Head
+            SetTop(NoteHead, CalculateTop(note, ParentMeasure) + 94);
+            SetLeft(NoteHead, 10);
             SetDuration(note, ParentMeasure);
 
-            Children.Add(Path);
+            // Stem & Flag
+            if ((ParentMeasure.StemDirectionIsSetForGroup && ParentMeasure.StemDirectionUp) || (!ParentMeasure.StemDirectionIsSetForGroup && note.StemShouldGoUp()))
+            {
+                // stem goes up
+                Stem.X1 = 48;
+                Stem.X2 = Stem.X1;
+                Stem.Y1 = GetTop(NoteHead) + 12;
+                Stem.Y2 = Stem.Y1 - StemLength;
+
+                SetTop(Flag, GetTop(NoteHead) - StemLength + 10);
+                SetLeft(Flag, 48);
+            }
+            else
+            {
+                // stem goes down
+                Stem.X1 = 14;
+                Stem.X2 = Stem.X1;
+                Stem.Y1 = GetTop(NoteHead) + 20;
+                Stem.Y2 = Stem.Y1 + StemLength;
+
+                SetTop(Flag, GetTop(NoteHead) + 30);
+                SetLeft(Flag, 14);
+            }
+
+            Children.Add(NoteHead);
+            if (note.Duration != Duration.whole && note.Duration != Duration.doublewhole && note.Duration != Duration.wholeDotted && note.Duration != Duration.doublewholeDotted)
+                Children.Add(Stem);
+            Children.Add(Flag);
             ParentMeasure.Children.Add(this);
 
             if (ParentMeasure.ConnectNotesAtEndOfRun || ParentMeasure.NotYetConnectedNotes.Count == 4
@@ -36,6 +66,27 @@ namespace Musicista.UI
         }
 
         public Note Note { get; set; }
+
+        public double StemLength = 100;
+
+        public Path NoteHead = new Path
+        {
+            Fill = Brushes.Black,
+            SnapsToDevicePixels = true,
+            RenderTransform = new ScaleTransform(0.26, 0.26)
+        };
+        public Path Flag = new Path
+        {
+            Fill = Brushes.Black,
+            SnapsToDevicePixels = true,
+            RenderTransform = new ScaleTransform(0.26, 0.26)
+        };
+        public Line Stem = new Line
+        {
+            SnapsToDevicePixels = true,
+            StrokeThickness = 6,
+            Stroke = Brushes.Black
+        };
 
         public UINote NextUINote
         {
@@ -58,53 +109,60 @@ namespace Musicista.UI
             switch (note.Duration)
             {
                 case Duration.whole:
-                    Path.Data = Geometry.Parse(Engraving.Whole);
+                    NoteHead.Data = Geometry.Parse(Engraving.WholeHead);
+                    NoteHead.RenderTransform = new ScaleTransform(0.3, 0.3);
                     Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure;
                     break;
                 case Duration.halfDotted:
-                    Path.Data = Geometry.Parse(note.StemShouldGoUp() ? Engraving.Half : Engraving.HalfUpsideDown);
+                    NoteHead.Data = Geometry.Parse(Engraving.HalfHead);
+                    NoteHead.RenderTransform = new ScaleTransform(0.28, 0.28);
                     Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 3;
                     DrawDot();
                     break;
                 case Duration.half:
-                    Path.Data = Geometry.Parse(note.StemShouldGoUp() ? Engraving.Half : Engraving.HalfUpsideDown);
+                    NoteHead.Data = Geometry.Parse(Engraving.HalfHead);
+                    NoteHead.RenderTransform = new ScaleTransform(0.28, 0.28);
                     Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 2;
                     break;
                 case Duration.quarterDotted:
-                    Path.Data = Geometry.Parse(note.StemShouldGoUp() ? Engraving.Quarter : Engraving.QuarterUpsideDown);
+                    NoteHead.Data = Geometry.Parse(Engraving.QuarterHead);
                     Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 1.5;
                     DrawDot();
                     break;
                 case Duration.quarter:
-                    Path.Data = Geometry.Parse(note.StemShouldGoUp() ? Engraving.Quarter : Engraving.QuarterUpsideDown);
+                    NoteHead.Data = Geometry.Parse(Engraving.QuarterHead);
                     Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure;
                     break;
                 case Duration.eigthDotted:
-                    Path.Data = Geometry.Parse(note.StemShouldGoUp() ? Engraving.Eigth : Engraving.EightUpsideDown);
+                    NoteHead.Data = Geometry.Parse(Engraving.QuarterHead);
                     Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 0.75;
                     DrawDot();
-                    HandleConnectedNotes(note, measure);
+                    if (HandleConnectedNotes_NeedsFlag(note, measure))
+                        Flag.Data = Geometry.Parse(Note.StemShouldGoUp() ? Engraving.EigthFlagUp : Engraving.EigthFlagDown);
                     break;
                 case Duration.eigth:
-                    Path.Data = Geometry.Parse(note.StemShouldGoUp() ? Engraving.Eigth : Engraving.EightUpsideDown);
+                    NoteHead.Data = Geometry.Parse(Engraving.QuarterHead);
                     Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 0.5;
-                    HandleConnectedNotes(note, measure);
+                    if (HandleConnectedNotes_NeedsFlag(note, measure))
+                        Flag.Data = Geometry.Parse(Note.StemShouldGoUp() ? Engraving.EigthFlagUp : Engraving.EigthFlagDown);
                     break;
                 case Duration.sixteenthDotted:
-                    Path.Data = Geometry.Parse(Engraving.Sixteenth);
+                    NoteHead.Data = Geometry.Parse(Engraving.QuarterHead);
                     Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 0.37;
                     DrawDot();
-                    HandleConnectedNotes(note, measure);
+                    if (HandleConnectedNotes_NeedsFlag(note, measure))
+                        Flag.Data = Geometry.Parse(Note.StemShouldGoUp() ? Engraving.SixteenthFlagUp : Engraving.SixteenthFlagDown);
                     break;
                 case Duration.sixteenth:
-                    Path.Data = Geometry.Parse(Engraving.Sixteenth);
+                    NoteHead.Data = Geometry.Parse(Engraving.QuarterHead);
                     Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 0.25;
-                    HandleConnectedNotes(note, measure);
+                    if (HandleConnectedNotes_NeedsFlag(note, measure))
+                        Flag.Data = Geometry.Parse(Note.StemShouldGoUp() ? Engraving.SixteenthFlagUp : Engraving.SixteenthFlagDown);
                     break;
             }
         }
 
-        private void HandleConnectedNotes(Note note, UIMeasure measure)
+        private bool HandleConnectedNotes_NeedsFlag(Note note, UIMeasure measure)
         {
             if (note.Next != null
                 && (note.Next.Duration == Duration.eigth || note.Next.Duration == Duration.sixteenth
@@ -112,16 +170,20 @@ namespace Musicista.UI
                 && note.Next.Beat != 1 && note.Next.Beat != 3)
             {
                 if (!measure.NotYetConnectedNotes.Any())
+                {
                     measure.StemDirectionUp = StemOfGroupShouldGoUp;
-                Path.Data = Geometry.Parse(measure.StemDirectionUp ? Engraving.Quarter : Engraving.QuarterUpsideDown);
+                    measure.StemDirectionIsSetForGroup = true;
+                }
                 measure.NotYetConnectedNotes.Add(this);
+                return false;
             }
-            else if (measure.NotYetConnectedNotes.Any())
+            if (measure.NotYetConnectedNotes.Any())
             {
-                Path.Data = Geometry.Parse(measure.StemDirectionUp ? Engraving.Quarter : Engraving.QuarterUpsideDown);
                 measure.NotYetConnectedNotes.Add(this);
                 measure.ConnectNotesAtEndOfRun = true;
+                return false;
             }
+            return true;
         }
 
         private double CalculateTop(Note note, UIMeasure measure)
@@ -335,10 +397,10 @@ namespace Musicista.UI
         public void DrawDot()
         {
             double top;
-            if (Math.Abs(PathTop % 30) < 5)
-                top = PathTop + 88 - TopRelativeToMeasure;
+            if (Math.Abs((GetTop(NoteHead) - 21) % 31) < 5)
+                top = GetTop(NoteHead); // on the line
             else
-                top = PathTop + 103 - 30 - TopRelativeToMeasure;
+                top = GetTop(NoteHead) + 5; // between lines
 
             var newDot = new Ellipse
             {

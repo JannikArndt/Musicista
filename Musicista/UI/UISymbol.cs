@@ -3,7 +3,6 @@ using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Shapes;
 
 namespace Musicista.UI
 {
@@ -11,16 +10,7 @@ namespace Musicista.UI
     {
         public UIMeasure ParentMeasure { get; set; }
         public Symbol Symbol { get; set; }
-        public double PathTop { get { return GetTop(Path); } set { SetTop(Path, value); } }
-        public double PathLeft { get { return GetLeft(Path); } set { SetLeft(Path, value); } }
-        public double CanvasTop { get { return GetTop(this); } set { SetTop(this, value); } }
         public double CanvasLeft { get { return GetLeft(this); } set { SetLeft(this, value); } }
-
-        public Path Path = new Path
-        {
-            Fill = Brushes.Black,
-            SnapsToDevicePixels = true
-        };
 
         public double TopRelativeToMeasure = -20;
 
@@ -41,14 +31,9 @@ namespace Musicista.UI
         public UISymbol()
         {
             Background = Brushes.Transparent;
-            CanvasTop = TopRelativeToMeasure;
-            PathLeft = 10;
+            SetTop(this, TopRelativeToMeasure);
             Height = 300;
             Width = 100;
-            Path.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Unspecified);
-            Path.SetValue(RenderOptions.ClearTypeHintProperty, ClearTypeHint.Enabled);
-            Path.SetValue(RenderOptions.CachingHintProperty, CachingHint.Cache);
-
             MouseDown += ClickToSelectSymbols;
         }
 

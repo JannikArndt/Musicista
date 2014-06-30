@@ -19,7 +19,8 @@ namespace Musicista.UI
             BeatsPerMeasure = ParentMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.Beats;
             ParentMeasure.ConnectNotesAtEndOfRun = false;
 
-            PathTop = 55 + -TopRelativeToMeasure;
+            SetTop(Path, 55 + -TopRelativeToMeasure);
+            SetLeft(Path, 10);
             CanvasLeft = ((ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * (rest.Beat - 1)) + ParentMeasure.Indent;
             if (rest.Duration == Duration.whole)
                 CanvasLeft = ParentMeasure.Width / 2;
@@ -35,6 +36,12 @@ namespace Musicista.UI
                 || (ParentMeasure.NotYetConnectedNotes.Any(item => item.Note.Duration == Duration.sixteenth) && rest.Next != null && (rest.Next.Beat == 2 || rest.Next.Beat == 4)))
                 ParentMeasure.ConnectNotes();
         }
+
+        public Path Path = new Path
+        {
+            Fill = Brushes.Black,
+            SnapsToDevicePixels = true
+        };
 
         public Rest Rest { get; set; }
 
@@ -95,10 +102,10 @@ namespace Musicista.UI
         public void DrawDot(UIMeasure measure)
         {
             double top;
-            if (Math.Abs(PathTop % 30) < 5)
-                top = PathTop + 88;
+            if (Math.Abs(GetTop(Path) % 31) < 5)
+                top = GetTop(Path) + 88;
             else
-                top = PathTop + 103;
+                top = GetTop(Path) + 103;
 
             var left = CanvasLeft + 50;
 

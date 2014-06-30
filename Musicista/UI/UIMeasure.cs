@@ -38,6 +38,7 @@ namespace Musicista.UI
 
         public readonly List<UINote> NotYetConnectedNotes = new List<UINote>();
         public bool StemDirectionUp = true;
+        public bool StemDirectionIsSetForGroup = false;
         public bool ConnectNotesAtEndOfRun = false;
 
         public readonly List<Pitch> AlteredKeys = new List<Pitch>();
@@ -216,42 +217,34 @@ namespace Musicista.UI
             var shapeString = "";
             var c = CultureInfo.GetCultureInfo("en-US");
 
-            int addToX, addToY, offsetSecondBeam = 0, strokeThickness;
-            if (onlyEights)
-            {
-                addToX = StemDirectionUp ? 45 : 5; // 38 : 5;
-                addToY = StemDirectionUp ? -15 : 200;
-                strokeThickness = 15;
-            }
-            else
-            {
-                addToX = StemDirectionUp ? 45 : 5;
-                addToY = StemDirectionUp ? -15 : 200;
-                offsetSecondBeam = StemDirectionUp ? 25 : -25;
+            var addToY = -15;
+            var offsetSecondBeam = StemDirectionUp ? 20 : -20;
+            var strokeThickness = 15;
+
+            if (!onlyEights)
                 strokeThickness = 13;
-            }
 
             // Basic eigths-beam for eigths and sixteenths
             switch (NotYetConnectedNotes.Count)
             {
                 case 2:
                     shapeString = "F0 M "
-                        + (NotYetConnectedNotes[0].CanvasLeft + addToX).ToString(c) + "," + (NotYetConnectedNotes[0].PathTop + addToY).ToString(c) + " L "
-                        + (NotYetConnectedNotes[1].CanvasLeft + addToX + 5).ToString(c) + "," + (NotYetConnectedNotes[1].PathTop + addToY).ToString(c) + "";
+                        + (GetLeft(NotYetConnectedNotes[0]) + NotYetConnectedNotes[0].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[0].Stem.Y2 + addToY).ToString(c) + " L "
+                        + (GetLeft(NotYetConnectedNotes[1]) + NotYetConnectedNotes[1].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[1].Stem.Y2 + addToY).ToString(c) + "";
                     break;
                 case 3:
                     shapeString = "F0 M "
-                        + (NotYetConnectedNotes[0].CanvasLeft + addToX).ToString(c) + "," + (NotYetConnectedNotes[0].PathTop + addToY).ToString(c) + " C "
-                        + (NotYetConnectedNotes[1].CanvasLeft + addToX).ToString(c) + "," + (NotYetConnectedNotes[1].PathTop + addToY).ToString(c) + "  "
-                        + (NotYetConnectedNotes[1].CanvasLeft + addToX).ToString(c) + "," + (NotYetConnectedNotes[1].PathTop + addToY).ToString(c) + "  "
-                        + (NotYetConnectedNotes[2].CanvasLeft + addToX + 5).ToString(c) + "," + (NotYetConnectedNotes[2].PathTop + addToY).ToString(c) + "";
+                        + (GetLeft(NotYetConnectedNotes[0]) + NotYetConnectedNotes[0].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[0].Stem.Y2 + addToY).ToString(c) + " C "
+                        + (GetLeft(NotYetConnectedNotes[1]) + NotYetConnectedNotes[1].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[1].Stem.Y2 + addToY).ToString(c) + "  "
+                        + (GetLeft(NotYetConnectedNotes[1]) + NotYetConnectedNotes[1].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[1].Stem.Y2 + addToY).ToString(c) + "  "
+                        + (GetLeft(NotYetConnectedNotes[2]) + NotYetConnectedNotes[2].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[2].Stem.Y2 + addToY).ToString(c) + "";
                     break;
                 case 4:
                     shapeString = "F0 M "
-                        + (NotYetConnectedNotes[0].CanvasLeft + addToX).ToString(c) + "," + (NotYetConnectedNotes[0].PathTop + addToY).ToString(c) + " C "
-                        + (NotYetConnectedNotes[1].CanvasLeft + addToX).ToString(c) + "," + (NotYetConnectedNotes[1].PathTop + addToY).ToString(c) + "  "
-                        + (NotYetConnectedNotes[2].CanvasLeft + addToX).ToString(c) + "," + (NotYetConnectedNotes[2].PathTop + addToY).ToString(c) + "  "
-                        + (NotYetConnectedNotes[3].CanvasLeft + addToX + 5).ToString(c) + "," + (NotYetConnectedNotes[3].PathTop + addToY).ToString(c) + "";
+                        + (GetLeft(NotYetConnectedNotes[0]) + NotYetConnectedNotes[0].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[0].Stem.Y2 + addToY).ToString(c) + " C "
+                        + (GetLeft(NotYetConnectedNotes[1]) + NotYetConnectedNotes[1].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[1].Stem.Y2 + addToY).ToString(c) + "  "
+                        + (GetLeft(NotYetConnectedNotes[2]) + NotYetConnectedNotes[2].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[2].Stem.Y2 + addToY).ToString(c) + "  "
+                        + (GetLeft(NotYetConnectedNotes[3]) + NotYetConnectedNotes[3].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[3].Stem.Y2 + addToY).ToString(c) + "";
                     break;
             }
 
@@ -263,22 +256,22 @@ namespace Musicista.UI
                 {
                     case 2:
                         shapeString += " M "
-                            + (NotYetConnectedNotes[0].CanvasLeft + addToX).ToString(c) + "," + (NotYetConnectedNotes[0].PathTop + addToY + offsetSecondBeam).ToString(c) + " L "
-                            + (NotYetConnectedNotes[1].CanvasLeft + addToX + 5).ToString(c) + "," + (NotYetConnectedNotes[1].PathTop + addToY + offsetSecondBeam).ToString(c) + "";
+                            + (GetLeft(NotYetConnectedNotes[0]) + NotYetConnectedNotes[0].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[0].Stem.Y2 + addToY + offsetSecondBeam).ToString(c) + " L "
+                            + (GetLeft(NotYetConnectedNotes[1]) + NotYetConnectedNotes[1].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[1].Stem.Y2 + addToY + offsetSecondBeam).ToString(c) + "";
                         break;
                     case 3:
                         shapeString += " M "
-                            + (NotYetConnectedNotes[0].CanvasLeft + addToX).ToString(c) + "," + (NotYetConnectedNotes[0].PathTop + addToY + offsetSecondBeam).ToString(c) + " C "
-                            + (NotYetConnectedNotes[1].CanvasLeft + addToX).ToString(c) + "," + (NotYetConnectedNotes[1].PathTop + addToY + offsetSecondBeam).ToString(c) + "  "
-                            + (NotYetConnectedNotes[1].CanvasLeft + addToX).ToString(c) + "," + (NotYetConnectedNotes[1].PathTop + addToY + offsetSecondBeam).ToString(c) + "  "
-                            + (NotYetConnectedNotes[2].CanvasLeft + addToX + 5).ToString(c) + "," + (NotYetConnectedNotes[2].PathTop + addToY + offsetSecondBeam).ToString(c) + "";
+                            + (GetLeft(NotYetConnectedNotes[0]) + NotYetConnectedNotes[0].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[0].Stem.Y2 + addToY + offsetSecondBeam).ToString(c) + " C "
+                            + (GetLeft(NotYetConnectedNotes[1]) + NotYetConnectedNotes[1].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[1].Stem.Y2 + addToY + offsetSecondBeam).ToString(c) + "  "
+                            + (GetLeft(NotYetConnectedNotes[1]) + NotYetConnectedNotes[1].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[1].Stem.Y2 + addToY + offsetSecondBeam).ToString(c) + "  "
+                            + (GetLeft(NotYetConnectedNotes[2]) + NotYetConnectedNotes[2].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[2].Stem.Y2 + addToY + offsetSecondBeam).ToString(c) + "";
                         break;
                     case 4:
                         shapeString += " M "
-                            + (NotYetConnectedNotes[0].CanvasLeft + addToX).ToString(c) + "," + (NotYetConnectedNotes[0].PathTop + addToY + offsetSecondBeam).ToString(c) + " C "
-                            + (NotYetConnectedNotes[1].CanvasLeft + addToX).ToString(c) + "," + (NotYetConnectedNotes[1].PathTop + addToY + offsetSecondBeam).ToString(c) + "  "
-                            + (NotYetConnectedNotes[2].CanvasLeft + addToX).ToString(c) + "," + (NotYetConnectedNotes[2].PathTop + addToY + offsetSecondBeam).ToString(c) + "  "
-                            + (NotYetConnectedNotes[3].CanvasLeft + addToX + 5).ToString(c) + "," + (NotYetConnectedNotes[3].PathTop + addToY + offsetSecondBeam).ToString(c) + "";
+                            + (GetLeft(NotYetConnectedNotes[0]) + NotYetConnectedNotes[0].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[0].Stem.Y2 + addToY + offsetSecondBeam).ToString(c) + " C "
+                            + (GetLeft(NotYetConnectedNotes[1]) + NotYetConnectedNotes[1].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[1].Stem.Y2 + addToY + offsetSecondBeam).ToString(c) + "  "
+                            + (GetLeft(NotYetConnectedNotes[2]) + NotYetConnectedNotes[2].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[2].Stem.Y2 + addToY + offsetSecondBeam).ToString(c) + "  "
+                            + (GetLeft(NotYetConnectedNotes[3]) + NotYetConnectedNotes[3].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[3].Stem.Y2 + addToY + offsetSecondBeam).ToString(c) + "";
                         break;
                 }
             }
@@ -292,20 +285,20 @@ namespace Musicista.UI
                     // two sixteenths and some eights
                     if (uiNote.Note.Duration == Duration.sixteenth && uiNote.NextUINote.Note.Duration == Duration.sixteenth)
                         shapeString += " M "
-                                       + (uiNote.CanvasLeft + addToX).ToString(c) + "," + (uiNote.PathTop + addToY + offsetSecondBeam).ToString(c) + " L "
-                                       + (uiNote.NextUINote.CanvasLeft + addToX).ToString(c) + "," + (uiNote.NextUINote.PathTop + addToY + offsetSecondBeam).ToString(c) + "";
+                                       + (GetLeft(uiNote) + uiNote.Stem.X2).ToString(c) + "," + (uiNote.Stem.Y2 + offsetSecondBeam).ToString(c) + " L "
+                                       + (GetLeft(uiNote.NextUINote) + uiNote.NextUINote.Stem.X2).ToString(c) + "," + (uiNote.NextUINote.Stem.Y2 + offsetSecondBeam).ToString(c) + "";
                     // dotted eigth followed by a sixteenth
                     if (uiNote.Note.Duration == Duration.eigthDotted && uiNote.NextUINote.Note.Duration == Duration.sixteenth)
                         shapeString += " M "
-                                       + (uiNote.CanvasLeft + addToX + (uiNote.NextUINote.CanvasLeft - uiNote.CanvasLeft) * 0.6).ToString(c) + ","
-                                       + (uiNote.PathTop + addToY + (uiNote.NextUINote.PathTop - uiNote.PathTop) * 0.6 + offsetSecondBeam).ToString(c) + " L "
-                                       + (uiNote.NextUINote.CanvasLeft + addToX).ToString(c) + "," + (uiNote.NextUINote.PathTop + addToY + offsetSecondBeam).ToString(c) + "";
+                                       + (GetLeft(uiNote) + uiNote.Stem.X2 + (uiNote.NextUINote.CanvasLeft - uiNote.CanvasLeft) * 0.6).ToString(c) + ","
+                                       + (uiNote.Stem.Y2 + (uiNote.NextUINote.Stem.Y2 - uiNote.Stem.Y2) * 0.6 + offsetSecondBeam - 14).ToString(c) + " L "
+                                       + (GetLeft(uiNote.NextUINote) + uiNote.NextUINote.Stem.X2).ToString(c) + "," + (uiNote.NextUINote.Stem.Y2 + offsetSecondBeam - 14).ToString(c) + "";
                     // sixteenth followed by a dotted eigth
                     if (uiNote.Note.Duration == Duration.sixteenth && uiNote.NextUINote.Note.Duration == Duration.eigthDotted)
                         shapeString += " M "
-                                       + (NotYetConnectedNotes[1].CanvasLeft + addToX + (NotYetConnectedNotes[0].CanvasLeft - NotYetConnectedNotes[1].CanvasLeft) * 0.4).ToString(c) + ","
-                                       + (NotYetConnectedNotes[1].PathTop + addToY + (NotYetConnectedNotes[0].PathTop - NotYetConnectedNotes[1].PathTop) * 0.4 + offsetSecondBeam).ToString(c) + " L "
-                                       + (NotYetConnectedNotes[0].CanvasLeft + addToX).ToString(c) + "," + (NotYetConnectedNotes[0].PathTop + addToY + offsetSecondBeam).ToString(c) + "";
+                                       + (GetLeft(NotYetConnectedNotes[1]) + NotYetConnectedNotes[1].Stem.X2 + (NotYetConnectedNotes[0].CanvasLeft - NotYetConnectedNotes[1].CanvasLeft) * 0.4).ToString(c) + ","
+                                       + (NotYetConnectedNotes[1].Stem.Y2 + (NotYetConnectedNotes[0].Stem.Y2 - NotYetConnectedNotes[1].Stem.Y2) * 0.4 + offsetSecondBeam).ToString(c) + " L "
+                                       + (GetLeft(NotYetConnectedNotes[0]) + NotYetConnectedNotes[0].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[0].Stem.Y2 + offsetSecondBeam).ToString(c) + "";
                 }
                 // 16th - 8th - 16th
                 if (NotYetConnectedNotes.Count == 3
@@ -316,14 +309,14 @@ namespace Musicista.UI
                     NotYetConnectedNotes[1].CanvasLeft = (NotYetConnectedNotes[0].CanvasLeft + NotYetConnectedNotes[2].CanvasLeft) / 2;
                     // First 16th to middle 8th
                     shapeString += " M "
-                                       + (NotYetConnectedNotes[1].CanvasLeft + addToX + (NotYetConnectedNotes[0].CanvasLeft - NotYetConnectedNotes[1].CanvasLeft) * 0.5).ToString(c) + ","
-                                       + (NotYetConnectedNotes[1].PathTop + addToY + (NotYetConnectedNotes[0].PathTop - NotYetConnectedNotes[1].PathTop) * 0.5 + offsetSecondBeam).ToString(c) + " L "
-                                       + (NotYetConnectedNotes[0].CanvasLeft + addToX).ToString(c) + "," + (NotYetConnectedNotes[0].PathTop + addToY + offsetSecondBeam).ToString(c) + "";
+                                       + (GetLeft(NotYetConnectedNotes[1]) + NotYetConnectedNotes[1].Stem.X2 + (NotYetConnectedNotes[0].CanvasLeft - NotYetConnectedNotes[1].CanvasLeft) * 0.5).ToString(c) + ","
+                                       + (NotYetConnectedNotes[1].Stem.Y2 + (NotYetConnectedNotes[0].Stem.Y2 - NotYetConnectedNotes[1].Stem.Y2) * 0.5 + offsetSecondBeam).ToString(c) + " L "
+                                       + (GetLeft(NotYetConnectedNotes[0]) + NotYetConnectedNotes[0].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[0].Stem.Y2 + offsetSecondBeam).ToString(c) + "";
                     // Middle 8th to second 16th
                     shapeString += " M "
-                                       + (NotYetConnectedNotes[1].CanvasLeft + addToX + (NotYetConnectedNotes[2].CanvasLeft - NotYetConnectedNotes[1].CanvasLeft) * 0.6).ToString(c) + ","
-                                       + (NotYetConnectedNotes[1].PathTop + addToY + (NotYetConnectedNotes[2].PathTop - NotYetConnectedNotes[1].PathTop) * 0.6 + offsetSecondBeam).ToString(c) + " L "
-                                       + (NotYetConnectedNotes[2].CanvasLeft + addToX).ToString(c) + "," + (NotYetConnectedNotes[2].PathTop + addToY + offsetSecondBeam).ToString(c) + "";
+                                       + (GetLeft(NotYetConnectedNotes[1]) + NotYetConnectedNotes[1].Stem.X2 + (NotYetConnectedNotes[2].CanvasLeft - NotYetConnectedNotes[1].CanvasLeft) * 0.6).ToString(c) + ","
+                                       + (NotYetConnectedNotes[1].Stem.Y2 + (NotYetConnectedNotes[2].Stem.Y2 - NotYetConnectedNotes[1].Stem.Y2) * 0.6 + offsetSecondBeam).ToString(c) + " L "
+                                       + (GetLeft(NotYetConnectedNotes[2]) + NotYetConnectedNotes[2].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[2].Stem.Y2 + offsetSecondBeam).ToString(c) + "";
 
                 }
                 // 16th - 16th rest - 8th
@@ -331,9 +324,9 @@ namespace Musicista.UI
                     && NotYetConnectedNotes[0].Note.Duration == Duration.sixteenth
                     && NotYetConnectedNotes[1].Note.Duration == Duration.eigth)
                     shapeString += " M "
-                                       + (NotYetConnectedNotes[1].CanvasLeft + addToX + (NotYetConnectedNotes[0].CanvasLeft - NotYetConnectedNotes[1].CanvasLeft) * 0.5).ToString(c) + ","
-                                       + (NotYetConnectedNotes[1].PathTop + addToY + (NotYetConnectedNotes[0].PathTop - NotYetConnectedNotes[1].PathTop) * 0.5 + offsetSecondBeam).ToString(c) + " L "
-                                       + (NotYetConnectedNotes[0].CanvasLeft + addToX).ToString(c) + "," + (NotYetConnectedNotes[0].PathTop + addToY + offsetSecondBeam).ToString(c) + "";
+                                       + (GetLeft(NotYetConnectedNotes[1]) + NotYetConnectedNotes[1].Stem.X2 + (NotYetConnectedNotes[0].CanvasLeft - NotYetConnectedNotes[1].CanvasLeft) * 0.5).ToString(c) + ","
+                                       + (NotYetConnectedNotes[1].Stem.Y2 + (NotYetConnectedNotes[0].Stem.Y2 - NotYetConnectedNotes[1].Stem.Y2) * 0.5 + offsetSecondBeam).ToString(c) + " L "
+                                       + (GetLeft(NotYetConnectedNotes[0]) + NotYetConnectedNotes[0].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[0].Stem.Y2 + offsetSecondBeam).ToString(c) + "";
             }
 
             var beam = new Path
@@ -346,6 +339,7 @@ namespace Musicista.UI
 
             Children.Add(beam);
             NotYetConnectedNotes.Clear();
+            StemDirectionIsSetForGroup = false;
         }
     }
 }

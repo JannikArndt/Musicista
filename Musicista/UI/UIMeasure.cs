@@ -286,20 +286,20 @@ namespace Musicista.UI
                     // two sixteenths and some eights
                     if (uiNote.Note.Duration == Duration.sixteenth && uiNote.NextUINote.Note.Duration == Duration.sixteenth)
                         shapeString += " M "
-                                       + (GetLeft(uiNote) + uiNote.Stem.X2).ToString(c) + "," + (uiNote.Stem.Y2 + offsetSecondBeam).ToString(c) + " L "
-                                       + (GetLeft(uiNote.NextUINote) + uiNote.NextUINote.Stem.X2).ToString(c) + "," + (uiNote.NextUINote.Stem.Y2 + offsetSecondBeam).ToString(c) + "";
+                                       + (GetLeft(uiNote) + uiNote.Stem.X2).ToString(c) + "," + (uiNote.Stem.Y2 + offsetSecondBeam + addToY).ToString(c) + " L "
+                                       + (GetLeft(uiNote.NextUINote) + uiNote.NextUINote.Stem.X2).ToString(c) + "," + (uiNote.NextUINote.Stem.Y2 + offsetSecondBeam + addToY).ToString(c) + "";
                     // dotted eigth followed by a sixteenth
                     if (uiNote.Note.Duration == Duration.eigthDotted && uiNote.NextUINote.Note.Duration == Duration.sixteenth)
                         shapeString += " M "
                                        + (GetLeft(uiNote) + uiNote.Stem.X2 + (uiNote.NextUINote.CanvasLeft - uiNote.CanvasLeft) * 0.6).ToString(c) + ","
-                                       + (uiNote.Stem.Y2 + (uiNote.NextUINote.Stem.Y2 - uiNote.Stem.Y2) * 0.6 + offsetSecondBeam - 14).ToString(c) + " L "
-                                       + (GetLeft(uiNote.NextUINote) + uiNote.NextUINote.Stem.X2).ToString(c) + "," + (uiNote.NextUINote.Stem.Y2 + offsetSecondBeam - 14).ToString(c) + "";
+                                       + (uiNote.Stem.Y2 + (uiNote.NextUINote.Stem.Y2 - uiNote.Stem.Y2) * 0.6 + offsetSecondBeam + addToY).ToString(c) + " L "
+                                       + (GetLeft(uiNote.NextUINote) + uiNote.NextUINote.Stem.X2).ToString(c) + "," + (uiNote.NextUINote.Stem.Y2 + offsetSecondBeam + addToY).ToString(c) + "";
                     // sixteenth followed by a dotted eigth
                     if (uiNote.Note.Duration == Duration.sixteenth && uiNote.NextUINote.Note.Duration == Duration.eigthDotted)
                         shapeString += " M "
                                        + (GetLeft(NotYetConnectedNotes[1]) + NotYetConnectedNotes[1].Stem.X2 + (NotYetConnectedNotes[0].CanvasLeft - NotYetConnectedNotes[1].CanvasLeft) * 0.4).ToString(c) + ","
-                                       + (NotYetConnectedNotes[1].Stem.Y2 + (NotYetConnectedNotes[0].Stem.Y2 - NotYetConnectedNotes[1].Stem.Y2) * 0.4 + offsetSecondBeam).ToString(c) + " L "
-                                       + (GetLeft(NotYetConnectedNotes[0]) + NotYetConnectedNotes[0].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[0].Stem.Y2 + offsetSecondBeam).ToString(c) + "";
+                                       + (NotYetConnectedNotes[1].Stem.Y2 + (NotYetConnectedNotes[0].Stem.Y2 - NotYetConnectedNotes[1].Stem.Y2) * 0.4 + offsetSecondBeam - addToY).ToString(c) + " L "
+                                       + (GetLeft(NotYetConnectedNotes[0]) + NotYetConnectedNotes[0].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[0].Stem.Y2 + offsetSecondBeam - addToY).ToString(c) + "";
                 }
                 // 16th - 8th - 16th
                 if (NotYetConnectedNotes.Count == 3
@@ -345,41 +345,51 @@ namespace Musicista.UI
 
         internal void BalanceStems()
         {
+            // Find extreme distances between outer notes
+            var first = NotYetConnectedNotes.First().Stem;
+            var last = NotYetConnectedNotes.Last().Stem;
+            var innerNotes = NotYetConnectedNotes.Skip(1).Take(NotYetConnectedNotes.Count - 2).ToList();
+            var difference = first.Y2 - last.Y2;
+            if (Math.Abs(difference) > 60)
+                if (first.Y2 < last.Y2)
+                    if (StemDirectionUp)
+                        last.Y2 -= last.Y2 - first.Y2 - 60;
+                    else
+                        first.Y2 += last.Y2 - first.Y2 - 60;
+                else
+                {
+                    if (StemDirectionUp)
+                        first.Y2 -= Math.Abs(first.Y2 - last.Y2 - 60);
+                    else
+                        last.Y2 += first.Y2 - last.Y2 - 60;
+                }
+
             // Check for monotonicity
             if (IsMonotonic(NotYetConnectedNotes.Select(item => item.Stem.Y2).ToList()))
                 return;
 
-            // Find extreme distances between outer notes
-            var first = NotYetConnectedNotes.First().Stem;
-            var last = NotYetConnectedNotes.Last().Stem;
-            var difference = first.Y2 - last.Y2;
-            if (Math.Abs(difference) > 60)
-            {
-
-                if (first.Y2 < last.Y2)
-                {
-                    if (StemDirectionUp)
-                        first.Y2 += last.Y2 - first.Y2 - 60;
-                    else
-                        first.Y2 += last.Y2 - first.Y2 - 60;
-                    first.Stroke = Brushes.SpringGreen;
-                }
-                else
-                {
-                    if (StemDirectionUp)
-                        last.Y2 += first.Y2 - last.Y2 - 60;
-                    else
-                        last.Y2 += first.Y2 - last.Y2 - 60;
-                    last.Stroke = Brushes.SeaGreen;
-                }
-
-            }
-
             // Calculate the average height of the outer notes
             var average = (NotYetConnectedNotes.First().Stem.Y2 + NotYetConnectedNotes.Last().Stem.Y2) / 2;
 
+            // Check if the average would force a stem to change its direction
+            foreach (var uiNote in NotYetConnectedNotes)
+            {
+                if (StemDirectionUp && uiNote.Stem.Y1 < average)
+                {
+                    average -= Math.Abs(uiNote.Stem.Y2 - average);
+                    first.Y2 = average + 30;
+                    last.Y2 = average + 30;
+                }
+                else if (!StemDirectionUp && uiNote.Stem.Y1 > average)
+                {
+                    average += Math.Abs(uiNote.Stem.Y2 - average);
+                    first.Y2 = average - 30;
+                    last.Y2 = average - 30;
+                }
+            }
+
             // foreach inner note...
-            foreach (var uiNote in NotYetConnectedNotes.Skip(1).Take(NotYetConnectedNotes.Count - 2))
+            foreach (var uiNote in innerNotes)
             {
                 // set the height to the average
                 uiNote.Stem.Y2 = average;
@@ -391,6 +401,8 @@ namespace Musicista.UI
                         note.Stem.Y2 += (60 - Math.Abs(stemHeight)) * Math.Sign(stemHeight);
             }
 
+
+            // Check for misfits
             foreach (var uiNote in NotYetConnectedNotes)
             {
                 if (Math.Abs(uiNote.Stem.Y2 - uiNote.Stem.Y1) < 60)

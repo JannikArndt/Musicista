@@ -1,6 +1,7 @@
 ﻿using Model;
 using Model.Meta;
 using Musicista.UI.Converters;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -340,6 +341,70 @@ namespace Musicista.UI
             Children.Add(beam);
             NotYetConnectedNotes.Clear();
             StemDirectionIsSetForGroup = false;
+        }
+
+        internal void BalanceStems()
+        {
+            // Check for monotonicity
+            if (IsMonotonic(NotYetConnectedNotes.Select(item => item.Stem.Y2).ToList()))
+                return;
+
+            // Find extreme distances between outer notes
+            var first = NotYetConnectedNotes.First().Stem;
+            var last = NotYetConnectedNotes.Last().Stem;
+            var difference = first.Y2 - last.Y2;
+            if (Math.Abs(difference) > 60)
+            {
+
+                if (first.Y2 < last.Y2)
+                {
+                    if (StemDirectionUp)
+                        first.Y2 += last.Y2 - first.Y2 - 60;
+                    else
+                        first.Y2 += last.Y2 - first.Y2 - 60;
+                    first.Stroke = Brushes.SpringGreen;
+                }
+                else
+                {
+                    if (StemDirectionUp)
+                        last.Y2 += first.Y2 - last.Y2 - 60;
+                    else
+                        last.Y2 += first.Y2 - last.Y2 - 60;
+                    last.Stroke = Brushes.SeaGreen;
+                }
+
+            }
+
+            // Calculate the average height of the outer notes
+            var average = (NotYetConnectedNotes.First().Stem.Y2 + NotYetConnectedNotes.Last().Stem.Y2) / 2;
+
+            // foreach inner note...
+            foreach (var uiNote in NotYetConnectedNotes.Skip(1).Take(NotYetConnectedNotes.Count - 2))
+            {
+                // set the height to the average
+                uiNote.Stem.Y2 = average;
+
+                // except if that is way too short, then extend all notes by the missing amount
+                var stemHeight = uiNote.Stem.Y2 - uiNote.Stem.Y1;
+                if (Math.Abs(stemHeight) < 60)
+                    foreach (var note in NotYetConnectedNotes)
+                        note.Stem.Y2 += (60 - Math.Abs(stemHeight)) * Math.Sign(stemHeight);
+            }
+
+            foreach (var uiNote in NotYetConnectedNotes)
+            {
+                if (Math.Abs(uiNote.Stem.Y2 - uiNote.Stem.Y1) < 60)
+                    uiNote.Stem.Stroke = Brushes.Red;
+            }
+
+        }
+
+        private static bool IsMonotonic<T>(List<T> list) where T : IComparable
+        {
+            var increasing = list.Zip(list.Skip(1), (a, b) => a.CompareTo(b) <= 0).All(b => b);
+            var decreasing = list.Zip(list.Skip(1), (a, b) => a.CompareTo(b) >= 0).All(b => b);
+
+            return increasing || decreasing;
         }
     }
 }

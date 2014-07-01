@@ -62,7 +62,10 @@ namespace Musicista.UI
                 ||
                 (ParentMeasure.NotYetConnectedNotes.Any(item => item.Note.Duration == Duration.sixteenth) && note.Next != null &&
                  (note.Next.Beat == 2 || note.Next.Beat == 4)))
+            {
+                ParentMeasure.BalanceStems();
                 ParentMeasure.ConnectNotes();
+            }
         }
 
         public Note Note { get; set; }

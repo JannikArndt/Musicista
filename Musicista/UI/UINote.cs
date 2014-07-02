@@ -10,7 +10,8 @@ namespace Musicista.UI
 {
     public class UINote : UISymbol
     {
-        public UINote(Note note, UIMeasure parentMeasure)
+        public UINote(Note note, UIMeasure parentMeasure, bool hasMouseDown = true)
+            : base(hasMouseDown)
         {
             ParentMeasure = parentMeasure;
             Note = note;
@@ -20,7 +21,7 @@ namespace Musicista.UI
             BeatsPerMeasure = ParentMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.Beats;
             ParentMeasure.ConnectNotesAtEndOfRun = false;
 
-            CanvasLeft = ((ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * (note.Beat - 1)) + ParentMeasure.Indent;
+            CanvasLeft = ((ParentMeasure.Width - ParentMeasure.Indent - ParentMeasure.MarginRight) / BeatsPerMeasure * (note.Beat - 1)) + ParentMeasure.Indent;
 
             // Note Head
             SetTop(NoteHead, CalculateTop(note, ParentMeasure) + 94);

@@ -9,7 +9,8 @@ namespace Musicista.UI
 {
     public class UIRest : UISymbol
     {
-        public UIRest(Rest rest, UIMeasure parentMeasure)
+        public UIRest(Rest rest, UIMeasure parentMeasure, bool hasMouseDown = true)
+            : base(hasMouseDown)
         {
             ParentMeasure = parentMeasure;
             Rest = rest;
@@ -21,7 +22,7 @@ namespace Musicista.UI
 
             SetTop(Path, 55 + -TopRelativeToMeasure);
             SetLeft(Path, 10);
-            CanvasLeft = ((ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * (rest.Beat - 1)) + ParentMeasure.Indent;
+            CanvasLeft = ((ParentMeasure.Width - ParentMeasure.Indent - parentMeasure.MarginRight) / BeatsPerMeasure * (rest.Beat - 1)) + ParentMeasure.Indent;
             if (rest.Duration == Duration.whole)
                 CanvasLeft = ParentMeasure.Width / 2;
             SetDuration(rest, ParentMeasure);

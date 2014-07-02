@@ -2,6 +2,7 @@
 using Model.Meta;
 using Musicista.UI;
 using Musicista.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -87,7 +88,7 @@ namespace Musicista.Sidebar
 
         private UIPage DrawPassage(Passage passage)
         {
-            var page = new UIPage
+            var page = new UIPage(hasMouseDown: false)
             {
                 Width = 280,
                 Height = 50,
@@ -114,7 +115,7 @@ namespace Musicista.Sidebar
             page.Systems.Last().Indent += keyWidth;
 
             foreach (var measureGroup in passage.ListOfMeasureGroups)
-                UIHelper.DrawMeasureGroup(page.Systems.Last(), measureGroup);
+                UIHelper.DrawMeasureGroup(page.Systems.Last(), measureGroup, hasMouseDown: false);
 
             return page;
         }
@@ -217,6 +218,52 @@ namespace Musicista.Sidebar
                 }
             };
             SidebarPanel.Children.Add(listView);
+
+            ShowParts();
+        }
+
+        public void ShowParts()
+        {
+            var partsStack = new StackPanel
+            {
+                Orientation = Orientation.Vertical,
+                VerticalAlignment = VerticalAlignment.Bottom
+            };
+
+            var partsTitle = new TextBlock
+            {
+                FontSize = 16,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                Margin = new Thickness(0, 10, 0, 0),
+                Text = "Parts"
+            };
+
+            partsStack.Children.Add(partsTitle);
+
+            foreach (var part in MainWindow.CurrentPiece.Parts)
+            {
+                if (String.IsNullOrEmpty(part.Name))
+                    part.Name = "Part #" + (MainWindow.CurrentPiece.Parts.IndexOf(part) + 1);
+
+                var partTitle = new TextBlock
+                {
+                    FontSize = 16,
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Margin = new Thickness(10, 10, 0, 0),
+                    Text = part.Name + "   (" + part.Start + "-" + part.End + ")"
+                };
+
+                partsStack.Children.Add(partTitle);
+
+                var preview = DrawPassage(part.Passage);
+                preview.MouseDown += delegate { UIHelper.SelectPassageInScore(part.Start, part.End); };
+                partsStack.Children.Add(preview);
+            }
+
+            SidebarPanel.Children.Add(partsStack);
+
         }
     }
 }

@@ -28,13 +28,14 @@ namespace Musicista.UI
             }
         }
 
-        public UISymbol()
+        public UISymbol(bool hasMouseDown = true)
         {
             Background = Brushes.Transparent;
             SetTop(this, TopRelativeToMeasure);
             Height = 300;
             Width = 100;
-            MouseDown += ClickToSelectSymbols;
+            if (hasMouseDown)
+                MouseDown += ClickToSelectSymbols;
         }
 
         private void ClickToSelectSymbols(object sender, MouseButtonEventArgs args)

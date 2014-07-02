@@ -11,7 +11,7 @@ namespace Musicista.UI
     {
         public List<UISystem> Systems = new List<UISystem>();
 
-        public UIPage()
+        public UIPage(bool hasMouseDown = true)
         {
             Settings = new UISettings();
 
@@ -24,21 +24,22 @@ namespace Musicista.UI
             Effect = new DropShadowEffect { RenderingBias = RenderingBias.Performance };
             SetZIndex(this, 0);
 
-            MouseDown += delegate
-            {
-                if (MainWindow.SidebarInformation != null)
-                    MainWindow.SidebarInformation.ShowPiece();
-                if (MainWindow.SidebarView != null)
-                    MainWindow.SidebarView.ShowPageSettings(this);
+            if (hasMouseDown)
+                MouseDown += delegate
+                {
+                    if (MainWindow.SidebarInformation != null)
+                        MainWindow.SidebarInformation.ShowPiece();
+                    if (MainWindow.SidebarView != null)
+                        MainWindow.SidebarView.ShowPageSettings(this);
 
-                foreach (var uiMeasure in UIHelper.SelectedUIMeasures)
-                    uiMeasure.Background = Brushes.Transparent;
-                UIHelper.SelectedUIMeasures.Clear();
+                    foreach (var uiMeasure in UIHelper.SelectedUIMeasures)
+                        uiMeasure.Background = Brushes.Transparent;
+                    UIHelper.SelectedUIMeasures.Clear();
 
-                foreach (var uiSymbol in UIHelper.SelectedUISymbols)
-                    uiSymbol.Background = Brushes.Transparent;
-                UIHelper.SelectedUISymbols.Clear();
-            };
+                    foreach (var uiSymbol in UIHelper.SelectedUISymbols)
+                        uiSymbol.Background = Brushes.Transparent;
+                    UIHelper.SelectedUISymbols.Clear();
+                };
         }
 
         public UITitle Title { get; set; }

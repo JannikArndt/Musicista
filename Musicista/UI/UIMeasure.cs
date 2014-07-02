@@ -35,6 +35,7 @@ namespace Musicista.UI
         }
         public readonly int Part;
         public int Indent = 60;
+        public double MarginRight = 20;
         public readonly int ScaleTransform = 5;
 
         public readonly List<UINote> NotYetConnectedNotes = new List<UINote>();
@@ -50,7 +51,7 @@ namespace Musicista.UI
         public Line Line4 { get; set; }
         public Line Line5 { get; set; }
 
-        public UIMeasure(UIMeasureGroup parentMeasureGroup, int part, Measure innerMeasure, UISystem system = null, UIStaff staff = null, double top = -1, bool suppressEventHandlers = false)
+        public UIMeasure(UIMeasureGroup parentMeasureGroup, int part, Measure innerMeasure, UISystem system = null, UIStaff staff = null, double top = -1, bool hasMouseDown = true)
         {
             InnerMeasure = innerMeasure;
             ParentStaff = staff;
@@ -87,7 +88,7 @@ namespace Musicista.UI
 
             Children.Add(Barline);
 
-            if (!suppressEventHandlers)
+            if (hasMouseDown)
             {
                 MouseLeftButtonDown += MainWindow.DragStart;
                 MouseMove += MainWindow.Drag;

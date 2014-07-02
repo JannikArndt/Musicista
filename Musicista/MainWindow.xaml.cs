@@ -213,6 +213,18 @@ namespace Musicista
                                             symbol.ParentMeasure = measure;
                                     }
                                 }
+                            // same for the Parts
+                            foreach (var part in piece.Parts)
+                                foreach (var measureGroup in part.Passage.ListOfMeasureGroups)
+                                {
+                                    measureGroup.ParentPassage = part.Passage;
+                                    foreach (var measure in measureGroup.Measures)
+                                    {
+                                        measure.ParentMeasureGroup = measureGroup;
+                                        foreach (var symbol in measure.Symbols)
+                                            symbol.ParentMeasure = measure;
+                                    }
+                                }
                             DrawPiece(piece);
                             _fileName = openFileDialog.FileName;
                         }

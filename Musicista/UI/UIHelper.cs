@@ -107,7 +107,7 @@ namespace Musicista.UI
             page.Children.Add(composerTextBlock);
         }
 
-        public static void DrawMeasureGroup(UISystem system, MeasureGroup measureGroup = null)
+        public static void DrawMeasureGroup(UISystem system, MeasureGroup measureGroup = null, bool hasMouseDown = true)
         {
             if (measureGroup == null || measureGroup.Measures == null || measureGroup.Measures.Count <= 0)
                 return;
@@ -126,7 +126,7 @@ namespace Musicista.UI
 
             // Fill UIMeasureGroup.Measures with UIMeasures
             for (var part = 0; part < measureGroup.Measures.Count; part++)
-                DrawMeasure(uiMeasureGroup, measureGroup.Measures[part], part + 1, indent);
+                DrawMeasure(uiMeasureGroup, measureGroup.Measures[part], part + 1, indent, hasMouseDown);
 
             // Draw key signature changes
             if (measureGroup.Previous != null && !Equals(measureGroup.KeySignature, measureGroup.Previous.KeySignature))
@@ -138,19 +138,19 @@ namespace Musicista.UI
                 uiMeasureGroup.Barline.Y2 = Canvas.GetTop(uiMeasureGroup.Measures.Last()) + 36;
         }
 
-        public static void DrawMeasure(UIMeasureGroup measureGroup, Measure measure, int part, int indent = 60)
+        public static void DrawMeasure(UIMeasureGroup measureGroup, Measure measure, int part, int indent = 60, bool hasMouseDown = true)
         {
             if (measure.Symbols == null || measure.Symbols.Count <= 0)
                 return;
 
-            var newMeasure = new UIMeasure(measureGroup, part, measure) { Indent = indent };
+            var newMeasure = new UIMeasure(measureGroup, part, measure, hasMouseDown: hasMouseDown) { Indent = indent };
             measureGroup.Measures.Add(newMeasure);
 
             foreach (var symbol in measure.Symbols)
                 if (symbol.GetType() == typeof(Note))
-                    new UINote((Note)symbol, newMeasure);
+                    new UINote((Note)symbol, newMeasure, hasMouseDown);
                 else if (symbol.GetType() == typeof(Rest))
-                    new UIRest((Rest)symbol, newMeasure);
+                    new UIRest((Rest)symbol, newMeasure, hasMouseDown);
         }
 
         public static void DrawClef(Canvas canvas, Clef clefType)
@@ -250,6 +250,11 @@ namespace Musicista.UI
             return key.ActualWidth;
         }
 
+        /// <summary>
+        /// Converts a list of int to a string while concatenating adjecent number, like so: "1, 3-4, 6"
+        /// </summary>
+        /// <param name="numbers"></param>
+        /// <returns></returns>
         public static string NumbersToString(List<int> numbers)
         {
             // from http://stackoverflow.com/a/13628257/1507481
@@ -282,6 +287,68 @@ namespace Musicista.UI
                 result += start + "-" + end;
 
             return result;
+        }
+
+        /// <summary>
+        /// Finds the given start- and end-NoteReferences, sets their background-color 
+        /// (and that of all the symbols in between) to blue and adds them to the SelectedUISymbols-list.
+        /// </summary>
+        /// <param name="start">The first note to be selected</param>
+        /// <param name="end">The last note to be selected</param>
+        public static void SelectPassageInScore(NoteReference start, NoteReference end)
+        {
+            UnselectAll();
+
+            var firstNote = FindUISymbol(start);
+            var lastNote = FindUISymbol(end);
+            var next = firstNote;
+            while (next != null && !Equals(next, lastNote))
+            {
+                next.Background = SelectColor;
+                SelectedUISymbols.Add(next);
+                next = next.NextUISymbol;
+            }
+            lastNote.Background = SelectColor;
+            SelectedUISymbols.Add(lastNote);
+        }
+
+        /// <summary>
+        /// Returns the instance of the symbol that the given NoteReference points to, or null
+        /// </summary>
+        /// <param name="note"></param>
+        /// <returns></returns>
+        public static UISymbol FindUISymbol(NoteReference note)
+        {
+            foreach (var uiPage in MainWindow.PageList)
+            {
+                foreach (var uiSystem in uiPage.Systems)
+                {
+                    foreach (var uiMeasureGroup in uiSystem.MeasureGroups)
+                    {
+                        if (uiMeasureGroup.InnerMeasureGroup.MeasureNumber == note.MeasureNumber)
+                            foreach (var uiSymbol in uiMeasureGroup.Measures[note.StaffNumber].Symbols)
+                            {
+                                if (Math.Abs(uiSymbol.Symbol.Beat - note.Beat) < 0.01)
+                                    return uiSymbol;
+                            }
+                    }
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Goes through all selected measures and symbols, restores their background color and clears the SelectedUIMeasure/Symbol-lists
+        /// </summary>
+        public static void UnselectAll()
+        {
+            foreach (var uiMeasure in SelectedUIMeasures)
+                uiMeasure.Background = Brushes.Transparent;
+            SelectedUIMeasures.Clear();
+
+            foreach (var uiSymbol in SelectedUISymbols)
+                uiSymbol.Background = Brushes.Transparent;
+            SelectedUISymbols.Clear();
         }
     }
 }

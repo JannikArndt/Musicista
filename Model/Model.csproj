@@ -54,6 +54,8 @@
     <Compile Include="Meta\Pitch.cs" />
     <Compile Include="Meta\TimeSignature.cs" />
     <Compile Include="Measure.cs" />
+    <Compile Include="NoteReference.cs" />
+    <Compile Include="Part.cs" />
     <Compile Include="People\Composer.cs" />
     <Compile Include="MeasureGroup.cs" />
     <Compile Include="Movement.cs" />
@@ -66,6 +68,7 @@
     <Compile Include="Section.cs" />
     <Compile Include="Segment.cs" />
     <Compile Include="Symbol.cs" />
+    <Compile Include="Theme.cs" />
     <Compile Include="View\Metrics.cs" />
   </ItemGroup>
   <ItemGroup />

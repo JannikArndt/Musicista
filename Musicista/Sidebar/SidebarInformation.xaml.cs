@@ -65,7 +65,24 @@ namespace Musicista.Sidebar
                     var selectedPassage = new Passage(UIHelper.SelectedUISymbols.Select(item => item.Symbol));
                     SidebarPanel.Children.Add(DrawPassage(selectedPassage));
                 }
+
+                var addToThemesButton = new Button
+                {
+                    Content = "Add to Themes",
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Margin = new Thickness(0, 10, 0, 10),
+                    Width = 100
+                };
+                addToThemesButton.Click += AddToThemes;
+                SidebarPanel.Children.Add(addToThemesButton);
             }
+        }
+
+        public void AddToThemes(object sender, RoutedEventArgs routedEventArgs)
+        {
+            var part = new Part(new Passage(UIHelper.SelectedUISymbols.Select(item => item.Symbol)));
+            MainWindow.CurrentPiece.Parts.Add(part);
         }
 
         private UIPage DrawPassage(Passage passage)

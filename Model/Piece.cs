@@ -55,6 +55,8 @@ namespace Model
         [XmlIgnore]
         public List<Measure> ListOfAllMeasures { get { return ListOfAllMeasureGroups.SelectMany(measureGroup => measureGroup.Measures).ToList(); } }
 
+        public List<Part> Parts { get; set; }
+
         public Piece()
         {
             Title = "New Piece";
@@ -64,6 +66,7 @@ namespace Model
             ListOfProducers = new List<Person>();
             ListOfInstruments = new List<Instrument>();
             ListOfSections = new List<Section>();
+            Parts = new List<Part>();
 
             Collection = "";
             Opus = new OpusNumber();

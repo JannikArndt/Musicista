@@ -18,7 +18,7 @@ namespace Musicista.UI
             ParentMeasure.Symbols.Add(this);
             Symbol = note;
 
-            BeatsPerMeasure = ParentMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.Beats;
+            BeatsPerMeasure = (4 / ParentMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.BeatUnit) * ParentMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.Beats;
             ParentMeasure.ConnectNotesAtEndOfRun = false;
 
             CanvasLeft = ((ParentMeasure.Width - ParentMeasure.Indent - ParentMeasure.MarginRight) / BeatsPerMeasure * (note.Beat - 1)) + ParentMeasure.Indent;
@@ -115,17 +115,21 @@ namespace Musicista.UI
                 case Duration.whole:
                     NoteHead.Data = Geometry.Parse(Engraving.WholeHead);
                     NoteHead.RenderTransform = new ScaleTransform(0.3, 0.3);
-                    Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure;
+                    Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 4;
                     break;
                 case Duration.halfDotted:
                     NoteHead.Data = Geometry.Parse(Engraving.HalfHead);
-                    NoteHead.RenderTransform = new ScaleTransform(0.28, 0.28);
                     Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 3;
                     DrawDot();
                     break;
+                case Duration.wholeTriplet:
+                    NoteHead.Data = Geometry.Parse(Engraving.WholeHead);
+                    NoteHead.RenderTransform = new ScaleTransform(0.3, 0.3);
+                    NoteHead.Fill = Brushes.Red;
+                    Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 2.66;
+                    break;
                 case Duration.half:
                     NoteHead.Data = Geometry.Parse(Engraving.HalfHead);
-                    NoteHead.RenderTransform = new ScaleTransform(0.28, 0.28);
                     Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 2;
                     break;
                 case Duration.quarterDotted:
@@ -133,9 +137,14 @@ namespace Musicista.UI
                     Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 1.5;
                     DrawDot();
                     break;
+                case Duration.halfTriplet:
+                    NoteHead.Data = Geometry.Parse(Engraving.HalfHead);
+                    NoteHead.Fill = Brushes.Red;
+                    Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 1.33;
+                    break;
                 case Duration.quarter:
                     NoteHead.Data = Geometry.Parse(Engraving.QuarterHead);
-                    Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure;
+                    Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 1;
                     break;
                 case Duration.eigthDotted:
                     NoteHead.Data = Geometry.Parse(Engraving.QuarterHead);
@@ -143,6 +152,11 @@ namespace Musicista.UI
                     DrawDot();
                     if (HandleConnectedNotes_NeedsFlag(note, measure))
                         Flag.Data = Geometry.Parse(Note.StemShouldGoUp() ? Engraving.EigthFlagUp : Engraving.EigthFlagDown);
+                    break;
+                case Duration.quarterTriplet:
+                    NoteHead.Data = Geometry.Parse(Engraving.QuarterHead);
+                    Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 0.66;
+                    NoteHead.Fill = Brushes.Red;
                     break;
                 case Duration.eigth:
                     NoteHead.Data = Geometry.Parse(Engraving.QuarterHead);
@@ -157,11 +171,25 @@ namespace Musicista.UI
                     if (HandleConnectedNotes_NeedsFlag(note, measure))
                         Flag.Data = Geometry.Parse(Note.StemShouldGoUp() ? Engraving.SixteenthFlagUp : Engraving.SixteenthFlagDown);
                     break;
+                case Duration.eigthTriplet:
+                    NoteHead.Data = Geometry.Parse(Engraving.QuarterHead);
+                    Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 0.333;
+                    if (HandleConnectedNotes_NeedsFlag(note, measure))
+                        Flag.Data = Geometry.Parse(Note.StemShouldGoUp() ? Engraving.EigthFlagUp : Engraving.EigthFlagDown);
+                    NoteHead.Fill = Brushes.Red;
+                    break;
                 case Duration.sixteenth:
                     NoteHead.Data = Geometry.Parse(Engraving.QuarterHead);
                     Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 0.25;
                     if (HandleConnectedNotes_NeedsFlag(note, measure))
                         Flag.Data = Geometry.Parse(Note.StemShouldGoUp() ? Engraving.SixteenthFlagUp : Engraving.SixteenthFlagDown);
+                    break;
+                case Duration.sixteenthTriplet:
+                    NoteHead.Data = Geometry.Parse(Engraving.QuarterHead);
+                    Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 0.166;
+                    if (HandleConnectedNotes_NeedsFlag(note, measure))
+                        Flag.Data = Geometry.Parse(Note.StemShouldGoUp() ? Engraving.SixteenthFlagUp : Engraving.SixteenthFlagDown);
+                    NoteHead.Fill = Brushes.Red;
                     break;
             }
         }

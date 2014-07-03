@@ -89,11 +89,11 @@ namespace Musicista.Mappers
             return piece;
         }
 
-        private static Duration ConvertDeltaTimeToDuration(int time, int devision)
+        private static Duration ConvertDeltaTimeToDuration(int time, int division)
         {
-            // 1. Normalize devision to 960
-            if (devision != 960)
-                time = time * (960 / devision);
+            // 1. Normalize division to 960
+            if (division != 960)
+                time = time * (960 / division);
 
             // 2. Return corresponding Duration
             return MapDeltaTimeToDuration.First(kvp => kvp.Key(time)).Value;
@@ -120,7 +120,7 @@ namespace Musicista.Mappers
                     { x => x < 150,                Duration.sixtyforth},          // = 120
                     { x => x >= 150 && x < 210,    Duration.sixtyforthDotted},    // = 180
                     { x => x >= 210 && x < 280,    Duration.thirtysecond},        // = 240
-                    { x => x >= 280 && x < 400,    Duration.thirtysecondDotted},  // = 320
+                    { x => x >= 280 && x < 400,    Duration.thirtysecondDotted},  // = 320 // falsch, 360
                     { x => x >= 400 && x < 600,    Duration.eigth},               // = 480
                     { x => x >= 600 && x < 840,    Duration.eigthDotted},         // = 720
                     { x => x >= 840 && x < 1200,   Duration.quarter},             // = 960

@@ -92,7 +92,7 @@ namespace Musicista.Mappers
 
             var lastKey = new MusicalKey(Pitch.C, Gender.Major);
             var lastTime = new TimeSignature(4, 4);
-            var durationDivision = 256;
+            var durationDivision = 960; // = one quarter
 
             // take the first part, go through all measure, for each measure look up the other parts
             for (var measureNumber = 0; measureNumber < mxml.Part[0].Measure.Length; measureNumber++)
@@ -168,14 +168,14 @@ namespace Musicista.Mappers
                     // 4b. and add the Notes and Rests of each Measure
                     for (var voice = 0; voice < voices.Count; voice++)
                     {
-                        double beat = 256;
+                        double beat = 960;
                         double advanceBeat = 0;
                         foreach (var mxmlNote in voices[voice])
                         {
                             if (!mxmlNote.IsChord) // advance beat-counter only if <chord>-Tag is not present
                                 beat += advanceBeat;
 
-                            var newNote = CreateNoteFromMXMLNote(mxmlNote, beat / 256, durationDivision);
+                            var newNote = CreateNoteFromMXMLNote(mxmlNote, beat / 960, durationDivision);
                             newNote.Voice = voice;
 
                             advanceBeat = (int)newNote.Duration; // IF the next note advances the beat counter, it should be by this amount
@@ -289,8 +289,8 @@ namespace Musicista.Mappers
 
             // Division
             var duration = int.Parse(mxmlNote.Duration.ToString(CultureInfo.InvariantCulture));
-            if (durationDivision != 256)
-                duration = (int)((double)duration / durationDivision * 256);
+            if (durationDivision != 960)
+                duration = (int)((double)duration / durationDivision * 960);
             // Rests
             if (mxmlNote.IsRest)
             {
@@ -315,7 +315,16 @@ namespace Musicista.Mappers
             };
 
             if (!Enum.IsDefined(typeof(Duration), newNote.Duration))
-                Console.WriteLine(@"Error parsing duration " + mxmlNote.Duration);
+            {
+                for (int tolerance = -12; tolerance <= 12; tolerance++)
+                {
+                    if (Enum.IsDefined(typeof(Duration), newNote.Duration - tolerance))
+                        newNote.Duration -= tolerance;
+                }
+
+                if (!Enum.IsDefined(typeof(Duration), newNote.Duration))
+                    Console.WriteLine(@"Error parsing duration " + mxmlNote.Duration);
+            }
 
             newNote.Step = GetPitchFromMXMLNote(mxmlNote);
 

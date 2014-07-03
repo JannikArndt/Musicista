@@ -17,7 +17,7 @@ namespace Musicista.UI
             ParentMeasure.Symbols.Add(this);
             Symbol = rest;
 
-            BeatsPerMeasure = ParentMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.Beats;
+            BeatsPerMeasure = (4 / ParentMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.BeatUnit) * ParentMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.Beats;
             ParentMeasure.ConnectNotesAtEndOfRun = false;
 
             SetTop(Path, 55 + -TopRelativeToMeasure);

@@ -1,231 +1,67 @@
+using System;
+using System.CodeDom.Compiler;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class attributes
+    [GeneratedCode("xsd", "4.0.30319.33440")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    public class attributes
     {
-
-        private formattedtext footnoteField;
-
-        private level levelField;
-
-        private decimal divisionsField;
-
-        private bool divisionsFieldSpecified;
-
-        private key[] keyField;
-
-        private time[] timeField;
-
-        private string stavesField;
-
-        private partsymbol partsymbolField;
-
-        private string instrumentsField;
-
-        private Clef[] clefField;
-
-        private staffdetails[] staffdetailsField;
-
-        private transpose[] transposeField;
-
-        private attributesDirective[] directiveField;
-
-        private measurestyle[] measurestyleField;
+        public formattedtext footnote { get; set; }
 
 
-        public formattedtext footnote
-        {
-            get
-            {
-                return this.footnoteField;
-            }
-            set
-            {
-                this.footnoteField = value;
-            }
-        }
+        public level level { get; set; }
+
+        [XmlElement("divisions")]
+        public decimal Divisions { get; set; }
 
 
-        public level level
-        {
-            get
-            {
-                return this.levelField;
-            }
-            set
-            {
-                this.levelField = value;
-            }
-        }
+        [XmlIgnore]
+        public bool divisionsSpecified { get; set; }
 
 
-        public decimal divisions
-        {
-            get
-            {
-                return this.divisionsField;
-            }
-            set
-            {
-                this.divisionsField = value;
-            }
-        }
+        [XmlElement("key")]
+        public key[] key { get; set; }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool divisionsSpecified
-        {
-            get
-            {
-                return this.divisionsFieldSpecified;
-            }
-            set
-            {
-                this.divisionsFieldSpecified = value;
-            }
-        }
+        [XmlElement("time")]
+        public time[] time { get; set; }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("key")]
-        public key[] key
-        {
-            get
-            {
-                return this.keyField;
-            }
-            set
-            {
-                this.keyField = value;
-            }
-        }
+        [XmlElement(DataType = "nonNegativeInteger")]
+        public string staves { get; set; }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("time")]
-        public time[] time
-        {
-            get
-            {
-                return this.timeField;
-            }
-            set
-            {
-                this.timeField = value;
-            }
-        }
+        [XmlElement("part-symbol")]
+        public partsymbol partsymbol { get; set; }
 
 
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
-        public string staves
-        {
-            get
-            {
-                return this.stavesField;
-            }
-            set
-            {
-                this.stavesField = value;
-            }
-        }
+        [XmlElement(DataType = "nonNegativeInteger")]
+        public string instruments { get; set; }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("part-symbol")]
-        public partsymbol partsymbol
-        {
-            get
-            {
-                return this.partsymbolField;
-            }
-            set
-            {
-                this.partsymbolField = value;
-            }
-        }
+        [XmlElement("clef")]
+        public Clef[] clef { get; set; }
 
 
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
-        public string instruments
-        {
-            get
-            {
-                return this.instrumentsField;
-            }
-            set
-            {
-                this.instrumentsField = value;
-            }
-        }
+        [XmlElement("staff-details")]
+        public staffdetails[] staffdetails { get; set; }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("clef")]
-        public Clef[] clef
-        {
-            get
-            {
-                return this.clefField;
-            }
-            set
-            {
-                this.clefField = value;
-            }
-        }
+        [XmlElement("transpose")]
+        public transpose[] transpose { get; set; }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("staff-details")]
-        public staffdetails[] staffdetails
-        {
-            get
-            {
-                return this.staffdetailsField;
-            }
-            set
-            {
-                this.staffdetailsField = value;
-            }
-        }
+        [XmlElement("directive")]
+        public attributesDirective[] directive { get; set; }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("transpose")]
-        public transpose[] transpose
-        {
-            get
-            {
-                return this.transposeField;
-            }
-            set
-            {
-                this.transposeField = value;
-            }
-        }
-
-
-        [System.Xml.Serialization.XmlElementAttribute("directive")]
-        public attributesDirective[] directive
-        {
-            get
-            {
-                return this.directiveField;
-            }
-            set
-            {
-                this.directiveField = value;
-            }
-        }
-
-
-        [System.Xml.Serialization.XmlElementAttribute("measure-style")]
-        public measurestyle[] measurestyle
-        {
-            get
-            {
-                return this.measurestyleField;
-            }
-            set
-            {
-                this.measurestyleField = value;
-            }
-        }
+        [XmlElement("measure-style")]
+        public measurestyle[] measurestyle { get; set; }
     }
 }

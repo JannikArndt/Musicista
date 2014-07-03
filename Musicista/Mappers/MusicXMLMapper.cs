@@ -92,6 +92,7 @@ namespace Musicista.Mappers
 
             var lastKey = new MusicalKey(Pitch.C, Gender.Major);
             var lastTime = new TimeSignature(4, 4);
+            var durationDivision = 256;
 
             // take the first part, go through all measure, for each measure look up the other parts
             for (var measureNumber = 0; measureNumber < mxml.Part[0].Measure.Length; measureNumber++)
@@ -105,6 +106,10 @@ namespace Musicista.Mappers
                     Measures = new List<Measure>(),
                     ParentPassage = piece.ListOfSections[0].ListOfMovements[0].ListOfSegments[0].ListOfPassages[0]
                 };
+
+                // Division (what int corresponds to a quarter?)
+                if (measure.Attributes != null && measure.Attributes.Divisions != 0.0M)
+                    durationDivision = (int)measure.Attributes.Divisions;
 
                 // KeySignature
                 if (measure.Attributes != null && measure.Attributes.key != null && measure.Attributes.key.First() != null)
@@ -170,7 +175,7 @@ namespace Musicista.Mappers
                             if (!mxmlNote.IsChord) // advance beat-counter only if <chord>-Tag is not present
                                 beat += advanceBeat;
 
-                            var newNote = CreateNoteFromMXMLNote(mxmlNote, beat / 256);
+                            var newNote = CreateNoteFromMXMLNote(mxmlNote, beat / 256, durationDivision);
                             newNote.Voice = voice;
 
                             advanceBeat = (int)newNote.Duration; // IF the next note advances the beat counter, it should be by this amount
@@ -278,17 +283,21 @@ namespace Musicista.Mappers
             */
         }
 
-        public static Symbol CreateNoteFromMXMLNote(Note mxmlNote, double beat = 1.0)
+        public static Symbol CreateNoteFromMXMLNote(Note mxmlNote, double beat = 1.0, int durationDivision = 256)
         {
             if (mxmlNote == null) return null;
 
+            // Division
+            var duration = int.Parse(mxmlNote.Duration.ToString(CultureInfo.InvariantCulture));
+            if (durationDivision != 256)
+                duration = (int)((double)duration / durationDivision * 256);
             // Rests
             if (mxmlNote.IsRest)
             {
                 var newRest = new Rest
                 {
                     Beat = beat,
-                    Duration = (Duration)int.Parse(mxmlNote.Duration.ToString(CultureInfo.InvariantCulture))
+                    Duration = (Duration)duration
                 };
                 if (!string.IsNullOrEmpty(mxmlNote.voice))
                     newRest.Voice = int.Parse(Regex.Match(mxmlNote.voice, @"\d+").Value);
@@ -301,7 +310,7 @@ namespace Musicista.Mappers
                 Beat = beat,
                 Velocity = 0,
                 Voice = 1,
-                Duration = (Duration)int.Parse(mxmlNote.Duration.ToString(CultureInfo.InvariantCulture)),
+                Duration = (Duration)duration,
                 Octave = int.Parse(mxmlNote.Pitch.octave)
             };
 

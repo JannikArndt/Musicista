@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using Musicista.Exceptions;
 
 namespace Musicista.UI
 {
@@ -145,6 +146,9 @@ namespace Musicista.UI
 
             var newMeasure = new UIMeasure(measureGroup, part, measure, hasMouseDown: hasMouseDown) { Indent = indent };
             measureGroup.Measures.Add(newMeasure);
+
+            if (newMeasure.Width - newMeasure.Indent < 1)
+                return;
 
             foreach (var symbol in measure.Symbols)
                 if (symbol.GetType() == typeof(Note))
@@ -302,6 +306,10 @@ namespace Musicista.UI
             var firstNote = FindUISymbol(start);
             var lastNote = FindUISymbol(end);
             var next = firstNote;
+
+            if (lastNote == null)
+                throw new GUIException("Could not find note in score. Passages may only cover one voice!");
+
             while (next != null && !Equals(next, lastNote))
             {
                 next.Background = SelectColor;

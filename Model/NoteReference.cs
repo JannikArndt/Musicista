@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Globalization;
 
 namespace Model
@@ -19,7 +20,7 @@ namespace Model
 
         public override string ToString()
         {
-            return MeasureNumber + ":" + (StaffNumber + 1) + ":" + Beat.ToString(CultureInfo.GetCultureInfo("en-US"));
+            return MeasureNumber + ":" + (StaffNumber + 1) + ":" + Math.Round(Beat, 2).ToString(CultureInfo.GetCultureInfo("en-US"));
         }
     }
 }

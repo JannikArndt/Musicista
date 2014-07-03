@@ -1,5 +1,6 @@
 ﻿using Model;
 using Model.Meta;
+using Musicista.Exceptions;
 using Musicista.UI;
 using Musicista.View;
 using System;
@@ -8,6 +9,8 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace Musicista.Sidebar
 {
@@ -77,6 +80,8 @@ namespace Musicista.Sidebar
                 };
                 addToThemesButton.Click += AddToThemes;
                 SidebarPanel.Children.Add(addToThemesButton);
+
+                ShowParts();
             }
         }
 
@@ -84,6 +89,9 @@ namespace Musicista.Sidebar
         {
             var part = new Part(new Passage(UIHelper.SelectedUISymbols.Select(item => item.Symbol)));
             MainWindow.CurrentPiece.Parts.Add(part);
+
+            if (_partsStack != null)
+                DrawPartBox(part, _partsStack);
         }
 
         private UIPage DrawPassage(Passage passage)
@@ -162,6 +170,8 @@ namespace Musicista.Sidebar
 
 
                 SidebarPanel.Children.Add(grid);
+
+                ShowParts();
             }
         }
 
@@ -222,9 +232,10 @@ namespace Musicista.Sidebar
             ShowParts();
         }
 
+        private StackPanel _partsStack;
         public void ShowParts()
         {
-            var partsStack = new StackPanel
+            _partsStack = new StackPanel
             {
                 Orientation = Orientation.Vertical,
                 VerticalAlignment = VerticalAlignment.Bottom
@@ -239,31 +250,90 @@ namespace Musicista.Sidebar
                 Text = "Parts"
             };
 
-            partsStack.Children.Add(partsTitle);
+            _partsStack.Children.Add(partsTitle);
 
             foreach (var part in MainWindow.CurrentPiece.Parts)
+                DrawPartBox(part, _partsStack);
+
+            SidebarPanel.Children.Add(_partsStack);
+        }
+
+        private void DrawPartBox(Part part, Panel stackPanel)
+        {
+            if (String.IsNullOrEmpty(part.Name))
+                part.Name = "Part #" + (MainWindow.CurrentPiece.Parts.IndexOf(part) + 1);
+
+            var namePanel = new StackPanel
             {
-                if (String.IsNullOrEmpty(part.Name))
-                    part.Name = "Part #" + (MainWindow.CurrentPiece.Parts.IndexOf(part) + 1);
+                Orientation = Orientation.Horizontal,
+                VerticalAlignment = VerticalAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                Margin = new Thickness(10, 4, 0, -18),
+                Width = 280,
+            };
 
-                var partTitle = new TextBlock
+            var partTitle = new EditableTextBox
+            {
+                FontSize = 16,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Center,
+                Width = 160,
+                DataContext = part
+            };
+            partTitle.SetBinding(TextBox.TextProperty, new Binding("Name"));
+
+            var partStartAndEnd = new TextBlock
+            {
+                FontSize = 12,
+                HorizontalAlignment = HorizontalAlignment.Right,
+                VerticalAlignment = VerticalAlignment.Bottom,
+                Width = 90,
+                Text = "(" + part.Start + "-" + part.End + ")"
+            };
+
+            var deleteArea = new Border
+            {
+                Background = Brushes.Transparent,
+                Margin = new Thickness(10, 10, 0, 0)
+            };
+            var deleteButton = new Path
+            {
+                Data = Geometry.Parse("F0 M 15,7C 15,11 12,15 8,15C 3,15 0,11 0,7C 0,3 3,0 8,0C 12,0 15,3 15,7 Z M 4,2L 8,5L 11,2L 12,4L 9,7L 12,10L 11,12L 8,9L 4,12L 3,10L 6,7L 3,4L 4,2 Z"),
+                Fill = Brushes.LightGray,
+                RenderTransform = new ScaleTransform(0.9, 0.9)
+            };
+
+            var preview = DrawPassage(part.Passage);
+            preview.MouseDown += delegate
+            {
+                try
                 {
-                    FontSize = 16,
-                    HorizontalAlignment = HorizontalAlignment.Left,
-                    VerticalAlignment = VerticalAlignment.Center,
-                    Margin = new Thickness(10, 10, 0, 0),
-                    Text = part.Name + "   (" + part.Start + "-" + part.End + ")"
-                };
+                    UIHelper.SelectPassageInScore(part.Start, part.End);
+                }
+                catch (GUIException exception)
+                {
+                    MessageBox.Show(exception.Message, "Error");
+                }
+            };
+            deleteArea.Child = deleteButton;
 
-                partsStack.Children.Add(partTitle);
+            namePanel.Children.Add(partTitle);
+            namePanel.Children.Add(partStartAndEnd);
+            namePanel.Children.Add(deleteArea);
 
-                var preview = DrawPassage(part.Passage);
-                preview.MouseDown += delegate { UIHelper.SelectPassageInScore(part.Start, part.End); };
-                partsStack.Children.Add(preview);
-            }
+            deleteArea.MouseEnter += (sender, args) => deleteButton.Fill = Brushes.Gray;
+            deleteArea.MouseLeave += (sender, args) => deleteButton.Fill = Brushes.LightGray;
+            deleteArea.MouseDown += delegate { DeletePart(part, namePanel, preview); };
 
-            SidebarPanel.Children.Add(partsStack);
+            stackPanel.Children.Add(namePanel);
+            stackPanel.Children.Add(preview);
+        }
 
+        private void DeletePart(Part part, StackPanel namePanel, Canvas preview)
+        {
+            MainWindow.CurrentPiece.Parts.Remove(part);
+            _partsStack.Children.Remove(namePanel);
+            _partsStack.Children.Remove(preview);
         }
     }
 }

@@ -93,6 +93,8 @@
     <Compile Include="Mappers\MidiNote.cs" />
     <Compile Include="Mappers\MusicXMLMapper.cs" />
     <Compile Include="MenuBar.cs" />
+    <Compile Include="Sidebar\EditableTextBox.cs" />
+    <Compile Include="Exceptions\GUIException.cs" />
     <Compile Include="View\GridTable.cs" />
     <Compile Include="Sidebar\SidebarKind.cs" />
     <Compile Include="Sidebar\SidebarAlgorithms.xaml.cs">

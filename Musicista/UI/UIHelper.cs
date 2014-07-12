@@ -1,13 +1,14 @@
 ﻿using Model;
 using Model.Meta;
+using Musicista.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using Musicista.Exceptions;
 
 namespace Musicista.UI
 {
@@ -76,12 +77,6 @@ namespace Musicista.UI
                                                     {
                                                         var staff = new UIStaff(currentPage.Systems.Last());
                                                         currentPage.Systems.Last().AddStaff(staff);
-                                                        if (measureGroup.Measures.Count > i && measureGroup.Measures[i] != null)
-                                                        {
-                                                            DrawClef(staff, measureGroup.Measures[i].Clef);
-                                                            var keyWidth = DrawKey(staff, measureGroup.KeySignature, measureGroup.Measures[i].Clef);
-                                                            currentPage.Systems.Last().Indent += keyWidth;
-                                                        }
                                                     }
                                                 }
                                                 // Now draw the measures and notes
@@ -113,7 +108,7 @@ namespace Musicista.UI
             if (measureGroup == null || measureGroup.Measures == null || measureGroup.Measures.Count <= 0)
                 return;
 
-            var left = system.Indent;
+            var left = 0.0;
             // measure 2 to n
             if (system.MeasureGroups.Count > 0)
                 left = Canvas.GetLeft(system.MeasureGroups.Last()) + system.MeasureGroups.Last().Width;
@@ -122,34 +117,42 @@ namespace Musicista.UI
             var uiMeasureGroup = new UIMeasureGroup(system, left, measureGroup);
             system.MeasureGroups.Add(uiMeasureGroup);
 
-            // Add indent in special occasions
-            var indent = (measureGroup.Previous != null && !Equals(measureGroup.KeySignature, measureGroup.Previous.KeySignature)) ? 100 : 60;
-
             // Fill UIMeasureGroup.Measures with UIMeasures
             for (var part = 0; part < measureGroup.Measures.Count; part++)
-                DrawMeasure(uiMeasureGroup, measureGroup.Measures[part], part + 1, indent, hasMouseDown);
-
-            // Draw key signature changes
-            if (measureGroup.Previous != null && !Equals(measureGroup.KeySignature, measureGroup.Previous.KeySignature))
-                foreach (var uiMeasure in uiMeasureGroup.Measures)
-                    DrawKey(uiMeasure, measureGroup.KeySignature, uiMeasure.InnerMeasure.Clef);
+                DrawMeasure(uiMeasureGroup, measureGroup.Measures[part], part + 1, hasMouseDown: hasMouseDown);
 
             // set connecting barlines
             if (uiMeasureGroup.Measures.Count > 0)
                 uiMeasureGroup.Barline.Y2 = Canvas.GetTop(uiMeasureGroup.Measures.Last()) + 36;
         }
 
-        public static void DrawMeasure(UIMeasureGroup measureGroup, Measure measure, int part, int indent = 60, bool hasMouseDown = true)
+        public static void DrawMeasure(UIMeasureGroup uiMeasureGroup, Measure measure, int part, bool hasMouseDown = true)
         {
             if (measure.Symbols == null || measure.Symbols.Count <= 0)
                 return;
 
-            var newMeasure = new UIMeasure(measureGroup, part, measure, hasMouseDown: hasMouseDown) { Indent = indent };
-            measureGroup.Measures.Add(newMeasure);
+            var measureGroup = uiMeasureGroup.InnerMeasureGroup;
 
+            var newMeasure = new UIMeasure(uiMeasureGroup, part, measure, hasMouseDown: hasMouseDown);
+            uiMeasureGroup.Measures.Add(newMeasure);
+
+            // Draw clef changes
+            if (measure.Previous == null || !Equals(measure.Clef, measure.Previous.Clef) || uiMeasureGroup.ParentSystem.MeasureGroups.IndexOf(uiMeasureGroup) == 0)
+                newMeasure.Indent += DrawClef(newMeasure, measure.Clef);
+
+            // Draw key signature changes
+            if (measureGroup.Previous == null || !Equals(measureGroup.KeySignature, measureGroup.Previous.KeySignature) || uiMeasureGroup.ParentSystem.MeasureGroups.IndexOf(uiMeasureGroup) == 0)
+                newMeasure.Indent += DrawKey(newMeasure, measureGroup.KeySignature, measure.Clef);
+
+            // Draw meter changes
+            if (measureGroup.Previous == null || !Equals(measureGroup.Previous.TimeSignature, measureGroup.TimeSignature))
+                newMeasure.Indent += DrawTimeSignature(newMeasure, measureGroup.TimeSignature);
+
+            // If the width is smaller than the indent, there is no room for any notes. Return without drawing
             if (newMeasure.Width - newMeasure.Indent < 1)
                 return;
 
+            // Draw notes
             foreach (var symbol in measure.Symbols)
                 if (symbol.GetType() == typeof(Note))
                     new UINote((Note)symbol, newMeasure, hasMouseDown);
@@ -157,101 +160,110 @@ namespace Musicista.UI
                     new UIRest((Rest)symbol, newMeasure, hasMouseDown);
         }
 
-        public static void DrawClef(Canvas canvas, Clef clefType)
+        public static double DrawClef(UIMeasure uiMeasure, Clef clefType)
         {
             var clef = new Path
             {
                 Fill = Brushes.Black,
             };
 
-            var scale = 1;
-            var additionalTop = 0;
-            if (canvas.GetType() == typeof(UIMeasure))
-            {
-                scale = 5;
-                additionalTop = 45;
-                ((UIMeasure)canvas).Indent += 100;
-            }
-
             switch (clefType)
             {
                 case Clef.Treble:
-                    clef.RenderTransform = new ScaleTransform(.5 * scale, .5 * scale);
+                    clef.RenderTransform = new ScaleTransform(2.5, 2.5);
                     clef.Data = Geometry.Parse(Engraving.TrebleClef);
-                    Canvas.SetTop(clef, -10 * scale + additionalTop);
-                    Canvas.SetLeft(clef, 10);
+                    Canvas.SetTop(clef, -5);
                     break;
                 case Clef.Bass:
-                    clef.RenderTransform = new ScaleTransform(.14 * scale, .14 * scale);
+                    clef.RenderTransform = new ScaleTransform(.7, .7);
                     clef.Data = Geometry.Parse(Engraving.BassClef);
-                    Canvas.SetTop(clef, 1 * scale + additionalTop);
-                    Canvas.SetLeft(clef, 10);
+                    Canvas.SetTop(clef, 50);
                     break;
             }
 
-            canvas.Children.Add(clef);
+            Canvas.SetLeft(clef, uiMeasure.Indent);
+            uiMeasure.Children.Add(clef);
+
+            return 120;
         }
 
-        public static double DrawKey(Canvas canvas, MusicalKey musicalKey, Clef clef)
+        public static double DrawKey(UIMeasure uiMeasure, MusicalKey musicalKey, Clef clef)
         {
-            var scale = 1;
-            var additionalTop = 0;
-            var indent = 30;
-
-            if (canvas.GetType() == typeof(UIMeasure))
-            {
-                scale = 5;
-                additionalTop = 45;
-                indent = ((UIMeasure)canvas).Indent - 60;
-                ((UIMeasure)canvas).Indent += 200;
-            }
             var key = new Path
             {
                 Fill = Brushes.Black,
-                RenderTransform = new ScaleTransform(.32 * scale, .32 * scale)
+                RenderTransform = new ScaleTransform(1.6, 1.6)
             };
-
+            var width = .0;
             if ((musicalKey.Pitch == Pitch.G && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.E && musicalKey.Gender == Gender.Minor))
-                key.Data = Geometry.Parse(Engraving.GMajor);
+            { key.Data = Geometry.Parse(Engraving.GMajor); width = 60; }
             else if ((musicalKey.Pitch == Pitch.D && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.B && musicalKey.Gender == Gender.Minor))
-                key.Data = Geometry.Parse(Engraving.DMajor);
+            { key.Data = Geometry.Parse(Engraving.DMajor); width = 90; }
             else if ((musicalKey.Pitch == Pitch.A && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.FSharp && musicalKey.Gender == Gender.Minor))
-                key.Data = Geometry.Parse(Engraving.AMajor);
+            { key.Data = Geometry.Parse(Engraving.AMajor); width = 120; }
             else if ((musicalKey.Pitch == Pitch.E && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.CSharp && musicalKey.Gender == Gender.Minor))
-                key.Data = Geometry.Parse(Engraving.EMajor);
+            { key.Data = Geometry.Parse(Engraving.EMajor); width = 150; }
             else if ((musicalKey.Pitch == Pitch.B && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.GSharp && musicalKey.Gender == Gender.Minor))
-                key.Data = Geometry.Parse(Engraving.BMajor);
+            { key.Data = Geometry.Parse(Engraving.BMajor); width = 180; }
             else if ((musicalKey.Pitch == Pitch.FSharp && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.DSharp && musicalKey.Gender == Gender.Minor))
-                key.Data = Geometry.Parse(Engraving.FSharpMajor);
+            { key.Data = Geometry.Parse(Engraving.FSharpMajor); width = 210; }
             else if ((musicalKey.Pitch == Pitch.CSharp && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.ASharp && musicalKey.Gender == Gender.Minor))
-                key.Data = Geometry.Parse(Engraving.CSharpMajor);
+            { key.Data = Geometry.Parse(Engraving.CSharpMajor); width = 240; }
             else if ((musicalKey.Pitch == Pitch.F && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.D && musicalKey.Gender == Gender.Minor))
-                key.Data = Geometry.Parse(Engraving.FMajor);
+            { key.Data = Geometry.Parse(Engraving.FMajor); width = 60; }
             else if ((musicalKey.Pitch == Pitch.BFlat && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.G && musicalKey.Gender == Gender.Minor))
-                key.Data = Geometry.Parse(Engraving.BFlatMajor);
+            { key.Data = Geometry.Parse(Engraving.BFlatMajor); width = 120; }
             else if ((musicalKey.Pitch == Pitch.EFlat && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.C && musicalKey.Gender == Gender.Minor))
-                key.Data = Geometry.Parse(Engraving.EFlatMajor);
+            { key.Data = Geometry.Parse(Engraving.EFlatMajor); width = 180; }
             else if ((musicalKey.Pitch == Pitch.AFlat && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.F && musicalKey.Gender == Gender.Minor))
-                key.Data = Geometry.Parse(Engraving.AFlatMajor);
+            { key.Data = Geometry.Parse(Engraving.AFlatMajor); width = 210; }
             else if ((musicalKey.Pitch == Pitch.DFlat && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.BFlat && musicalKey.Gender == Gender.Minor))
-                key.Data = Geometry.Parse(Engraving.DFlatMajor);
+            { key.Data = Geometry.Parse(Engraving.DFlatMajor); width = 240; }
             else if ((musicalKey.Pitch == Pitch.GFlat && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.EFlat && musicalKey.Gender == Gender.Minor))
-                key.Data = Geometry.Parse(Engraving.GFlatMajor);
+            { key.Data = Geometry.Parse(Engraving.GFlatMajor); width = 270; }
             else if ((musicalKey.Pitch == Pitch.CFlat && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.AFlat && musicalKey.Gender == Gender.Minor))
-                key.Data = Geometry.Parse(Engraving.CFlatMajor);
+            { key.Data = Geometry.Parse(Engraving.CFlatMajor); width = 300; }
 
             switch (clef)
             {
                 case Clef.Treble:
-                    Canvas.SetTop(key, -11 * scale + additionalTop);
+                    Canvas.SetTop(key, -10);
                     break;
                 case Clef.Bass:
-                    Canvas.SetTop(key, -4 * scale + additionalTop);
+                    Canvas.SetTop(key, 25);
                     break;
             }
-            Canvas.SetLeft(key, indent);
-            canvas.Children.Add(key);
-            return key.ActualWidth;
+            Canvas.SetLeft(key, uiMeasure.Indent);
+            uiMeasure.Children.Add(key);
+
+            return width;
+        }
+
+        public static double DrawTimeSignature(UIMeasure uiMeasure, TimeSignature timeSignature)
+        {
+            var meter1 = new TextBlock
+            {
+                FontSize = 82,
+                TextAlignment = TextAlignment.Center,
+                FontWeight = FontWeights.Bold,
+                Text = timeSignature.Beats.ToString(CultureInfo.InvariantCulture)
+            };
+            var meter2 = new TextBlock
+            {
+                FontSize = 82,
+                TextAlignment = TextAlignment.Center,
+                FontWeight = FontWeights.Bold,
+                Text = timeSignature.BeatUnit.ToString(CultureInfo.InvariantCulture)
+            };
+            Canvas.SetTop(meter1, 18);
+            Canvas.SetLeft(meter1, uiMeasure.Indent);
+            Canvas.SetTop(meter2, 80);
+            Canvas.SetLeft(meter2, uiMeasure.Indent);
+
+            uiMeasure.Children.Add(meter1);
+            uiMeasure.Children.Add(meter2);
+
+            return 60;
         }
 
         /// <summary>

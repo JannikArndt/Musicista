@@ -8,7 +8,6 @@ namespace Model
         public Pitch Step { get; set; }
         public int Octave { get; set; }
         public int Velocity { get; set; } // 0-127, c.f. midi
-
         public Note() { }
         public int PitchIsHigherThan(Pitch otherStep, int otherOctave)
         {
@@ -49,7 +48,7 @@ namespace Model
 
         public override string ToString()
         {
-            return "" + Step + Octave + " on " + Beat + " for " + Duration;
+            return "" + Step + Octave + " on " + Math.Round(Beat, 2) + " for " + Duration;
         }
 
         public bool StemShouldGoUp()

@@ -34,7 +34,7 @@ namespace Musicista.UI
             get { return Symbols.Where(item => item.GetType() == typeof(UIRest)).Cast<UIRest>().ToList(); }
         }
         public readonly int Part;
-        public int Indent = 60;
+        public double Indent = 30;
         public double MarginRight = 20;
         public readonly int ScaleTransform = 5;
 

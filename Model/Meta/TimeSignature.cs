@@ -103,5 +103,13 @@ namespace Model.Meta
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public override bool Equals(object obj)
+        {
+            var other = (TimeSignature)obj;
+            if (other == null)
+                return false;
+            return (this == other) || (IsCommon && other.IsCommon) || (IsCutCommon && other.IsCutCommon) || (Beats == other.Beats && BeatUnit == other.BeatUnit);
+        }
     }
 }

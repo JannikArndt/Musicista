@@ -18,7 +18,7 @@ namespace Musicista.UI
             ParentMeasure.Symbols.Add(this);
             Symbol = note;
 
-            BeatsPerMeasure = (4 / ParentMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.BeatUnit) * ParentMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.Beats;
+            BeatsPerMeasure = (4.0 / ParentMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.BeatUnit) * ParentMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.Beats;
             ParentMeasure.ConnectNotesAtEndOfRun = false;
 
             CanvasLeft = ((ParentMeasure.Width - ParentMeasure.Indent - ParentMeasure.MarginRight) / BeatsPerMeasure * (note.Beat - 1)) + ParentMeasure.Indent;
@@ -58,11 +58,14 @@ namespace Musicista.UI
             Children.Add(Flag);
             ParentMeasure.Children.Add(this);
 
-            if (ParentMeasure.ConnectNotesAtEndOfRun || ParentMeasure.NotYetConnectedNotes.Count == 4
+            if (ParentMeasure.ConnectNotesAtEndOfRun
+                || ParentMeasure.NotYetConnectedNotes.Count == 4
                 || (ParentMeasure.NotYetConnectedNotes.Any() && note.Next != null && (note.Next.Beat == 3 || note.Next.Beat == 1))
-                ||
-                (ParentMeasure.NotYetConnectedNotes.Any(item => item.Note.Duration == Duration.sixteenth) && note.Next != null &&
-                 (note.Next.Beat == 2 || note.Next.Beat == 4)))
+                || (ParentMeasure.NotYetConnectedNotes.Any(item => item.Note.Duration == Duration.sixteenth) && note.Next != null &&
+                 (note.Next.Beat == 2 || note.Next.Beat == 4))
+                || ParentMeasure.NotYetConnectedNotes.Count == 3
+                    && (ParentMeasure.NotYetConnectedNotes.All(item => item.Symbol.Duration == Duration.sixteenthTriplet)
+                    || ParentMeasure.NotYetConnectedNotes.All(item => item.Symbol.Duration == Duration.eigthTriplet)))
             {
                 ParentMeasure.BalanceStems();
                 ParentMeasure.ConnectNotes();
@@ -196,11 +199,18 @@ namespace Musicista.UI
 
         private bool HandleConnectedNotes_NeedsFlag(Note note, UIMeasure measure)
         {
+            // a note qualifies for beaming IF there already are others
+
+            // OR IF it is not alone...
             if (note.Next != null
+                // AND the next note is an eigth/dotted or sixteenth/dotted
                 && (note.Next.Duration == Duration.eigth || note.Next.Duration == Duration.sixteenth
-                    || note.Next.Duration == Duration.eigthDotted || note.Next.Duration == Duration.sixteenthDotted)
+                    || note.Next.Duration == Duration.eigthDotted || note.Next.Duration == Duration.sixteenthDotted
+                    || note.Next.Duration == Duration.eigthTriplet || note.Next.Duration == Duration.sixteenthTriplet)
+                // AND the next beat is not a "heavy" beat
                 && note.Next.Beat != 1 && note.Next.Beat != 3)
             {
+                // if this is the first note, set stem-direction for the rest of the group
                 if (!measure.NotYetConnectedNotes.Any())
                 {
                     measure.StemDirectionUp = StemOfGroupShouldGoUp;
@@ -209,6 +219,7 @@ namespace Musicista.UI
                 measure.NotYetConnectedNotes.Add(this);
                 return false;
             }
+
             if (measure.NotYetConnectedNotes.Any())
             {
                 measure.NotYetConnectedNotes.Add(this);

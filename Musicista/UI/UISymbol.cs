@@ -14,7 +14,7 @@ namespace Musicista.UI
 
         public double TopRelativeToMeasure = -20;
 
-        public int BeatsPerMeasure { get; set; }
+        public double BeatsPerMeasure { get; set; }
         public UISymbol NextUISymbol
         {
             get

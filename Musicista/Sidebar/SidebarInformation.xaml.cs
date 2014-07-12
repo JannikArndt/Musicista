@@ -118,10 +118,6 @@ namespace Musicista.Sidebar
             var staff = new UIStaff(page.Systems.Last());
             page.Systems.Last().AddStaff(staff);
 
-            UIHelper.DrawClef(staff, passage.ListOfMeasureGroups[0].Measures[0].Clef);
-            var keyWidth = UIHelper.DrawKey(staff, passage.ListOfMeasureGroups[0].KeySignature, passage.ListOfMeasureGroups[0].Measures[0].Clef);
-            page.Systems.Last().Indent += keyWidth;
-
             foreach (var measureGroup in passage.ListOfMeasureGroups)
                 UIHelper.DrawMeasureGroup(page.Systems.Last(), measureGroup, hasMouseDown: false);
 

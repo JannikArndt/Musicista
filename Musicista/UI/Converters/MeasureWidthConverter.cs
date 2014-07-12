@@ -9,12 +9,12 @@ namespace Musicista.UI.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return ((double)value - ((UISystem)parameter).Indent) / ((UISystem)parameter).MeasuresInSystem;
+            return (double)value / ((UISystem)parameter).MeasuresInSystem;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (double)value * ((UISystem)parameter).MeasuresInSystem + ((UISystem)parameter).Indent;
+            return (double)value * ((UISystem)parameter).MeasuresInSystem;
         }
     }
 }

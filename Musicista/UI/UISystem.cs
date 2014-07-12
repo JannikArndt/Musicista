@@ -11,7 +11,6 @@ namespace Musicista.UI
         public List<UIStaff> Staves = new List<UIStaff>();
         public List<UIMeasureGroup> MeasureGroups = new List<UIMeasureGroup>();
         public readonly UIPage ParentPage;
-        public double Indent = 40;
         public Line BarlineFront { get; set; }
         public int MeasuresInSystem = 4;
 

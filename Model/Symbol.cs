@@ -30,6 +30,16 @@ namespace Model
         {
             get { return ParentMeasure.ParentMeasureGroup.MeasureNumber; }
         }
+
+        [XmlIgnore]
+        public bool IsTriplet
+        {
+            get
+            {
+                return (Duration == Duration.wholeTriplet || Duration == Duration.halfTriplet || Duration == Duration.quarterTriplet
+                    || Duration == Duration.eigthTriplet || Duration == Duration.sixteenthTriplet || Duration == Duration.thirtysecondTriplet);
+            }
+        }
         public Symbol() { }
     }
 }

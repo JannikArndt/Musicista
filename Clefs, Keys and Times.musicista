@@ -1,0 +1,963 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Piece xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Title>Clefs, Keys and Times</Title>
+  <ListOfComposers>
+    <Composer>
+      <FirstName>Jannik</FirstName>
+      <MiddleName />
+      <LastName>Arndt</LastName>
+      <FullName>Jannik Arndt</FullName>
+      <Born>0001-01-01T00:00:00</Born>
+      <Died>0001-01-01T00:00:00</Died>
+    </Composer>
+  </ListOfComposers>
+  <Collection />
+  <Opus>
+    <Posthum>false</Posthum>
+    <Number>0</Number>
+    <SubNumber>0</SubNumber>
+  </Opus>
+  <Epoch>None</Epoch>
+  <Form>Other</Form>
+  <DateOfComposition>0001-01-01T00:00:00</DateOfComposition>
+  <DateOfFirstPerformance>0001-01-01T00:00:00</DateOfFirstPerformance>
+  <DateOfFirstPublication>0001-01-01T00:00:00</DateOfFirstPublication>
+  <AverageDuration>0</AverageDuration>
+  <ListOfLyricists />
+  <ListOfArrangers />
+  <ListOfProducers />
+  <ListOfInterpreters />
+  <ListOfOtherPersons />
+  <BeatsPerMinute>0</BeatsPerMinute>
+  <TypeSetter>Jannik Arndt</TypeSetter>
+  <DateOfTypesetting>2014-07-12T00:00:00</DateOfTypesetting>
+  <Copyright>Copyright © </Copyright>
+  <Notes>Work Number: </Notes>
+  <Software>Sibelius 7.1.3</Software>
+  <ListOfInstruments>
+    <Instrument ID="1" />
+  </ListOfInstruments>
+  <ListOfSections>
+    <Section>
+      <ListOfMovements>
+        <Movement>
+          <ListOfSegments>
+            <Segment>
+              <ListOfPassages>
+                <Passage>
+                  <ListOfMeasureGroups>
+                    <MeasureGroup MeasureNumber="1">
+                      <TimeSignature>
+                        <Beats>4</Beats>
+                        <BeatUnit>4</BeatUnit>
+                        <IsCommon>false</IsCommon>
+                        <IsCutCommon>false</IsCutCommon>
+                      </TimeSignature>
+                      <KeySignature>
+                        <Pitch>C</Pitch>
+                        <Gender>Major</Gender>
+                      </KeySignature>
+                      <Measures>
+                        <Measure>
+                          <Clef>Treble</Clef>
+                          <Instrument ID="1" />
+                          <Note>
+                            <Beat>1</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>A</Step>
+                            <Octave>4</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                          <Note>
+                            <Beat>2</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>A</Step>
+                            <Octave>4</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                          <Note>
+                            <Beat>3</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>A</Step>
+                            <Octave>4</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                          <Note>
+                            <Beat>4</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>A</Step>
+                            <Octave>4</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                        </Measure>
+                      </Measures>
+                    </MeasureGroup>
+                    <MeasureGroup MeasureNumber="2">
+                      <TimeSignature>
+                        <Beats>4</Beats>
+                        <BeatUnit>4</BeatUnit>
+                        <IsCommon>false</IsCommon>
+                        <IsCutCommon>false</IsCutCommon>
+                      </TimeSignature>
+                      <KeySignature>
+                        <Pitch>C</Pitch>
+                        <Gender>Major</Gender>
+                      </KeySignature>
+                      <Measures>
+                        <Measure>
+                          <Clef>Treble</Clef>
+                          <Instrument ID="1" />
+                          <Note>
+                            <Beat>1</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>C</Step>
+                            <Octave>5</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                          <Note>
+                            <Beat>2</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>C</Step>
+                            <Octave>5</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                          <Note>
+                            <Beat>3</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>C</Step>
+                            <Octave>5</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                          <Note>
+                            <Beat>4</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>C</Step>
+                            <Octave>5</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                        </Measure>
+                      </Measures>
+                    </MeasureGroup>
+                    <MeasureGroup MeasureNumber="3">
+                      <TimeSignature>
+                        <Beats>2</Beats>
+                        <BeatUnit>4</BeatUnit>
+                        <IsCommon>false</IsCommon>
+                        <IsCutCommon>false</IsCutCommon>
+                      </TimeSignature>
+                      <KeySignature>
+                        <Pitch>C</Pitch>
+                        <Gender>Major</Gender>
+                      </KeySignature>
+                      <Measures>
+                        <Measure>
+                          <Clef>Treble</Clef>
+                          <Instrument ID="1" />
+                          <Note>
+                            <Beat>1</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>C</Step>
+                            <Octave>5</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                          <Note>
+                            <Beat>2</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>C</Step>
+                            <Octave>5</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                        </Measure>
+                      </Measures>
+                    </MeasureGroup>
+                    <MeasureGroup MeasureNumber="4">
+                      <TimeSignature>
+                        <Beats>2</Beats>
+                        <BeatUnit>2</BeatUnit>
+                        <IsCommon>false</IsCommon>
+                        <IsCutCommon>false</IsCutCommon>
+                      </TimeSignature>
+                      <KeySignature>
+                        <Pitch>C</Pitch>
+                        <Gender>Major</Gender>
+                      </KeySignature>
+                      <Measures>
+                        <Measure>
+                          <Clef>Treble</Clef>
+                          <Instrument ID="1" />
+                          <Note>
+                            <Beat>1</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>C</Step>
+                            <Octave>5</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                          <Note>
+                            <Beat>2</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>C</Step>
+                            <Octave>5</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                          <Note>
+                            <Beat>3</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>C</Step>
+                            <Octave>5</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                          <Note>
+                            <Beat>4</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>C</Step>
+                            <Octave>5</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                        </Measure>
+                      </Measures>
+                    </MeasureGroup>
+                    <MeasureGroup MeasureNumber="5">
+                      <TimeSignature>
+                        <Beats>2</Beats>
+                        <BeatUnit>2</BeatUnit>
+                        <IsCommon>false</IsCommon>
+                        <IsCutCommon>false</IsCutCommon>
+                      </TimeSignature>
+                      <KeySignature>
+                        <Pitch>C</Pitch>
+                        <Gender>Major</Gender>
+                      </KeySignature>
+                      <Measures>
+                        <Measure>
+                          <Clef>Treble</Clef>
+                          <Instrument ID="1" />
+                          <Note>
+                            <Beat>1</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>F</Step>
+                            <Octave>5</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                          <Note>
+                            <Beat>2</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>F</Step>
+                            <Octave>5</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                          <Note>
+                            <Beat>3</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>F</Step>
+                            <Octave>5</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                          <Note>
+                            <Beat>4</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>F</Step>
+                            <Octave>5</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                        </Measure>
+                      </Measures>
+                    </MeasureGroup>
+                    <MeasureGroup MeasureNumber="6">
+                      <TimeSignature>
+                        <Beats>3</Beats>
+                        <BeatUnit>4</BeatUnit>
+                        <IsCommon>false</IsCommon>
+                        <IsCutCommon>false</IsCutCommon>
+                      </TimeSignature>
+                      <KeySignature>
+                        <Pitch>C</Pitch>
+                        <Gender>Major</Gender>
+                      </KeySignature>
+                      <Measures>
+                        <Measure>
+                          <Clef>Treble</Clef>
+                          <Instrument ID="1" />
+                          <Note>
+                            <Beat>1</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>E</Step>
+                            <Octave>5</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                          <Note>
+                            <Beat>2</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>E</Step>
+                            <Octave>5</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                          <Note>
+                            <Beat>3</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>E</Step>
+                            <Octave>5</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                        </Measure>
+                      </Measures>
+                    </MeasureGroup>
+                    <MeasureGroup MeasureNumber="7">
+                      <TimeSignature>
+                        <Beats>3</Beats>
+                        <BeatUnit>8</BeatUnit>
+                        <IsCommon>false</IsCommon>
+                        <IsCutCommon>false</IsCutCommon>
+                      </TimeSignature>
+                      <KeySignature>
+                        <Pitch>C</Pitch>
+                        <Gender>Major</Gender>
+                      </KeySignature>
+                      <Measures>
+                        <Measure>
+                          <Clef>Treble</Clef>
+                          <Instrument ID="1" />
+                          <Note>
+                            <Beat>1</Beat>
+                            <Duration>quarterDotted</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>G</Step>
+                            <Octave>4</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                        </Measure>
+                      </Measures>
+                    </MeasureGroup>
+                    <MeasureGroup MeasureNumber="8">
+                      <TimeSignature>
+                        <Beats>4</Beats>
+                        <BeatUnit>4</BeatUnit>
+                        <IsCommon>false</IsCommon>
+                        <IsCutCommon>false</IsCutCommon>
+                      </TimeSignature>
+                      <KeySignature>
+                        <Pitch>C</Pitch>
+                        <Gender>Major</Gender>
+                      </KeySignature>
+                      <Measures>
+                        <Measure>
+                          <Clef>Bass</Clef>
+                          <Instrument ID="1" />
+                          <Note>
+                            <Beat>1</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>A</Step>
+                            <Octave>2</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                          <Note>
+                            <Beat>2</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>A</Step>
+                            <Octave>2</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                          <Note>
+                            <Beat>3</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>A</Step>
+                            <Octave>2</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                          <Note>
+                            <Beat>4</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>A</Step>
+                            <Octave>2</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                        </Measure>
+                      </Measures>
+                    </MeasureGroup>
+                    <MeasureGroup MeasureNumber="9">
+                      <TimeSignature>
+                        <Beats>4</Beats>
+                        <BeatUnit>4</BeatUnit>
+                        <IsCommon>false</IsCommon>
+                        <IsCutCommon>false</IsCutCommon>
+                      </TimeSignature>
+                      <KeySignature>
+                        <Pitch>C</Pitch>
+                        <Gender>Major</Gender>
+                      </KeySignature>
+                      <Measures>
+                        <Measure>
+                          <Clef>Bass</Clef>
+                          <Instrument ID="1" />
+                          <Note>
+                            <Beat>1</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>C</Step>
+                            <Octave>3</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                          <Note>
+                            <Beat>2</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>C</Step>
+                            <Octave>3</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                          <Note>
+                            <Beat>3</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>C</Step>
+                            <Octave>3</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                          <Note>
+                            <Beat>4</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>C</Step>
+                            <Octave>3</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                        </Measure>
+                      </Measures>
+                    </MeasureGroup>
+                    <MeasureGroup MeasureNumber="10">
+                      <TimeSignature>
+                        <Beats>2</Beats>
+                        <BeatUnit>4</BeatUnit>
+                        <IsCommon>false</IsCommon>
+                        <IsCutCommon>false</IsCutCommon>
+                      </TimeSignature>
+                      <KeySignature>
+                        <Pitch>C</Pitch>
+                        <Gender>Major</Gender>
+                      </KeySignature>
+                      <Measures>
+                        <Measure>
+                          <Clef>Bass</Clef>
+                          <Instrument ID="1" />
+                          <Note>
+                            <Beat>1</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>C</Step>
+                            <Octave>3</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                          <Note>
+                            <Beat>2</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>C</Step>
+                            <Octave>3</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                        </Measure>
+                      </Measures>
+                    </MeasureGroup>
+                    <MeasureGroup MeasureNumber="11">
+                      <TimeSignature>
+                        <Beats>2</Beats>
+                        <BeatUnit>2</BeatUnit>
+                        <IsCommon>false</IsCommon>
+                        <IsCutCommon>false</IsCutCommon>
+                      </TimeSignature>
+                      <KeySignature>
+                        <Pitch>C</Pitch>
+                        <Gender>Major</Gender>
+                      </KeySignature>
+                      <Measures>
+                        <Measure>
+                          <Clef>Bass</Clef>
+                          <Instrument ID="1" />
+                          <Note>
+                            <Beat>1</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>C</Step>
+                            <Octave>3</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                          <Note>
+                            <Beat>2</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>C</Step>
+                            <Octave>3</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                          <Note>
+                            <Beat>3</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>C</Step>
+                            <Octave>3</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                          <Note>
+                            <Beat>4</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>C</Step>
+                            <Octave>3</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                        </Measure>
+                      </Measures>
+                    </MeasureGroup>
+                    <MeasureGroup MeasureNumber="12">
+                      <TimeSignature>
+                        <Beats>2</Beats>
+                        <BeatUnit>2</BeatUnit>
+                        <IsCommon>false</IsCommon>
+                        <IsCutCommon>false</IsCutCommon>
+                      </TimeSignature>
+                      <KeySignature>
+                        <Pitch>C</Pitch>
+                        <Gender>Major</Gender>
+                      </KeySignature>
+                      <Measures>
+                        <Measure>
+                          <Clef>Bass</Clef>
+                          <Instrument ID="1" />
+                          <Note>
+                            <Beat>1</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>F</Step>
+                            <Octave>3</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                          <Note>
+                            <Beat>2</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>F</Step>
+                            <Octave>3</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                          <Note>
+                            <Beat>3</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>F</Step>
+                            <Octave>3</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                          <Note>
+                            <Beat>4</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>F</Step>
+                            <Octave>3</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                        </Measure>
+                      </Measures>
+                    </MeasureGroup>
+                    <MeasureGroup MeasureNumber="13">
+                      <TimeSignature>
+                        <Beats>3</Beats>
+                        <BeatUnit>4</BeatUnit>
+                        <IsCommon>false</IsCommon>
+                        <IsCutCommon>false</IsCutCommon>
+                      </TimeSignature>
+                      <KeySignature>
+                        <Pitch>C</Pitch>
+                        <Gender>Major</Gender>
+                      </KeySignature>
+                      <Measures>
+                        <Measure>
+                          <Clef>Bass</Clef>
+                          <Instrument ID="1" />
+                          <Note>
+                            <Beat>1</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>E</Step>
+                            <Octave>3</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                          <Note>
+                            <Beat>2</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>E</Step>
+                            <Octave>3</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                          <Note>
+                            <Beat>3</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>E</Step>
+                            <Octave>3</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                        </Measure>
+                      </Measures>
+                    </MeasureGroup>
+                    <MeasureGroup MeasureNumber="14">
+                      <TimeSignature>
+                        <Beats>3</Beats>
+                        <BeatUnit>4</BeatUnit>
+                        <IsCommon>false</IsCommon>
+                        <IsCutCommon>false</IsCutCommon>
+                      </TimeSignature>
+                      <KeySignature>
+                        <Pitch>D</Pitch>
+                        <Gender>Major</Gender>
+                      </KeySignature>
+                      <Measures>
+                        <Measure>
+                          <Clef>Treble</Clef>
+                          <Instrument ID="1" />
+                          <Note>
+                            <Beat>1</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>D</Step>
+                            <Octave>5</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                          <Note>
+                            <Beat>2</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>D</Step>
+                            <Octave>5</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                          <Note>
+                            <Beat>3</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>D</Step>
+                            <Octave>5</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                        </Measure>
+                      </Measures>
+                    </MeasureGroup>
+                    <MeasureGroup MeasureNumber="15">
+                      <TimeSignature>
+                        <Beats>2</Beats>
+                        <BeatUnit>4</BeatUnit>
+                        <IsCommon>false</IsCommon>
+                        <IsCutCommon>false</IsCutCommon>
+                      </TimeSignature>
+                      <KeySignature>
+                        <Pitch>BFlat</Pitch>
+                        <Gender>Major</Gender>
+                      </KeySignature>
+                      <Measures>
+                        <Measure>
+                          <Clef>Treble</Clef>
+                          <Instrument ID="1" />
+                          <Note>
+                            <Beat>1</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>BFlat</Step>
+                            <Octave>4</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                          <Note>
+                            <Beat>2</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>BFlat</Step>
+                            <Octave>4</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                        </Measure>
+                      </Measures>
+                    </MeasureGroup>
+                    <MeasureGroup MeasureNumber="16">
+                      <TimeSignature>
+                        <Beats>2</Beats>
+                        <BeatUnit>4</BeatUnit>
+                        <IsCommon>false</IsCommon>
+                        <IsCutCommon>false</IsCutCommon>
+                      </TimeSignature>
+                      <KeySignature>
+                        <Pitch>A</Pitch>
+                        <Gender>Major</Gender>
+                      </KeySignature>
+                      <Measures>
+                        <Measure>
+                          <Clef>Treble</Clef>
+                          <Instrument ID="1" />
+                          <Note>
+                            <Beat>1</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>A</Step>
+                            <Octave>4</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                          <Note>
+                            <Beat>2</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>A</Step>
+                            <Octave>4</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                        </Measure>
+                      </Measures>
+                    </MeasureGroup>
+                    <MeasureGroup MeasureNumber="17">
+                      <TimeSignature>
+                        <Beats>2</Beats>
+                        <BeatUnit>4</BeatUnit>
+                        <IsCommon>false</IsCommon>
+                        <IsCutCommon>false</IsCutCommon>
+                      </TimeSignature>
+                      <KeySignature>
+                        <Pitch>AFlat</Pitch>
+                        <Gender>Major</Gender>
+                      </KeySignature>
+                      <Measures>
+                        <Measure>
+                          <Clef>Treble</Clef>
+                          <Instrument ID="1" />
+                          <Note>
+                            <Beat>1</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>AFlat</Step>
+                            <Octave>4</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                          <Note>
+                            <Beat>2</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>AFlat</Step>
+                            <Octave>4</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                        </Measure>
+                      </Measures>
+                    </MeasureGroup>
+                    <MeasureGroup MeasureNumber="18">
+                      <TimeSignature>
+                        <Beats>2</Beats>
+                        <BeatUnit>4</BeatUnit>
+                        <IsCommon>false</IsCommon>
+                        <IsCutCommon>false</IsCutCommon>
+                      </TimeSignature>
+                      <KeySignature>
+                        <Pitch>B</Pitch>
+                        <Gender>Major</Gender>
+                      </KeySignature>
+                      <Measures>
+                        <Measure>
+                          <Clef>Treble</Clef>
+                          <Instrument ID="1" />
+                          <Note>
+                            <Beat>1</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>B</Step>
+                            <Octave>4</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                          <Note>
+                            <Beat>2</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>B</Step>
+                            <Octave>4</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                        </Measure>
+                      </Measures>
+                    </MeasureGroup>
+                    <MeasureGroup MeasureNumber="19">
+                      <TimeSignature>
+                        <Beats>2</Beats>
+                        <BeatUnit>4</BeatUnit>
+                        <IsCommon>false</IsCommon>
+                        <IsCutCommon>false</IsCutCommon>
+                      </TimeSignature>
+                      <KeySignature>
+                        <Pitch>ASharp</Pitch>
+                        <Gender>Minor</Gender>
+                      </KeySignature>
+                      <Measures>
+                        <Measure>
+                          <Clef>Treble</Clef>
+                          <Instrument ID="1" />
+                          <Note>
+                            <Beat>1</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>ASharp</Step>
+                            <Octave>4</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                          <Note>
+                            <Beat>2</Beat>
+                            <Duration>quarter</Duration>
+                            <Voice>0</Voice>
+                            <ListOfExpressionalModifiers />
+                            <ListOfOrnaments />
+                            <Step>ASharp</Step>
+                            <Octave>4</Octave>
+                            <Velocity>0</Velocity>
+                          </Note>
+                        </Measure>
+                      </Measures>
+                    </MeasureGroup>
+                  </ListOfMeasureGroups>
+                </Passage>
+              </ListOfPassages>
+            </Segment>
+          </ListOfSegments>
+          <Number>0</Number>
+          <BeatsPerMinute>0</BeatsPerMinute>
+        </Movement>
+      </ListOfMovements>
+    </Section>
+  </ListOfSections>
+  <Parts />
+</Piece>

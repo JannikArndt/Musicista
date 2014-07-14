@@ -94,7 +94,7 @@ namespace Musicista.Sidebar
                 DrawPartBox(part, _partsStack);
         }
 
-        private UIPage DrawPassage(Passage passage)
+        private static UIPage DrawPassage(Passage passage)
         {
             var page = new UIPage(hasMouseDown: false)
             {

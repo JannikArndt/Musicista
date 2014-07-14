@@ -16,18 +16,20 @@ namespace Musicista.UI
 
         public List<UIMeasure> Measures = new List<UIMeasure>();
 
-        public UIMeasureGroup(UISystem system, double left, MeasureGroup innerMeasureGroup = null)
+        public UIMeasureGroup(UISystem system, MeasureGroup innerMeasureGroup = null)
         {
             InnerMeasureGroup = innerMeasureGroup;
             ParentSystem = system;
+            ParentSystem.MeasureGroups.Add(this);
+
 
             Height = system.ActualHeight;
             Background = Brushes.Transparent;
 
             SetTop(this, 0);
-            SetLeft(this, left);
-            SetBinding(WidthProperty,
-                new Binding { Path = new PropertyPath(WidthProperty), Source = system, Converter = new MeasureWidthConverter(), ConverterParameter = system });
+            SetLeft(this, PreviousUIMeasureGroupInSystem != null ? PreviousUIMeasureGroupInSystem.Right : 0);
+
+            SetBinding(WidthProperty, new Binding { Path = new PropertyPath(WidthProperty), Source = system, Converter = new MeasureWidthConverter(), ConverterParameter = system });
 
             Barline = new Line
             {
@@ -42,11 +44,13 @@ namespace Musicista.UI
             Barline.SetBinding(Line.X2Property, new Binding { Path = new PropertyPath(WidthProperty), Source = this });
 
             Children.Add(Barline);
+            ParentSystem.Children.Add(this);
 
-            system.Children.Add(this);
         }
 
         public Line Barline { get; set; }
+
+        public double Right { get { return GetLeft(this) + Width; } }
 
         public UIMeasureGroup NextUIMeasureGroup
         {
@@ -58,6 +62,17 @@ namespace Musicista.UI
                 if (ParentSystem.NextUISystem != null && ParentSystem.NextUISystem.MeasureGroups != null &&
                     ParentSystem.NextUISystem.MeasureGroups.Count > 0 && ParentSystem.NextUISystem.MeasureGroups[0] != null)
                     return ParentSystem.NextUISystem.MeasureGroups[0];
+                return null;
+            }
+        }
+
+        private UIMeasureGroup PreviousUIMeasureGroupInSystem
+        {
+            get
+            {
+                var index = ParentSystem.MeasureGroups.IndexOf(this);
+                if (index > 0)
+                    return ParentSystem.MeasureGroups[index - 1];
                 return null;
             }
         }

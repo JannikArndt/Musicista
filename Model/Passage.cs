@@ -23,7 +23,8 @@ namespace Model
                     {
                         MeasureNumber = symbol.MeasureNumber,
                         KeySignature = symbol.ParentMeasure.ParentMeasureGroup.KeySignature,
-                        TimeSignature = symbol.ParentMeasure.ParentMeasureGroup.TimeSignature
+                        TimeSignature = symbol.ParentMeasure.ParentMeasureGroup.TimeSignature,
+                        ParentPassage = this
                     };
                     currentMeasure = new Measure
                     {

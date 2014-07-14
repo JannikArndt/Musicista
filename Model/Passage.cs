@@ -50,7 +50,8 @@ namespace Model
                     Measures = new List<Measure> { measure },
                     MeasureNumber = measure.ParentMeasureGroup.MeasureNumber,
                     KeySignature = measure.ParentMeasureGroup.KeySignature,
-                    TimeSignature = measure.ParentMeasureGroup.TimeSignature
+                    TimeSignature = measure.ParentMeasureGroup.TimeSignature,
+                    ParentPassage = this
                 };
 
                 measure.ParentMeasureGroup = newMeasureGroup;

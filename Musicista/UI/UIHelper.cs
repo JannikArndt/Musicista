@@ -1,6 +1,7 @@
 ﻿using Model;
 using Model.Meta;
 using Musicista.Exceptions;
+using Musicista.UI.TextElements;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -41,11 +42,11 @@ namespace Musicista.UI
                 currentPage.Title = new UITitle(currentPage);
 
             if (piece.ListOfComposers != null && piece.ListOfComposers.Count > 0)
-                for (var index = 0; index < piece.ListOfComposers.Count; index++)
-                    DrawComposer(piece, pageList.First());
+                currentPage.Composer = new UIComposer(currentPage);
 
             if (piece.ListOfSections == null || piece.ListOfSections.Count <= 0)
                 return pageList;
+
             foreach (var section in piece.ListOfSections)
                 if (section.ListOfMovements != null && section.ListOfMovements.Count > 0)
                     foreach (var movement in section.ListOfMovements)
@@ -86,40 +87,17 @@ namespace Musicista.UI
             return pageList;
         }
 
-        public static void DrawComposer(Piece piece, Canvas page)
-        {
-            var composerTextBlock = new TextBlock
-            {
-                DataContext = piece,
-                FontSize = 16,
-                TextAlignment = TextAlignment.Right,
-                TextWrapping = TextWrapping.WrapWithOverflow,
-                Width = 200
-            };
-            composerTextBlock.SetBinding(TextBlock.TextProperty, "ComposersAsString");
-
-            Canvas.SetTop(composerTextBlock, 150);
-            Canvas.SetRight(composerTextBlock, 50);
-            page.Children.Add(composerTextBlock);
-        }
-
         public static void DrawMeasureGroup(UISystem system, MeasureGroup measureGroup = null, bool hasMouseDown = true)
         {
             if (measureGroup == null || measureGroup.Measures == null || measureGroup.Measures.Count <= 0)
                 return;
 
-            var left = 0.0;
-            // measure 2 to n
-            if (system.MeasureGroups.Count > 0)
-                left = Canvas.GetLeft(system.MeasureGroups.Last()) + system.MeasureGroups.Last().Width;
-
             // Create UIMeasureGroup
-            var uiMeasureGroup = new UIMeasureGroup(system, left, measureGroup);
-            system.MeasureGroups.Add(uiMeasureGroup);
+            var uiMeasureGroup = new UIMeasureGroup(system, measureGroup);
 
             // Fill UIMeasureGroup.Measures with UIMeasures
             for (var part = 0; part < measureGroup.Measures.Count; part++)
-                DrawMeasure(uiMeasureGroup, measureGroup.Measures[part], part + 1, hasMouseDown: hasMouseDown);
+                DrawMeasure(uiMeasureGroup, measureGroup.Measures[part], part + 1, hasMouseDown);
 
             // set connecting barlines
             if (uiMeasureGroup.Measures.Count > 0)

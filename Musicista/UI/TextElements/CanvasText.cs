@@ -1,41 +1,29 @@
 ﻿using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
 
-namespace Musicista.UI
+namespace Musicista.UI.TextElements
 {
-    public class UITitle : TextBlock
+    public class CanvasText : TextBlock
     {
         public UIPage ParentPage { get; set; }
 
-        public UITitle(UIPage page)
+        public CanvasText(UIPage page)
         {
             ParentPage = page;
-
-            DataContext = ParentPage;
-            SetBinding(TextProperty, "Piece.Title");
-            FontSize = 50;
-            SetBinding(Canvas.TopProperty, "Settings.MarginTop");
-            Left = 20;
-            Width = ParentPage.Width - 40;
-            HorizontalAlignment = HorizontalAlignment.Stretch;
-            TextAlignment = TextAlignment.Center;
-
-            PreviewMouseDown += delegate(object sender, MouseButtonEventArgs args)
-            {
-                if (MainWindow.SidebarInformation != null)
-                    MainWindow.SidebarInformation.ShowUIElement(sender);
-            };
-
-            ParentPage.Children.Add(this);
         }
 
         public double Left
         {
             get { return Canvas.GetLeft(this); }
             set { Canvas.SetLeft(this, value); }
+        }
+
+        public double Right
+        {
+            get { return Canvas.GetRight(this); }
+            set { Canvas.SetRight(this, value); }
         }
 
         public double DrawnWidth

@@ -25,7 +25,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>5</ApplicationRevision>
+    <ApplicationRevision>6</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -95,6 +95,8 @@
     <Compile Include="MenuBar.cs" />
     <Compile Include="Sidebar\EditableTextBox.cs" />
     <Compile Include="Exceptions\GUIException.cs" />
+    <Compile Include="UI\TextElements\CanvasText.cs" />
+    <Compile Include="UI\TextElements\UIComposer.cs" />
     <Compile Include="View\GridTable.cs" />
     <Compile Include="Sidebar\SidebarKind.cs" />
     <Compile Include="Sidebar\SidebarAlgorithms.xaml.cs">
@@ -120,7 +122,7 @@
     <Compile Include="UI\UIStaff.cs" />
     <Compile Include="UI\UISymbol.cs" />
     <Compile Include="UI\UISystem.cs" />
-    <Compile Include="UI\UITitle.cs" />
+    <Compile Include="UI\TextElements\UITitle.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

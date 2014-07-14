@@ -1,4 +1,5 @@
 ﻿using Model;
+using Musicista.UI.TextElements;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -43,6 +44,7 @@ namespace Musicista.UI
         }
 
         public UITitle Title { get; set; }
+        public UIComposer Composer { get; set; }
         public UISettings Settings { get; set; }
         public Piece Piece { get; set; }
     }

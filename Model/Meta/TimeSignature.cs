@@ -109,7 +109,22 @@ namespace Model.Meta
             var other = (TimeSignature)obj;
             if (other == null)
                 return false;
-            return (this == other) || (IsCommon && other.IsCommon) || (IsCutCommon && other.IsCutCommon) || (Beats == other.Beats && BeatUnit == other.BeatUnit);
+            if (IsCommon)
+                return other.IsCommon;
+            if (IsCutCommon)
+                return other.IsCutCommon;
+            if (other.IsCommon)
+                return IsCommon;
+            if (other.IsCutCommon)
+                return IsCutCommon;
+            return Beats == other.Beats && BeatUnit == other.BeatUnit;
+        }
+
+        public override string ToString()
+        {
+            if (IsCommon) return "Common 4/4";
+            if (IsCutCommon) return "Cut 2/2";
+            return Beats + "/" + BeatUnit;
         }
     }
 }

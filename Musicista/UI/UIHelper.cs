@@ -178,7 +178,7 @@ namespace Musicista.UI
             else if ((musicalKey.Pitch == Pitch.FSharp && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.DSharp && musicalKey.Gender == Gender.Minor))
             { key.Data = Geometry.Parse(Engraving.FSharpMajor); width = 210; }
             else if ((musicalKey.Pitch == Pitch.CSharp && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.ASharp && musicalKey.Gender == Gender.Minor))
-            { key.Data = Geometry.Parse(Engraving.CSharpMajor); width = 240; }
+            { key.Data = Geometry.Parse(Engraving.CSharpMajor); width = 260; }
             else if ((musicalKey.Pitch == Pitch.F && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.D && musicalKey.Gender == Gender.Minor))
             { key.Data = Geometry.Parse(Engraving.FMajor); width = 60; }
             else if ((musicalKey.Pitch == Pitch.BFlat && musicalKey.Gender == Gender.Major) || (musicalKey.Pitch == Pitch.G && musicalKey.Gender == Gender.Minor))
@@ -211,29 +211,42 @@ namespace Musicista.UI
 
         public static double DrawTimeSignature(UIMeasure uiMeasure, TimeSignature timeSignature)
         {
-            var meter1 = new TextBlock
+            if (timeSignature.IsCommon || timeSignature.IsCutCommon)
             {
-                FontSize = 82,
-                TextAlignment = TextAlignment.Center,
-                FontWeight = FontWeights.Bold,
-                Text = timeSignature.Beats.ToString(CultureInfo.InvariantCulture)
-            };
-            var meter2 = new TextBlock
+                var sign = new Path
+                {
+                    Fill = Brushes.Black,
+                    RenderTransform = new ScaleTransform(2.2, 2.2),
+                    Data = timeSignature.IsCommon ? Geometry.Parse(Engraving.CommonTime) : Geometry.Parse(Engraving.CutTime)
+                };
+                Canvas.SetTop(sign, 50);
+                Canvas.SetLeft(sign, uiMeasure.Indent);
+                uiMeasure.Children.Add(sign);
+            }
+            else
             {
-                FontSize = 82,
-                TextAlignment = TextAlignment.Center,
-                FontWeight = FontWeights.Bold,
-                Text = timeSignature.BeatUnit.ToString(CultureInfo.InvariantCulture)
-            };
-            Canvas.SetTop(meter1, 18);
-            Canvas.SetLeft(meter1, uiMeasure.Indent);
-            Canvas.SetTop(meter2, 80);
-            Canvas.SetLeft(meter2, uiMeasure.Indent);
-
-            uiMeasure.Children.Add(meter1);
-            uiMeasure.Children.Add(meter2);
-
-            return 60;
+                var meter1 = new TextBlock
+                {
+                    FontSize = 82,
+                    TextAlignment = TextAlignment.Center,
+                    FontWeight = FontWeights.Bold,
+                    Text = timeSignature.Beats.ToString(CultureInfo.InvariantCulture)
+                };
+                var meter2 = new TextBlock
+                {
+                    FontSize = 82,
+                    TextAlignment = TextAlignment.Center,
+                    FontWeight = FontWeights.Bold,
+                    Text = timeSignature.BeatUnit.ToString(CultureInfo.InvariantCulture)
+                };
+                Canvas.SetTop(meter1, 18);
+                Canvas.SetLeft(meter1, uiMeasure.Indent);
+                Canvas.SetTop(meter2, 80);
+                Canvas.SetLeft(meter2, uiMeasure.Indent);
+                uiMeasure.Children.Add(meter1);
+                uiMeasure.Children.Add(meter2);
+            }
+            return 80;
         }
 
         /// <summary>

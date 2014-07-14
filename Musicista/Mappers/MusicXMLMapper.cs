@@ -118,7 +118,18 @@ namespace Musicista.Mappers
 
                 // TimeSignature
                 if (measure.Attributes != null && measure.Attributes.time != null && measure.Attributes.time.First() != null)
-                    lastTime = new TimeSignature(measure.Attributes.time.First().Beats, measure.Attributes.time.First().BeatType);
+                    if (measure.Attributes.time[0].symbolSpecified)
+                        switch (measure.Attributes.time[0].symbol)
+                        {
+                            case timesymbol.common:
+                                lastTime = new TimeSignature(isCommon: true);
+                                break;
+                            case timesymbol.cut:
+                                lastTime = new TimeSignature(isCutCommon: true);
+                                break;
+                        }
+                    else
+                        lastTime = new TimeSignature(measure.Attributes.time[0].Beats, measure.Attributes.time[0].BeatType);
                 measureGroup.TimeSignature = lastTime;
 
 

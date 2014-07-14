@@ -39,25 +39,10 @@ namespace Musicista
             ButtonPathInformation.Fill = Brushes.DodgerBlue;
             ButtonPathSelect.Fill = Brushes.DodgerBlue;
 
-            /*
-            using (var fileStream = new FileStream("exa.musicista", FileMode.Open))
-            {
-                var musicistaSerializer = new XmlSerializer(typeof(Piece));
-                DrawPiece((Piece)musicistaSerializer.Deserialize(fileStream));
-                _fileName = "exa.musicista";
-            }
-            /*
-            var serializer = new XmlSerializer(typeof(ScorePartwise));
-            using (var fileStream = new FileStream("example.xml", FileMode.Open))
-            {
-                var result = (ScorePartwise)serializer.Deserialize(fileStream);
-                DrawPiece(MusicXMLMapper.MapMusicXMLToMusicista(result));
-            }
-            /*
-            const string filePath = @"C:\Users\Jannik\test.mid";
-            var file = File.OpenRead(filePath);
-            DrawPiece(MidiMapper.MapMidiToPiece(FileParser.Parse(file)));
-             */
+            if (Application.Current.Properties["LoadFileOnStartup"] != null
+                && (File.Exists(Application.Current.Properties["LoadFileOnStartup"].ToString())))
+                OpenFile(Application.Current.Properties["LoadFileOnStartup"].ToString());
+
             SidebarInformation.ShowPiece();
         }
 
@@ -163,17 +148,24 @@ namespace Musicista
 
         private void Open(object sender, RoutedEventArgs e)
         {
-            var openFileDialog = new OpenFileDialog { Filter = "Supported Files|*.xml;*.musicista|MusicXML (*.xml)|*.xml|Musicista (*.musicista)|*.musicista|All files (*.*)|*.*" };
+            var openFileDialog = new OpenFileDialog
+            {
+                Filter = "Supported Files|*.xml;*.musicista|MusicXML (*.xml)|*.xml|Musicista (*.musicista)|*.musicista|All files (*.*)|*.*"
+            };
             if (openFileDialog.ShowDialog() != true)
                 return;
+            OpenFile(openFileDialog.FileName);
+        }
 
+        public void OpenFile(String filename)
+        {
             try
             {
-                switch (Path.GetExtension(openFileDialog.FileName))
+                switch (Path.GetExtension(filename))
                 {
                     case ".xml":
                         // based upon http://stackoverflow.com/a/23663586/1507481
-                        var xdoc = XDocument.Load(openFileDialog.FileName);
+                        var xdoc = XDocument.Load(filename);
                         if (xdoc.Root != null)
                             switch (xdoc.Root.Name.LocalName)
                             {
@@ -192,12 +184,12 @@ namespace Musicista
                                     }
                                     break;
                                 default:
-                                    MessageBox.Show(@"Cannot open file " + Path.GetExtension(openFileDialog.FileName) + " because it does not seem to be valid MusicXML.", "Error");
+                                    MessageBox.Show(@"Cannot open file " + Path.GetExtension(filename) + " because it does not seem to be valid MusicXML.", "Error");
                                     break;
                             }
                         break;
                     case ".musicista":
-                        using (var fileStream = new FileStream(openFileDialog.FileName, FileMode.Open))
+                        using (var fileStream = new FileStream(filename, FileMode.Open))
                         {
                             var musicistaSerializer = new XmlSerializer(typeof(Piece));
                             var piece = (Piece)musicistaSerializer.Deserialize(fileStream);
@@ -226,11 +218,11 @@ namespace Musicista
                                     }
                                 }
                             DrawPiece(piece);
-                            _fileName = openFileDialog.FileName;
+                            _fileName = filename;
                         }
                         break;
                     default:
-                        MessageBox.Show(@"Cannot open filetype " + Path.GetExtension(openFileDialog.FileName), "Error");
+                        MessageBox.Show(@"Cannot open filetype " + Path.GetExtension(filename), "Error");
                         return;
                 }
                 SidebarInformation.ShowPiece();

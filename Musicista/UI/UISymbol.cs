@@ -1,5 +1,7 @@
 ﻿using Model;
+using System;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -104,6 +106,56 @@ namespace Musicista.UI
             foreach (var uiMeasure in UIHelper.SelectedUIMeasures)
                 uiMeasure.Background = Brushes.Transparent;
             UIHelper.SelectedUIMeasures.Clear();
+        }
+
+        public Point GetFreePoint(Direction direction)
+        {
+            var left = GetLeft(this) + 10;
+
+            if (GetType() == typeof(UIRest))
+            {
+                if (direction == Direction.below)
+                    return new Point(left, 200);
+                return new Point(left, 0);
+
+            }
+
+            var thisNote = (UINote)this;
+            if (direction == Direction.above)
+                if (thisNote.StemDirection == StemDirection.up)
+                    return new Point(left, Math.Min(0, thisNote.Stem.Y2 - 60));
+                else
+                    return new Point(left, Math.Min(0, GetTop(thisNote.NoteHead) - 60));
+
+            if (direction == Direction.below)
+                if (thisNote.StemDirection == StemDirection.down)
+                    return new Point(left, Math.Max(220, thisNote.Stem.Y2 + 40));
+                else
+                    return new Point(left, Math.Max(100, GetTop(thisNote.NoteHead) + 60));
+
+            return new Point(left, 0);
+        }
+
+        public Direction BestFreeSpot()
+        {
+            if (GetType() == typeof(UIRest))
+                return Direction.above;
+
+            var thisNote = (UINote)this;
+
+            if (thisNote.StemDirection == StemDirection.up)
+                if (thisNote.Stem.Y2 > 140)
+                    return Direction.below;
+                else
+                    return Direction.above;
+
+            if (thisNote.StemDirection == StemDirection.down)
+                if (thisNote.Stem.Y2 < 100)
+                    return Direction.above;
+                else
+                    return Direction.below;
+
+            return Direction.above;
         }
     }
 }

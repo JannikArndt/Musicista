@@ -39,6 +39,7 @@ namespace Musicista.UI
         public readonly int ScaleTransform = 5;
 
         public readonly List<UINote> NotYetConnectedNotes = new List<UINote>();
+        public readonly List<UISymbol> Tuplets = new List<UISymbol>();
         public bool StemDirectionUp = true;
         public bool StemDirectionIsSetForGroup = false;
         public bool ConnectNotesAtEndOfRun = false;
@@ -418,6 +419,46 @@ namespace Musicista.UI
             var decreasing = list.Zip(list.Skip(1), (a, b) => a.CompareTo(b) >= 0).All(b => b);
 
             return increasing || decreasing;
+        }
+
+        internal void ConnectTuplets()
+        {
+            var direction = Tuplets[0].BestFreeSpot();
+
+            var start = Tuplets.First().GetFreePoint(direction);
+            var end = Tuplets.Last().GetFreePoint(direction);
+
+            var nibble = direction == Direction.above ? 20 : -20;
+
+            var shapeString = "F0 M " + start.X + "," + (start.Y + nibble)
+                   + "L " + start.X + "," + start.Y
+                   + " L " + (end.X + 40) + "," + end.Y
+                   + " L " + (end.X + 40) + "," + (end.Y + nibble);
+
+            var line = new Path
+            {
+                Fill = Brushes.Transparent,
+                Stroke = Brushes.Black,
+                Data = Geometry.Parse(shapeString),
+                StrokeThickness = 5
+            };
+
+            var number = new TextBlock
+            {
+                FontSize = 55,
+                Width = 65,
+                FontStyle = FontStyles.Italic,
+                Background = Brushes.White,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                TextAlignment = TextAlignment.Center,
+                Text = " 3 "
+            };
+            SetTop(number, (start.Y + end.Y - 80) / 2);
+            SetLeft(number, (start.X + end.X - 20) / 2);
+
+            Tuplets.Clear();
+            Children.Add(line);
+            Children.Add(number);
         }
     }
 }

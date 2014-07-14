@@ -95,6 +95,8 @@
     <Compile Include="MenuBar.cs" />
     <Compile Include="Sidebar\EditableTextBox.cs" />
     <Compile Include="Exceptions\GUIException.cs" />
+    <Compile Include="UI\Direction.cs" />
+    <Compile Include="UI\StemDirection.cs" />
     <Compile Include="UI\TextElements\CanvasText.cs" />
     <Compile Include="UI\TextElements\UIComposer.cs" />
     <Compile Include="View\GridTable.cs" />

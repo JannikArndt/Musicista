@@ -32,6 +32,7 @@ namespace Musicista.UI
             if ((ParentMeasure.StemDirectionIsSetForGroup && ParentMeasure.StemDirectionUp) || (!ParentMeasure.StemDirectionIsSetForGroup && note.StemShouldGoUp()))
             {
                 // stem goes up
+                StemDirection = StemDirection.up;
                 Stem.X1 = 48;
                 Stem.X2 = Stem.X1;
                 Stem.Y1 = GetTop(NoteHead) + 12;
@@ -43,6 +44,7 @@ namespace Musicista.UI
             else
             {
                 // stem goes down
+                StemDirection = StemDirection.down;
                 Stem.X1 = 14;
                 Stem.X2 = Stem.X1;
                 Stem.Y1 = GetTop(NoteHead) + 20;
@@ -55,6 +57,8 @@ namespace Musicista.UI
             Children.Add(NoteHead);
             if (note.Duration != Duration.whole && note.Duration != Duration.doublewhole && note.Duration != Duration.wholeDotted && note.Duration != Duration.doublewholeDotted)
                 Children.Add(Stem);
+            else
+                StemDirection = StemDirection.none;
             Children.Add(Flag);
             ParentMeasure.Children.Add(this);
 
@@ -70,11 +74,18 @@ namespace Musicista.UI
                 ParentMeasure.BalanceStems();
                 ParentMeasure.ConnectNotes();
             }
+
+            // Handle triplets ( /tuplets)
+            if (note.IsTriplet)
+                ParentMeasure.Tuplets.Add(this);
+            if (ParentMeasure.Tuplets.Count > 2 || (ParentMeasure.Tuplets.Any() && !note.IsTriplet))
+                ParentMeasure.ConnectTuplets();
         }
 
         public Note Note { get; set; }
 
         public double StemLength = 100;
+        public StemDirection StemDirection = StemDirection.unknown;
 
         public Path NoteHead = new Path
         {
@@ -128,7 +139,6 @@ namespace Musicista.UI
                 case Duration.wholeTriplet:
                     NoteHead.Data = Geometry.Parse(Engraving.WholeHead);
                     NoteHead.RenderTransform = new ScaleTransform(0.3, 0.3);
-                    NoteHead.Fill = Brushes.Red;
                     Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 2.66;
                     break;
                 case Duration.half:
@@ -142,7 +152,6 @@ namespace Musicista.UI
                     break;
                 case Duration.halfTriplet:
                     NoteHead.Data = Geometry.Parse(Engraving.HalfHead);
-                    NoteHead.Fill = Brushes.Red;
                     Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 1.33;
                     break;
                 case Duration.quarter:
@@ -159,7 +168,6 @@ namespace Musicista.UI
                 case Duration.quarterTriplet:
                     NoteHead.Data = Geometry.Parse(Engraving.QuarterHead);
                     Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 0.66;
-                    NoteHead.Fill = Brushes.Red;
                     break;
                 case Duration.eigth:
                     NoteHead.Data = Geometry.Parse(Engraving.QuarterHead);
@@ -179,7 +187,6 @@ namespace Musicista.UI
                     Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 0.333;
                     if (HandleConnectedNotes_NeedsFlag(note, measure))
                         Flag.Data = Geometry.Parse(Note.StemShouldGoUp() ? Engraving.EigthFlagUp : Engraving.EigthFlagDown);
-                    NoteHead.Fill = Brushes.Red;
                     break;
                 case Duration.sixteenth:
                     NoteHead.Data = Geometry.Parse(Engraving.QuarterHead);
@@ -192,7 +199,6 @@ namespace Musicista.UI
                     Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 0.166;
                     if (HandleConnectedNotes_NeedsFlag(note, measure))
                         Flag.Data = Geometry.Parse(Note.StemShouldGoUp() ? Engraving.SixteenthFlagUp : Engraving.SixteenthFlagDown);
-                    NoteHead.Fill = Brushes.Red;
                     break;
             }
         }

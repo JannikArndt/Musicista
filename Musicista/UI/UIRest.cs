@@ -36,6 +36,12 @@ namespace Musicista.UI
                 || (ParentMeasure.NotYetConnectedNotes.Any() && rest.Next != null && (rest.Next.Beat == 3 || rest.Next.Beat == 1))
                 || (ParentMeasure.NotYetConnectedNotes.Any(item => item.Note.Duration == Duration.sixteenth) && rest.Next != null && (rest.Next.Beat == 2 || rest.Next.Beat == 4)))
                 ParentMeasure.ConnectNotes();
+
+            // Handle triplets ( /tuplets)
+            if (rest.IsTriplet)
+                ParentMeasure.Tuplets.Add(this);
+            if (ParentMeasure.Tuplets.Count > 2 || (ParentMeasure.Tuplets.Any() && !rest.IsTriplet))
+                ParentMeasure.ConnectTuplets();
         }
 
         public Path Path = new Path

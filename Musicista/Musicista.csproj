@@ -195,11 +195,18 @@
       <Name>MusicXML</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Resource Include="Properties\AppIcon.ico">
+    <FileAssociation Include=".musicista">
+      <Visible>False</Visible>
+      <Description>Musicista</Description>
+      <Progid>musicista</Progid>
+      <DefaultIcon>Properties\AppIcon.ico</DefaultIcon>
+    </FileAssociation>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Properties\AppIcon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">

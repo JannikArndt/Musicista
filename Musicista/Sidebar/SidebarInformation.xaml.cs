@@ -113,10 +113,7 @@ namespace Musicista.Sidebar
                 }
             };
 
-            page.Systems.Add(new UISystem(page) { MeasuresInSystem = passage.ListOfMeasureGroups.Count });
-
-            var staff = new UIStaff(page.Systems.Last());
-            page.Systems.Last().AddStaff(staff);
+            page.Systems.Add(new UISystem(page, 1) { MeasuresInSystem = passage.ListOfMeasureGroups.Count });
 
             foreach (var measureGroup in passage.ListOfMeasureGroups)
                 UIHelper.DrawMeasureGroup(page.Systems.Last(), measureGroup, hasMouseDown: false);

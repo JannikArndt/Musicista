@@ -68,18 +68,10 @@ namespace Musicista.UI
                                                     pageList.Add(currentPage);
                                                 }
 
-                                                // systembreak every 4 measures
+                                                // systembreak and new System with lines (staves) every 4 measures
                                                 if (currentPage.Systems.Count == 0 || currentPage.Systems.Last().MeasureGroups.Count >= currentPage.Systems.Last().MeasuresInSystem)
-                                                {
-                                                    // New System with lines (staves)
-                                                    currentPage.Systems.Add(new UISystem(currentPage));
+                                                    currentPage.Systems.Add(new UISystem(currentPage, maxStaves));
 
-                                                    for (var i = 0; i < maxStaves; i++)
-                                                    {
-                                                        var staff = new UIStaff(currentPage.Systems.Last());
-                                                        currentPage.Systems.Last().AddStaff(staff);
-                                                    }
-                                                }
                                                 // Now draw the measures and notes
                                                 DrawMeasureGroup(currentPage.Systems.Last(), measureGroup);
                                             }

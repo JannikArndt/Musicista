@@ -15,7 +15,7 @@ namespace Musicista.UI
         public int MeasuresInSystem = 4;
 
 
-        public UISystem(UIPage page)
+        public UISystem(UIPage page, int staves)
         {
             // Logical connection
             ParentPage = page;
@@ -39,6 +39,10 @@ namespace Musicista.UI
             };
 
             Children.Add(BarlineFront);
+
+            // Add staves
+            for (var i = 0; i < staves; i++)
+                AddStaff(new UIStaff(this));
 
             page.Children.Add(this);
         }

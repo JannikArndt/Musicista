@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using Ionic.Zip;
+using Microsoft.Win32;
 using Model;
 using Musicista.Mappers;
 using Musicista.Sidebar;
@@ -153,7 +154,7 @@ namespace Musicista
         {
             var openFileDialog = new OpenFileDialog
             {
-                Filter = "Supported Files|*.xml;*.musicista|MusicXML (*.xml)|*.xml|Musicista (*.musicista)|*.musicista|All files (*.*)|*.*"
+                Filter = "Supported Files|*.xml;*.musicista;*.mxl|Musicista (*.musicista)|*.musicista|MusicXML (*.xml)|*.xml|Compressed MusicXML (*.mxl)|*.mxl|All files (*.*)|*.*"
             };
             if (openFileDialog.ShowDialog() != true)
                 return;
@@ -166,6 +167,15 @@ namespace Musicista
             {
                 switch (Path.GetExtension(filename))
                 {
+                    case ".mxl":
+                        // find the correct xml-file, unzip it and try to open that one again
+                        foreach (var zipEntry in ZipFile.Read(filename).Where(zipEntry => Path.GetExtension(zipEntry.FileName) == ".xml" && zipEntry.FileName != "META-INF/container.xml"))
+                        {
+                            zipEntry.Extract(ExtractExistingFileAction.OverwriteSilently);
+                            OpenFile(zipEntry.FileName);
+                            return;
+                        }
+                        break;
                     case ".xml":
                         // based upon http://stackoverflow.com/a/23663586/1507481
                         var xdoc = XDocument.Load(filename);

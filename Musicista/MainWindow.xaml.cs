@@ -29,12 +29,23 @@ namespace Musicista
         public static List<UIPage> PageList;
         public static Piece CurrentPiece;
         private string _fileName = "";
+        public static ApplicationSettings ApplicationSettings = new ApplicationSettings();
 
         public MainWindow()
         {
             InitializeComponent();
             PreviewMouseWheel += Zoom;
             SetUpKeyCommands();
+
+            if (File.Exists(ApplicationSettings.FileName))
+            {
+                var xmlSerializer = new XmlSerializer(typeof(ApplicationSettings));
+                ApplicationSettings = (ApplicationSettings)xmlSerializer.Deserialize(XDocument.Load(ApplicationSettings.FileName).CreateReader());
+            }
+            else
+                ApplicationSettings.Save();
+
+            RecentFilesListBox.ItemsSource = ApplicationSettings.MostRecentlyUsed;
 
             SidebarInformation = new SidebarInformation();
             SidebarView = new SidebarView();
@@ -247,6 +258,8 @@ namespace Musicista
                         MessageBox.Show(@"Cannot open filetype " + Path.GetExtension(filename), "Error");
                         return;
                 }
+
+                AddToMostRecentlyUsedFiles(CurrentPiece.Title, filename);
                 SidebarInformation.ShowPiece();
                 Sidebar.Content = SidebarInformation;
                 SetSidebarButtonPathFill(SidebarKind.Information);
@@ -270,6 +283,7 @@ namespace Musicista
                     serializer.Serialize(writer, CurrentPiece);
                 }
             }
+            AddToMostRecentlyUsedFiles(CurrentPiece.Title, _fileName);
         }
 
         private void SaveAs(object sender, RoutedEventArgs e)
@@ -284,6 +298,7 @@ namespace Musicista
             {
                 serializer.Serialize(writer, CurrentPiece);
             }
+            AddToMostRecentlyUsedFiles(CurrentPiece.Title, _fileName);
         }
 
         private void DrawPiece(Piece piece)
@@ -296,6 +311,25 @@ namespace Musicista
                 pages.Children.Add(page);
             pages.Children.Add(new Canvas { Height = 200 });
             CanvasScrollViewer.Content = pages;
+        }
+
+        private void AddToMostRecentlyUsedFiles(String name, String filename)
+        {
+            var document = ApplicationSettings.MostRecentlyUsed.FirstOrDefault(item => item.Name == name && item.Filepath == filename);
+            if (document != null)
+            {
+                ApplicationSettings.MostRecentlyUsed.Remove(document);
+                ApplicationSettings.MostRecentlyUsed.Insert(0, document);
+            }
+            else
+                ApplicationSettings.MostRecentlyUsed.Insert(0, new DocumentReference(name, filename));
+
+            ApplicationSettings.Save();
+        }
+
+        private void OpenRecent(object sender, SelectionChangedEventArgs selectionChangedEventArgs)
+        {
+            OpenFile(((DocumentReference)RecentFilesListBox.SelectedItem).Filepath);
         }
     }
 }

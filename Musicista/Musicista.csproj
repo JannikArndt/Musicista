@@ -89,6 +89,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ApplicationSettings.cs" />
     <Compile Include="DragAndDrop.cs" />
     <Compile Include="Engraving.cs" />
     <Compile Include="Mappers\Mapper.cs" />

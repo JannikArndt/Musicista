@@ -13,7 +13,7 @@ namespace Musicista.Mappers
 {
     public static class MusicXMLMapper
     {
-        public static Piece MapMusicXMLToMusicista(MusicXMLScore mxml)
+        public static Piece MapMusicXMLToMusicista(ScorePartwise mxml)
         {
             var piece = Mapper.CreateEmptyPiece();
 
@@ -64,10 +64,7 @@ namespace Musicista.Mappers
                 piece.ListOfAllMovements.First().Name = mxml.MovementTitle;
 
             // Map the music
-            if (mxml.GetType() == typeof(ScorePartwise))
-                MapPartwiseMeasuresToPiece((ScorePartwise)mxml, piece);
-            else if (mxml.GetType() == typeof(ScoreTimewise))
-                MapTimewiseMeasuresToPiece((ScoreTimewise)mxml, piece);
+            MapPartwiseMeasuresToPiece(mxml, piece);
 
             return piece;
         }
@@ -233,65 +230,6 @@ namespace Musicista.Mappers
             if (clef.sign == clefsign.F && clef.line == "4")
                 return Clef.Bass;
             return null;
-        }
-
-        /// <summary>
-        /// Maps a timewise-MusicXML-Object to a Musicista Piece. The structure is 
-        /// <score-timewise><measure number="1"><part id="P1"><note></note>...</part><part id="P2">...</part></measure></score-timewise>
-        /// </summary>
-        /// <param name="mxml">A ScoreTimewise-object</param>
-        /// <param name="piece">The Piece-object the measures will be added to</param>
-        /// <returns>The given Piece with the measures in it.</returns>
-        public static Piece MapTimewiseMeasuresToPiece(ScoreTimewise mxml, Piece piece)
-        {
-            throw new Exception("This method is not currently working correctly.");
-            /*
-                        var lastClef = new List<Clef>();
-                        for (var i = 0; i < mxml.Measure[0].part.Length; i++)
-                            lastClef.Add(Clef.Treble);
-
-                        foreach (var measure in mxml.Measure)
-                        {
-                            var measureGroup = new MeasureGroup
-                            {
-                                MeasureNumber = int.Parse(Regex.Match(measure.number, @"\d+").Value),
-                                TimeSignature = null,
-                                KeySignature = null,
-                                Measures = new List<Measure>(),
-                                ParentPassage = piece.ListOfSections[0].ListOfMovements[0].ListOfSegments[0].ListOfPassages[0]
-                            };
-
-                            for (var partNumber = 0; partNumber < measure.part.Length; partNumber++)
-                            {
-                                if (measure.part[partNumber].Items.Any(item => item.GetType() == typeof(attributes)))
-                                    lastClef[partNumber] = GetClefFromAttributes(measure.part[partNumber].Items.First(item => item.GetType() == typeof(attributes)) as attributes) ?? lastClef[partNumber];
-
-                                var newMeasure = new Measure
-                                {
-                                    Instrument = piece.ListOfInstruments[partNumber],
-                                    ParentMeasureGroup = measureGroup,
-                                    Clef = lastClef[partNumber]
-                                };
-
-                                // Grab all Notes and Rests from the current <Part>
-                                var notes = measure.part[partNumber].Items.Where(item => item.GetType() == typeof(Note));
-
-                                double beat = 256;
-
-                                foreach (Note mxmlNote in notes)
-                                {
-                                    var newNote = CreateNoteFromMXMLNote(mxmlNote, beat / 256);
-                                    beat += (int)newNote.Duration;
-                                    newMeasure.AddSymbol(newNote);
-                                }
-
-                                measureGroup.Measures.Add(newMeasure);
-                            }
-                            piece.ListOfSections[0].ListOfMovements[0].ListOfSegments[0].ListOfPassages[0].ListOfMeasureGroups.Add(measureGroup);
-                        }
-
-                        return piece;
-            */
         }
 
         public static Symbol CreateNoteFromMXMLNote(Note mxmlNote, double beat = 1.0, int durationDivision = 256)

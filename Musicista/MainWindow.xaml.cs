@@ -12,8 +12,11 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using System.Xml.XPath;
+using System.Xml.Xsl;
 
 namespace Musicista
 {
@@ -178,8 +181,17 @@ namespace Musicista
                                     break;
                                 case "score-timewise":
                                     {
-                                        var xmlSerializer = new XmlSerializer(typeof(ScoreTimewise));
-                                        var result = (ScoreTimewise)xmlSerializer.Deserialize(xdoc.CreateReader());
+                                        // convert to partwise
+                                        var xslCompiledTransform = new XslCompiledTransform(); // XSLT Transformation
+                                        var stream = new MemoryStream(); // Temporary memorystream
+                                        var outputXmlTextWriter = XmlWriter.Create(stream);
+                                        xslCompiledTransform.Load("Properties/timepart.xsl"); // Load the XSLT 
+                                        xslCompiledTransform.Transform(xdoc.CreateNavigator(), null, outputXmlTextWriter); // Transform the timewise-document into a partwise-document
+
+                                        stream.Position = 0; // reset stream to beginning
+
+                                        var xmlSerializer = new XmlSerializer(typeof(ScorePartwise));
+                                        var result = (ScorePartwise)xmlSerializer.Deserialize(XmlReader.Create(stream)); // deserialize the transformed stream
                                         DrawPiece(MusicXMLMapper.MapMusicXMLToMusicista(result));
                                     }
                                     break;

@@ -4,6 +4,7 @@ using Model;
 using Musicista.Mappers;
 using Musicista.Sidebar;
 using Musicista.UI;
+using Musicista.View;
 using MusicXML;
 using System;
 using System.Collections.Generic;
@@ -50,8 +51,12 @@ namespace Musicista
             if (Application.Current.Properties["LoadFileOnStartup"] != null
                 && (File.Exists(Application.Current.Properties["LoadFileOnStartup"].ToString())))
                 OpenFile(Application.Current.Properties["LoadFileOnStartup"].ToString());
-
-            ShowMostRecentlyUsed();
+            else // Show start screen
+            {
+                var startScreen = new StartScreen();
+                ShowMostRecentlyUsed(startScreen.RecentFilesStack);
+                CanvasScrollViewer.Content = startScreen;
+            }
             SidebarInformation.ShowPiece();
         }
 
@@ -66,7 +71,7 @@ namespace Musicista
                 ApplicationSettings.Save();
         }
 
-        private void ShowMostRecentlyUsed()
+        private void ShowMostRecentlyUsed(StackPanel stack)
         {
             foreach (var documentReference in ApplicationSettings.MostRecentlyUsed.Take(4))
             {
@@ -86,7 +91,7 @@ namespace Musicista
                 mruTextBlock.MouseDown += (sender, args) => OpenFile(documentReference.Filepath);
                 mruTextBlock.Cursor = Cursors.Hand;
 
-                RecentFilesStack.Children.Add(mruTextBlock);
+                stack.Children.Add(mruTextBlock);
             }
         }
 
@@ -164,7 +169,9 @@ namespace Musicista
         {
             CurrentPiece = null;
             PageList = null;
-            CanvasScrollViewer.Content = null;
+            var startScreen = new StartScreen();
+            ShowMostRecentlyUsed(startScreen.RecentFilesStack);
+            CanvasScrollViewer.Content = startScreen;
             _fileName = "";
         }
 
@@ -288,7 +295,7 @@ namespace Musicista
                         return;
                 }
 
-                AddToMostRecentlyUsedFiles(CurrentPiece.Title, filename);
+                ApplicationSettings.AddToMostRecentlyUsedFiles(CurrentPiece.Title, filename);
                 SidebarInformation.ShowPiece();
                 Sidebar.Content = SidebarInformation;
                 SetSidebarButtonPathFill(SidebarKind.Information);
@@ -312,7 +319,7 @@ namespace Musicista
                     serializer.Serialize(writer, CurrentPiece);
                 }
             }
-            AddToMostRecentlyUsedFiles(CurrentPiece.Title, _fileName);
+            ApplicationSettings.AddToMostRecentlyUsedFiles(CurrentPiece.Title, _fileName);
         }
 
         private void SaveAs(object sender, RoutedEventArgs e)
@@ -327,7 +334,7 @@ namespace Musicista
             {
                 serializer.Serialize(writer, CurrentPiece);
             }
-            AddToMostRecentlyUsedFiles(CurrentPiece.Title, _fileName);
+            ApplicationSettings.AddToMostRecentlyUsedFiles(CurrentPiece.Title, _fileName);
         }
 
         private void DrawPiece(Piece piece)
@@ -340,20 +347,6 @@ namespace Musicista
                 pages.Children.Add(page);
             pages.Children.Add(new Canvas { Height = 200 });
             CanvasScrollViewer.Content = pages;
-        }
-
-        private void AddToMostRecentlyUsedFiles(String name, String filename)
-        {
-            var document = ApplicationSettings.MostRecentlyUsed.FirstOrDefault(item => item.Name == name && item.Filepath == filename);
-            if (document != null)
-            {
-                ApplicationSettings.MostRecentlyUsed.Remove(document);
-                ApplicationSettings.MostRecentlyUsed.Insert(0, document);
-            }
-            else
-                ApplicationSettings.MostRecentlyUsed.Insert(0, new DocumentReference(name, filename));
-
-            ApplicationSettings.Save();
         }
     }
 }

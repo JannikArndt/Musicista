@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml.Serialization;
 
 namespace Musicista
 {
     public class ApplicationSettings
     {
-        public List<DocumentReference> MostRecentlyUsed = new List<DocumentReference>();
-        public String FileName = "ApplicationSettings.appsettings";
+        public static List<DocumentReference> MostRecentlyUsed = new List<DocumentReference>();
+        public static String FileName = "ApplicationSettings.appsettings";
         public ApplicationSettings()
         {
             MostRecentlyUsed = new List<DocumentReference>();
@@ -22,27 +23,19 @@ namespace Musicista
                 serializer.Serialize(writer, this);
             }
         }
-    }
 
-    [Serializable]
-    public class DocumentReference
-    {
-        public String Name { get; set; }
-        public String Filepath { get; set; }
-
-        public DocumentReference(string name, string filepath)
+        public void AddToMostRecentlyUsedFiles(String name, String filename)
         {
-            Name = name;
-            Filepath = filepath;
-        }
+            var document = MostRecentlyUsed.FirstOrDefault(item => item.Name == name && item.Filepath == filename);
+            if (document != null)
+            {
+                MostRecentlyUsed.Remove(document);
+                MostRecentlyUsed.Insert(0, document);
+            }
+            else
+                MostRecentlyUsed.Insert(0, new DocumentReference(name, filename));
 
-        public DocumentReference() { }
-
-        public override string ToString()
-        {
-            if (String.IsNullOrEmpty(Name))
-                return Filepath;
-            return Name + " (" + Filepath + ")";
+            Save();
         }
     }
 }

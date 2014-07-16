@@ -72,6 +72,9 @@
     <Reference Include="Ionic.Zip">
       <HintPath>Properties\Ionic.Zip.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\packages\RestSharp.104.4.0\lib\net4\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -184,6 +187,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -201,6 +205,10 @@
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{482ea0c1-bb86-4d52-af7f-0eb53928f341}</Project>
       <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MuseScoreAPI\MuseScoreAPI.csproj">
+      <Project>{05903599-3447-40c3-88f0-5f8194d49e8b}</Project>
+      <Name>MuseScoreAPI</Name>
     </ProjectReference>
     <ProjectReference Include="..\MusicXML\MusicXML.csproj">
       <Project>{491c9dad-a8a3-409e-b986-897eb7c793c9}</Project>

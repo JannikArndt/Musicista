@@ -1,6 +1,7 @@
 ﻿using Ionic.Zip;
 using Microsoft.Win32;
 using Model;
+using MuseScoreAPI.RESTObjects;
 using Musicista.Mappers;
 using Musicista.Sidebar;
 using Musicista.UI;
@@ -30,12 +31,32 @@ namespace Musicista
     {
         public static List<UIPage> PageList;
         public static Piece CurrentPiece;
-        private string _fileName = "";
+        private static string _fileName = "";
         public static ApplicationSettings ApplicationSettings = new ApplicationSettings();
+
+        public static ScrollViewer UICanvasScrollViewer;
+        public static ContentControl UISidebar;
+        public static System.Windows.Shapes.Path UIButtonPathInformation;
+        public static System.Windows.Shapes.Path UIButtonPathView;
+        public static System.Windows.Shapes.Path UIButtonPathAlgorithms;
+
+
+
 
         public MainWindow()
         {
             InitializeComponent();
+
+            // Make ui-elements accessible by static methods
+            UICanvasScrollViewer = CanvasScrollViewer;
+            UISidebar = Sidebar;
+            UIButtonPathInformation = ButtonPathInformation;
+            UIButtonPathView = ButtonPathView;
+            UIButtonPathAlgorithms = ButtonPathAlgorithms;
+
+
+
+
             PreviewMouseWheel += Zoom;
             SetUpKeyCommands();
 
@@ -169,6 +190,7 @@ namespace Musicista
         {
             CurrentPiece = null;
             PageList = null;
+            Sidebar.Content = new SidebarInformation();
             var startScreen = new StartScreen();
             ShowMostRecentlyUsed(startScreen.RecentFilesStack);
             CanvasScrollViewer.Content = startScreen;
@@ -208,7 +230,7 @@ namespace Musicista
             OpenFile(openFileDialog.FileName);
         }
 
-        public void OpenFile(String filename)
+        public static void OpenFile(String filename, Score scoreInfo = null)
         {
             try
             {
@@ -218,8 +240,12 @@ namespace Musicista
                         // find the correct xml-file, unzip it and try to open that one again
                         foreach (var zipEntry in ZipFile.Read(filename).Where(zipEntry => Path.GetExtension(zipEntry.FileName) == ".xml" && zipEntry.FileName != "META-INF/container.xml"))
                         {
-                            zipEntry.Extract(ExtractExistingFileAction.OverwriteSilently);
-                            OpenFile(zipEntry.FileName);
+                            if (filename == "tempDownloadMuseScore.mxl" && scoreInfo != null)
+                                zipEntry.FileName = scoreInfo.Title + ".xml";
+                            else
+                                zipEntry.FileName = Path.GetFileNameWithoutExtension(filename) + ".xml";
+                            zipEntry.Extract("Collection", ExtractExistingFileAction.OverwriteSilently);
+                            OpenFile("Collection/" + zipEntry.FileName, scoreInfo);
                             return;
                         }
                         break;
@@ -233,7 +259,7 @@ namespace Musicista
                                     {
                                         var xmlSerializer = new XmlSerializer(typeof(ScorePartwise));
                                         var result = (ScorePartwise)xmlSerializer.Deserialize(xdoc.CreateReader());
-                                        DrawPiece(MusicXMLMapper.MapMusicXMLToMusicista(result));
+                                        DrawPiece(MusicXMLMapper.MapMusicXMLToMusicista(result, filename, scoreInfo));
                                     }
                                     break;
                                 case "score-timewise":
@@ -249,7 +275,7 @@ namespace Musicista
 
                                         var xmlSerializer = new XmlSerializer(typeof(ScorePartwise));
                                         var result = (ScorePartwise)xmlSerializer.Deserialize(XmlReader.Create(stream)); // deserialize the transformed stream
-                                        DrawPiece(MusicXMLMapper.MapMusicXMLToMusicista(result));
+                                        DrawPiece(MusicXMLMapper.MapMusicXMLToMusicista(result, filename, scoreInfo));
                                     }
                                     break;
                                 default:
@@ -297,11 +323,15 @@ namespace Musicista
 
                 ApplicationSettings.AddToMostRecentlyUsedFiles(CurrentPiece.Title, filename);
                 SidebarInformation.ShowPiece();
-                Sidebar.Content = SidebarInformation;
+                UISidebar.Content = SidebarInformation;
                 SetSidebarButtonPathFill(SidebarKind.Information);
                 SidebarView.ShowPageSettings(PageList.First());
             }
             catch (IOException exception)
+            {
+                MessageBox.Show("Error while loading file: " + exception.Message, "Error");
+            }
+            catch (ZipException exception)
             {
                 MessageBox.Show("Error while loading file: " + exception.Message, "Error");
             }
@@ -337,7 +367,7 @@ namespace Musicista
             ApplicationSettings.AddToMostRecentlyUsedFiles(CurrentPiece.Title, _fileName);
         }
 
-        private void DrawPiece(Piece piece)
+        private static void DrawPiece(Piece piece)
         {
             CurrentPiece = piece;
             PageList = UIHelper.DrawPiece(CurrentPiece);
@@ -346,7 +376,7 @@ namespace Musicista
             foreach (var page in PageList)
                 pages.Children.Add(page);
             pages.Children.Add(new Canvas { Height = 200 });
-            CanvasScrollViewer.Content = pages;
+            UICanvasScrollViewer.Content = pages;
         }
     }
 }

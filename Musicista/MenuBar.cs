@@ -52,24 +52,24 @@ namespace Musicista
             SetSidebarButtonPathFill(SidebarKind.Algorithms);
         }
 
-        private void SetSidebarButtonPathFill(SidebarKind selected)
+        private static void SetSidebarButtonPathFill(SidebarKind selected)
         {
             switch (selected)
             {
                 case SidebarKind.Information:
-                    ButtonPathInformation.Fill = Brushes.DodgerBlue;
-                    ButtonPathView.Fill = Brushes.Black;
-                    ButtonPathAlgorithms.Fill = Brushes.Black;
+                    UIButtonPathInformation.Fill = Brushes.DodgerBlue;
+                    UIButtonPathView.Fill = Brushes.Black;
+                    UIButtonPathAlgorithms.Fill = Brushes.Black;
                     break;
                 case SidebarKind.View:
-                    ButtonPathInformation.Fill = Brushes.Black;
-                    ButtonPathView.Fill = Brushes.DodgerBlue;
-                    ButtonPathAlgorithms.Fill = Brushes.Black;
+                    UIButtonPathInformation.Fill = Brushes.Black;
+                    UIButtonPathView.Fill = Brushes.DodgerBlue;
+                    UIButtonPathAlgorithms.Fill = Brushes.Black;
                     break;
                 case SidebarKind.Algorithms:
-                    ButtonPathInformation.Fill = Brushes.Black;
-                    ButtonPathView.Fill = Brushes.Black;
-                    ButtonPathAlgorithms.Fill = Brushes.DodgerBlue;
+                    UIButtonPathInformation.Fill = Brushes.Black;
+                    UIButtonPathView.Fill = Brushes.Black;
+                    UIButtonPathAlgorithms.Fill = Brushes.DodgerBlue;
                     break;
             }
         }

@@ -8,8 +8,9 @@ namespace Musicista
 {
     public class ApplicationSettings
     {
-        public static List<DocumentReference> MostRecentlyUsed = new List<DocumentReference>();
-        public static String FileName = "ApplicationSettings.appsettings";
+        public String FileName = "ApplicationSettings.appsettings";
+        public List<DocumentReference> MostRecentlyUsed = new List<DocumentReference>();
+
         public ApplicationSettings()
         {
             MostRecentlyUsed = new List<DocumentReference>();

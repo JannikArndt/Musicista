@@ -1,5 +1,6 @@
 ﻿using Model;
 using Model.Meta;
+using MuseScoreAPI.RESTObjects;
 using MusicXML;
 using System;
 using System.Collections.Generic;
@@ -13,12 +14,18 @@ namespace Musicista.Mappers
 {
     public static class MusicXMLMapper
     {
-        public static Piece MapMusicXMLToMusicista(ScorePartwise mxml)
+        public static Piece MapMusicXMLToMusicista(ScorePartwise mxml, String filename, Score scoreInfo = null)
         {
             var piece = Mapper.CreateEmptyPiece();
 
             // Map work information
-            piece.Title = mxml.Work.WorkTitle;
+            if (!string.IsNullOrEmpty(mxml.Work.WorkTitle))
+                piece.Title = mxml.Work.WorkTitle;
+            else if (scoreInfo != null)
+                piece.Title = scoreInfo.Title;
+            else
+                piece.Title = filename;
+
             piece.Notes += "Work Number: " + mxml.Work.WorkNumber;
 
             // Map Identification information
@@ -188,7 +195,7 @@ namespace Musicista.Mappers
 
                             advanceBeat = (int)newNote.Duration; // IF the next note advances the beat counter, it should be by this amount
 
-                            if (mxmlNote.staff == "1")
+                            if (mxmlNote.staff == null || mxmlNote.staff == "1")
                                 newMeasure.AddSymbol(newNote);
                             else if (listOfAdditionalStaves.ContainsKey(partNumber)) //crazy multiple staves-madness, part 3
                                 listOfAdditionalStaves[partNumber][measureNumber].AddSymbol(newNote);

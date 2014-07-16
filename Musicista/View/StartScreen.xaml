@@ -15,7 +15,7 @@
             <RowDefinition Height="40" />
             <RowDefinition Height="140" />
             <RowDefinition Height="30" />
-            <RowDefinition Height="140" />
+            <RowDefinition Height="155" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -42,11 +42,10 @@
             </TextBlock.InputBindings>
                     - Open any Musicista- or MusicXML-file</TextBlock>
         <TextBlock Grid.Row="6" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="20" TextAlignment="Left" Width="180" >- Open a recent file:</TextBlock>
-        <StackPanel Grid.Row="6" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Stretch" Name="RecentFilesStack" Height="100" Margin="20,30,0,0" Orientation="Vertical">
-        </StackPanel>
+        <StackPanel Grid.Row="6" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Stretch" Name="RecentFilesStack" Height="100" Margin="20,30,0,0" Orientation="Vertical"/>
         <TextBlock Grid.Row="7" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="20" TextAlignment="Left" >- Search for music online:</TextBlock>
-        <TextBox   Grid.Row="7" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right" Name="OnlineSearchBox" Width="250" Height="30">Search...</TextBox>
-        <ListBox   Grid.Row="8" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right" Name="OnlineSearchListBox" Height="120" Width="250" BorderThickness="0"/>
+        <TextBox   Grid.Row="7" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right" Name="OnlineSearchBox" Width="250" Height="30" TextChanged="OnlineSearchBox_OnTextChanged"></TextBox>
+        <StackPanel Grid.Row="8" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Stretch" Name="OnlineSearchStack" Height="150" Margin="20,5,0,0" Orientation="Vertical"/>
 
     </Grid>
 </UserControl>

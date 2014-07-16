@@ -6,8 +6,21 @@ Musicista is a tool that combines music with computer science and offers the abi
 
 ##Release Notes##
 
-###v0.5 (current)###
-- Added symbols for common- and cut-time (TODO)
+###Planned features###
+- full support of expression-symbols in Model
+- support for notes that exceed a barline
+- support for chords
+- support for multiple voices
+
+###v0.6 (in development)###
+
+###v0.5 (16.7.2014)###
+- Added support for common- and cut-time
+- full support for triplets
+- file association
+- support for timewise-MusicMXL and *.mxl-files
+- beautiful new start-screen
+- connection to MuseScore.com to search and directly open scores
 
 ###v0.4 (12.7.2014)###
 - Entirely new engraving, now with seperated head, stem and flag

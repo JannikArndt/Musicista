@@ -1,4 +1,5 @@
 ﻿using Musicista.Sidebar;
+using Musicista.View;
 using System.Windows;
 using System.Windows.Media;
 
@@ -94,6 +95,12 @@ namespace Musicista
                     ButtonPathSelect.Fill = Brushes.DodgerBlue;
                     break;
             }
+        }
+
+        private void ShowAboutWindow(object sender, RoutedEventArgs e)
+        {
+            var aboutWindow = new AboutWindow();
+            aboutWindow.Show();
         }
     }
 }

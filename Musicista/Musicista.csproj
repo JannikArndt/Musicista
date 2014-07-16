@@ -107,6 +107,9 @@
     <Compile Include="UI\StemDirection.cs" />
     <Compile Include="UI\TextElements\CanvasText.cs" />
     <Compile Include="UI\TextElements\UIComposer.cs" />
+    <Compile Include="View\AboutWindow.xaml.cs">
+      <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\GridTable.cs" />
     <Compile Include="Sidebar\SidebarKind.cs" />
     <Compile Include="Sidebar\SidebarAlgorithms.xaml.cs">
@@ -163,6 +166,10 @@
     <Page Include="Sidebar\Icons\PageDimensions.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\AboutWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\StartScreen.xaml">
       <SubType>Designer</SubType>

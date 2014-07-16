@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Xml;
@@ -37,15 +38,7 @@ namespace Musicista
             PreviewMouseWheel += Zoom;
             SetUpKeyCommands();
 
-            if (File.Exists(ApplicationSettings.FileName))
-            {
-                var xmlSerializer = new XmlSerializer(typeof(ApplicationSettings));
-                ApplicationSettings = (ApplicationSettings)xmlSerializer.Deserialize(XDocument.Load(ApplicationSettings.FileName).CreateReader());
-            }
-            else
-                ApplicationSettings.Save();
-
-            RecentFilesListBox.ItemsSource = ApplicationSettings.MostRecentlyUsed;
+            LoadAppilcationSettings();
 
             SidebarInformation = new SidebarInformation();
             SidebarView = new SidebarView();
@@ -58,7 +51,43 @@ namespace Musicista
                 && (File.Exists(Application.Current.Properties["LoadFileOnStartup"].ToString())))
                 OpenFile(Application.Current.Properties["LoadFileOnStartup"].ToString());
 
+            ShowMostRecentlyUsed();
             SidebarInformation.ShowPiece();
+        }
+
+        private static void LoadAppilcationSettings()
+        {
+            if (File.Exists(ApplicationSettings.FileName))
+            {
+                var xmlSerializer = new XmlSerializer(typeof(ApplicationSettings));
+                ApplicationSettings = (ApplicationSettings)xmlSerializer.Deserialize(XDocument.Load(ApplicationSettings.FileName).CreateReader());
+            }
+            else
+                ApplicationSettings.Save();
+        }
+
+        private void ShowMostRecentlyUsed()
+        {
+            foreach (var documentReference in ApplicationSettings.MostRecentlyUsed.Take(4))
+            {
+                var mruTextBlock = new TextBlock
+                {
+                    FontSize = 12,
+                    TextAlignment = TextAlignment.Left,
+                    Margin = new Thickness(0, 8, 0, 0)
+                };
+                if (string.IsNullOrEmpty(documentReference.Name))
+                    mruTextBlock.Inlines.Add(new Run(documentReference.Filepath));
+                else
+                {
+                    mruTextBlock.Inlines.Add(new Run(documentReference.Name));
+                    mruTextBlock.Inlines.Add(new Run(" (" + documentReference.Filepath + ")") { Foreground = Brushes.DarkGray });
+                }
+                mruTextBlock.MouseDown += (sender, args) => OpenFile(documentReference.Filepath);
+                mruTextBlock.Cursor = Cursors.Hand;
+
+                RecentFilesStack.Children.Add(mruTextBlock);
+            }
         }
 
         public void Zoom(object sender, MouseWheelEventArgs e)
@@ -325,11 +354,6 @@ namespace Musicista
                 ApplicationSettings.MostRecentlyUsed.Insert(0, new DocumentReference(name, filename));
 
             ApplicationSettings.Save();
-        }
-
-        private void OpenRecent(object sender, SelectionChangedEventArgs selectionChangedEventArgs)
-        {
-            OpenFile(((DocumentReference)RecentFilesListBox.SelectedItem).Filepath);
         }
     }
 }

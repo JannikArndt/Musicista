@@ -66,28 +66,19 @@
                 <TextBlock Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" FontSize="50">Welcome to Musicista!</TextBlock>
                 <TextBlock Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" FontSize="14.8" TextAlignment="Right" Margin="0,0,18,0">italian "musician", /muziˈtʃista/</TextBlock>
                 <TextBlock Grid.Row="3" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="20" TextAlignment="Left" >You can...</TextBlock>
-                <TextBlock Grid.Row="4" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="20" TextAlignment="Left">
+                <TextBlock Grid.Row="4" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="20" TextAlignment="Left" Cursor="Hand">
                     <TextBlock.InputBindings>
                         <MouseBinding Command="New" MouseAction="LeftClick" />
                     </TextBlock.InputBindings>
                     - Create a new Document</TextBlock>
-                <TextBlock Grid.Row="5" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="20" TextAlignment="Left" >
+                <TextBlock Grid.Row="5" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="20" TextAlignment="Left" Cursor="Hand">
                     <TextBlock.InputBindings>
                         <MouseBinding Command="Open" MouseAction="LeftClick" />
                     </TextBlock.InputBindings>
                     - Open any Musicista- or MusicXML-file</TextBlock>
                 <TextBlock Grid.Row="6" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="20" TextAlignment="Left" Width="180" >- Open a recent file:</TextBlock>
-                <ListBox   Grid.Row="6" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Stretch" Name="RecentFilesListBox" Height="100" SelectionChanged="OpenRecent" BorderThickness="0" Margin="20,30,0,0">
-                    <ListBox.Resources>
-                        <Style TargetType="ListBoxItem">
-                            <Style.Resources>
-                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
-                                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent"/>
-                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black"/>
-                            </Style.Resources>
-                        </Style>
-                    </ListBox.Resources>
-                </ListBox>
+                <StackPanel Grid.Row="6" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Stretch" Name="RecentFilesStack" Height="100" Margin="20,30,0,0" Orientation="Vertical">
+                </StackPanel>
                 <TextBlock Grid.Row="7" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="20" TextAlignment="Left" >- Search for music online:</TextBlock>
                 <TextBox   Grid.Row="7" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right" Name="OnlineSearchBox" Width="250" Height="30">Search...</TextBox>
                 <ListBox   Grid.Row="8" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right" Name="OnlineSearchListBox" Height="120" Width="250" BorderThickness="0"/>

@@ -244,7 +244,11 @@ namespace Musicista
                                 zipEntry.FileName = scoreInfo.Title + ".xml";
                             else
                                 zipEntry.FileName = Path.GetFileNameWithoutExtension(filename) + ".xml";
+                            foreach (var character in Path.GetInvalidFileNameChars())
+                                zipEntry.FileName = zipEntry.FileName.Replace(character, ' ');
+
                             zipEntry.Extract("Collection", ExtractExistingFileAction.OverwriteSilently);
+
                             OpenFile("Collection/" + zipEntry.FileName, scoreInfo);
                             return;
                         }

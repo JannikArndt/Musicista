@@ -21,6 +21,14 @@ namespace Musicista.UI
             ParentMeasure.ConnectNotesAtEndOfRun = false;
 
             SetTop(Path, 55 + -TopRelativeToMeasure);
+
+            // Multiple Voices
+            if (ParentMeasure.InnerMeasure.Voices.Count > 1)
+                if (Rest.Voice == ParentMeasure.InnerMeasure.Voices.Min())
+                    SetTop(Path, 55 + -TopRelativeToMeasure - 100);
+                else if (Rest.Voice == ParentMeasure.InnerMeasure.Voices.Max())
+                    SetTop(Path, 55 + -TopRelativeToMeasure + 100);
+
             SetLeft(Path, 10);
             CanvasLeft = ((ParentMeasure.Width - ParentMeasure.Indent - parentMeasure.MarginRight) / BeatsPerMeasure * (rest.Beat - 1)) + ParentMeasure.Indent;
             if (rest.Duration == Duration.whole)

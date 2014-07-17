@@ -191,7 +191,8 @@ namespace Musicista.Mappers
                                 beat += advanceBeat;
 
                             var newNote = CreateNoteFromMXMLNote(mxmlNote, beat / 960, durationDivision);
-                            newNote.Voice = voice;
+                            if (newNote.Voice == 0)
+                                newNote.Voice = voice + 1;
 
                             advanceBeat = (int)newNote.Duration; // IF the next note advances the beat counter, it should be by this amount
 
@@ -265,7 +266,7 @@ namespace Musicista.Mappers
             {
                 Beat = beat,
                 Velocity = 0,
-                Voice = 1,
+                Voice = 0,
                 Duration = (Duration)duration,
                 Octave = int.Parse(mxmlNote.Pitch.octave)
             };

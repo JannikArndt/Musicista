@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using Clef = Model.Clef;
+using Note = Model.Note;
 
 namespace Musicista.UI
 {
@@ -25,7 +27,9 @@ namespace Musicista.UI
 
             // Note Head
             SetTop(NoteHead, CalculateTop(note, ParentMeasure) + 94);
+
             SetLeft(NoteHead, 10);
+
             SetDuration(note, ParentMeasure);
 
             // Stem & Flag
@@ -54,6 +58,14 @@ namespace Musicista.UI
                 SetLeft(Flag, 14);
             }
 
+            // Handle overlapping notes (in seperate voices)
+            foreach (var overlappingNote in ParentMeasure.InnerMeasure.GetSymbolsAt(Note.Beat).OfType<Note>().Where(item => item.Octave == Note.Octave && item.Step == Note.Step))
+                if (overlappingNote.Duration >= Duration.halfTriplet || Note.Duration >= Duration.halfTriplet)
+                    if (overlappingNote.Voice < Note.Voice)
+                    {
+                        SetLeft(NoteHead, 50);
+                        Stem.X1 = Stem.X2 += 40;
+                    }
             Children.Add(NoteHead);
             if (note.Duration != Duration.whole && note.Duration != Duration.doublewhole && note.Duration != Duration.wholeDotted && note.Duration != Duration.doublewholeDotted)
                 Children.Add(Stem);
@@ -209,6 +221,8 @@ namespace Musicista.UI
 
             // OR IF it is not alone...
             if (note.Next != null
+                // AND is followed by a note (not a rest)
+                && note.Next.GetType() == typeof(Note)
                 // AND the next note is an eigth/dotted or sixteenth/dotted
                 && (note.Next.Duration == Duration.eigth || note.Next.Duration == Duration.sixteenth
                     || note.Next.Duration == Duration.eigthDotted || note.Next.Duration == Duration.sixteenthDotted

@@ -1,5 +1,6 @@
 ﻿using Model.Meta;
 using System;
+using System.Linq;
 
 namespace Model
 {
@@ -53,6 +54,12 @@ namespace Model
 
         public bool StemShouldGoUp()
         {
+            if (ParentMeasure.Voices.Count > 1)
+                if (Voice == ParentMeasure.Voices.Min())
+                    return true;
+                else if (Voice == ParentMeasure.Voices.Max())
+                    return false;
+
             switch (ParentMeasure.Clef)
             {
                 case Clef.Treble:

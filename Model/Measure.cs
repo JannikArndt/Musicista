@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
 
 namespace Model
@@ -29,6 +31,15 @@ namespace Model
         }
 
         [XmlIgnore]
+        public List<int> Voices
+        {
+            get
+            {
+                return Symbols.Select(item => item.Voice).Distinct().ToList();
+            }
+        }
+
+        [XmlIgnore]
         public Measure Previous
         {
             get
@@ -49,5 +60,9 @@ namespace Model
             }
         }
 
+        public List<Symbol> GetSymbolsAt(double beat)
+        {
+            return Symbols.Where(item => Math.Abs(item.Beat - beat) < 0.01).ToList();
+        }
     }
 }

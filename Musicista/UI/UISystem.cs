@@ -94,5 +94,22 @@ namespace Musicista.UI
                 return null;
             }
         }
+
+        public UISystem PreviousUISystem
+        {
+            get
+            {
+                if (ParentPage == null || ParentPage.Systems == null) return null;
+                var index = ParentPage.Systems.IndexOf(this);
+                if (index > 0)
+                    return ParentPage.Systems[index - 1];
+
+                if (MainWindow.PageList == null) return null;
+                var pageIndex = MainWindow.PageList.IndexOf(ParentPage);
+                if (pageIndex > 0 && MainWindow.PageList[pageIndex - 1].Systems.Count > 0)
+                    return MainWindow.PageList[pageIndex - 1].Systems.Last();
+                return null;
+            }
+        }
     }
 }

@@ -40,7 +40,7 @@ namespace Musicista.UI
                 MouseDown += ClickToSelectSymbols;
         }
 
-        private void ClickToSelectSymbols(object sender, MouseButtonEventArgs args)
+        public void ClickToSelectSymbols(object sender, MouseButtonEventArgs args)
         {
             if (UIHelper.SelectedUISymbols.Contains(this) || UIHelper.SelectionModeIsMeasures)
                 return;

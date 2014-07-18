@@ -39,5 +39,11 @@ namespace Model
                 return null;
             }
         }
+
+        [XmlIgnore]
+        public int HoldsDuration
+        {
+            get { return (int)(TimeSignature.Beats * ((double)Duration.whole / TimeSignature.BeatUnit)); }
+        }
     }
 }

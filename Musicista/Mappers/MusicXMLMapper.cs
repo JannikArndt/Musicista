@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Clef = Model.Clef;
 using Note = MusicXML.Note;
+using Pitch = Model.Meta.Pitch;
 
 namespace Musicista.Mappers
 {
@@ -190,7 +191,24 @@ namespace Musicista.Mappers
                             if (!mxmlNote.IsChord) // advance beat-counter only if <chord>-Tag is not present
                                 beat += advanceBeat;
 
-                            var newNote = CreateNoteFromMXMLNote(mxmlNote, beat / 960, durationDivision);
+
+                            // Tied notes
+                            var addDuration = 0;
+                            if (mxmlNote.IsTied && mxmlNote.Tie.Type == startstop.start) // make tied notes (starting the tie) longer
+                            {
+                                var nextMeasure = mxml.Part[partNumber].Measure[measureNumber + 1];
+                                var tiedNote = nextMeasure.Items.OfType<Note>().First(item => Equals(item.Pitch, mxmlNote.Pitch) && item.IsTied && item.Tie.Type == startstop.stop);
+                                addDuration = int.Parse(tiedNote.Duration.ToString(CultureInfo.InvariantCulture));
+                            }
+                            if (mxmlNote.IsTied && mxmlNote.Tie.Type == startstop.stop) // and skip notes ending a tie
+                            {
+                                advanceBeat = int.Parse(mxmlNote.Duration.ToString(CultureInfo.InvariantCulture));
+                                if (durationDivision != 960)
+                                    advanceBeat = advanceBeat / durationDivision * 960;
+                                continue;
+                            }
+
+                            var newNote = CreateNoteFromMXMLNote(mxmlNote, beat / 960, durationDivision, addDuration);
                             if (newNote.Voice == 0)
                                 newNote.Voice = voice + 1;
 
@@ -240,12 +258,12 @@ namespace Musicista.Mappers
             return null;
         }
 
-        public static Symbol CreateNoteFromMXMLNote(Note mxmlNote, double beat = 1.0, int durationDivision = 256)
+        public static Symbol CreateNoteFromMXMLNote(Note mxmlNote, double beat = 1.0, int durationDivision = 256, int addToDuration = 0)
         {
             if (mxmlNote == null) return null;
 
             // Division
-            var duration = int.Parse(mxmlNote.Duration.ToString(CultureInfo.InvariantCulture));
+            var duration = int.Parse(mxmlNote.Duration.ToString(CultureInfo.InvariantCulture)) + addToDuration;
             if (durationDivision != 960)
                 duration = (int)((double)duration / durationDivision * 960);
             // Rests
@@ -268,7 +286,7 @@ namespace Musicista.Mappers
                 Velocity = 0,
                 Voice = 0,
                 Duration = (Duration)duration,
-                Octave = int.Parse(mxmlNote.Pitch.octave)
+                Octave = int.Parse(mxmlNote.Pitch.Octave)
             };
 
             if (!Enum.IsDefined(typeof(Duration), newNote.Duration))
@@ -295,62 +313,62 @@ namespace Musicista.Mappers
 
         public static Pitch GetPitchFromMXMLNote(Note mxmlNote)
         {
-            switch ((int)mxmlNote.Pitch.alter)
+            switch ((int)mxmlNote.Pitch.Alter)
             {
                 case 0:
-                    switch (mxmlNote.Pitch.step)
+                    switch (mxmlNote.Pitch.Step)
                     {
-                        case step.A:
+                        case Step.A:
                             return Pitch.A;
-                        case step.B:
+                        case Step.B:
                             return Pitch.B;
-                        case step.C:
+                        case Step.C:
                             return Pitch.C;
-                        case step.D:
+                        case Step.D:
                             return Pitch.D;
-                        case step.E:
+                        case Step.E:
                             return Pitch.E;
-                        case step.F:
+                        case Step.F:
                             return Pitch.F;
-                        case step.G:
+                        case Step.G:
                             return Pitch.G;
                     }
                     break;
                 case 1:
-                    switch (mxmlNote.Pitch.step)
+                    switch (mxmlNote.Pitch.Step)
                     {
-                        case step.A:
+                        case Step.A:
                             return Pitch.ASharp;
-                        case step.B:
+                        case Step.B:
                             return Pitch.BSharp;
-                        case step.C:
+                        case Step.C:
                             return Pitch.CSharp;
-                        case step.D:
+                        case Step.D:
                             return Pitch.DSharp;
-                        case step.E:
+                        case Step.E:
                             return Pitch.ESharp;
-                        case step.F:
+                        case Step.F:
                             return Pitch.FSharp;
-                        case step.G:
+                        case Step.G:
                             return Pitch.GSharp;
                     }
                     break;
                 case -1:
-                    switch (mxmlNote.Pitch.step)
+                    switch (mxmlNote.Pitch.Step)
                     {
-                        case step.A:
+                        case Step.A:
                             return Pitch.AFlat;
-                        case step.B:
+                        case Step.B:
                             return Pitch.BFlat;
-                        case step.C:
+                        case Step.C:
                             return Pitch.CFlat;
-                        case step.D:
+                        case Step.D:
                             return Pitch.DFlat;
-                        case step.E:
+                        case Step.E:
                             return Pitch.EFlat;
-                        case step.F:
+                        case Step.F:
                             return Pitch.FFlat;
-                        case step.G:
+                        case Step.G:
                             return Pitch.GFlat;
                     }
                     break;

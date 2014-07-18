@@ -1,29 +1,16 @@
+using System;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    public enum step
+    [Serializable]
+    public enum Step
     {
-
-
         A,
-
-
         B,
-
-
         C,
-
-
         D,
-
-
         E,
-
-
         F,
-
-
         G,
     }
 }

@@ -11,7 +11,7 @@ namespace MusicXML
     public class rest
     {
         [XmlElement("display-step")]
-        public step Displaystep { get; set; }
+        public Step Displaystep { get; set; }
 
 
         [XmlElement("display-octave", DataType = "integer")]

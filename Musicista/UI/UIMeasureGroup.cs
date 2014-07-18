@@ -1,6 +1,7 @@
 ﻿using Model;
 using Musicista.UI.Converters;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -62,6 +63,20 @@ namespace Musicista.UI
                 if (ParentSystem.NextUISystem != null && ParentSystem.NextUISystem.MeasureGroups != null &&
                     ParentSystem.NextUISystem.MeasureGroups.Count > 0 && ParentSystem.NextUISystem.MeasureGroups[0] != null)
                     return ParentSystem.NextUISystem.MeasureGroups[0];
+                return null;
+            }
+        }
+
+        public UIMeasureGroup PreviousUIMeasureGroup
+        {
+            get
+            {
+                var index = ParentSystem.MeasureGroups.IndexOf(this);
+                if (index > 0)
+                    return ParentSystem.MeasureGroups[index - 1];
+                if (ParentSystem.PreviousUISystem != null && ParentSystem.PreviousUISystem.MeasureGroups != null &&
+                    ParentSystem.PreviousUISystem.MeasureGroups.Count > 0 && ParentSystem.PreviousUISystem.MeasureGroups.Last() != null)
+                    return ParentSystem.PreviousUISystem.MeasureGroups.Last();
                 return null;
             }
         }

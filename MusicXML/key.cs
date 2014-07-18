@@ -1,12 +1,10 @@
 using System;
-using System.CodeDom.Compiler;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Serialization;
 
 namespace MusicXML
 {
-    [GeneratedCode("xsd", "4.0.30319.33440")]
     [Serializable]
     [DebuggerStepThrough]
     [DesignerCategory("code")]
@@ -22,7 +20,7 @@ namespace MusicXML
         [XmlElement("cancel", typeof(cancel))]
         [XmlElement("key-accidental", typeof(accidentalvalue))]
         [XmlElement("key-alter", typeof(decimal))]
-        [XmlElement("key-step", typeof(step))]
+        [XmlElement("key-step", typeof(Step))]
         [XmlChoiceIdentifier("ItemsElementName")]
         public object[] Items { get; set; }
 

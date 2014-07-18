@@ -22,6 +22,7 @@ namespace Musicista.UI
         public readonly UIStaff ParentStaff;
         public readonly UIMeasureGroup ParentMeasureGroup;
         public List<UISymbol> Symbols = new List<UISymbol>();
+        public List<Symbol> TiedNotes = new List<Symbol>();
         public int MeasureNumber { get { return ParentMeasureGroup.InnerMeasureGroup.MeasureNumber; } }
 
         public List<UINote> Notes
@@ -199,6 +200,18 @@ namespace Musicista.UI
                 var currentIndex = ParentMeasureGroup.Measures.IndexOf(this);
                 if (currentIndex > -1 && ParentMeasureGroup.NextUIMeasureGroup.Measures.Count > currentIndex)
                     return ParentMeasureGroup.NextUIMeasureGroup.Measures[currentIndex];
+                return null;
+            }
+        }
+
+        public UIMeasure PreviousUIMeasure
+        {
+            get
+            {
+                if (ParentMeasureGroup == null || ParentMeasureGroup.PreviousUIMeasureGroup == null) return null;
+                var currentIndex = ParentMeasureGroup.Measures.IndexOf(this);
+                if (currentIndex > -1 && ParentMeasureGroup.PreviousUIMeasureGroup.Measures.Count > currentIndex)
+                    return ParentMeasureGroup.PreviousUIMeasureGroup.Measures[currentIndex];
                 return null;
             }
         }

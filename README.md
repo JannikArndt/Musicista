@@ -8,13 +8,13 @@ Musicista is a tool that combines music with computer science and offers the abi
 
 ###Planned features###
 - full support of expression-symbols in Model
-- support for notes that exceed a barline
 - support for chords
-- support for 32nds
 - support for upbeat measures
 
 ###v0.6 (in development)###
 - support for multiple voices
+- basic support for 32nds
+- support for tied notes
 
 ###v0.5 (16.7.2014)###
 - Added support for common- and cut-time

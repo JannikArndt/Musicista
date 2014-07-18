@@ -1,42 +1,20 @@
+using System;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class tie
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    public class Tie
     {
-
-        private startstop typeField;
-
-        private string timeonlyField;
+        [XmlAttribute("type")]
+        public startstop Type { get; set; }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public startstop type
-        {
-            get
-            {
-                return this.typeField;
-            }
-            set
-            {
-                this.typeField = value;
-            }
-        }
-
-
-        [System.Xml.Serialization.XmlAttributeAttribute("time-only", DataType = "token")]
-        public string timeonly
-        {
-            get
-            {
-                return this.timeonlyField;
-            }
-            set
-            {
-                this.timeonlyField = value;
-            }
-        }
+        [XmlAttribute("time-only", DataType = "token")]
+        public string Timeonly { get; set; }
     }
 }

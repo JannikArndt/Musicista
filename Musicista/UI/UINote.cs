@@ -3,16 +3,18 @@ using Model.Meta;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using Clef = Model.Clef;
+using Duration = Model.Duration;
 using Note = Model.Note;
 
 namespace Musicista.UI
 {
     public class UINote : UISymbol
     {
-        public UINote(Note note, UIMeasure parentMeasure, bool hasMouseDown = true)
+        public UINote(Note note, UIMeasure parentMeasure, bool hasMouseDown = true, bool tiedTo = false)
             : base(hasMouseDown)
         {
             ParentMeasure = parentMeasure;
@@ -65,7 +67,7 @@ namespace Musicista.UI
                         Stem.X1 = Stem.X2 += 40;
                     }
             Children.Add(NoteHead);
-            if (note.Duration != Duration.whole && note.Duration != Duration.doublewhole && note.Duration != Duration.wholeDotted && note.Duration != Duration.doublewholeDotted)
+            if (note.DurationInMeasure < Duration.whole && note.DurationInMeasure != Duration.wholeTriplet)
                 Children.Add(Stem);
             else
                 StemDirection = StemDirection.none;
@@ -89,6 +91,41 @@ namespace Musicista.UI
                 ParentMeasure.Tuplets.Add(this);
             if (ParentMeasure.Tuplets.Count > 2 || (ParentMeasure.Tuplets.Any() && !note.IsTriplet))
                 ParentMeasure.ConnectTuplets();
+
+            // Draw ties
+
+            const int moveTieMidToLeft = 120;
+            const int tieHeight = 40;
+
+            if (tiedTo)
+            {
+                var start = new Point(30, GetTop(NoteHead) + 30);
+                var end = new Point(-GetLeft(this) - moveTieMidToLeft, start.Y + tieHeight);
+
+                Tie.Data = Geometry.Parse("F0 M " + start.X + "," + start.Y
+                    + " C " + start.X + "," + start.Y + " " + start.X + "," + end.Y + " " + end.X + "," + end.Y // right
+                    + " L " + end.X + "," + (end.Y + 10)  // down
+                    + " C " + end.X + "," + (end.Y + 10) + " " + start.X + "," + (end.Y + 10) + " " + "" + start.X + "," + start.Y + "Z"); // back
+                Children.Add(Tie);
+
+                PreviewMouseDown += (sender, args) =>
+                {
+                    PreviousUINote.ClickToSelectSymbols(PreviousUINote, args);
+                    args.Handled = true;
+                };
+            }
+
+            if (note.DurationInMeasure < note.Duration)
+            {
+                var start = new Point(30, GetTop(NoteHead) + 30);
+                var end = new Point(Width + 10 - moveTieMidToLeft, start.Y + tieHeight);
+
+                Tie.Data = Geometry.Parse("F0 M " + start.X + "," + start.Y
+                    + " C " + start.X + "," + start.Y + " " + start.X + "," + end.Y + " " + end.X + "," + end.Y // right
+                    + " L " + end.X + "," + (end.Y + 10)  // down
+                    + " C " + end.X + "," + (end.Y + 10) + " " + start.X + "," + (end.Y + 10) + " " + "" + start.X + "," + start.Y + "Z"); // back
+                Children.Add(Tie);
+            }
         }
 
         public Note Note { get; set; }
@@ -114,6 +151,11 @@ namespace Musicista.UI
             StrokeThickness = 6,
             Stroke = Brushes.Black
         };
+        public Path Tie = new Path
+        {
+            Fill = Brushes.Black,
+            SnapsToDevicePixels = true,
+        };
 
         public UINote NextUINote
         {
@@ -122,6 +164,21 @@ namespace Musicista.UI
                 var index = ParentMeasure.Notes.IndexOf(this);
                 if (ParentMeasure.Notes.Count > index + 1)
                     return ParentMeasure.Notes[index + 1];
+                if (ParentMeasure.NextUIMeasure != null && ParentMeasure.NextUIMeasure.Notes != null && ParentMeasure.NextUIMeasure.Notes.Count > 0)
+                    return ParentMeasure.NextUIMeasure.Notes.FirstOrDefault();
+                return null;
+            }
+        }
+
+        public UINote PreviousUINote
+        {
+            get
+            {
+                var index = ParentMeasure.Notes.IndexOf(this);
+                if (index > 0)
+                    return ParentMeasure.Notes[index - 1];
+                if (ParentMeasure.PreviousUIMeasure != null && ParentMeasure.PreviousUIMeasure.Notes != null && ParentMeasure.PreviousUIMeasure.Notes.Count > 0)
+                    return ParentMeasure.PreviousUIMeasure.Notes.Last();
                 return null;
             }
         }
@@ -133,7 +190,21 @@ namespace Musicista.UI
 
         private void SetDuration(Note note, UIMeasure measure)
         {
-            switch (note.Duration)
+            // if the note is longer than there is space left in the measure, split it, create a new note and add it to the TiedNotes-list
+            if (note.DurationInMeasure < note.Duration)
+            {
+                measure.TiedNotes.Add(new Note
+                {
+                    Beat = 1.0,
+                    Duration = (Duration)(note.Duration - note.DurationInMeasure),
+                    Octave = note.Octave,
+                    Step = note.Step,
+                    Voice = note.Voice,
+                    Velocity = note.Velocity,
+                    ParentMeasure = note.ParentMeasure.Next
+                });
+            }
+            switch (note.DurationInMeasure)
             {
                 case Duration.whole:
                     NoteHead.Data = Geometry.Parse(Engraving.WholeHead);

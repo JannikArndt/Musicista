@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace Model
@@ -38,6 +39,17 @@ namespace Model
             {
                 return (Duration == Duration.wholeTriplet || Duration == Duration.halfTriplet || Duration == Duration.quarterTriplet
                     || Duration == Duration.eigthTriplet || Duration == Duration.sixteenthTriplet || Duration == Duration.thirtysecondTriplet);
+            }
+        }
+
+        [XmlIgnore]
+        public Duration DurationInMeasure
+        {
+            get
+            {
+                var durationAlreadySpent = (Beat - 1) * ((double)Duration.whole / ParentMeasure.ParentMeasureGroup.TimeSignature.BeatUnit);
+                var durationLeftInMeasure = ParentMeasure.ParentMeasureGroup.HoldsDuration - durationAlreadySpent;
+                return (Duration)Math.Min(durationLeftInMeasure, (double)Duration);
             }
         }
         public Symbol() { }

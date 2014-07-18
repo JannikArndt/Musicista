@@ -122,6 +122,11 @@ namespace Musicista.UI
             if (newMeasure.Width - newMeasure.Indent < 1)
                 return;
 
+            // Draw tied notes
+            if (newMeasure.PreviousUIMeasure != null)
+                foreach (var symbol in newMeasure.PreviousUIMeasure.TiedNotes.OfType<Note>())
+                    new UINote(symbol, newMeasure, hasMouseDown, true);
+
             // Draw notes
             foreach (var symbol in measure.Symbols)
                 if (symbol.GetType() == typeof(Note))

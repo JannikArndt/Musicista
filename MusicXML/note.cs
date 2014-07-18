@@ -11,38 +11,64 @@ namespace MusicXML
     [XmlType(TypeName = "Note")]
     public class Note
     {
+        public override string ToString()
+        {
+            var result = IsRest ? "Rest for " + Duration : "Note " + Pitch.Step + Pitch.Alter + Pitch.Octave + " for " + Duration;
+            if (IsTied) result += ", Tied = " + Tie.Type;
+            if (IsChord) result += ", Chord = " + Chord;
+            if (IsCue) result += ", Cue = " + Cue;
+            if (IsGrace) result += ", Grace = true";
+            return result;
+        }
+
 
         [XmlElement("duration")]
         public decimal Duration { get; set; }
 
         [XmlElement("pitch")]
-        public pitch Pitch { get; set; }
+        public Pitch Pitch { get; set; }
 
         // Rests
         [XmlElement("rest", IsNullable = true)]
         public rest Rest { get; set; }
 
         [XmlIgnore]
-        public bool IsRest
-        {
-            get { return Rest != null; }
-        }
+        public bool IsRest { get { return Rest != null; } }
 
         // Chords
         [XmlElement("chord", IsNullable = true)]
         public string Chord { get; set; }
 
         [XmlIgnore]
-        public bool IsChord
-        {
-            get { return Chord != null; }
-        }
+        public bool IsChord { get { return Chord != null; } }
 
-        [XmlElement("cue", typeof(empty)), XmlElement("grace", typeof(grace)), XmlElement("tie", typeof(tie)), XmlElement("unpitched", typeof(unpitched)), XmlChoiceIdentifier("ItemsElementName")]
-        public object[] Items { get; set; }
 
-        [XmlElement("ItemsElementName"), XmlIgnore]
-        public ItemsChoiceType1[] ItemsElementName { get; set; }
+        [XmlElement("cue", IsNullable = true)]
+        public string Cue { get; set; }
+
+        [XmlIgnore]
+        public bool IsCue { get { return Cue != null; } }
+
+
+        [XmlElement("grace", IsNullable = true)]
+        public grace Grace { get; set; }
+
+        [XmlIgnore]
+        public bool IsGrace { get { return Grace != null; } }
+
+
+        [XmlElement("tie", IsNullable = true)]
+        public Tie Tie { get; set; }
+
+        [XmlIgnore]
+        public bool IsTied { get { return Tie != null; } }
+
+
+        [XmlElement("unpitched", IsNullable = true)]
+        public unpitched Unpitched { get; set; }
+
+        [XmlIgnore]
+        public bool IsUnpitched { get { return Unpitched != null; } }
 
 
         public instrument instrument { get; set; }

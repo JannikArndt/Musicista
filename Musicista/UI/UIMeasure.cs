@@ -216,6 +216,7 @@ namespace Musicista.UI
         {
             var onlyEights = NotYetConnectedNotes.All(item => item.Note.Duration == Duration.eigth);
             var onlySixteenths = NotYetConnectedNotes.All(item => item.Note.Duration == Duration.sixteenth);
+            var onlyThirtyseconds = NotYetConnectedNotes.All(item => item.Note.Duration == Duration.thirtysecond);
 
             var shapeString = "";
             var c = CultureInfo.GetCultureInfo("en-US");
@@ -251,8 +252,8 @@ namespace Musicista.UI
                     break;
             }
 
-            // If all nots are sixteenths, draw the second beam
-            if (onlySixteenths)
+            // If all notes are sixteenths, draw the second beam
+            if (onlySixteenths || onlyThirtyseconds)
             {
                 strokeThickness = 10;
                 switch (NotYetConnectedNotes.Count)
@@ -275,6 +276,34 @@ namespace Musicista.UI
                             + (GetLeft(NotYetConnectedNotes[1]) + NotYetConnectedNotes[1].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[1].Stem.Y2 + addToY + offsetSecondBeam).ToString(c) + "  "
                             + (GetLeft(NotYetConnectedNotes[2]) + NotYetConnectedNotes[2].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[2].Stem.Y2 + addToY + offsetSecondBeam).ToString(c) + "  "
                             + (GetLeft(NotYetConnectedNotes[3]) + NotYetConnectedNotes[3].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[3].Stem.Y2 + addToY + offsetSecondBeam).ToString(c) + "";
+                        break;
+                }
+            }
+
+            // If all notes are thirtyseconds, draw the third beam
+            if (onlyThirtyseconds)
+            {
+                strokeThickness = 8;
+                switch (NotYetConnectedNotes.Count)
+                {
+                    case 2:
+                        shapeString += " M "
+                            + (GetLeft(NotYetConnectedNotes[0]) + NotYetConnectedNotes[0].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[0].Stem.Y2 + addToY + 2 * offsetSecondBeam).ToString(c) + " L "
+                            + (GetLeft(NotYetConnectedNotes[1]) + NotYetConnectedNotes[1].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[1].Stem.Y2 + addToY + 2 * offsetSecondBeam).ToString(c) + "";
+                        break;
+                    case 3:
+                        shapeString += " M "
+                            + (GetLeft(NotYetConnectedNotes[0]) + NotYetConnectedNotes[0].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[0].Stem.Y2 + addToY + 2 * offsetSecondBeam).ToString(c) + " C "
+                            + (GetLeft(NotYetConnectedNotes[1]) + NotYetConnectedNotes[1].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[1].Stem.Y2 + addToY + 2 * offsetSecondBeam).ToString(c) + "  "
+                            + (GetLeft(NotYetConnectedNotes[1]) + NotYetConnectedNotes[1].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[1].Stem.Y2 + addToY + 2 * offsetSecondBeam).ToString(c) + "  "
+                            + (GetLeft(NotYetConnectedNotes[2]) + NotYetConnectedNotes[2].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[2].Stem.Y2 + addToY + 2 * offsetSecondBeam).ToString(c) + "";
+                        break;
+                    case 4:
+                        shapeString += " M "
+                            + (GetLeft(NotYetConnectedNotes[0]) + NotYetConnectedNotes[0].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[0].Stem.Y2 + addToY + 2 * offsetSecondBeam).ToString(c) + " C "
+                            + (GetLeft(NotYetConnectedNotes[1]) + NotYetConnectedNotes[1].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[1].Stem.Y2 + addToY + 2 * offsetSecondBeam).ToString(c) + "  "
+                            + (GetLeft(NotYetConnectedNotes[2]) + NotYetConnectedNotes[2].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[2].Stem.Y2 + addToY + 2 * offsetSecondBeam).ToString(c) + "  "
+                            + (GetLeft(NotYetConnectedNotes[3]) + NotYetConnectedNotes[3].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[3].Stem.Y2 + addToY + 2 * offsetSecondBeam).ToString(c) + "";
                         break;
                 }
             }

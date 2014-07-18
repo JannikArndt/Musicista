@@ -27,9 +27,7 @@ namespace Musicista.UI
 
             // Note Head
             SetTop(NoteHead, CalculateTop(note, ParentMeasure) + 94);
-
             SetLeft(NoteHead, 10);
-
             SetDuration(note, ParentMeasure);
 
             // Stem & Flag
@@ -74,14 +72,13 @@ namespace Musicista.UI
             Children.Add(Flag);
             ParentMeasure.Children.Add(this);
 
+            // Connect eigths / sixteenths / thirtyseconds
             if (ParentMeasure.ConnectNotesAtEndOfRun
                 || ParentMeasure.NotYetConnectedNotes.Count == 4
                 || (ParentMeasure.NotYetConnectedNotes.Any() && note.Next != null && (note.Next.Beat == 3 || note.Next.Beat == 1))
-                || (ParentMeasure.NotYetConnectedNotes.Any(item => item.Note.Duration == Duration.sixteenth) && note.Next != null &&
-                 (note.Next.Beat == 2 || note.Next.Beat == 4))
-                || ParentMeasure.NotYetConnectedNotes.Count == 3
-                    && (ParentMeasure.NotYetConnectedNotes.All(item => item.Symbol.Duration == Duration.sixteenthTriplet)
-                    || ParentMeasure.NotYetConnectedNotes.All(item => item.Symbol.Duration == Duration.eigthTriplet)))
+                || (ParentMeasure.NotYetConnectedNotes.Any(item => item.Note.Duration == Duration.sixteenth) && note.Next != null && (note.Next.Beat == 2 || note.Next.Beat == 4))
+                || ParentMeasure.NotYetConnectedNotes.Count == 3 && (ParentMeasure.NotYetConnectedNotes.All(item => item.Symbol.Duration == Duration.sixteenthTriplet)
+                   || ParentMeasure.NotYetConnectedNotes.All(item => item.Symbol.Duration == Duration.eigthTriplet)))
             {
                 ParentMeasure.BalanceStems();
                 ParentMeasure.ConnectNotes();
@@ -212,6 +209,15 @@ namespace Musicista.UI
                     if (HandleConnectedNotes_NeedsFlag(note, measure))
                         Flag.Data = Geometry.Parse(Note.StemShouldGoUp() ? Engraving.SixteenthFlagUp : Engraving.SixteenthFlagDown);
                     break;
+                case Duration.thirtysecond:
+                    NoteHead.Data = Geometry.Parse(Engraving.QuarterHead);
+                    NoteHead.RenderTransform = new ScaleTransform(0.15, 0.15);
+                    Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 0.125;
+                    SetLeft(NoteHead, GetLeft(NoteHead) + 16);
+                    SetTop(NoteHead, GetTop(NoteHead) + 6);
+                    if (HandleConnectedNotes_NeedsFlag(note, measure))
+                        Flag.Data = Geometry.Parse(Note.StemShouldGoUp() ? Engraving.SixteenthFlagUp : Engraving.SixteenthFlagDown);
+                    break;
             }
         }
 
@@ -223,10 +229,11 @@ namespace Musicista.UI
             if (note.Next != null
                 // AND is followed by a note (not a rest)
                 && note.Next.GetType() == typeof(Note)
-                // AND the next note is an eigth/dotted or sixteenth/dotted
+                // AND the next note is an eigth/dotted or sixteenth/dotted / thirtysecond
                 && (note.Next.Duration == Duration.eigth || note.Next.Duration == Duration.sixteenth
                     || note.Next.Duration == Duration.eigthDotted || note.Next.Duration == Duration.sixteenthDotted
-                    || note.Next.Duration == Duration.eigthTriplet || note.Next.Duration == Duration.sixteenthTriplet)
+                    || note.Next.Duration == Duration.eigthTriplet || note.Next.Duration == Duration.sixteenthTriplet
+                    || note.Next.Duration == Duration.thirtysecond)
                 // AND the next beat is not a "heavy" beat
                 && note.Next.Beat != 1 && note.Next.Beat != 3)
             {

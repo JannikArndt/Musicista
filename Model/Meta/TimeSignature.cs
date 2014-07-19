@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Xml.Serialization;
 
 namespace Model.Meta
 {
@@ -61,7 +62,7 @@ namespace Model.Meta
             }
         }
 
-
+        [XmlAttribute, DefaultValue(false)]
         public bool IsCommon // 4/4 = c
         {
             get { return _isCommon; }
@@ -78,7 +79,7 @@ namespace Model.Meta
                 NotifyPropertyChanged();
             }
         }
-
+        [XmlAttribute, DefaultValue(false)]
         public bool IsCutCommon // 2/2 = </:
         {
             get { return _isCutCommon; }

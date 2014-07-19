@@ -79,7 +79,7 @@ namespace Musicista.UI
             return pageList;
         }
 
-        public static void DrawMeasureGroup(UISystem system, MeasureGroup measureGroup = null, bool hasMouseDown = true)
+        public static void DrawMeasureGroup(UISystem system, MeasureGroup measureGroup, bool hasMouseDown = true)
         {
             if (measureGroup == null || measureGroup.Measures == null || measureGroup.Measures.Count <= 0)
                 return;

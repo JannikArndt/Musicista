@@ -112,6 +112,10 @@ namespace Musicista.Mappers
                     ParentPassage = piece.ListOfSections[0].ListOfMovements[0].ListOfSegments[0].ListOfPassages[0]
                 };
 
+                // Pickup / upbeat measure
+                if (measureGroup.MeasureNumber == 0)
+                    measureGroup.IsPickupMeasure = true;
+
                 // Division (what int corresponds to a quarter?)
                 if (measure.Attributes != null && measure.Attributes.Divisions != 0.0M)
                     durationDivision = (int)measure.Attributes.Divisions;
@@ -220,7 +224,8 @@ namespace Musicista.Mappers
                                 listOfAdditionalStaves[partNumber][measureNumber].AddSymbol(newNote);
                         }
                     }
-
+                    if (measureGroup.IsPickupMeasure)
+                        CorrectPickupMeasure(newMeasure);
                     measureGroup.Measures.Add(newMeasure);
                 }
                 piece.ListOfSections[0].ListOfMovements[0].ListOfSegments[0].ListOfPassages[0].ListOfMeasureGroups.Add(measureGroup);
@@ -238,6 +243,14 @@ namespace Musicista.Mappers
                     }
                 }
             return piece;
+        }
+
+        private static void CorrectPickupMeasure(Measure measure)
+        {
+            var difference = measure.ParentMeasureGroup.HoldsDuration - measure.Symbols.Sum(item => (int)item.Duration);
+            if (difference > 0)
+                foreach (var symbol in measure.Symbols)
+                    symbol.Beat += (difference / ((double)Duration.whole/measure.ParentMeasureGroup.TimeSignature.BeatUnit));
         }
 
         private static Clef? GetClefFromAttributes(attributes attributes, bool takeLast = false)

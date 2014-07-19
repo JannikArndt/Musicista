@@ -1,5 +1,6 @@
 ﻿using Model.Meta;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace Model
@@ -17,6 +18,8 @@ namespace Model
         public List<Measure> Measures { get; set; }
         [XmlIgnore]
         public Passage ParentPassage { get; set; }
+        [XmlAttribute, DefaultValue(false)]
+        public bool IsPickupMeasure { get; set; }
 
         [XmlIgnore]
         public MeasureGroup Previous

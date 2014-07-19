@@ -1,25 +1,50 @@
 ﻿using Model.Meta;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 
 namespace Model
 {
-    public class MeasureGroup
+    public class MeasureGroup : INotifyPropertyChanged
     {
         public MeasureGroup()
         {
             Measures = new List<Measure>();
         }
+
+        [XmlIgnore]
+        private bool _isPickupMeasure;
+
+        [XmlIgnore]
+        private TimeSignature _timeSignature;
+
+        [XmlIgnore]
+        private MusicalKey _keySignature;
+
+
         [XmlAttribute("MeasureNumber")]
         public int MeasureNumber { get; set; }
-        public TimeSignature TimeSignature { get; set; }
-        public MusicalKey KeySignature { get; set; }
+        public TimeSignature TimeSignature { get { return _timeSignature; } set { _timeSignature = value; NotifyPropertyChanged(); } }
+        public MusicalKey KeySignature { get { return _keySignature; } set { _keySignature = value; NotifyPropertyChanged(); } }
         public List<Measure> Measures { get; set; }
         [XmlIgnore]
         public Passage ParentPassage { get; set; }
+
+
         [XmlAttribute, DefaultValue(false)]
-        public bool IsPickupMeasure { get; set; }
+        public bool IsPickupMeasure
+        {
+            get { return _isPickupMeasure; }
+            set
+            {
+                if (value) TurnIntoPickupMeasure();
+                _isPickupMeasure = value;
+                NotifyPropertyChanged();
+            }
+        }
 
         [XmlIgnore]
         public MeasureGroup Previous
@@ -47,6 +72,24 @@ namespace Model
         public int HoldsDuration
         {
             get { return (int)(TimeSignature.Beats * ((double)Duration.whole / TimeSignature.BeatUnit)); }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+        public void TurnIntoPickupMeasure()
+        {
+            foreach (var measure in Measures)
+            {
+                var difference = measure.ParentMeasureGroup.HoldsDuration - measure.Symbols.Sum(item => (int)item.Duration);
+                if (difference > 0)
+                    foreach (var symbol in measure.Symbols)
+                        symbol.Beat += (difference / ((double)Duration.whole / measure.ParentMeasureGroup.TimeSignature.BeatUnit));
+            }
         }
     }
 }

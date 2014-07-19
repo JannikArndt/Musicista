@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 
 namespace Model
 {
-    public class Measure
+    public class Measure : INotifyPropertyChanged
     {
-        public Clef Clef { get; set; }
+        [XmlIgnore]
+        private Clef _clef;
+        public Clef Clef { get { return _clef; } set { _clef = value; NotifyPropertyChanged(); } }
         public Measure()
         {
             Instrument = new Instrument();
@@ -63,6 +67,14 @@ namespace Model
         public List<Symbol> GetSymbolsAt(double beat)
         {
             return Symbols.Where(item => Math.Abs(item.Beat - beat) < 0.01).ToList();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

@@ -10,38 +10,42 @@ namespace Model
     public class Measure : INotifyPropertyChanged
     {
         [XmlIgnore]
+        private readonly List<Symbol> _listOfSymbols = new List<Symbol>();
+        [XmlIgnore]
         private Clef _clef;
-        public Clef Clef { get { return _clef; } set { _clef = value; NotifyPropertyChanged(); } }
+        [XmlIgnore]
+        private Instrument _instrument;
+
         public Measure()
         {
             Instrument = new Instrument();
         }
-        [XmlIgnore]
-        public MeasureGroup ParentMeasureGroup { get; set; }
-        public Instrument Instrument { get; set; }
-        [XmlIgnore]
-        private readonly List<Symbol> _listOfSymbols = new List<Symbol>();
 
-        public void AddSymbol(Symbol symbol)
+        public Clef Clef
         {
-            _listOfSymbols.Add(symbol);
-            symbol.ParentMeasure = this;
-        }
-        [XmlElement("Note", Type = typeof(Note))]
-        [XmlElement("Rest", Type = typeof(Rest))]
-        public List<Symbol> Symbols
-        {
-            get { return _listOfSymbols; }
-        }
-
-        [XmlIgnore]
-        public List<int> Voices
-        {
-            get
+            get { return _clef; }
+            set
             {
-                return Symbols.Select(item => item.Voice).Distinct().ToList();
+                _clef = value;
+                NotifyPropertyChanged();
             }
         }
+
+        [XmlIgnore]
+        public MeasureGroup ParentMeasureGroup { get; set; }
+
+        public Instrument Instrument
+        {
+            get { return _instrument; }
+            set { _instrument = value; NotifyPropertyChanged(); }
+        }
+
+        [XmlElement("Note", Type = typeof(Note))]
+        [XmlElement("Rest", Type = typeof(Rest))]
+        public List<Symbol> Symbols { get { return _listOfSymbols; } }
+
+        [XmlIgnore]
+        public List<int> Voices { get { return Symbols.Select(item => item.Voice).Distinct().ToList(); } }
 
         [XmlIgnore]
         public Measure Previous
@@ -53,6 +57,7 @@ namespace Model
                 return null;
             }
         }
+
         [XmlIgnore]
         public Measure Next
         {
@@ -64,12 +69,19 @@ namespace Model
             }
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void AddSymbol(Symbol symbol)
+        {
+            _listOfSymbols.Add(symbol);
+            symbol.ParentMeasure = this;
+            NotifyPropertyChanged();
+        }
+
         public List<Symbol> GetSymbolsAt(double beat)
         {
             return Symbols.Where(item => Math.Abs(item.Beat - beat) < 0.01).ToList();
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {

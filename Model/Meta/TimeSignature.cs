@@ -79,6 +79,7 @@ namespace Model.Meta
                 NotifyPropertyChanged();
             }
         }
+
         [XmlAttribute, DefaultValue(false)]
         public bool IsCutCommon // 2/2 = </:
         {

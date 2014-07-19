@@ -1,36 +1,61 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Xml.Serialization;
 
 namespace Model.Meta
 {
-    public class MusicalKey
+    public class MusicalKey : INotifyPropertyChanged
     {
-        public Pitch Pitch { get; set; }
-        public Gender Gender { get; set; }
+        [XmlIgnore]
+        private Gender _gender;
+        [XmlIgnore]
+        private Pitch _pitch;
 
-        public MusicalKey() { }
+        public MusicalKey()
+        {
+        }
+
         public MusicalKey(Pitch pitch, Gender gender)
         {
             Pitch = pitch;
             Gender = gender;
         }
 
+        public Pitch Pitch
+        {
+            get { return _pitch; }
+            set
+            {
+                _pitch = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public Gender Gender
+        {
+            get { return _gender; }
+            set
+            {
+                _gender = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public override bool Equals(object obj)
         {
             var item = obj as MusicalKey;
             if (item == null)
                 return false;
-            // ReSharper disable once BaseObjectEqualsIsObjectEquals
-            if (base.Equals(obj))
-                return true;
             return (Pitch.Equals(item.Pitch) && Gender.Equals(item.Gender));
         }
 
         public override int GetHashCode()
         {
-            // ReSharper disable once BaseObjectGetHashCodeCallInGetHashCode
-            return base.GetHashCode();
+            return Pitch.GetHashCode() ^ Gender.GetHashCode();
         }
 
         public override string ToString()
@@ -86,6 +111,12 @@ namespace Model.Meta
                 return new List<Pitch> { Pitch.CFlat, Pitch.DFlat, Pitch.EFlat, Pitch.FFlat, Pitch.GFlat, Pitch.AFlat, Pitch.BFlat }.Contains(pitch);
 
             throw new Exception("musical key not found");
+        }
+
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

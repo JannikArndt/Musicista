@@ -10,26 +10,42 @@ namespace Model
 {
     public class MeasureGroup : INotifyPropertyChanged
     {
+        [XmlIgnore]
+        private bool _isPickupMeasure;
+        [XmlIgnore]
+        private MusicalKey _keySignature;
+        [XmlIgnore]
+        private TimeSignature _timeSignature;
+        [XmlIgnore]
+        private int _measureNumber;
+
         public MeasureGroup()
         {
             Measures = new List<Measure>();
         }
 
-        [XmlIgnore]
-        private bool _isPickupMeasure;
-
-        [XmlIgnore]
-        private TimeSignature _timeSignature;
-
-        [XmlIgnore]
-        private MusicalKey _keySignature;
-
 
         [XmlAttribute("MeasureNumber")]
-        public int MeasureNumber { get; set; }
-        public TimeSignature TimeSignature { get { return _timeSignature; } set { _timeSignature = value; NotifyPropertyChanged(); } }
-        public MusicalKey KeySignature { get { return _keySignature; } set { _keySignature = value; NotifyPropertyChanged(); } }
+        public int MeasureNumber
+        {
+            get { return _measureNumber; }
+            set { _measureNumber = value; NotifyPropertyChanged(); }
+        }
+
+        public TimeSignature TimeSignature
+        {
+            get { return _timeSignature; }
+            set { _timeSignature = value; NotifyPropertyChanged(); }
+        }
+
+        public MusicalKey KeySignature
+        {
+            get { return _keySignature; }
+            set { _keySignature = value; NotifyPropertyChanged(); }
+        }
+
         public List<Measure> Measures { get; set; }
+
         [XmlIgnore]
         public Passage ParentPassage { get; set; }
 
@@ -62,7 +78,8 @@ namespace Model
         {
             get
             {
-                if (ParentPassage != null && ParentPassage.ListOfMeasureGroups.IndexOf(this) > -1 && ParentPassage.ListOfMeasureGroups.IndexOf(this) < ParentPassage.ListOfMeasureGroups.Count - 1)
+                if (ParentPassage != null && ParentPassage.ListOfMeasureGroups.IndexOf(this) > -1 &&
+                    ParentPassage.ListOfMeasureGroups.IndexOf(this) < ParentPassage.ListOfMeasureGroups.Count - 1)
                     return ParentPassage.ListOfMeasureGroups[ParentPassage.ListOfMeasureGroups.IndexOf(this) + 1];
                 return null;
             }
@@ -81,6 +98,7 @@ namespace Model
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
+
         public void TurnIntoPickupMeasure()
         {
             foreach (var measure in Measures)

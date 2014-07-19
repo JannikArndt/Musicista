@@ -73,27 +73,12 @@ namespace Musicista.UI
                                                     currentPage.Systems.Add(new UISystem(currentPage, maxStaves));
 
                                                 // Now draw the measures and notes
-                                                DrawMeasureGroup(currentPage.Systems.Last(), measureGroup);
+                                                // Create UIMeasureGroup
+                                                var uiMeasureGroup = new UIMeasureGroup(currentPage.Systems.Last(), measureGroup);
+                                                uiMeasureGroup.Draw();
                                             }
                                         }
             return pageList;
-        }
-
-        public static void DrawMeasureGroup(UISystem system, MeasureGroup measureGroup, bool hasMouseDown = true)
-        {
-            if (measureGroup == null || measureGroup.Measures == null || measureGroup.Measures.Count <= 0)
-                return;
-
-            // Create UIMeasureGroup
-            var uiMeasureGroup = new UIMeasureGroup(system, measureGroup);
-
-            // Fill UIMeasureGroup.Measures with UIMeasures
-            for (var part = 0; part < measureGroup.Measures.Count; part++)
-                DrawMeasure(uiMeasureGroup, measureGroup.Measures[part], part + 1, hasMouseDown);
-
-            // set connecting barlines
-            if (uiMeasureGroup.Measures.Count > 0)
-                uiMeasureGroup.Barline.Y2 = Canvas.GetTop(uiMeasureGroup.Measures.Last()) + 36;
         }
 
         public static void DrawMeasure(UIMeasureGroup uiMeasureGroup, Measure measure, int part, bool hasMouseDown = true)

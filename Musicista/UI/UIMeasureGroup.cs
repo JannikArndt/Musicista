@@ -16,12 +16,14 @@ namespace Musicista.UI
         public readonly UISystem ParentSystem;
 
         public List<UIMeasure> Measures = new List<UIMeasure>();
+        private readonly bool _hasMouseDown = true;
 
-        public UIMeasureGroup(UISystem system, MeasureGroup innerMeasureGroup = null)
+        public UIMeasureGroup(UISystem system, MeasureGroup innerMeasureGroup = null, bool hasMouseDown = true)
         {
             InnerMeasureGroup = innerMeasureGroup;
             ParentSystem = system;
             ParentSystem.MeasureGroups.Add(this);
+            _hasMouseDown = hasMouseDown;
 
 
             Height = ParentSystem.ActualHeight;
@@ -52,6 +54,10 @@ namespace Musicista.UI
                 SetLeft(MeasureNumberTextBlock, 0);
                 Children.Add(MeasureNumberTextBlock);
             }
+
+            // PropertyChangedEvent
+            if (InnerMeasureGroup != null)
+                InnerMeasureGroup.PropertyChanged += (sender, args) => Redraw();
 
             Children.Add(Barline);
             ParentSystem.Children.Add(this);
@@ -107,6 +113,21 @@ namespace Musicista.UI
                     return ParentSystem.MeasureGroups[index - 1];
                 return null;
             }
+        }
+
+        public void Draw()
+        {
+            for (var part = 0; part < InnerMeasureGroup.Measures.Count; part++)
+                UIHelper.DrawMeasure(this, InnerMeasureGroup.Measures[part], part + 1, _hasMouseDown);
+            // set connecting barlines
+            if (Measures.Count > 0)
+                Barline.Y2 = GetTop(Measures.Last()) + 36;
+        }
+
+        public void Redraw()
+        {
+            Children.Clear();
+            Draw();
         }
     }
 }

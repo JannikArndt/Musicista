@@ -116,7 +116,10 @@ namespace Musicista.Sidebar
             page.Systems.Add(new UISystem(page, 1) { MeasuresInSystem = passage.ListOfMeasureGroups.Count });
 
             foreach (var measureGroup in passage.ListOfMeasureGroups)
-                UIHelper.DrawMeasureGroup(page.Systems.Last(), measureGroup, hasMouseDown: false);
+            {
+                var uiMeasureGroup = new UIMeasureGroup(page.Systems.Last(), measureGroup, false);
+                uiMeasureGroup.Draw();
+            }
 
             return page;
         }
@@ -141,6 +144,7 @@ namespace Musicista.Sidebar
                 grid.AddRowWithComboBox("Clef", uiMeasure.InnerMeasure, "Clef", Clef.Treble);
                 grid.AddRowWithTwoComboBoxes("Key", uiMeasure.ParentMeasureGroup.InnerMeasureGroup.KeySignature, "Pitch", "Gender", Pitch.C, Gender.Major);
                 grid.AddRowWithTimeSignature("Time", uiMeasure.ParentMeasureGroup.InnerMeasureGroup.TimeSignature);
+                grid.AddRowWithCheckbox("Pickup", uiMeasure.ParentMeasureGroup.InnerMeasureGroup, "IsPickupMeasure");
 
                 SidebarPanel.Children.Add(grid);
             }

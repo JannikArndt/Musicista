@@ -126,6 +126,10 @@ namespace Musicista.UI
             Children.Add(Line3);
             Children.Add(Line4);
             Children.Add(Line5);
+
+            // PropertyChangedEvent
+            if (InnerMeasure != null)
+                InnerMeasure.PropertyChanged += (sender, args) => ParentMeasureGroup.Redraw();
         }
 
         private void ClickToSelectMeasures(object sender, MouseButtonEventArgs args)

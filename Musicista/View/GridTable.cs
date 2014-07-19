@@ -21,8 +21,10 @@ namespace Musicista.View
 
         public void AddRowWithTextField(string key, object dataContext, string propertyName)
         {
+            if (dataContext == null)
+                throw new ArgumentException(@"No data context given", "dataContext");
             if (string.IsNullOrEmpty(propertyName))
-                throw new ArgumentException(@"No property name given", propertyName);
+                throw new ArgumentException(@"No property name given", "propertyName");
             if (dataContext.GetType().GetProperty(propertyName) == null)
                 throw new Exception("Property " + propertyName + " not found in piece.");
 
@@ -318,6 +320,34 @@ namespace Musicista.View
 
             Children.Add(keyTextBlock);
             Children.Add(stackpanel);
+        }
+
+        public void AddRowWithCheckbox(string key, object dataContext, string propertyName)
+        {
+            RowDefinitions.Add(new RowDefinition { Height = new GridLength(30) });
+
+            var keyTextBlock = new TextBlock
+            {
+                Text = key,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            SetRow(keyTextBlock, RowDefinitions.Count - 1);
+            SetColumn(keyTextBlock, 0);
+
+            var valueCheckBox = new CheckBox
+            {
+                DataContext = dataContext,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            valueCheckBox.SetBinding(ToggleButton.IsCheckedProperty, new Binding(propertyName));
+
+            SetRow(valueCheckBox, RowDefinitions.Count - 1);
+            SetColumn(valueCheckBox, 1);
+
+            Children.Add(keyTextBlock);
+            Children.Add(valueCheckBox);
         }
     }
 }

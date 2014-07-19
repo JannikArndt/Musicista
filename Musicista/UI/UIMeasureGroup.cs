@@ -24,13 +24,13 @@ namespace Musicista.UI
             ParentSystem.MeasureGroups.Add(this);
 
 
-            Height = system.ActualHeight;
+            Height = ParentSystem.ActualHeight;
             Background = Brushes.Transparent;
 
             SetTop(this, 0);
             SetLeft(this, PreviousUIMeasureGroupInSystem != null ? PreviousUIMeasureGroupInSystem.Right : 0);
 
-            SetBinding(WidthProperty, new Binding { Path = new PropertyPath(WidthProperty), Source = system, Converter = new MeasureWidthConverter(), ConverterParameter = system });
+            SetBinding(WidthProperty, new Binding { Path = new PropertyPath(WidthProperty), Source = ParentSystem, Converter = new MeasureWidthConverter(), ConverterParameter = ParentSystem });
 
             Barline = new Line
             {
@@ -44,12 +44,29 @@ namespace Musicista.UI
             Barline.SetBinding(Line.X1Property, new Binding { Path = new PropertyPath(WidthProperty), Source = this });
             Barline.SetBinding(Line.X2Property, new Binding { Path = new PropertyPath(WidthProperty), Source = this });
 
+            // Measure number
+            if (InnerMeasureGroup != null && ParentSystem.MeasureGroups.IndexOf(this) == 0 && InnerMeasureGroup.MeasureNumber > 1)
+            {
+                MeasureNumberTextBlock.Text = "" + InnerMeasureGroup.MeasureNumber;
+                SetTop(MeasureNumberTextBlock, -16);
+                SetLeft(MeasureNumberTextBlock, 0);
+                Children.Add(MeasureNumberTextBlock);
+            }
+
             Children.Add(Barline);
             ParentSystem.Children.Add(this);
 
         }
 
         public Line Barline { get; set; }
+
+        public TextBlock MeasureNumberTextBlock = new TextBlock
+        {
+            FontSize = 10,
+            Width = 200,
+            HorizontalAlignment = HorizontalAlignment.Left,
+            TextAlignment = TextAlignment.Left
+        };
 
         public double Right { get { return GetLeft(this) + Width; } }
 

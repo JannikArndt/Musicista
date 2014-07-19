@@ -88,6 +88,7 @@ namespace Musicista.UI
                 if (index > -1 && ParentPage.Systems.Count > index + 1)
                     return ParentPage.Systems[index + 1];
 
+                if (MainWindow.PageList == null) return null;
                 var pageIndex = MainWindow.PageList.IndexOf(ParentPage);
                 if (MainWindow.PageList.Count > pageIndex + 1 && MainWindow.PageList[pageIndex + 1].Systems.Count > 0)
                     return MainWindow.PageList[pageIndex + 1].Systems[0];

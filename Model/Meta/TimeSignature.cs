@@ -121,6 +121,11 @@ namespace Model.Meta
             return Beats == other.Beats && BeatUnit == other.BeatUnit;
         }
 
+        public override int GetHashCode()
+        {
+            return Beats.GetHashCode() ^ BeatUnit.GetHashCode() ^ IsCommon.GetHashCode() ^ IsCutCommon.GetHashCode();
+        }
+
         public override string ToString()
         {
             if (IsCommon) return "Common 4/4";

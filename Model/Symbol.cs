@@ -49,7 +49,22 @@ namespace Model
             {
                 var durationAlreadySpent = (Beat - 1) * ((double)Duration.whole / ParentMeasure.ParentMeasureGroup.TimeSignature.BeatUnit);
                 var durationLeftInMeasure = ParentMeasure.ParentMeasureGroup.HoldsDuration - durationAlreadySpent;
-                return (Duration)Math.Min(durationLeftInMeasure, (double)Duration);
+                var result = (Duration)Math.Min(durationLeftInMeasure, (double)Duration);
+
+                // Parse result (tolerance for triplets)
+                if (!Enum.IsDefined(typeof(Duration), result))
+                {
+                    for (var tolerance = -12; tolerance <= 12; tolerance++)
+                    {
+                        if (Enum.IsDefined(typeof(Duration), result - tolerance))
+                            result -= tolerance;
+                    }
+
+                    if (!Enum.IsDefined(typeof(Duration), result))
+                        Console.WriteLine(@"Error parsing duration " + result);
+                }
+
+                return result;
             }
         }
         public Symbol() { }

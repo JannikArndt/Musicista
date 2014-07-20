@@ -469,7 +469,9 @@ namespace Musicista.UI
 
         internal void ConnectTuplets()
         {
-            var direction = Tuplets[0].BestFreeSpot();
+            var firstNote = Tuplets.OfType<UINote>().First();
+            if (firstNote == null) return;
+            var direction = firstNote.BestFreeSpot();
 
             var start = Tuplets.First().GetFreePoint(direction);
             var end = Tuplets.Last().GetFreePoint(direction);
@@ -505,6 +507,25 @@ namespace Musicista.UI
             Tuplets.Clear();
             Children.Add(line);
             Children.Add(number);
+        }
+
+        public double LowestPoint
+        {
+            get
+            {
+                var noteHeads = Symbols.OfType<UINote>().Select(item => GetTop(item.NoteHead)).DefaultIfEmpty().Max();
+                var stems = Symbols.OfType<UINote>().Select(item => item.Stem.Y2).DefaultIfEmpty().Max();
+                // Tuplet-signs?
+                // TODO Expression signs
+                return Math.Max(noteHeads, stems);
+            }
+        }
+
+        public void CorrectTextVerticalAlignment()
+        {
+            var lowest = LowestPoint;
+            foreach (var uiSymbol in Symbols.Where(uiSymbol => uiSymbol.Text != null))
+                SetTop(uiSymbol.Text, Math.Max(lowest + 20, 260));
         }
     }
 }

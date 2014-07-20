@@ -69,7 +69,7 @@ namespace Musicista.UI
         public TextBlock MeasureNumberTextBlock = new TextBlock
         {
             FontSize = 10,
-            Width = 200,
+            Width = 20,
             HorizontalAlignment = HorizontalAlignment.Left,
             TextAlignment = TextAlignment.Left
         };

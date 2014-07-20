@@ -15,12 +15,9 @@ namespace Musicista.UI
     public class UINote : UISymbol
     {
         public UINote(Note note, UIMeasure parentMeasure, bool hasMouseDown = true, bool tiedTo = false)
-            : base(hasMouseDown)
+            : base(note, parentMeasure, hasMouseDown)
         {
-            ParentMeasure = parentMeasure;
             Note = note;
-            ParentMeasure.Symbols.Add(this);
-            Symbol = note;
 
             BeatsPerMeasure = (4.0 / ParentMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.BeatUnit) * ParentMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.Beats;
             ParentMeasure.ConnectNotesAtEndOfRun = false;
@@ -87,7 +84,7 @@ namespace Musicista.UI
             }
 
             // Handle triplets ( /tuplets)
-            if (note.IsTriplet)
+            if (note.IsTriplet && !ParentMeasure.Tuplets.Select(item => item.Symbol.Beat).Contains(note.Beat))
                 ParentMeasure.Tuplets.Add(this);
             if (ParentMeasure.Tuplets.Count > 2 || (ParentMeasure.Tuplets.Any() && !note.IsTriplet))
                 ParentMeasure.ConnectTuplets();

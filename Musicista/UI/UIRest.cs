@@ -10,14 +10,11 @@ namespace Musicista.UI
     public class UIRest : UISymbol
     {
         public UIRest(Rest rest, UIMeasure parentMeasure, bool hasMouseDown = true)
-            : base(hasMouseDown)
+            : base(rest, parentMeasure, hasMouseDown)
         {
-            ParentMeasure = parentMeasure;
             Rest = rest;
-            ParentMeasure.Symbols.Add(this);
-            Symbol = rest;
 
-            BeatsPerMeasure = (4 / ParentMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.BeatUnit) * ParentMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.Beats;
+            BeatsPerMeasure = (4.0 / ParentMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.BeatUnit) * ParentMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.Beats;
             ParentMeasure.ConnectNotesAtEndOfRun = false;
 
             SetTop(Path, 55 + -TopRelativeToMeasure);
@@ -87,12 +84,18 @@ namespace Musicista.UI
                     Path.Data = Geometry.Parse(Engraving.RestHalf);
                     DrawDot(measure);
                     break;
+                case Duration.wholeTriplet:
+                    Path.Data = Geometry.Parse(Engraving.RestWhole);
+                    break;
                 case Duration.half:
                     Path.Data = Geometry.Parse(Engraving.RestHalf);
                     break;
                 case Duration.quarterDotted:
                     Path.Data = Geometry.Parse(Engraving.RestQuarter);
                     DrawDot(measure);
+                    break;
+                case Duration.halfTriplet:
+                    Path.Data = Geometry.Parse(Engraving.RestHalf);
                     break;
                 case Duration.quarter:
                     Path.Data = Geometry.Parse(Engraving.RestQuarter);
@@ -101,6 +104,9 @@ namespace Musicista.UI
                     Path.Data = Geometry.Parse(Engraving.RestQuarter);
                     DrawDot(measure);
                     break;
+                case Duration.quarterTriplet:
+                    Path.Data = Geometry.Parse(Engraving.RestQuarter);
+                    break;
                 case Duration.eigth:
                     Path.Data = Geometry.Parse(Engraving.RestEigth);
                     break;
@@ -108,7 +114,13 @@ namespace Musicista.UI
                     Path.Data = Geometry.Parse(Engraving.RestQuarter);
                     DrawDot(measure);
                     break;
+                case Duration.eigthTriplet:
+                    Path.Data = Geometry.Parse(Engraving.RestEigth);
+                    break;
                 case Duration.sixteenth:
+                    Path.Data = Geometry.Parse(Engraving.RestSixteenth);
+                    break;
+                case Duration.sixteenthTriplet:
                     Path.Data = Geometry.Parse(Engraving.RestSixteenth);
                     break;
             }

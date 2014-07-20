@@ -201,8 +201,9 @@ namespace Musicista.Mappers
                             if (mxmlNote.IsTied && mxmlNote.Tie.Type == startstop.start) // make tied notes (starting the tie) longer
                             {
                                 var nextMeasure = mxml.Part[partNumber].Measure[measureNumber + 1];
-                                var tiedNote = nextMeasure.Items.OfType<Note>().First(item => Equals(item.Pitch, mxmlNote.Pitch) && item.IsTied && item.Tie.Type == startstop.stop);
-                                addDuration = int.Parse(tiedNote.Duration.ToString(CultureInfo.InvariantCulture));
+                                var tiedNote = nextMeasure.Items.OfType<Note>().FirstOrDefault(item => Equals(item.Pitch, mxmlNote.Pitch) && item.IsTied && item.Tie.Type == startstop.stop);
+                                if (tiedNote != null)
+                                    addDuration = int.Parse(tiedNote.Duration.ToString(CultureInfo.InvariantCulture));
                             }
                             if (mxmlNote.IsTied && mxmlNote.Tie.Type == startstop.stop) // and skip notes ending a tie
                             {
@@ -250,7 +251,7 @@ namespace Musicista.Mappers
             var difference = measure.ParentMeasureGroup.HoldsDuration - measure.Symbols.Sum(item => (int)item.Duration);
             if (difference > 0)
                 foreach (var symbol in measure.Symbols)
-                    symbol.Beat += (difference / ((double)Duration.whole/measure.ParentMeasureGroup.TimeSignature.BeatUnit));
+                    symbol.Beat += (difference / ((double)Duration.whole / measure.ParentMeasureGroup.TimeSignature.BeatUnit));
         }
 
         private static Clef? GetClefFromAttributes(attributes attributes, bool takeLast = false)

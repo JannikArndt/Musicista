@@ -118,6 +118,8 @@ namespace Musicista.UI
                     new UINote((Note)symbol, newMeasure, hasMouseDown);
                 else if (symbol.GetType() == typeof(Rest))
                     new UIRest((Rest)symbol, newMeasure, hasMouseDown);
+
+            newMeasure.CorrectTextVerticalAlignment();
         }
 
         public static double DrawClef(UIMeasure uiMeasure, Clef clefType)

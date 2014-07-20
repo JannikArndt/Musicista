@@ -30,15 +30,35 @@ namespace Musicista.UI
             }
         }
 
-        public UISymbol(bool hasMouseDown = true)
+        public UISymbol(Symbol symbol, UIMeasure parentUIMeasure, bool hasMouseDown = true)
         {
+            Symbol = symbol;
+            ParentMeasure = parentUIMeasure;
+            ParentMeasure.Symbols.Add(this);
+
             Background = Brushes.Transparent;
             SetTop(this, TopRelativeToMeasure);
             Height = 300;
             Width = 100;
             if (hasMouseDown)
                 MouseDown += ClickToSelectSymbols;
+
+            if (!String.IsNullOrEmpty(Symbol.Text))
+            {
+                Text.Text = Symbol.Text;
+                SetTop(Text, 260);
+                SetLeft(Text, 0);
+                Children.Add(Text);
+            }
         }
+
+        public TextBlock Text = new TextBlock
+        {
+            FontSize = 60,
+            Width = 200,
+            HorizontalAlignment = HorizontalAlignment.Left,
+            TextAlignment = TextAlignment.Left
+        };
 
         public void ClickToSelectSymbols(object sender, MouseButtonEventArgs args)
         {

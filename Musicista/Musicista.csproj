@@ -100,6 +100,7 @@
     <Compile Include="Mappers\MidiMapper.cs" />
     <Compile Include="Mappers\MidiNote.cs" />
     <Compile Include="Mappers\MusicXMLMapper.cs" />
+    <Compile Include="FileOperations.cs" />
     <Compile Include="MenuBar.cs" />
     <Compile Include="Sidebar\EditableTextBox.cs" />
     <Compile Include="Exceptions\GUIException.cs" />

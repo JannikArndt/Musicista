@@ -1,12 +1,7 @@
-﻿using Ionic.Zip;
-using Microsoft.Win32;
-using Model;
-using MuseScoreAPI.RESTObjects;
-using Musicista.Mappers;
+﻿using Model;
 using Musicista.Sidebar;
 using Musicista.UI;
 using Musicista.View;
-using MusicXML;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,11 +11,9 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
-using System.Xml.XPath;
-using System.Xml.Xsl;
+using Path = System.Windows.Shapes.Path;
 
 namespace Musicista
 {
@@ -31,17 +24,13 @@ namespace Musicista
     {
         public static List<UIPage> PageList;
         public static Piece CurrentPiece;
-        private static string _fileName = "";
         public static ApplicationSettings ApplicationSettings = new ApplicationSettings();
 
         public static ScrollViewer UICanvasScrollViewer;
         public static ContentControl UISidebar;
-        public static System.Windows.Shapes.Path UIButtonPathInformation;
-        public static System.Windows.Shapes.Path UIButtonPathView;
-        public static System.Windows.Shapes.Path UIButtonPathAlgorithms;
-
-
-
+        public static Path UIButtonPathInformation;
+        public static Path UIButtonPathView;
+        public static Path UIButtonPathAlgorithms;
 
         public MainWindow()
         {
@@ -53,9 +42,6 @@ namespace Musicista
             UIButtonPathInformation = ButtonPathInformation;
             UIButtonPathView = ButtonPathView;
             UIButtonPathAlgorithms = ButtonPathAlgorithms;
-
-
-
 
             PreviewMouseWheel += Zoom;
             SetUpKeyCommands();
@@ -92,10 +78,21 @@ namespace Musicista
                 ApplicationSettings.Save();
         }
 
-        private void ShowMostRecentlyUsed(StackPanel stack)
+        private static void ShowMostRecentlyUsed(Panel stack)
         {
             foreach (var documentReference in ApplicationSettings.MostRecentlyUsed.Take(4))
             {
+                const int totalLength = 80;
+                var titleLength = documentReference.Name.Length;
+                var pathLength = documentReference.Filepath.Length;
+                var filepath = documentReference.Filepath;
+                if (totalLength < (titleLength + pathLength))
+                {
+                    var endCharacters = (totalLength - titleLength) - 19;
+                    filepath = documentReference.Filepath.Substring(0, 16) + "..." +
+                               documentReference.Filepath.Substring((pathLength - endCharacters), endCharacters);
+                }
+
                 var mruTextBlock = new TextBlock
                 {
                     FontSize = 12,
@@ -103,11 +100,11 @@ namespace Musicista
                     Margin = new Thickness(0, 8, 0, 0)
                 };
                 if (string.IsNullOrEmpty(documentReference.Name))
-                    mruTextBlock.Inlines.Add(new Run(documentReference.Filepath));
+                    mruTextBlock.Inlines.Add(new Run(filepath));
                 else
                 {
                     mruTextBlock.Inlines.Add(new Run(documentReference.Name));
-                    mruTextBlock.Inlines.Add(new Run(" (" + documentReference.Filepath + ")") { Foreground = Brushes.DarkGray });
+                    mruTextBlock.Inlines.Add(new Run(" (" + filepath + ")") { Foreground = Brushes.DarkGray });
                 }
                 mruTextBlock.MouseDown += (sender, args) => OpenFile(documentReference.Filepath);
                 mruTextBlock.Cursor = Cursors.Hand;
@@ -171,7 +168,8 @@ namespace Musicista
             InputBindings.Add(closeInputBinding);
 
             // quit
-            var quitCommandBinding = new CommandBinding(MediaCommands.BoostBass, (s, e) => Application.Current.Shutdown(), (sender, e) => { e.CanExecute = true; });
+            var quitCommandBinding = new CommandBinding(MediaCommands.BoostBass, (s, e) => Application.Current.Shutdown(),
+                (sender, e) => { e.CanExecute = true; });
             CommandBindings.Add(quitCommandBinding);
 
             var quitKeyGesture = new KeyGesture(Key.Q, ModifierKeys.Control);
@@ -197,7 +195,6 @@ namespace Musicista
             _fileName = "";
         }
 
-
         private void Print(object sender, RoutedEventArgs e)
         {
             try
@@ -217,158 +214,6 @@ namespace Musicista
             {
                 MessageBox.Show(ex.Message, "Error while printing", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }
-
-        private void Open(object sender, RoutedEventArgs e)
-        {
-            var openFileDialog = new OpenFileDialog
-            {
-                Filter = "Supported Files|*.xml;*.musicista;*.mxl|Musicista (*.musicista)|*.musicista|MusicXML (*.xml)|*.xml|Compressed MusicXML (*.mxl)|*.mxl|All files (*.*)|*.*"
-            };
-            if (openFileDialog.ShowDialog() != true)
-                return;
-            OpenFile(openFileDialog.FileName);
-        }
-
-        public static void OpenFile(String filename, Score scoreInfo = null)
-        {
-            try
-            {
-                switch (Path.GetExtension(filename))
-                {
-                    case ".mxl":
-                        // find the correct xml-file, unzip it and try to open that one again
-                        foreach (var zipEntry in ZipFile.Read(filename).Where(zipEntry => Path.GetExtension(zipEntry.FileName) == ".xml" && zipEntry.FileName != "META-INF/container.xml"))
-                        {
-                            if (filename == "tempDownloadMuseScore.mxl" && scoreInfo != null)
-                                zipEntry.FileName = scoreInfo.Title + ".xml";
-                            else
-                                zipEntry.FileName = Path.GetFileNameWithoutExtension(filename) + ".xml";
-                            foreach (var character in Path.GetInvalidFileNameChars())
-                                zipEntry.FileName = zipEntry.FileName.Replace(character, ' ');
-
-                            zipEntry.Extract("Collection", ExtractExistingFileAction.OverwriteSilently);
-
-                            OpenFile("Collection/" + zipEntry.FileName, scoreInfo);
-                            return;
-                        }
-                        break;
-                    case ".xml":
-                        // based upon http://stackoverflow.com/a/23663586/1507481
-                        var xdoc = XDocument.Load(filename);
-                        if (xdoc.Root != null)
-                            switch (xdoc.Root.Name.LocalName)
-                            {
-                                case "score-partwise":
-                                    {
-                                        var xmlSerializer = new XmlSerializer(typeof(ScorePartwise));
-                                        var result = (ScorePartwise)xmlSerializer.Deserialize(xdoc.CreateReader());
-                                        DrawPiece(MusicXMLMapper.MapMusicXMLToMusicista(result, filename, scoreInfo));
-                                    }
-                                    break;
-                                case "score-timewise":
-                                    {
-                                        // convert to partwise
-                                        var xslCompiledTransform = new XslCompiledTransform(); // XSLT Transformation
-                                        var stream = new MemoryStream(); // Temporary memorystream
-                                        var outputXmlTextWriter = XmlWriter.Create(stream);
-                                        xslCompiledTransform.Load("Properties/timepart.xsl"); // Load the XSLT 
-                                        xslCompiledTransform.Transform(xdoc.CreateNavigator(), null, outputXmlTextWriter); // Transform the timewise-document into a partwise-document
-
-                                        stream.Position = 0; // reset stream to beginning
-
-                                        var xmlSerializer = new XmlSerializer(typeof(ScorePartwise));
-                                        var result = (ScorePartwise)xmlSerializer.Deserialize(XmlReader.Create(stream)); // deserialize the transformed stream
-                                        DrawPiece(MusicXMLMapper.MapMusicXMLToMusicista(result, filename, scoreInfo));
-                                    }
-                                    break;
-                                default:
-                                    MessageBox.Show(@"Cannot open file " + Path.GetExtension(filename) + " because it does not seem to be valid MusicXML.", "Error");
-                                    break;
-                            }
-                        break;
-                    case ".musicista":
-                        using (var fileStream = new FileStream(filename, FileMode.Open))
-                        {
-                            var musicistaSerializer = new XmlSerializer(typeof(Piece));
-                            var piece = (Piece)musicistaSerializer.Deserialize(fileStream);
-                            // correct parent-relations
-                            foreach (var passage in piece.ListOfAllPassages)
-                                foreach (var measureGroup in passage.ListOfMeasureGroups)
-                                {
-                                    measureGroup.ParentPassage = passage;
-                                    foreach (var measure in measureGroup.Measures)
-                                    {
-                                        measure.ParentMeasureGroup = measureGroup;
-                                        foreach (var symbol in measure.Symbols)
-                                            symbol.ParentMeasure = measure;
-                                    }
-                                }
-                            // same for the Parts
-                            foreach (var part in piece.Parts)
-                                foreach (var measureGroup in part.Passage.ListOfMeasureGroups)
-                                {
-                                    measureGroup.ParentPassage = part.Passage;
-                                    foreach (var measure in measureGroup.Measures)
-                                    {
-                                        measure.ParentMeasureGroup = measureGroup;
-                                        foreach (var symbol in measure.Symbols)
-                                            symbol.ParentMeasure = measure;
-                                    }
-                                }
-                            DrawPiece(piece);
-                            _fileName = filename;
-                        }
-                        break;
-                    default:
-                        MessageBox.Show(@"Cannot open filetype " + Path.GetExtension(filename), "Error");
-                        return;
-                }
-
-                ApplicationSettings.AddToMostRecentlyUsedFiles(CurrentPiece.Title, filename);
-                SidebarInformation.ShowPiece();
-                UISidebar.Content = SidebarInformation;
-                SetSidebarButtonPathFill(SidebarKind.Information);
-                SidebarView.ShowPageSettings(PageList.First());
-            }
-            catch (IOException exception)
-            {
-                MessageBox.Show("Error while loading file: " + exception.Message, "Error");
-            }
-            catch (ZipException exception)
-            {
-                MessageBox.Show("Error while loading file: " + exception.Message, "Error");
-            }
-        }
-
-        private void Save(object sender, ExecutedRoutedEventArgs e)
-        {
-            if (string.IsNullOrEmpty(_fileName))
-                SaveAs(sender, e);
-            else
-            {
-                var serializer = new XmlSerializer(typeof(Piece));
-                using (TextWriter writer = new StreamWriter(_fileName))
-                {
-                    serializer.Serialize(writer, CurrentPiece);
-                }
-            }
-            ApplicationSettings.AddToMostRecentlyUsedFiles(CurrentPiece.Title, _fileName);
-        }
-
-        private void SaveAs(object sender, RoutedEventArgs e)
-        {
-            var saveFileDialog = new SaveFileDialog { DefaultExt = ".musicista", Filter = "Musicista (*.musicista)|*.musicista", OverwritePrompt = true, FileName = CurrentPiece.Title };
-            if (saveFileDialog.ShowDialog() != true)
-                return;
-
-            _fileName = saveFileDialog.FileName;
-            var serializer = new XmlSerializer(typeof(Piece));
-            using (TextWriter writer = new StreamWriter(_fileName))
-            {
-                serializer.Serialize(writer, CurrentPiece);
-            }
-            ApplicationSettings.AddToMostRecentlyUsedFiles(CurrentPiece.Title, _fileName);
         }
 
         private static void DrawPiece(Piece piece)

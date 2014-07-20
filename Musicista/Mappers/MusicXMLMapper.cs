@@ -5,6 +5,7 @@ using MusicXML;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Clef = Model.Clef;
@@ -25,7 +26,7 @@ namespace Musicista.Mappers
             else if (scoreInfo != null)
                 piece.Title = scoreInfo.Title;
             else
-                piece.Title = filename;
+                piece.Title = Path.GetFileNameWithoutExtension(filename);
 
             piece.Notes += "Work Number: " + mxml.Work.WorkNumber;
 
@@ -70,6 +71,20 @@ namespace Musicista.Mappers
                 piece.ListOfAllMovements.First().Number = int.Parse(mxml.MovementNumber);
             if (mxml.MovementTitle != null)
                 piece.ListOfAllMovements.First().Name = mxml.MovementTitle;
+
+            // For downloads from MuseScore.com
+            if (scoreInfo != null)
+            {
+                piece.Weblink = scoreInfo.Permalink;
+                piece.ListOfOtherPersons.Add(new Person { FullName = scoreInfo.User.Username, Role = "Uploader", Misc = "User ID = " + scoreInfo.User.Uid });
+                piece.Copyright = scoreInfo.License;
+                piece.Notes += scoreInfo.Description;
+                piece.Subtitle = scoreInfo.Metadata.Subtitle;
+                if (piece.ListOfComposers.Count == 0 && !string.IsNullOrEmpty(scoreInfo.Metadata.Composer))
+                    piece.ListOfComposers.Add(new Composer { FullName = scoreInfo.Metadata.Composer });
+                if (piece.ListOfLyricists.Count == 0 && !string.IsNullOrEmpty(scoreInfo.Metadata.Poet))
+                    piece.ListOfLyricists.Add(new Person { FullName = scoreInfo.Metadata.Poet });
+            }
 
             // Map the music
             MapPartwiseMeasuresToPiece(mxml, piece);

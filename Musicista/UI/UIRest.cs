@@ -52,7 +52,7 @@ namespace Musicista.UI
         public Path Path = new Path
         {
             Fill = Brushes.Black,
-            SnapsToDevicePixels = true
+            SnapsToDevicePixels = Properties.Settings.Default.SnapsToDevicePixels
         };
 
         public Rest Rest { get; set; }

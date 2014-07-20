@@ -133,25 +133,25 @@ namespace Musicista.UI
         public Path NoteHead = new Path
         {
             Fill = Brushes.Black,
-            SnapsToDevicePixels = true,
+            SnapsToDevicePixels = Properties.Settings.Default.SnapsToDevicePixels,
             RenderTransform = new ScaleTransform(0.26, 0.26)
         };
         public Path Flag = new Path
         {
             Fill = Brushes.Black,
-            SnapsToDevicePixels = true,
+            SnapsToDevicePixels = Properties.Settings.Default.SnapsToDevicePixels,
             RenderTransform = new ScaleTransform(0.26, 0.26)
         };
         public Line Stem = new Line
         {
-            SnapsToDevicePixels = true,
+            SnapsToDevicePixels = Properties.Settings.Default.SnapsToDevicePixels,
             StrokeThickness = 6,
             Stroke = Brushes.Black
         };
         public Path Tie = new Path
         {
             Fill = Brushes.Black,
-            SnapsToDevicePixels = true,
+            SnapsToDevicePixels = Properties.Settings.Default.SnapsToDevicePixels
         };
 
         public UINote NextUINote
@@ -455,7 +455,7 @@ namespace Musicista.UI
                         X2 = width - 5,
                         StrokeThickness = 5,
                         Stroke = Brushes.DimGray,
-                        SnapsToDevicePixels = true
+                        SnapsToDevicePixels = Properties.Settings.Default.SnapsToDevicePixels
                     };
                 if (below)
                 {

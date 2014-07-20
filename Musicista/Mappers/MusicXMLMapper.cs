@@ -314,9 +314,9 @@ namespace Musicista.Mappers
                 Beat = beat,
                 Velocity = 0,
                 Voice = 0,
-                Duration = (Duration)duration,
-                Octave = int.Parse(mxmlNote.Pitch.Octave)
+                Duration = (Duration)duration
             };
+            newNote.Octave = mxmlNote.Pitch != null ? int.Parse(mxmlNote.Pitch.Octave) : 0;
 
             if (!Enum.IsDefined(typeof(Duration), newNote.Duration))
             {
@@ -342,6 +342,8 @@ namespace Musicista.Mappers
 
         public static Pitch GetPitchFromMXMLNote(Note mxmlNote)
         {
+            if (mxmlNote.Pitch == null)
+                return Pitch.Unknown;
             switch ((int)mxmlNote.Pitch.Alter)
             {
                 case 0:

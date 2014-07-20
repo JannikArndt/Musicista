@@ -65,6 +65,7 @@ namespace Model
             ListOfInterpreters = new List<Person>();
             ListOfLyricists = new List<Person>();
             ListOfProducers = new List<Person>();
+            ListOfOtherPersons = new List<Person>();
             ListOfInstruments = new List<Instrument>();
             ListOfSections = new List<Section>();
             Parts = new List<Part>();

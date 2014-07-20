@@ -55,7 +55,6 @@ namespace Musicista
             {
                 serializer.Serialize(writer, piece);
             }
-            //ApplicationSettings.AddToMostRecentlyUsedFiles(piece.Title, filename);
         }
 
         #endregion
@@ -78,14 +77,24 @@ namespace Musicista
         {
             try
             {
+                Mouse.OverrideCursor = Cursors.Wait;
+
                 var piece = LoadFile(filename, scoreInfo);
                 DrawPiece(piece);
 
-                ApplicationSettings.AddToMostRecentlyUsedFiles(CurrentPiece.Title, filename);
+                ApplicationSettings.AddToMostRecentlyUsedFiles(CurrentPiece.Title, _fileName);
                 SidebarInformation.ShowPiece();
                 UISidebar.Content = SidebarInformation;
                 SetSidebarButtonPathFill(SidebarKind.Information);
                 SidebarView.ShowPageSettings(PageList.First());
+            }
+            catch (FileNotFoundException exception)
+            {
+                MessageBox.Show(@"Cannot find file " + exception.Message, "Error");
+            }
+            catch (FileLoadException exception)
+            {
+                MessageBox.Show(@"Cannot open filetype " + exception.Message, "Error");
             }
             catch (IOException exception)
             {
@@ -93,7 +102,11 @@ namespace Musicista
             }
             catch (ZipException exception)
             {
-                MessageBox.Show("Error while loading file: " + exception.Message, "Error");
+                MessageBox.Show("Error while unzipping file: " + exception.Message, "Error");
+            }
+            finally
+            {
+                Mouse.OverrideCursor = null;
             }
         }
 
@@ -126,12 +139,18 @@ namespace Musicista
 
         public static Piece LoadFile(string filename, Score scoreInfo)
         {
+            if (!File.Exists(filename))
+                throw new FileNotFoundException(filename);
+
             switch (Path.GetExtension(filename))
             {
                 case ".mxl":
                     // find the correct xml-file, unzip it and try to open that one again
                     var unzippedFilePath = UnzipMXL(filename, scoreInfo);
-                    return LoadMusicXMLFile(unzippedFilePath, scoreInfo);
+                    var convertedFile = LoadMusicXMLFile(unzippedFilePath, scoreInfo);
+                    _fileName = "Collection/" + Path.GetFileNameWithoutExtension(unzippedFilePath) + ".musicista";
+                    SaveFile(_fileName, convertedFile);
+                    return convertedFile;
 
                 case ".xml":
                     var loadedPiece = LoadMusicXMLFile(filename, scoreInfo);
@@ -150,8 +169,7 @@ namespace Musicista
                     }
 
                 default:
-                    MessageBox.Show(@"Cannot open filetype " + Path.GetExtension(filename), "Error");
-                    return null;
+                    throw new FileLoadException(Path.GetExtension(filename));
             }
         }
 

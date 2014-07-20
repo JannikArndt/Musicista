@@ -99,11 +99,11 @@ namespace Musicista.UI
                 var start = new Point(30, GetTop(NoteHead) + 30);
                 var end = new Point(-GetLeft(this) - moveTieMidToLeft, start.Y + tieHeight);
 
-                Tie.Data = Geometry.Parse("F0 M " + start.X + "," + start.Y
+                TieToNote.Data = Geometry.Parse("F0 M " + start.X + "," + start.Y
                     + " C " + start.X + "," + start.Y + " " + start.X + "," + end.Y + " " + end.X + "," + end.Y // right
                     + " L " + end.X + "," + (end.Y + 10)  // down
                     + " C " + end.X + "," + (end.Y + 10) + " " + start.X + "," + (end.Y + 10) + " " + "" + start.X + "," + start.Y + "Z"); // back
-                Children.Add(Tie);
+                Children.Add(TieToNote);
 
                 PreviewMouseDown += (sender, args) =>
                 {
@@ -117,11 +117,11 @@ namespace Musicista.UI
                 var start = new Point(30, GetTop(NoteHead) + 30);
                 var end = new Point(Width + 10 - moveTieMidToLeft, start.Y + tieHeight);
 
-                Tie.Data = Geometry.Parse("F0 M " + start.X + "," + start.Y
+                TieFromNote.Data = Geometry.Parse("F0 M " + start.X + "," + start.Y
                     + " C " + start.X + "," + start.Y + " " + start.X + "," + end.Y + " " + end.X + "," + end.Y // right
                     + " L " + end.X + "," + (end.Y + 10)  // down
                     + " C " + end.X + "," + (end.Y + 10) + " " + start.X + "," + (end.Y + 10) + " " + "" + start.X + "," + start.Y + "Z"); // back
-                Children.Add(Tie);
+                Children.Add(TieFromNote);
             }
         }
 
@@ -148,7 +148,12 @@ namespace Musicista.UI
             StrokeThickness = 6,
             Stroke = Brushes.Black
         };
-        public Path Tie = new Path
+        public Path TieToNote = new Path
+        {
+            Fill = Brushes.Black,
+            SnapsToDevicePixels = Properties.Settings.Default.SnapsToDevicePixels
+        };
+        public Path TieFromNote = new Path
         {
             Fill = Brushes.Black,
             SnapsToDevicePixels = Properties.Settings.Default.SnapsToDevicePixels

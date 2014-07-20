@@ -23,6 +23,7 @@ namespace MuseScoreAPI.RESTObjects
         public string License { get; set; }
         public string Language { get; set; }
         public string Title { get; set; }
+        public string Description { get; set; }
 
         public Metadata Metadata { get; set; }
     }

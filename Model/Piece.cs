@@ -9,6 +9,7 @@ namespace Model
     public class Piece
     {
         public string Title { get; set; }
+        public string Subtitle { get; set; }
         public List<Composer> ListOfComposers { get; set; }
         [XmlIgnore]
         public String ComposersAsString { get { return String.Join(", ", ListOfComposers); } }

@@ -222,23 +222,25 @@ namespace Musicista.UI
                     FontSize = 82,
                     TextAlignment = TextAlignment.Center,
                     FontWeight = FontWeights.Bold,
-                    Text = timeSignature.Beats.ToString(CultureInfo.InvariantCulture)
+                    Text = timeSignature.Beats.ToString(CultureInfo.InvariantCulture),
+                    Width = 100
                 };
                 var meter2 = new TextBlock
                 {
                     FontSize = 82,
                     TextAlignment = TextAlignment.Center,
                     FontWeight = FontWeights.Bold,
-                    Text = timeSignature.BeatUnit.ToString(CultureInfo.InvariantCulture)
+                    Text = timeSignature.BeatUnit.ToString(CultureInfo.InvariantCulture),
+                    Width = 100
                 };
                 Canvas.SetTop(meter1, 18);
-                Canvas.SetLeft(meter1, uiMeasure.Indent);
+                Canvas.SetLeft(meter1, uiMeasure.Indent - 10);
                 Canvas.SetTop(meter2, 80);
-                Canvas.SetLeft(meter2, uiMeasure.Indent);
+                Canvas.SetLeft(meter2, uiMeasure.Indent - 10);
                 uiMeasure.Children.Add(meter1);
                 uiMeasure.Children.Add(meter2);
             }
-            return 80;
+            return 110;
         }
 
         /// <summary>

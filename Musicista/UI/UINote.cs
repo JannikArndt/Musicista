@@ -1,25 +1,61 @@
 ﻿using Model;
+using Model.Meta;
+using Musicista.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using Clef = Model.Clef;
 using Duration = Model.Meta.Duration;
-using Note = Model.Note;
-using Pitch = Model.Meta.Pitch;
 
 namespace Musicista.UI
 {
     public class UINote : UISymbol
     {
+        public Path Flag = new Path
+        {
+            Fill = Brushes.Black,
+            SnapsToDevicePixels = Settings.Default.SnapsToDevicePixels,
+            RenderTransform = new ScaleTransform(0.26, 0.26)
+        };
+
+        public Path NoteHead = new Path
+        {
+            Fill = Brushes.Black,
+            SnapsToDevicePixels = Settings.Default.SnapsToDevicePixels,
+            RenderTransform = new ScaleTransform(0.26, 0.26)
+        };
+
+        public Line Stem = new Line
+        {
+            SnapsToDevicePixels = Settings.Default.SnapsToDevicePixels,
+            StrokeThickness = 6,
+            Stroke = Brushes.Black
+        };
+
+        public StemDirection StemDirection = StemDirection.unknown;
+        public double StemLength = 100;
+
+        public Path TieFromNote = new Path
+        {
+            Fill = Brushes.Black,
+            SnapsToDevicePixels = Settings.Default.SnapsToDevicePixels
+        };
+
+        public Path TieToNote = new Path
+        {
+            Fill = Brushes.Black,
+            SnapsToDevicePixels = Settings.Default.SnapsToDevicePixels
+        };
+
         public UINote(Note note, UIMeasure parentMeasure, bool hasMouseDown = true, bool tiedTo = false)
             : base(note, parentMeasure, hasMouseDown)
         {
             Note = note;
 
-            BeatsPerMeasure = (4.0 / ParentMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.BeatUnit) * ParentMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.Beats;
+            BeatsPerMeasure = (4.0 / ParentMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.BeatUnit) *
+                              ParentMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.Beats;
             ParentMeasure.ConnectNotesAtEndOfRun = false;
 
             CanvasLeft = ((ParentMeasure.Width - ParentMeasure.Indent - ParentMeasure.MarginRight) / BeatsPerMeasure * (note.Beat - 1)) + ParentMeasure.Indent;
@@ -30,7 +66,8 @@ namespace Musicista.UI
             SetDuration(note, ParentMeasure);
 
             // Stem & Flag
-            if ((ParentMeasure.StemDirectionIsSetForGroup && ParentMeasure.StemDirectionUp) || (!ParentMeasure.StemDirectionIsSetForGroup && note.StemShouldGoUp()))
+            if ((ParentMeasure.StemDirectionIsSetForGroup && ParentMeasure.StemDirectionUp) ||
+                (!ParentMeasure.StemDirectionIsSetForGroup && note.StemShouldGoUp()))
             {
                 // stem goes up
                 StemDirection = StemDirection.up;
@@ -64,6 +101,61 @@ namespace Musicista.UI
             HandleTriplets();
 
             HandleTies(tiedTo);
+        }
+
+        public Note Note { get; set; }
+
+        public UINote NextUINote
+        {
+            get
+            {
+                var index = ParentMeasure.Notes.IndexOf(this);
+                if (ParentMeasure.Notes.Count > index + 1)
+                    return ParentMeasure.Notes[index + 1];
+                if (ParentMeasure.NextUIMeasure != null && ParentMeasure.NextUIMeasure.Notes != null && ParentMeasure.NextUIMeasure.Notes.Count > 0)
+                    return ParentMeasure.NextUIMeasure.Notes.FirstOrDefault();
+                return null;
+            }
+        }
+
+        public UINote PreviousUINote
+        {
+            get
+            {
+                var index = ParentMeasure.Notes.IndexOf(this);
+                if (index > 0)
+                    return ParentMeasure.Notes[index - 1];
+                if (ParentMeasure.PreviousUIMeasure != null && ParentMeasure.PreviousUIMeasure.Notes != null && ParentMeasure.PreviousUIMeasure.Notes.Count > 0)
+                    return ParentMeasure.PreviousUIMeasure.Notes.Last();
+                return null;
+            }
+        }
+
+        public bool StemOfGroupShouldGoUp
+        {
+            get
+            {
+                var duration = Note.Duration;
+                var ups = 0;
+                var downs = 0;
+                var currentNote = Note;
+                var numberOfNotesToInspect = ((Note.Duration == Duration.Eigth && (Note.Beat == 1 || Note.Beat == 3)) || (Note.Duration == Duration.Sixteenth))
+                    ? 4
+                    : 2;
+                while (currentNote.Duration == duration && currentNote.GetType() == typeof(Note) && numberOfNotesToInspect > 0)
+                {
+                    if (currentNote.StemShouldGoUp())
+                        ups++;
+                    else
+                        downs++;
+                    if (currentNote.Next != null && currentNote.Next.GetType() == typeof(Note))
+                        currentNote = (Note)currentNote.Next;
+                    else
+                        break;
+                    numberOfNotesToInspect--;
+                }
+                return ups >= downs;
+            }
         }
 
         private void HandleOverlappingNotes()
@@ -101,8 +193,9 @@ namespace Musicista.UI
                 (ParentMeasure.NotYetConnectedNotes.Any(item => item.Note.Duration == Duration.Sixteenth) && Note.Next != null &&
                  (Note.Next.Beat == 2 || Note.Next.Beat == 4))
                 ||
-                ParentMeasure.NotYetConnectedNotes.Count == 3 && (ParentMeasure.NotYetConnectedNotes.All(item => item.Symbol.Duration == Duration.SixteenthTriplet)
-                                                                  || ParentMeasure.NotYetConnectedNotes.All(item => item.Symbol.Duration == Duration.EigthTriplet)))
+                ParentMeasure.NotYetConnectedNotes.Count == 3 &&
+                (ParentMeasure.NotYetConnectedNotes.All(item => item.Symbol.Duration == Duration.SixteenthTriplet)
+                 || ParentMeasure.NotYetConnectedNotes.All(item => item.Symbol.Duration == Duration.EigthTriplet)))
             {
                 ParentMeasure.BalanceStems();
                 ParentMeasure.ConnectNotes();
@@ -130,7 +223,8 @@ namespace Musicista.UI
                 TieToNote.Data = Geometry.Parse("F0 M " + start.X + "," + start.Y
                                                 + " C " + start.X + "," + start.Y + " " + start.X + "," + end.Y + " " + end.X + "," + end.Y // right
                                                 + " L " + end.X + "," + (end.Y + 10) // down
-                                                + " C " + end.X + "," + (end.Y + 10) + " " + start.X + "," + (end.Y + 10) + " " + "" + start.X + "," + start.Y + "Z");
+                                                + " C " + end.X + "," + (end.Y + 10) + " " + start.X + "," + (end.Y + 10) + " " + "" + start.X + "," + start.Y +
+                                                "Z");
                 // back
                 Children.Add(TieToNote);
 
@@ -149,7 +243,8 @@ namespace Musicista.UI
                 TieFromNote.Data = Geometry.Parse("F0 M " + start.X + "," + start.Y
                                                   + " C " + start.X + "," + start.Y + " " + start.X + "," + end.Y + " " + end.X + "," + end.Y // right
                                                   + " L " + end.X + "," + (end.Y + 10) // down
-                                                  + " C " + end.X + "," + (end.Y + 10) + " " + start.X + "," + (end.Y + 10) + " " + "" + start.X + "," + start.Y + "Z");
+                                                  + " C " + end.X + "," + (end.Y + 10) + " " + start.X + "," + (end.Y + 10) + " " + "" + start.X + "," + start.Y +
+                                                  "Z");
                 // back
                 Children.Add(TieFromNote);
             }
@@ -157,7 +252,8 @@ namespace Musicista.UI
 
         private void HandleNotesInChord()
         {
-            var otherNotes = ParentMeasure.Symbols.OfType<UINote>().Where(item => Math.Abs(item.Symbol.Beat - Note.Beat) < 0.01 && item.Symbol.Voice == Note.Voice).ToList();
+            var otherNotes =
+                ParentMeasure.Symbols.OfType<UINote>().Where(item => Math.Abs(item.Symbol.Beat - Note.Beat) < 0.01 && item.Symbol.Voice == Note.Voice).ToList();
             foreach (var otherNote in otherNotes)
             {
                 if (Equals(otherNote, this))
@@ -202,66 +298,6 @@ namespace Musicista.UI
                     if (Children.Contains(Stem))
                         Children.Remove(Stem);
                 }
-            }
-        }
-
-        public Note Note { get; set; }
-
-        public double StemLength = 100;
-        public StemDirection StemDirection = StemDirection.unknown;
-
-        public Path NoteHead = new Path
-        {
-            Fill = Brushes.Black,
-            SnapsToDevicePixels = Properties.Settings.Default.SnapsToDevicePixels,
-            RenderTransform = new ScaleTransform(0.26, 0.26)
-        };
-        public Path Flag = new Path
-        {
-            Fill = Brushes.Black,
-            SnapsToDevicePixels = Properties.Settings.Default.SnapsToDevicePixels,
-            RenderTransform = new ScaleTransform(0.26, 0.26)
-        };
-        public Line Stem = new Line
-        {
-            SnapsToDevicePixels = Properties.Settings.Default.SnapsToDevicePixels,
-            StrokeThickness = 6,
-            Stroke = Brushes.Black
-        };
-        public Path TieToNote = new Path
-        {
-            Fill = Brushes.Black,
-            SnapsToDevicePixels = Properties.Settings.Default.SnapsToDevicePixels
-        };
-        public Path TieFromNote = new Path
-        {
-            Fill = Brushes.Black,
-            SnapsToDevicePixels = Properties.Settings.Default.SnapsToDevicePixels
-        };
-
-        public UINote NextUINote
-        {
-            get
-            {
-                var index = ParentMeasure.Notes.IndexOf(this);
-                if (ParentMeasure.Notes.Count > index + 1)
-                    return ParentMeasure.Notes[index + 1];
-                if (ParentMeasure.NextUIMeasure != null && ParentMeasure.NextUIMeasure.Notes != null && ParentMeasure.NextUIMeasure.Notes.Count > 0)
-                    return ParentMeasure.NextUIMeasure.Notes.FirstOrDefault();
-                return null;
-            }
-        }
-
-        public UINote PreviousUINote
-        {
-            get
-            {
-                var index = ParentMeasure.Notes.IndexOf(this);
-                if (index > 0)
-                    return ParentMeasure.Notes[index - 1];
-                if (ParentMeasure.PreviousUIMeasure != null && ParentMeasure.PreviousUIMeasure.Notes != null && ParentMeasure.PreviousUIMeasure.Notes.Count > 0)
-                    return ParentMeasure.PreviousUIMeasure.Notes.Last();
-                return null;
             }
         }
 
@@ -538,13 +574,13 @@ namespace Musicista.UI
             for (var i = 0; i < count; i++)
             {
                 var ledger = new Line
-                    {
-                        X1 = -5,
-                        X2 = width - 5,
-                        StrokeThickness = 5,
-                        Stroke = Brushes.DimGray,
-                        SnapsToDevicePixels = Properties.Settings.Default.SnapsToDevicePixels
-                    };
+                {
+                    X1 = -5,
+                    X2 = width - 5,
+                    StrokeThickness = 5,
+                    Stroke = Brushes.DimGray,
+                    SnapsToDevicePixels = Settings.Default.SnapsToDevicePixels
+                };
                 if (below)
                 {
                     ledger.Y1 = top + i * spacing;
@@ -638,33 +674,6 @@ namespace Musicista.UI
             SetTop(newDot, top);
             SetLeft(newDot, 60);
             Children.Add(newDot);
-        }
-
-        public bool StemOfGroupShouldGoUp
-        {
-            get
-            {
-                var duration = Note.Duration;
-                var ups = 0;
-                var downs = 0;
-                var currentNote = Note;
-                var numberOfNotesToInspect = ((Note.Duration == Duration.Eigth && (Note.Beat == 1 || Note.Beat == 3)) || (Note.Duration == Duration.Sixteenth))
-                    ? 4
-                    : 2;
-                while (currentNote.Duration == duration && currentNote.GetType() == typeof(Note) && numberOfNotesToInspect > 0)
-                {
-                    if (currentNote.StemShouldGoUp())
-                        ups++;
-                    else
-                        downs++;
-                    if (currentNote.Next != null && currentNote.Next.GetType() == typeof(Note))
-                        currentNote = (Note)currentNote.Next;
-                    else
-                        break;
-                    numberOfNotesToInspect--;
-                }
-                return ups >= downs;
-            }
         }
     }
 }

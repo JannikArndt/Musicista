@@ -120,7 +120,7 @@ namespace MusicXML
 
 
         [XmlElement("lyric")]
-        public lyric[] lyric { get; set; }
+        public Lyric[] Lyric { get; set; }
 
 
         public play play { get; set; }

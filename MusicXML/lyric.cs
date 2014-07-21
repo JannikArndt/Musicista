@@ -1,30 +1,32 @@
 using System;
-using System.CodeDom.Compiler;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Serialization;
 
 namespace MusicXML
 {
-    [GeneratedCode("xsd", "4.0.30319.33440")]
     [Serializable]
     [DebuggerStepThrough]
     [DesignerCategory("code")]
-    public class lyric
+    public class Lyric
     {
         [XmlElement("text")]
         public textelementdata Text { get; set; }
 
+        [XmlElement("syllabic")]
+        public syllabic Syllabic { get; set; }
 
 
 
-        [XmlElement("elision", typeof(textfontcolor)), XmlElement("extend", typeof(extend)), XmlElement("humming", typeof(empty)), XmlElement("laughing", typeof(empty)), XmlElement("syllabic", typeof(syllabic)), XmlChoiceIdentifier("ItemsElementName")]
-        public object[] Items { get; set; }
+        [XmlElement("elision")]
+        public textfontcolor Elision { get; set; }
 
-
-        [XmlElement("ItemsElementName"), XmlIgnore]
-        public ItemsChoiceType6[] ItemsElementName { get; set; }
-
+        [XmlElement("extend")]
+        public extend Extend { get; set; }
+        [XmlElement("humming")]
+        public empty Humming { get; set; }
+        [XmlElement("laughing")]
+        public empty Laughing { get; set; }
 
         [XmlElement("end-line")]
         public empty Endline { get; set; }

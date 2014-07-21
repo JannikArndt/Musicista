@@ -1,11 +1,10 @@
+using System;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable]
     public enum syllabic
     {
-
-
         single,
 
 

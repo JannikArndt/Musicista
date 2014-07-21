@@ -24,6 +24,7 @@
         QuarterPlusThirtysecond = 1140,
         QuarterPlusSixteenth = 1200,
         HalfTriplet = 1280,
+        QuarterPlusSixteenthPlusThirtysecond = 1320,
         QuarterDotted = 1440,
         QuarterDoubleDotted = 1680,
         Half = 1920,

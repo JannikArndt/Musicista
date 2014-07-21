@@ -9,6 +9,8 @@ Musicista is a tool that combines music with computer science and offers the abi
 ###Planned features###
 - full support of expression-symbols in Model
 - barlines and repeats
+- automatically choose the right clef
+- automatically adjust measure width
 
 ###v0.6 (in development)###
 - support for multiple voices

@@ -242,8 +242,6 @@ namespace Musicista.Mappers
                                 listOfAdditionalStaves[partNumber][measureNumber].AddSymbol(newNote);
                         }
                     }
-                    if (measureGroup.IsPickupMeasure)
-                        CorrectPickupMeasure(newMeasure);
                     measureGroup.Measures.Add(newMeasure);
                 }
                 piece.ListOfSections[0].ListOfMovements[0].ListOfSegments[0].ListOfPassages[0].ListOfMeasureGroups.Add(measureGroup);
@@ -260,6 +258,10 @@ namespace Musicista.Mappers
                         measure.ParentMeasureGroup.Measures.Insert(additionalStaff.Key + 1, measure);
                     }
                 }
+            // Correct the first measure if it is a pickup measure
+            if (piece.ListOfAllMeasureGroups.First() != null && piece.ListOfAllMeasureGroups.First().IsPickupMeasure)
+                foreach (var measure in piece.ListOfAllMeasureGroups.First().Measures)
+                    CorrectPickupMeasure(measure);
             return piece;
         }
 

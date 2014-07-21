@@ -268,7 +268,7 @@ namespace Musicista.Mappers
             var difference = measure.ParentMeasureGroup.HoldsDuration - measure.Symbols.Sum(item => (int)item.Duration);
             if (difference > 0)
                 foreach (var symbol in measure.Symbols)
-                    symbol.Beat += (difference / ((double)Duration.Whole / measure.ParentMeasureGroup.TimeSignature.BeatUnit));
+                    symbol.Beat += difference / (double)Duration.Quarter;
         }
 
         private static Clef? GetClefFromAttributes(attributes attributes, bool takeLast = false)

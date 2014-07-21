@@ -291,53 +291,73 @@ namespace Musicista.Mappers
         {
             if (mxmlNote == null) return null;
 
+            if (mxmlNote.IsRest)  // Rests
+                return new Rest
+                {
+                    Beat = beat,
+                    Duration = GetDurationFromMXMLNote(mxmlNote, durationDivision, addToDuration),
+                    Lyrics = GetLyricsFromMXMLNote(mxmlNote),
+                    Voice = GetVoiceFromMXMLNote(mxmlNote)
+                };
+
+            // Notes
+            return new Model.Note
+            {
+                Beat = beat,
+                Velocity = 0,
+                Duration = GetDurationFromMXMLNote(mxmlNote, durationDivision, addToDuration),
+                Octave = mxmlNote.Pitch != null ? int.Parse(mxmlNote.Pitch.Octave) : 0,
+                Step = GetPitchFromMXMLNote(mxmlNote),
+                Lyrics = GetLyricsFromMXMLNote(mxmlNote),
+                Voice = GetVoiceFromMXMLNote(mxmlNote)
+            };
+        }
+
+        public static Duration GetDurationFromMXMLNote(Note mxmlNote, int durationDivision = 256, int addToDuration = 0)
+        {
             // Division
             var duration = int.Parse(mxmlNote.Duration.ToString(CultureInfo.InvariantCulture)) + addToDuration;
             if (durationDivision != 960)
                 duration = (int)((double)duration / durationDivision * 960);
-            // Rests
-            if (mxmlNote.IsRest)
-            {
-                var newRest = new Rest
-                {
-                    Beat = beat,
-                    Duration = (Duration)duration
-                };
-                if (!string.IsNullOrEmpty(mxmlNote.voice))
-                    newRest.Voice = int.Parse(Regex.Match(mxmlNote.voice, @"\d+").Value);
-                return newRest;
-            }
 
-            // Notes
-            var newNote = new Model.Note
+            if (!Enum.IsDefined(typeof(Duration), duration))
             {
-                Beat = beat,
-                Velocity = 0,
-                Voice = 0,
-                Duration = (Duration)duration
-            };
-            newNote.Octave = mxmlNote.Pitch != null ? int.Parse(mxmlNote.Pitch.Octave) : 0;
+                for (var tolerance = -12; tolerance <= 12; tolerance++)
+                    if (Enum.IsDefined(typeof(Duration), duration - tolerance))
+                        duration -= tolerance;
 
-            if (!Enum.IsDefined(typeof(Duration), newNote.Duration))
-            {
-                for (int tolerance = -12; tolerance <= 12; tolerance++)
-                {
-                    if (Enum.IsDefined(typeof(Duration), newNote.Duration - tolerance))
-                        newNote.Duration -= tolerance;
-                }
-
-                if (!Enum.IsDefined(typeof(Duration), newNote.Duration))
+                if (!Enum.IsDefined(typeof(Duration), duration))
                     Console.WriteLine(@"Error parsing duration " + mxmlNote.Duration);
             }
+            return (Duration)duration;
+        }
 
-            newNote.Step = GetPitchFromMXMLNote(mxmlNote);
+        public static List<Model.Lyric> GetLyricsFromMXMLNote(Note mxmlNote)
+        {
+            var result = new List<Model.Lyric>();
+            if (mxmlNote.Lyric != null)
+                for (var verse = 0; verse < mxmlNote.Lyric.Length; verse++)
+                    if (mxmlNote.Lyric[verse].Text != null)
+                    {
+                        while (Int32.Parse(mxmlNote.Lyric[verse].number) > verse + 1)
+                            result.Add(new Model.Lyric());
+                        result.Add(new Model.Lyric { Text = mxmlNote.Lyric[verse].Text.Value, Syllabic = (Syllabic)mxmlNote.Lyric[verse].Syllabic });
+                    }
+            return result;
+        }
 
-            if (mxmlNote.lyric != null && mxmlNote.lyric[0] != null && mxmlNote.lyric[0].Text != null)
-                newNote.Text = mxmlNote.lyric[0].Text.Value;
-
+        public static int GetVoiceFromMXMLNote(Note mxmlNote)
+        {
             if (!string.IsNullOrEmpty(mxmlNote.voice))
-                newNote.Voice = int.Parse(Regex.Match(mxmlNote.voice, @"\d+").Value);
-            return newNote;
+                try
+                {
+                    return int.Parse(Regex.Match(mxmlNote.voice, @"\d+").Value);
+                }
+                catch
+                {
+                    return 0;
+                }
+            return 0;
         }
 
         public static Pitch GetPitchFromMXMLNote(Note mxmlNote)

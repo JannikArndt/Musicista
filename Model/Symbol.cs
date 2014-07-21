@@ -9,9 +9,9 @@ namespace Model
         public double Beat { get; set; }
         public Duration Duration { get; set; }
         public int Voice { get; set; }
-        public string Text { get; set; }
-        public List<Expression> ListOfExpressionalModifiers { get; set; }
-        public List<Ornament> ListOfOrnaments { get; set; }
+        public List<Lyric> Lyrics { get; set; }
+        public List<Expression> Expressions { get; set; }
+        public List<Ornament> Ornaments { get; set; }
         [XmlIgnore]
         public Measure ParentMeasure { get; set; }
 
@@ -67,6 +67,23 @@ namespace Model
                 return result;
             }
         }
-        public Symbol() { }
+
+        protected Symbol()
+        {
+            Lyrics = new List<Lyric>();
+            Ornaments = new List<Ornament>();
+            Expressions = new List<Expression>();
+        }
+
+        public void AddLyrics(string text, int verse, Syllabic syllabic)
+        {
+            if (Lyrics == null)
+                Lyrics = new List<Lyric>();
+
+            while (Lyrics.Count < verse)
+                Lyrics.Add(new Lyric());
+
+            Lyrics[verse - 1] = new Lyric { Text = text, Syllabic = syllabic };
+        }
     }
 }

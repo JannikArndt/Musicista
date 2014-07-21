@@ -53,7 +53,8 @@ namespace Musicista.Sidebar
                 grid.AddRowWithTextField("Beat", uiSymbol.Symbol, "Beat");
                 grid.AddRowWithComboBox("Duration", uiSymbol.Symbol, "Duration", Model.Duration.unknown);
                 grid.AddRowWithTextField("Voice", uiSymbol.Symbol, "Voice");
-                grid.AddRowWithTextField("Text", uiSymbol.Symbol, "Text");
+                foreach (var lyric in uiSymbol.Symbol.Lyrics)
+                    grid.AddRowWithTextField("Lyrics", lyric, "Text");
 
 
                 SidebarPanel.Children.Add(grid);

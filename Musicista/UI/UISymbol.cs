@@ -43,9 +43,9 @@ namespace Musicista.UI
             if (hasMouseDown)
                 MouseDown += ClickToSelectSymbols;
 
-            if (!String.IsNullOrEmpty(Symbol.Text))
+            if (Symbol.Lyrics.Count > 0)
             {
-                Text.Text = Symbol.Text;
+                Text.Inlines.Add(String.Join(Environment.NewLine, Symbol.Lyrics.Select(item => item.Text)));
                 SetTop(Text, 260);
                 SetLeft(Text, 0);
                 Children.Add(Text);

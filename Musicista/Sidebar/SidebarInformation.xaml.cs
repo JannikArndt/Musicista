@@ -11,6 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using Duration = Model.Meta.Duration;
 
 namespace Musicista.Sidebar
 {
@@ -51,7 +52,7 @@ namespace Musicista.Sidebar
                 var grid = new GridTable(70);
                 grid.AddRowWithTextField("Measure No.", uiSymbol.Symbol.ParentMeasure.ParentMeasureGroup, "MeasureNumber");
                 grid.AddRowWithTextField("Beat", uiSymbol.Symbol, "Beat");
-                grid.AddRowWithComboBox("Duration", uiSymbol.Symbol, "Duration", Model.Duration.unknown);
+                grid.AddRowWithComboBox("Duration", uiSymbol.Symbol, "Duration", Duration.Unknown);
                 grid.AddRowWithTextField("Voice", uiSymbol.Symbol, "Voice");
                 foreach (var lyric in uiSymbol.Symbol.Lyrics)
                     grid.AddRowWithTextField("Lyrics", lyric, "Text");

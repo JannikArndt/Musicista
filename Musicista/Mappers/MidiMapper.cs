@@ -117,20 +117,20 @@ namespace Musicista.Mappers
 
         public static Dictionary<Func<int, bool>, Duration> MapDeltaTimeToDuration = new Dictionary<Func<int, bool>, Duration>
                 { 
-                    { x => x < 150,                Duration.sixtyforth},          // = 120
-                    { x => x >= 150 && x < 210,    Duration.sixtyforthDotted},    // = 180
-                    { x => x >= 210 && x < 280,    Duration.thirtysecond},        // = 240
-                    { x => x >= 280 && x < 400,    Duration.thirtysecondDotted},  // = 320 // falsch, 360
-                    { x => x >= 400 && x < 600,    Duration.eigth},               // = 480
-                    { x => x >= 600 && x < 840,    Duration.eigthDotted},         // = 720
-                    { x => x >= 840 && x < 1200,   Duration.quarter},             // = 960
-                    { x => x >= 1200 && x < 1680,  Duration.quarterDotted},       // = 1440
-                    { x => x >= 1680 && x < 2400,  Duration.half},                // = 1920
-                    { x => x >= 2400 && x < 3360,  Duration.halfDotted},          // = 2880
-                    { x => x >= 3360 && x < 4800,  Duration.whole},               // = 3840
-                    { x => x >= 4800 && x < 6720,  Duration.wholeDotted},         // = 5760
-                    { x => x >= 6720 && x < 8640,  Duration.doublewhole},         // = 7680
-                    { x => x >= 8640,              Duration.doublewholeDotted}    // = 9600
+                    { x => x < 150,                Duration.Sixtyforth},          // = 120
+                    { x => x >= 150 && x < 210,    Duration.SixtyforthDotted},    // = 180
+                    { x => x >= 210 && x < 280,    Duration.Thirtysecond},        // = 240
+                    { x => x >= 280 && x < 400,    Duration.ThirtysecondDotted},  // = 320 // falsch, 360
+                    { x => x >= 400 && x < 600,    Duration.Eigth},               // = 480
+                    { x => x >= 600 && x < 840,    Duration.EigthDotted},         // = 720
+                    { x => x >= 840 && x < 1200,   Duration.Quarter},             // = 960
+                    { x => x >= 1200 && x < 1680,  Duration.QuarterDotted},       // = 1440
+                    { x => x >= 1680 && x < 2400,  Duration.Half},                // = 1920
+                    { x => x >= 2400 && x < 3360,  Duration.HalfDotted},          // = 2880
+                    { x => x >= 3360 && x < 4800,  Duration.Whole},               // = 3840
+                    { x => x >= 4800 && x < 6720,  Duration.WholeDotted},         // = 5760
+                    { x => x >= 6720 && x < 8640,  Duration.Doublewhole},         // = 7680
+                    { x => x >= 8640,              Duration.DoublewholeDotted}    // = 9600
                 };
     }
 }

@@ -88,7 +88,7 @@ namespace Model
         [XmlIgnore]
         public int HoldsDuration
         {
-            get { return (int)(TimeSignature.Beats * ((double)Duration.whole / TimeSignature.BeatUnit)); }
+            get { return (int)(TimeSignature.Beats * ((double)Duration.Whole / TimeSignature.BeatUnit)); }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -106,7 +106,7 @@ namespace Model
                 var difference = measure.ParentMeasureGroup.HoldsDuration - measure.Symbols.Sum(item => (int)item.Duration);
                 if (difference > 0)
                     foreach (var symbol in measure.Symbols)
-                        symbol.Beat += (difference / ((double)Duration.whole / measure.ParentMeasureGroup.TimeSignature.BeatUnit));
+                        symbol.Beat += (difference / ((double)Duration.Whole / measure.ParentMeasureGroup.TimeSignature.BeatUnit));
             }
         }
     }

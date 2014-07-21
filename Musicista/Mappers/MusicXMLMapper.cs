@@ -8,7 +8,9 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Windows;
 using Clef = Model.Clef;
+using Duration = Model.Meta.Duration;
 using Note = MusicXML.Note;
 using Pitch = Model.Meta.Pitch;
 
@@ -213,7 +215,7 @@ namespace Musicista.Mappers
 
                             // Tied notes
                             var addDuration = 0;
-                            if (mxmlNote.IsTied && mxmlNote.Tie.Type == startstop.start) // make tied notes (starting the tie) longer
+                            if (mxmlNote.IsTied && mxmlNote.Tie.Type == startstop.start && mxml.Part[partNumber].Measure.Count() > measureNumber + 1) // make tied notes (starting the tie) longer
                             {
                                 var nextMeasure = mxml.Part[partNumber].Measure[measureNumber + 1];
                                 var tiedNote = nextMeasure.Items.OfType<Note>().FirstOrDefault(item => Equals(item.Pitch, mxmlNote.Pitch) && item.IsTied && item.Tie.Type == startstop.stop);
@@ -266,7 +268,7 @@ namespace Musicista.Mappers
             var difference = measure.ParentMeasureGroup.HoldsDuration - measure.Symbols.Sum(item => (int)item.Duration);
             if (difference > 0)
                 foreach (var symbol in measure.Symbols)
-                    symbol.Beat += (difference / ((double)Duration.whole / measure.ParentMeasureGroup.TimeSignature.BeatUnit));
+                    symbol.Beat += (difference / ((double)Duration.Whole / measure.ParentMeasureGroup.TimeSignature.BeatUnit));
         }
 
         private static Clef? GetClefFromAttributes(attributes attributes, bool takeLast = false)
@@ -313,6 +315,7 @@ namespace Musicista.Mappers
             };
         }
 
+        private static bool _durationErrorDisplayed;
         public static Duration GetDurationFromMXMLNote(Note mxmlNote, int durationDivision = 256, int addToDuration = 0)
         {
             // Division
@@ -327,7 +330,17 @@ namespace Musicista.Mappers
                         duration -= tolerance;
 
                 if (!Enum.IsDefined(typeof(Duration), duration))
+                {
+                    if (!_durationErrorDisplayed)
+                    {
+                        MessageBox.Show(
+                            "This score contains a combination of notes that is not supported, namely " + duration + ". These notes will not be displayed.",
+                            "Error");
+                        _durationErrorDisplayed = true;
+                    }
                     Console.WriteLine(@"Error parsing duration " + mxmlNote.Duration);
+                    duration = 0;
+                }
             }
             return (Duration)duration;
         }

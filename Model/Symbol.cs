@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Model.Meta;
+using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
@@ -37,8 +38,8 @@ namespace Model
         {
             get
             {
-                return (Duration == Duration.wholeTriplet || Duration == Duration.halfTriplet || Duration == Duration.quarterTriplet
-                    || Duration == Duration.eigthTriplet || Duration == Duration.sixteenthTriplet || Duration == Duration.thirtysecondTriplet);
+                return (Duration == Duration.WholeTriplet || Duration == Duration.HalfTriplet || Duration == Duration.QuarterTriplet
+                    || Duration == Duration.EigthTriplet || Duration == Duration.SixteenthTriplet || Duration == Duration.ThirtysecondTriplet);
             }
         }
 
@@ -47,7 +48,7 @@ namespace Model
         {
             get
             {
-                var durationAlreadySpent = (Beat - 1) * ((double)Duration.whole / ParentMeasure.ParentMeasureGroup.TimeSignature.BeatUnit);
+                var durationAlreadySpent = (Beat - 1) * ((double)Duration.Whole / ParentMeasure.ParentMeasureGroup.TimeSignature.BeatUnit);
                 var durationLeftInMeasure = ParentMeasure.ParentMeasureGroup.HoldsDuration - durationAlreadySpent;
                 var result = (Duration)Math.Min(durationLeftInMeasure, (double)Duration);
 

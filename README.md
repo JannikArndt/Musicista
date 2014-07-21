@@ -9,7 +9,7 @@ Musicista is a tool that combines music with computer science and offers the abi
 ###Planned features###
 - full support of expression-symbols in Model
 - support for chords
-- support for lyrics
+- barlines and repeats
 
 ###v0.6 (in development)###
 - support for multiple voices
@@ -18,6 +18,7 @@ Musicista is a tool that combines music with computer science and offers the abi
 - support for pickup / upbeat measures
 - measurenumbers
 - Redrawing of measures if properties change (in progress)
+- support for lyrics
 
 ###v0.5 (16.7.2014)###
 - Added support for common- and cut-time

@@ -1,4 +1,5 @@
 ﻿using Model;
+using Model.Meta;
 using System;
 using System.Linq;
 using System.Windows.Controls;
@@ -28,7 +29,7 @@ namespace Musicista.UI
 
             SetLeft(Path, 10);
             CanvasLeft = ((ParentMeasure.Width - ParentMeasure.Indent - parentMeasure.MarginRight) / BeatsPerMeasure * (rest.Beat - 1)) + ParentMeasure.Indent;
-            if (rest.Duration == Duration.whole)
+            if (rest.Duration == Duration.Whole)
                 CanvasLeft = ParentMeasure.Width / 2;
             SetDuration(rest, ParentMeasure);
 
@@ -39,7 +40,7 @@ namespace Musicista.UI
             if (ParentMeasure.ConnectNotesAtEndOfRun || ParentMeasure.NotYetConnectedNotes.Count == 4
                 || (ParentMeasure.NotYetConnectedNotes.Any() && rest.Next == null)
                 || (ParentMeasure.NotYetConnectedNotes.Any() && rest.Next != null && (rest.Next.Beat == 3 || rest.Next.Beat == 1))
-                || (ParentMeasure.NotYetConnectedNotes.Any(item => item.Note.Duration == Duration.sixteenth) && rest.Next != null && (rest.Next.Beat == 2 || rest.Next.Beat == 4)))
+                || (ParentMeasure.NotYetConnectedNotes.Any(item => item.Note.Duration == Duration.Sixteenth) && rest.Next != null && (rest.Next.Beat == 2 || rest.Next.Beat == 4)))
                 ParentMeasure.ConnectNotes();
 
             // Handle triplets ( /tuplets)
@@ -77,50 +78,50 @@ namespace Musicista.UI
         {
             switch (rest.Duration)
             {
-                case Duration.whole:
+                case Duration.Whole:
                     Path.Data = Geometry.Parse(Engraving.RestWhole);
                     break;
-                case Duration.halfDotted:
+                case Duration.HalfDotted:
                     Path.Data = Geometry.Parse(Engraving.RestHalf);
                     DrawDot(measure);
                     break;
-                case Duration.wholeTriplet:
+                case Duration.WholeTriplet:
                     Path.Data = Geometry.Parse(Engraving.RestWhole);
                     break;
-                case Duration.half:
+                case Duration.Half:
                     Path.Data = Geometry.Parse(Engraving.RestHalf);
                     break;
-                case Duration.quarterDotted:
+                case Duration.QuarterDotted:
                     Path.Data = Geometry.Parse(Engraving.RestQuarter);
                     DrawDot(measure);
                     break;
-                case Duration.halfTriplet:
+                case Duration.HalfTriplet:
                     Path.Data = Geometry.Parse(Engraving.RestHalf);
                     break;
-                case Duration.quarter:
+                case Duration.Quarter:
                     Path.Data = Geometry.Parse(Engraving.RestQuarter);
                     break;
-                case Duration.eigthDotted:
-                    Path.Data = Geometry.Parse(Engraving.RestQuarter);
-                    DrawDot(measure);
-                    break;
-                case Duration.quarterTriplet:
-                    Path.Data = Geometry.Parse(Engraving.RestQuarter);
-                    break;
-                case Duration.eigth:
-                    Path.Data = Geometry.Parse(Engraving.RestEigth);
-                    break;
-                case Duration.sixteenthDotted:
+                case Duration.EigthDotted:
                     Path.Data = Geometry.Parse(Engraving.RestQuarter);
                     DrawDot(measure);
                     break;
-                case Duration.eigthTriplet:
+                case Duration.QuarterTriplet:
+                    Path.Data = Geometry.Parse(Engraving.RestQuarter);
+                    break;
+                case Duration.Eigth:
                     Path.Data = Geometry.Parse(Engraving.RestEigth);
                     break;
-                case Duration.sixteenth:
+                case Duration.SixteenthDotted:
+                    Path.Data = Geometry.Parse(Engraving.RestQuarter);
+                    DrawDot(measure);
+                    break;
+                case Duration.EigthTriplet:
+                    Path.Data = Geometry.Parse(Engraving.RestEigth);
+                    break;
+                case Duration.Sixteenth:
                     Path.Data = Geometry.Parse(Engraving.RestSixteenth);
                     break;
-                case Duration.sixteenthTriplet:
+                case Duration.SixteenthTriplet:
                     Path.Data = Geometry.Parse(Engraving.RestSixteenth);
                     break;
             }
@@ -154,7 +155,7 @@ namespace Musicista.UI
             var ups = 0;
             var downs = 0;
             var currentNote = note;
-            var numberOfNotesToInspect = ((note.Duration == Duration.eigth && (note.Beat == 1 || note.Beat == 3)) || (note.Duration == Duration.sixteenth)) ? 4 : 2;
+            var numberOfNotesToInspect = ((note.Duration == Duration.Eigth && (note.Beat == 1 || note.Beat == 3)) || (note.Duration == Duration.Sixteenth)) ? 4 : 2;
             while (currentNote.Duration == duration && currentNote.GetType() == typeof(Note) && numberOfNotesToInspect > 0)
             {
                 if (currentNote.StemShouldGoUp())

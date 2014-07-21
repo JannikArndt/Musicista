@@ -11,7 +11,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using Duration = Model.Duration;
+using Duration = Model.Meta.Duration;
 
 namespace Musicista.UI
 {
@@ -231,9 +231,9 @@ namespace Musicista.UI
 
         public void ConnectNotes()
         {
-            var onlyEights = NotYetConnectedNotes.All(item => item.Note.Duration == Duration.eigth);
-            var onlySixteenths = NotYetConnectedNotes.All(item => item.Note.Duration == Duration.sixteenth);
-            var onlyThirtyseconds = NotYetConnectedNotes.All(item => item.Note.Duration == Duration.thirtysecond);
+            var onlyEights = NotYetConnectedNotes.All(item => item.Note.Duration == Duration.Eigth);
+            var onlySixteenths = NotYetConnectedNotes.All(item => item.Note.Duration == Duration.Sixteenth);
+            var onlyThirtyseconds = NotYetConnectedNotes.All(item => item.Note.Duration == Duration.Thirtysecond);
 
             var shapeString = "";
             var c = CultureInfo.GetCultureInfo("en-US");
@@ -332,18 +332,18 @@ namespace Musicista.UI
                 foreach (var uiNote in NotYetConnectedNotes.Where(uiNote => uiNote.NextUINote != null))
                 {
                     // two sixteenths and some eights
-                    if (uiNote.Note.Duration == Duration.sixteenth && uiNote.NextUINote.Note.Duration == Duration.sixteenth)
+                    if (uiNote.Note.Duration == Duration.Sixteenth && uiNote.NextUINote.Note.Duration == Duration.Sixteenth)
                         shapeString += " M "
                                        + (GetLeft(uiNote) + uiNote.Stem.X2).ToString(c) + "," + (uiNote.Stem.Y2 + offsetSecondBeam + addToY).ToString(c) + " L "
                                        + (GetLeft(uiNote.NextUINote) + uiNote.NextUINote.Stem.X2).ToString(c) + "," + (uiNote.NextUINote.Stem.Y2 + offsetSecondBeam + addToY).ToString(c) + "";
                     // dotted eigth followed by a sixteenth
-                    if (uiNote.Note.Duration == Duration.eigthDotted && uiNote.NextUINote.Note.Duration == Duration.sixteenth)
+                    if (uiNote.Note.Duration == Duration.EigthDotted && uiNote.NextUINote.Note.Duration == Duration.Sixteenth)
                         shapeString += " M "
                                        + (GetLeft(uiNote) + uiNote.Stem.X2 + (uiNote.NextUINote.CanvasLeft - uiNote.CanvasLeft) * 0.6).ToString(c) + ","
                                        + (uiNote.Stem.Y2 + (uiNote.NextUINote.Stem.Y2 - uiNote.Stem.Y2) * 0.6 + offsetSecondBeam + addToY).ToString(c) + " L "
                                        + (GetLeft(uiNote.NextUINote) + uiNote.NextUINote.Stem.X2).ToString(c) + "," + (uiNote.NextUINote.Stem.Y2 + offsetSecondBeam + addToY).ToString(c) + "";
                     // sixteenth followed by a dotted eigth
-                    if (uiNote.Note.Duration == Duration.sixteenth && uiNote.NextUINote.Note.Duration == Duration.eigthDotted)
+                    if (uiNote.Note.Duration == Duration.Sixteenth && uiNote.NextUINote.Note.Duration == Duration.EigthDotted)
                         shapeString += " M "
                                        + (GetLeft(NotYetConnectedNotes[1]) + NotYetConnectedNotes[1].Stem.X2 + (NotYetConnectedNotes[0].CanvasLeft - NotYetConnectedNotes[1].CanvasLeft) * 0.4).ToString(c) + ","
                                        + (NotYetConnectedNotes[1].Stem.Y2 + (NotYetConnectedNotes[0].Stem.Y2 - NotYetConnectedNotes[1].Stem.Y2) * 0.4 + offsetSecondBeam - addToY).ToString(c) + " L "
@@ -351,9 +351,9 @@ namespace Musicista.UI
                 }
                 // 16th - 8th - 16th
                 if (NotYetConnectedNotes.Count == 3
-                    && NotYetConnectedNotes[0].Note.Duration == Duration.sixteenth
-                    && NotYetConnectedNotes[1].Note.Duration == Duration.eigth
-                    && NotYetConnectedNotes[2].Note.Duration == Duration.sixteenth)
+                    && NotYetConnectedNotes[0].Note.Duration == Duration.Sixteenth
+                    && NotYetConnectedNotes[1].Note.Duration == Duration.Eigth
+                    && NotYetConnectedNotes[2].Note.Duration == Duration.Sixteenth)
                 {
                     NotYetConnectedNotes[1].CanvasLeft = (NotYetConnectedNotes[0].CanvasLeft + NotYetConnectedNotes[2].CanvasLeft) / 2;
                     // First 16th to middle 8th
@@ -370,8 +370,8 @@ namespace Musicista.UI
                 }
                 // 16th - 16th rest - 8th
                 if (NotYetConnectedNotes.Count == 2
-                    && NotYetConnectedNotes[0].Note.Duration == Duration.sixteenth
-                    && NotYetConnectedNotes[1].Note.Duration == Duration.eigth)
+                    && NotYetConnectedNotes[0].Note.Duration == Duration.Sixteenth
+                    && NotYetConnectedNotes[1].Note.Duration == Duration.Eigth)
                     shapeString += " M "
                                        + (GetLeft(NotYetConnectedNotes[1]) + NotYetConnectedNotes[1].Stem.X2 + (NotYetConnectedNotes[0].CanvasLeft - NotYetConnectedNotes[1].CanvasLeft) * 0.5).ToString(c) + ","
                                        + (NotYetConnectedNotes[1].Stem.Y2 + (NotYetConnectedNotes[0].Stem.Y2 - NotYetConnectedNotes[1].Stem.Y2) * 0.5 + offsetSecondBeam).ToString(c) + " L "

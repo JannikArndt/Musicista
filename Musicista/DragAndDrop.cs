@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using Duration = Model.Duration;
+using Duration = Model.Meta.Duration;
 
 namespace Musicista
 {
@@ -160,7 +160,7 @@ namespace Musicista
                         Instrument = movedMeasure.Instrument,
                         ParentMeasureGroup = movedMeasure.ParentMeasureGroup,
                     };
-                    newMeasure.AddSymbol(new Rest { Beat = 1, Duration = Duration.whole });
+                    newMeasure.AddSymbol(new Rest { Beat = 1, Duration = Duration.Whole });
                     newMeasure.ParentMeasureGroup.Measures.Add(newMeasure);
                     UIHelper.DrawMeasure(((UIMeasure)_draggedElement).ParentMeasureGroup, newMeasure, ((UIMeasure)_draggedElement).Part);
 

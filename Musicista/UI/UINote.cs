@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using Clef = Model.Clef;
-using Duration = Model.Duration;
+using Duration = Model.Meta.Duration;
 using Note = Model.Note;
 
 namespace Musicista.UI
@@ -57,14 +57,14 @@ namespace Musicista.UI
 
             // Handle overlapping notes (in seperate voices)
             foreach (var overlappingNote in ParentMeasure.InnerMeasure.GetSymbolsAt(Note.Beat).OfType<Note>().Where(item => item.Octave == Note.Octave && item.Step == Note.Step))
-                if (overlappingNote.Duration >= Duration.halfTriplet || Note.Duration >= Duration.halfTriplet)
+                if (overlappingNote.Duration >= Duration.HalfTriplet || Note.Duration >= Duration.HalfTriplet)
                     if (overlappingNote.Voice < Note.Voice)
                     {
                         SetLeft(NoteHead, 50);
                         Stem.X1 = Stem.X2 += 40;
                     }
             Children.Add(NoteHead);
-            if (note.DurationInMeasure < Duration.whole && note.DurationInMeasure != Duration.wholeTriplet)
+            if (note.DurationInMeasure < Duration.Whole && note.DurationInMeasure != Duration.WholeTriplet)
                 Children.Add(Stem);
             else
                 StemDirection = StemDirection.none;
@@ -75,9 +75,9 @@ namespace Musicista.UI
             if (ParentMeasure.ConnectNotesAtEndOfRun
                 || ParentMeasure.NotYetConnectedNotes.Count == 4
                 || (ParentMeasure.NotYetConnectedNotes.Any() && note.Next != null && (note.Next.Beat == 3 || note.Next.Beat == 1))
-                || (ParentMeasure.NotYetConnectedNotes.Any(item => item.Note.Duration == Duration.sixteenth) && note.Next != null && (note.Next.Beat == 2 || note.Next.Beat == 4))
-                || ParentMeasure.NotYetConnectedNotes.Count == 3 && (ParentMeasure.NotYetConnectedNotes.All(item => item.Symbol.Duration == Duration.sixteenthTriplet)
-                   || ParentMeasure.NotYetConnectedNotes.All(item => item.Symbol.Duration == Duration.eigthTriplet)))
+                || (ParentMeasure.NotYetConnectedNotes.Any(item => item.Note.Duration == Duration.Sixteenth) && note.Next != null && (note.Next.Beat == 2 || note.Next.Beat == 4))
+                || ParentMeasure.NotYetConnectedNotes.Count == 3 && (ParentMeasure.NotYetConnectedNotes.All(item => item.Symbol.Duration == Duration.SixteenthTriplet)
+                   || ParentMeasure.NotYetConnectedNotes.All(item => item.Symbol.Duration == Duration.EigthTriplet)))
             {
                 ParentMeasure.BalanceStems();
                 ParentMeasure.ConnectNotes();
@@ -208,81 +208,81 @@ namespace Musicista.UI
             }
             switch (note.DurationInMeasure)
             {
-                case Duration.whole:
+                case Duration.Whole:
                     NoteHead.Data = Geometry.Parse(Engraving.WholeHead);
                     NoteHead.RenderTransform = new ScaleTransform(0.3, 0.3);
                     Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 4;
                     break;
-                case Duration.halfDotted:
+                case Duration.HalfDotted:
                     NoteHead.Data = Geometry.Parse(Engraving.HalfHead);
                     Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 3;
                     DrawDot();
                     break;
-                case Duration.wholeTriplet:
+                case Duration.WholeTriplet:
                     NoteHead.Data = Geometry.Parse(Engraving.WholeHead);
                     NoteHead.RenderTransform = new ScaleTransform(0.3, 0.3);
                     Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 2.66;
                     break;
-                case Duration.half:
+                case Duration.Half:
                     NoteHead.Data = Geometry.Parse(Engraving.HalfHead);
                     Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 2;
                     break;
-                case Duration.quarterDotted:
+                case Duration.QuarterDotted:
                     NoteHead.Data = Geometry.Parse(Engraving.QuarterHead);
                     Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 1.5;
                     DrawDot();
                     break;
-                case Duration.halfTriplet:
+                case Duration.HalfTriplet:
                     NoteHead.Data = Geometry.Parse(Engraving.HalfHead);
                     Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 1.33;
                     break;
-                case Duration.quarter:
+                case Duration.Quarter:
                     NoteHead.Data = Geometry.Parse(Engraving.QuarterHead);
                     Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 1;
                     break;
-                case Duration.eigthDotted:
+                case Duration.EigthDotted:
                     NoteHead.Data = Geometry.Parse(Engraving.QuarterHead);
                     Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 0.75;
                     DrawDot();
                     if (HandleConnectedNotes_NeedsFlag(note, measure))
                         Flag.Data = Geometry.Parse(Note.StemShouldGoUp() ? Engraving.EigthFlagUp : Engraving.EigthFlagDown);
                     break;
-                case Duration.quarterTriplet:
+                case Duration.QuarterTriplet:
                     NoteHead.Data = Geometry.Parse(Engraving.QuarterHead);
                     Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 0.66;
                     break;
-                case Duration.eigth:
+                case Duration.Eigth:
                     NoteHead.Data = Geometry.Parse(Engraving.QuarterHead);
                     Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 0.5;
                     if (HandleConnectedNotes_NeedsFlag(note, measure))
                         Flag.Data = Geometry.Parse(Note.StemShouldGoUp() ? Engraving.EigthFlagUp : Engraving.EigthFlagDown);
                     break;
-                case Duration.sixteenthDotted:
+                case Duration.SixteenthDotted:
                     NoteHead.Data = Geometry.Parse(Engraving.QuarterHead);
                     Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 0.37;
                     DrawDot();
                     if (HandleConnectedNotes_NeedsFlag(note, measure))
                         Flag.Data = Geometry.Parse(Note.StemShouldGoUp() ? Engraving.SixteenthFlagUp : Engraving.SixteenthFlagDown);
                     break;
-                case Duration.eigthTriplet:
+                case Duration.EigthTriplet:
                     NoteHead.Data = Geometry.Parse(Engraving.QuarterHead);
                     Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 0.333;
                     if (HandleConnectedNotes_NeedsFlag(note, measure))
                         Flag.Data = Geometry.Parse(Note.StemShouldGoUp() ? Engraving.EigthFlagUp : Engraving.EigthFlagDown);
                     break;
-                case Duration.sixteenth:
+                case Duration.Sixteenth:
                     NoteHead.Data = Geometry.Parse(Engraving.QuarterHead);
                     Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 0.25;
                     if (HandleConnectedNotes_NeedsFlag(note, measure))
                         Flag.Data = Geometry.Parse(Note.StemShouldGoUp() ? Engraving.SixteenthFlagUp : Engraving.SixteenthFlagDown);
                     break;
-                case Duration.sixteenthTriplet:
+                case Duration.SixteenthTriplet:
                     NoteHead.Data = Geometry.Parse(Engraving.QuarterHead);
                     Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 0.166;
                     if (HandleConnectedNotes_NeedsFlag(note, measure))
                         Flag.Data = Geometry.Parse(Note.StemShouldGoUp() ? Engraving.SixteenthFlagUp : Engraving.SixteenthFlagDown);
                     break;
-                case Duration.thirtysecond:
+                case Duration.Thirtysecond:
                     NoteHead.Data = Geometry.Parse(Engraving.QuarterHead);
                     NoteHead.RenderTransform = new ScaleTransform(0.15, 0.15);
                     Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 0.125;
@@ -303,10 +303,10 @@ namespace Musicista.UI
                 // AND is followed by a note (not a rest)
                 && note.Next.GetType() == typeof(Note)
                 // AND the next note is an eigth/dotted or sixteenth/dotted / thirtysecond
-                && (note.Next.Duration == Duration.eigth || note.Next.Duration == Duration.sixteenth
-                    || note.Next.Duration == Duration.eigthDotted || note.Next.Duration == Duration.sixteenthDotted
-                    || note.Next.Duration == Duration.eigthTriplet || note.Next.Duration == Duration.sixteenthTriplet
-                    || note.Next.Duration == Duration.thirtysecond)
+                && (note.Next.Duration == Duration.Eigth || note.Next.Duration == Duration.Sixteenth
+                    || note.Next.Duration == Duration.EigthDotted || note.Next.Duration == Duration.SixteenthDotted
+                    || note.Next.Duration == Duration.EigthTriplet || note.Next.Duration == Duration.SixteenthTriplet
+                    || note.Next.Duration == Duration.Thirtysecond)
                 // AND the next beat is not a "heavy" beat
                 && note.Next.Beat != 1 && note.Next.Beat != 3)
             {
@@ -565,7 +565,7 @@ namespace Musicista.UI
                 var ups = 0;
                 var downs = 0;
                 var currentNote = Note;
-                var numberOfNotesToInspect = ((Note.Duration == Duration.eigth && (Note.Beat == 1 || Note.Beat == 3)) || (Note.Duration == Duration.sixteenth))
+                var numberOfNotesToInspect = ((Note.Duration == Duration.Eigth && (Note.Beat == 1 || Note.Beat == 3)) || (Note.Duration == Duration.Sixteenth))
                     ? 4
                     : 2;
                 while (currentNote.Duration == duration && currentNote.GetType() == typeof(Note) && numberOfNotesToInspect > 0)

@@ -69,5 +69,22 @@ namespace Model
             }
             return true;
         }
+
+        public Interval DistanceTo(Note otherNote)
+        {
+            var pitch1 = (int)Step.ToPitchForSums();
+            var pitch2 = (int)otherNote.Step.ToPitchForSums();
+
+            if (otherNote.Octave > Octave)
+                pitch2 += 12 * (otherNote.Octave - Octave);
+            if (otherNote.Octave < Octave)
+                pitch1 += 12 * (Octave - otherNote.Octave);
+
+            if (pitch1 > pitch2)
+                return (Interval)(pitch1 - pitch2);
+            if (pitch2 > pitch1)
+                return (Interval)(pitch2 - pitch1);
+            return Interval.PerfectUnison;
+        }
     }
 }

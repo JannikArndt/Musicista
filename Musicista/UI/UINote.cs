@@ -1,5 +1,4 @@
 ﻿using Model;
-using Model.Meta;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +8,7 @@ using System.Windows.Shapes;
 using Clef = Model.Clef;
 using Duration = Model.Meta.Duration;
 using Note = Model.Note;
+using Pitch = Model.Meta.Pitch;
 
 namespace Musicista.UI
 {
@@ -55,8 +55,22 @@ namespace Musicista.UI
                 SetLeft(Flag, 14);
             }
 
-            // Handle overlapping notes (in seperate voices)
-            foreach (var overlappingNote in ParentMeasure.InnerMeasure.GetSymbolsAt(Note.Beat).OfType<Note>().Where(item => item.Octave == Note.Octave && item.Step == Note.Step))
+            HandleOverlappingNotes();
+
+            HandleNotesInChord();
+
+            HandleBeams();
+
+            HandleTriplets();
+
+            HandleTies(tiedTo);
+        }
+
+        private void HandleOverlappingNotes()
+        {
+            foreach (
+                var overlappingNote in
+                    ParentMeasure.InnerMeasure.GetSymbolsAt(Note.Beat).OfType<Note>().Where(item => item.Octave == Note.Octave && item.Step == Note.Step))
                 if (overlappingNote.Duration >= Duration.HalfTriplet || Note.Duration >= Duration.HalfTriplet)
                     if (overlappingNote.Voice < Note.Voice)
                     {
@@ -64,33 +78,47 @@ namespace Musicista.UI
                         Stem.X1 = Stem.X2 += 40;
                     }
             Children.Add(NoteHead);
-            if (note.DurationInMeasure < Duration.Whole && note.DurationInMeasure != Duration.WholeTriplet)
+            if (Note.DurationInMeasure < Duration.Whole && Note.DurationInMeasure != Duration.WholeTriplet)
                 Children.Add(Stem);
             else
                 StemDirection = StemDirection.none;
             Children.Add(Flag);
             ParentMeasure.Children.Add(this);
+        }
 
-            // Connect eigths / sixteenths / thirtyseconds
-            if (ParentMeasure.ConnectNotesAtEndOfRun
+        private void HandleBeams()
+        {
+            // Check if all notes, that are on that beat, are already drawn
+            if (Note.ParentMeasure.Symbols.OfType<Note>().Count(item => Math.Abs(item.Beat - Note.Beat) < 0.01 && item.Voice == Note.Voice)
+                > ParentMeasure.Symbols.OfType<UINote>().Count(item => Math.Abs(item.Symbol.Beat - Note.Beat) < 0.01 && item.Symbol.Voice == Note.Voice))
+                return;
+
+            if (
+                ParentMeasure.ConnectNotesAtEndOfRun
                 || ParentMeasure.NotYetConnectedNotes.Count == 4
-                || (ParentMeasure.NotYetConnectedNotes.Any() && note.Next != null && (note.Next.Beat == 3 || note.Next.Beat == 1))
-                || (ParentMeasure.NotYetConnectedNotes.Any(item => item.Note.Duration == Duration.Sixteenth) && note.Next != null && (note.Next.Beat == 2 || note.Next.Beat == 4))
-                || ParentMeasure.NotYetConnectedNotes.Count == 3 && (ParentMeasure.NotYetConnectedNotes.All(item => item.Symbol.Duration == Duration.SixteenthTriplet)
-                   || ParentMeasure.NotYetConnectedNotes.All(item => item.Symbol.Duration == Duration.EigthTriplet)))
+                || (ParentMeasure.NotYetConnectedNotes.Any() && Note.Next != null && (Note.Next.Beat == 3 || Note.Next.Beat == 1))
+                ||
+                (ParentMeasure.NotYetConnectedNotes.Any(item => item.Note.Duration == Duration.Sixteenth) && Note.Next != null &&
+                 (Note.Next.Beat == 2 || Note.Next.Beat == 4))
+                ||
+                ParentMeasure.NotYetConnectedNotes.Count == 3 && (ParentMeasure.NotYetConnectedNotes.All(item => item.Symbol.Duration == Duration.SixteenthTriplet)
+                                                                  || ParentMeasure.NotYetConnectedNotes.All(item => item.Symbol.Duration == Duration.EigthTriplet)))
             {
                 ParentMeasure.BalanceStems();
                 ParentMeasure.ConnectNotes();
             }
+        }
 
-            // Handle triplets ( /tuplets)
-            if (note.IsTriplet && !ParentMeasure.Tuplets.Select(item => item.Symbol.Beat).Contains(note.Beat))
+        private void HandleTriplets()
+        {
+            if (Note.IsTriplet && !ParentMeasure.Tuplets.Select(item => item.Symbol.Beat).Contains(Note.Beat))
                 ParentMeasure.Tuplets.Add(this);
-            if (ParentMeasure.Tuplets.Count > 2 || (ParentMeasure.Tuplets.Any() && !note.IsTriplet))
+            if (ParentMeasure.Tuplets.Count > 2 || (ParentMeasure.Tuplets.Any() && !Note.IsTriplet))
                 ParentMeasure.ConnectTuplets();
+        }
 
-            // Draw ties
-
+        private void HandleTies(bool tiedTo)
+        {
             const int moveTieMidToLeft = 120;
             const int tieHeight = 40;
 
@@ -100,9 +128,10 @@ namespace Musicista.UI
                 var end = new Point(-GetLeft(this) - moveTieMidToLeft, start.Y + tieHeight);
 
                 TieToNote.Data = Geometry.Parse("F0 M " + start.X + "," + start.Y
-                    + " C " + start.X + "," + start.Y + " " + start.X + "," + end.Y + " " + end.X + "," + end.Y // right
-                    + " L " + end.X + "," + (end.Y + 10)  // down
-                    + " C " + end.X + "," + (end.Y + 10) + " " + start.X + "," + (end.Y + 10) + " " + "" + start.X + "," + start.Y + "Z"); // back
+                                                + " C " + start.X + "," + start.Y + " " + start.X + "," + end.Y + " " + end.X + "," + end.Y // right
+                                                + " L " + end.X + "," + (end.Y + 10) // down
+                                                + " C " + end.X + "," + (end.Y + 10) + " " + start.X + "," + (end.Y + 10) + " " + "" + start.X + "," + start.Y + "Z");
+                // back
                 Children.Add(TieToNote);
 
                 PreviewMouseDown += (sender, args) =>
@@ -112,16 +141,67 @@ namespace Musicista.UI
                 };
             }
 
-            if (note.DurationInMeasure < note.Duration)
+            if (Note.DurationInMeasure < Note.Duration)
             {
                 var start = new Point(30, GetTop(NoteHead) + 30);
                 var end = new Point(Width + 10 - moveTieMidToLeft, start.Y + tieHeight);
 
                 TieFromNote.Data = Geometry.Parse("F0 M " + start.X + "," + start.Y
-                    + " C " + start.X + "," + start.Y + " " + start.X + "," + end.Y + " " + end.X + "," + end.Y // right
-                    + " L " + end.X + "," + (end.Y + 10)  // down
-                    + " C " + end.X + "," + (end.Y + 10) + " " + start.X + "," + (end.Y + 10) + " " + "" + start.X + "," + start.Y + "Z"); // back
+                                                  + " C " + start.X + "," + start.Y + " " + start.X + "," + end.Y + " " + end.X + "," + end.Y // right
+                                                  + " L " + end.X + "," + (end.Y + 10) // down
+                                                  + " C " + end.X + "," + (end.Y + 10) + " " + start.X + "," + (end.Y + 10) + " " + "" + start.X + "," + start.Y + "Z");
+                // back
                 Children.Add(TieFromNote);
+            }
+        }
+
+        private void HandleNotesInChord()
+        {
+            var otherNotes = ParentMeasure.Symbols.OfType<UINote>().Where(item => Math.Abs(item.Symbol.Beat - Note.Beat) < 0.01 && item.Symbol.Voice == Note.Voice).ToList();
+            foreach (var otherNote in otherNotes)
+            {
+                if (Equals(otherNote, this))
+                    continue;
+
+                var verticalDistance = Math.Abs(GetTop(otherNote.NoteHead) - GetTop(NoteHead));
+
+                // Notes are in the same space AND the other note wasn't already moved
+                if (verticalDistance < 10 && Math.Abs(GetLeft(otherNote.NoteHead) - 10) < 1)
+                {
+                    if (Note.Duration >= Duration.Whole || Note.Duration == Duration.WholeTriplet)
+                        SetLeft(NoteHead, 64);
+                    else
+                    {
+                        SetLeft(NoteHead, 50);
+                        if (otherNote.StemDirection == StemDirection.down)
+                            otherNote.Stem.X1 = otherNote.Stem.X2 = otherNote.Stem.X1 + 40;
+                        Children.Remove(Stem);
+                    }
+                }
+                // Notes are only one space apart AND the other note wasn't already moved
+                else if (verticalDistance < 16 && Math.Abs(GetLeft(otherNote.NoteHead) - 10) < 1)
+                {
+                    if (Note.Duration >= Duration.Whole || Note.Duration == Duration.WholeTriplet)
+                        SetLeft(NoteHead, 56);
+                    else
+                    {
+                        SetLeft(NoteHead, 50);
+                        if (otherNote.StemDirection == StemDirection.down)
+                            otherNote.Stem.X1 = otherNote.Stem.X2 = otherNote.Stem.X1 + 40;
+                        Children.Remove(Stem);
+                    }
+                    // TODO: more than two notes with a stem down need to be rebalanced, so that the bottommost note is on the RIGHT side of the stem (Gould p.49)
+                }
+                // Notes are more than a space apart
+                else
+                {
+                    if (otherNote.StemDirection == StemDirection.up)
+                        otherNote.Stem.Y2 = StemDirection == StemDirection.up ? Stem.Y2 : Stem.Y1 - StemLength;
+                    else
+                        otherNote.Stem.Y1 = StemDirection == StemDirection.down ? Stem.Y1 : Stem.Y2 + StemLength;
+                    if (Children.Contains(Stem))
+                        Children.Remove(Stem);
+                }
             }
         }
 
@@ -296,6 +376,9 @@ namespace Musicista.UI
 
         private bool HandleConnectedNotes_NeedsFlag(Note note, UIMeasure measure)
         {
+            // ignore notes in chord, except fo the first one, which actually still has a stem
+            if (ParentMeasure.Symbols.OfType<UINote>().Count(item => Math.Abs(item.Symbol.Beat - Note.Beat) < 0.01 && item.Symbol.Voice == note.Voice) > 1)
+                return false;
             // a note qualifies for beaming IF there already are others
 
             // OR IF it is not alone...

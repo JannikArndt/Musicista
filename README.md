@@ -13,8 +13,9 @@ Musicista is a tool that combines music with computer science and offers the abi
 - automatically adjust measure width
 - Collection with all recent files and other suggestions
 - Edit instruments
+- Cue notes
 
-###v0.6 (in development)###
+###v0.6 (22.7.2014)###
 - support for multiple voices
 - basic support for 32nds
 - support for tied notes

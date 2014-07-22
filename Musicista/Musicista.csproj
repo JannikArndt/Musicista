@@ -25,8 +25,8 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>1</ApplicationRevision>
-    <ApplicationVersion>0.5.0.%2a</ApplicationVersion>
+    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationVersion>0.6.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -238,15 +238,12 @@
       <Visible>False</Visible>
       <Description>Musicista</Description>
       <Progid>musicista</Progid>
-      <DefaultIcon>Properties\AppIcon.ico</DefaultIcon>
+      <DefaultIcon>AppIcon.ico</DefaultIcon>
     </FileAssociation>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Properties\timepart.xsl">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Resource Include="AppIcon.ico" />
-    <Content Include="Properties\AppIcon.ico">
+    <Content Include="AppIcon.ico" />
+    <Content Include="Mappers\timepart.xsl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

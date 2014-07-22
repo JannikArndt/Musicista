@@ -102,5 +102,11 @@ namespace Musicista
             var aboutWindow = new AboutWindow();
             aboutWindow.Show();
         }
+
+        private void ShowPreferences(object sender, RoutedEventArgs e)
+        {
+            var preferencesWindow = new PreferencesWindow();
+            preferencesWindow.Show();
+        }
     }
 }

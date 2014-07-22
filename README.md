@@ -11,6 +11,8 @@ Musicista is a tool that combines music with computer science and offers the abi
 - barlines and repeats
 - automatically choose the right clef
 - automatically adjust measure width
+- Collection with all recent files and other suggestions
+- Edit instruments
 
 ###v0.6 (in development)###
 - support for multiple voices

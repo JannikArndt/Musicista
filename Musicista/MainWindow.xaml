@@ -26,6 +26,8 @@
                 <Separator />
                 <MenuItem Header="Print..." Command="Print"></MenuItem>
                 <Separator />
+                <MenuItem Header="Preferences" Click="ShowPreferences"></MenuItem>
+                <Separator />
                 <MenuItem Header="_Close Document" Command="Close" InputGestureText="Ctrl+W"></MenuItem>
                 <Separator />
                 <MenuItem Header="_Quit" Command="BoostBass" InputGestureText="Ctrl+Q"></MenuItem>

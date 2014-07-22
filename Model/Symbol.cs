@@ -48,7 +48,7 @@ namespace Model
         {
             get
             {
-                var durationAlreadySpent = (Beat - 1) * ((double)Duration.Whole / ParentMeasure.ParentMeasureGroup.TimeSignature.BeatUnit);
+                var durationAlreadySpent = (Beat - 1) * ParentMeasure.ParentMeasureGroup.TimeSignature.Beats / ParentMeasure.ParentMeasureGroup.TimeSignature.BeatUnit * 4;
                 var durationLeftInMeasure = ParentMeasure.ParentMeasureGroup.HoldsDuration - durationAlreadySpent;
                 var result = (Duration)Math.Min(durationLeftInMeasure, (double)Duration);
 

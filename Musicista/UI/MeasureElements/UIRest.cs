@@ -1,12 +1,11 @@
 ﻿using Model;
 using Model.Meta;
-using System;
+using Musicista.Properties;
 using System.Linq;
-using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace Musicista.UI
+namespace Musicista.UI.MeasureElements
 {
     public class UIRest : UISymbol
     {
@@ -53,7 +52,7 @@ namespace Musicista.UI
         public Path Path = new Path
         {
             Fill = Brushes.Black,
-            SnapsToDevicePixels = Properties.Settings.Default.SnapsToDevicePixels
+            SnapsToDevicePixels = Settings.Default.SnapsToDevicePixels
         };
 
         public Rest Rest { get; set; }
@@ -102,7 +101,7 @@ namespace Musicista.UI
                     Path.Data = Geometry.Parse(Engraving.RestQuarter);
                     break;
                 case Duration.EigthDotted:
-                    Path.Data = Geometry.Parse(Engraving.RestQuarter);
+                    Path.Data = Geometry.Parse(Engraving.RestEigth);
                     DrawDot(measure);
                     break;
                 case Duration.QuarterTriplet:
@@ -112,7 +111,7 @@ namespace Musicista.UI
                     Path.Data = Geometry.Parse(Engraving.RestEigth);
                     break;
                 case Duration.SixteenthDotted:
-                    Path.Data = Geometry.Parse(Engraving.RestQuarter);
+                    Path.Data = Geometry.Parse(Engraving.RestSixteenth);
                     DrawDot(measure);
                     break;
                 case Duration.EigthTriplet:
@@ -129,14 +128,6 @@ namespace Musicista.UI
 
         public void DrawDot(UIMeasure measure)
         {
-            double top;
-            if (Math.Abs(GetTop(Path) % 31) < 5)
-                top = GetTop(Path) + 88;
-            else
-                top = GetTop(Path) + 103;
-
-            var left = CanvasLeft + 50;
-
             var newDot = new Ellipse
             {
                 Fill = Brushes.Black,
@@ -144,9 +135,9 @@ namespace Musicista.UI
                 Height = 18
             };
 
-            Canvas.SetTop(newDot, top);
-            Canvas.SetLeft(newDot, left);
-            measure.Children.Add(newDot);
+            SetTop(newDot, GetTop(Path) + 32);
+            SetLeft(newDot, GetLeft(Path) + 60);
+            Children.Add(newDot);
         }
 
         public bool StemOfGroupShouldGoUp(Note note)

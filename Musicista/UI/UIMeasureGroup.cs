@@ -1,5 +1,6 @@
 ﻿using Model;
 using Musicista.UI.Converters;
+using Musicista.UI.MeasureElements;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -15,8 +16,17 @@ namespace Musicista.UI
         public readonly MeasureGroup InnerMeasureGroup = new MeasureGroup();
         public readonly UISystem ParentSystem;
 
-        public List<UIMeasure> Measures = new List<UIMeasure>();
         private readonly bool _hasMouseDown = true;
+
+        public TextBlock MeasureNumberTextBlock = new TextBlock
+        {
+            FontSize = 10,
+            Width = 20,
+            HorizontalAlignment = HorizontalAlignment.Left,
+            TextAlignment = TextAlignment.Left
+        };
+
+        public List<UIMeasure> Measures = new List<UIMeasure>();
 
         public UIMeasureGroup(UISystem system, MeasureGroup innerMeasureGroup = null, bool hasMouseDown = true)
         {
@@ -32,7 +42,14 @@ namespace Musicista.UI
             SetTop(this, 0);
             SetLeft(this, PreviousUIMeasureGroupInSystem != null ? PreviousUIMeasureGroupInSystem.Right : 0);
 
-            SetBinding(WidthProperty, new Binding { Path = new PropertyPath(WidthProperty), Source = ParentSystem, Converter = new MeasureWidthConverter(), ConverterParameter = ParentSystem });
+            SetBinding(WidthProperty,
+                new Binding
+                {
+                    Path = new PropertyPath(WidthProperty),
+                    Source = ParentSystem,
+                    Converter = new MeasureWidthConverter(),
+                    ConverterParameter = ParentSystem
+                });
 
             Barline = new Line
             {
@@ -61,20 +78,14 @@ namespace Musicista.UI
 
             Children.Add(Barline);
             ParentSystem.Children.Add(this);
-
         }
 
         public Line Barline { get; set; }
 
-        public TextBlock MeasureNumberTextBlock = new TextBlock
+        public double Right
         {
-            FontSize = 10,
-            Width = 20,
-            HorizontalAlignment = HorizontalAlignment.Left,
-            TextAlignment = TextAlignment.Left
-        };
-
-        public double Right { get { return GetLeft(this) + Width; } }
+            get { return GetLeft(this) + Width; }
+        }
 
         public UIMeasureGroup NextUIMeasureGroup
         {
@@ -118,7 +129,7 @@ namespace Musicista.UI
         public void Draw()
         {
             for (var part = 0; part < InnerMeasureGroup.Measures.Count; part++)
-                UIHelper.DrawMeasure(this, InnerMeasureGroup.Measures[part], part + 1, _hasMouseDown);
+                DrawMeasure(InnerMeasureGroup.Measures[part], part + 1);
             // set connecting barlines
             if (Measures.Count > 0)
                 Barline.Y2 = GetTop(Measures.Last()) + 36;
@@ -128,6 +139,48 @@ namespace Musicista.UI
         {
             Children.Clear();
             Draw();
+        }
+
+        public void DrawMeasure(Measure measure, int part)
+        {
+            if (measure.Symbols == null || measure.Symbols.Count <= 0)
+                return;
+
+            var measureGroup = InnerMeasureGroup;
+
+            var newMeasure = new UIMeasure(this, part, measure, hasMouseDown: _hasMouseDown);
+            Measures.Add(newMeasure);
+
+            // Draw clef changes
+            if (measure.Previous == null || !Equals(measure.Clef, measure.Previous.Clef) || ParentSystem.MeasureGroups.IndexOf(this) == 0)
+                newMeasure.Children.Add(new UIClef(measure.Clef, newMeasure));
+
+            // Draw key signature changes
+            if (measureGroup.Previous == null || !Equals(measureGroup.KeySignature, measureGroup.Previous.KeySignature) ||
+                ParentSystem.MeasureGroups.IndexOf(this) == 0)
+                newMeasure.Children.Add(new UIKeySignature(measureGroup.KeySignature, measure.Clef, newMeasure));
+
+            // Draw meter changes
+            if (measureGroup.Previous == null || !Equals(measureGroup.Previous.TimeSignature, measureGroup.TimeSignature))
+                newMeasure.Children.Add(new UITimeSignature(measureGroup.TimeSignature, newMeasure));
+
+            // If the width is smaller than the indent, there is no room for any notes. Return without drawing
+            if (newMeasure.Width - newMeasure.Indent < 1)
+                return;
+
+            // Draw tied notes
+            if (newMeasure.PreviousUIMeasure != null)
+                foreach (var symbol in newMeasure.PreviousUIMeasure.TiedNotes.OfType<Note>())
+                    new UINote(symbol, newMeasure, _hasMouseDown, true);
+
+            // Draw notes
+            foreach (var symbol in measure.Symbols)
+                if (symbol.GetType() == typeof(Note))
+                    new UINote((Note)symbol, newMeasure, _hasMouseDown);
+                else if (symbol.GetType() == typeof(Rest))
+                    new UIRest((Rest)symbol, newMeasure, _hasMouseDown);
+
+            newMeasure.CorrectTextVerticalAlignment();
         }
     }
 }

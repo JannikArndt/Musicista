@@ -2,6 +2,7 @@
 using Model.Meta;
 using Musicista.Exceptions;
 using Musicista.UI;
+using Musicista.UI.MeasureElements;
 using Musicista.View;
 using System;
 using System.Collections.Generic;

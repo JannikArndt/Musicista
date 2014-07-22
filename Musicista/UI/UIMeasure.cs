@@ -1,6 +1,8 @@
 ﻿using Model;
 using Model.Meta;
 using Musicista.UI.Converters;
+using Musicista.UI.Enums;
+using Musicista.UI.MeasureElements;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -476,7 +478,7 @@ namespace Musicista.UI
             var start = Tuplets.First().GetFreePoint(direction);
             var end = Tuplets.Last().GetFreePoint(direction);
 
-            var nibble = direction == Direction.above ? 20 : -20;
+            var nibble = direction == Direction.Above ? 20 : -20;
 
             var shapeString = "F0 M " + start.X + "," + (start.Y + nibble)
                    + "L " + start.X + "," + start.Y

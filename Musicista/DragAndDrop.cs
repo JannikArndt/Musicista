@@ -162,7 +162,7 @@ namespace Musicista
                     };
                     newMeasure.AddSymbol(new Rest { Beat = 1, Duration = Duration.Whole });
                     newMeasure.ParentMeasureGroup.Measures.Add(newMeasure);
-                    UIHelper.DrawMeasure(((UIMeasure)_draggedElement).ParentMeasureGroup, newMeasure, ((UIMeasure)_draggedElement).Part);
+                    ((UIMeasure)_draggedElement).ParentMeasureGroup.DrawMeasure(newMeasure, ((UIMeasure)_draggedElement).Part);
 
 
                     // Update visual tree

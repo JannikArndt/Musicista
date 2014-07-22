@@ -1,4 +1,5 @@
 ﻿using Model;
+using Musicista.UI.Enums;
 using System;
 using System.Linq;
 using System.Windows;
@@ -6,7 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace Musicista.UI
+namespace Musicista.UI.MeasureElements
 {
     public class UISymbol : Canvas
     {
@@ -134,21 +135,21 @@ namespace Musicista.UI
 
             if (GetType() == typeof(UIRest))
             {
-                if (direction == Direction.below)
+                if (direction == Direction.Below)
                     return new Point(left, 200);
                 return new Point(left, 0);
 
             }
 
             var thisNote = (UINote)this;
-            if (direction == Direction.above)
-                if (thisNote.StemDirection == StemDirection.up)
+            if (direction == Direction.Above)
+                if (thisNote.StemDirection == StemDirection.Up)
                     return new Point(left, Math.Min(0, thisNote.Stem.Y2 - 60));
                 else
                     return new Point(left, Math.Min(0, GetTop(thisNote.NoteHead) - 60));
 
-            if (direction == Direction.below)
-                if (thisNote.StemDirection == StemDirection.down)
+            if (direction == Direction.Below)
+                if (thisNote.StemDirection == StemDirection.Down)
                     return new Point(left, Math.Max(220, thisNote.Stem.Y2 + 40));
                 else
                     return new Point(left, Math.Max(100, GetTop(thisNote.NoteHead) + 60));
@@ -159,23 +160,23 @@ namespace Musicista.UI
         public Direction BestFreeSpot()
         {
             if (GetType() == typeof(UIRest))
-                return Direction.above;
+                return Direction.Above;
 
             var thisNote = (UINote)this;
 
-            if (thisNote.StemDirection == StemDirection.up)
+            if (thisNote.StemDirection == StemDirection.Up)
                 if (thisNote.Stem.Y2 > 140)
-                    return Direction.below;
+                    return Direction.Below;
                 else
-                    return Direction.above;
+                    return Direction.Above;
 
-            if (thisNote.StemDirection == StemDirection.down)
+            if (thisNote.StemDirection == StemDirection.Down)
                 if (thisNote.Stem.Y2 < 100)
-                    return Direction.above;
+                    return Direction.Above;
                 else
-                    return Direction.below;
+                    return Direction.Below;
 
-            return Direction.above;
+            return Direction.Above;
         }
     }
 }

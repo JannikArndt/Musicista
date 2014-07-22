@@ -1,6 +1,7 @@
 ﻿using Model;
 using Model.Meta;
 using Musicista.Properties;
+using Musicista.UI.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using Duration = Model.Meta.Duration;
 
-namespace Musicista.UI
+namespace Musicista.UI.MeasureElements
 {
     public class UINote : UISymbol
     {
@@ -34,7 +35,7 @@ namespace Musicista.UI
             Stroke = Brushes.Black
         };
 
-        public StemDirection StemDirection = StemDirection.unknown;
+        public StemDirection StemDirection = StemDirection.Unknown;
         public double StemLength = 100;
 
         public Path TieFromNote = new Path
@@ -70,7 +71,7 @@ namespace Musicista.UI
                 (!ParentMeasure.StemDirectionIsSetForGroup && note.StemShouldGoUp()))
             {
                 // stem goes up
-                StemDirection = StemDirection.up;
+                StemDirection = StemDirection.Up;
                 Stem.X1 = 48;
                 Stem.X2 = Stem.X1;
                 Stem.Y1 = GetTop(NoteHead) + 12;
@@ -82,7 +83,7 @@ namespace Musicista.UI
             else
             {
                 // stem goes down
-                StemDirection = StemDirection.down;
+                StemDirection = StemDirection.Down;
                 Stem.X1 = 14;
                 Stem.X2 = Stem.X1;
                 Stem.Y1 = GetTop(NoteHead) + 20;
@@ -173,7 +174,7 @@ namespace Musicista.UI
             if (Note.DurationInMeasure < Duration.Whole && Note.DurationInMeasure != Duration.WholeTriplet)
                 Children.Add(Stem);
             else
-                StemDirection = StemDirection.none;
+                StemDirection = StemDirection.None;
             Children.Add(Flag);
             ParentMeasure.Children.Add(this);
         }
@@ -269,7 +270,7 @@ namespace Musicista.UI
                     else
                     {
                         SetLeft(NoteHead, 50);
-                        if (otherNote.StemDirection == StemDirection.down)
+                        if (otherNote.StemDirection == StemDirection.Down)
                             otherNote.Stem.X1 = otherNote.Stem.X2 = otherNote.Stem.X1 + 40;
                         Children.Remove(Stem);
                     }
@@ -282,7 +283,7 @@ namespace Musicista.UI
                     else
                     {
                         SetLeft(NoteHead, 50);
-                        if (otherNote.StemDirection == StemDirection.down)
+                        if (otherNote.StemDirection == StemDirection.Down)
                             otherNote.Stem.X1 = otherNote.Stem.X2 = otherNote.Stem.X1 + 40;
                         Children.Remove(Stem);
                     }
@@ -291,10 +292,10 @@ namespace Musicista.UI
                 // Notes are more than a space apart
                 else
                 {
-                    if (otherNote.StemDirection == StemDirection.up)
-                        otherNote.Stem.Y2 = StemDirection == StemDirection.up ? Stem.Y2 : Stem.Y1 - StemLength;
+                    if (otherNote.StemDirection == StemDirection.Up)
+                        otherNote.Stem.Y2 = StemDirection == StemDirection.Up ? Stem.Y2 : Stem.Y1 - StemLength;
                     else
-                        otherNote.Stem.Y1 = StemDirection == StemDirection.down ? Stem.Y1 : Stem.Y2 + StemLength;
+                        otherNote.Stem.Y1 = StemDirection == StemDirection.Down ? Stem.Y1 : Stem.Y2 + StemLength;
                     if (Children.Contains(Stem))
                         Children.Remove(Stem);
                 }

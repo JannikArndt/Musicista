@@ -14,10 +14,11 @@ namespace Model
 
             var currentMeasureGroup = new MeasureGroup();
             var currentMeasure = new Measure();
+            var firstRun = true;
 
             foreach (var symbol in symbols)
             {
-                if (symbol.MeasureNumber != currentMeasureGroup.MeasureNumber)
+                if (symbol.MeasureNumber != currentMeasureGroup.MeasureNumber || firstRun)
                 {
                     currentMeasureGroup = new MeasureGroup
                     {
@@ -34,6 +35,7 @@ namespace Model
                     };
                     currentMeasureGroup.Measures.Add(currentMeasure);
                     ListOfMeasureGroups.Add(currentMeasureGroup);
+                    firstRun = false;
                 }
                 currentMeasure.AddSymbol(symbol);
             }

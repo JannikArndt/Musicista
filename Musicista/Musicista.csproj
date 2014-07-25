@@ -242,7 +242,9 @@
     </FileAssociation>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AppIcon.ico" />
+    <Content Include="AppIcon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Mappers\timepart.xsl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

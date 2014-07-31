@@ -1,5 +1,5 @@
 ﻿
-namespace Model
+namespace Model.Sections.Notes
 {
     public enum Syllabic
     {

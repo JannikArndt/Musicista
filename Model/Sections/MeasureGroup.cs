@@ -6,7 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 
-namespace Model
+namespace Model.Sections
 {
     public class MeasureGroup : INotifyPropertyChanged
     {
@@ -31,19 +31,20 @@ namespace Model
             get { return _measureNumber; }
             set { _measureNumber = value; NotifyPropertyChanged(); }
         }
-
+        [XmlElement("TimeSignature")]
         public TimeSignature TimeSignature
         {
             get { return _timeSignature; }
             set { _timeSignature = value; NotifyPropertyChanged(); }
         }
-
+        [XmlElement("KeySignature")]
         public MusicalKey KeySignature
         {
             get { return _keySignature; }
             set { _keySignature = value; NotifyPropertyChanged(); }
         }
 
+        [XmlElement("Measures")]
         public List<Measure> Measures { get; set; }
 
         [XmlIgnore]
@@ -67,8 +68,8 @@ namespace Model
         {
             get
             {
-                if (ParentPassage != null && ParentPassage.ListOfMeasureGroups.IndexOf(this) > 0)
-                    return ParentPassage.ListOfMeasureGroups[ParentPassage.ListOfMeasureGroups.IndexOf(this) - 1];
+                if (ParentPassage != null && ParentPassage.MeasureGroups.IndexOf(this) > 0)
+                    return ParentPassage.MeasureGroups[ParentPassage.MeasureGroups.IndexOf(this) - 1];
                 return null;
             }
         }
@@ -78,9 +79,9 @@ namespace Model
         {
             get
             {
-                if (ParentPassage != null && ParentPassage.ListOfMeasureGroups.IndexOf(this) > -1 &&
-                    ParentPassage.ListOfMeasureGroups.IndexOf(this) < ParentPassage.ListOfMeasureGroups.Count - 1)
-                    return ParentPassage.ListOfMeasureGroups[ParentPassage.ListOfMeasureGroups.IndexOf(this) + 1];
+                if (ParentPassage != null && ParentPassage.MeasureGroups.IndexOf(this) > -1 &&
+                    ParentPassage.MeasureGroups.IndexOf(this) < ParentPassage.MeasureGroups.Count - 1)
+                    return ParentPassage.MeasureGroups[ParentPassage.MeasureGroups.IndexOf(this) + 1];
                 return null;
             }
         }

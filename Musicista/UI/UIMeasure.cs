@@ -1,5 +1,6 @@
-﻿using Model;
-using Model.Meta;
+﻿using Model.Meta;
+using Model.Sections;
+using Model.Sections.Notes;
 using Musicista.UI.Converters;
 using Musicista.UI.Enums;
 using Musicista.UI.MeasureElements;
@@ -20,12 +21,12 @@ namespace Musicista.UI
     public class UIMeasure : Canvas
     {
         public readonly Measure InnerMeasure = new Measure();
-        public readonly UISystem ParentSystem;
-        public readonly UIStaff ParentStaff;
-        public readonly UIMeasureGroup ParentMeasureGroup;
+        public readonly UISystem ParentUISystem;
+        public readonly UIStaff ParentUIStaff;
+        public readonly UIMeasureGroup ParentUIMeasureGroup;
         public List<UISymbol> Symbols = new List<UISymbol>();
         public List<Symbol> TiedNotes = new List<Symbol>();
-        public int MeasureNumber { get { return ParentMeasureGroup.InnerMeasureGroup.MeasureNumber; } }
+        public int MeasureNumber { get { return ParentUIMeasureGroup.InnerMeasureGroup.MeasureNumber; } }
 
         public List<UINote> Notes
         {
@@ -55,12 +56,12 @@ namespace Musicista.UI
         public Line Line4 { get; set; }
         public Line Line5 { get; set; }
 
-        public UIMeasure(UIMeasureGroup parentMeasureGroup, int part, Measure innerMeasure, UISystem system = null, UIStaff staff = null, double top = -1, bool hasMouseDown = true)
+        public UIMeasure(UIMeasureGroup parentUIMeasureGroup, int part, Measure innerMeasure, UISystem uiSystem = null, UIStaff uiStaff = null, double top = -1, bool hasMouseDown = true)
         {
             InnerMeasure = innerMeasure;
-            ParentStaff = staff;
-            ParentSystem = system;
-            ParentMeasureGroup = parentMeasureGroup;
+            ParentUIStaff = uiStaff;
+            ParentUISystem = uiSystem;
+            ParentUIMeasureGroup = parentUIMeasureGroup;
 
             Height = 54 * ScaleTransform;
             Background = Brushes.Transparent;
@@ -70,12 +71,12 @@ namespace Musicista.UI
             RenderTransform = new ScaleTransform(1.0 / ScaleTransform, 1.0 / ScaleTransform);
 
             if (top < 0)
-                SetBinding(TopProperty, new Binding { Path = new PropertyPath(TopProperty), Source = ParentMeasureGroup.ParentSystem.Staves[part - 1], Converter = new Adder(), ConverterParameter = -10 });
+                SetBinding(TopProperty, new Binding { Path = new PropertyPath(TopProperty), Source = ParentUIMeasureGroup.ParentSystem.Staves[part - 1], Converter = new Adder(), ConverterParameter = -10 });
             else
                 SetTop(this, top);
             SetLeft(this, 0);
 
-            SetBinding(WidthProperty, new Binding { Path = new PropertyPath(WidthProperty), Source = parentMeasureGroup, Converter = new Multiplier(), ConverterParameter = ScaleTransform });
+            SetBinding(WidthProperty, new Binding { Path = new PropertyPath(WidthProperty), Source = parentUIMeasureGroup, Converter = new Multiplier(), ConverterParameter = ScaleTransform });
 
             Barline = new Line
             {
@@ -101,7 +102,7 @@ namespace Musicista.UI
                 MouseDown += ClickToSelectMeasures;
             }
 
-            parentMeasureGroup.Children.Add(this);
+            parentUIMeasureGroup.Children.Add(this);
 
             // Lines
             var spacing = 6 * ScaleTransform;
@@ -131,7 +132,7 @@ namespace Musicista.UI
 
             // PropertyChangedEvent
             if (InnerMeasure != null)
-                InnerMeasure.PropertyChanged += (sender, args) => ParentMeasureGroup.Redraw();
+                InnerMeasure.PropertyChanged += (sender, args) => ParentUIMeasureGroup.Redraw();
         }
 
         private void ClickToSelectMeasures(object sender, MouseButtonEventArgs args)
@@ -153,7 +154,7 @@ namespace Musicista.UI
             {
                 var next = UIHelper.SelectedUIMeasures.FirstOrDefault();
                 // first click on an earlier measure
-                if (next != null && ParentMeasureGroup.InnerMeasureGroup.MeasureNumber > next.ParentMeasureGroup.InnerMeasureGroup.MeasureNumber)
+                if (next != null && ParentUIMeasureGroup.InnerMeasureGroup.MeasureNumber > next.ParentUIMeasureGroup.InnerMeasureGroup.MeasureNumber)
                 {
                     while (next != null && next != this)
                     {
@@ -202,10 +203,10 @@ namespace Musicista.UI
         {
             get
             {
-                if (ParentMeasureGroup == null || ParentMeasureGroup.NextUIMeasureGroup == null) return null;
-                var currentIndex = ParentMeasureGroup.Measures.IndexOf(this);
-                if (currentIndex > -1 && ParentMeasureGroup.NextUIMeasureGroup.Measures.Count > currentIndex)
-                    return ParentMeasureGroup.NextUIMeasureGroup.Measures[currentIndex];
+                if (ParentUIMeasureGroup == null || ParentUIMeasureGroup.NextUIMeasureGroup == null) return null;
+                var currentIndex = ParentUIMeasureGroup.Measures.IndexOf(this);
+                if (currentIndex > -1 && ParentUIMeasureGroup.NextUIMeasureGroup.Measures.Count > currentIndex)
+                    return ParentUIMeasureGroup.NextUIMeasureGroup.Measures[currentIndex];
                 return null;
             }
         }
@@ -214,10 +215,10 @@ namespace Musicista.UI
         {
             get
             {
-                if (ParentMeasureGroup == null || ParentMeasureGroup.PreviousUIMeasureGroup == null) return null;
-                var currentIndex = ParentMeasureGroup.Measures.IndexOf(this);
-                if (currentIndex > -1 && ParentMeasureGroup.PreviousUIMeasureGroup.Measures.Count > currentIndex)
-                    return ParentMeasureGroup.PreviousUIMeasureGroup.Measures[currentIndex];
+                if (ParentUIMeasureGroup == null || ParentUIMeasureGroup.PreviousUIMeasureGroup == null) return null;
+                var currentIndex = ParentUIMeasureGroup.Measures.IndexOf(this);
+                if (currentIndex > -1 && ParentUIMeasureGroup.PreviousUIMeasureGroup.Measures.Count > currentIndex)
+                    return ParentUIMeasureGroup.PreviousUIMeasureGroup.Measures[currentIndex];
                 return null;
             }
         }

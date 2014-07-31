@@ -22,7 +22,7 @@ namespace Model.Meta
             Pitch = pitch;
             Gender = gender;
         }
-
+        [XmlAttribute]
         public Pitch Pitch
         {
             get { return _pitch; }
@@ -32,7 +32,7 @@ namespace Model.Meta
                 NotifyPropertyChanged();
             }
         }
-
+        [XmlAttribute]
         public Gender Gender
         {
             get { return _gender; }

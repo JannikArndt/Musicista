@@ -1,5 +1,6 @@
 ﻿using Model;
 using Model.Meta;
+using Model.Sections.Notes;
 using Musicista.Properties;
 using Musicista.UI.Enums;
 using System;
@@ -55,20 +56,20 @@ namespace Musicista.UI.MeasureElements
         {
             Note = note;
 
-            BeatsPerMeasure = (4.0 / ParentMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.BeatUnit) *
-                              ParentMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.Beats;
-            ParentMeasure.ConnectNotesAtEndOfRun = false;
+            BeatsPerMeasure = (4.0 / ParentUIMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.BeatUnit) *
+                              ParentUIMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.Beats;
+            ParentUIMeasure.ConnectNotesAtEndOfRun = false;
 
-            CanvasLeft = ((ParentMeasure.Width - ParentMeasure.Indent - ParentMeasure.MarginRight) / BeatsPerMeasure * (note.Beat - 1)) + ParentMeasure.Indent;
+            CanvasLeft = ((ParentUIMeasure.Width - ParentUIMeasure.Indent - ParentUIMeasure.MarginRight) / BeatsPerMeasure * (note.Beat - 1)) + ParentUIMeasure.Indent;
 
             // Note Head
-            SetTop(NoteHead, CalculateTop(note, ParentMeasure) + 94);
+            SetTop(NoteHead, CalculateTop(note, ParentUIMeasure) + 94);
             SetLeft(NoteHead, 10);
-            SetDuration(note, ParentMeasure);
+            SetDuration(note, ParentUIMeasure);
 
             // Stem & Flag
-            if ((ParentMeasure.StemDirectionIsSetForGroup && ParentMeasure.StemDirectionUp) ||
-                (!ParentMeasure.StemDirectionIsSetForGroup && note.StemShouldGoUp()))
+            if ((ParentUIMeasure.StemDirectionIsSetForGroup && ParentUIMeasure.StemDirectionUp) ||
+                (!ParentUIMeasure.StemDirectionIsSetForGroup && note.StemShouldGoUp()))
             {
                 // stem goes up
                 StemDirection = StemDirection.Up;
@@ -110,11 +111,11 @@ namespace Musicista.UI.MeasureElements
         {
             get
             {
-                var index = ParentMeasure.Notes.IndexOf(this);
-                if (ParentMeasure.Notes.Count > index + 1)
-                    return ParentMeasure.Notes[index + 1];
-                if (ParentMeasure.NextUIMeasure != null && ParentMeasure.NextUIMeasure.Notes != null && ParentMeasure.NextUIMeasure.Notes.Count > 0)
-                    return ParentMeasure.NextUIMeasure.Notes.FirstOrDefault();
+                var index = ParentUIMeasure.Notes.IndexOf(this);
+                if (ParentUIMeasure.Notes.Count > index + 1)
+                    return ParentUIMeasure.Notes[index + 1];
+                if (ParentUIMeasure.NextUIMeasure != null && ParentUIMeasure.NextUIMeasure.Notes != null && ParentUIMeasure.NextUIMeasure.Notes.Count > 0)
+                    return ParentUIMeasure.NextUIMeasure.Notes.FirstOrDefault();
                 return null;
             }
         }
@@ -123,11 +124,11 @@ namespace Musicista.UI.MeasureElements
         {
             get
             {
-                var index = ParentMeasure.Notes.IndexOf(this);
+                var index = ParentUIMeasure.Notes.IndexOf(this);
                 if (index > 0)
-                    return ParentMeasure.Notes[index - 1];
-                if (ParentMeasure.PreviousUIMeasure != null && ParentMeasure.PreviousUIMeasure.Notes != null && ParentMeasure.PreviousUIMeasure.Notes.Count > 0)
-                    return ParentMeasure.PreviousUIMeasure.Notes.Last();
+                    return ParentUIMeasure.Notes[index - 1];
+                if (ParentUIMeasure.PreviousUIMeasure != null && ParentUIMeasure.PreviousUIMeasure.Notes != null && ParentUIMeasure.PreviousUIMeasure.Notes.Count > 0)
+                    return ParentUIMeasure.PreviousUIMeasure.Notes.Last();
                 return null;
             }
         }
@@ -163,7 +164,7 @@ namespace Musicista.UI.MeasureElements
         {
             foreach (
                 var overlappingNote in
-                    ParentMeasure.InnerMeasure.GetSymbolsAt(Note.Beat).OfType<Note>().Where(item => item.Octave == Note.Octave && item.Step == Note.Step))
+                    ParentUIMeasure.InnerMeasure.GetSymbolsAt(Note.Beat).OfType<Note>().Where(item => item.Octave == Note.Octave && item.Step == Note.Step))
                 if (overlappingNote.Duration >= Duration.HalfTriplet || Note.Duration >= Duration.HalfTriplet)
                     if (overlappingNote.Voice < Note.Voice)
                     {
@@ -176,39 +177,39 @@ namespace Musicista.UI.MeasureElements
             else
                 StemDirection = StemDirection.None;
             Children.Add(Flag);
-            ParentMeasure.Children.Add(this);
+            ParentUIMeasure.Children.Add(this);
         }
 
         private void HandleBeams()
         {
             // Check if all notes, that are on that beat, are already drawn
             if (Note.ParentMeasure.Symbols.OfType<Note>().Count(item => Math.Abs(item.Beat - Note.Beat) < 0.01 && item.Voice == Note.Voice)
-                > ParentMeasure.Symbols.OfType<UINote>().Count(item => Math.Abs(item.Symbol.Beat - Note.Beat) < 0.01 && item.Symbol.Voice == Note.Voice))
+                > ParentUIMeasure.Symbols.OfType<UINote>().Count(item => Math.Abs(item.Symbol.Beat - Note.Beat) < 0.01 && item.Symbol.Voice == Note.Voice))
                 return;
 
             if (
-                ParentMeasure.ConnectNotesAtEndOfRun
-                || ParentMeasure.NotYetConnectedNotes.Count == 4
-                || (ParentMeasure.NotYetConnectedNotes.Any() && Note.Next != null && (Note.Next.Beat == 3 || Note.Next.Beat == 1))
+                ParentUIMeasure.ConnectNotesAtEndOfRun
+                || ParentUIMeasure.NotYetConnectedNotes.Count == 4
+                || (ParentUIMeasure.NotYetConnectedNotes.Any() && Note.Next != null && (Note.Next.Beat == 3 || Note.Next.Beat == 1))
                 ||
-                (ParentMeasure.NotYetConnectedNotes.Any(item => item.Note.Duration == Duration.Sixteenth) && Note.Next != null &&
+                (ParentUIMeasure.NotYetConnectedNotes.Any(item => item.Note.Duration == Duration.Sixteenth) && Note.Next != null &&
                  (Note.Next.Beat == 2 || Note.Next.Beat == 4))
                 ||
-                ParentMeasure.NotYetConnectedNotes.Count == 3 &&
-                (ParentMeasure.NotYetConnectedNotes.All(item => item.Symbol.Duration == Duration.SixteenthTriplet)
-                 || ParentMeasure.NotYetConnectedNotes.All(item => item.Symbol.Duration == Duration.EigthTriplet)))
+                ParentUIMeasure.NotYetConnectedNotes.Count == 3 &&
+                (ParentUIMeasure.NotYetConnectedNotes.All(item => item.Symbol.Duration == Duration.SixteenthTriplet)
+                 || ParentUIMeasure.NotYetConnectedNotes.All(item => item.Symbol.Duration == Duration.EigthTriplet)))
             {
-                ParentMeasure.BalanceStems();
-                ParentMeasure.ConnectNotes();
+                ParentUIMeasure.BalanceStems();
+                ParentUIMeasure.ConnectNotes();
             }
         }
 
         private void HandleTriplets()
         {
-            if (Note.IsTriplet && !ParentMeasure.Tuplets.Select(item => item.Symbol.Beat).Contains(Note.Beat))
-                ParentMeasure.Tuplets.Add(this);
-            if (ParentMeasure.Tuplets.Count > 2 || (ParentMeasure.Tuplets.Any() && !Note.IsTriplet))
-                ParentMeasure.ConnectTuplets();
+            if (Note.IsTriplet && !ParentUIMeasure.Tuplets.Select(item => item.Symbol.Beat).Contains(Note.Beat))
+                ParentUIMeasure.Tuplets.Add(this);
+            if (ParentUIMeasure.Tuplets.Count > 2 || (ParentUIMeasure.Tuplets.Any() && !Note.IsTriplet))
+                ParentUIMeasure.ConnectTuplets();
         }
 
         private void HandleTies(bool tiedTo)
@@ -254,7 +255,7 @@ namespace Musicista.UI.MeasureElements
         private void HandleNotesInChord()
         {
             var otherNotes =
-                ParentMeasure.Symbols.OfType<UINote>().Where(item => Math.Abs(item.Symbol.Beat - Note.Beat) < 0.01 && item.Symbol.Voice == Note.Voice).ToList();
+                ParentUIMeasure.Symbols.OfType<UINote>().Where(item => Math.Abs(item.Symbol.Beat - Note.Beat) < 0.01 && item.Symbol.Voice == Note.Voice).ToList();
             foreach (var otherNote in otherNotes)
             {
                 if (Equals(otherNote, this))
@@ -328,81 +329,81 @@ namespace Musicista.UI.MeasureElements
                 case Duration.Whole:
                     NoteHead.Data = Geometry.Parse(Engraving.WholeHead);
                     NoteHead.RenderTransform = new ScaleTransform(0.3, 0.3);
-                    Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 4;
+                    Width = (ParentUIMeasure.Width - ParentUIMeasure.Indent) / BeatsPerMeasure * 4;
                     break;
                 case Duration.HalfDotted:
                     NoteHead.Data = Geometry.Parse(Engraving.HalfHead);
-                    Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 3;
+                    Width = (ParentUIMeasure.Width - ParentUIMeasure.Indent) / BeatsPerMeasure * 3;
                     DrawDot();
                     break;
                 case Duration.WholeTriplet:
                     NoteHead.Data = Geometry.Parse(Engraving.WholeHead);
                     NoteHead.RenderTransform = new ScaleTransform(0.3, 0.3);
-                    Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 2.66;
+                    Width = (ParentUIMeasure.Width - ParentUIMeasure.Indent) / BeatsPerMeasure * 2.66;
                     break;
                 case Duration.Half:
                     NoteHead.Data = Geometry.Parse(Engraving.HalfHead);
-                    Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 2;
+                    Width = (ParentUIMeasure.Width - ParentUIMeasure.Indent) / BeatsPerMeasure * 2;
                     break;
                 case Duration.QuarterDotted:
                     NoteHead.Data = Geometry.Parse(Engraving.QuarterHead);
-                    Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 1.5;
+                    Width = (ParentUIMeasure.Width - ParentUIMeasure.Indent) / BeatsPerMeasure * 1.5;
                     DrawDot();
                     break;
                 case Duration.HalfTriplet:
                     NoteHead.Data = Geometry.Parse(Engraving.HalfHead);
-                    Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 1.33;
+                    Width = (ParentUIMeasure.Width - ParentUIMeasure.Indent) / BeatsPerMeasure * 1.33;
                     break;
                 case Duration.Quarter:
                     NoteHead.Data = Geometry.Parse(Engraving.QuarterHead);
-                    Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 1;
+                    Width = (ParentUIMeasure.Width - ParentUIMeasure.Indent) / BeatsPerMeasure * 1;
                     break;
                 case Duration.EigthDotted:
                     NoteHead.Data = Geometry.Parse(Engraving.QuarterHead);
-                    Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 0.75;
+                    Width = (ParentUIMeasure.Width - ParentUIMeasure.Indent) / BeatsPerMeasure * 0.75;
                     DrawDot();
                     if (HandleConnectedNotes_NeedsFlag(note, measure))
                         Flag.Data = Geometry.Parse(Note.StemShouldGoUp() ? Engraving.EigthFlagUp : Engraving.EigthFlagDown);
                     break;
                 case Duration.QuarterTriplet:
                     NoteHead.Data = Geometry.Parse(Engraving.QuarterHead);
-                    Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 0.66;
+                    Width = (ParentUIMeasure.Width - ParentUIMeasure.Indent) / BeatsPerMeasure * 0.66;
                     break;
                 case Duration.Eigth:
                     NoteHead.Data = Geometry.Parse(Engraving.QuarterHead);
-                    Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 0.5;
+                    Width = (ParentUIMeasure.Width - ParentUIMeasure.Indent) / BeatsPerMeasure * 0.5;
                     if (HandleConnectedNotes_NeedsFlag(note, measure))
                         Flag.Data = Geometry.Parse(Note.StemShouldGoUp() ? Engraving.EigthFlagUp : Engraving.EigthFlagDown);
                     break;
                 case Duration.SixteenthDotted:
                     NoteHead.Data = Geometry.Parse(Engraving.QuarterHead);
-                    Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 0.37;
+                    Width = (ParentUIMeasure.Width - ParentUIMeasure.Indent) / BeatsPerMeasure * 0.37;
                     DrawDot();
                     if (HandleConnectedNotes_NeedsFlag(note, measure))
                         Flag.Data = Geometry.Parse(Note.StemShouldGoUp() ? Engraving.SixteenthFlagUp : Engraving.SixteenthFlagDown);
                     break;
                 case Duration.EigthTriplet:
                     NoteHead.Data = Geometry.Parse(Engraving.QuarterHead);
-                    Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 0.333;
+                    Width = (ParentUIMeasure.Width - ParentUIMeasure.Indent) / BeatsPerMeasure * 0.333;
                     if (HandleConnectedNotes_NeedsFlag(note, measure))
                         Flag.Data = Geometry.Parse(Note.StemShouldGoUp() ? Engraving.EigthFlagUp : Engraving.EigthFlagDown);
                     break;
                 case Duration.Sixteenth:
                     NoteHead.Data = Geometry.Parse(Engraving.QuarterHead);
-                    Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 0.25;
+                    Width = (ParentUIMeasure.Width - ParentUIMeasure.Indent) / BeatsPerMeasure * 0.25;
                     if (HandleConnectedNotes_NeedsFlag(note, measure))
                         Flag.Data = Geometry.Parse(Note.StemShouldGoUp() ? Engraving.SixteenthFlagUp : Engraving.SixteenthFlagDown);
                     break;
                 case Duration.SixteenthTriplet:
                     NoteHead.Data = Geometry.Parse(Engraving.QuarterHead);
-                    Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 0.166;
+                    Width = (ParentUIMeasure.Width - ParentUIMeasure.Indent) / BeatsPerMeasure * 0.166;
                     if (HandleConnectedNotes_NeedsFlag(note, measure))
                         Flag.Data = Geometry.Parse(Note.StemShouldGoUp() ? Engraving.SixteenthFlagUp : Engraving.SixteenthFlagDown);
                     break;
                 case Duration.Thirtysecond:
                     NoteHead.Data = Geometry.Parse(Engraving.QuarterHead);
                     NoteHead.RenderTransform = new ScaleTransform(0.15, 0.15);
-                    Width = (ParentMeasure.Width - ParentMeasure.Indent) / BeatsPerMeasure * 0.125;
+                    Width = (ParentUIMeasure.Width - ParentUIMeasure.Indent) / BeatsPerMeasure * 0.125;
                     SetLeft(NoteHead, GetLeft(NoteHead) + 16);
                     SetTop(NoteHead, GetTop(NoteHead) + 6);
                     if (HandleConnectedNotes_NeedsFlag(note, measure))
@@ -414,7 +415,7 @@ namespace Musicista.UI.MeasureElements
         private bool HandleConnectedNotes_NeedsFlag(Note note, UIMeasure measure)
         {
             // ignore notes in chord, except fo the first one, which actually still has a stem
-            if (ParentMeasure.Symbols.OfType<UINote>().Count(item => Math.Abs(item.Symbol.Beat - Note.Beat) < 0.01 && item.Symbol.Voice == note.Voice) > 1)
+            if (ParentUIMeasure.Symbols.OfType<UINote>().Count(item => Math.Abs(item.Symbol.Beat - Note.Beat) < 0.01 && item.Symbol.Voice == note.Voice) > 1)
                 return false;
             // a note qualifies for beaming IF there already are others
 

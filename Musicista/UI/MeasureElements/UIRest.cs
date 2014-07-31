@@ -1,5 +1,6 @@
 ﻿using Model;
 using Model.Meta;
+using Model.Sections.Notes;
 using Musicista.Properties;
 using System.Linq;
 using System.Windows.Media;
@@ -14,39 +15,39 @@ namespace Musicista.UI.MeasureElements
         {
             Rest = rest;
 
-            BeatsPerMeasure = (4.0 / ParentMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.BeatUnit) * ParentMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.Beats;
-            ParentMeasure.ConnectNotesAtEndOfRun = false;
+            BeatsPerMeasure = (4.0 / ParentUIMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.BeatUnit) * ParentUIMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.Beats;
+            ParentUIMeasure.ConnectNotesAtEndOfRun = false;
 
             SetTop(Path, 55 + -TopRelativeToMeasure);
 
             // Multiple Voices
-            if (ParentMeasure.InnerMeasure.Voices.Count > 1)
-                if (Rest.Voice == ParentMeasure.InnerMeasure.Voices.Min())
+            if (ParentUIMeasure.InnerMeasure.Voices.Count > 1)
+                if (Rest.Voice == ParentUIMeasure.InnerMeasure.Voices.Min())
                     SetTop(Path, 55 + -TopRelativeToMeasure - 100);
-                else if (Rest.Voice == ParentMeasure.InnerMeasure.Voices.Max())
+                else if (Rest.Voice == ParentUIMeasure.InnerMeasure.Voices.Max())
                     SetTop(Path, 55 + -TopRelativeToMeasure + 100);
 
             SetLeft(Path, 10);
-            CanvasLeft = ((ParentMeasure.Width - ParentMeasure.Indent - parentMeasure.MarginRight) / BeatsPerMeasure * (rest.Beat - 1)) + ParentMeasure.Indent;
+            CanvasLeft = ((ParentUIMeasure.Width - ParentUIMeasure.Indent - parentMeasure.MarginRight) / BeatsPerMeasure * (rest.Beat - 1)) + ParentUIMeasure.Indent;
             if (rest.Duration == Duration.Whole)
-                CanvasLeft = ParentMeasure.Width / 2;
-            SetDuration(rest, ParentMeasure);
+                CanvasLeft = ParentUIMeasure.Width / 2;
+            SetDuration(rest, ParentUIMeasure);
 
             Children.Add(Path);
-            ParentMeasure.Children.Add(this);
+            ParentUIMeasure.Children.Add(this);
 
 
-            if (ParentMeasure.ConnectNotesAtEndOfRun || ParentMeasure.NotYetConnectedNotes.Count == 4
-                || (ParentMeasure.NotYetConnectedNotes.Any() && rest.Next == null)
-                || (ParentMeasure.NotYetConnectedNotes.Any() && rest.Next != null && (rest.Next.Beat == 3 || rest.Next.Beat == 1))
-                || (ParentMeasure.NotYetConnectedNotes.Any(item => item.Note.Duration == Duration.Sixteenth) && rest.Next != null && (rest.Next.Beat == 2 || rest.Next.Beat == 4)))
-                ParentMeasure.ConnectNotes();
+            if (ParentUIMeasure.ConnectNotesAtEndOfRun || ParentUIMeasure.NotYetConnectedNotes.Count == 4
+                || (ParentUIMeasure.NotYetConnectedNotes.Any() && rest.Next == null)
+                || (ParentUIMeasure.NotYetConnectedNotes.Any() && rest.Next != null && (rest.Next.Beat == 3 || rest.Next.Beat == 1))
+                || (ParentUIMeasure.NotYetConnectedNotes.Any(item => item.Note.Duration == Duration.Sixteenth) && rest.Next != null && (rest.Next.Beat == 2 || rest.Next.Beat == 4)))
+                ParentUIMeasure.ConnectNotes();
 
             // Handle triplets ( /tuplets)
             if (rest.IsTriplet)
-                ParentMeasure.Tuplets.Add(this);
-            if (ParentMeasure.Tuplets.Count > 2 || (ParentMeasure.Tuplets.Any() && !rest.IsTriplet))
-                ParentMeasure.ConnectTuplets();
+                ParentUIMeasure.Tuplets.Add(this);
+            if (ParentUIMeasure.Tuplets.Count > 2 || (ParentUIMeasure.Tuplets.Any() && !rest.IsTriplet))
+                ParentUIMeasure.ConnectTuplets();
         }
 
         public Path Path = new Path
@@ -61,9 +62,9 @@ namespace Musicista.UI.MeasureElements
         {
             get
             {
-                var index = ParentMeasure.Rests.IndexOf(this);
-                if (ParentMeasure.Rests.Count > index + 1)
-                    return ParentMeasure.Rests[index + 1];
+                var index = ParentUIMeasure.Rests.IndexOf(this);
+                if (ParentUIMeasure.Rests.Count > index + 1)
+                    return ParentUIMeasure.Rests[index + 1];
                 return null;
             }
         }

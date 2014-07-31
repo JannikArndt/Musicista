@@ -1,4 +1,6 @@
 ﻿using Model;
+using Model.Sections;
+using Model.Sections.Notes;
 using Musicista.UI.Converters;
 using Musicista.UI.MeasureElements;
 using System.Collections.Generic;

@@ -1,18 +1,39 @@
 ﻿using Model.Meta;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
 
-namespace Model
+namespace Model.Sections.Notes
 {
     public abstract class Symbol
     {
-        public double Beat { get; set; }
-        public Duration Duration { get; set; }
+        [XmlAttribute("Voice")]
         public int Voice { get; set; }
+
+        [XmlAttribute("Duration")]
+        public Duration Duration { get; set; }
+
+        [XmlAttribute("Beat")]
+        public double Beat { get; set; }
+
+        [XmlArray("Lyrics")]
         public List<Lyric> Lyrics { get; set; }
+        public bool ShouldSerializeLyrics() { return Lyrics != null && Lyrics.Any(); }
+
+
+        [XmlArray("Expressions")]
         public List<Expression> Expressions { get; set; }
+        public bool ShouldSerializeExpressions() { return Expressions != null && Expressions.Any(); }
+
+
+
+        [XmlArray("Ornaments")]
+
         public List<Ornament> Ornaments { get; set; }
+        public bool ShouldSerializeOrnaments() { return Ornaments != null && Ornaments.Any(); }
+
+
         [XmlIgnore]
         public Measure ParentMeasure { get; set; }
 

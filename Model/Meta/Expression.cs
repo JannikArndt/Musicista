@@ -1,5 +1,5 @@
 ﻿
-namespace Model
+namespace Model.Meta
 {
     public enum Expression
     {

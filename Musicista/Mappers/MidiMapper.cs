@@ -6,6 +6,7 @@ using Model.Meta;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Model.Sections;
 
 namespace Musicista.Mappers
 {
@@ -15,7 +16,7 @@ namespace Musicista.Mappers
         {
             var piece = Mapper.CreateEmptyPiece();
             //piece.Title = filePath;
-            var passage = piece.ListOfSections[0].ListOfMovements[0].ListOfSegments[0].ListOfPassages[0];
+            var passage = piece.Sections[0].Movements[0].Segments[0].Passages[0];
 
             var nowPlayingDict = new Dictionary<int, MidiNote>();
             var deltaTimeInThisMeasure = 100000; // force creating a new measure
@@ -27,7 +28,7 @@ namespace Musicista.Mappers
             foreach (var track in midi.Tracks)
             {
                 var currentInstrument = new Instrument("", ++instrumentID);
-                piece.ListOfInstruments.Add(currentInstrument);
+                piece.Instruments.Add(currentInstrument);
                 foreach (var midiEvent in track.Events)
                 {
                     // Notes that are still hold need to know the new delta times, because delta-times are always relative to the ONE event before them
@@ -40,11 +41,11 @@ namespace Musicista.Mappers
                     if (deltaTimeInThisMeasure >= midi.Header.TimeDivision * 4) // TODO assumes 4/4 measure
                     {
                         // first run or if a new track has more measures than all previous had
-                        if (currentPartNumber == 0 || passage.ListOfMeasureGroups.Count < measureNumber)
-                            passage.ListOfMeasureGroups.Add(new MeasureGroup { MeasureNumber = measureNumber, ParentPassage = passage });
+                        if (currentPartNumber == 0 || passage.MeasureGroups.Count < measureNumber)
+                            passage.MeasureGroups.Add(new MeasureGroup { MeasureNumber = measureNumber, ParentPassage = passage });
                         // create a new measure and add it to the measureGroup
                         currentMeasure = new Measure { Instrument = currentInstrument };
-                        passage.ListOfMeasureGroups[measureNumber - 1].Measures.Add(currentMeasure);
+                        passage.MeasureGroups[measureNumber - 1].Measures.Add(currentMeasure);
                         // adjust counting variables
                         deltaTimeInThisMeasure = 0;
                         measureNumber++;

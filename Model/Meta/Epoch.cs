@@ -1,7 +1,7 @@
 ﻿
 using System.ComponentModel;
 
-namespace Model
+namespace Model.Meta
 {
     public enum Epoch
     {

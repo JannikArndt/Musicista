@@ -10,7 +10,7 @@ namespace Musicista.UI.TextElements
             : base(page)
         {
             DataContext = ParentPage;
-            SetBinding(TextProperty, "Piece.Title");
+            SetBinding(TextProperty, "Piece.Meta.Title");
             FontSize = 50;
             SetBinding(Canvas.TopProperty, "Settings.MarginTop");
             Left = 20;

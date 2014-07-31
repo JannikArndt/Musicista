@@ -108,7 +108,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ApplicationSettings.cs" />
-    <Compile Include="DocumentReference.cs" />
+    <Compile Include="Collection\DocumentReference.cs" />
     <Compile Include="DragAndDrop.cs" />
     <Compile Include="Engraving.cs" />
     <Compile Include="Mappers\Mapper.cs" />

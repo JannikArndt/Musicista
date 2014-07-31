@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Musicista
+namespace Musicista.Collection
 {
     [Serializable]
     public class DocumentReference

@@ -1,5 +1,8 @@
 ﻿using Model;
 using Model.Meta;
+using Model.Meta.People;
+using Model.Sections;
+using Model.Sections.Notes;
 using MuseScoreAPI.RESTObjects;
 using MusicXML;
 using System;
@@ -9,8 +12,9 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
-using Clef = Model.Clef;
+using Clef = Model.Sections.Notes.Clef;
 using Duration = Model.Meta.Duration;
+using Lyric = Model.Sections.Notes.Lyric;
 using Note = MusicXML.Note;
 using Pitch = Model.Meta.Pitch;
 
@@ -24,25 +28,25 @@ namespace Musicista.Mappers
 
             // Map work information
             if (!string.IsNullOrEmpty(mxml.Work.WorkTitle))
-                piece.Title = mxml.Work.WorkTitle;
+                piece.Meta.Title = mxml.Work.WorkTitle;
             else if (scoreInfo != null)
-                piece.Title = scoreInfo.Title;
+                piece.Meta.Title = scoreInfo.Title;
             else
-                piece.Title = Path.GetFileNameWithoutExtension(filename);
+                piece.Meta.Title = Path.GetFileNameWithoutExtension(filename);
 
-            piece.Notes += "Work Number: " + mxml.Work.WorkNumber;
+            piece.Meta.Notes += "Work Number: " + mxml.Work.WorkNumber;
 
             // Map Identification information
             if (mxml.Identification != null && mxml.Identification.Encoding != null)
             {
                 if (mxml.Identification.Encoding.EncodingDate != null)
-                    piece.DateOfTypesetting = DateTime.Parse(mxml.Identification.Encoding.EncodingDate.Value);
+                    piece.Meta.Dates.Engraving.Date = DateTime.Parse(mxml.Identification.Encoding.EncodingDate.Value);
                 if (mxml.Identification.Encoding.Encoder != null)
-                    piece.TypeSetter = mxml.Identification.Encoding.Encoder.Value;
+                    piece.Meta.Dates.Engraving.Typesetter = mxml.Identification.Encoding.Encoder.Value;
                 if (mxml.Identification.Encoding.Software != null)
-                    piece.Software = mxml.Identification.Encoding.Software.Value;
+                    piece.Meta.Software = mxml.Identification.Encoding.Software.Value;
                 if (mxml.Identification.Rights != null)
-                    piece.Copyright = String.Join(", ", mxml.Identification.Rights.Select(item => item.Value));
+                    piece.Meta.Copyright = String.Join(", ", mxml.Identification.Rights.Select(item => item.Value));
             }
             // Map composers and other people
             if (mxml.Identification != null && mxml.Identification.Creator != null)
@@ -50,42 +54,42 @@ namespace Musicista.Mappers
                     switch (creator.Type)
                     {
                         case "composer":
-                            piece.ListOfComposers.Add(new Composer { FullName = creator.Value });
+                            piece.Meta.People.Composers.Add(new Composer { FullName = creator.Value });
                             break;
                         case "lyricist":
-                            piece.ListOfLyricists.Add(new Person { FullName = creator.Value });
+                            piece.Meta.People.Lyricists.Add(new Person { FullName = creator.Value });
                             break;
                         case "arranger":
-                            piece.ListOfArrangers.Add(new Person { FullName = creator.Value });
+                            piece.Meta.People.Arrangers.Add(new Person { FullName = creator.Value });
                             break;
                         default:
-                            piece.ListOfOtherPersons.Add(new Person { FullName = creator.Value });
+                            piece.Meta.People.OtherPersons.Add(new Person { FullName = creator.Value });
                             break;
                     }
 
             // Map the instruments
             if (mxml.PartList.ScoreParts != null)
                 foreach (var scorepart in mxml.PartList.ScoreParts)
-                    piece.ListOfInstruments.Add(new Instrument(scorepart.Partname, int.Parse(Regex.Match(scorepart.id, @"\d+").Value)));
+                    piece.Instruments.Add(new Instrument(scorepart.Partname, int.Parse(Regex.Match(scorepart.id, @"\d+").Value)));
 
             // Map movement information
             if (mxml.MovementNumber != null)
-                piece.ListOfAllMovements.First().Number = int.Parse(mxml.MovementNumber);
+                piece.Movements.First().Number = int.Parse(mxml.MovementNumber);
             if (mxml.MovementTitle != null)
-                piece.ListOfAllMovements.First().Name = mxml.MovementTitle;
+                piece.Movements.First().Name = mxml.MovementTitle;
 
             // For downloads from MuseScore.com
             if (scoreInfo != null)
             {
-                piece.Weblink = scoreInfo.Permalink;
-                piece.ListOfOtherPersons.Add(new Person { FullName = scoreInfo.User.Username, Role = "Uploader", Misc = "User ID = " + scoreInfo.User.Uid });
-                piece.Copyright = scoreInfo.License;
-                piece.Notes += scoreInfo.Description;
-                piece.Subtitle = scoreInfo.Metadata.Subtitle;
-                if (piece.ListOfComposers.Count == 0 && !string.IsNullOrEmpty(scoreInfo.Metadata.Composer))
-                    piece.ListOfComposers.Add(new Composer { FullName = scoreInfo.Metadata.Composer });
-                if (piece.ListOfLyricists.Count == 0 && !string.IsNullOrEmpty(scoreInfo.Metadata.Poet))
-                    piece.ListOfLyricists.Add(new Person { FullName = scoreInfo.Metadata.Poet });
+                piece.Meta.Weblink = scoreInfo.Permalink;
+                piece.Meta.People.OtherPersons.Add(new Person { FullName = scoreInfo.User.Username, Role = "Uploader", Misc = "User ID = " + scoreInfo.User.Uid });
+                piece.Meta.Copyright = scoreInfo.License;
+                piece.Meta.Notes += scoreInfo.Description;
+                piece.Meta.Subtitle = scoreInfo.Metadata.Subtitle;
+                if (piece.Meta.People.Composers.Count == 0 && !string.IsNullOrEmpty(scoreInfo.Metadata.Composer))
+                    piece.Meta.People.Composers.Add(new Composer { FullName = scoreInfo.Metadata.Composer });
+                if (piece.Meta.People.Lyricists.Count == 0 && !string.IsNullOrEmpty(scoreInfo.Metadata.Poet))
+                    piece.Meta.People.Lyricists.Add(new Person { FullName = scoreInfo.Metadata.Poet });
             }
 
             // Map the music
@@ -126,7 +130,7 @@ namespace Musicista.Mappers
                     MeasureNumber = int.Parse(Regex.Match(measure.number, @"\d+").Value),
                     TimeSignature = null,
                     Measures = new List<Measure>(),
-                    ParentPassage = piece.ListOfSections[0].ListOfMovements[0].ListOfSegments[0].ListOfPassages[0]
+                    ParentPassage = piece.Sections[0].Movements[0].Segments[0].Passages[0]
                 };
 
                 // Pickup / upbeat measure
@@ -174,7 +178,7 @@ namespace Musicista.Mappers
                             lastClefAdditionalStaves[partNumber] = GetClefFromAttributes(currentMeasure.Attributes, true) ?? lastClefAdditionalStaves[partNumber];
                         listOfAdditionalStaves[partNumber].Add(new Measure
                         {
-                            Instrument = piece.ListOfInstruments[partNumber],
+                            Instrument = piece.Instruments[partNumber],
                             ParentMeasureGroup = measureGroup,
                             Clef = lastClefAdditionalStaves[partNumber]
 
@@ -188,7 +192,7 @@ namespace Musicista.Mappers
                     // 3. create a new measure for each part
                     var newMeasure = new Measure
                     {
-                        Instrument = piece.ListOfInstruments[partNumber],
+                        Instrument = piece.Instruments[partNumber],
                         ParentMeasureGroup = measureGroup,
                         Clef = lastClef[partNumber]
                     };
@@ -244,14 +248,14 @@ namespace Musicista.Mappers
                     }
                     measureGroup.Measures.Add(newMeasure);
                 }
-                piece.ListOfSections[0].ListOfMovements[0].ListOfSegments[0].ListOfPassages[0].ListOfMeasureGroups.Add(measureGroup);
+                piece.Sections[0].Movements[0].Segments[0].Passages[0].MeasureGroups.Add(measureGroup);
             }
             //crazy multiple staves-madness, part 4
             if (listOfAdditionalStaves.Count > 0)
                 foreach (var additionalStaff in listOfAdditionalStaves.Reverse())
                 {
-                    var instrument = new Instrument(piece.ListOfInstruments[additionalStaff.Key].Name);
-                    piece.ListOfInstruments.Add(instrument);
+                    var instrument = new Instrument(piece.Instruments[additionalStaff.Key].Name);
+                    piece.Instruments.Add(instrument);
                     foreach (var measure in additionalStaff.Value)
                     {
                         measure.Instrument = instrument;
@@ -259,8 +263,8 @@ namespace Musicista.Mappers
                     }
                 }
             // Correct the first measure if it is a pickup measure
-            if (piece.ListOfAllMeasureGroups.First() != null && piece.ListOfAllMeasureGroups.First().IsPickupMeasure)
-                foreach (var measure in piece.ListOfAllMeasureGroups.First().Measures)
+            if (piece.MeasureGroups.First() != null && piece.MeasureGroups.First().IsPickupMeasure)
+                foreach (var measure in piece.MeasureGroups.First().Measures)
                     CorrectPickupMeasure(measure);
             return piece;
         }
@@ -305,7 +309,7 @@ namespace Musicista.Mappers
                 };
 
             // Notes
-            return new Model.Note
+            return new Model.Sections.Notes.Note
             {
                 Beat = beat,
                 Velocity = 0,
@@ -347,16 +351,16 @@ namespace Musicista.Mappers
             return (Duration)duration;
         }
 
-        public static List<Model.Lyric> GetLyricsFromMXMLNote(Note mxmlNote)
+        public static List<Lyric> GetLyricsFromMXMLNote(Note mxmlNote)
         {
-            var result = new List<Model.Lyric>();
+            var result = new List<Lyric>();
             if (mxmlNote.Lyric != null)
                 for (var verse = 0; verse < mxmlNote.Lyric.Length; verse++)
                     if (mxmlNote.Lyric[verse].Text != null)
                     {
                         while (Int32.Parse(mxmlNote.Lyric[verse].number) > verse + 1)
-                            result.Add(new Model.Lyric());
-                        result.Add(new Model.Lyric { Text = mxmlNote.Lyric[verse].Text.Value, Syllabic = (Syllabic)mxmlNote.Lyric[verse].Syllabic });
+                            result.Add(new Lyric());
+                        result.Add(new Lyric { Text = mxmlNote.Lyric[verse].Text.Value, Syllabic = (Syllabic)mxmlNote.Lyric[verse].Syllabic });
                     }
             return result;
         }

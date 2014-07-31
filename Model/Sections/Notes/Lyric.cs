@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace Model
+namespace Model.Sections.Notes
 {
     public class Lyric
     {

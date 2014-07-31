@@ -1,16 +1,27 @@
-﻿using System.Collections.Generic;
+﻿using Model.Sections.Notes;
+using System.Collections.Generic;
+using System.Xml.Serialization;
 
-namespace Model
+namespace Model.Sections
 {
     public class Passage
     {
-        public List<MeasureGroup> ListOfMeasureGroups { get; set; }
+        [XmlAttribute("Title")]
         public string Title { get; set; }
-        public Passage() { }
+        [XmlElement("MeasureGroups")]
+        public List<MeasureGroup> MeasureGroups { get; set; }
+        [XmlIgnore]
+        public Segment ParentSegment { get; set; }
+
+        public Passage()
+        {
+            MeasureGroups = new List<MeasureGroup>();
+        }
 
         public Passage(IEnumerable<Symbol> symbols)
         {
-            ListOfMeasureGroups = new List<MeasureGroup>();
+            ParentSegment = new Segment { Title = "temp" };
+            MeasureGroups = new List<MeasureGroup>();
 
             var currentMeasureGroup = new MeasureGroup();
             var currentMeasure = new Measure();
@@ -34,7 +45,7 @@ namespace Model
                         ParentMeasureGroup = currentMeasureGroup
                     };
                     currentMeasureGroup.Measures.Add(currentMeasure);
-                    ListOfMeasureGroups.Add(currentMeasureGroup);
+                    MeasureGroups.Add(currentMeasureGroup);
                     firstRun = false;
                 }
                 currentMeasure.AddSymbol(symbol);
@@ -43,7 +54,8 @@ namespace Model
 
         public Passage(IEnumerable<Measure> measures)
         {
-            ListOfMeasureGroups = new List<MeasureGroup>();
+            ParentSegment = new Segment { Title = "temp" };
+            MeasureGroups = new List<MeasureGroup>();
 
             foreach (var measure in measures)
             {
@@ -57,7 +69,7 @@ namespace Model
                 };
 
                 measure.ParentMeasureGroup = newMeasureGroup;
-                ListOfMeasureGroups.Add(newMeasureGroup);
+                MeasureGroups.Add(newMeasureGroup);
             }
         }
     }

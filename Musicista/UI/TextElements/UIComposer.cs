@@ -10,7 +10,7 @@ namespace Musicista.UI.TextElements
             : base(page)
         {
             DataContext = ParentPage;
-            SetBinding(TextProperty, "Piece.ComposersAsString");
+            SetBinding(TextProperty, "Piece.Meta.People.ComposersAsString");
             FontSize = 16;
 
             Canvas.SetTop(this, 150);

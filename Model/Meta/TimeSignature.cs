@@ -39,7 +39,7 @@ namespace Model.Meta
                 BeatUnit = 4;
             }
         }
-
+        [XmlAttribute("Beats")]
         public int Beats
         {
             get { return _beats; }
@@ -50,7 +50,7 @@ namespace Model.Meta
                 NotifyPropertyChanged();
             }
         }
-
+        [XmlAttribute("BeatUnit")]
         public int BeatUnit
         {
             get { return _beatUnit; }

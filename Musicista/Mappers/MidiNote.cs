@@ -1,5 +1,6 @@
 using Midi.Events.ChannelEvents;
 using Model;
+using Model.Sections.Notes;
 
 namespace Musicista.Mappers
 {

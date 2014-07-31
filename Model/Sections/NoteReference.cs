@@ -1,13 +1,17 @@
-﻿
+﻿using Model.Sections.Notes;
 using System;
 using System.Globalization;
+using System.Xml.Serialization;
 
-namespace Model
+namespace Model.Sections
 {
     public class NoteReference
     {
+        [XmlAttribute("MeasureNumber")]
         public int MeasureNumber { get; set; }
+        [XmlAttribute("StaffNumber")]
         public int StaffNumber { get; set; }
+        [XmlAttribute("Beat")]
         public double Beat { get; set; }
 
         public NoteReference() { }

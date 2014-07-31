@@ -1,4 +1,4 @@
-﻿using Model;
+﻿using Model.Sections.Notes;
 using Musicista.UI.Enums;
 using System;
 using System.Linq;
@@ -11,7 +11,7 @@ namespace Musicista.UI.MeasureElements
 {
     public class UISymbol : Canvas
     {
-        public UIMeasure ParentMeasure { get; set; }
+        public UIMeasure ParentUIMeasure { get; set; }
         public Symbol Symbol { get; set; }
         public double CanvasLeft { get { return GetLeft(this); } set { SetLeft(this, value); } }
 
@@ -22,20 +22,20 @@ namespace Musicista.UI.MeasureElements
         {
             get
             {
-                var index = ParentMeasure.Symbols.IndexOf(this);
-                if (ParentMeasure.Symbols.Count > index + 1)
-                    return ParentMeasure.Symbols[index + 1];
-                if (ParentMeasure.NextUIMeasure != null && ParentMeasure.NextUIMeasure.Symbols != null && ParentMeasure.NextUIMeasure.Symbols.Count > 0)
-                    return ParentMeasure.NextUIMeasure.Symbols[0];
+                var index = ParentUIMeasure.Symbols.IndexOf(this);
+                if (ParentUIMeasure.Symbols.Count > index + 1)
+                    return ParentUIMeasure.Symbols[index + 1];
+                if (ParentUIMeasure.NextUIMeasure != null && ParentUIMeasure.NextUIMeasure.Symbols != null && ParentUIMeasure.NextUIMeasure.Symbols.Count > 0)
+                    return ParentUIMeasure.NextUIMeasure.Symbols[0];
                 return null;
             }
         }
 
-        public UISymbol(Symbol symbol, UIMeasure parentUIMeasure, bool hasMouseDown = true)
+        public UISymbol(Symbol symbol, UIMeasure parentUIUIMeasure, bool hasMouseDown = true)
         {
             Symbol = symbol;
-            ParentMeasure = parentUIMeasure;
-            ParentMeasure.Symbols.Add(this);
+            ParentUIMeasure = parentUIUIMeasure;
+            ParentUIMeasure.Symbols.Add(this);
 
             Background = Brushes.Transparent;
             SetTop(this, TopRelativeToMeasure);
@@ -83,8 +83,8 @@ namespace Musicista.UI.MeasureElements
             {
                 var next = UIHelper.SelectedUISymbols.FirstOrDefault();
                 // first click on an earlier symbol
-                if (next != null && (ParentMeasure.MeasureNumber > next.ParentMeasure.MeasureNumber
-                    || (ParentMeasure.MeasureNumber == next.ParentMeasure.MeasureNumber && Symbol.Beat > next.Symbol.Beat)))
+                if (next != null && (ParentUIMeasure.MeasureNumber > next.ParentUIMeasure.MeasureNumber
+                    || (ParentUIMeasure.MeasureNumber == next.ParentUIMeasure.MeasureNumber && Symbol.Beat > next.Symbol.Beat)))
                 {
                     while (next != null && !Equals(next, this))
                     {

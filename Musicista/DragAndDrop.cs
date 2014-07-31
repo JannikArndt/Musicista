@@ -1,4 +1,6 @@
 ﻿using Model;
+using Model.Sections;
+using Model.Sections.Notes;
 using Musicista.UI;
 using System;
 using System.Windows;
@@ -162,7 +164,7 @@ namespace Musicista
                     };
                     newMeasure.AddSymbol(new Rest { Beat = 1, Duration = Duration.Whole });
                     newMeasure.ParentMeasureGroup.Measures.Add(newMeasure);
-                    ((UIMeasure)_draggedElement).ParentMeasureGroup.DrawMeasure(newMeasure, ((UIMeasure)_draggedElement).Part);
+                    ((UIMeasure)_draggedElement).ParentUIMeasureGroup.DrawMeasure(newMeasure, ((UIMeasure)_draggedElement).Part);
 
 
                     // Update visual tree

@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Model.Sections.Notes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 
-namespace Model
+namespace Model.Sections
 {
     public class Measure : INotifyPropertyChanged
     {
@@ -20,7 +21,7 @@ namespace Model
         {
             Instrument = new Instrument();
         }
-
+        [XmlAttribute("Clef")]
         public Clef Clef
         {
             get { return _clef; }
@@ -34,6 +35,22 @@ namespace Model
         [XmlIgnore]
         public MeasureGroup ParentMeasureGroup { get; set; }
 
+        [XmlAttribute("InstrumentID")]
+        public int InstrumentID
+        {
+            get
+            {
+                return Instrument.ID;
+            }
+            set
+            {
+                Instrument =
+                    ParentMeasureGroup.ParentPassage.ParentSegment.ParentMovement.ParentSection.ParentPiece.Instruments.FirstOrDefault(
+                        instrument => instrument.ID == value);
+            }
+        }
+
+        [XmlIgnore]
         public Instrument Instrument
         {
             get { return _instrument; }

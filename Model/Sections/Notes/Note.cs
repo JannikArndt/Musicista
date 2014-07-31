@@ -1,13 +1,17 @@
 ﻿using Model.Meta;
 using System;
 using System.Linq;
+using System.Xml.Serialization;
 
-namespace Model
+namespace Model.Sections.Notes
 {
     public class Note : Symbol
     {
+        [XmlAttribute("Step")]
         public Pitch Step { get; set; }
+        [XmlAttribute("Octave")]
         public int Octave { get; set; }
+        [XmlAttribute("Velocity")]
         public int Velocity { get; set; } // 0-127, c.f. midi
         public Note() { }
         public int PitchIsHigherThan(Pitch otherStep, int otherOctave)

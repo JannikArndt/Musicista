@@ -1,11 +1,17 @@
 ﻿
-namespace Model
+using System.Xml.Serialization;
+
+namespace Model.Meta
 {
     public class OpusNumber
     {
+        [XmlAttribute]
         public int Number { get; set; }
+        [XmlAttribute]
         public int SubNumber { get; set; }
+        [XmlAttribute]
         public bool Posthum = false;
+        public bool ShouldSerializePosthum() { return Posthum; }
         public string OpusString
         {
             get

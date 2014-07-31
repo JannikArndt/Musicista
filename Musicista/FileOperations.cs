@@ -39,7 +39,7 @@ namespace Musicista
                 DefaultExt = ".musicista",
                 Filter = "Musicista (*.musicista)|*.musicista",
                 OverwritePrompt = true,
-                FileName = CurrentPiece.Title
+                FileName = CurrentPiece.Meta.Title
             };
             if (saveFileDialog.ShowDialog() != true)
                 return;
@@ -82,7 +82,7 @@ namespace Musicista
                 var piece = LoadFile(filename, scoreInfo);
                 DrawPiece(piece);
 
-                ApplicationSettings.AddToMostRecentlyUsedFiles(CurrentPiece.Title, _fileName);
+                ApplicationSettings.AddToMostRecentlyUsedFiles(CurrentPiece.Meta.Title, _fileName);
                 SidebarInformation.ShowPiece();
                 UISidebar.Content = SidebarInformation;
                 SetSidebarButtonPathFill(SidebarKind.Information);
@@ -108,33 +108,6 @@ namespace Musicista
             {
                 Mouse.OverrideCursor = null;
             }
-        }
-
-        public static void CorrectParentConnectionsInMusicistaPiece(Piece piece)
-        {
-            foreach (var passage in piece.ListOfAllPassages)
-                foreach (var measureGroup in passage.ListOfMeasureGroups)
-                {
-                    measureGroup.ParentPassage = passage;
-                    foreach (var measure in measureGroup.Measures)
-                    {
-                        measure.ParentMeasureGroup = measureGroup;
-                        foreach (var symbol in measure.Symbols)
-                            symbol.ParentMeasure = measure;
-                    }
-                }
-            // same for the Parts
-            foreach (var part in piece.Parts)
-                foreach (var measureGroup in part.Passage.ListOfMeasureGroups)
-                {
-                    measureGroup.ParentPassage = part.Passage;
-                    foreach (var measure in measureGroup.Measures)
-                    {
-                        measure.ParentMeasureGroup = measureGroup;
-                        foreach (var symbol in measure.Symbols)
-                            symbol.ParentMeasure = measure;
-                    }
-                }
         }
 
         public static Piece LoadFile(string filename, Score scoreInfo)
@@ -163,7 +136,7 @@ namespace Musicista
                     {
                         var musicistaSerializer = new XmlSerializer(typeof(Piece));
                         var piece = (Piece)musicistaSerializer.Deserialize(fileStream);
-                        CorrectParentConnectionsInMusicistaPiece(piece);
+                        piece.CorrectParentConnections();
                         _fileName = filename;
                         return piece;
                     }

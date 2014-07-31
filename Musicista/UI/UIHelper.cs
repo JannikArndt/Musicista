@@ -1,4 +1,5 @@
 ﻿using Model;
+using Model.Sections;
 using Musicista.Exceptions;
 using Musicista.UI.MeasureElements;
 using Musicista.UI.TextElements;
@@ -37,27 +38,27 @@ namespace Musicista.UI
             var currentPage = new UIPage { Piece = piece };
             var pageList = new List<UIPage> { currentPage };
 
-            if (!String.IsNullOrEmpty(piece.Title))
+            if (!String.IsNullOrEmpty(piece.Meta.Title))
                 currentPage.Title = new UITitle(currentPage);
 
-            if (piece.ListOfComposers != null && piece.ListOfComposers.Count > 0)
+            if (piece.Meta.People.Composers != null && piece.Meta.People.Composers.Count > 0)
                 currentPage.Composer = new UIComposer(currentPage);
 
-            if (piece.ListOfSections == null || piece.ListOfSections.Count <= 0)
+            if (piece.Sections == null || piece.Sections.Count <= 0)
                 return pageList;
 
-            foreach (var section in piece.ListOfSections)
-                if (section.ListOfMovements != null && section.ListOfMovements.Count > 0)
-                    foreach (var movement in section.ListOfMovements)
-                        if (movement.ListOfSegments != null && movement.ListOfSegments.Count > 0)
-                            foreach (var segment in movement.ListOfSegments)
-                                if (segment.ListOfPassages != null && segment.ListOfPassages.Count > 0)
-                                    foreach (var passage in segment.ListOfPassages)
-                                        if (passage.ListOfMeasureGroups != null && passage.ListOfMeasureGroups.Count > 0)
+            foreach (var section in piece.Sections)
+                if (section.Movements != null && section.Movements.Count > 0)
+                    foreach (var movement in section.Movements)
+                        if (movement.Segments != null && movement.Segments.Count > 0)
+                            foreach (var segment in movement.Segments)
+                                if (segment.Passages != null && segment.Passages.Count > 0)
+                                    foreach (var passage in segment.Passages)
+                                        if (passage.MeasureGroups != null && passage.MeasureGroups.Count > 0)
                                         {
-                                            var maxStaves = passage.ListOfMeasureGroups.Select(measure => measure.Measures.Count).Max();
+                                            var maxStaves = passage.MeasureGroups.Select(measure => measure.Measures.Count).Max();
 
-                                            foreach (var measureGroup in passage.ListOfMeasureGroups)
+                                            foreach (var measureGroup in passage.MeasureGroups)
                                             {
                                                 // pagebreak if page is full
                                                 if (currentPage.Systems.Count > 0 && currentPage.Systems.Last().MeasureGroups.Count > 3

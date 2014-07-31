@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using Model.Sections.Notes;
 
 namespace Musicista.UI.MeasureElements
 {
@@ -31,7 +32,7 @@ namespace Musicista.UI.MeasureElements
 
             Children.Add(ClefPath);
 
-            if (uiMeasure.ParentMeasureGroup.ParentSystem.MeasureGroups.IndexOf(uiMeasure.ParentMeasureGroup) > 0)
+            if (uiMeasure.ParentUIMeasureGroup.ParentSystem.MeasureGroups.IndexOf(uiMeasure.ParentUIMeasureGroup) > 0)
             {
                 SetLeft(this, -120);
                 switch (clefType)
@@ -46,7 +47,7 @@ namespace Musicista.UI.MeasureElements
                         break;
                 }
                 uiMeasure.PreviousUIMeasure.MarginRight += 120;
-                uiMeasure.PreviousUIMeasure.ParentMeasureGroup.Redraw();
+                uiMeasure.PreviousUIMeasure.ParentUIMeasureGroup.Redraw();
             }
             else
                 uiMeasure.Indent += 120;

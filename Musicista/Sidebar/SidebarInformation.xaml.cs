@@ -1,5 +1,7 @@
-﻿using Model;
-using Model.Meta;
+﻿using Model.Meta;
+using Model.Meta.People;
+using Model.Sections;
+using Model.Sections.Notes;
 using Musicista.Exceptions;
 using Musicista.UI;
 using Musicista.UI.MeasureElements;
@@ -90,7 +92,7 @@ namespace Musicista.Sidebar
 
         public void AddToThemes(object sender, RoutedEventArgs routedEventArgs)
         {
-            var part = new Part(new Passage(UIHelper.SelectedUISymbols.Select(item => item.Symbol)));
+            var part = new Part(new Passage(UIHelper.SelectedUISymbols.Select(item => item.Symbol)), UIHelper.SelectedUISymbols.First().Symbol.ParentMeasure.ParentMeasureGroup.ParentPassage.ParentSegment.ParentMovement);
             MainWindow.CurrentPiece.Parts.Add(part);
 
             if (_partsStack != null)
@@ -116,9 +118,11 @@ namespace Musicista.Sidebar
                 }
             };
 
-            page.Systems.Add(new UISystem(page, 1) { MeasuresInSystem = passage.ListOfMeasureGroups.Count });
+            if (passage == null) return page;
 
-            foreach (var measureGroup in passage.ListOfMeasureGroups)
+            page.Systems.Add(new UISystem(page, 1) { MeasuresInSystem = passage.MeasureGroups.Count });
+
+            foreach (var measureGroup in passage.MeasureGroups)
             {
                 var uiMeasureGroup = new UIMeasureGroup(page.Systems.Last(), measureGroup, false);
                 uiMeasureGroup.Draw();
@@ -145,9 +149,9 @@ namespace Musicista.Sidebar
                 var grid = new GridTable(60);
                 grid.AddRowWithTextField("Instrument", uiMeasure.InnerMeasure.Instrument, "Name");
                 grid.AddRowWithComboBox("Clef", uiMeasure.InnerMeasure, "Clef", Clef.Treble);
-                grid.AddRowWithTwoComboBoxes("Key", uiMeasure.ParentMeasureGroup.InnerMeasureGroup.KeySignature, "Pitch", "Gender", Pitch.C, Gender.Major);
-                grid.AddRowWithTimeSignature("Time", uiMeasure.ParentMeasureGroup.InnerMeasureGroup.TimeSignature);
-                grid.AddRowWithCheckbox("Pickup", uiMeasure.ParentMeasureGroup.InnerMeasureGroup, "IsPickupMeasure");
+                grid.AddRowWithTwoComboBoxes("Key", uiMeasure.ParentUIMeasureGroup.InnerMeasureGroup.KeySignature, "Pitch", "Gender", Pitch.C, Gender.Major);
+                grid.AddRowWithTimeSignature("Time", uiMeasure.ParentUIMeasureGroup.InnerMeasureGroup.TimeSignature);
+                grid.AddRowWithCheckbox("Pickup", uiMeasure.ParentUIMeasureGroup.InnerMeasureGroup, "IsPickupMeasure");
 
                 SidebarPanel.Children.Add(grid);
             }
@@ -164,7 +168,7 @@ namespace Musicista.Sidebar
                 var grid = new GridTable(60);
                 var keys = UIHelper.SelectedUIMeasures.Select(item => item.InnerMeasure.ParentMeasureGroup.KeySignature).Distinct().ToList();
                 if (keys.Count() == 1)
-                    grid.AddRowWithTwoComboBoxes("Key", uiMeasure.ParentMeasureGroup.InnerMeasureGroup.KeySignature, "Pitch", "Gender", Pitch.C, Gender.Major);
+                    grid.AddRowWithTwoComboBoxes("Key", uiMeasure.ParentUIMeasureGroup.InnerMeasureGroup.KeySignature, "Pitch", "Gender", Pitch.C, Gender.Major);
                 else
                     grid.AddRowWithReadonlyTextField("Keys", string.Join(", ", keys));
 
@@ -181,22 +185,22 @@ namespace Musicista.Sidebar
                 return;
             var piece = MainWindow.CurrentPiece;
 
-            TitleTextBlock.DataContext = piece;
+            TitleTextBlock.DataContext = piece.Meta;
             TitleTextBlock.SetBinding(TextBlock.TextProperty, new Binding("Title"));
 
             SidebarPanel.Children.Clear();
 
             var grid = new GridTable(60);
-            grid.AddRowWithTextField("Title", MainWindow.CurrentPiece, "Title");
+            grid.AddRowWithTextField("Title", MainWindow.CurrentPiece.Meta, "Title");
 
-            if (piece.ListOfComposers == null || piece.ListOfComposers.Count == 0)
-                piece.ListOfComposers = new List<Composer> { new Composer() };
-            foreach (var composer in piece.ListOfComposers)
+            if (piece.Meta.People.Composers == null || piece.Meta.People.Composers.Count == 0)
+                piece.Meta.People.Composers = new List<Composer> { new Composer() };
+            foreach (var composer in piece.Meta.People.Composers)
                 grid.AddRowWithPerson("Composer", composer);
 
 
-            grid.AddRowWithComboBox("Epoch", MainWindow.CurrentPiece, "Epoch", Epoch.Classical);
-            grid.AddRowWithComboBox("Form", MainWindow.CurrentPiece, "Form", Form.Other);
+            grid.AddRowWithComboBox("Epoch", MainWindow.CurrentPiece.Meta, "Epoch", Epoch.Classical);
+            grid.AddRowWithComboBox("Form", MainWindow.CurrentPiece.Meta, "Form", Form.Other);
 
             SidebarPanel.Children.Add(grid);
 
@@ -220,11 +224,11 @@ namespace Musicista.Sidebar
                 View = gridView,
                 ItemsSource = new Dictionary<string, string>
                 {
-                    {"Typesetter", piece.TypeSetter},
-                    {"Date of typesetting", piece.DateOfTypesetting.ToShortDateString()},
-                    {"Copyright", piece.Copyright},
-                    {"Software", piece.Software},
-                    {"Notes", piece.Notes}
+                    {"Typesetter", piece.Meta.Dates.Engraving.Typesetter},
+                    {"Date of typesetting", piece.Meta.Dates.Engraving.Date.ToShortDateString()},
+                    {"Copyright", piece.Meta.Copyright},
+                    {"Software", piece.Meta.Software},
+                    {"Notes", piece.Meta.Notes}
                 }
             };
             SidebarPanel.Children.Add(listView);

@@ -13,7 +13,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using Clef = Model.Sections.Notes.Clef;
-using Duration = Model.Meta.Duration;
+using Duration = Model.Sections.Notes.Duration;
 using Lyric = Model.Sections.Notes.Lyric;
 using Note = MusicXML.Note;
 using Step = Model.Meta.Step;

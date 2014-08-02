@@ -3,10 +3,11 @@ using Midi.Events.ChannelEvents;
 using Midi.Events.MetaEvents;
 using Model;
 using Model.Meta;
+using Model.Sections;
+using Model.Sections.Notes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Model.Sections;
 
 namespace Musicista.Mappers
 {

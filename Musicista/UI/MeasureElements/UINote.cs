@@ -1,5 +1,4 @@
-﻿using Model;
-using Model.Meta;
+﻿using Model.Meta;
 using Model.Sections.Notes;
 using Musicista.Properties;
 using Musicista.UI.Enums;
@@ -9,7 +8,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using Duration = Model.Meta.Duration;
+using Duration = Model.Sections.Notes.Duration;
 
 namespace Musicista.UI.MeasureElements
 {

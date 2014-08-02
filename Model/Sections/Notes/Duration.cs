@@ -1,4 +1,4 @@
-﻿namespace Model.Meta
+﻿namespace Model.Sections.Notes
 {
     public enum Duration
     {
@@ -34,8 +34,10 @@
         HalfDotted = 2880,
         HalfDoubleDotted = 3360,
         Whole = 3840,
+        WholePlusSixteenth = 4080,
         WholePlusEigth = 4320,
         WholePlusQuarter = 4800,
+        WholePlusQuarterDotted = 5280,
         WholeDotted = 5760,
         WholeDoubleDotted = 6720,
         Doublewhole = 7680,

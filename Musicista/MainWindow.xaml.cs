@@ -32,9 +32,11 @@ namespace Musicista
 
         public static ScrollViewer UICanvasScrollViewer;
         public static ContentControl UISidebar;
+        public static ContentControl UICollection;
         public static Path UIButtonPathInformation;
         public static Path UIButtonPathView;
         public static Path UIButtonPathAlgorithms;
+        public static Path UIButtonPathCollection;
 
         private static String _author = "";
         public static String Author
@@ -52,9 +54,11 @@ namespace Musicista
             // Make ui-elements accessible by static methods
             UICanvasScrollViewer = CanvasScrollViewer;
             UISidebar = Sidebar;
+            UICollection = CollectionContentControl;
             UIButtonPathInformation = ButtonPathInformation;
             UIButtonPathView = ButtonPathView;
             UIButtonPathAlgorithms = ButtonPathAlgorithms;
+            UIButtonPathCollection = ButtonPathCollection;
 
             PreviewMouseWheel += Zoom;
             SetUpKeyCommands();
@@ -91,8 +95,10 @@ namespace Musicista
             const string subject = "Exception Report Musicista";
             var exception = e.Exception;
             var body = "Message: " + exception.Message + "\n\nType: " + exception.GetType() + "\n\nData: " + exception.Data + "\n\nStack Trace: "
-                + exception.StackTrace + "\n\nSource: " + exception.Source + "\n\nComputer: " + Environment.OSVersion.VersionString + "\n\nUser Name: " + Environment.UserName
-                 + "\n\nCurrent Piece: " + CurrentPiece.Meta.Title + "\n\nURL: " + CurrentPiece.Meta.Weblink;
+                       + exception.StackTrace + "\n\nSource: " + exception.Source + "\n\nComputer: " + Environment.OSVersion.VersionString + "\n\nUser Name: " +
+                       Environment.UserName;
+            if (CurrentPiece != null)
+                body += "\n\nCurrent Piece: " + CurrentPiece.Meta.Title + "\n\nURL: " + CurrentPiece.Meta.Weblink;
 
             var smtp = new SmtpClient
             {

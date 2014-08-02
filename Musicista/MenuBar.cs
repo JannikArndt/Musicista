@@ -17,16 +17,16 @@ namespace Musicista
         private void ShowCollection(object sender, RoutedEventArgs e)
         {
 
-            if (CollectionContentControl.Content != null)
+            if (UICollection.Content != null)
             {
-                CollectionContentControl.Content = null;
-                ButtonPathCollection.Fill = Brushes.Black;
+                UICollection.Content = null;
+                UIButtonPathCollection.Fill = Brushes.Black;
             }
             else
             {
                 CollectionWindow.Margin = new Thickness(0);
-                CollectionContentControl.Content = CollectionWindow;
-                ButtonPathCollection.Fill = Brushes.DodgerBlue;
+                UICollection.Content = CollectionWindow;
+                UIButtonPathCollection.Fill = Brushes.DodgerBlue;
             }
         }
 

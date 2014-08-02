@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Model;
+using System;
 
 namespace Musicista.Collection
 {
@@ -7,11 +8,17 @@ namespace Musicista.Collection
     {
         public String Name { get; set; }
         public String Filepath { get; set; }
+        public MetaData MetaData { get; set; }
 
-        public DocumentReference(string name, string filepath)
+        public string TitleString { get { return MetaData.Title; } }
+        public string ComposerString { get { return MetaData.People.ComposersAsString; } }
+        public string OpusString { get { return MetaData.Opus.OpusString; } }
+
+        public DocumentReference(string name, string filepath, MetaData metaData = null)
         {
             Name = name;
             Filepath = filepath;
+            MetaData = metaData;
         }
 
         public DocumentReference() { }

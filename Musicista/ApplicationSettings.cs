@@ -1,4 +1,5 @@
-﻿using Musicista.Collection;
+﻿using Model;
+using Musicista.Collection;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,7 +27,7 @@ namespace Musicista
             }
         }
 
-        public void AddToMostRecentlyUsedFiles(String name, String filename)
+        public void AddToMostRecentlyUsedFiles(String name, String filename, MetaData metaData)
         {
             var document = MostRecentlyUsed.FirstOrDefault(item => item.Name == name && item.Filepath == filename);
             if (document != null)
@@ -35,7 +36,7 @@ namespace Musicista
                 MostRecentlyUsed.Insert(0, document);
             }
             else
-                MostRecentlyUsed.Insert(0, new DocumentReference(name, filename));
+                MostRecentlyUsed.Insert(0, new DocumentReference(name, filename, metaData));
 
             Save();
         }

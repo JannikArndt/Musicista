@@ -82,7 +82,7 @@ namespace Musicista
                 var piece = LoadFile(filename, scoreInfo);
                 DrawPiece(piece);
 
-                ApplicationSettings.AddToMostRecentlyUsedFiles(CurrentPiece.Meta.Title, _fileName);
+                ApplicationSettings.AddToMostRecentlyUsedFiles(CurrentPiece.Meta.Title, _fileName, piece.Meta);
                 SidebarInformation.ShowPiece();
                 UISidebar.Content = SidebarInformation;
                 SetSidebarButtonPathFill(SidebarKind.Information);

@@ -1,4 +1,5 @@
-﻿using Musicista.Sidebar;
+﻿using Musicista.Collection;
+using Musicista.Sidebar;
 using Musicista.View;
 using System.Windows;
 using System.Windows.Media;
@@ -11,10 +12,22 @@ namespace Musicista
         public static SidebarView SidebarView;
         public static SidebarAlgorithms SidebarAlgorithms;
         public static ToolKind SelectedTool;
+        public static CollectionWindow CollectionWindow;
 
         private void ShowCollection(object sender, RoutedEventArgs e)
         {
 
+            if (CollectionContentControl.Content != null)
+            {
+                CollectionContentControl.Content = null;
+                ButtonPathCollection.Fill = Brushes.Black;
+            }
+            else
+            {
+                CollectionWindow.Margin = new Thickness(0);
+                CollectionContentControl.Content = CollectionWindow;
+                ButtonPathCollection.Fill = Brushes.DodgerBlue;
+            }
         }
 
         private void SelectToolAdd(object sender, RoutedEventArgs e)

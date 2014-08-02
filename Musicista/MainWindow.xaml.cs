@@ -1,4 +1,5 @@
 ﻿using Model;
+using Musicista.Collection;
 using Musicista.Sidebar;
 using Musicista.UI;
 using Musicista.View;
@@ -66,6 +67,8 @@ namespace Musicista
             Sidebar.Content = SidebarInformation;
             ButtonPathInformation.Fill = Brushes.DodgerBlue;
             ButtonPathSelect.Fill = Brushes.DodgerBlue;
+
+            CollectionWindow = new CollectionWindow();
 
             if (Application.Current.Properties["LoadFileOnStartup"] != null
                 && (File.Exists(Application.Current.Properties["LoadFileOnStartup"].ToString())))

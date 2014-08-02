@@ -109,6 +109,9 @@
     </ApplicationDefinition>
     <Compile Include="Algorithms\BasicAlgorithms.cs" />
     <Compile Include="ApplicationSettings.cs" />
+    <Compile Include="Collection\CollectionWindow.xaml.cs">
+      <DependentUpon>CollectionWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Collection\DocumentReference.cs" />
     <Compile Include="DragAndDrop.cs" />
     <Compile Include="Engraving.cs" />
@@ -162,6 +165,10 @@
     <Compile Include="View\StartScreen.xaml.cs">
       <DependentUpon>StartScreen.xaml</DependentUpon>
     </Compile>
+    <Page Include="Collection\CollectionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

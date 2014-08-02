@@ -59,7 +59,7 @@
     <Compile Include="MetaData.cs" />
     <Compile Include="Meta\Expression.cs" />
     <Compile Include="Meta\Album.cs" />
-    <Compile Include="Meta\Duration.cs" />
+    <Compile Include="Sections\Notes\Duration.cs" />
     <Compile Include="Meta\Epoch.cs" />
     <Compile Include="Meta\Form.cs" />
     <Compile Include="Meta\Gender.cs" />

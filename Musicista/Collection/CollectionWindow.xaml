@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="Musicista.Collection.CollectionWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800">
+    
+    <Grid>
+        <Grid.Background>
+            <DrawingBrush Stretch="Uniform">
+                <DrawingBrush.Drawing>
+                    <DrawingGroup>
+                        <DrawingGroup.Children>
+                            <GeometryDrawing Brush="LightBlue" Geometry="F1 M 0,40 L 20,40 L 45,0 L 70,40 L 1060,40L 1060,790L 0,790L 0,40 Z">
+                                <GeometryDrawing.Pen>
+                                    <Pen Thickness="2" LineJoin="Round" Brush="Gray"/>
+                                </GeometryDrawing.Pen>
+                            </GeometryDrawing>
+                        </DrawingGroup.Children>
+                    </DrawingGroup>
+                </DrawingBrush.Drawing>
+            </DrawingBrush>
+        </Grid.Background>
+        <Grid.Effect><DropShadowEffect RenderingBias="Performance" BlurRadius="10"></DropShadowEffect></Grid.Effect>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="10" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+        <ListView Grid.Row="1" Grid.Column="1" Name="RecentFilesListView" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#AAFFFFFF" >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Name}" Width="400"/>
+                    <GridViewColumn Header="File" DisplayMemberBinding="{Binding Filepath}" Width="400"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+    </Grid>
+</UserControl>

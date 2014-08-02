@@ -6,7 +6,7 @@ namespace Musicista.Mappers
     {
         public static Piece CreateEmptyPiece()
         {
-            return new Piece();
+            return new Piece(initialize: true);
         }
     }
 }

@@ -149,7 +149,7 @@ namespace Musicista.Sidebar
                 var grid = new GridTable(60);
                 grid.AddRowWithTextField("Instrument", uiMeasure.InnerMeasure.Instrument, "Name");
                 grid.AddRowWithComboBox("Clef", uiMeasure.InnerMeasure, "Clef", Clef.Treble);
-                grid.AddRowWithTwoComboBoxes("Key", uiMeasure.ParentUIMeasureGroup.InnerMeasureGroup.KeySignature, "Pitch", "Gender", Pitch.C, Gender.Major);
+                grid.AddRowWithTwoComboBoxes("Key", uiMeasure.ParentUIMeasureGroup.InnerMeasureGroup.KeySignature, "Step", "Gender", Step.C, Gender.Major);
                 grid.AddRowWithTimeSignature("Time", uiMeasure.ParentUIMeasureGroup.InnerMeasureGroup.TimeSignature);
                 grid.AddRowWithCheckbox("Pickup", uiMeasure.ParentUIMeasureGroup.InnerMeasureGroup, "IsPickupMeasure");
 
@@ -168,7 +168,7 @@ namespace Musicista.Sidebar
                 var grid = new GridTable(60);
                 var keys = UIHelper.SelectedUIMeasures.Select(item => item.InnerMeasure.ParentMeasureGroup.KeySignature).Distinct().ToList();
                 if (keys.Count() == 1)
-                    grid.AddRowWithTwoComboBoxes("Key", uiMeasure.ParentUIMeasureGroup.InnerMeasureGroup.KeySignature, "Pitch", "Gender", Pitch.C, Gender.Major);
+                    grid.AddRowWithTwoComboBoxes("Key", uiMeasure.ParentUIMeasureGroup.InnerMeasureGroup.KeySignature, "Step", "Gender", Step.C, Gender.Major);
                 else
                     grid.AddRowWithReadonlyTextField("Keys", string.Join(", ", keys));
 

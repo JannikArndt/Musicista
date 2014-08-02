@@ -100,20 +100,20 @@ namespace Musicista.Mappers
             return MapDeltaTimeToDuration.First(kvp => kvp.Key(time)).Value;
         }
 
-        public static Dictionary<int, Pitch> MapMidiStepsToPitch = new Dictionary<int, Pitch>
+        public static Dictionary<int, Step> MapMidiStepsToPitch = new Dictionary<int, Step>
                 { 
-                    { 0, Pitch.C },
-                    { 1, Pitch.CSharp },
-                    { 2, Pitch.D },
-                    { 3, Pitch.DSharp },
-                    { 4, Pitch.E },
-                    { 5, Pitch.F },
-                    { 6, Pitch.FSharp },
-                    { 7, Pitch.G },
-                    { 8, Pitch.GSharp },
-                    { 9, Pitch.A },
-                    { 10, Pitch.ASharp },
-                    { 11, Pitch.B }
+                    { 0, Step.C },
+                    { 1, Step.CSharp },
+                    { 2, Step.D },
+                    { 3, Step.DSharp },
+                    { 4, Step.E },
+                    { 5, Step.F },
+                    { 6, Step.FSharp },
+                    { 7, Step.G },
+                    { 8, Step.GSharp },
+                    { 9, Step.A },
+                    { 10, Step.ASharp },
+                    { 11, Step.B }
                 };
 
         public static Dictionary<Func<int, bool>, Duration> MapDeltaTimeToDuration = new Dictionary<Func<int, bool>, Duration>

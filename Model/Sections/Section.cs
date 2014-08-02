@@ -14,7 +14,6 @@ namespace Model.Sections
 
         public Section()
         {
-            Movements = new List<Movement> { new Movement { ParentSection = this } };
         }
     }
 }

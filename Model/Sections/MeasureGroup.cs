@@ -1,4 +1,6 @@
 ﻿using Model.Meta;
+using Model.Sections.Notes;
+using Model.Sections.Notes.Analysis;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,6 +20,8 @@ namespace Model.Sections
         private TimeSignature _timeSignature;
         [XmlIgnore]
         private int _measureNumber;
+        [XmlIgnore]
+        private readonly List<AnalysisObject> _listOfAnalysisObjects = new List<AnalysisObject>();
 
         public MeasureGroup()
         {
@@ -43,6 +47,8 @@ namespace Model.Sections
             get { return _keySignature; }
             set { _keySignature = value; NotifyPropertyChanged(); }
         }
+        [XmlArray("Analysis"), XmlArrayItem(typeof(Harmony)), XmlArrayItem(typeof(NoteAttribute)), XmlArrayItem(typeof(AnalysisObject))]
+        public List<AnalysisObject> Analysis { get { return _listOfAnalysisObjects; } }
 
         [XmlElement("Measures")]
         public List<Measure> Measures { get; set; }
@@ -109,6 +115,11 @@ namespace Model.Sections
                     foreach (var symbol in measure.Symbols)
                         symbol.Beat += (difference / ((double)Duration.Whole / measure.ParentMeasureGroup.TimeSignature.BeatUnit));
             }
+        }
+
+        public List<Symbol> GetSymbolsAt(double beat)
+        {
+            return Measures.SelectMany(measure => measure.GetSymbolsAt(beat)).ToList();
         }
     }
 }

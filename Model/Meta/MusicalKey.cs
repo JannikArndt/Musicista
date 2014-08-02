@@ -11,24 +11,24 @@ namespace Model.Meta
         [XmlIgnore]
         private Gender _gender;
         [XmlIgnore]
-        private Pitch _pitch;
+        private Step _step;
 
         public MusicalKey()
         {
         }
 
-        public MusicalKey(Pitch pitch, Gender gender)
+        public MusicalKey(Step step, Gender gender)
         {
-            Pitch = pitch;
+            Step = step;
             Gender = gender;
         }
         [XmlAttribute]
-        public Pitch Pitch
+        public Step Step
         {
-            get { return _pitch; }
+            get { return _step; }
             set
             {
-                _pitch = value;
+                _step = value;
                 NotifyPropertyChanged();
             }
         }
@@ -50,65 +50,65 @@ namespace Model.Meta
             var item = obj as MusicalKey;
             if (item == null)
                 return false;
-            return (Pitch.Equals(item.Pitch) && Gender.Equals(item.Gender));
+            return (Step.Equals(item.Step) && Gender.Equals(item.Gender));
         }
 
         public override int GetHashCode()
         {
-            return Pitch.GetHashCode() ^ Gender.GetHashCode();
+            return Step.GetHashCode() ^ Gender.GetHashCode();
         }
 
         public override string ToString()
         {
-            return Pitch + " " + Gender;
+            return Step + " " + Gender;
         }
 
-        public bool NoteIsInKey(Pitch pitch)
+        public bool NoteIsInKey(Step step)
         {
-            if ((Pitch == Pitch.C && Gender == Gender.Major) || (Pitch == Pitch.A && Gender == Gender.Minor))
-                return new List<Pitch> { Pitch.C, Pitch.D, Pitch.E, Pitch.F, Pitch.G, Pitch.A, Pitch.B }.Contains(pitch);
+            if ((Step == Step.C && Gender == Gender.Major) || (Step == Step.A && Gender == Gender.Minor))
+                return new List<Step> { Step.C, Step.D, Step.E, Step.F, Step.G, Step.A, Step.B }.Contains(step);
 
-            if ((Pitch == Pitch.G && Gender == Gender.Major) || (Pitch == Pitch.E && Gender == Gender.Minor))
-                return new List<Pitch> { Pitch.C, Pitch.D, Pitch.E, Pitch.FSharp, Pitch.G, Pitch.A, Pitch.B }.Contains(pitch);
+            if ((Step == Step.G && Gender == Gender.Major) || (Step == Step.E && Gender == Gender.Minor))
+                return new List<Step> { Step.C, Step.D, Step.E, Step.FSharp, Step.G, Step.A, Step.B }.Contains(step);
 
-            if ((Pitch == Pitch.D && Gender == Gender.Major) || (Pitch == Pitch.B && Gender == Gender.Minor))
-                return new List<Pitch> { Pitch.CSharp, Pitch.D, Pitch.E, Pitch.FSharp, Pitch.G, Pitch.A, Pitch.B }.Contains(pitch);
+            if ((Step == Step.D && Gender == Gender.Major) || (Step == Step.B && Gender == Gender.Minor))
+                return new List<Step> { Step.CSharp, Step.D, Step.E, Step.FSharp, Step.G, Step.A, Step.B }.Contains(step);
 
-            if ((Pitch == Pitch.A && Gender == Gender.Major) || (Pitch == Pitch.FSharp && Gender == Gender.Minor))
-                return new List<Pitch> { Pitch.CSharp, Pitch.D, Pitch.E, Pitch.FSharp, Pitch.GSharp, Pitch.A, Pitch.B }.Contains(pitch);
+            if ((Step == Step.A && Gender == Gender.Major) || (Step == Step.FSharp && Gender == Gender.Minor))
+                return new List<Step> { Step.CSharp, Step.D, Step.E, Step.FSharp, Step.GSharp, Step.A, Step.B }.Contains(step);
 
-            if ((Pitch == Pitch.E && Gender == Gender.Major) || (Pitch == Pitch.CSharp && Gender == Gender.Minor))
-                return new List<Pitch> { Pitch.CSharp, Pitch.DSharp, Pitch.E, Pitch.FSharp, Pitch.GSharp, Pitch.A, Pitch.B }.Contains(pitch);
+            if ((Step == Step.E && Gender == Gender.Major) || (Step == Step.CSharp && Gender == Gender.Minor))
+                return new List<Step> { Step.CSharp, Step.DSharp, Step.E, Step.FSharp, Step.GSharp, Step.A, Step.B }.Contains(step);
 
-            if ((Pitch == Pitch.B && Gender == Gender.Major) || (Pitch == Pitch.GSharp && Gender == Gender.Minor))
-                return new List<Pitch> { Pitch.CSharp, Pitch.DSharp, Pitch.E, Pitch.FSharp, Pitch.GSharp, Pitch.ASharp, Pitch.B }.Contains(pitch);
+            if ((Step == Step.B && Gender == Gender.Major) || (Step == Step.GSharp && Gender == Gender.Minor))
+                return new List<Step> { Step.CSharp, Step.DSharp, Step.E, Step.FSharp, Step.GSharp, Step.ASharp, Step.B }.Contains(step);
 
-            if ((Pitch == Pitch.FSharp && Gender == Gender.Major) || (Pitch == Pitch.DSharp && Gender == Gender.Minor))
-                return new List<Pitch> { Pitch.CSharp, Pitch.DSharp, Pitch.ESharp, Pitch.FSharp, Pitch.GSharp, Pitch.ASharp, Pitch.B }.Contains(pitch);
+            if ((Step == Step.FSharp && Gender == Gender.Major) || (Step == Step.DSharp && Gender == Gender.Minor))
+                return new List<Step> { Step.CSharp, Step.DSharp, Step.ESharp, Step.FSharp, Step.GSharp, Step.ASharp, Step.B }.Contains(step);
 
-            if ((Pitch == Pitch.CSharp && Gender == Gender.Major) || (Pitch == Pitch.ASharp && Gender == Gender.Minor))
-                return new List<Pitch> { Pitch.CSharp, Pitch.DSharp, Pitch.ESharp, Pitch.FSharp, Pitch.GSharp, Pitch.ASharp, Pitch.BSharp }.Contains(pitch);
+            if ((Step == Step.CSharp && Gender == Gender.Major) || (Step == Step.ASharp && Gender == Gender.Minor))
+                return new List<Step> { Step.CSharp, Step.DSharp, Step.ESharp, Step.FSharp, Step.GSharp, Step.ASharp, Step.BSharp }.Contains(step);
 
-            if ((Pitch == Pitch.F && Gender == Gender.Major) || (Pitch == Pitch.D && Gender == Gender.Minor))
-                return new List<Pitch> { Pitch.C, Pitch.D, Pitch.E, Pitch.F, Pitch.G, Pitch.A, Pitch.BFlat }.Contains(pitch);
+            if ((Step == Step.F && Gender == Gender.Major) || (Step == Step.D && Gender == Gender.Minor))
+                return new List<Step> { Step.C, Step.D, Step.E, Step.F, Step.G, Step.A, Step.BFlat }.Contains(step);
 
-            if ((Pitch == Pitch.BFlat && Gender == Gender.Major) || (Pitch == Pitch.G && Gender == Gender.Minor))
-                return new List<Pitch> { Pitch.C, Pitch.D, Pitch.EFlat, Pitch.F, Pitch.G, Pitch.A, Pitch.BFlat }.Contains(pitch);
+            if ((Step == Step.BFlat && Gender == Gender.Major) || (Step == Step.G && Gender == Gender.Minor))
+                return new List<Step> { Step.C, Step.D, Step.EFlat, Step.F, Step.G, Step.A, Step.BFlat }.Contains(step);
 
-            if ((Pitch == Pitch.EFlat && Gender == Gender.Major) || (Pitch == Pitch.C && Gender == Gender.Minor))
-                return new List<Pitch> { Pitch.C, Pitch.D, Pitch.EFlat, Pitch.F, Pitch.G, Pitch.AFlat, Pitch.BFlat }.Contains(pitch);
+            if ((Step == Step.EFlat && Gender == Gender.Major) || (Step == Step.C && Gender == Gender.Minor))
+                return new List<Step> { Step.C, Step.D, Step.EFlat, Step.F, Step.G, Step.AFlat, Step.BFlat }.Contains(step);
 
-            if ((Pitch == Pitch.AFlat && Gender == Gender.Major) || (Pitch == Pitch.F && Gender == Gender.Minor))
-                return new List<Pitch> { Pitch.C, Pitch.DFlat, Pitch.EFlat, Pitch.F, Pitch.G, Pitch.AFlat, Pitch.BFlat }.Contains(pitch);
+            if ((Step == Step.AFlat && Gender == Gender.Major) || (Step == Step.F && Gender == Gender.Minor))
+                return new List<Step> { Step.C, Step.DFlat, Step.EFlat, Step.F, Step.G, Step.AFlat, Step.BFlat }.Contains(step);
 
-            if ((Pitch == Pitch.DFlat && Gender == Gender.Major) || (Pitch == Pitch.BFlat && Gender == Gender.Minor))
-                return new List<Pitch> { Pitch.C, Pitch.DFlat, Pitch.EFlat, Pitch.F, Pitch.GFlat, Pitch.AFlat, Pitch.BFlat }.Contains(pitch);
+            if ((Step == Step.DFlat && Gender == Gender.Major) || (Step == Step.BFlat && Gender == Gender.Minor))
+                return new List<Step> { Step.C, Step.DFlat, Step.EFlat, Step.F, Step.GFlat, Step.AFlat, Step.BFlat }.Contains(step);
 
-            if ((Pitch == Pitch.GFlat && Gender == Gender.Major) || (Pitch == Pitch.EFlat && Gender == Gender.Minor))
-                return new List<Pitch> { Pitch.CFlat, Pitch.DFlat, Pitch.EFlat, Pitch.F, Pitch.GFlat, Pitch.AFlat, Pitch.BFlat }.Contains(pitch);
+            if ((Step == Step.GFlat && Gender == Gender.Major) || (Step == Step.EFlat && Gender == Gender.Minor))
+                return new List<Step> { Step.CFlat, Step.DFlat, Step.EFlat, Step.F, Step.GFlat, Step.AFlat, Step.BFlat }.Contains(step);
 
-            if ((Pitch == Pitch.CFlat && Gender == Gender.Major) || (Pitch == Pitch.AFlat && Gender == Gender.Minor))
-                return new List<Pitch> { Pitch.CFlat, Pitch.DFlat, Pitch.EFlat, Pitch.FFlat, Pitch.GFlat, Pitch.AFlat, Pitch.BFlat }.Contains(pitch);
+            if ((Step == Step.CFlat && Gender == Gender.Major) || (Step == Step.AFlat && Gender == Gender.Minor))
+                return new List<Step> { Step.CFlat, Step.DFlat, Step.EFlat, Step.FFlat, Step.GFlat, Step.AFlat, Step.BFlat }.Contains(step);
 
             throw new Exception("musical key not found");
         }

@@ -29,12 +29,31 @@ namespace Model
         [XmlArray("Parts")]
         public List<Part> Parts { get; set; }
 
-        public Piece()
+        public Piece() { }
+
+        public Piece(bool initialize = true)
         {
-            Meta = new MetaData();
-            Instruments = new List<Instrument>();
-            Parts = new List<Part>();
-            Sections = new List<Section> { new Section { ParentPiece = this } };
+            if (initialize)
+            {
+                Meta = new MetaData();
+                Instruments = new List<Instrument>();
+                Parts = new List<Part>();
+                Sections = new List<Section> 
+                { new Section
+                {Movements = new List<Movement>
+                    {new Movement
+                        {Segments = new List<Segment>
+                            {new Segment
+                                {Passages = new List<Passage>
+                                    {new Passage{MeasureGroups = new List<MeasureGroup>()}}
+                                }
+                            }
+                        }
+                    }
+                } 
+                };
+                CorrectParentConnections();
+            }
         }
 
         public void CorrectParentConnections()

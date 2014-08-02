@@ -19,7 +19,6 @@ namespace Model.Sections
         public Section ParentSection { get; set; }
         public Movement()
         {
-            Segments = new List<Segment> { new Segment { ParentMovement = this } };
         }
     }
 }

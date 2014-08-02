@@ -8,31 +8,31 @@ namespace Model.Sections.Notes
     public class Note : Symbol
     {
         [XmlAttribute("Step")]
-        public Pitch Step { get; set; }
+        public Step Step { get; set; }
         [XmlAttribute("Octave")]
         public int Octave { get; set; }
         [XmlAttribute("Velocity")]
         public int Velocity { get; set; } // 0-127, c.f. midi
         public Note() { }
-        public int PitchIsHigherThan(Pitch otherStep, int otherOctave)
+        public int PitchIsHigherThan(Step otherStep, int otherOctave)
         {
             if (Octave == otherOctave)
             {
                 // Enharmonic equivalent
-                if (Step == Pitch.CSharp && otherStep == Pitch.DFlat ||
-                    Step == Pitch.DSharp && otherStep == Pitch.EFlat ||
-                    Step == Pitch.ESharp && otherStep == Pitch.F ||
-                    Step == Pitch.FSharp && otherStep == Pitch.GFlat ||
-                    Step == Pitch.GSharp && otherStep == Pitch.AFlat ||
-                    Step == Pitch.ASharp && otherStep == Pitch.BFlat ||
-                    Step == Pitch.BSharp && otherStep == Pitch.C ||
-                    Step == Pitch.CFlat && otherStep == Pitch.B ||
-                    Step == Pitch.DFlat && otherStep == Pitch.CSharp ||
-                    Step == Pitch.EFlat && otherStep == Pitch.DSharp ||
-                    Step == Pitch.FFlat && otherStep == Pitch.E ||
-                    Step == Pitch.GFlat && otherStep == Pitch.FSharp ||
-                    Step == Pitch.AFlat && otherStep == Pitch.GSharp ||
-                    Step == Pitch.BFlat && otherStep == Pitch.ASharp)
+                if (Step == Step.CSharp && otherStep == Step.DFlat ||
+                    Step == Step.DSharp && otherStep == Step.EFlat ||
+                    Step == Step.ESharp && otherStep == Step.F ||
+                    Step == Step.FSharp && otherStep == Step.GFlat ||
+                    Step == Step.GSharp && otherStep == Step.AFlat ||
+                    Step == Step.ASharp && otherStep == Step.BFlat ||
+                    Step == Step.BSharp && otherStep == Step.C ||
+                    Step == Step.CFlat && otherStep == Step.B ||
+                    Step == Step.DFlat && otherStep == Step.CSharp ||
+                    Step == Step.EFlat && otherStep == Step.DSharp ||
+                    Step == Step.FFlat && otherStep == Step.E ||
+                    Step == Step.GFlat && otherStep == Step.FSharp ||
+                    Step == Step.AFlat && otherStep == Step.GSharp ||
+                    Step == Step.BFlat && otherStep == Step.ASharp)
                     return 0;
                 return Step.CompareTo(otherStep);
             }
@@ -46,7 +46,7 @@ namespace Model.Sections.Notes
 
         public int PitchIsHigherThan(String noteString)
         {
-            var otherStep = (Pitch)Enum.Parse(typeof(Pitch), noteString.Substring(0, noteString.Length - 1));
+            var otherStep = (Step)Enum.Parse(typeof(Step), noteString.Substring(0, noteString.Length - 1));
             var otherOctave = int.Parse(noteString.Substring(noteString.Length - 1, 1));
             return PitchIsHigherThan(otherStep, otherOctave);
         }
@@ -76,18 +76,18 @@ namespace Model.Sections.Notes
 
         public Interval DistanceTo(Note otherNote)
         {
-            var pitch1 = (int)Step.ToPitchForSums();
-            var pitch2 = (int)otherNote.Step.ToPitchForSums();
+            var step1 = (int)Step.ToStepForSums();
+            var step2 = (int)otherNote.Step.ToStepForSums();
 
             if (otherNote.Octave > Octave)
-                pitch2 += 12 * (otherNote.Octave - Octave);
+                step2 += 12 * (otherNote.Octave - Octave);
             if (otherNote.Octave < Octave)
-                pitch1 += 12 * (Octave - otherNote.Octave);
+                step1 += 12 * (Octave - otherNote.Octave);
 
-            if (pitch1 > pitch2)
-                return (Interval)(pitch1 - pitch2);
-            if (pitch2 > pitch1)
-                return (Interval)(pitch2 - pitch1);
+            if (step1 > step2)
+                return (Interval)(step1 - step2);
+            if (step2 > step1)
+                return (Interval)(step2 - step1);
             return Interval.PerfectUnison;
         }
     }

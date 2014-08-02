@@ -48,7 +48,7 @@ namespace Musicista.UI
         public bool StemDirectionIsSetForGroup = false;
         public bool ConnectNotesAtEndOfRun = false;
 
-        public readonly List<Pitch> AlteredKeys = new List<Pitch>();
+        public readonly List<Step> AlteredKeys = new List<Step>();
 
         public Line Line1 { get; set; }
         public Line Line2 { get; set; }

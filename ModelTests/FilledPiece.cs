@@ -10,7 +10,7 @@ namespace ModelTests
     {
         public static Piece GetPiece()
         {
-            var piece = new Piece
+            var piece = new Piece(initialize: true)
             {
                 Meta = new MetaData
                 {
@@ -38,7 +38,7 @@ namespace ModelTests
                         Engraving = new Engraving("Jannik Arndt", 2014, 7, 31, "Oldenburg"),
                         Publications = new List<Publication> { new Publication("Bärenreiter", 2015, 2, 3, "Wien") }
                     },
-                    Key = new MusicalKey(Pitch.C, Gender.Major),
+                    Key = new MusicalKey(Step.C, Gender.Major),
                     Copyright = "CC-3.0",
                     Weblink = "http://www.musicistaapp.de",
                     Software = "Musicista"

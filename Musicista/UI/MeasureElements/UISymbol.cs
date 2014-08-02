@@ -31,10 +31,10 @@ namespace Musicista.UI.MeasureElements
             }
         }
 
-        public UISymbol(Symbol symbol, UIMeasure parentUIUIMeasure, bool hasMouseDown = true)
+        public UISymbol(Symbol symbol, UIMeasure parentUIMeasure, bool hasMouseDown = true)
         {
             Symbol = symbol;
-            ParentUIMeasure = parentUIUIMeasure;
+            ParentUIMeasure = parentUIMeasure;
             ParentUIMeasure.Symbols.Add(this);
 
             Background = Brushes.Transparent;

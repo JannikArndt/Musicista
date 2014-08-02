@@ -17,7 +17,6 @@ namespace Model.Sections
 
         public Segment()
         {
-            Passages = new List<Passage> { new Passage { ParentSegment = this } };
         }
     }
 }

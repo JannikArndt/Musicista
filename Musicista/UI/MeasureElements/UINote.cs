@@ -495,64 +495,64 @@ namespace Musicista.UI.MeasureElements
 
             switch (note.Step)
             {
-                case Pitch.C:
+                case Step.C:
                     top += 0;
                     break;
-                case Pitch.CSharp:
+                case Step.CSharp:
                     top += 0;
                     break;
-                case Pitch.DFlat:
+                case Step.DFlat:
                     top -= noteStepSpacing;
                     break;
-                case Pitch.D:
+                case Step.D:
                     top -= noteStepSpacing;
                     break;
-                case Pitch.DSharp:
+                case Step.DSharp:
                     top -= noteStepSpacing;
                     break;
-                case Pitch.EFlat:
+                case Step.EFlat:
                     top -= 2 * noteStepSpacing;
                     break;
-                case Pitch.E:
+                case Step.E:
                     top -= 2 * noteStepSpacing;
                     break;
-                case Pitch.ESharp:
+                case Step.ESharp:
                     top -= 2 * noteStepSpacing;
                     break;
-                case Pitch.FFlat:
+                case Step.FFlat:
                     top -= 3 * noteStepSpacing;
                     break;
-                case Pitch.F:
+                case Step.F:
                     top -= 3 * noteStepSpacing;
                     break;
-                case Pitch.FSharp:
+                case Step.FSharp:
                     top -= 3 * noteStepSpacing;
                     break;
-                case Pitch.GFlat:
+                case Step.GFlat:
                     top -= 4 * noteStepSpacing;
                     break;
-                case Pitch.G:
+                case Step.G:
                     top -= 4 * noteStepSpacing;
                     break;
-                case Pitch.GSharp:
+                case Step.GSharp:
                     top -= 4 * noteStepSpacing;
                     break;
-                case Pitch.AFlat:
+                case Step.AFlat:
                     top -= 5 * noteStepSpacing;
                     break;
-                case Pitch.A:
+                case Step.A:
                     top -= 5 * noteStepSpacing;
                     break;
-                case Pitch.ASharp:
+                case Step.ASharp:
                     top -= 5 * noteStepSpacing;
                     break;
-                case Pitch.BFlat:
+                case Step.BFlat:
                     top -= 6 * noteStepSpacing;
                     break;
-                case Pitch.B:
+                case Step.B:
                     top -= 6 * noteStepSpacing;
                     break;
-                case Pitch.BSharp:
+                case Step.BSharp:
                     top -= 6 * noteStepSpacing;
                     break;
             }
@@ -602,9 +602,9 @@ namespace Musicista.UI.MeasureElements
         {
             var currentKey = note.ParentMeasure.ParentMeasureGroup.KeySignature;
             var accidentalKind = Accidental.Natural;
-            var naturalPitches = new List<Pitch> { Pitch.C, Pitch.D, Pitch.E, Pitch.F, Pitch.G, Pitch.A, Pitch.B };
-            var sharpPitches = new List<Pitch> { Pitch.CSharp, Pitch.DSharp, Pitch.ESharp, Pitch.FSharp, Pitch.GSharp, Pitch.ASharp, Pitch.BSharp };
-            var flatPitches = new List<Pitch> { Pitch.CFlat, Pitch.DFlat, Pitch.EFlat, Pitch.F, Pitch.GFlat, Pitch.AFlat, Pitch.BFlat };
+            var naturalPitches = new List<Step> { Step.C, Step.D, Step.E, Step.F, Step.G, Step.A, Step.B };
+            var sharpPitches = new List<Step> { Step.CSharp, Step.DSharp, Step.ESharp, Step.FSharp, Step.GSharp, Step.ASharp, Step.BSharp };
+            var flatPitches = new List<Step> { Step.CFlat, Step.DFlat, Step.EFlat, Step.F, Step.GFlat, Step.AFlat, Step.BFlat };
 
             if (!currentKey.NoteIsInKey(note.Step) && !measure.AlteredKeys.Contains(note.Step))
             {

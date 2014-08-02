@@ -11,10 +11,10 @@ namespace ModelTests
         [TestMethod]
         public void PitchIsHigherThanTest()
         {
-            var Note1 = new Note { Octave = 1, Step = Pitch.C };
-            var Note2 = new Note { Octave = 1, Step = Pitch.DSharp };
-            var Note3 = new Note { Octave = 1, Step = Pitch.EFlat };
-            var Note4 = new Note { Octave = 2, Step = Pitch.C };
+            var Note1 = new Note { Octave = 1, Step = Step.C };
+            var Note2 = new Note { Octave = 1, Step = Step.DSharp };
+            var Note3 = new Note { Octave = 1, Step = Step.EFlat };
+            var Note4 = new Note { Octave = 2, Step = Step.C };
 
             // Different steps, same octave
             Assert.IsTrue(Note1.PitchIsHigherThan(Note2) == -1);
@@ -31,11 +31,11 @@ namespace ModelTests
         [TestMethod]
         public void DistanceTest()
         {
-            var Note1 = new Note { Octave = 1, Step = Pitch.C };
-            var Note2 = new Note { Octave = 1, Step = Pitch.DSharp };
-            var Note3 = new Note { Octave = 1, Step = Pitch.EFlat };
-            var Note4 = new Note { Octave = 2, Step = Pitch.C };
-            var Note5 = new Note { Octave = 2, Step = Pitch.D };
+            var Note1 = new Note { Octave = 1, Step = Step.C };
+            var Note2 = new Note { Octave = 1, Step = Step.DSharp };
+            var Note3 = new Note { Octave = 1, Step = Step.EFlat };
+            var Note4 = new Note { Octave = 2, Step = Step.C };
+            var Note5 = new Note { Octave = 2, Step = Step.D };
 
             // Same for enharmonic equivalents
             Assert.IsTrue(Note1.DistanceTo(Note2) == Interval.MinorThird);
@@ -53,11 +53,11 @@ namespace ModelTests
         [TestMethod]
         public void PitchConversion()
         {
-            Assert.IsTrue(Pitch.C.ToPitchForSums() == PitchForSums.C);
-            Assert.IsTrue(Pitch.CSharp.ToPitchForSums() == PitchForSums.CSharp);
-            Assert.IsTrue(Pitch.DFlat.ToPitchForSums() == PitchForSums.CSharp);
-            Assert.IsTrue(Pitch.ESharp.ToPitchForSums() == PitchForSums.F);
-            Assert.IsTrue(Pitch.A.ToPitchForSums() == PitchForSums.A);
+            Assert.IsTrue(Step.C.ToStepForSums() == StepForSums.C);
+            Assert.IsTrue(Step.CSharp.ToStepForSums() == StepForSums.CSharp);
+            Assert.IsTrue(Step.DFlat.ToStepForSums() == StepForSums.CSharp);
+            Assert.IsTrue(Step.ESharp.ToStepForSums() == StepForSums.F);
+            Assert.IsTrue(Step.A.ToStepForSums() == StepForSums.A);
         }
     }
 }

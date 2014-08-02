@@ -16,7 +16,7 @@ using Clef = Model.Sections.Notes.Clef;
 using Duration = Model.Meta.Duration;
 using Lyric = Model.Sections.Notes.Lyric;
 using Note = MusicXML.Note;
-using Pitch = Model.Meta.Pitch;
+using Step = Model.Meta.Step;
 
 namespace Musicista.Mappers
 {
@@ -116,7 +116,7 @@ namespace Musicista.Mappers
 
             var listOfAdditionalStaves = new Dictionary<int, List<Measure>>();
 
-            var lastKey = new MusicalKey(Pitch.C, Gender.Major);
+            var lastKey = new MusicalKey(Step.C, Gender.Major);
             var lastTime = new TimeSignature(4, 4);
             var durationDivision = 960; // = one quarter
 
@@ -379,71 +379,71 @@ namespace Musicista.Mappers
             return 0;
         }
 
-        public static Pitch GetPitchFromMXMLNote(Note mxmlNote)
+        public static Step GetPitchFromMXMLNote(Note mxmlNote)
         {
             if (mxmlNote.Pitch == null)
-                return Pitch.Unknown;
+                return Step.Unknown;
             switch ((int)mxmlNote.Pitch.Alter)
             {
                 case 0:
                     switch (mxmlNote.Pitch.Step)
                     {
-                        case Step.A:
-                            return Pitch.A;
-                        case Step.B:
-                            return Pitch.B;
-                        case Step.C:
-                            return Pitch.C;
-                        case Step.D:
-                            return Pitch.D;
-                        case Step.E:
-                            return Pitch.E;
-                        case Step.F:
-                            return Pitch.F;
-                        case Step.G:
-                            return Pitch.G;
+                        case MusicXML.Step.A:
+                            return Step.A;
+                        case MusicXML.Step.B:
+                            return Step.B;
+                        case MusicXML.Step.C:
+                            return Step.C;
+                        case MusicXML.Step.D:
+                            return Step.D;
+                        case MusicXML.Step.E:
+                            return Step.E;
+                        case MusicXML.Step.F:
+                            return Step.F;
+                        case MusicXML.Step.G:
+                            return Step.G;
                     }
                     break;
                 case 1:
                     switch (mxmlNote.Pitch.Step)
                     {
-                        case Step.A:
-                            return Pitch.ASharp;
-                        case Step.B:
-                            return Pitch.BSharp;
-                        case Step.C:
-                            return Pitch.CSharp;
-                        case Step.D:
-                            return Pitch.DSharp;
-                        case Step.E:
-                            return Pitch.ESharp;
-                        case Step.F:
-                            return Pitch.FSharp;
-                        case Step.G:
-                            return Pitch.GSharp;
+                        case MusicXML.Step.A:
+                            return Step.ASharp;
+                        case MusicXML.Step.B:
+                            return Step.BSharp;
+                        case MusicXML.Step.C:
+                            return Step.CSharp;
+                        case MusicXML.Step.D:
+                            return Step.DSharp;
+                        case MusicXML.Step.E:
+                            return Step.ESharp;
+                        case MusicXML.Step.F:
+                            return Step.FSharp;
+                        case MusicXML.Step.G:
+                            return Step.GSharp;
                     }
                     break;
                 case -1:
                     switch (mxmlNote.Pitch.Step)
                     {
-                        case Step.A:
-                            return Pitch.AFlat;
-                        case Step.B:
-                            return Pitch.BFlat;
-                        case Step.C:
-                            return Pitch.CFlat;
-                        case Step.D:
-                            return Pitch.DFlat;
-                        case Step.E:
-                            return Pitch.EFlat;
-                        case Step.F:
-                            return Pitch.FFlat;
-                        case Step.G:
-                            return Pitch.GFlat;
+                        case MusicXML.Step.A:
+                            return Step.AFlat;
+                        case MusicXML.Step.B:
+                            return Step.BFlat;
+                        case MusicXML.Step.C:
+                            return Step.CFlat;
+                        case MusicXML.Step.D:
+                            return Step.DFlat;
+                        case MusicXML.Step.E:
+                            return Step.EFlat;
+                        case MusicXML.Step.F:
+                            return Step.FFlat;
+                        case MusicXML.Step.G:
+                            return Step.GFlat;
                     }
                     break;
             }
-            return Pitch.Unknown;
+            return Step.Unknown;
         }
 
         public static MusicalKey GetKeyFromMXMLKey(key key)
@@ -457,74 +457,74 @@ namespace Musicista.Mappers
                     switch (fifths)
                     {
                         case 0:
-                            return new MusicalKey(Pitch.C, Gender.Major);
+                            return new MusicalKey(Step.C, Gender.Major);
                         case 1:
-                            return new MusicalKey(Pitch.G, Gender.Major);
+                            return new MusicalKey(Step.G, Gender.Major);
                         case 2:
-                            return new MusicalKey(Pitch.D, Gender.Major);
+                            return new MusicalKey(Step.D, Gender.Major);
                         case 3:
-                            return new MusicalKey(Pitch.A, Gender.Major);
+                            return new MusicalKey(Step.A, Gender.Major);
                         case 4:
-                            return new MusicalKey(Pitch.E, Gender.Major);
+                            return new MusicalKey(Step.E, Gender.Major);
                         case 5:
-                            return new MusicalKey(Pitch.B, Gender.Major);
+                            return new MusicalKey(Step.B, Gender.Major);
                         case 6:
-                            return new MusicalKey(Pitch.FSharp, Gender.Major);
+                            return new MusicalKey(Step.FSharp, Gender.Major);
                         case 7:
-                            return new MusicalKey(Pitch.CSharp, Gender.Major);
+                            return new MusicalKey(Step.CSharp, Gender.Major);
                         case -1:
-                            return new MusicalKey(Pitch.F, Gender.Major);
+                            return new MusicalKey(Step.F, Gender.Major);
                         case -2:
-                            return new MusicalKey(Pitch.BFlat, Gender.Major);
+                            return new MusicalKey(Step.BFlat, Gender.Major);
                         case -3:
-                            return new MusicalKey(Pitch.EFlat, Gender.Major);
+                            return new MusicalKey(Step.EFlat, Gender.Major);
                         case -4:
-                            return new MusicalKey(Pitch.AFlat, Gender.Major);
+                            return new MusicalKey(Step.AFlat, Gender.Major);
                         case -5:
-                            return new MusicalKey(Pitch.DFlat, Gender.Major);
+                            return new MusicalKey(Step.DFlat, Gender.Major);
                         case -6:
-                            return new MusicalKey(Pitch.GFlat, Gender.Major);
+                            return new MusicalKey(Step.GFlat, Gender.Major);
                         case -7:
-                            return new MusicalKey(Pitch.CFlat, Gender.Major);
+                            return new MusicalKey(Step.CFlat, Gender.Major);
                     }
                     break;
                 case "minor":
                     switch (fifths)
                     {
                         case 0:
-                            return new MusicalKey(Pitch.A, Gender.Minor);
+                            return new MusicalKey(Step.A, Gender.Minor);
                         case 1:
-                            return new MusicalKey(Pitch.E, Gender.Minor);
+                            return new MusicalKey(Step.E, Gender.Minor);
                         case 2:
-                            return new MusicalKey(Pitch.B, Gender.Minor);
+                            return new MusicalKey(Step.B, Gender.Minor);
                         case 3:
-                            return new MusicalKey(Pitch.FSharp, Gender.Minor);
+                            return new MusicalKey(Step.FSharp, Gender.Minor);
                         case 4:
-                            return new MusicalKey(Pitch.CSharp, Gender.Minor);
+                            return new MusicalKey(Step.CSharp, Gender.Minor);
                         case 5:
-                            return new MusicalKey(Pitch.GSharp, Gender.Minor);
+                            return new MusicalKey(Step.GSharp, Gender.Minor);
                         case 6:
-                            return new MusicalKey(Pitch.DSharp, Gender.Minor);
+                            return new MusicalKey(Step.DSharp, Gender.Minor);
                         case 7:
-                            return new MusicalKey(Pitch.ASharp, Gender.Minor);
+                            return new MusicalKey(Step.ASharp, Gender.Minor);
                         case -1:
-                            return new MusicalKey(Pitch.D, Gender.Minor);
+                            return new MusicalKey(Step.D, Gender.Minor);
                         case -2:
-                            return new MusicalKey(Pitch.G, Gender.Minor);
+                            return new MusicalKey(Step.G, Gender.Minor);
                         case -3:
-                            return new MusicalKey(Pitch.C, Gender.Minor);
+                            return new MusicalKey(Step.C, Gender.Minor);
                         case -4:
-                            return new MusicalKey(Pitch.F, Gender.Minor);
+                            return new MusicalKey(Step.F, Gender.Minor);
                         case -5:
-                            return new MusicalKey(Pitch.BFlat, Gender.Minor);
+                            return new MusicalKey(Step.BFlat, Gender.Minor);
                         case -6:
-                            return new MusicalKey(Pitch.EFlat, Gender.Minor);
+                            return new MusicalKey(Step.EFlat, Gender.Minor);
                         case -7:
-                            return new MusicalKey(Pitch.AFlat, Gender.Minor);
+                            return new MusicalKey(Step.AFlat, Gender.Minor);
                     }
                     break;
             }
-            return new MusicalKey(Pitch.C, Gender.Major);
+            return new MusicalKey(Step.C, Gender.Major);
         }
     }
 }

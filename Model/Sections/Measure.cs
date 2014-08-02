@@ -38,15 +38,11 @@ namespace Model.Sections
         [XmlAttribute("InstrumentID")]
         public int InstrumentID
         {
-            get
-            {
-                return Instrument.ID;
-            }
+            get { return Instrument.ID; }
             set
             {
-                Instrument =
-                    ParentMeasureGroup.ParentPassage.ParentSegment.ParentMovement.ParentSection.ParentPiece.Instruments.FirstOrDefault(
-                        instrument => instrument.ID == value);
+                if (ParentMeasureGroup != null)
+                    Instrument = ParentMeasureGroup.ParentPassage.ParentSegment.ParentMovement.ParentSection.ParentPiece.Instruments.FirstOrDefault(instrument => instrument.ID == value);
             }
         }
 
@@ -56,6 +52,8 @@ namespace Model.Sections
             get { return _instrument; }
             set { _instrument = value; NotifyPropertyChanged(); }
         }
+
+
 
         [XmlElement("Note", Type = typeof(Note))]
         [XmlElement("Rest", Type = typeof(Rest))]

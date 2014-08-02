@@ -15,7 +15,6 @@ namespace Model.Sections
 
         public Passage()
         {
-            MeasureGroups = new List<MeasureGroup>();
         }
 
         public Passage(IEnumerable<Symbol> symbols)

@@ -39,13 +39,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Comment.cs" />
     <Compile Include="ListExtension.cs" />
     <Compile Include="Sections\Notes\Analysis\Chord.cs" />
-    <Compile Include="DateEvent.cs" />
-    <Compile Include="Dates.cs" />
-    <Compile Include="Engraving.cs" />
-    <Compile Include="Performance.cs" />
-    <Compile Include="Publication.cs" />
+    <Compile Include="Meta\DateEvent.cs" />
+    <Compile Include="Meta\Dates.cs" />
+    <Compile Include="Meta\Engraving.cs" />
+    <Compile Include="Meta\Performance.cs" />
+    <Compile Include="Meta\Publication.cs" />
     <Compile Include="Sections\Notes\Accidental.cs" />
     <Compile Include="Sections\Notes\Analysis\AnalysisObject.cs" />
     <Compile Include="Sections\Notes\Analysis\DiatonicFunction.cs" />
@@ -69,7 +70,7 @@
     <Compile Include="Meta\TimeSignature.cs" />
     <Compile Include="Sections\Measure.cs" />
     <Compile Include="Sections\NoteReference.cs" />
-    <Compile Include="Sections\Part.cs" />
+    <Compile Include="Part.cs" />
     <Compile Include="Meta\People\People.cs" />
     <Compile Include="Meta\People\Composer.cs" />
     <Compile Include="Sections\MeasureGroup.cs" />

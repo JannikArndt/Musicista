@@ -35,6 +35,13 @@ namespace Musicista
         public static Path UIButtonPathView;
         public static Path UIButtonPathAlgorithms;
 
+        private static String _author = "";
+        public static String Author
+        {
+            get { return string.IsNullOrEmpty(_author) ? Environment.UserName : _author; }
+            set { _author = value; }
+        }
+
         public MainWindow()
         {
             InitializeComponent();

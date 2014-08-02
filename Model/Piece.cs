@@ -28,6 +28,8 @@ namespace Model
         public List<Measure> Measures { get { return MeasureGroups.SelectMany(measureGroup => measureGroup.Measures).ToList(); } }
         [XmlArray("Parts")]
         public List<Part> Parts { get; set; }
+        [XmlArray("Comments")]
+        public List<Comment> Comments { get; set; }
 
         public Piece() { }
 

@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace Model
+namespace Model.Meta
 {
     public class Engraving : DateEvent
     {

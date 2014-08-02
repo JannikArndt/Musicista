@@ -26,5 +26,24 @@ namespace Model.Sections
         {
             return MeasureNumber + ":" + (StaffNumber + 1) + ":" + Math.Round(Beat, 2).ToString(CultureInfo.GetCultureInfo("en-US"));
         }
+
+        public bool PointsToSymbol(Symbol symbol)
+        {
+            return symbol.MeasureNumber == MeasureNumber && Math.Abs(symbol.Beat - Beat) < 0.01 &&
+                       symbol.ParentMeasure.ParentMeasureGroup.Measures.IndexOf(symbol.ParentMeasure) == StaffNumber;
+        }
+
+        public override bool Equals(object obj)
+        {
+            var reference = (NoteReference)obj;
+            if (reference != null)
+                return reference.MeasureNumber == MeasureNumber && reference.Beat == Beat && reference.StaffNumber == StaffNumber;
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return MeasureNumber.GetHashCode() ^ StaffNumber.GetHashCode() ^ Beat.GetHashCode();
+        }
     }
 }

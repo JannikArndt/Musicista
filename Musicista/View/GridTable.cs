@@ -1,19 +1,20 @@
 ﻿using Model;
+using Model.Meta.People;
+using Model.Sections.Notes;
 using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
-using Model.Meta.People;
 
 namespace Musicista.View
 {
     public class GridTable : Grid
     {
-        readonly int _leftColumnWidth = 60;
+        public readonly int LeftColumnWidth = 60;
         public GridTable(int columnOneWidth)
         {
-            _leftColumnWidth = columnOneWidth;
+            LeftColumnWidth = columnOneWidth;
             Margin = new Thickness(10);
 
             ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(columnOneWidth) });
@@ -44,7 +45,7 @@ namespace Musicista.View
             var valueTextBox = new TextBox
             {
                 DataContext = dataContext,
-                Width = 260 - _leftColumnWidth,
+                Width = 260 - LeftColumnWidth,
                 Height = 26,
                 Padding = new Thickness(3),
                 Margin = new Thickness(1),
@@ -349,6 +350,55 @@ namespace Musicista.View
 
             Children.Add(keyTextBlock);
             Children.Add(valueCheckBox);
+        }
+
+        public void AddRowWithCommentBox(Symbol referenceSymbol)
+        {
+            RowDefinitions.Add(new RowDefinition { Height = new GridLength(30) });
+
+            var keyTextBlock = new TextBlock
+            {
+                Text = MainWindow.Author + ":",
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            SetRow(keyTextBlock, RowDefinitions.Count - 1);
+            SetColumn(keyTextBlock, 0);
+
+            var valueTextBox = new TextBox
+            {
+                Width = 210 - LeftColumnWidth,
+                Height = 26,
+                Padding = new Thickness(3),
+                Margin = new Thickness(1),
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            SetRow(valueTextBox, RowDefinitions.Count - 1);
+            SetColumn(valueTextBox, 1);
+
+            Children.Add(keyTextBlock);
+            Children.Add(valueTextBox);
+
+            var addCommentButton = new Button
+            {
+                Content = "Add",
+                HorizontalAlignment = HorizontalAlignment.Right,
+                VerticalAlignment = VerticalAlignment.Center,
+                Height = 26,
+                Padding = new Thickness(1),
+                Margin = new Thickness(1, 1, 18, 1),
+                Width = 40
+            };
+            addCommentButton.Click += delegate
+            {
+                var comment = new Comment(valueTextBox.Text, referenceSymbol, referenceSymbol.ParentMeasure.ParentMeasureGroup.ParentPassage.ParentSegment.ParentMovement, MainWindow.Author);
+                MainWindow.CurrentPiece.Comments.Add(comment);
+            };
+
+            SetRow(addCommentButton, RowDefinitions.Count - 1);
+            SetColumn(addCommentButton, 1);
+            Children.Add(addCommentButton);
         }
     }
 }

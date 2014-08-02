@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Musicista.Misc
+namespace Model
 {
     public static class ListExtension
     {

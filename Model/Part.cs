@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Model.Sections;
+using System;
 using System.Linq;
 using System.Xml.Serialization;
 
-namespace Model.Sections
+namespace Model
 {
     public class Part
     {

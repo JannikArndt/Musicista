@@ -7,6 +7,12 @@ namespace Model.Sections.Notes.Analysis
         [XmlAttribute("Beat")]
         public double Beat { get; set; }
 
+        [XmlAttribute("Key")]
+        public string Key { get; set; }
+
+        [XmlAttribute("Value")]
+        public string Value { get; set; }
+
         [XmlIgnore]
         public MeasureGroup ParentMeasureGroup { get; set; }
 

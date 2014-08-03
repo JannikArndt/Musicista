@@ -98,6 +98,10 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UIControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Properties\UIControls.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -112,7 +116,13 @@
     <Compile Include="Collection\CollectionWindow.xaml.cs">
       <DependentUpon>CollectionWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Collection\Composers.xaml.cs">
+      <DependentUpon>Composers.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Collection\DocumentReference.cs" />
+    <Compile Include="Collection\RecentlyUsed.xaml.cs">
+      <DependentUpon>RecentlyUsed.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DragAndDrop.cs" />
     <Compile Include="Engraving.cs" />
     <Compile Include="Mappers\Mapper.cs" />
@@ -166,6 +176,14 @@
       <DependentUpon>StartScreen.xaml</DependentUpon>
     </Compile>
     <Page Include="Collection\CollectionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Collection\Composers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Collection\RecentlyUsed.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -269,6 +287,11 @@
     <Content Include="AppIcon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Properties\UIControls.dll" />
+    <Content Include="Properties\UIControls.pdb" />
+    <Resource Include="Collection\images\Beethoven.jpg" />
+    <Resource Include="Collection\images\Bach.jpg" />
+    <Resource Include="Collection\images\Mozart.jpg" />
     <Content Include="Mappers\timepart.xsl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

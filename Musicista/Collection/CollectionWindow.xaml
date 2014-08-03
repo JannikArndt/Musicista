@@ -5,14 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800">
-    <UserControl.Resources>
-        <DataTemplate x:Key="RecentlyUsedFileViewTemplate">
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="{Binding Name}" Width="300" />
-                <TextBlock Text="{Binding Filepath}" Width="300" Foreground="Gray" />
-            </StackPanel>
-        </DataTemplate>
-    </UserControl.Resources>
+
     <Grid>
         <Grid.Background>
             <DrawingBrush Stretch="Uniform">
@@ -44,35 +37,17 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="20" />
         </Grid.ColumnDefinitions>
-        <ListView Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Name="RecentFilesListView" HorizontalAlignment="Left" VerticalAlignment="Stretch" Background="#00FFFFFF" BorderThickness="0" BorderBrush="Transparent">
-            <ListView.View>
-                <GridView>
-                    <GridView.ColumnHeaderContainerStyle>
-                        <Style>
-                            <Setter Property="FrameworkElement.Visibility" Value="Collapsed" />
-                        </Style>
-                    </GridView.ColumnHeaderContainerStyle>
-                    <GridViewColumn Width="420">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Vertical" MouseDown="CollectionItemClick" MouseEnter="CollectionItemMouseEnter" Tag="{Binding Filepath}">
-                                    <TextBlock Width="420">
-                                        <Run Text="{Binding Name}" FontWeight="Bold" />
-                                        <Run Text=" by " FontStyle="Italic" />
-                                        <Run Text="{Binding ComposerString, Mode=OneWay}" FontStyle="Italic" />
-                                    </TextBlock>
-                                    <TextBlock Text="{Binding Filepath}" Width="450" Foreground="Gray" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
-<StackPanel Grid.Row="1" Grid.Column="3" Name="InfoPanel">
-            <TextBlock Text="{Binding TitleString, Mode=OneWay}" TextWrapping="Wrap" FontSize="24" />
-            <TextBlock Text="{Binding ComposerString, Mode=OneWay}" TextWrapping="Wrap" FontSize="16" FontStyle="Italic" />
-            <TextBlock Text="{Binding OpusString, Mode=OneWay}" TextWrapping="Wrap" FontSize="12" />
-        </StackPanel>
+        <TabControl Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#AAFFFFFF">
+            <TabItem Header="Recently Used" >
+                <ContentControl Name="RecentlyUsedContentControl" />
+            </TabItem>
+            <TabItem Header="Composers">
+                <ContentControl Name="ComposersContentControl" />
+            </TabItem>
+            <TabItem Header="Search MuseScore">
+                <ContentControl Name="MuseScoreContentControl" />
+            </TabItem>
+        </TabControl>
+
     </Grid>
 </UserControl>

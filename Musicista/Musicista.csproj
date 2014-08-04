@@ -87,6 +87,9 @@
     <Reference Include="Ionic.Zip">
       <HintPath>Properties\Ionic.Zip.dll</HintPath>
     </Reference>
+    <Reference Include="Mixpanel.NET">
+      <HintPath>..\packages\Mixpanel.NET.0.2.0\lib\Mixpanel.NET.dll</HintPath>
+    </Reference>
     <Reference Include="RestSharp">
       <HintPath>..\packages\RestSharp.104.4.0\lib\net4\RestSharp.dll</HintPath>
     </Reference>

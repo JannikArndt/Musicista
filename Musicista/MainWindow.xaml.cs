@@ -1,4 +1,5 @@
 ﻿using Collection;
+using Mixpanel.NET.Events;
 using Model;
 using Musicista.Collection;
 using Musicista.Sidebar;
@@ -6,6 +7,7 @@ using Musicista.UI;
 using Musicista.View;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -39,6 +41,8 @@ namespace Musicista
         public static Path UIButtonPathView;
         public static Path UIButtonPathAlgorithms;
         public static Path UIButtonPathCollection;
+
+        public static MixpanelTracker Tracker { get; set; }
 
         public MainWindow()
         {
@@ -83,10 +87,14 @@ namespace Musicista
 
             if (String.IsNullOrEmpty(Properties.Settings.Default.Username))
                 Properties.Settings.Default.Username = Environment.UserName;
+
+            Tracker = new MixpanelTracker("4b33ac9fe9a2f777e40b9b0a213669fe");
+            Tracker.Track("Start Program", new Dictionary<string, object> { { "Username", Properties.Settings.Default.Username } });
         }
 
         static void Application_ThreadException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
+            Tracker.Track("Crash", new Dictionary<string, object> { { "Username", Properties.Settings.Default.Username } });
 
             var fromAddress = new MailAddress("musicista.app@gmail.com", "Jannik Arndt");
             var toAddress = new MailAddress("musicista.app@gmail.com", "Jannik Arndt");
@@ -258,6 +266,8 @@ namespace Musicista
             CurrentPiece = new Piece(initialize: true);
             DrawPiece(CurrentPiece);
             _fileName = "";
+
+            Tracker.Track("New Document", new Dictionary<string, object> { { "Username", Properties.Settings.Default.Username } });
         }
 
         private void Close(object sender, ExecutedRoutedEventArgs e)
@@ -269,6 +279,8 @@ namespace Musicista
             ShowMostRecentlyUsed(startScreen.RecentFilesStack);
             CanvasScrollViewer.Content = startScreen;
             _fileName = "";
+
+            Tracker.Track("Close Document", new Dictionary<string, object> { { "Username", Properties.Settings.Default.Username } });
         }
 
         private void Print(object sender, RoutedEventArgs e)
@@ -285,6 +297,8 @@ namespace Musicista
                 var visual = stackPanel.Children[0] as Canvas;
                 if (visual != null)
                     dialog.PrintVisual(visual, "Drawing");
+
+                Tracker.Track("Print", new Dictionary<string, object> { { "Username", Properties.Settings.Default.Username } });
             }
             catch (Exception ex)
             {
@@ -302,6 +316,13 @@ namespace Musicista
                 pages.Children.Add(page);
             pages.Children.Add(new Canvas { Height = 200 });
             UICanvasScrollViewer.Content = pages;
+
+            Tracker.Track("Draw Piece", new Dictionary<string, object> { { "Username", Properties.Settings.Default.Username }, { "Piece", piece.Meta.Title } });
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            Tracker.Track("Close Program", new Dictionary<string, object> { { "Username", Properties.Settings.Default.Username } });
         }
     }
 }

@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Midi", "Midi\Midi.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MuseScoreAPI", "MuseScoreAPI\MuseScoreAPI.csproj", "{05903599-3447-40C3-88F0-5F8194D49E8B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicistaCollection", "Collection\MusicistaCollection.csproj", "{F53FBFAF-E8E7-42C9-A303-D83554D46569}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +87,16 @@ Global
 		{05903599-3447-40C3-88F0-5F8194D49E8B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{05903599-3447-40C3-88F0-5F8194D49E8B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{05903599-3447-40C3-88F0-5F8194D49E8B}.Release|x86.ActiveCfg = Release|Any CPU
+		{F53FBFAF-E8E7-42C9-A303-D83554D46569}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F53FBFAF-E8E7-42C9-A303-D83554D46569}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F53FBFAF-E8E7-42C9-A303-D83554D46569}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{F53FBFAF-E8E7-42C9-A303-D83554D46569}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{F53FBFAF-E8E7-42C9-A303-D83554D46569}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F53FBFAF-E8E7-42C9-A303-D83554D46569}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F53FBFAF-E8E7-42C9-A303-D83554D46569}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F53FBFAF-E8E7-42C9-A303-D83554D46569}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{F53FBFAF-E8E7-42C9-A303-D83554D46569}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{F53FBFAF-E8E7-42C9-A303-D83554D46569}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

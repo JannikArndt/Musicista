@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using Collection;
+using Model;
 using Musicista.Collection;
 using Musicista.Sidebar;
 using Musicista.UI;
@@ -29,6 +30,7 @@ namespace Musicista
         public static List<UIPage> PageList;
         public static Piece CurrentPiece;
         public static ApplicationSettings ApplicationSettings = new ApplicationSettings();
+        public static CollectionBase CollectionBase = new CollectionBase();
 
         public static ScrollViewer UICanvasScrollViewer;
         public static ContentControl UISidebar;
@@ -64,6 +66,7 @@ namespace Musicista
             SetUpKeyCommands();
 
             LoadAppilcationSettings();
+            LoadCollectionBase();
 
             SidebarInformation = new SidebarInformation();
             SidebarView = new SidebarView();
@@ -129,6 +132,17 @@ namespace Musicista
             }
             else
                 ApplicationSettings.Save();
+        }
+
+        private static void LoadCollectionBase()
+        {
+            if (File.Exists(CollectionBase.FileName))
+            {
+                var xmlSerializer = new XmlSerializer(typeof(CollectionBase));
+                CollectionBase = (CollectionBase)xmlSerializer.Deserialize(XDocument.Load(CollectionBase.FileName).CreateReader());
+            }
+            else
+                CollectionBase.Save();
         }
 
         private static void ShowMostRecentlyUsed(Panel stack)
@@ -228,6 +242,19 @@ namespace Musicista
             var quitKeyGesture = new KeyGesture(Key.Q, ModifierKeys.Control);
             var quitInputBinding = new InputBinding(MediaCommands.BoostBass, quitKeyGesture);
             InputBindings.Add(quitInputBinding);
+
+            // esc
+            var escCommandBinding = new CommandBinding(MediaCommands.DecreaseBass, (s, e) =>
+            {
+                UICollection.Content = null;
+                UIButtonPathCollection.Fill = Brushes.Black;
+            },
+                (sender, e) => { e.CanExecute = true; });
+            CommandBindings.Add(escCommandBinding);
+
+            var escKeyGesture = new KeyGesture(Key.Escape);
+            var escInputBinding = new InputBinding(MediaCommands.DecreaseBass, escKeyGesture);
+            InputBindings.Add(escInputBinding);
         }
 
         private void New(object sender, ExecutedRoutedEventArgs e)

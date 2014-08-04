@@ -258,6 +258,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Collection\MusicistaCollection.csproj">
+      <Project>{f53fbfaf-e8e7-42c9-a303-d83554d46569}</Project>
+      <Name>MusicistaCollection</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Midi\Midi.csproj">
       <Project>{acf70141-ff57-4394-b7d3-846dfb6c53e7}</Project>
       <Name>Midi</Name>

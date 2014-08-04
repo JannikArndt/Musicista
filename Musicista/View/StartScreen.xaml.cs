@@ -19,7 +19,7 @@ namespace Musicista.View
             InitializeComponent();
         }
 
-        private void OnlineSearchBox_OnTextChanged(object sender, TextChangedEventArgs e)
+        private void OnlineSearchBox_OnTextChanged(object sender, RoutedEventArgs routedEventArgs)
         {
             if (OnlineSearchBox.Text.Length < 3)
                 return;

@@ -103,6 +103,9 @@
                                         <TextBlock Width="220">
                                         <Run Text="{Binding WorkName, Mode=OneWay}" FontWeight="Bold" />
                                         </TextBlock>
+                                        <TextBlock Width="220">
+                                        <Run Text="{Binding OpusString, Mode=OneWay}" FontWeight="Bold" />
+                                        </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>

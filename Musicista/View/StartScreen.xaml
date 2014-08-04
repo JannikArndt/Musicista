@@ -2,7 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:uiControls="clr-namespace:UIControls;assembly=UIControls"
              mc:Ignorable="d" 
              d:DesignHeight="692" d:DesignWidth="900">
     <Grid Width="840" Margin="0,20,0,0" HorizontalAlignment="Center">
@@ -44,7 +45,7 @@
         <TextBlock Grid.Row="6" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="20" TextAlignment="Left" Width="180" >- Open a recent file:</TextBlock>
         <StackPanel Grid.Row="6" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Stretch" Name="RecentFilesStack" Height="100" Margin="20,30,0,0" Orientation="Vertical"/>
         <TextBlock Grid.Row="7" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="20" TextAlignment="Left" >- Search for music online:</TextBlock>
-        <TextBox   Grid.Row="7" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right" Name="OnlineSearchBox" Width="250" Height="30" TextChanged="OnlineSearchBox_OnTextChanged"></TextBox>
+        <uiControls:SearchTextBox Grid.Row="7" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right" SearchEventTimeDelay="00:00:01.00"  Height="30" Search="OnlineSearchBox_OnTextChanged" x:Name="OnlineSearchBox" Width="250" />
         <StackPanel Grid.Row="8" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Stretch" Name="OnlineSearchStack" Height="150" Margin="20,5,0,0" Orientation="Vertical"/>
 
     </Grid>

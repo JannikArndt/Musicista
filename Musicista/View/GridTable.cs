@@ -358,7 +358,7 @@ namespace Musicista.View
 
             var keyTextBlock = new TextBlock
             {
-                Text = MainWindow.Author + ":",
+                Text = Properties.Settings.Default.Username + ":",
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Center
             };
@@ -392,7 +392,7 @@ namespace Musicista.View
             };
             addCommentButton.Click += delegate
             {
-                var comment = new Comment(valueTextBox.Text, referenceSymbol, referenceSymbol.ParentMeasure.ParentMeasureGroup.ParentPassage.ParentSegment.ParentMovement, MainWindow.Author);
+                var comment = new Comment(valueTextBox.Text, referenceSymbol, referenceSymbol.ParentMeasure.ParentMeasureGroup.ParentPassage.ParentSegment.ParentMovement, Properties.Settings.Default.Username);
                 MainWindow.CurrentPiece.Comments.Add(comment);
             };
 

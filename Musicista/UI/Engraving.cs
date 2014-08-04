@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Musicista
+namespace Musicista.UI
 {
     public static class Engraving
     {

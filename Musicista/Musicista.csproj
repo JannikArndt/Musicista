@@ -124,7 +124,7 @@
       <DependentUpon>RecentlyUsed.xaml</DependentUpon>
     </Compile>
     <Compile Include="DragAndDrop.cs" />
-    <Compile Include="Engraving.cs" />
+    <Compile Include="UI\Engraving.cs" />
     <Compile Include="Mappers\Mapper.cs" />
     <Compile Include="Mappers\MidiMapper.cs" />
     <Compile Include="Mappers\MidiNote.cs" />

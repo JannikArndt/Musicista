@@ -40,13 +40,6 @@ namespace Musicista
         public static Path UIButtonPathAlgorithms;
         public static Path UIButtonPathCollection;
 
-        private static String _author = "";
-        public static String Author
-        {
-            get { return string.IsNullOrEmpty(_author) ? Environment.UserName : _author; }
-            set { _author = value; }
-        }
-
         public MainWindow()
         {
             InitializeComponent();
@@ -87,6 +80,9 @@ namespace Musicista
                 CanvasScrollViewer.Content = startScreen;
             }
             SidebarInformation.ShowPiece();
+
+            if (String.IsNullOrEmpty(Properties.Settings.Default.Username))
+                Properties.Settings.Default.Username = Environment.UserName;
         }
 
         static void Application_ThreadException(object sender, DispatcherUnhandledExceptionEventArgs e)
@@ -99,7 +95,7 @@ namespace Musicista
             var exception = e.Exception;
             var body = "Message: " + exception.Message + "\n\nType: " + exception.GetType() + "\n\nData: " + exception.Data + "\n\nStack Trace: "
                        + exception.StackTrace + "\n\nSource: " + exception.Source + "\n\nComputer: " + Environment.OSVersion.VersionString + "\n\nUser Name: " +
-                       Environment.UserName;
+                       Properties.Settings.Default.Username + " (" + Environment.UserName + ")";
             if (CurrentPiece != null)
                 body += "\n\nCurrent Piece: " + CurrentPiece.Meta.Title + "\n\nURL: " + CurrentPiece.Meta.Weblink;
 

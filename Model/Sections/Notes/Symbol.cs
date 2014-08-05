@@ -21,9 +21,9 @@ namespace Model.Sections.Notes
         public bool ShouldSerializeLyrics() { return Lyrics != null && Lyrics.Any(); }
 
 
-        [XmlArray("Articulation")]
-        public List<Articulation.Articulation> Articulations { get; set; }
-        public bool ShouldSerializeExpressions() { return Articulations != null && Articulations.Any(); }
+        [XmlElement("Articulation")]
+        public Articulation.Articulation Articulations { get; set; }
+        public bool ShouldSerializeArticulations() { return Articulations != null && Articulations.ShouldSerialize; }
 
 
         [XmlIgnore]
@@ -85,7 +85,7 @@ namespace Model.Sections.Notes
         protected Symbol()
         {
             Lyrics = new List<Lyric>();
-            Articulations = new List<Articulation.Articulation>();
+            Articulations = new Articulation.Articulation();
         }
 
         public void AddLyrics(string text, int verse, Syllabic syllabic)

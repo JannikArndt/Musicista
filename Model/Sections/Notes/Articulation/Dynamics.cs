@@ -1,6 +1,30 @@
 namespace Model.Sections.Notes.Articulation
 {
-    public class Dynamics : Articulation
+    public enum Dynamics
     {
+        None,
+        f,
+        ff,
+        fff,
+        ffff,
+        fffff,
+        ffffff,
+        fp,
+        fz,
+        mf,
+        mp,
+        p,
+        pp,
+        ppp,
+        pppp,
+        ppppp,
+        pppppp,
+        rf,
+        rfz,
+        sf,
+        sffz,
+        sfp,
+        sfpp,
+        sfz
     }
 }

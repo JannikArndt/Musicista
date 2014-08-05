@@ -54,12 +54,10 @@
     <Compile Include="Sections\Notes\Analysis\NoteAttribute.cs" />
     <Compile Include="Sections\Notes\Analysis\Harmony.cs" />
     <Compile Include="Sections\Notes\Articulation\Articulation.cs" />
-    <Compile Include="Sections\Notes\Articulation\Caesura.cs" />
+    <Compile Include="Sections\Notes\Articulation\Bowing.cs" />
     <Compile Include="Sections\Notes\Clef.cs" />
     <Compile Include="Instrument.cs" />
-    <Compile Include="Sections\Notes\Articulation\Damping.cs" />
     <Compile Include="Sections\Notes\Articulation\Dynamics.cs" />
-    <Compile Include="Sections\Notes\Articulation\Fermata.cs" />
     <Compile Include="Sections\Notes\Interval.cs" />
     <Compile Include="Sections\Notes\Articulation\Legato.cs" />
     <Compile Include="Sections\Notes\Lyric.cs" />

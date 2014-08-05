@@ -1,116 +1,53 @@
+using MusicXML.Enums;
 using System;
-
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Serialization;
-using MusicXML.Enums;
 
 namespace MusicXML
 {
-    
+
     [Serializable]
     [DebuggerStepThrough]
     [DesignerCategory("code")]
-    public class direction
+    public class Direction
     {
-        private directiontype[] directiontypeField;
-        private yesno directiveField;
-
-        private bool directiveFieldSpecified;
-
-        private formattedtext footnoteField;
-
-        private level levelField;
-        private offset offsetField;
-
-        private abovebelow placementField;
-
-        private bool placementFieldSpecified;
-        private sound soundField;
-        private string staffField;
-        private string voiceField;
-
-
         [XmlElement("direction-type")]
-        public directiontype[] directiontype
-        {
-            get { return directiontypeField; }
-            set { directiontypeField = value; }
-        }
+        public DirectionType[] DirectionType { get; set; }
 
 
-        public offset offset
-        {
-            get { return offsetField; }
-            set { offsetField = value; }
-        }
+        public offset offset { get; set; }
 
 
-        public formattedtext footnote
-        {
-            get { return footnoteField; }
-            set { footnoteField = value; }
-        }
+        public formattedtext footnote { get; set; }
 
 
-        public level level
-        {
-            get { return levelField; }
-            set { levelField = value; }
-        }
+        public level level { get; set; }
 
 
-        public string voice
-        {
-            get { return voiceField; }
-            set { voiceField = value; }
-        }
+        public string voice { get; set; }
 
 
         [XmlElement(DataType = "positiveInteger")]
-        public string staff
-        {
-            get { return staffField; }
-            set { staffField = value; }
-        }
+        public string staff { get; set; }
 
 
-        public sound sound
-        {
-            get { return soundField; }
-            set { soundField = value; }
-        }
+        public sound sound { get; set; }
 
 
         [XmlAttribute]
-        public abovebelow placement
-        {
-            get { return placementField; }
-            set { placementField = value; }
-        }
+        public abovebelow placement { get; set; }
 
 
         [XmlIgnore]
-        public bool placementSpecified
-        {
-            get { return placementFieldSpecified; }
-            set { placementFieldSpecified = value; }
-        }
+        public bool placementSpecified { get; set; }
 
 
         [XmlAttribute]
-        public yesno directive
-        {
-            get { return directiveField; }
-            set { directiveField = value; }
-        }
+        public yesno directive { get; set; }
 
 
         [XmlIgnore]
-        public bool directiveSpecified
-        {
-            get { return directiveFieldSpecified; }
-            set { directiveFieldSpecified = value; }
-        }
+        public bool directiveSpecified { get; set; }
     }
 }

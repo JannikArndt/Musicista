@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace MusicXML
 {
-    
+
     [Serializable]
     [DebuggerStepThrough]
     [DesignerCategory("code")]
@@ -15,7 +15,7 @@ namespace MusicXML
     public class ScoretimewiseMeasurePart
     {
         [XmlElement("attributes", typeof(attributes)), XmlElement("backup", typeof(backup)), XmlElement("barline", typeof(barline)),
-         XmlElement("bookmark", typeof(bookmark)), XmlElement("direction", typeof(direction)), XmlElement("figured-bass", typeof(figuredbass)),
+         XmlElement("bookmark", typeof(bookmark)), XmlElement("direction", typeof(Direction)), XmlElement("figured-bass", typeof(figuredbass)),
          XmlElement("forward", typeof(forward)), XmlElement("grouping", typeof(grouping)), XmlElement("harmony", typeof(harmony)),
          XmlElement("link", typeof(link)), XmlElement("note", typeof(Note.Note)), XmlElement("print", typeof(print)), XmlElement("sound", typeof(sound))]
         public object[] Items { get; set; }

@@ -3,6 +3,7 @@ using Model.Meta;
 using Model.Meta.People;
 using Model.Sections;
 using Model.Sections.Notes;
+using Model.Sections.Notes.Articulation;
 using MuseScoreAPI.RESTObjects;
 using MusicXML;
 using MusicXML.Enums;
@@ -199,11 +200,12 @@ namespace Musicista.Mappers
                     };
 
                     // 4a. Split voices (crazy multiple staves-madness, part 2)
-                    var voices = items.Aggregate(new List<List<Note>> { new List<Note>() },
+                    var voices = items.Aggregate(new List<List<Object>> { new List<Object>() },
                                    (list, value) =>
                                    {
-                                       if (value.GetType() == typeof(Note)) list.Last().Add((Note)value);
-                                       if (value.GetType() == typeof(MusicXML.Note.backup)) list.Add(new List<Note>());
+                                       if (value.GetType() == typeof(MusicXML.Note.backup)) list.Add(new List<Object>());
+                                       else
+                                           list.Last().Add(value);
                                        return list;
                                    });
 
@@ -212,39 +214,63 @@ namespace Musicista.Mappers
                     {
                         double beat = 960;
                         double advanceBeat = 0;
-                        foreach (var mxmlNote in voices[voice])
+                        Articulation tempArticulation = null;
+                        foreach (var mxmlObject in voices[voice])
                         {
-                            if (!mxmlNote.IsChord) // advance beat-counter only if <chord>-Tag is not present
-                                beat += advanceBeat;
-
-
-                            // Tied notes
-                            var addDuration = 0;
-                            if (mxmlNote.IsTied && mxmlNote.Tie.Type == startstop.start && mxml.Part[partNumber].Measure.Count() > measureNumber + 1) // make tied notes (starting the tie) longer
+                            // The mxmlObject can be a note, direction, barline, ...
+                            if (mxmlObject.GetType() == typeof(Note))
                             {
-                                var nextMeasure = mxml.Part[partNumber].Measure[measureNumber + 1];
-                                var tiedNote = nextMeasure.Items.OfType<Note>().FirstOrDefault(item => Equals(item.Pitch, mxmlNote.Pitch) && item.IsTied && item.Tie.Type == startstop.stop);
-                                if (tiedNote != null)
-                                    addDuration = int.Parse(tiedNote.Duration.ToString(CultureInfo.InvariantCulture));
+                                var mxmlNote = (Note)mxmlObject;
+                                if (!mxmlNote.IsChord) // advance beat-counter only if <chord>-Tag is not present
+                                    beat += advanceBeat;
+
+
+                                // Tied notes
+                                var addDuration = 0;
+                                if (mxmlNote.IsTied && mxmlNote.Tie.Type == startstop.start && mxml.Part[partNumber].Measure.Count() > measureNumber + 1)
+                                // make tied notes (starting the tie) longer
+                                {
+                                    var nextMeasure = mxml.Part[partNumber].Measure[measureNumber + 1];
+                                    var tiedNote =
+                                        nextMeasure.Items.OfType<Note>()
+                                            .FirstOrDefault(item => Equals(item.Pitch, mxmlNote.Pitch) && item.IsTied && item.Tie.Type == startstop.stop);
+                                    if (tiedNote != null)
+                                        addDuration = int.Parse(tiedNote.Duration.ToString(CultureInfo.InvariantCulture));
+                                }
+                                if (mxmlNote.IsTied && mxmlNote.Tie.Type == startstop.stop) // and skip notes ending a tie
+                                {
+                                    advanceBeat = int.Parse(mxmlNote.Duration.ToString(CultureInfo.InvariantCulture));
+                                    if (durationDivision != 960)
+                                        advanceBeat = advanceBeat / durationDivision * 960;
+                                    continue;
+                                }
+
+                                var newNote = CreateNoteFromMXMLNote(mxmlNote, beat / 960, durationDivision, addDuration, tempArticulation);
+                                if (newNote.Voice == 0)
+                                    newNote.Voice = voice + 1;
+
+                                advanceBeat = (int)newNote.Duration; // IF the next note advances the beat counter, it should be by this amount
+
+                                if (mxmlNote.staff == null || mxmlNote.staff == "1")
+                                    newMeasure.AddSymbol(newNote);
+                                else if (listOfAdditionalStaves.ContainsKey(partNumber)) //crazy multiple staves-madness, part 3
+                                    listOfAdditionalStaves[partNumber][measureNumber].AddSymbol(newNote);
+
+                                tempArticulation = null;
                             }
-                            if (mxmlNote.IsTied && mxmlNote.Tie.Type == startstop.stop) // and skip notes ending a tie
+                            else if (mxmlObject.GetType() == typeof(Direction))
                             {
-                                advanceBeat = int.Parse(mxmlNote.Duration.ToString(CultureInfo.InvariantCulture));
-                                if (durationDivision != 960)
-                                    advanceBeat = advanceBeat / durationDivision * 960;
-                                continue;
+                                foreach (var directionType in ((Direction)mxmlObject).DirectionType)
+                                {
+                                    if (directionType.Dynamics != null)
+                                    {
+                                        if (tempArticulation == null)
+                                            tempArticulation = new Articulation();
+                                        tempArticulation.Dynamics =
+                                            (Dynamics)Enum.Parse(typeof(Dynamics), directionType.Dynamics.ItemsElementName.FirstOrDefault().ToString());
+                                    }
+                                }
                             }
-
-                            var newNote = CreateNoteFromMXMLNote(mxmlNote, beat / 960, durationDivision, addDuration);
-                            if (newNote.Voice == 0)
-                                newNote.Voice = voice + 1;
-
-                            advanceBeat = (int)newNote.Duration; // IF the next note advances the beat counter, it should be by this amount
-
-                            if (mxmlNote.staff == null || mxmlNote.staff == "1")
-                                newMeasure.AddSymbol(newNote);
-                            else if (listOfAdditionalStaves.ContainsKey(partNumber)) //crazy multiple staves-madness, part 3
-                                listOfAdditionalStaves[partNumber][measureNumber].AddSymbol(newNote);
                         }
                     }
                     measureGroup.Measures.Add(newMeasure);
@@ -296,7 +322,7 @@ namespace Musicista.Mappers
             return null;
         }
 
-        public static Symbol CreateNoteFromMXMLNote(Note mxmlNote, double beat = 1.0, int durationDivision = 256, int addToDuration = 0)
+        public static Symbol CreateNoteFromMXMLNote(Note mxmlNote, double beat = 1.0, int durationDivision = 256, int addToDuration = 0, Articulation articulation = null)
         {
             if (mxmlNote == null) return null;
 
@@ -307,7 +333,8 @@ namespace Musicista.Mappers
                     Beat = beat,
                     Duration = GetDurationFromMXMLNote(mxmlNote, durationDivision, addToDuration),
                     Lyrics = GetLyricsFromMXMLNote(mxmlNote),
-                    Voice = GetVoiceFromMXMLNote(mxmlNote)
+                    Voice = GetVoiceFromMXMLNote(mxmlNote),
+                    Articulations = articulation
                 };
             else
                 // Notes
@@ -319,7 +346,8 @@ namespace Musicista.Mappers
                     Octave = mxmlNote.Pitch != null ? int.Parse(mxmlNote.Pitch.Octave) : 0,
                     Step = GetPitchFromMXMLNote(mxmlNote),
                     Lyrics = GetLyricsFromMXMLNote(mxmlNote),
-                    Voice = GetVoiceFromMXMLNote(mxmlNote)
+                    Voice = GetVoiceFromMXMLNote(mxmlNote),
+                    Articulations = articulation
                 };
 
             if (mxmlNote.notations != null && mxmlNote.notations[0] != null && mxmlNote.notations[0].Dynamics != null)

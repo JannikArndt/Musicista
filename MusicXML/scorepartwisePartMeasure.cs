@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 
 namespace MusicXML
 {
-    
+
     [Serializable]
     [DebuggerStepThrough]
     [DesignerCategory("code")]
@@ -18,7 +18,7 @@ namespace MusicXML
         [XmlElement("backup", typeof(backup)),
         XmlElement("barline", typeof(barline)),
         XmlElement("bookmark", typeof(bookmark)),
-        XmlElement("direction", typeof(direction)),
+        XmlElement("direction", typeof(Direction)),
         XmlElement("figured-bass", typeof(figuredbass)),
         XmlElement("forward", typeof(forward)),
         XmlElement("grouping", typeof(grouping)),

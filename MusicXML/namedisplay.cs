@@ -23,7 +23,7 @@ namespace MusicXML
 
 
         [XmlElement("accidental-text", typeof (accidentaltext))]
-        [XmlElement("display-text", typeof (formattedtext))]
+        [XmlElement("display-text", typeof (FormattedText))]
         public object[] Items
         {
             get { return itemsField; }

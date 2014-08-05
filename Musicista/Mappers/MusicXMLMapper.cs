@@ -215,6 +215,7 @@ namespace Musicista.Mappers
                         double beat = 960;
                         double advanceBeat = 0;
                         Articulation tempArticulation = null;
+                        Wedge tempWedge = null;
                         foreach (var mxmlObject in voices[voice])
                         {
                             // The mxmlObject can be a note, direction, barline, ...
@@ -262,14 +263,47 @@ namespace Musicista.Mappers
                             {
                                 foreach (var directionType in ((Direction)mxmlObject).DirectionType)
                                 {
+                                    if (tempArticulation == null)
+                                        tempArticulation = new Articulation();
+
                                     if (directionType.Dynamics != null)
-                                    {
-                                        if (tempArticulation == null)
-                                            tempArticulation = new Articulation();
                                         tempArticulation.Dynamics =
                                             (Dynamics)Enum.Parse(typeof(Dynamics), directionType.Dynamics.ItemsElementName.FirstOrDefault().ToString());
+
+                                    if (directionType.Rehearsal != null && directionType.Rehearsal.Value != null)
+                                        measureGroup.RehearsalMark = directionType.Rehearsal.Value;
+
+                                    // Crescendo and Decrescendo (diminuendo). Attention: This looses wedges that last for more than one measure
+                                    if (directionType.Wedge != null && directionType.Wedge.type == wedgetype.crescendo)
+                                        tempWedge = new Wedge(beat / 960, 0, true);
+
+                                    if (directionType.Wedge != null && directionType.Wedge.type == wedgetype.diminuendo)
+                                        tempWedge = new Wedge(beat / 960, 0, false);
+
+                                    if (directionType.Wedge != null && directionType.Wedge.type == wedgetype.stop)
+                                    {
+                                        tempWedge.EndBeat = beat / 960;
+                                        newMeasure.Wedge = tempWedge;
                                     }
+
+                                    if (directionType.Words != null)
+                                        tempArticulation.Other = directionType.Words.Value; // TODO interpret "rit.", "accel.", "pizz.", "Grave", "con sord.", "marcato"
+
+                                    if (directionType.Segno != null)
+                                        measureGroup.Segno = 1;
+
+                                    if (directionType.Coda != null)
+                                        measureGroup.Coda = 1;
+
+                                    if (directionType.OtherDirection != null && directionType.OtherDirection.Value == "Trill")
+                                        tempArticulation.Trill = true;
+
                                 }
+                            }
+                            else if (mxmlObject.GetType() == typeof(barline))
+                            {
+                                //var barline = ((barline)mxmlObject).barstyle; // "light-light", "light-heavy"
+                                // TODO
                             }
                         }
                     }
@@ -326,12 +360,26 @@ namespace Musicista.Mappers
         {
             if (mxmlNote == null) return null;
 
+
             Symbol symbol;
             if (mxmlNote.IsRest)  // Rests
                 symbol = new Rest
                 {
                     Beat = beat,
                     Duration = GetDurationFromMXMLNote(mxmlNote, durationDivision, addToDuration),
+                    Lyrics = GetLyricsFromMXMLNote(mxmlNote),
+                    Voice = GetVoiceFromMXMLNote(mxmlNote),
+                    Articulations = articulation
+                };
+            else if (mxmlNote.IsGrace)
+                // Grace Notes
+                symbol = new GraceNote
+                {
+                    Beat = beat,
+                    Velocity = 0,
+                    Duration = GetDurationFromMXMLNote(mxmlNote, durationDivision, addToDuration),
+                    Octave = mxmlNote.Pitch != null ? int.Parse(mxmlNote.Pitch.Octave) : 0,
+                    Step = GetPitchFromMXMLNote(mxmlNote),
                     Lyrics = GetLyricsFromMXMLNote(mxmlNote),
                     Voice = GetVoiceFromMXMLNote(mxmlNote),
                     Articulations = articulation
@@ -350,8 +398,119 @@ namespace Musicista.Mappers
                     Articulations = articulation
                 };
 
-            if (mxmlNote.notations != null && mxmlNote.notations[0] != null && mxmlNote.notations[0].Dynamics != null)
-                symbol.Articulations.Other = mxmlNote.notations[0].Dynamics.Items.FirstOrDefault().ToString();
+            if (mxmlNote.Notations != null)
+            {
+                symbol.Articulations = articulation ?? new Articulation();
+
+                foreach (var item in mxmlNote.Notations)
+                {
+                    if (item.Articulations != null)
+                    {
+                        if (item.Articulations.Accent != null)
+                            symbol.Articulations.Accent = Accent.Standard;
+
+                        if (item.Articulations.Staccato != null)
+                            symbol.Articulations.Accent = Accent.Staccato;
+
+                        if (item.Articulations.Tenuto != null)
+                            symbol.Articulations.Accent = Accent.Tenuto;
+
+                        if (item.Articulations.Spiccato != null)
+                            symbol.Articulations.Bowing = Bowing.Spiccato;
+
+                        if (item.Articulations.StrongAccent != null)
+                            symbol.Articulations.Accent = Accent.Marcato;
+
+                        if (item.Articulations.Staccatissimo != null)
+                            symbol.Articulations.Accent = Accent.Staccatissimo;
+
+                        if (item.Articulations != null)
+                            symbol.Articulations.Bowing = Bowing.Spiccato;
+
+                        if (item.Articulations.Spiccato != null)
+                            symbol.Articulations.Bowing = Bowing.Spiccato;
+
+                        if (item.Articulations.Spiccato != null)
+                            symbol.Articulations.Bowing = Bowing.Spiccato;
+
+                        if (item.Articulations.Scoop != null)
+                            symbol.Articulations.Sliding = Sliding.Scoop;
+
+                        if (item.Articulations.Falloff != null)
+                            symbol.Articulations.Sliding = Sliding.FallOff;
+
+                        if (item.Articulations.Doit != null)
+                            symbol.Articulations.Sliding = Sliding.Doit;
+
+                        if (item.Articulations.Plop != null)
+                            symbol.Articulations.Sliding = Sliding.Plop;
+                    }
+
+                    if (item.Technical != null)
+                    {
+                        if (item.Technical.UpBow != null)
+                            symbol.Articulations.Bowing = Bowing.Up;
+                        if (item.Technical.DownBow != null)
+                            symbol.Articulations.Bowing = Bowing.Down;
+                        if (item.Technical.OpenString != null)
+                            symbol.Articulations.Bowing = Bowing.OpenString;
+                    }
+                    if (item.Dynamics != null)
+                    {
+                        symbol.Articulations.Dynamics = (Dynamics)Enum.Parse(typeof(Dynamics), item.Dynamics.ItemsElementName.FirstOrDefault().ToString());
+                    }
+
+                    if (item.Fermata != null)
+                        symbol.Articulations.Fermata = true;
+
+                    if (item.Arpeggiate != null)
+                        symbol.Articulations.Arpeggiate = true;
+
+                    if (item.Slur != null)
+                        switch (item.Slur.type)
+                        {
+                            case startstopcontinue.start:
+                                symbol.Articulations.Slur = Slur.Start; break;
+                            case startstopcontinue.stop:
+                                symbol.Articulations.Slur = Slur.End; break;
+                            case startstopcontinue.@continue:
+                                symbol.Articulations.Slur = Slur.Middle; break;
+                        }
+
+                    if (item.Ornaments != null)
+                    {
+                        if (item.Ornaments.TrillMark != null)
+                            symbol.Articulations.Trill = true;
+                        if (item.Ornaments.Tremolo != null)
+                            symbol.Articulations.Tremolo = true;
+
+                        if (item.Ornaments.Turn != null)
+                            symbol.Articulations.Ornament = Ornament.Turn;
+                        if (item.Ornaments.InvertedTurn != null)
+                            symbol.Articulations.Ornament = Ornament.InvertedTurn;
+                        if (item.Ornaments.DelayedTurn != null)
+                            symbol.Articulations.Ornament = Ornament.DelayedTurn;
+                        if (item.Ornaments.DelayedInvertedTurn != null)
+                            symbol.Articulations.Ornament = Ornament.DelayedInvertedTurn;
+                        if (item.Ornaments.VerticalTurn != null)
+                            symbol.Articulations.Ornament = Ornament.VerticalTurn;
+
+                        if (item.Ornaments.Mordent != null)
+                            symbol.Articulations.Ornament = Ornament.Mordent;
+                        if (item.Ornaments.InvertedMordent != null)
+                            symbol.Articulations.Ornament = Ornament.InvertedMordent;
+
+                        if (item.Ornaments.Schleifer != null)
+                            symbol.Articulations.Ornament = Ornament.Schleifer;
+                        if (item.Ornaments.Shake != null)
+                            symbol.Articulations.Ornament = Ornament.Shake;
+                        if (item.Ornaments.WavyLine != null)
+                            symbol.Articulations.Ornament = Ornament.WavyLine;
+
+                    }
+
+                }
+            }
 
             return symbol;
 

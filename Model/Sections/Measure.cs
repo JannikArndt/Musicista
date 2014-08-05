@@ -56,8 +56,12 @@ namespace Model.Sections
 
 
         [XmlElement("Note", Type = typeof(Note))]
+        [XmlElement("GraceNote", Type = typeof(GraceNote))]
         [XmlElement("Rest", Type = typeof(Rest))]
         public List<Symbol> Symbols { get { return _listOfSymbols; } }
+
+        [XmlElement("Wedge")]
+        public Wedge Wedge { get; set; }
 
         [XmlIgnore]
         public List<int> Voices { get { return Symbols.Select(item => item.Voice).Distinct().ToList(); } }

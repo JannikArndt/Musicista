@@ -1,6 +1,10 @@
 namespace Model.Sections.Notes.Articulation
 {
-    public class Slur : Articulation
+    public enum Slur
     {
+        None,
+        Start,
+        Middle,
+        End
     }
 }

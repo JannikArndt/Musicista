@@ -19,7 +19,7 @@ namespace MusicXML
         public offset offset { get; set; }
 
 
-        public formattedtext footnote { get; set; }
+        public FormattedText footnote { get; set; }
 
 
         public level level { get; set; }

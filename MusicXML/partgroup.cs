@@ -13,7 +13,7 @@ namespace MusicXML
     [XmlType(TypeName = "part-group")]
     public class partgroup
     {
-        private formattedtext footnoteField;
+        private FormattedText footnoteField;
         private groupname groupabbreviationField;
 
         private namedisplay groupabbreviationdisplayField;
@@ -93,7 +93,7 @@ namespace MusicXML
         }
 
 
-        public formattedtext footnote
+        public FormattedText footnote
         {
             get { return footnoteField; }
             set { footnoteField = value; }

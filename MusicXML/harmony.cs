@@ -17,7 +17,7 @@ namespace MusicXML
 
         private degree[] degreeField;
 
-        private formattedtext footnoteField;
+        private FormattedText footnoteField;
         private frame frameField;
         private inversion[] inversionField;
         private object[] itemsField;
@@ -98,7 +98,7 @@ namespace MusicXML
         }
 
 
-        public formattedtext footnote
+        public FormattedText footnote
         {
             get { return footnoteField; }
             set { footnoteField = value; }

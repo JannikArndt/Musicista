@@ -76,7 +76,7 @@ namespace MusicXML.Note
         public instrument instrument { get; set; }
 
 
-        public formattedtext footnote { get; set; }
+        public FormattedText footnote { get; set; }
 
 
         public level level { get; set; }
@@ -118,7 +118,7 @@ namespace MusicXML.Note
 
 
         [XmlElement("notations")]
-        public notations[] notations { get; set; }
+        public Notations[] Notations { get; set; }
 
 
         [XmlElement("lyric")]

@@ -69,6 +69,9 @@ namespace Model.Sections
                 NotifyPropertyChanged();
             }
         }
+        [XmlAttribute("RehearsalMark")]
+        public String RehearsalMark { get; set; }
+        public bool RehearsalMarkSpecified { get { return !string.IsNullOrEmpty(RehearsalMark); } }
 
         [XmlIgnore]
         public MeasureGroup Previous
@@ -98,6 +101,14 @@ namespace Model.Sections
         {
             get { return (int)(TimeSignature.Beats * ((double)Duration.Whole / TimeSignature.BeatUnit)); }
         }
+
+        [XmlAttribute("Segno")]
+        public int Segno { get; set; }
+        public bool SegnoSpecified { get { return Segno > 0; } }
+
+        [XmlAttribute("Coda")]
+        public int Coda { get; set; }
+        public bool CodaSpecified { get { return Coda > 0; } }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

@@ -12,69 +12,76 @@ namespace MusicXML.Note
     [Serializable]
     [DebuggerStepThrough]
     [DesignerCategory("code")]
-    public class notations
+    public class Notations
     {
-        private formattedtext footnoteField;
-
-        private object[] itemsField;
-        private level levelField;
-
-        private yesno printobjectField;
-
-        private bool printobjectFieldSpecified;
+        public FormattedText Footnote { get; set; }
 
 
-        public formattedtext footnote
-        {
-            get { return footnoteField; }
-            set { footnoteField = value; }
-        }
-
-
-        public level level
-        {
-            get { return levelField; }
-            set { levelField = value; }
-        }
+        public level Level { get; set; }
 
         [XmlElement("dynamics", typeof(dynamics))]
         public dynamics Dynamics { get; set; }
 
 
         [XmlElement("accidental-mark", typeof(accidentalmark))]
+        public accidentalmark Accidentalmark { get; set; }
+
+
         [XmlElement("arpeggiate", typeof(arpeggiate))]
+        public arpeggiate Arpeggiate { get; set; }
+
+
         [XmlElement("articulations", typeof(Articulations))]
+        public Articulations Articulations { get; set; }
+
+
 
         [XmlElement("fermata", typeof(fermata))]
+        public fermata Fermata { get; set; }
+
+
         [XmlElement("glissando", typeof(glissando))]
+        public glissando Glissando { get; set; }
+
+
         [XmlElement("non-arpeggiate", typeof(nonarpeggiate))]
-        [XmlElement("ornaments", typeof(ornaments))]
+        public nonarpeggiate Nonarpeggiate { get; set; }
+
+
+        [XmlElement("ornaments", typeof(Ornaments))]
+        public Ornaments Ornaments { get; set; }
+
+
         [XmlElement("other-notation", typeof(othernotation))]
+        public othernotation Othernotation { get; set; }
+
+
         [XmlElement("slide", typeof(slide))]
+        public slide Slide { get; set; }
+
+
         [XmlElement("slur", typeof(slur))]
-        [XmlElement("technical", typeof(technical))]
+        public slur Slur { get; set; }
+
+
+        [XmlElement("technical", typeof(Technical))]
+        public Technical Technical { get; set; }
+
+
         [XmlElement("tied", typeof(tied))]
+        public tied Tied { get; set; }
+
+
         [XmlElement("tuplet", typeof(tuplet))]
-        public object[] Items
-        {
-            get { return itemsField; }
-            set { itemsField = value; }
-        }
+        public tuplet Tuplet { get; set; }
+
 
 
         [XmlAttribute("print-object")]
-        public yesno printobject
-        {
-            get { return printobjectField; }
-            set { printobjectField = value; }
-        }
+        public yesno printobject { get; set; }
 
 
         [XmlIgnore]
-        public bool printobjectSpecified
-        {
-            get { return printobjectFieldSpecified; }
-            set { printobjectFieldSpecified = value; }
-        }
+        public bool printobjectSpecified { get; set; }
     }
 }

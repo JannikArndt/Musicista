@@ -17,7 +17,7 @@ namespace MusicXML
         private decimal durationField;
         private figure[] figureField;
 
-        private formattedtext footnoteField;
+        private FormattedText footnoteField;
 
         private level levelField;
         private yesno parenthesesField;
@@ -48,7 +48,7 @@ namespace MusicXML
         }
 
 
-        public formattedtext footnote
+        public FormattedText footnote
         {
             get { return footnoteField; }
             set { footnoteField = value; }

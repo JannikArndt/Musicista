@@ -7,7 +7,7 @@ using MusicXML.Note;
 
 namespace MusicXML
 {
-    
+
     [Serializable]
     [DebuggerStepThrough]
     [DesignerCategory("code")]
@@ -17,8 +17,8 @@ namespace MusicXML
         private object[] itemsField;
 
 
-        [XmlElement("accidental-text", typeof (accidentaltext))]
-        [XmlElement("display-text", typeof (formattedtext))]
+        [XmlElement("accidental-text", typeof(accidentaltext))]
+        [XmlElement("display-text", typeof(FormattedText))]
         public object[] Items
         {
             get { return itemsField; }

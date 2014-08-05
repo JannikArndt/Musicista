@@ -47,7 +47,7 @@ namespace MusicXML
 
         [XmlElement("bookmark", typeof (bookmark), Order = 3)]
         [XmlElement("credit-image", typeof (image), Order = 3)]
-        [XmlElement("credit-words", typeof (formattedtext), Order = 3)]
+        [XmlElement("credit-words", typeof (FormattedText), Order = 3)]
         [XmlElement("link", typeof (link), Order = 3)]
         public object[] Items
         {

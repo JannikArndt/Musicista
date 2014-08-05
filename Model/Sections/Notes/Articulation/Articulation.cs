@@ -9,6 +9,9 @@ namespace Model.Sections.Notes.Articulation
         public Accent Accent { get; set; }
         public bool AccentSpecified { get { return Accent != Accent.None; } }
 
+        [XmlAttribute("Arpeggiate")]
+        public bool Arpeggiate { get; set; }
+        public bool ArpeggiateSpecified { get { return Arpeggiate; } }
 
         [XmlAttribute("Caesura")]
         public bool Caesura { get; set; }
@@ -44,6 +47,26 @@ namespace Model.Sections.Notes.Articulation
         public bool Portato { get; set; }
         public bool PortatoSpecified { get { return Portato; } }
 
+        [XmlAttribute("Sliding")]
+        public Sliding Sliding { get; set; }
+        public bool SlidingSpecified { get { return Sliding != Sliding.None; } }
+
+        [XmlAttribute("Slur")]
+        public Slur Slur { get; set; }
+        public bool SlurSpecified { get { return Slur != Slur.None; } }
+
+        [XmlAttribute("Trill")]
+        public bool Trill { get; set; }
+        public bool TrillSpecified { get { return Trill; } }
+
+        [XmlAttribute("Tremolo")]
+        public bool Tremolo { get; set; }
+        public bool TremoloSpecified { get { return Tremolo; } }
+
+
+        [XmlAttribute("Ornament")]
+        public Ornament Ornament { get; set; }
+        public bool OrnamentSpecified { get { return Ornament != Ornament.None; } }
 
 
         [XmlText]
@@ -51,6 +74,13 @@ namespace Model.Sections.Notes.Articulation
         public bool ShouldSerializeOther() { return !string.IsNullOrEmpty(Other); }
 
 
-        public bool ShouldSerialize { get { return Accent != Accent.None || Caesura || Damping || Dynamics != Dynamics.None || Fermata || Legato || Bowing != Bowing.None || Portato || !string.IsNullOrEmpty(Other); } }
+        public bool ShouldSerialize
+        {
+            get
+            {
+                return Accent != Accent.None || Caesura || Damping || Dynamics != Dynamics.None || Fermata || Legato ||
+                    Bowing != Bowing.None || Sliding != Sliding.None || Portato || !string.IsNullOrEmpty(Other);
+            }
+        }
     }
 }

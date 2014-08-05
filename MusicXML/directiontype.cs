@@ -77,8 +77,8 @@ namespace MusicXML
         public principalvoice PrincipalVoice { get; set; }
 
 
-        [XmlElement("rehearsal", typeof(formattedtext))]
-        public formattedtext Rehearsal { get; set; }
+        [XmlElement("rehearsal", typeof(FormattedText))]
+        public FormattedText Rehearsal { get; set; }
 
 
         [XmlElement("scordatura", typeof(scordatura))]
@@ -97,7 +97,7 @@ namespace MusicXML
         public wedge Wedge { get; set; }
 
 
-        [XmlElement("words", typeof(formattedtext))]
-        public formattedtext Words { get; set; }
+        [XmlElement("words", typeof(FormattedText))]
+        public FormattedText Words { get; set; }
     }
 }

@@ -13,7 +13,7 @@ namespace MusicXML.Note
     {
         private decimal durationField;
 
-        private formattedtext footnoteField;
+        private FormattedText footnoteField;
 
         private level levelField;
 
@@ -25,7 +25,7 @@ namespace MusicXML.Note
         }
 
 
-        public formattedtext footnote
+        public FormattedText footnote
         {
             get { return footnoteField; }
             set { footnoteField = value; }

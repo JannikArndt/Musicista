@@ -8,48 +8,74 @@ namespace MusicXML.Note.Articulation
     [Serializable]
     [DebuggerStepThrough]
     [DesignerCategory("code")]
-    public class ornaments
+    public class Ornaments
     {
-        private accidentalmark[] accidentalmarkField;
-        private ItemsChoiceType2[] itemsElementNameField;
-        private object[] itemsField;
-
-
         [XmlElement("delayed-inverted-turn", typeof(horizontalturn))]
+        public horizontalturn DelayedInvertedTurn { get; set; }
+
+
+
         [XmlElement("delayed-turn", typeof(horizontalturn))]
+        public horizontalturn DelayedTurn { get; set; }
+
+
+
         [XmlElement("inverted-mordent", typeof(mordent))]
+        public mordent InvertedMordent { get; set; }
+
+
+
         [XmlElement("inverted-turn", typeof(horizontalturn))]
+        public horizontalturn InvertedTurn { get; set; }
+
+
+
         [XmlElement("mordent", typeof(mordent))]
+        public mordent Mordent { get; set; }
+
+
+
         [XmlElement("other-ornament", typeof(placementtext))]
+        public placementtext OtherOrnaments { get; set; }
+
+
+
         [XmlElement("schleifer", typeof(Emptyplacement))]
+        public Emptyplacement Schleifer { get; set; }
+
+
+
         [XmlElement("shake", typeof(emptytrillsound))]
+        public emptytrillsound Shake { get; set; }
+
+
+
         [XmlElement("tremolo", typeof(tremolo))]
+        public tremolo Tremolo { get; set; }
+
+
+
         [XmlElement("trill-mark", typeof(emptytrillsound))]
+        public emptytrillsound TrillMark { get; set; }
+
+
+
         [XmlElement("turn", typeof(horizontalturn))]
+        public horizontalturn Turn { get; set; }
+
+
+
         [XmlElement("vertical-turn", typeof(emptytrillsound))]
+        public emptytrillsound VerticalTurn { get; set; }
+
+
+
         [XmlElement("wavy-line", typeof(wavyline))]
-        [XmlChoiceIdentifier("ItemsElementName")]
-        public object[] Items
-        {
-            get { return itemsField; }
-            set { itemsField = value; }
-        }
+        public wavyline WavyLine { get; set; }
 
-
-        [XmlElement("ItemsElementName")]
-        [XmlIgnore]
-        public ItemsChoiceType2[] ItemsElementName
-        {
-            get { return itemsElementNameField; }
-            set { itemsElementNameField = value; }
-        }
 
 
         [XmlElement("accidental-mark")]
-        public accidentalmark[] accidentalmark
-        {
-            get { return accidentalmarkField; }
-            set { accidentalmarkField = value; }
-        }
+        public accidentalmark[] AccidentalMark { get; set; }
     }
 }

@@ -5,6 +5,8 @@ namespace Model.Sections.Notes.Articulation
     {
         None,
         Up,
-        Down
+        Down,
+        Spiccato,
+        OpenString
     }
 }

@@ -82,7 +82,7 @@ namespace Model.Sections.Notes
             }
         }
 
-        protected Symbol()
+        public Symbol()
         {
             Lyrics = new List<Lyric>();
             Articulations = new Articulation.Articulation();

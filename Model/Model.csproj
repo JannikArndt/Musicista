@@ -55,9 +55,11 @@
     <Compile Include="Sections\Notes\Analysis\Harmony.cs" />
     <Compile Include="Sections\Notes\Articulation\Articulation.cs" />
     <Compile Include="Sections\Notes\Articulation\Bowing.cs" />
+    <Compile Include="Sections\Notes\Articulation\Sliding.cs" />
     <Compile Include="Sections\Notes\Clef.cs" />
     <Compile Include="Instrument.cs" />
     <Compile Include="Sections\Notes\Articulation\Dynamics.cs" />
+    <Compile Include="Sections\Notes\GraceNote.cs" />
     <Compile Include="Sections\Notes\Interval.cs" />
     <Compile Include="Sections\Notes\Articulation\Legato.cs" />
     <Compile Include="Sections\Notes\Lyric.cs" />
@@ -95,6 +97,7 @@
     <Compile Include="Sections\Notes\Syllabic.cs" />
     <Compile Include="Sections\Notes\Symbol.cs" />
     <Compile Include="Sections\Theme.cs" />
+    <Compile Include="Sections\Wedge.cs" />
     <Compile Include="View\Metrics.cs" />
   </ItemGroup>
   <ItemGroup />

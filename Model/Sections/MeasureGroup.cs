@@ -49,6 +49,7 @@ namespace Model.Sections
         }
         [XmlArray("Analysis"), XmlArrayItem(typeof(Harmony)), XmlArrayItem(typeof(NoteAttribute)), XmlArrayItem(typeof(AnalysisObject))]
         public List<AnalysisObject> Analysis { get { return _listOfAnalysisObjects; } }
+        public bool ShouldSerializeAnalysis() { return Analysis != null && Analysis.Any(); }
 
         [XmlElement("Measures")]
         public List<Measure> Measures { get; set; }

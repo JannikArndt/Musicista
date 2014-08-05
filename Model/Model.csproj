@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Comment.cs" />
     <Compile Include="ListExtension.cs" />
+    <Compile Include="Sections\Notes\Articulation\Accent.cs" />
     <Compile Include="Sections\Notes\Analysis\Chord.cs" />
     <Compile Include="Meta\DateEvent.cs" />
     <Compile Include="Meta\Dates.cs" />
@@ -52,12 +53,17 @@
     <Compile Include="Sections\Notes\Analysis\DiatonicFunction.cs" />
     <Compile Include="Sections\Notes\Analysis\NoteAttribute.cs" />
     <Compile Include="Sections\Notes\Analysis\Harmony.cs" />
+    <Compile Include="Sections\Notes\Articulation\Articulation.cs" />
+    <Compile Include="Sections\Notes\Articulation\Caesura.cs" />
     <Compile Include="Sections\Notes\Clef.cs" />
     <Compile Include="Instrument.cs" />
+    <Compile Include="Sections\Notes\Articulation\Damping.cs" />
+    <Compile Include="Sections\Notes\Articulation\Dynamics.cs" />
+    <Compile Include="Sections\Notes\Articulation\Fermata.cs" />
     <Compile Include="Sections\Notes\Interval.cs" />
+    <Compile Include="Sections\Notes\Articulation\Legato.cs" />
     <Compile Include="Sections\Notes\Lyric.cs" />
     <Compile Include="MetaData.cs" />
-    <Compile Include="Meta\Expression.cs" />
     <Compile Include="Meta\Album.cs" />
     <Compile Include="Sections\Notes\Duration.cs" />
     <Compile Include="Meta\Epoch.cs" />
@@ -65,7 +71,6 @@
     <Compile Include="Meta\Gender.cs" />
     <Compile Include="Meta\MusicalKey.cs" />
     <Compile Include="Meta\OpusNumber.cs" />
-    <Compile Include="Meta\Ornament.cs" />
     <Compile Include="Meta\Step.cs" />
     <Compile Include="Meta\TimeSignature.cs" />
     <Compile Include="Sections\Measure.cs" />
@@ -75,7 +80,13 @@
     <Compile Include="Meta\People\Composer.cs" />
     <Compile Include="Sections\MeasureGroup.cs" />
     <Compile Include="Sections\Movement.cs" />
+    <Compile Include="Sections\Notes\Articulation\Marcato.cs" />
     <Compile Include="Sections\Notes\Note.cs" />
+    <Compile Include="Sections\Notes\Articulation\Ornament.cs" />
+    <Compile Include="Sections\Notes\Articulation\Portato.cs" />
+    <Compile Include="Sections\Notes\Articulation\Slur.cs" />
+    <Compile Include="Sections\Notes\Articulation\Staccato.cs" />
+    <Compile Include="Sections\Notes\Articulation\Tenuto.cs" />
     <Compile Include="Sections\Passage.cs" />
     <Compile Include="Meta\People\Person.cs" />
     <Compile Include="Piece.cs" />

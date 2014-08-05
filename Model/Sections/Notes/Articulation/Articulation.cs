@@ -1,5 +1,5 @@
 ﻿
-namespace Model.Sections.Notes.Articulations
+namespace Model.Sections.Notes.Articulation
 {
     public class Articulation
     {

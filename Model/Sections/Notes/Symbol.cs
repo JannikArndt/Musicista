@@ -1,5 +1,4 @@
-﻿using Model.Meta;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
@@ -22,16 +21,9 @@ namespace Model.Sections.Notes
         public bool ShouldSerializeLyrics() { return Lyrics != null && Lyrics.Any(); }
 
 
-        [XmlArray("Expressions")]
-        public List<Expression> Expressions { get; set; }
-        public bool ShouldSerializeExpressions() { return Expressions != null && Expressions.Any(); }
-
-
-
-        [XmlArray("Ornaments")]
-
-        public List<Ornament> Ornaments { get; set; }
-        public bool ShouldSerializeOrnaments() { return Ornaments != null && Ornaments.Any(); }
+        [XmlArray("Articulation")]
+        public List<Articulation.Articulation> Articulations { get; set; }
+        public bool ShouldSerializeExpressions() { return Articulations != null && Articulations.Any(); }
 
 
         [XmlIgnore]
@@ -93,8 +85,7 @@ namespace Model.Sections.Notes
         protected Symbol()
         {
             Lyrics = new List<Lyric>();
-            Ornaments = new List<Ornament>();
-            Expressions = new List<Expression>();
+            Articulations = new List<Articulation.Articulation>();
         }
 
         public void AddLyrics(string text, int verse, Syllabic syllabic)

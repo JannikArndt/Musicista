@@ -5,6 +5,7 @@ using Model.Sections;
 using Model.Sections.Notes;
 using MuseScoreAPI.RESTObjects;
 using MusicXML;
+using MusicXML.Enums;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -12,7 +13,6 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
-using MusicXML.Enums;
 using Clef = Model.Sections.Notes.Clef;
 using Duration = Model.Sections.Notes.Duration;
 using Lyric = Model.Sections.Notes.Lyric;
@@ -300,26 +300,33 @@ namespace Musicista.Mappers
         {
             if (mxmlNote == null) return null;
 
+            Symbol symbol;
             if (mxmlNote.IsRest)  // Rests
-                return new Rest
+                symbol = new Rest
                 {
                     Beat = beat,
                     Duration = GetDurationFromMXMLNote(mxmlNote, durationDivision, addToDuration),
                     Lyrics = GetLyricsFromMXMLNote(mxmlNote),
                     Voice = GetVoiceFromMXMLNote(mxmlNote)
                 };
+            else
+                // Notes
+                symbol = new Model.Sections.Notes.Note
+                {
+                    Beat = beat,
+                    Velocity = 0,
+                    Duration = GetDurationFromMXMLNote(mxmlNote, durationDivision, addToDuration),
+                    Octave = mxmlNote.Pitch != null ? int.Parse(mxmlNote.Pitch.Octave) : 0,
+                    Step = GetPitchFromMXMLNote(mxmlNote),
+                    Lyrics = GetLyricsFromMXMLNote(mxmlNote),
+                    Voice = GetVoiceFromMXMLNote(mxmlNote)
+                };
 
-            // Notes
-            return new Model.Sections.Notes.Note
-            {
-                Beat = beat,
-                Velocity = 0,
-                Duration = GetDurationFromMXMLNote(mxmlNote, durationDivision, addToDuration),
-                Octave = mxmlNote.Pitch != null ? int.Parse(mxmlNote.Pitch.Octave) : 0,
-                Step = GetPitchFromMXMLNote(mxmlNote),
-                Lyrics = GetLyricsFromMXMLNote(mxmlNote),
-                Voice = GetVoiceFromMXMLNote(mxmlNote)
-            };
+            if (mxmlNote.notations != null && mxmlNote.notations[0] != null && mxmlNote.notations[0].Dynamics != null)
+                symbol.Articulations.Other = mxmlNote.notations[0].Dynamics.Items.FirstOrDefault().ToString();
+
+            return symbol;
+
         }
 
         private static bool _durationErrorDisplayed;

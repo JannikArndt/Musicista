@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 
 namespace MusicXML.Note
 {
-    
+
     [Serializable]
     [DebuggerStepThrough]
     [DesignerCategory("code")]
@@ -37,11 +37,14 @@ namespace MusicXML.Note
             set { levelField = value; }
         }
 
+        [XmlElement("dynamics", typeof(dynamics))]
+        public dynamics Dynamics { get; set; }
+
 
         [XmlElement("accidental-mark", typeof(accidentalmark))]
         [XmlElement("arpeggiate", typeof(arpeggiate))]
         [XmlElement("articulations", typeof(Articulations))]
-        [XmlElement("dynamics", typeof(dynamics))]
+
         [XmlElement("fermata", typeof(fermata))]
         [XmlElement("glissando", typeof(glissando))]
         [XmlElement("non-arpeggiate", typeof(nonarpeggiate))]

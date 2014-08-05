@@ -1,21 +1,21 @@
+using System;
+
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(IncludeInSchema = false)]
+    
+    [Serializable]
+    [XmlType(IncludeInSchema = false)]
     public enum ItemsChoiceType
     {
-
-
         encoder,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("encoding-date")]
-        encodingdate,
+        [XmlEnum("encoding-date")] encodingdate,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("encoding-description")]
-        encodingdescription,
+        [XmlEnum("encoding-description")] encodingdescription,
 
 
         software,

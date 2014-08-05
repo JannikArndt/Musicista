@@ -1,17 +1,40 @@
+using System;
+
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+using MusicXML.Enums;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "horizontal-turn")]
-    public partial class horizontalturn
+    
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType(TypeName = "horizontal-turn")]
+    public class horizontalturn
     {
+        private yesno accelerateField;
 
+        private bool accelerateFieldSpecified;
+
+        private decimal beatsField;
+
+        private bool beatsFieldSpecified;
+
+        private decimal lastbeatField;
+
+        private bool lastbeatFieldSpecified;
         private abovebelow placementField;
 
         private bool placementFieldSpecified;
+        private decimal secondbeatField;
 
+        private bool secondbeatFieldSpecified;
+
+        private yesno slashField;
+
+        private bool slashFieldSpecified;
         private startnote startnoteField;
 
         private bool startnoteFieldSpecified;
@@ -24,276 +47,148 @@ namespace MusicXML
 
         private bool twonoteturnFieldSpecified;
 
-        private yesno accelerateField;
 
-        private bool accelerateFieldSpecified;
-
-        private decimal beatsField;
-
-        private bool beatsFieldSpecified;
-
-        private decimal secondbeatField;
-
-        private bool secondbeatFieldSpecified;
-
-        private decimal lastbeatField;
-
-        private bool lastbeatFieldSpecified;
-
-        private yesno slashField;
-
-        private bool slashFieldSpecified;
-
-
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public abovebelow placement
         {
-            get
-            {
-                return this.placementField;
-            }
-            set
-            {
-                this.placementField = value;
-            }
+            get { return placementField; }
+            set { placementField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool placementSpecified
         {
-            get
-            {
-                return this.placementFieldSpecified;
-            }
-            set
-            {
-                this.placementFieldSpecified = value;
-            }
+            get { return placementFieldSpecified; }
+            set { placementFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute("start-note")]
+        [XmlAttribute("start-note")]
         public startnote startnote
         {
-            get
-            {
-                return this.startnoteField;
-            }
-            set
-            {
-                this.startnoteField = value;
-            }
+            get { return startnoteField; }
+            set { startnoteField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool startnoteSpecified
         {
-            get
-            {
-                return this.startnoteFieldSpecified;
-            }
-            set
-            {
-                this.startnoteFieldSpecified = value;
-            }
+            get { return startnoteFieldSpecified; }
+            set { startnoteFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute("trill-step")]
+        [XmlAttribute("trill-step")]
         public trillstep trillstep
         {
-            get
-            {
-                return this.trillstepField;
-            }
-            set
-            {
-                this.trillstepField = value;
-            }
+            get { return trillstepField; }
+            set { trillstepField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool trillstepSpecified
         {
-            get
-            {
-                return this.trillstepFieldSpecified;
-            }
-            set
-            {
-                this.trillstepFieldSpecified = value;
-            }
+            get { return trillstepFieldSpecified; }
+            set { trillstepFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute("two-note-turn")]
+        [XmlAttribute("two-note-turn")]
         public twonoteturn twonoteturn
         {
-            get
-            {
-                return this.twonoteturnField;
-            }
-            set
-            {
-                this.twonoteturnField = value;
-            }
+            get { return twonoteturnField; }
+            set { twonoteturnField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool twonoteturnSpecified
         {
-            get
-            {
-                return this.twonoteturnFieldSpecified;
-            }
-            set
-            {
-                this.twonoteturnFieldSpecified = value;
-            }
+            get { return twonoteturnFieldSpecified; }
+            set { twonoteturnFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public yesno accelerate
         {
-            get
-            {
-                return this.accelerateField;
-            }
-            set
-            {
-                this.accelerateField = value;
-            }
+            get { return accelerateField; }
+            set { accelerateField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool accelerateSpecified
         {
-            get
-            {
-                return this.accelerateFieldSpecified;
-            }
-            set
-            {
-                this.accelerateFieldSpecified = value;
-            }
+            get { return accelerateFieldSpecified; }
+            set { accelerateFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public decimal beats
         {
-            get
-            {
-                return this.beatsField;
-            }
-            set
-            {
-                this.beatsField = value;
-            }
+            get { return beatsField; }
+            set { beatsField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool beatsSpecified
         {
-            get
-            {
-                return this.beatsFieldSpecified;
-            }
-            set
-            {
-                this.beatsFieldSpecified = value;
-            }
+            get { return beatsFieldSpecified; }
+            set { beatsFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute("second-beat")]
+        [XmlAttribute("second-beat")]
         public decimal secondbeat
         {
-            get
-            {
-                return this.secondbeatField;
-            }
-            set
-            {
-                this.secondbeatField = value;
-            }
+            get { return secondbeatField; }
+            set { secondbeatField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool secondbeatSpecified
         {
-            get
-            {
-                return this.secondbeatFieldSpecified;
-            }
-            set
-            {
-                this.secondbeatFieldSpecified = value;
-            }
+            get { return secondbeatFieldSpecified; }
+            set { secondbeatFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute("last-beat")]
+        [XmlAttribute("last-beat")]
         public decimal lastbeat
         {
-            get
-            {
-                return this.lastbeatField;
-            }
-            set
-            {
-                this.lastbeatField = value;
-            }
+            get { return lastbeatField; }
+            set { lastbeatField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool lastbeatSpecified
         {
-            get
-            {
-                return this.lastbeatFieldSpecified;
-            }
-            set
-            {
-                this.lastbeatFieldSpecified = value;
-            }
+            get { return lastbeatFieldSpecified; }
+            set { lastbeatFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public yesno slash
         {
-            get
-            {
-                return this.slashField;
-            }
-            set
-            {
-                this.slashField = value;
-            }
+            get { return slashField; }
+            set { slashField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool slashSpecified
         {
-            get
-            {
-                return this.slashFieldSpecified;
-            }
-            set
-            {
-                this.slashFieldSpecified = value;
-            }
+            get { return slashFieldSpecified; }
+            set { slashFieldSpecified = value; }
         }
     }
 }

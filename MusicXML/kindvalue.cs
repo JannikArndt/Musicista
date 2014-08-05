@@ -1,12 +1,14 @@
+using System;
+
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "kind-value")]
+    
+    [Serializable]
+    [XmlType(TypeName = "kind-value")]
     public enum kindvalue
     {
-
-
         major,
 
 
@@ -22,80 +24,61 @@ namespace MusicXML
         dominant,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("major-seventh")]
-        majorseventh,
+        [XmlEnum("major-seventh")] majorseventh,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("minor-seventh")]
-        minorseventh,
+        [XmlEnum("minor-seventh")] minorseventh,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("diminished-seventh")]
-        diminishedseventh,
+        [XmlEnum("diminished-seventh")] diminishedseventh,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("augmented-seventh")]
-        augmentedseventh,
+        [XmlEnum("augmented-seventh")] augmentedseventh,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("half-diminished")]
-        halfdiminished,
+        [XmlEnum("half-diminished")] halfdiminished,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("major-minor")]
-        majorminor,
+        [XmlEnum("major-minor")] majorminor,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("major-sixth")]
-        majorsixth,
+        [XmlEnum("major-sixth")] majorsixth,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("minor-sixth")]
-        minorsixth,
+        [XmlEnum("minor-sixth")] minorsixth,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("dominant-ninth")]
-        dominantninth,
+        [XmlEnum("dominant-ninth")] dominantninth,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("major-ninth")]
-        majorninth,
+        [XmlEnum("major-ninth")] majorninth,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("minor-ninth")]
-        minorninth,
+        [XmlEnum("minor-ninth")] minorninth,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("dominant-11th")]
-        dominant11th,
+        [XmlEnum("dominant-11th")] dominant11th,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("major-11th")]
-        major11th,
+        [XmlEnum("major-11th")] major11th,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("minor-11th")]
-        minor11th,
+        [XmlEnum("minor-11th")] minor11th,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("dominant-13th")]
-        dominant13th,
+        [XmlEnum("dominant-13th")] dominant13th,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("major-13th")]
-        major13th,
+        [XmlEnum("major-13th")] major13th,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("minor-13th")]
-        minor13th,
+        [XmlEnum("minor-13th")] minor13th,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("suspended-second")]
-        suspendedsecond,
+        [XmlEnum("suspended-second")] suspendedsecond,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("suspended-fourth")]
-        suspendedfourth,
+        [XmlEnum("suspended-fourth")] suspendedfourth,
 
 
         Neapolitan,

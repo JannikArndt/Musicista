@@ -1,49 +1,43 @@
+using System;
+
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+using MusicXML.Enums;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "metronome-beam")]
-    public partial class metronomebeam
+    
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType(TypeName = "metronome-beam")]
+    public class metronomebeam
     {
-
         private string numberField;
 
         private beamvalue valueField;
 
         public metronomebeam()
         {
-            this.numberField = "1";
+            numberField = "1";
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "positiveInteger")]
-        [System.ComponentModel.DefaultValueAttribute("1")]
+        [XmlAttribute(DataType = "positiveInteger")]
+        [DefaultValue("1")]
         public string number
         {
-            get
-            {
-                return this.numberField;
-            }
-            set
-            {
-                this.numberField = value;
-            }
+            get { return numberField; }
+            set { numberField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlTextAttribute()]
+        [XmlText]
         public beamvalue Value
         {
-            get
-            {
-                return this.valueField;
-            }
-            set
-            {
-                this.valueField = value;
-            }
+            get { return valueField; }
+            set { valueField = value; }
         }
     }
 }

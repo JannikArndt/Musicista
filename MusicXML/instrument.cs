@@ -1,12 +1,18 @@
+using System;
+
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class instrument
+    
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    public class instrument
     {
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "IDREF")]
+        [XmlAttribute(DataType = "IDREF")]
         public string id { get; set; }
     }
 }

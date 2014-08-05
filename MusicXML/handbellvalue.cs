@@ -1,12 +1,14 @@
+using System;
+
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "handbell-value")]
+    
+    [Serializable]
+    [XmlType(TypeName = "handbell-value")]
     public enum handbellvalue
     {
-
-
         damp,
 
 
@@ -16,31 +18,25 @@ namespace MusicXML
         gyro,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("hand martellato")]
-        handmartellato,
+        [XmlEnum("hand martellato")] handmartellato,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("mallet lift")]
-        malletlift,
+        [XmlEnum("mallet lift")] malletlift,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("mallet table")]
-        mallettable,
+        [XmlEnum("mallet table")] mallettable,
 
 
         martellato,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("martellato lift")]
-        martellatolift,
+        [XmlEnum("martellato lift")] martellatolift,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("muted martellato")]
-        mutedmartellato,
+        [XmlEnum("muted martellato")] mutedmartellato,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("pluck lift")]
-        plucklift,
+        [XmlEnum("pluck lift")] plucklift,
 
 
         swing,

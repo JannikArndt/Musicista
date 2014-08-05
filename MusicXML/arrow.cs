@@ -1,12 +1,18 @@
+using System;
+
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+using MusicXML.Enums;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class arrow
+    
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    public class arrow
     {
-
         private object[] itemsField;
 
         private abovebelow placementField;
@@ -14,47 +20,29 @@ namespace MusicXML
         private bool placementFieldSpecified;
 
 
-        [System.Xml.Serialization.XmlElementAttribute("arrow-direction", typeof(arrowdirection))]
-        [System.Xml.Serialization.XmlElementAttribute("arrow-style", typeof(arrowstyle))]
-        [System.Xml.Serialization.XmlElementAttribute("circular-arrow", typeof(circulararrow))]
+        [XmlElement("arrow-direction", typeof (arrowdirection))]
+        [XmlElement("arrow-style", typeof (arrowstyle))]
+        [XmlElement("circular-arrow", typeof (circulararrow))]
         public object[] Items
         {
-            get
-            {
-                return this.itemsField;
-            }
-            set
-            {
-                this.itemsField = value;
-            }
+            get { return itemsField; }
+            set { itemsField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public abovebelow placement
         {
-            get
-            {
-                return this.placementField;
-            }
-            set
-            {
-                this.placementField = value;
-            }
+            get { return placementField; }
+            set { placementField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool placementSpecified
         {
-            get
-            {
-                return this.placementFieldSpecified;
-            }
-            set
-            {
-                this.placementFieldSpecified = value;
-            }
+            get { return placementFieldSpecified; }
+            set { placementFieldSpecified = value; }
         }
     }
 }

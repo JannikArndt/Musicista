@@ -1,12 +1,18 @@
+using System;
+
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+using MusicXML.Enums;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class cancel
+    
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    public class cancel
     {
-
         private cancellocation locationField;
 
         private bool locationFieldSpecified;
@@ -14,45 +20,27 @@ namespace MusicXML
         private string valueField;
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public cancellocation location
         {
-            get
-            {
-                return this.locationField;
-            }
-            set
-            {
-                this.locationField = value;
-            }
+            get { return locationField; }
+            set { locationField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool locationSpecified
         {
-            get
-            {
-                return this.locationFieldSpecified;
-            }
-            set
-            {
-                this.locationFieldSpecified = value;
-            }
+            get { return locationFieldSpecified; }
+            set { locationFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlTextAttribute(DataType = "integer")]
+        [XmlText(DataType = "integer")]
         public string Value
         {
-            get
-            {
-                return this.valueField;
-            }
-            set
-            {
-                this.valueField = value;
-            }
+            get { return valueField; }
+            set { valueField = value; }
         }
     }
 }

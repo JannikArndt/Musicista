@@ -5,6 +5,11 @@ namespace MusicXML
 {
     public abstract class MusicXMLScore
     {
+        protected MusicXMLScore()
+        {
+            Work = Work ?? new work();
+        }
+
         [XmlElement("work")]
         public work Work { get; set; }
 
@@ -28,10 +33,5 @@ namespace MusicXML
 
         [XmlAttribute("version", DataType = "token"), DefaultValue("2.0")]
         public string Version { get; set; }
-
-        protected MusicXMLScore()
-        {
-            Work = Work ?? new work();
-        }
     }
 }

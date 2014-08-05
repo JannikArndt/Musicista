@@ -1,14 +1,15 @@
+using System;
+
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(IncludeInSchema = false)]
+    
+    [Serializable]
+    [XmlType(IncludeInSchema = false)]
     public enum ItemChoiceType1
     {
-
-
-        [System.Xml.Serialization.XmlEnumAttribute("pre-bend")]
-        prebend,
+        [XmlEnum("pre-bend")] prebend,
 
 
         release,

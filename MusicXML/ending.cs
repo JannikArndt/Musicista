@@ -1,12 +1,13 @@
 using System;
-using System.CodeDom.Compiler;
+
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Serialization;
+using MusicXML.Enums;
 
 namespace MusicXML
 {
-    [GeneratedCode("xsd", "4.0.30319.33440")]
+    
     [Serializable]
     [DebuggerStepThrough]
     [DesignerCategory("code")]
@@ -32,7 +33,7 @@ namespace MusicXML
 
         private string valueField;
 
-    
+
         [XmlAttribute(DataType = "token")]
         public string number
         {
@@ -40,7 +41,7 @@ namespace MusicXML
             set { numberField = value; }
         }
 
-    
+
         [XmlAttribute]
         public startstopdiscontinue type
         {
@@ -48,7 +49,7 @@ namespace MusicXML
             set { typeField = value; }
         }
 
-    
+
         [XmlAttribute("print-object")]
         public yesno printobject
         {
@@ -56,7 +57,7 @@ namespace MusicXML
             set { printobjectField = value; }
         }
 
-    
+
         [XmlIgnore]
         public bool printobjectSpecified
         {
@@ -64,7 +65,7 @@ namespace MusicXML
             set { printobjectFieldSpecified = value; }
         }
 
-    
+
         [XmlAttribute("end-length")]
         public decimal endlength
         {
@@ -72,7 +73,7 @@ namespace MusicXML
             set { endlengthField = value; }
         }
 
-    
+
         [XmlIgnore]
         public bool endlengthSpecified
         {
@@ -80,7 +81,7 @@ namespace MusicXML
             set { endlengthFieldSpecified = value; }
         }
 
-    
+
         [XmlAttribute("text-x")]
         public decimal textx
         {
@@ -88,7 +89,7 @@ namespace MusicXML
             set { textxField = value; }
         }
 
-    
+
         [XmlIgnore]
         public bool textxSpecified
         {
@@ -96,7 +97,7 @@ namespace MusicXML
             set { textxFieldSpecified = value; }
         }
 
-    
+
         [XmlAttribute("text-y")]
         public decimal texty
         {
@@ -104,7 +105,7 @@ namespace MusicXML
             set { textyField = value; }
         }
 
-    
+
         [XmlIgnore]
         public bool textySpecified
         {
@@ -112,7 +113,7 @@ namespace MusicXML
             set { textyFieldSpecified = value; }
         }
 
-    
+
         [XmlText]
         public string Value
         {

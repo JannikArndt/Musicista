@@ -1,16 +1,18 @@
+using System;
+
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+using MusicXML.Enums;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class mordent : emptytrillsound
+    
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    public class mordent : emptytrillsound
     {
-
-        private yesno longField;
-
-        private bool longFieldSpecified;
-
         private abovebelow approachField;
 
         private bool approachFieldSpecified;
@@ -18,89 +20,56 @@ namespace MusicXML
         private abovebelow departureField;
 
         private bool departureFieldSpecified;
+        private yesno longField;
+
+        private bool longFieldSpecified;
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public yesno @long
         {
-            get
-            {
-                return this.longField;
-            }
-            set
-            {
-                this.longField = value;
-            }
+            get { return longField; }
+            set { longField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool longSpecified
         {
-            get
-            {
-                return this.longFieldSpecified;
-            }
-            set
-            {
-                this.longFieldSpecified = value;
-            }
+            get { return longFieldSpecified; }
+            set { longFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public abovebelow approach
         {
-            get
-            {
-                return this.approachField;
-            }
-            set
-            {
-                this.approachField = value;
-            }
+            get { return approachField; }
+            set { approachField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool approachSpecified
         {
-            get
-            {
-                return this.approachFieldSpecified;
-            }
-            set
-            {
-                this.approachFieldSpecified = value;
-            }
+            get { return approachFieldSpecified; }
+            set { approachFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public abovebelow departure
         {
-            get
-            {
-                return this.departureField;
-            }
-            set
-            {
-                this.departureField = value;
-            }
+            get { return departureField; }
+            set { departureField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool departureSpecified
         {
-            get
-            {
-                return this.departureFieldSpecified;
-            }
-            set
-            {
-                this.departureFieldSpecified = value;
-            }
+            get { return departureFieldSpecified; }
+            set { departureFieldSpecified = value; }
         }
     }
 }

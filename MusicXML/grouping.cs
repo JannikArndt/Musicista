@@ -1,12 +1,12 @@
 using System;
-using System.CodeDom.Compiler;
+
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Serialization;
 
 namespace MusicXML
 {
-    [GeneratedCode("xsd", "4.0.30319.33440")]
+    
     [Serializable]
     [DebuggerStepThrough]
     [DesignerCategory("code")]
@@ -23,7 +23,7 @@ namespace MusicXML
             numberField = "1";
         }
 
-    
+
         [XmlElement("feature")]
         public feature[] feature
         {
@@ -31,7 +31,7 @@ namespace MusicXML
             set { featureField = value; }
         }
 
-    
+
         [XmlAttribute]
         public startstopsingle type
         {
@@ -39,7 +39,7 @@ namespace MusicXML
             set { typeField = value; }
         }
 
-    
+
         [XmlAttribute(DataType = "token")]
         [DefaultValue("1")]
         public string number
@@ -48,7 +48,7 @@ namespace MusicXML
             set { numberField = value; }
         }
 
-    
+
         [XmlAttribute("member-of", DataType = "token")]
         public string memberof
         {

@@ -1,5 +1,5 @@
 using System;
-using System.CodeDom.Compiler;
+
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Schema;
@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace MusicXML
 {
-    [GeneratedCode("xsd", "4.0.30319.33440")]
+    
     [Serializable]
     [DebuggerStepThrough]
     [DesignerCategory("code")]
@@ -20,7 +20,7 @@ namespace MusicXML
 
         private string valueField;
 
-    
+
         [XmlAttribute(Form = XmlSchemaForm.Qualified, Namespace = "http://www.w3.org/XML/1998/namespace")]
         public string lang
         {
@@ -28,7 +28,7 @@ namespace MusicXML
             set { langField = value; }
         }
 
-    
+
         [XmlAttribute(Form = XmlSchemaForm.Qualified, Namespace = "http://www.w3.org/XML/1998/namespace")]
         public string space
         {
@@ -36,7 +36,7 @@ namespace MusicXML
             set { spaceField = value; }
         }
 
-    
+
         [XmlText]
         public string Value
         {

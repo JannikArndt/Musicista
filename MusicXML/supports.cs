@@ -1,74 +1,54 @@
+using System;
+
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+using MusicXML.Enums;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class supports
+    
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    public class supports
     {
-
-        private yesno typeField;
-
-        private string elementField;
-
         private string attributeField;
+        private string elementField;
+        private yesno typeField;
 
         private string valueField;
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public yesno type
         {
-            get
-            {
-                return this.typeField;
-            }
-            set
-            {
-                this.typeField = value;
-            }
+            get { return typeField; }
+            set { typeField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NMTOKEN")]
+        [XmlAttribute(DataType = "NMTOKEN")]
         public string element
         {
-            get
-            {
-                return this.elementField;
-            }
-            set
-            {
-                this.elementField = value;
-            }
+            get { return elementField; }
+            set { elementField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NMTOKEN")]
+        [XmlAttribute(DataType = "NMTOKEN")]
         public string attribute
         {
-            get
-            {
-                return this.attributeField;
-            }
-            set
-            {
-                this.attributeField = value;
-            }
+            get { return attributeField; }
+            set { attributeField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
+        [XmlAttribute(DataType = "token")]
         public string value
         {
-            get
-            {
-                return this.valueField;
-            }
-            set
-            {
-                this.valueField = value;
-            }
+            get { return valueField; }
+            set { valueField = value; }
         }
     }
 }

@@ -1,181 +1,116 @@
+using System;
+
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+using MusicXML.Enums;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class direction
+    
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    public class direction
     {
-
         private directiontype[] directiontypeField;
-
-        private offset offsetField;
-
-        private formattedtext footnoteField;
-
-        private level levelField;
-
-        private string voiceField;
-
-        private string staffField;
-
-        private sound soundField;
-
-        private abovebelow placementField;
-
-        private bool placementFieldSpecified;
-
         private yesno directiveField;
 
         private bool directiveFieldSpecified;
 
+        private formattedtext footnoteField;
 
-        [System.Xml.Serialization.XmlElementAttribute("direction-type")]
+        private level levelField;
+        private offset offsetField;
+
+        private abovebelow placementField;
+
+        private bool placementFieldSpecified;
+        private sound soundField;
+        private string staffField;
+        private string voiceField;
+
+
+        [XmlElement("direction-type")]
         public directiontype[] directiontype
         {
-            get
-            {
-                return this.directiontypeField;
-            }
-            set
-            {
-                this.directiontypeField = value;
-            }
+            get { return directiontypeField; }
+            set { directiontypeField = value; }
         }
 
 
         public offset offset
         {
-            get
-            {
-                return this.offsetField;
-            }
-            set
-            {
-                this.offsetField = value;
-            }
+            get { return offsetField; }
+            set { offsetField = value; }
         }
 
 
         public formattedtext footnote
         {
-            get
-            {
-                return this.footnoteField;
-            }
-            set
-            {
-                this.footnoteField = value;
-            }
+            get { return footnoteField; }
+            set { footnoteField = value; }
         }
 
 
         public level level
         {
-            get
-            {
-                return this.levelField;
-            }
-            set
-            {
-                this.levelField = value;
-            }
+            get { return levelField; }
+            set { levelField = value; }
         }
 
 
         public string voice
         {
-            get
-            {
-                return this.voiceField;
-            }
-            set
-            {
-                this.voiceField = value;
-            }
+            get { return voiceField; }
+            set { voiceField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "positiveInteger")]
+        [XmlElement(DataType = "positiveInteger")]
         public string staff
         {
-            get
-            {
-                return this.staffField;
-            }
-            set
-            {
-                this.staffField = value;
-            }
+            get { return staffField; }
+            set { staffField = value; }
         }
 
 
         public sound sound
         {
-            get
-            {
-                return this.soundField;
-            }
-            set
-            {
-                this.soundField = value;
-            }
+            get { return soundField; }
+            set { soundField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public abovebelow placement
         {
-            get
-            {
-                return this.placementField;
-            }
-            set
-            {
-                this.placementField = value;
-            }
+            get { return placementField; }
+            set { placementField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool placementSpecified
         {
-            get
-            {
-                return this.placementFieldSpecified;
-            }
-            set
-            {
-                this.placementFieldSpecified = value;
-            }
+            get { return placementFieldSpecified; }
+            set { placementFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public yesno directive
         {
-            get
-            {
-                return this.directiveField;
-            }
-            set
-            {
-                this.directiveField = value;
-            }
+            get { return directiveField; }
+            set { directiveField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool directiveSpecified
         {
-            get
-            {
-                return this.directiveFieldSpecified;
-            }
-            set
-            {
-                this.directiveFieldSpecified = value;
-            }
+            get { return directiveFieldSpecified; }
+            set { directiveFieldSpecified = value; }
         }
     }
 }

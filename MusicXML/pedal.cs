@@ -1,14 +1,17 @@
+using MusicXML.Enums;
+using System;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class pedal
+
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    public class pedal
     {
-
-        private startstopchangecontinue typeField;
-
         private yesno lineField;
 
         private bool lineFieldSpecified;
@@ -16,75 +19,46 @@ namespace MusicXML
         private yesno signField;
 
         private bool signFieldSpecified;
+        private startstopchangecontinue typeField;
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public startstopchangecontinue type
         {
-            get
-            {
-                return this.typeField;
-            }
-            set
-            {
-                this.typeField = value;
-            }
+            get { return typeField; }
+            set { typeField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public yesno line
         {
-            get
-            {
-                return this.lineField;
-            }
-            set
-            {
-                this.lineField = value;
-            }
+            get { return lineField; }
+            set { lineField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool lineSpecified
         {
-            get
-            {
-                return this.lineFieldSpecified;
-            }
-            set
-            {
-                this.lineFieldSpecified = value;
-            }
+            get { return lineFieldSpecified; }
+            set { lineFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public yesno sign
         {
-            get
-            {
-                return this.signField;
-            }
-            set
-            {
-                this.signField = value;
-            }
+            get { return signField; }
+            set { signField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool signSpecified
         {
-            get
-            {
-                return this.signFieldSpecified;
-            }
-            set
-            {
-                this.signFieldSpecified = value;
-            }
+            get { return signFieldSpecified; }
+            set { signFieldSpecified = value; }
         }
     }
 }

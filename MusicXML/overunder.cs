@@ -1,12 +1,14 @@
+using System;
+
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "over-under")]
+    
+    [Serializable]
+    [XmlType(TypeName = "over-under")]
     public enum overunder
     {
-
-
         over,
 
 

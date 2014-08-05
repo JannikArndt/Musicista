@@ -1,129 +1,91 @@
+using System;
+
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+using MusicXML.Enums;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "other-notation")]
-    public partial class othernotation
+    
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType(TypeName = "other-notation")]
+    public class othernotation
     {
-
-        private startstopsingle typeField;
-
         private string numberField;
-
-        private yesno printobjectField;
-
-        private bool printobjectFieldSpecified;
 
         private abovebelow placementField;
 
         private bool placementFieldSpecified;
+        private yesno printobjectField;
+
+        private bool printobjectFieldSpecified;
+        private startstopsingle typeField;
 
         private string valueField;
 
         public othernotation()
         {
-            this.numberField = "1";
+            numberField = "1";
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public startstopsingle type
         {
-            get
-            {
-                return this.typeField;
-            }
-            set
-            {
-                this.typeField = value;
-            }
+            get { return typeField; }
+            set { typeField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "positiveInteger")]
-        [System.ComponentModel.DefaultValueAttribute("1")]
+        [XmlAttribute(DataType = "positiveInteger")]
+        [DefaultValue("1")]
         public string number
         {
-            get
-            {
-                return this.numberField;
-            }
-            set
-            {
-                this.numberField = value;
-            }
+            get { return numberField; }
+            set { numberField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute("print-object")]
+        [XmlAttribute("print-object")]
         public yesno printobject
         {
-            get
-            {
-                return this.printobjectField;
-            }
-            set
-            {
-                this.printobjectField = value;
-            }
+            get { return printobjectField; }
+            set { printobjectField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool printobjectSpecified
         {
-            get
-            {
-                return this.printobjectFieldSpecified;
-            }
-            set
-            {
-                this.printobjectFieldSpecified = value;
-            }
+            get { return printobjectFieldSpecified; }
+            set { printobjectFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public abovebelow placement
         {
-            get
-            {
-                return this.placementField;
-            }
-            set
-            {
-                this.placementField = value;
-            }
+            get { return placementField; }
+            set { placementField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool placementSpecified
         {
-            get
-            {
-                return this.placementFieldSpecified;
-            }
-            set
-            {
-                this.placementFieldSpecified = value;
-            }
+            get { return placementFieldSpecified; }
+            set { placementFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlTextAttribute()]
+        [XmlText]
         public string Value
         {
-            get
-            {
-                return this.valueField;
-            }
-            set
-            {
-                this.valueField = value;
-            }
+            get { return valueField; }
+            set { valueField = value; }
         }
     }
 }

@@ -1,43 +1,35 @@
+using System;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "virtual-instrument")]
-    public partial class virtualinstrument
-    {
 
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType(TypeName = "virtual-instrument")]
+    public class virtualinstrument
+    {
         private string virtuallibraryField;
 
         private string virtualnameField;
 
 
-        [System.Xml.Serialization.XmlElementAttribute("virtual-library")]
+        [XmlElement("virtual-library")]
         public string virtuallibrary
         {
-            get
-            {
-                return this.virtuallibraryField;
-            }
-            set
-            {
-                this.virtuallibraryField = value;
-            }
+            get { return virtuallibraryField; }
+            set { virtuallibraryField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("virtual-name")]
+        [XmlElement("virtual-name")]
         public string virtualname
         {
-            get
-            {
-                return this.virtualnameField;
-            }
-            set
-            {
-                this.virtualnameField = value;
-            }
+            get { return virtualnameField; }
+            set { virtualnameField = value; }
         }
     }
 }

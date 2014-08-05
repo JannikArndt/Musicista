@@ -1,45 +1,37 @@
+using MusicXML.Enums;
+using System;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class play
-    {
 
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    public class play
+    {
+        private string idField;
         private object[] itemsField;
 
-        private string idField;
 
-
-        [System.Xml.Serialization.XmlElementAttribute("ipa", typeof(string))]
-        [System.Xml.Serialization.XmlElementAttribute("mute", typeof(mute))]
-        [System.Xml.Serialization.XmlElementAttribute("other-play", typeof(otherplay))]
-        [System.Xml.Serialization.XmlElementAttribute("semi-pitched", typeof(semipitched))]
+        [XmlElement("ipa", typeof(string))]
+        [XmlElement("mute", typeof(mute))]
+        [XmlElement("other-play", typeof(otherplay))]
+        [XmlElement("semi-pitched", typeof(semipitched))]
         public object[] Items
         {
-            get
-            {
-                return this.itemsField;
-            }
-            set
-            {
-                this.itemsField = value;
-            }
+            get { return itemsField; }
+            set { itemsField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "IDREF")]
+        [XmlAttribute(DataType = "IDREF")]
         public string id
         {
-            get
-            {
-                return this.idField;
-            }
-            set
-            {
-                this.idField = value;
-            }
+            get { return idField; }
+            set { idField = value; }
         }
     }
 }

@@ -1,191 +1,126 @@
+using System;
+
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "part-group")]
-    public partial class partgroup
+    
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType(TypeName = "part-group")]
+    public class partgroup
     {
-
-        private groupname groupnameField;
-
-        private namedisplay groupnamedisplayField;
-
+        private formattedtext footnoteField;
         private groupname groupabbreviationField;
 
         private namedisplay groupabbreviationdisplayField;
 
-        private groupsymbol groupsymbolField;
-
         private groupbarline groupbarlineField;
+        private groupname groupnameField;
+
+        private namedisplay groupnamedisplayField;
+        private groupsymbol groupsymbolField;
 
         private empty grouptimeField;
 
-        private formattedtext footnoteField;
-
         private level levelField;
 
-        private startstop typeField;
-
         private string numberField;
+        private startstop typeField;
 
         public partgroup()
         {
-            this.numberField = "1";
+            numberField = "1";
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("group-name")]
+        [XmlElement("group-name")]
         public groupname groupname
         {
-            get
-            {
-                return this.groupnameField;
-            }
-            set
-            {
-                this.groupnameField = value;
-            }
+            get { return groupnameField; }
+            set { groupnameField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("group-name-display")]
+        [XmlElement("group-name-display")]
         public namedisplay groupnamedisplay
         {
-            get
-            {
-                return this.groupnamedisplayField;
-            }
-            set
-            {
-                this.groupnamedisplayField = value;
-            }
+            get { return groupnamedisplayField; }
+            set { groupnamedisplayField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("group-abbreviation")]
+        [XmlElement("group-abbreviation")]
         public groupname groupabbreviation
         {
-            get
-            {
-                return this.groupabbreviationField;
-            }
-            set
-            {
-                this.groupabbreviationField = value;
-            }
+            get { return groupabbreviationField; }
+            set { groupabbreviationField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("group-abbreviation-display")]
+        [XmlElement("group-abbreviation-display")]
         public namedisplay groupabbreviationdisplay
         {
-            get
-            {
-                return this.groupabbreviationdisplayField;
-            }
-            set
-            {
-                this.groupabbreviationdisplayField = value;
-            }
+            get { return groupabbreviationdisplayField; }
+            set { groupabbreviationdisplayField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("group-symbol")]
+        [XmlElement("group-symbol")]
         public groupsymbol groupsymbol
         {
-            get
-            {
-                return this.groupsymbolField;
-            }
-            set
-            {
-                this.groupsymbolField = value;
-            }
+            get { return groupsymbolField; }
+            set { groupsymbolField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("group-barline")]
+        [XmlElement("group-barline")]
         public groupbarline groupbarline
         {
-            get
-            {
-                return this.groupbarlineField;
-            }
-            set
-            {
-                this.groupbarlineField = value;
-            }
+            get { return groupbarlineField; }
+            set { groupbarlineField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("group-time")]
+        [XmlElement("group-time")]
         public empty grouptime
         {
-            get
-            {
-                return this.grouptimeField;
-            }
-            set
-            {
-                this.grouptimeField = value;
-            }
+            get { return grouptimeField; }
+            set { grouptimeField = value; }
         }
 
 
         public formattedtext footnote
         {
-            get
-            {
-                return this.footnoteField;
-            }
-            set
-            {
-                this.footnoteField = value;
-            }
+            get { return footnoteField; }
+            set { footnoteField = value; }
         }
 
 
         public level level
         {
-            get
-            {
-                return this.levelField;
-            }
-            set
-            {
-                this.levelField = value;
-            }
+            get { return levelField; }
+            set { levelField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public startstop type
         {
-            get
-            {
-                return this.typeField;
-            }
-            set
-            {
-                this.typeField = value;
-            }
+            get { return typeField; }
+            set { typeField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
-        [System.ComponentModel.DefaultValueAttribute("1")]
+        [XmlAttribute(DataType = "token")]
+        [DefaultValue("1")]
         public string number
         {
-            get
-            {
-                return this.numberField;
-            }
-            set
-            {
-                this.numberField = value;
-            }
+            get { return numberField; }
+            set { numberField = value; }
         }
     }
 }

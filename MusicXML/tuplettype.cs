@@ -1,139 +1,93 @@
+using System;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "tuplet-type")]
-    public partial class tuplettype
-    {
 
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType(TypeName = "tuplet-type")]
+    public class tuplettype
+    {
+        private string colorField;
         private string fontfamilyField;
+        private string fontsizeField;
 
         private fontstyle fontstyleField;
 
         private bool fontstyleFieldSpecified;
 
-        private string fontsizeField;
-
         private fontweight fontweightField;
 
         private bool fontweightFieldSpecified;
 
-        private string colorField;
-
         private notetypevalue valueField;
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute("font-family", DataType = "token")]
+        [XmlAttribute("font-family", DataType = "token")]
         public string fontfamily
         {
-            get
-            {
-                return this.fontfamilyField;
-            }
-            set
-            {
-                this.fontfamilyField = value;
-            }
+            get { return fontfamilyField; }
+            set { fontfamilyField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute("font-style")]
+        [XmlAttribute("font-style")]
         public fontstyle fontstyle
         {
-            get
-            {
-                return this.fontstyleField;
-            }
-            set
-            {
-                this.fontstyleField = value;
-            }
+            get { return fontstyleField; }
+            set { fontstyleField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool fontstyleSpecified
         {
-            get
-            {
-                return this.fontstyleFieldSpecified;
-            }
-            set
-            {
-                this.fontstyleFieldSpecified = value;
-            }
+            get { return fontstyleFieldSpecified; }
+            set { fontstyleFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute("font-size")]
+        [XmlAttribute("font-size")]
         public string fontsize
         {
-            get
-            {
-                return this.fontsizeField;
-            }
-            set
-            {
-                this.fontsizeField = value;
-            }
+            get { return fontsizeField; }
+            set { fontsizeField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute("font-weight")]
+        [XmlAttribute("font-weight")]
         public fontweight fontweight
         {
-            get
-            {
-                return this.fontweightField;
-            }
-            set
-            {
-                this.fontweightField = value;
-            }
+            get { return fontweightField; }
+            set { fontweightField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool fontweightSpecified
         {
-            get
-            {
-                return this.fontweightFieldSpecified;
-            }
-            set
-            {
-                this.fontweightFieldSpecified = value;
-            }
+            get { return fontweightFieldSpecified; }
+            set { fontweightFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
+        [XmlAttribute(DataType = "token")]
         public string color
         {
-            get
-            {
-                return this.colorField;
-            }
-            set
-            {
-                this.colorField = value;
-            }
+            get { return colorField; }
+            set { colorField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlTextAttribute()]
+        [XmlText]
         public notetypevalue Value
         {
-            get
-            {
-                return this.valueField;
-            }
-            set
-            {
-                this.valueField = value;
-            }
+            get { return valueField; }
+            set { valueField = value; }
         }
     }
 }

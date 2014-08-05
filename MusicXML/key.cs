@@ -2,6 +2,8 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Serialization;
+using MusicXML.Enums;
+using MusicXML.Note;
 
 namespace MusicXML
 {
@@ -13,14 +15,14 @@ namespace MusicXML
         [XmlElement("fifths", DataType = "integer")]
         public string Fifths { get; set; }
 
-        [XmlElement("mode", typeof(string))]
+        [XmlElement("mode", typeof (string))]
         public string Mode { get; set; }
 
 
-        [XmlElement("cancel", typeof(cancel))]
-        [XmlElement("key-accidental", typeof(accidentalvalue))]
-        [XmlElement("key-alter", typeof(decimal))]
-        [XmlElement("key-step", typeof(Step))]
+        [XmlElement("cancel", typeof (cancel))]
+        [XmlElement("key-accidental", typeof (accidentalvalue))]
+        [XmlElement("key-alter", typeof (decimal))]
+        [XmlElement("key-step", typeof (Step))]
         [XmlChoiceIdentifier("ItemsElementName")]
         public object[] Items { get; set; }
 

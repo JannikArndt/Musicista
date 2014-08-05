@@ -1,11 +1,13 @@
+using System;
+
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    
+    [Serializable]
     public enum mute
     {
-
-
         on,
 
 
@@ -18,12 +20,10 @@ namespace MusicXML
         cup,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("harmon-no-stem")]
-        harmonnostem,
+        [XmlEnum("harmon-no-stem")] harmonnostem,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("harmon-stem")]
-        harmonstem,
+        [XmlEnum("harmon-stem")] harmonstem,
 
 
         bucket,
@@ -41,12 +41,10 @@ namespace MusicXML
         practice,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("stop-mute")]
-        stopmute,
+        [XmlEnum("stop-mute")] stopmute,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("stop-hand")]
-        stophand,
+        [XmlEnum("stop-hand")] stophand,
 
 
         echo,

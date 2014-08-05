@@ -1,12 +1,11 @@
 using System;
-using System.CodeDom.Compiler;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Serialization;
 
 namespace MusicXML
 {
-    [GeneratedCode("xsd", "4.0.30319.33440")]
+
     [Serializable]
     [DebuggerStepThrough]
     [DesignerCategory("code")]
@@ -17,6 +16,7 @@ namespace MusicXML
 
         [XmlElement("work-title")]
         public string WorkTitle { get; set; }
+
         [XmlElement("opus")]
         public opus Opus { get; set; }
     }

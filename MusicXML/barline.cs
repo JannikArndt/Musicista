@@ -1,148 +1,70 @@
+using MusicXML.Enums;
 using System;
-using System.CodeDom.Compiler;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Serialization;
 
 namespace MusicXML
 {
-    [GeneratedCode("xsd", "4.0.30319.33440")]
+
     [Serializable]
     [DebuggerStepThrough]
     [DesignerCategory("code")]
     public class barline
     {
-        private barstylecolor barstyleField;
-        private string coda1Field;
-
-        private emptyprintstylealign codaField;
-        private decimal divisionsField;
-
-        private bool divisionsFieldSpecified;
-
-        private ending endingField;
-        private fermata[] fermataField;
-        private formattedtext footnoteField;
-
-        private level levelField;
-
-        private rightleftmiddle locationField;
-        private repeat repeatField;
-
-        private string segno1Field;
-        private emptyprintstylealign segnoField;
-        private wavyline wavylineField;
-
         public barline()
         {
-            locationField = rightleftmiddle.right;
+            location = rightleftmiddle.right;
         }
 
-    
+
         [XmlElement("bar-style")]
-        public barstylecolor barstyle
-        {
-            get { return barstyleField; }
-            set { barstyleField = value; }
-        }
+        public barstylecolor barstyle { get; set; }
 
-    
-        public formattedtext footnote
-        {
-            get { return footnoteField; }
-            set { footnoteField = value; }
-        }
 
-    
-        public level level
-        {
-            get { return levelField; }
-            set { levelField = value; }
-        }
+        public formattedtext footnote { get; set; }
 
-    
+
+        public level level { get; set; }
+
+
         [XmlElement("wavy-line")]
-        public wavyline wavyline
-        {
-            get { return wavylineField; }
-            set { wavylineField = value; }
-        }
+        public wavyline wavyline { get; set; }
 
-    
-        public emptyprintstylealign segno
-        {
-            get { return segnoField; }
-            set { segnoField = value; }
-        }
 
-    
-        public emptyprintstylealign coda
-        {
-            get { return codaField; }
-            set { codaField = value; }
-        }
+        public emptyprintstylealign segno { get; set; }
 
-    
+
+        public emptyprintstylealign coda { get; set; }
+
+
         [XmlElement("fermata")]
-        public fermata[] fermata
-        {
-            get { return fermataField; }
-            set { fermataField = value; }
-        }
+        public fermata[] fermata { get; set; }
 
-    
-        public ending ending
-        {
-            get { return endingField; }
-            set { endingField = value; }
-        }
 
-    
-        public repeat repeat
-        {
-            get { return repeatField; }
-            set { repeatField = value; }
-        }
+        public ending ending { get; set; }
 
-    
-        [XmlAttribute]
-        [DefaultValue(rightleftmiddle.right)]
-        public rightleftmiddle location
-        {
-            get { return locationField; }
-            set { locationField = value; }
-        }
 
-    
+        public repeat repeat { get; set; }
+
+
+        [XmlAttribute, DefaultValue(rightleftmiddle.right)]
+        public rightleftmiddle location { get; set; }
+
+
         [XmlAttribute("segno", DataType = "token")]
-        public string segno1
-        {
-            get { return segno1Field; }
-            set { segno1Field = value; }
-        }
+        public string segno1 { get; set; }
 
-    
+
         [XmlAttribute("coda", DataType = "token")]
-        public string coda1
-        {
-            get { return coda1Field; }
-            set { coda1Field = value; }
-        }
+        public string coda1 { get; set; }
 
-    
+
         [XmlAttribute]
-        public decimal divisions
-        {
-            get { return divisionsField; }
-            set { divisionsField = value; }
-        }
+        public decimal divisions { get; set; }
 
-    
+
         [XmlIgnore]
-        public bool divisionsSpecified
-        {
-            get { return divisionsFieldSpecified; }
-            set { divisionsFieldSpecified = value; }
-        }
+        public bool divisionsSpecified { get; set; }
     }
 }

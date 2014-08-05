@@ -1,59 +1,45 @@
+using System;
+
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "accordion-registration")]
-    public partial class accordionregistration
+    
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType(TypeName = "accordion-registration")]
+    public class accordionregistration
     {
-
         private empty accordionhighField;
 
+        private empty accordionlowField;
         private string accordionmiddleField;
 
-        private empty accordionlowField;
 
-
-        [System.Xml.Serialization.XmlElementAttribute("accordion-high")]
+        [XmlElement("accordion-high")]
         public empty accordionhigh
         {
-            get
-            {
-                return this.accordionhighField;
-            }
-            set
-            {
-                this.accordionhighField = value;
-            }
+            get { return accordionhighField; }
+            set { accordionhighField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("accordion-middle", DataType = "positiveInteger")]
+        [XmlElement("accordion-middle", DataType = "positiveInteger")]
         public string accordionmiddle
         {
-            get
-            {
-                return this.accordionmiddleField;
-            }
-            set
-            {
-                this.accordionmiddleField = value;
-            }
+            get { return accordionmiddleField; }
+            set { accordionmiddleField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("accordion-low")]
+        [XmlElement("accordion-low")]
         public empty accordionlow
         {
-            get
-            {
-                return this.accordionlowField;
-            }
-            set
-            {
-                this.accordionlowField = value;
-            }
+            get { return accordionlowField; }
+            set { accordionlowField = value; }
         }
     }
 }

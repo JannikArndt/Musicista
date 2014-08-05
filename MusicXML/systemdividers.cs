@@ -1,43 +1,36 @@
+using System;
+
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "system-dividers")]
-    public partial class systemdividers
+    
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType(TypeName = "system-dividers")]
+    public class systemdividers
     {
-
         private emptyprintobjectstylealign leftdividerField;
 
         private emptyprintobjectstylealign rightdividerField;
 
 
-        [System.Xml.Serialization.XmlElementAttribute("left-divider")]
+        [XmlElement("left-divider")]
         public emptyprintobjectstylealign leftdivider
         {
-            get
-            {
-                return this.leftdividerField;
-            }
-            set
-            {
-                this.leftdividerField = value;
-            }
+            get { return leftdividerField; }
+            set { leftdividerField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("right-divider")]
+        [XmlElement("right-divider")]
         public emptyprintobjectstylealign rightdivider
         {
-            get
-            {
-                return this.rightdividerField;
-            }
-            set
-            {
-                this.rightdividerField = value;
-            }
+            get { return rightdividerField; }
+            set { rightdividerField = value; }
         }
     }
 }

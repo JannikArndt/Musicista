@@ -1,473 +1,291 @@
+using MusicXML.Enums;
+using System;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class sound
+
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    public class sound
     {
-
-        private mididevice[] midideviceField;
-
-        private midiinstrument[] midiinstrumentField;
-
-        private play[] playField;
-
-        private offset offsetField;
-
-        private decimal tempoField;
-
-        private bool tempoFieldSpecified;
-
-        private decimal dynamicsField;
-
-        private bool dynamicsFieldSpecified;
-
+        private string codaField;
         private yesno dacapoField;
 
         private bool dacapoFieldSpecified;
 
-        private string segnoField;
-
         private string dalsegnoField;
-
-        private string codaField;
-
-        private string tocodaField;
+        private string damperpedalField;
 
         private decimal divisionsField;
 
         private bool divisionsFieldSpecified;
+        private decimal dynamicsField;
+
+        private bool dynamicsFieldSpecified;
+        private decimal elevationField;
+
+        private bool elevationFieldSpecified;
+        private string fineField;
 
         private yesno forwardrepeatField;
 
         private bool forwardrepeatFieldSpecified;
+        private mididevice[] midideviceField;
 
-        private string fineField;
-
-        private string timeonlyField;
-
-        private yesno pizzicatoField;
-
-        private bool pizzicatoFieldSpecified;
+        private midiinstrument[] midiinstrumentField;
+        private offset offsetField;
 
         private decimal panField;
 
         private bool panFieldSpecified;
+        private yesno pizzicatoField;
 
-        private decimal elevationField;
-
-        private bool elevationFieldSpecified;
-
-        private string damperpedalField;
+        private bool pizzicatoFieldSpecified;
+        private play[] playField;
+        private string segnoField;
 
         private string softpedalField;
 
         private string sostenutopedalField;
+        private decimal tempoField;
+
+        private bool tempoFieldSpecified;
+        private string timeonlyField;
+        private string tocodaField;
 
 
-        [System.Xml.Serialization.XmlElementAttribute("midi-device")]
+        [XmlElement("midi-device")]
         public mididevice[] mididevice
         {
-            get
-            {
-                return this.midideviceField;
-            }
-            set
-            {
-                this.midideviceField = value;
-            }
+            get { return midideviceField; }
+            set { midideviceField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("midi-instrument")]
+        [XmlElement("midi-instrument")]
         public midiinstrument[] midiinstrument
         {
-            get
-            {
-                return this.midiinstrumentField;
-            }
-            set
-            {
-                this.midiinstrumentField = value;
-            }
+            get { return midiinstrumentField; }
+            set { midiinstrumentField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("play")]
+        [XmlElement("play")]
         public play[] play
         {
-            get
-            {
-                return this.playField;
-            }
-            set
-            {
-                this.playField = value;
-            }
+            get { return playField; }
+            set { playField = value; }
         }
 
 
         public offset offset
         {
-            get
-            {
-                return this.offsetField;
-            }
-            set
-            {
-                this.offsetField = value;
-            }
+            get { return offsetField; }
+            set { offsetField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public decimal tempo
         {
-            get
-            {
-                return this.tempoField;
-            }
-            set
-            {
-                this.tempoField = value;
-            }
+            get { return tempoField; }
+            set { tempoField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool tempoSpecified
         {
-            get
-            {
-                return this.tempoFieldSpecified;
-            }
-            set
-            {
-                this.tempoFieldSpecified = value;
-            }
+            get { return tempoFieldSpecified; }
+            set { tempoFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public decimal dynamics
         {
-            get
-            {
-                return this.dynamicsField;
-            }
-            set
-            {
-                this.dynamicsField = value;
-            }
+            get { return dynamicsField; }
+            set { dynamicsField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool dynamicsSpecified
         {
-            get
-            {
-                return this.dynamicsFieldSpecified;
-            }
-            set
-            {
-                this.dynamicsFieldSpecified = value;
-            }
+            get { return dynamicsFieldSpecified; }
+            set { dynamicsFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public yesno dacapo
         {
-            get
-            {
-                return this.dacapoField;
-            }
-            set
-            {
-                this.dacapoField = value;
-            }
+            get { return dacapoField; }
+            set { dacapoField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool dacapoSpecified
         {
-            get
-            {
-                return this.dacapoFieldSpecified;
-            }
-            set
-            {
-                this.dacapoFieldSpecified = value;
-            }
+            get { return dacapoFieldSpecified; }
+            set { dacapoFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
+        [XmlAttribute(DataType = "token")]
         public string segno
         {
-            get
-            {
-                return this.segnoField;
-            }
-            set
-            {
-                this.segnoField = value;
-            }
+            get { return segnoField; }
+            set { segnoField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
+        [XmlAttribute(DataType = "token")]
         public string dalsegno
         {
-            get
-            {
-                return this.dalsegnoField;
-            }
-            set
-            {
-                this.dalsegnoField = value;
-            }
+            get { return dalsegnoField; }
+            set { dalsegnoField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
+        [XmlAttribute(DataType = "token")]
         public string coda
         {
-            get
-            {
-                return this.codaField;
-            }
-            set
-            {
-                this.codaField = value;
-            }
+            get { return codaField; }
+            set { codaField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
+        [XmlAttribute(DataType = "token")]
         public string tocoda
         {
-            get
-            {
-                return this.tocodaField;
-            }
-            set
-            {
-                this.tocodaField = value;
-            }
+            get { return tocodaField; }
+            set { tocodaField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public decimal divisions
         {
-            get
-            {
-                return this.divisionsField;
-            }
-            set
-            {
-                this.divisionsField = value;
-            }
+            get { return divisionsField; }
+            set { divisionsField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool divisionsSpecified
         {
-            get
-            {
-                return this.divisionsFieldSpecified;
-            }
-            set
-            {
-                this.divisionsFieldSpecified = value;
-            }
+            get { return divisionsFieldSpecified; }
+            set { divisionsFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute("forward-repeat")]
+        [XmlAttribute("forward-repeat")]
         public yesno forwardrepeat
         {
-            get
-            {
-                return this.forwardrepeatField;
-            }
-            set
-            {
-                this.forwardrepeatField = value;
-            }
+            get { return forwardrepeatField; }
+            set { forwardrepeatField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool forwardrepeatSpecified
         {
-            get
-            {
-                return this.forwardrepeatFieldSpecified;
-            }
-            set
-            {
-                this.forwardrepeatFieldSpecified = value;
-            }
+            get { return forwardrepeatFieldSpecified; }
+            set { forwardrepeatFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
+        [XmlAttribute(DataType = "token")]
         public string fine
         {
-            get
-            {
-                return this.fineField;
-            }
-            set
-            {
-                this.fineField = value;
-            }
+            get { return fineField; }
+            set { fineField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute("time-only", DataType = "token")]
+        [XmlAttribute("time-only", DataType = "token")]
         public string timeonly
         {
-            get
-            {
-                return this.timeonlyField;
-            }
-            set
-            {
-                this.timeonlyField = value;
-            }
+            get { return timeonlyField; }
+            set { timeonlyField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public yesno pizzicato
         {
-            get
-            {
-                return this.pizzicatoField;
-            }
-            set
-            {
-                this.pizzicatoField = value;
-            }
+            get { return pizzicatoField; }
+            set { pizzicatoField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool pizzicatoSpecified
         {
-            get
-            {
-                return this.pizzicatoFieldSpecified;
-            }
-            set
-            {
-                this.pizzicatoFieldSpecified = value;
-            }
+            get { return pizzicatoFieldSpecified; }
+            set { pizzicatoFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public decimal pan
         {
-            get
-            {
-                return this.panField;
-            }
-            set
-            {
-                this.panField = value;
-            }
+            get { return panField; }
+            set { panField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool panSpecified
         {
-            get
-            {
-                return this.panFieldSpecified;
-            }
-            set
-            {
-                this.panFieldSpecified = value;
-            }
+            get { return panFieldSpecified; }
+            set { panFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public decimal elevation
         {
-            get
-            {
-                return this.elevationField;
-            }
-            set
-            {
-                this.elevationField = value;
-            }
+            get { return elevationField; }
+            set { elevationField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool elevationSpecified
         {
-            get
-            {
-                return this.elevationFieldSpecified;
-            }
-            set
-            {
-                this.elevationFieldSpecified = value;
-            }
+            get { return elevationFieldSpecified; }
+            set { elevationFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute("damper-pedal")]
+        [XmlAttribute("damper-pedal")]
         public string damperpedal
         {
-            get
-            {
-                return this.damperpedalField;
-            }
-            set
-            {
-                this.damperpedalField = value;
-            }
+            get { return damperpedalField; }
+            set { damperpedalField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute("soft-pedal")]
+        [XmlAttribute("soft-pedal")]
         public string softpedal
         {
-            get
-            {
-                return this.softpedalField;
-            }
-            set
-            {
-                this.softpedalField = value;
-            }
+            get { return softpedalField; }
+            set { softpedalField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute("sostenuto-pedal")]
+        [XmlAttribute("sostenuto-pedal")]
         public string sostenutopedal
         {
-            get
-            {
-                return this.sostenutopedalField;
-            }
-            set
-            {
-                this.sostenutopedalField = value;
-            }
+            get { return sostenutopedalField; }
+            set { sostenutopedalField = value; }
         }
     }
 }

@@ -1,24 +1,24 @@
+using System;
+
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(IncludeInSchema = false)]
+    
+    [Serializable]
+    [XmlType(IncludeInSchema = false)]
     public enum ItemsChoiceType4
     {
-
-
         accent,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("breath-mark")]
-        breathmark,
+        [XmlEnum("breath-mark")] breathmark,
 
 
         caesura,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("detached-legato")]
-        detachedlegato,
+        [XmlEnum("detached-legato")] detachedlegato,
 
 
         doit,
@@ -27,8 +27,7 @@ namespace MusicXML
         falloff,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("other-articulation")]
-        otherarticulation,
+        [XmlEnum("other-articulation")] otherarticulation,
 
 
         plop,
@@ -49,8 +48,7 @@ namespace MusicXML
         stress,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("strong-accent")]
-        strongaccent,
+        [XmlEnum("strong-accent")] strongaccent,
 
 
         tenuto,

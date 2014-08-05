@@ -1,38 +1,33 @@
+using System;
+
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "note-type-value")]
+    
+    [Serializable]
+    [XmlType(TypeName = "note-type-value")]
     public enum notetypevalue
     {
+        [XmlEnum("1024th")] Item1024th,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("1024th")]
-        Item1024th,
+        [XmlEnum("512th")] Item512th,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("512th")]
-        Item512th,
+        [XmlEnum("256th")] Item256th,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("256th")]
-        Item256th,
+        [XmlEnum("128th")] Item128th,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("128th")]
-        Item128th,
+        [XmlEnum("64th")] Item64th,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("64th")]
-        Item64th,
+        [XmlEnum("32nd")] Item32nd,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("32nd")]
-        Item32nd,
-
-
-        [System.Xml.Serialization.XmlEnumAttribute("16th")]
-        Item16th,
+        [XmlEnum("16th")] Item16th,
 
 
         eighth,

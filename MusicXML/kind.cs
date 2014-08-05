@@ -1,26 +1,17 @@
+using MusicXML.Enums;
+using System;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class kind
+
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    public class kind
     {
-
-        private yesno usesymbolsField;
-
-        private bool usesymbolsFieldSpecified;
-
-        private string textField;
-
-        private yesno stackdegreesField;
-
-        private bool stackdegreesFieldSpecified;
-
-        private yesno parenthesesdegreesField;
-
-        private bool parenthesesdegreesFieldSpecified;
-
         private yesno bracketdegreesField;
 
         private bool bracketdegreesFieldSpecified;
@@ -28,6 +19,16 @@ namespace MusicXML
         private leftcenterright halignField;
 
         private bool halignFieldSpecified;
+        private yesno parenthesesdegreesField;
+
+        private bool parenthesesdegreesFieldSpecified;
+        private yesno stackdegreesField;
+
+        private bool stackdegreesFieldSpecified;
+        private string textField;
+        private yesno usesymbolsField;
+
+        private bool usesymbolsFieldSpecified;
 
         private valign valignField;
 
@@ -36,199 +37,115 @@ namespace MusicXML
         private kindvalue valueField;
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute("use-symbols")]
+        [XmlAttribute("use-symbols")]
         public yesno usesymbols
         {
-            get
-            {
-                return this.usesymbolsField;
-            }
-            set
-            {
-                this.usesymbolsField = value;
-            }
+            get { return usesymbolsField; }
+            set { usesymbolsField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool usesymbolsSpecified
         {
-            get
-            {
-                return this.usesymbolsFieldSpecified;
-            }
-            set
-            {
-                this.usesymbolsFieldSpecified = value;
-            }
+            get { return usesymbolsFieldSpecified; }
+            set { usesymbolsFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
+        [XmlAttribute(DataType = "token")]
         public string text
         {
-            get
-            {
-                return this.textField;
-            }
-            set
-            {
-                this.textField = value;
-            }
+            get { return textField; }
+            set { textField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute("stack-degrees")]
+        [XmlAttribute("stack-degrees")]
         public yesno stackdegrees
         {
-            get
-            {
-                return this.stackdegreesField;
-            }
-            set
-            {
-                this.stackdegreesField = value;
-            }
+            get { return stackdegreesField; }
+            set { stackdegreesField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool stackdegreesSpecified
         {
-            get
-            {
-                return this.stackdegreesFieldSpecified;
-            }
-            set
-            {
-                this.stackdegreesFieldSpecified = value;
-            }
+            get { return stackdegreesFieldSpecified; }
+            set { stackdegreesFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute("parentheses-degrees")]
+        [XmlAttribute("parentheses-degrees")]
         public yesno parenthesesdegrees
         {
-            get
-            {
-                return this.parenthesesdegreesField;
-            }
-            set
-            {
-                this.parenthesesdegreesField = value;
-            }
+            get { return parenthesesdegreesField; }
+            set { parenthesesdegreesField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool parenthesesdegreesSpecified
         {
-            get
-            {
-                return this.parenthesesdegreesFieldSpecified;
-            }
-            set
-            {
-                this.parenthesesdegreesFieldSpecified = value;
-            }
+            get { return parenthesesdegreesFieldSpecified; }
+            set { parenthesesdegreesFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute("bracket-degrees")]
+        [XmlAttribute("bracket-degrees")]
         public yesno bracketdegrees
         {
-            get
-            {
-                return this.bracketdegreesField;
-            }
-            set
-            {
-                this.bracketdegreesField = value;
-            }
+            get { return bracketdegreesField; }
+            set { bracketdegreesField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool bracketdegreesSpecified
         {
-            get
-            {
-                return this.bracketdegreesFieldSpecified;
-            }
-            set
-            {
-                this.bracketdegreesFieldSpecified = value;
-            }
+            get { return bracketdegreesFieldSpecified; }
+            set { bracketdegreesFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public leftcenterright halign
         {
-            get
-            {
-                return this.halignField;
-            }
-            set
-            {
-                this.halignField = value;
-            }
+            get { return halignField; }
+            set { halignField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool halignSpecified
         {
-            get
-            {
-                return this.halignFieldSpecified;
-            }
-            set
-            {
-                this.halignFieldSpecified = value;
-            }
+            get { return halignFieldSpecified; }
+            set { halignFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public valign valign
         {
-            get
-            {
-                return this.valignField;
-            }
-            set
-            {
-                this.valignField = value;
-            }
+            get { return valignField; }
+            set { valignField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool valignSpecified
         {
-            get
-            {
-                return this.valignFieldSpecified;
-            }
-            set
-            {
-                this.valignFieldSpecified = value;
-            }
+            get { return valignFieldSpecified; }
+            set { valignFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlTextAttribute()]
+        [XmlText]
         public kindvalue Value
         {
-            get
-            {
-                return this.valueField;
-            }
-            set
-            {
-                this.valueField = value;
-            }
+            get { return valueField; }
+            set { valueField = value; }
         }
     }
 }

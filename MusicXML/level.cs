@@ -1,12 +1,12 @@
+using MusicXML.Enums;
 using System;
-using System.CodeDom.Compiler;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Serialization;
 
 namespace MusicXML
 {
-    [GeneratedCode("xsd", "4.0.30319.33440")]
+
     [Serializable]
     [DebuggerStepThrough]
     [DesignerCategory("code")]
@@ -28,7 +28,7 @@ namespace MusicXML
 
         private string valueField;
 
-    
+
         [XmlAttribute]
         public yesno reference
         {
@@ -36,7 +36,7 @@ namespace MusicXML
             set { referenceField = value; }
         }
 
-    
+
         [XmlIgnore]
         public bool referenceSpecified
         {
@@ -44,7 +44,7 @@ namespace MusicXML
             set { referenceFieldSpecified = value; }
         }
 
-    
+
         [XmlAttribute]
         public yesno parentheses
         {
@@ -52,7 +52,7 @@ namespace MusicXML
             set { parenthesesField = value; }
         }
 
-    
+
         [XmlIgnore]
         public bool parenthesesSpecified
         {
@@ -60,7 +60,7 @@ namespace MusicXML
             set { parenthesesFieldSpecified = value; }
         }
 
-    
+
         [XmlAttribute]
         public yesno bracket
         {
@@ -68,7 +68,7 @@ namespace MusicXML
             set { bracketField = value; }
         }
 
-    
+
         [XmlIgnore]
         public bool bracketSpecified
         {
@@ -76,7 +76,7 @@ namespace MusicXML
             set { bracketFieldSpecified = value; }
         }
 
-    
+
         [XmlAttribute]
         public symbolsize size
         {
@@ -84,7 +84,7 @@ namespace MusicXML
             set { sizeField = value; }
         }
 
-    
+
         [XmlIgnore]
         public bool sizeSpecified
         {
@@ -92,7 +92,7 @@ namespace MusicXML
             set { sizeFieldSpecified = value; }
         }
 
-    
+
         [XmlText]
         public string Value
         {

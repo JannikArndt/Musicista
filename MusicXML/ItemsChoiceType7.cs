@@ -1,14 +1,15 @@
+using System;
+
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(IncludeInSchema = false)]
+    
+    [Serializable]
+    [XmlType(IncludeInSchema = false)]
     public enum ItemsChoiceType7
     {
-
-
-        [System.Xml.Serialization.XmlEnumAttribute("accordion-registration")]
-        accordionregistration,
+        [XmlEnum("accordion-registration")] accordionregistration,
 
 
         bracket,
@@ -20,8 +21,7 @@ namespace MusicXML
         damp,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("damp-all")]
-        dampall,
+        [XmlEnum("damp-all")] dampall,
 
 
         dashes,
@@ -33,8 +33,7 @@ namespace MusicXML
         eyeglasses,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("harp-pedals")]
-        harppedals,
+        [XmlEnum("harp-pedals")] harppedals,
 
 
         image,
@@ -43,12 +42,10 @@ namespace MusicXML
         metronome,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("octave-shift")]
-        octaveshift,
+        [XmlEnum("octave-shift")] octaveshift,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("other-direction")]
-        otherdirection,
+        [XmlEnum("other-direction")] otherdirection,
 
 
         pedal,
@@ -57,8 +54,7 @@ namespace MusicXML
         percussion,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("principal-voice")]
-        principalvoice,
+        [XmlEnum("principal-voice")] principalvoice,
 
 
         rehearsal,
@@ -70,8 +66,7 @@ namespace MusicXML
         segno,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("string-mute")]
-        stringmute,
+        [XmlEnum("string-mute")] stringmute,
 
 
         wedge,

@@ -1,71 +1,49 @@
+using System;
+
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "frame-note")]
-    public partial class framenote
+    
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType(TypeName = "frame-note")]
+    public class framenote
     {
-
-        private @string stringField;
-
-        private fret fretField;
-
-        private fingering fingeringField;
-
         private barre barreField;
+        private fingering fingeringField;
+        private fret fretField;
+        private @string stringField;
 
 
         public @string @string
         {
-            get
-            {
-                return this.stringField;
-            }
-            set
-            {
-                this.stringField = value;
-            }
+            get { return stringField; }
+            set { stringField = value; }
         }
 
 
         public fret fret
         {
-            get
-            {
-                return this.fretField;
-            }
-            set
-            {
-                this.fretField = value;
-            }
+            get { return fretField; }
+            set { fretField = value; }
         }
 
 
         public fingering fingering
         {
-            get
-            {
-                return this.fingeringField;
-            }
-            set
-            {
-                this.fingeringField = value;
-            }
+            get { return fingeringField; }
+            set { fingeringField = value; }
         }
 
 
         public barre barre
         {
-            get
-            {
-                return this.barreField;
-            }
-            set
-            {
-                this.barreField = value;
-            }
+            get { return barreField; }
+            set { barreField = value; }
         }
     }
 }

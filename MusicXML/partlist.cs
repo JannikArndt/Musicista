@@ -1,5 +1,5 @@
 using System;
-using System.CodeDom.Compiler;
+
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace MusicXML
 {
-    [GeneratedCode("xsd", "4.0.30319.33440")]
+    
     [Serializable]
     [DebuggerStepThrough]
     [DesignerCategory("code")]

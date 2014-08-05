@@ -12,10 +12,11 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
+using MusicXML.Enums;
 using Clef = Model.Sections.Notes.Clef;
 using Duration = Model.Sections.Notes.Duration;
 using Lyric = Model.Sections.Notes.Lyric;
-using Note = MusicXML.Note;
+using Note = MusicXML.Note.Note;
 using Step = Model.Meta.Step;
 
 namespace Musicista.Mappers
@@ -202,7 +203,7 @@ namespace Musicista.Mappers
                                    (list, value) =>
                                    {
                                        if (value.GetType() == typeof(Note)) list.Last().Add((Note)value);
-                                       if (value.GetType() == typeof(backup)) list.Add(new List<Note>());
+                                       if (value.GetType() == typeof(MusicXML.Note.backup)) list.Add(new List<Note>());
                                        return list;
                                    });
 

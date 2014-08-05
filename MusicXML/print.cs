@@ -14,6 +14,7 @@
 // 
 
 
+using MusicXML.Enums;
 
 namespace MusicXML
 {

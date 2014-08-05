@@ -1,13 +1,19 @@
+using System;
+
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+using MusicXML.Enums;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "degree-alter")]
-    public partial class degreealter
+    
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType(TypeName = "degree-alter")]
+    public class degreealter
     {
-
         private yesno plusminusField;
 
         private bool plusminusFieldSpecified;
@@ -15,45 +21,27 @@ namespace MusicXML
         private decimal valueField;
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute("plus-minus")]
+        [XmlAttribute("plus-minus")]
         public yesno plusminus
         {
-            get
-            {
-                return this.plusminusField;
-            }
-            set
-            {
-                this.plusminusField = value;
-            }
+            get { return plusminusField; }
+            set { plusminusField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool plusminusSpecified
         {
-            get
-            {
-                return this.plusminusFieldSpecified;
-            }
-            set
-            {
-                this.plusminusFieldSpecified = value;
-            }
+            get { return plusminusFieldSpecified; }
+            set { plusminusFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlTextAttribute()]
+        [XmlText]
         public decimal Value
         {
-            get
-            {
-                return this.valueField;
-            }
-            set
-            {
-                this.valueField = value;
-            }
+            get { return valueField; }
+            set { valueField = value; }
         }
     }
 }

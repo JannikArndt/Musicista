@@ -1,75 +1,54 @@
+using System;
+
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "metronome-note")]
-    public partial class metronomenote
+    
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType(TypeName = "metronome-note")]
+    public class metronomenote
     {
-
-        private notetypevalue metronometypeField;
-
+        private metronomebeam[] metronomebeamField;
         private empty[] metronomedotField;
 
-        private metronomebeam[] metronomebeamField;
-
         private metronometuplet metronometupletField;
+        private notetypevalue metronometypeField;
 
 
-        [System.Xml.Serialization.XmlElementAttribute("metronome-type")]
+        [XmlElement("metronome-type")]
         public notetypevalue metronometype
         {
-            get
-            {
-                return this.metronometypeField;
-            }
-            set
-            {
-                this.metronometypeField = value;
-            }
+            get { return metronometypeField; }
+            set { metronometypeField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("metronome-dot")]
+        [XmlElement("metronome-dot")]
         public empty[] metronomedot
         {
-            get
-            {
-                return this.metronomedotField;
-            }
-            set
-            {
-                this.metronomedotField = value;
-            }
+            get { return metronomedotField; }
+            set { metronomedotField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("metronome-beam")]
+        [XmlElement("metronome-beam")]
         public metronomebeam[] metronomebeam
         {
-            get
-            {
-                return this.metronomebeamField;
-            }
-            set
-            {
-                this.metronomebeamField = value;
-            }
+            get { return metronomebeamField; }
+            set { metronomebeamField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("metronome-tuplet")]
+        [XmlElement("metronome-tuplet")]
         public metronometuplet metronometuplet
         {
-            get
-            {
-                return this.metronometupletField;
-            }
-            set
-            {
-                this.metronometupletField = value;
-            }
+            get { return metronometupletField; }
+            set { metronometupletField = value; }
         }
     }
 }

@@ -1,13 +1,20 @@
+using System;
+
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+using MusicXML.Enums;
+using MusicXML.Note;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "name-display")]
-    public partial class namedisplay
+    
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType(TypeName = "name-display")]
+    public class namedisplay
     {
-
         private object[] itemsField;
 
         private yesno printobjectField;
@@ -15,46 +22,28 @@ namespace MusicXML
         private bool printobjectFieldSpecified;
 
 
-        [System.Xml.Serialization.XmlElementAttribute("accidental-text", typeof(accidentaltext))]
-        [System.Xml.Serialization.XmlElementAttribute("display-text", typeof(formattedtext))]
+        [XmlElement("accidental-text", typeof (accidentaltext))]
+        [XmlElement("display-text", typeof (formattedtext))]
         public object[] Items
         {
-            get
-            {
-                return this.itemsField;
-            }
-            set
-            {
-                this.itemsField = value;
-            }
+            get { return itemsField; }
+            set { itemsField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute("print-object")]
+        [XmlAttribute("print-object")]
         public yesno printobject
         {
-            get
-            {
-                return this.printobjectField;
-            }
-            set
-            {
-                this.printobjectField = value;
-            }
+            get { return printobjectField; }
+            set { printobjectField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool printobjectSpecified
         {
-            get
-            {
-                return this.printobjectFieldSpecified;
-            }
-            set
-            {
-                this.printobjectFieldSpecified = value;
-            }
+            get { return printobjectFieldSpecified; }
+            set { printobjectFieldSpecified = value; }
         }
     }
 }

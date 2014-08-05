@@ -1,12 +1,13 @@
 using System;
-using System.CodeDom.Compiler;
+
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Serialization;
+using MusicXML.Enums;
 
 namespace MusicXML
 {
-    [GeneratedCode("xsd", "4.0.30319.33440")]
+    
     [Serializable]
     [DebuggerStepThrough]
     [DesignerCategory("code")]
@@ -17,7 +18,7 @@ namespace MusicXML
 
         private barstyle valueField;
 
-    
+
         [XmlAttribute(DataType = "token")]
         public string color
         {
@@ -25,7 +26,7 @@ namespace MusicXML
             set { colorField = value; }
         }
 
-    
+
         [XmlText]
         public barstyle Value
         {

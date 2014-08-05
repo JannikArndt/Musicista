@@ -1,12 +1,14 @@
+using System;
+
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "hole-closed-value")]
+    
+    [Serializable]
+    [XmlType(TypeName = "hole-closed-value")]
     public enum holeclosedvalue
     {
-
-
         yes,
 
 

@@ -1,33 +1,30 @@
+using System;
+
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(IncludeInSchema = false)]
+    
+    [Serializable]
+    [XmlType(IncludeInSchema = false)]
     public enum ItemsChoiceType2
     {
+        [XmlEnum("delayed-inverted-turn")] delayedinvertedturn,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("delayed-inverted-turn")]
-        delayedinvertedturn,
+        [XmlEnum("delayed-turn")] delayedturn,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("delayed-turn")]
-        delayedturn,
+        [XmlEnum("inverted-mordent")] invertedmordent,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("inverted-mordent")]
-        invertedmordent,
-
-
-        [System.Xml.Serialization.XmlEnumAttribute("inverted-turn")]
-        invertedturn,
+        [XmlEnum("inverted-turn")] invertedturn,
 
 
         mordent,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("other-ornament")]
-        otherornament,
+        [XmlEnum("other-ornament")] otherornament,
 
 
         schleifer,
@@ -39,18 +36,15 @@ namespace MusicXML
         tremolo,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("trill-mark")]
-        trillmark,
+        [XmlEnum("trill-mark")] trillmark,
 
 
         turn,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("vertical-turn")]
-        verticalturn,
+        [XmlEnum("vertical-turn")] verticalturn,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("wavy-line")]
-        wavyline,
+        [XmlEnum("wavy-line")] wavyline,
     }
 }

@@ -1,12 +1,14 @@
+using MusicXML.Enums;
+using MusicXML.Note;
 using System;
-using System.CodeDom.Compiler;
+
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Serialization;
 
 namespace MusicXML
 {
-    [GeneratedCode("xsd", "4.0.30319.33440")]
+    
     [Serializable]
     [DebuggerStepThrough]
     [DesignerCategory("code")]
@@ -22,7 +24,7 @@ namespace MusicXML
         XmlElement("grouping", typeof(grouping)),
         XmlElement("harmony", typeof(harmony)),
         XmlElement("link", typeof(link)),
-        XmlElement("note", typeof(Note)),
+        XmlElement("note", typeof(Note.Note)),
         XmlElement("print", typeof(print)),
         XmlElement("sound", typeof(sound))]
         public object[] Items { get; set; }

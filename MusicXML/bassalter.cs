@@ -1,91 +1,65 @@
+using MusicXML.Enums;
+using System;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "bass-alter")]
-    public partial class bassalter
-    {
 
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType(TypeName = "bass-alter")]
+    public class bassalter
+    {
+        private leftright locationField;
+
+        private bool locationFieldSpecified;
         private yesno printobjectField;
 
         private bool printobjectFieldSpecified;
 
-        private leftright locationField;
-
-        private bool locationFieldSpecified;
-
         private decimal valueField;
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute("print-object")]
+        [XmlAttribute("print-object")]
         public yesno printobject
         {
-            get
-            {
-                return this.printobjectField;
-            }
-            set
-            {
-                this.printobjectField = value;
-            }
+            get { return printobjectField; }
+            set { printobjectField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool printobjectSpecified
         {
-            get
-            {
-                return this.printobjectFieldSpecified;
-            }
-            set
-            {
-                this.printobjectFieldSpecified = value;
-            }
+            get { return printobjectFieldSpecified; }
+            set { printobjectFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public leftright location
         {
-            get
-            {
-                return this.locationField;
-            }
-            set
-            {
-                this.locationField = value;
-            }
+            get { return locationField; }
+            set { locationField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool locationSpecified
         {
-            get
-            {
-                return this.locationFieldSpecified;
-            }
-            set
-            {
-                this.locationFieldSpecified = value;
-            }
+            get { return locationFieldSpecified; }
+            set { locationFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlTextAttribute()]
+        [XmlText]
         public decimal Value
         {
-            get
-            {
-                return this.valueField;
-            }
-            set
-            {
-                this.valueField = value;
-            }
+            get { return valueField; }
+            set { valueField = value; }
         }
     }
 }

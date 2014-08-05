@@ -1,21 +1,20 @@
+using System;
+
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(IncludeInSchema = false)]
+    
+    [Serializable]
+    [XmlType(IncludeInSchema = false)]
     public enum Item1ChoiceType
     {
+        [XmlEnum("base-pitch")] basepitch,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("base-pitch")]
-        basepitch,
+        [XmlEnum("sounding-pitch")] soundingpitch,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("sounding-pitch")]
-        soundingpitch,
-
-
-        [System.Xml.Serialization.XmlEnumAttribute("touching-pitch")]
-        touchingpitch,
+        [XmlEnum("touching-pitch")] touchingpitch,
     }
 }

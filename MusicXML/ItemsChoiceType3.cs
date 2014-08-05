@@ -1,24 +1,24 @@
+using System;
+
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(IncludeInSchema = false)]
+    
+    [Serializable]
+    [XmlType(IncludeInSchema = false)]
     public enum ItemsChoiceType3
     {
-
-
         arrow,
 
 
         bend,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("double-tongue")]
-        doubletongue,
+        [XmlEnum("double-tongue")] doubletongue,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("down-bow")]
-        downbow,
+        [XmlEnum("down-bow")] downbow,
 
 
         fingering,
@@ -30,8 +30,7 @@ namespace MusicXML
         fret,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("hammer-on")]
-        hammeron,
+        [XmlEnum("hammer-on")] hammeron,
 
 
         handbell,
@@ -46,23 +45,19 @@ namespace MusicXML
         hole,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("open-string")]
-        openstring,
+        [XmlEnum("open-string")] openstring,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("other-technical")]
-        othertechnical,
+        [XmlEnum("other-technical")] othertechnical,
 
 
         pluck,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("pull-off")]
-        pulloff,
+        [XmlEnum("pull-off")] pulloff,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("snap-pizzicato")]
-        snappizzicato,
+        [XmlEnum("snap-pizzicato")] snappizzicato,
 
 
         stopped,
@@ -74,18 +69,15 @@ namespace MusicXML
         tap,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("thumb-position")]
-        thumbposition,
+        [XmlEnum("thumb-position")] thumbposition,
 
 
         toe,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("triple-tongue")]
-        tripletongue,
+        [XmlEnum("triple-tongue")] tripletongue,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("up-bow")]
-        upbow,
+        [XmlEnum("up-bow")] upbow,
     }
 }

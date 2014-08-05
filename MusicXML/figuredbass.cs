@@ -1,20 +1,28 @@
+using System;
+
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+using MusicXML.Enums;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "figured-bass")]
-    public partial class figuredbass
+    
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType(TypeName = "figured-bass")]
+    public class figuredbass
     {
-
-        private figure[] figureField;
-
         private decimal durationField;
+        private figure[] figureField;
 
         private formattedtext footnoteField;
 
         private level levelField;
+        private yesno parenthesesField;
+
+        private bool parenthesesFieldSpecified;
 
         private yesno printdotField;
 
@@ -24,145 +32,81 @@ namespace MusicXML
 
         private bool printlyricFieldSpecified;
 
-        private yesno parenthesesField;
 
-        private bool parenthesesFieldSpecified;
-
-
-        [System.Xml.Serialization.XmlElementAttribute("figure")]
+        [XmlElement("figure")]
         public figure[] figure
         {
-            get
-            {
-                return this.figureField;
-            }
-            set
-            {
-                this.figureField = value;
-            }
+            get { return figureField; }
+            set { figureField = value; }
         }
 
 
         public decimal duration
         {
-            get
-            {
-                return this.durationField;
-            }
-            set
-            {
-                this.durationField = value;
-            }
+            get { return durationField; }
+            set { durationField = value; }
         }
 
 
         public formattedtext footnote
         {
-            get
-            {
-                return this.footnoteField;
-            }
-            set
-            {
-                this.footnoteField = value;
-            }
+            get { return footnoteField; }
+            set { footnoteField = value; }
         }
 
 
         public level level
         {
-            get
-            {
-                return this.levelField;
-            }
-            set
-            {
-                this.levelField = value;
-            }
+            get { return levelField; }
+            set { levelField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute("print-dot")]
+        [XmlAttribute("print-dot")]
         public yesno printdot
         {
-            get
-            {
-                return this.printdotField;
-            }
-            set
-            {
-                this.printdotField = value;
-            }
+            get { return printdotField; }
+            set { printdotField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool printdotSpecified
         {
-            get
-            {
-                return this.printdotFieldSpecified;
-            }
-            set
-            {
-                this.printdotFieldSpecified = value;
-            }
+            get { return printdotFieldSpecified; }
+            set { printdotFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute("print-lyric")]
+        [XmlAttribute("print-lyric")]
         public yesno printlyric
         {
-            get
-            {
-                return this.printlyricField;
-            }
-            set
-            {
-                this.printlyricField = value;
-            }
+            get { return printlyricField; }
+            set { printlyricField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool printlyricSpecified
         {
-            get
-            {
-                return this.printlyricFieldSpecified;
-            }
-            set
-            {
-                this.printlyricFieldSpecified = value;
-            }
+            get { return printlyricFieldSpecified; }
+            set { printlyricFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public yesno parentheses
         {
-            get
-            {
-                return this.parenthesesField;
-            }
-            set
-            {
-                this.parenthesesField = value;
-            }
+            get { return parenthesesField; }
+            set { parenthesesField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool parenthesesSpecified
         {
-            get
-            {
-                return this.parenthesesFieldSpecified;
-            }
-            set
-            {
-                this.parenthesesFieldSpecified = value;
-            }
+            get { return parenthesesFieldSpecified; }
+            set { parenthesesFieldSpecified = value; }
         }
     }
 }

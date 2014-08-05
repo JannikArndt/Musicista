@@ -1,71 +1,50 @@
+using System;
+
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class figure
+    
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    public class figure
     {
-
+        private extend extendField;
+        private styletext figurenumberField;
         private styletext prefixField;
 
-        private styletext figurenumberField;
-
         private styletext suffixField;
-
-        private extend extendField;
 
 
         public styletext prefix
         {
-            get
-            {
-                return this.prefixField;
-            }
-            set
-            {
-                this.prefixField = value;
-            }
+            get { return prefixField; }
+            set { prefixField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("figure-number")]
+        [XmlElement("figure-number")]
         public styletext figurenumber
         {
-            get
-            {
-                return this.figurenumberField;
-            }
-            set
-            {
-                this.figurenumberField = value;
-            }
+            get { return figurenumberField; }
+            set { figurenumberField = value; }
         }
 
 
         public styletext suffix
         {
-            get
-            {
-                return this.suffixField;
-            }
-            set
-            {
-                this.suffixField = value;
-            }
+            get { return suffixField; }
+            set { suffixField = value; }
         }
 
 
         public extend extend
         {
-            get
-            {
-                return this.extendField;
-            }
-            set
-            {
-                this.extendField = value;
-            }
+            get { return extendField; }
+            set { extendField = value; }
         }
     }
 }

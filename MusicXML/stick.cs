@@ -1,74 +1,54 @@
+using MusicXML.Enums;
+using System;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class stick
+
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    public class stick
     {
-
-        private sticktype sticktypeField;
-
         private stickmaterial stickmaterialField;
+        private sticktype sticktypeField;
 
         private tipdirection tipField;
 
         private bool tipFieldSpecified;
 
 
-        [System.Xml.Serialization.XmlElementAttribute("stick-type")]
+        [XmlElement("stick-type")]
         public sticktype sticktype
         {
-            get
-            {
-                return this.sticktypeField;
-            }
-            set
-            {
-                this.sticktypeField = value;
-            }
+            get { return sticktypeField; }
+            set { sticktypeField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("stick-material")]
+        [XmlElement("stick-material")]
         public stickmaterial stickmaterial
         {
-            get
-            {
-                return this.stickmaterialField;
-            }
-            set
-            {
-                this.stickmaterialField = value;
-            }
+            get { return stickmaterialField; }
+            set { stickmaterialField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public tipdirection tip
         {
-            get
-            {
-                return this.tipField;
-            }
-            set
-            {
-                this.tipField = value;
-            }
+            get { return tipField; }
+            set { tipField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool tipSpecified
         {
-            get
-            {
-                return this.tipFieldSpecified;
-            }
-            set
-            {
-                this.tipFieldSpecified = value;
-            }
+            get { return tipFieldSpecified; }
+            set { tipFieldSpecified = value; }
         }
     }
 }

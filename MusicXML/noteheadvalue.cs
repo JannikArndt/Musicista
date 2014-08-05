@@ -1,12 +1,14 @@
+using System;
+
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "notehead-value")]
+    
+    [Serializable]
+    [XmlType(TypeName = "notehead-value")]
     public enum noteheadvalue
     {
-
-
         slash,
 
 
@@ -25,27 +27,22 @@ namespace MusicXML
         x,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("circle-x")]
-        circlex,
+        [XmlEnum("circle-x")] circlex,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("inverted triangle")]
-        invertedtriangle,
+        [XmlEnum("inverted triangle")] invertedtriangle,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("arrow down")]
-        arrowdown,
+        [XmlEnum("arrow down")] arrowdown,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("arrow up")]
-        arrowup,
+        [XmlEnum("arrow up")] arrowup,
 
 
         slashed,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("back slashed")]
-        backslashed,
+        [XmlEnum("back slashed")] backslashed,
 
 
         normal,
@@ -54,12 +51,10 @@ namespace MusicXML
         cluster,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("circle dot")]
-        circledot,
+        [XmlEnum("circle dot")] circledot,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("left triangle")]
-        lefttriangle,
+        [XmlEnum("left triangle")] lefttriangle,
 
 
         rectangle,
@@ -80,8 +75,7 @@ namespace MusicXML
         fa,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("fa up")]
-        faup,
+        [XmlEnum("fa up")] faup,
 
 
         so,

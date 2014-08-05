@@ -1,16 +1,21 @@
+using System;
+
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "score-instrument")]
-    public partial class scoreinstrument
+    
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType(TypeName = "score-instrument")]
+    public class scoreinstrument
     {
-
-        private string instrumentnameField;
-
+        private string idField;
         private string instrumentabbreviationField;
+        private string instrumentnameField;
 
         private string instrumentsoundField;
 
@@ -18,91 +23,53 @@ namespace MusicXML
 
         private virtualinstrument virtualinstrumentField;
 
-        private string idField;
 
-
-        [System.Xml.Serialization.XmlElementAttribute("instrument-name")]
+        [XmlElement("instrument-name")]
         public string instrumentname
         {
-            get
-            {
-                return this.instrumentnameField;
-            }
-            set
-            {
-                this.instrumentnameField = value;
-            }
+            get { return instrumentnameField; }
+            set { instrumentnameField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("instrument-abbreviation")]
+        [XmlElement("instrument-abbreviation")]
         public string instrumentabbreviation
         {
-            get
-            {
-                return this.instrumentabbreviationField;
-            }
-            set
-            {
-                this.instrumentabbreviationField = value;
-            }
+            get { return instrumentabbreviationField; }
+            set { instrumentabbreviationField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("instrument-sound")]
+        [XmlElement("instrument-sound")]
         public string instrumentsound
         {
-            get
-            {
-                return this.instrumentsoundField;
-            }
-            set
-            {
-                this.instrumentsoundField = value;
-            }
+            get { return instrumentsoundField; }
+            set { instrumentsoundField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("ensemble", typeof(string))]
-        [System.Xml.Serialization.XmlElementAttribute("solo", typeof(empty))]
+        [XmlElement("ensemble", typeof (string))]
+        [XmlElement("solo", typeof (empty))]
         public object Item
         {
-            get
-            {
-                return this.itemField;
-            }
-            set
-            {
-                this.itemField = value;
-            }
+            get { return itemField; }
+            set { itemField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("virtual-instrument")]
+        [XmlElement("virtual-instrument")]
         public virtualinstrument virtualinstrument
         {
-            get
-            {
-                return this.virtualinstrumentField;
-            }
-            set
-            {
-                this.virtualinstrumentField = value;
-            }
+            get { return virtualinstrumentField; }
+            set { virtualinstrumentField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "ID")]
+        [XmlAttribute(DataType = "ID")]
         public string id
         {
-            get
-            {
-                return this.idField;
-            }
-            set
-            {
-                this.idField = value;
-            }
+            get { return idField; }
+            set { idField = value; }
         }
     }
 }

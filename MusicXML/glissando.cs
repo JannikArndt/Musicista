@@ -1,160 +1,108 @@
+using System;
+
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class glissando
+    
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    public class glissando
     {
-
-        private startstop typeField;
-
-        private string numberField;
-
-        private linetype linetypeField;
-
-        private bool linetypeFieldSpecified;
-
         private decimal dashlengthField;
 
         private bool dashlengthFieldSpecified;
+        private linetype linetypeField;
+
+        private bool linetypeFieldSpecified;
+        private string numberField;
 
         private decimal spacelengthField;
 
         private bool spacelengthFieldSpecified;
+        private startstop typeField;
 
         private string valueField;
 
         public glissando()
         {
-            this.numberField = "1";
+            numberField = "1";
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public startstop type
         {
-            get
-            {
-                return this.typeField;
-            }
-            set
-            {
-                this.typeField = value;
-            }
+            get { return typeField; }
+            set { typeField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "positiveInteger")]
-        [System.ComponentModel.DefaultValueAttribute("1")]
+        [XmlAttribute(DataType = "positiveInteger")]
+        [DefaultValue("1")]
         public string number
         {
-            get
-            {
-                return this.numberField;
-            }
-            set
-            {
-                this.numberField = value;
-            }
+            get { return numberField; }
+            set { numberField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute("line-type")]
+        [XmlAttribute("line-type")]
         public linetype linetype
         {
-            get
-            {
-                return this.linetypeField;
-            }
-            set
-            {
-                this.linetypeField = value;
-            }
+            get { return linetypeField; }
+            set { linetypeField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool linetypeSpecified
         {
-            get
-            {
-                return this.linetypeFieldSpecified;
-            }
-            set
-            {
-                this.linetypeFieldSpecified = value;
-            }
+            get { return linetypeFieldSpecified; }
+            set { linetypeFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute("dash-length")]
+        [XmlAttribute("dash-length")]
         public decimal dashlength
         {
-            get
-            {
-                return this.dashlengthField;
-            }
-            set
-            {
-                this.dashlengthField = value;
-            }
+            get { return dashlengthField; }
+            set { dashlengthField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool dashlengthSpecified
         {
-            get
-            {
-                return this.dashlengthFieldSpecified;
-            }
-            set
-            {
-                this.dashlengthFieldSpecified = value;
-            }
+            get { return dashlengthFieldSpecified; }
+            set { dashlengthFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute("space-length")]
+        [XmlAttribute("space-length")]
         public decimal spacelength
         {
-            get
-            {
-                return this.spacelengthField;
-            }
-            set
-            {
-                this.spacelengthField = value;
-            }
+            get { return spacelengthField; }
+            set { spacelengthField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool spacelengthSpecified
         {
-            get
-            {
-                return this.spacelengthFieldSpecified;
-            }
-            set
-            {
-                this.spacelengthFieldSpecified = value;
-            }
+            get { return spacelengthFieldSpecified; }
+            set { spacelengthFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlTextAttribute()]
+        [XmlText]
         public string Value
         {
-            get
-            {
-                return this.valueField;
-            }
-            set
-            {
-                this.valueField = value;
-            }
+            get { return valueField; }
+            set { valueField = value; }
         }
     }
 }

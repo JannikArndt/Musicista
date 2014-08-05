@@ -1,12 +1,13 @@
+using System;
+
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    
+    [Serializable]
     public enum glass
     {
-
-
-        [System.Xml.Serialization.XmlEnumAttribute("wind chimes")]
-        windchimes,
+        [XmlEnum("wind chimes")] windchimes,
     }
 }

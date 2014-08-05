@@ -1,12 +1,17 @@
+using MusicXML.Enums;
+using System;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class offset
-    {
 
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    public class offset
+    {
         private yesno soundField;
 
         private bool soundFieldSpecified;
@@ -14,45 +19,27 @@ namespace MusicXML
         private decimal valueField;
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public yesno sound
         {
-            get
-            {
-                return this.soundField;
-            }
-            set
-            {
-                this.soundField = value;
-            }
+            get { return soundField; }
+            set { soundField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool soundSpecified
         {
-            get
-            {
-                return this.soundFieldSpecified;
-            }
-            set
-            {
-                this.soundFieldSpecified = value;
-            }
+            get { return soundFieldSpecified; }
+            set { soundFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlTextAttribute()]
+        [XmlText]
         public decimal Value
         {
-            get
-            {
-                return this.valueField;
-            }
-            set
-            {
-                this.valueField = value;
-            }
+            get { return valueField; }
+            set { valueField = value; }
         }
     }
 }

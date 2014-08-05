@@ -1,107 +1,74 @@
+using System;
+
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "system-layout")]
-    public partial class systemlayout
+    
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType(TypeName = "system-layout")]
+    public class systemlayout
     {
-
-        private systemmargins systemmarginsField;
-
         private decimal systemdistanceField;
 
         private bool systemdistanceFieldSpecified;
+        private systemdividers systemdividersField;
+        private systemmargins systemmarginsField;
 
         private decimal topsystemdistanceField;
 
         private bool topsystemdistanceFieldSpecified;
 
-        private systemdividers systemdividersField;
 
-
-        [System.Xml.Serialization.XmlElementAttribute("system-margins")]
+        [XmlElement("system-margins")]
         public systemmargins systemmargins
         {
-            get
-            {
-                return this.systemmarginsField;
-            }
-            set
-            {
-                this.systemmarginsField = value;
-            }
+            get { return systemmarginsField; }
+            set { systemmarginsField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("system-distance")]
+        [XmlElement("system-distance")]
         public decimal systemdistance
         {
-            get
-            {
-                return this.systemdistanceField;
-            }
-            set
-            {
-                this.systemdistanceField = value;
-            }
+            get { return systemdistanceField; }
+            set { systemdistanceField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool systemdistanceSpecified
         {
-            get
-            {
-                return this.systemdistanceFieldSpecified;
-            }
-            set
-            {
-                this.systemdistanceFieldSpecified = value;
-            }
+            get { return systemdistanceFieldSpecified; }
+            set { systemdistanceFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("top-system-distance")]
+        [XmlElement("top-system-distance")]
         public decimal topsystemdistance
         {
-            get
-            {
-                return this.topsystemdistanceField;
-            }
-            set
-            {
-                this.topsystemdistanceField = value;
-            }
+            get { return topsystemdistanceField; }
+            set { topsystemdistanceField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool topsystemdistanceSpecified
         {
-            get
-            {
-                return this.topsystemdistanceFieldSpecified;
-            }
-            set
-            {
-                this.topsystemdistanceFieldSpecified = value;
-            }
+            get { return topsystemdistanceFieldSpecified; }
+            set { topsystemdistanceFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("system-dividers")]
+        [XmlElement("system-dividers")]
         public systemdividers systemdividers
         {
-            get
-            {
-                return this.systemdividersField;
-            }
-            set
-            {
-                this.systemdividersField = value;
-            }
+            get { return systemdividersField; }
+            set { systemdividersField = value; }
         }
     }
 }

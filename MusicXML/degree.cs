@@ -1,90 +1,65 @@
+using System;
+
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+using MusicXML.Enums;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class degree
+    
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    public class degree
     {
-
-        private degreevalue degreevalueField;
-
         private degreealter degreealterField;
 
         private degreetype degreetypeField;
+        private degreevalue degreevalueField;
 
         private yesno printobjectField;
 
         private bool printobjectFieldSpecified;
 
 
-        [System.Xml.Serialization.XmlElementAttribute("degree-value")]
+        [XmlElement("degree-value")]
         public degreevalue degreevalue
         {
-            get
-            {
-                return this.degreevalueField;
-            }
-            set
-            {
-                this.degreevalueField = value;
-            }
+            get { return degreevalueField; }
+            set { degreevalueField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("degree-alter")]
+        [XmlElement("degree-alter")]
         public degreealter degreealter
         {
-            get
-            {
-                return this.degreealterField;
-            }
-            set
-            {
-                this.degreealterField = value;
-            }
+            get { return degreealterField; }
+            set { degreealterField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("degree-type")]
+        [XmlElement("degree-type")]
         public degreetype degreetype
         {
-            get
-            {
-                return this.degreetypeField;
-            }
-            set
-            {
-                this.degreetypeField = value;
-            }
+            get { return degreetypeField; }
+            set { degreetypeField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute("print-object")]
+        [XmlAttribute("print-object")]
         public yesno printobject
         {
-            get
-            {
-                return this.printobjectField;
-            }
-            set
-            {
-                this.printobjectField = value;
-            }
+            get { return printobjectField; }
+            set { printobjectField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool printobjectSpecified
         {
-            get
-            {
-                return this.printobjectFieldSpecified;
-            }
-            set
-            {
-                this.printobjectFieldSpecified = value;
-            }
+            get { return printobjectFieldSpecified; }
+            set { printobjectFieldSpecified = value; }
         }
     }
 }

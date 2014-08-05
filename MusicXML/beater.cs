@@ -1,12 +1,18 @@
+using System;
+
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+using MusicXML.Enums;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class beater
+    
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    public class beater
     {
-
         private tipdirection tipField;
 
         private bool tipFieldSpecified;
@@ -14,45 +20,27 @@ namespace MusicXML
         private beatervalue valueField;
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public tipdirection tip
         {
-            get
-            {
-                return this.tipField;
-            }
-            set
-            {
-                this.tipField = value;
-            }
+            get { return tipField; }
+            set { tipField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool tipSpecified
         {
-            get
-            {
-                return this.tipFieldSpecified;
-            }
-            set
-            {
-                this.tipFieldSpecified = value;
-            }
+            get { return tipFieldSpecified; }
+            set { tipFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlTextAttribute()]
+        [XmlText]
         public beatervalue Value
         {
-            get
-            {
-                return this.valueField;
-            }
-            set
-            {
-                this.valueField = value;
-            }
+            get { return valueField; }
+            set { valueField = value; }
         }
     }
 }

@@ -1,47 +1,41 @@
+using System;
+
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    
+    [Serializable]
     public enum membrane
     {
+        [XmlEnum("bass drum")] bassdrum,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("bass drum")]
-        bassdrum,
-
-
-        [System.Xml.Serialization.XmlEnumAttribute("bass drum on side")]
-        bassdrumonside,
+        [XmlEnum("bass drum on side")] bassdrumonside,
 
 
         bongos,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("conga drum")]
-        congadrum,
+        [XmlEnum("conga drum")] congadrum,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("goblet drum")]
-        gobletdrum,
+        [XmlEnum("goblet drum")] gobletdrum,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("military drum")]
-        militarydrum,
+        [XmlEnum("military drum")] militarydrum,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("snare drum")]
-        snaredrum,
+        [XmlEnum("snare drum")] snaredrum,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("snare drum snares off")]
-        snaredrumsnaresoff,
+        [XmlEnum("snare drum snares off")] snaredrumsnaresoff,
 
 
         tambourine,
 
 
-        [System.Xml.Serialization.XmlEnumAttribute("tenor drum")]
-        tenordrum,
+        [XmlEnum("tenor drum")] tenordrum,
 
 
         timbales,

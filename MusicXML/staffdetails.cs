@@ -1,32 +1,22 @@
+using System;
+
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+using MusicXML.Enums;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "staff-details")]
-    public partial class staffdetails
+    
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType(TypeName = "staff-details")]
+    public class staffdetails
     {
-
-        private stafftype stafftypeField;
-
-        private bool stafftypeFieldSpecified;
-
-        private string stafflinesField;
-
-        private stafftuning[] stafftuningField;
-
         private string capoField;
 
-        private decimal staffsizeField;
-
-        private bool staffsizeFieldSpecified;
-
         private string numberField;
-
-        private showfrets showfretsField;
-
-        private bool showfretsFieldSpecified;
 
         private yesno printobjectField;
 
@@ -35,201 +25,128 @@ namespace MusicXML
         private yesno printspacingField;
 
         private bool printspacingFieldSpecified;
+        private showfrets showfretsField;
+
+        private bool showfretsFieldSpecified;
+        private string stafflinesField;
+        private decimal staffsizeField;
+
+        private bool staffsizeFieldSpecified;
+        private stafftuning[] stafftuningField;
+        private stafftype stafftypeField;
+
+        private bool stafftypeFieldSpecified;
 
 
-        [System.Xml.Serialization.XmlElementAttribute("staff-type")]
+        [XmlElement("staff-type")]
         public stafftype stafftype
         {
-            get
-            {
-                return this.stafftypeField;
-            }
-            set
-            {
-                this.stafftypeField = value;
-            }
+            get { return stafftypeField; }
+            set { stafftypeField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool stafftypeSpecified
         {
-            get
-            {
-                return this.stafftypeFieldSpecified;
-            }
-            set
-            {
-                this.stafftypeFieldSpecified = value;
-            }
+            get { return stafftypeFieldSpecified; }
+            set { stafftypeFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("staff-lines", DataType = "nonNegativeInteger")]
+        [XmlElement("staff-lines", DataType = "nonNegativeInteger")]
         public string stafflines
         {
-            get
-            {
-                return this.stafflinesField;
-            }
-            set
-            {
-                this.stafflinesField = value;
-            }
+            get { return stafflinesField; }
+            set { stafflinesField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("staff-tuning")]
+        [XmlElement("staff-tuning")]
         public stafftuning[] stafftuning
         {
-            get
-            {
-                return this.stafftuningField;
-            }
-            set
-            {
-                this.stafftuningField = value;
-            }
+            get { return stafftuningField; }
+            set { stafftuningField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string capo
         {
-            get
-            {
-                return this.capoField;
-            }
-            set
-            {
-                this.capoField = value;
-            }
+            get { return capoField; }
+            set { capoField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("staff-size")]
+        [XmlElement("staff-size")]
         public decimal staffsize
         {
-            get
-            {
-                return this.staffsizeField;
-            }
-            set
-            {
-                this.staffsizeField = value;
-            }
+            get { return staffsizeField; }
+            set { staffsizeField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool staffsizeSpecified
         {
-            get
-            {
-                return this.staffsizeFieldSpecified;
-            }
-            set
-            {
-                this.staffsizeFieldSpecified = value;
-            }
+            get { return staffsizeFieldSpecified; }
+            set { staffsizeFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "positiveInteger")]
+        [XmlAttribute(DataType = "positiveInteger")]
         public string number
         {
-            get
-            {
-                return this.numberField;
-            }
-            set
-            {
-                this.numberField = value;
-            }
+            get { return numberField; }
+            set { numberField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute("show-frets")]
+        [XmlAttribute("show-frets")]
         public showfrets showfrets
         {
-            get
-            {
-                return this.showfretsField;
-            }
-            set
-            {
-                this.showfretsField = value;
-            }
+            get { return showfretsField; }
+            set { showfretsField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool showfretsSpecified
         {
-            get
-            {
-                return this.showfretsFieldSpecified;
-            }
-            set
-            {
-                this.showfretsFieldSpecified = value;
-            }
+            get { return showfretsFieldSpecified; }
+            set { showfretsFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute("print-object")]
+        [XmlAttribute("print-object")]
         public yesno printobject
         {
-            get
-            {
-                return this.printobjectField;
-            }
-            set
-            {
-                this.printobjectField = value;
-            }
+            get { return printobjectField; }
+            set { printobjectField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool printobjectSpecified
         {
-            get
-            {
-                return this.printobjectFieldSpecified;
-            }
-            set
-            {
-                this.printobjectFieldSpecified = value;
-            }
+            get { return printobjectFieldSpecified; }
+            set { printobjectFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute("print-spacing")]
+        [XmlAttribute("print-spacing")]
         public yesno printspacing
         {
-            get
-            {
-                return this.printspacingField;
-            }
-            set
-            {
-                this.printspacingField = value;
-            }
+            get { return printspacingField; }
+            set { printspacingField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool printspacingSpecified
         {
-            get
-            {
-                return this.printspacingFieldSpecified;
-            }
-            set
-            {
-                this.printspacingFieldSpecified = value;
-            }
+            get { return printspacingFieldSpecified; }
+            set { printspacingFieldSpecified = value; }
         }
     }
 }

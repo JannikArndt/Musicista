@@ -1,66 +1,58 @@
+using MusicXML.Note.Articulation;
+using System;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "direction-type")]
-    public partial class directiontype
-    {
 
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType(TypeName = "direction-type")]
+    public class directiontype
+    {
+        private ItemsChoiceType7[] itemsElementNameField;
         private object[] itemsField;
 
-        private ItemsChoiceType7[] itemsElementNameField;
 
-
-        [System.Xml.Serialization.XmlElementAttribute("accordion-registration", typeof(accordionregistration))]
-        [System.Xml.Serialization.XmlElementAttribute("bracket", typeof(bracket))]
-        [System.Xml.Serialization.XmlElementAttribute("coda", typeof(emptyprintstylealign))]
-        [System.Xml.Serialization.XmlElementAttribute("damp", typeof(emptyprintstylealign))]
-        [System.Xml.Serialization.XmlElementAttribute("damp-all", typeof(emptyprintstylealign))]
-        [System.Xml.Serialization.XmlElementAttribute("dashes", typeof(dashes))]
-        [System.Xml.Serialization.XmlElementAttribute("dynamics", typeof(dynamics))]
-        [System.Xml.Serialization.XmlElementAttribute("eyeglasses", typeof(emptyprintstylealign))]
-        [System.Xml.Serialization.XmlElementAttribute("harp-pedals", typeof(harppedals))]
-        [System.Xml.Serialization.XmlElementAttribute("image", typeof(image))]
-        [System.Xml.Serialization.XmlElementAttribute("metronome", typeof(metronome))]
-        [System.Xml.Serialization.XmlElementAttribute("octave-shift", typeof(octaveshift))]
-        [System.Xml.Serialization.XmlElementAttribute("other-direction", typeof(otherdirection))]
-        [System.Xml.Serialization.XmlElementAttribute("pedal", typeof(pedal))]
-        [System.Xml.Serialization.XmlElementAttribute("percussion", typeof(percussion))]
-        [System.Xml.Serialization.XmlElementAttribute("principal-voice", typeof(principalvoice))]
-        [System.Xml.Serialization.XmlElementAttribute("rehearsal", typeof(formattedtext))]
-        [System.Xml.Serialization.XmlElementAttribute("scordatura", typeof(scordatura))]
-        [System.Xml.Serialization.XmlElementAttribute("segno", typeof(emptyprintstylealign))]
-        [System.Xml.Serialization.XmlElementAttribute("string-mute", typeof(stringmute))]
-        [System.Xml.Serialization.XmlElementAttribute("wedge", typeof(wedge))]
-        [System.Xml.Serialization.XmlElementAttribute("words", typeof(formattedtext))]
-        [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemsElementName")]
+        [XmlElement("accordion-registration", typeof(accordionregistration))]
+        [XmlElement("bracket", typeof(bracket))]
+        [XmlElement("coda", typeof(emptyprintstylealign))]
+        [XmlElement("damp", typeof(emptyprintstylealign))]
+        [XmlElement("damp-all", typeof(emptyprintstylealign))]
+        [XmlElement("dashes", typeof(dashes))]
+        [XmlElement("dynamics", typeof(dynamics))]
+        [XmlElement("eyeglasses", typeof(emptyprintstylealign))]
+        [XmlElement("harp-pedals", typeof(harppedals))]
+        [XmlElement("image", typeof(image))]
+        [XmlElement("metronome", typeof(metronome))]
+        [XmlElement("octave-shift", typeof(octaveshift))]
+        [XmlElement("other-direction", typeof(otherdirection))]
+        [XmlElement("pedal", typeof(pedal))]
+        [XmlElement("percussion", typeof(percussion))]
+        [XmlElement("principal-voice", typeof(principalvoice))]
+        [XmlElement("rehearsal", typeof(formattedtext))]
+        [XmlElement("scordatura", typeof(scordatura))]
+        [XmlElement("segno", typeof(emptyprintstylealign))]
+        [XmlElement("string-mute", typeof(stringmute))]
+        [XmlElement("wedge", typeof(wedge))]
+        [XmlElement("words", typeof(formattedtext))]
+        [XmlChoiceIdentifier("ItemsElementName")]
         public object[] Items
         {
-            get
-            {
-                return this.itemsField;
-            }
-            set
-            {
-                this.itemsField = value;
-            }
+            get { return itemsField; }
+            set { itemsField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("ItemsElementName")]
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlElement("ItemsElementName")]
+        [XmlIgnore]
         public ItemsChoiceType7[] ItemsElementName
         {
-            get
-            {
-                return this.itemsElementNameField;
-            }
-            set
-            {
-                this.itemsElementNameField = value;
-            }
+            get { return itemsElementNameField; }
+            set { itemsElementNameField = value; }
         }
     }
 }

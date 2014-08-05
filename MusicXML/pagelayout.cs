@@ -1,59 +1,45 @@
+using System;
+
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "page-layout")]
-    public partial class pagelayout
+    
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType(TypeName = "page-layout")]
+    public class pagelayout
     {
-
         private decimal pageheightField;
 
+        private pagemargins[] pagemarginsField;
         private decimal pagewidthField;
 
-        private pagemargins[] pagemarginsField;
 
-
-        [System.Xml.Serialization.XmlElementAttribute("page-height")]
+        [XmlElement("page-height")]
         public decimal pageheight
         {
-            get
-            {
-                return this.pageheightField;
-            }
-            set
-            {
-                this.pageheightField = value;
-            }
+            get { return pageheightField; }
+            set { pageheightField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("page-width")]
+        [XmlElement("page-width")]
         public decimal pagewidth
         {
-            get
-            {
-                return this.pagewidthField;
-            }
-            set
-            {
-                this.pagewidthField = value;
-            }
+            get { return pagewidthField; }
+            set { pagewidthField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("page-margins")]
+        [XmlElement("page-margins")]
         public pagemargins[] pagemargins
         {
-            get
-            {
-                return this.pagemarginsField;
-            }
-            set
-            {
-                this.pagemarginsField = value;
-            }
+            get { return pagemarginsField; }
+            set { pagemarginsField = value; }
         }
     }
 }

@@ -1,152 +1,97 @@
+using System;
+
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class defaults
+    
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    public class defaults
     {
-
-        private scaling scalingField;
-
-        private pagelayout pagelayoutField;
-
-        private systemlayout systemlayoutField;
-
-        private stafflayout[] stafflayoutField;
-
         private appearance appearanceField;
-
-        private emptyfont musicfontField;
-
-        private emptyfont wordfontField;
 
         private lyricfont[] lyricfontField;
 
         private lyriclanguage[] lyriclanguageField;
+        private emptyfont musicfontField;
+        private pagelayout pagelayoutField;
+        private scaling scalingField;
+        private stafflayout[] stafflayoutField;
+        private systemlayout systemlayoutField;
+        private emptyfont wordfontField;
 
 
         public scaling scaling
         {
-            get
-            {
-                return this.scalingField;
-            }
-            set
-            {
-                this.scalingField = value;
-            }
+            get { return scalingField; }
+            set { scalingField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("page-layout")]
+        [XmlElement("page-layout")]
         public pagelayout pagelayout
         {
-            get
-            {
-                return this.pagelayoutField;
-            }
-            set
-            {
-                this.pagelayoutField = value;
-            }
+            get { return pagelayoutField; }
+            set { pagelayoutField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("system-layout")]
+        [XmlElement("system-layout")]
         public systemlayout systemlayout
         {
-            get
-            {
-                return this.systemlayoutField;
-            }
-            set
-            {
-                this.systemlayoutField = value;
-            }
+            get { return systemlayoutField; }
+            set { systemlayoutField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("staff-layout")]
+        [XmlElement("staff-layout")]
         public stafflayout[] stafflayout
         {
-            get
-            {
-                return this.stafflayoutField;
-            }
-            set
-            {
-                this.stafflayoutField = value;
-            }
+            get { return stafflayoutField; }
+            set { stafflayoutField = value; }
         }
 
 
         public appearance appearance
         {
-            get
-            {
-                return this.appearanceField;
-            }
-            set
-            {
-                this.appearanceField = value;
-            }
+            get { return appearanceField; }
+            set { appearanceField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("music-font")]
+        [XmlElement("music-font")]
         public emptyfont musicfont
         {
-            get
-            {
-                return this.musicfontField;
-            }
-            set
-            {
-                this.musicfontField = value;
-            }
+            get { return musicfontField; }
+            set { musicfontField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("word-font")]
+        [XmlElement("word-font")]
         public emptyfont wordfont
         {
-            get
-            {
-                return this.wordfontField;
-            }
-            set
-            {
-                this.wordfontField = value;
-            }
+            get { return wordfontField; }
+            set { wordfontField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("lyric-font")]
+        [XmlElement("lyric-font")]
         public lyricfont[] lyricfont
         {
-            get
-            {
-                return this.lyricfontField;
-            }
-            set
-            {
-                this.lyricfontField = value;
-            }
+            get { return lyricfontField; }
+            set { lyricfontField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("lyric-language")]
+        [XmlElement("lyric-language")]
         public lyriclanguage[] lyriclanguage
         {
-            get
-            {
-                return this.lyriclanguageField;
-            }
-            set
-            {
-                this.lyriclanguageField = value;
-            }
+            get { return lyriclanguageField; }
+            set { lyriclanguageField = value; }
         }
     }
 }

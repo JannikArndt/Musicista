@@ -1,93 +1,66 @@
+using System;
+
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class credit
+    
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    public class credit
     {
-
+        private bookmark[] bookmarkField;
         private string[] credittypeField;
 
-        private link[] linkField;
-
-        private bookmark[] bookmarkField;
-
         private object[] itemsField;
+        private link[] linkField;
 
         private string pageField;
 
 
-        [System.Xml.Serialization.XmlElementAttribute("credit-type", Order = 0)]
+        [XmlElement("credit-type", Order = 0)]
         public string[] credittype
         {
-            get
-            {
-                return this.credittypeField;
-            }
-            set
-            {
-                this.credittypeField = value;
-            }
+            get { return credittypeField; }
+            set { credittypeField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("link", Order = 1)]
+        [XmlElement("link", Order = 1)]
         public link[] link
         {
-            get
-            {
-                return this.linkField;
-            }
-            set
-            {
-                this.linkField = value;
-            }
+            get { return linkField; }
+            set { linkField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("bookmark", Order = 2)]
+        [XmlElement("bookmark", Order = 2)]
         public bookmark[] bookmark
         {
-            get
-            {
-                return this.bookmarkField;
-            }
-            set
-            {
-                this.bookmarkField = value;
-            }
+            get { return bookmarkField; }
+            set { bookmarkField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlElementAttribute("bookmark", typeof(bookmark), Order = 3)]
-        [System.Xml.Serialization.XmlElementAttribute("credit-image", typeof(image), Order = 3)]
-        [System.Xml.Serialization.XmlElementAttribute("credit-words", typeof(formattedtext), Order = 3)]
-        [System.Xml.Serialization.XmlElementAttribute("link", typeof(link), Order = 3)]
+        [XmlElement("bookmark", typeof (bookmark), Order = 3)]
+        [XmlElement("credit-image", typeof (image), Order = 3)]
+        [XmlElement("credit-words", typeof (formattedtext), Order = 3)]
+        [XmlElement("link", typeof (link), Order = 3)]
         public object[] Items
         {
-            get
-            {
-                return this.itemsField;
-            }
-            set
-            {
-                this.itemsField = value;
-            }
+            get { return itemsField; }
+            set { itemsField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "positiveInteger")]
+        [XmlAttribute(DataType = "positiveInteger")]
         public string page
         {
-            get
-            {
-                return this.pageField;
-            }
-            set
-            {
-                this.pageField = value;
-            }
+            get { return pageField; }
+            set { pageField = value; }
         }
     }
 }

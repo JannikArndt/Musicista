@@ -1,16 +1,18 @@
+using System;
+
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+using MusicXML.Enums;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class fingering
+    
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    public class fingering
     {
-
-        private yesno substitutionField;
-
-        private bool substitutionFieldSpecified;
-
         private yesno alternateField;
 
         private bool alternateFieldSpecified;
@@ -18,105 +20,66 @@ namespace MusicXML
         private abovebelow placementField;
 
         private bool placementFieldSpecified;
+        private yesno substitutionField;
+
+        private bool substitutionFieldSpecified;
 
         private string valueField;
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public yesno substitution
         {
-            get
-            {
-                return this.substitutionField;
-            }
-            set
-            {
-                this.substitutionField = value;
-            }
+            get { return substitutionField; }
+            set { substitutionField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool substitutionSpecified
         {
-            get
-            {
-                return this.substitutionFieldSpecified;
-            }
-            set
-            {
-                this.substitutionFieldSpecified = value;
-            }
+            get { return substitutionFieldSpecified; }
+            set { substitutionFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public yesno alternate
         {
-            get
-            {
-                return this.alternateField;
-            }
-            set
-            {
-                this.alternateField = value;
-            }
+            get { return alternateField; }
+            set { alternateField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool alternateSpecified
         {
-            get
-            {
-                return this.alternateFieldSpecified;
-            }
-            set
-            {
-                this.alternateFieldSpecified = value;
-            }
+            get { return alternateFieldSpecified; }
+            set { alternateFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public abovebelow placement
         {
-            get
-            {
-                return this.placementField;
-            }
-            set
-            {
-                this.placementField = value;
-            }
+            get { return placementField; }
+            set { placementField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool placementSpecified
         {
-            get
-            {
-                return this.placementFieldSpecified;
-            }
-            set
-            {
-                this.placementFieldSpecified = value;
-            }
+            get { return placementFieldSpecified; }
+            set { placementFieldSpecified = value; }
         }
 
 
-        [System.Xml.Serialization.XmlTextAttribute()]
+        [XmlText]
         public string Value
         {
-            get
-            {
-                return this.valueField;
-            }
-            set
-            {
-                this.valueField = value;
-            }
+            get { return valueField; }
+            set { valueField = value; }
         }
     }
 }

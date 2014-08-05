@@ -1,26 +1,25 @@
+using System;
+
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class scordatura
+    
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    public class scordatura
     {
-
         private accord[] accordField;
 
 
-        [System.Xml.Serialization.XmlElementAttribute("accord")]
+        [XmlElement("accord")]
         public accord[] accord
         {
-            get
-            {
-                return this.accordField;
-            }
-            set
-            {
-                this.accordField = value;
-            }
+            get { return accordField; }
+            set { accordField = value; }
         }
     }
 }

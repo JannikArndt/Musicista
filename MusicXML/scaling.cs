@@ -1,12 +1,16 @@
+using System;
+
+using System.ComponentModel;
+using System.Diagnostics;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class scaling
+    
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    public class scaling
     {
-
         private decimal millimetersField;
 
         private decimal tenthsField;
@@ -14,27 +18,15 @@ namespace MusicXML
 
         public decimal millimeters
         {
-            get
-            {
-                return this.millimetersField;
-            }
-            set
-            {
-                this.millimetersField = value;
-            }
+            get { return millimetersField; }
+            set { millimetersField = value; }
         }
 
 
         public decimal tenths
         {
-            get
-            {
-                return this.tenthsField;
-            }
-            set
-            {
-                this.tenthsField = value;
-            }
+            get { return tenthsField; }
+            set { tenthsField = value; }
         }
     }
 }

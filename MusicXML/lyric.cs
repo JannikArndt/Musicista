@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Serialization;
+using MusicXML.Enums;
 
 namespace MusicXML
 {
@@ -17,14 +18,15 @@ namespace MusicXML
         public syllabic Syllabic { get; set; }
 
 
-
         [XmlElement("elision")]
         public textfontcolor Elision { get; set; }
 
         [XmlElement("extend")]
         public extend Extend { get; set; }
+
         [XmlElement("humming")]
         public empty Humming { get; set; }
+
         [XmlElement("laughing")]
         public empty Laughing { get; set; }
 

@@ -1,68 +1,54 @@
+using MusicXML.Enums;
+using System;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
 namespace MusicXML
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class percussion
+
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    public class percussion
     {
-
-        private object itemField;
-
         private enclosureshape enclosureField;
 
         private bool enclosureFieldSpecified;
+        private object itemField;
 
 
-        [System.Xml.Serialization.XmlElementAttribute("beater", typeof(beater))]
-        [System.Xml.Serialization.XmlElementAttribute("effect", typeof(effect))]
-        [System.Xml.Serialization.XmlElementAttribute("glass", typeof(glass))]
-        [System.Xml.Serialization.XmlElementAttribute("membrane", typeof(membrane))]
-        [System.Xml.Serialization.XmlElementAttribute("metal", typeof(metal))]
-        [System.Xml.Serialization.XmlElementAttribute("other-percussion", typeof(string))]
-        [System.Xml.Serialization.XmlElementAttribute("pitched", typeof(pitched))]
-        [System.Xml.Serialization.XmlElementAttribute("stick", typeof(stick))]
-        [System.Xml.Serialization.XmlElementAttribute("stick-location", typeof(sticklocation))]
-        [System.Xml.Serialization.XmlElementAttribute("timpani", typeof(empty))]
-        [System.Xml.Serialization.XmlElementAttribute("wood", typeof(wood))]
+        [XmlElement("beater", typeof(beater))]
+        [XmlElement("effect", typeof(effect))]
+        [XmlElement("glass", typeof(glass))]
+        [XmlElement("membrane", typeof(membrane))]
+        [XmlElement("metal", typeof(metal))]
+        [XmlElement("other-percussion", typeof(string))]
+        [XmlElement("pitched", typeof(pitched))]
+        [XmlElement("stick", typeof(stick))]
+        [XmlElement("stick-location", typeof(sticklocation))]
+        [XmlElement("timpani", typeof(empty))]
+        [XmlElement("wood", typeof(wood))]
         public object Item
         {
-            get
-            {
-                return this.itemField;
-            }
-            set
-            {
-                this.itemField = value;
-            }
+            get { return itemField; }
+            set { itemField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public enclosureshape enclosure
         {
-            get
-            {
-                return this.enclosureField;
-            }
-            set
-            {
-                this.enclosureField = value;
-            }
+            get { return enclosureField; }
+            set { enclosureField = value; }
         }
 
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool enclosureSpecified
         {
-            get
-            {
-                return this.enclosureFieldSpecified;
-            }
-            set
-            {
-                this.enclosureFieldSpecified = value;
-            }
+            get { return enclosureFieldSpecified; }
+            set { enclosureFieldSpecified = value; }
         }
     }
 }

@@ -71,9 +71,10 @@ namespace Musicista.Sidebar
 
                 // Display Comments
                 var commentGrid = new GridTable(70);
-                foreach (var comment in MainWindow.CurrentPiece.Comments.Where(item => item.BelongsToMovement == uiSymbol.Symbol.ParentMeasure.ParentMeasureGroup.ParentPassage.ParentSegment.ParentMovement
-                                   && item.NoteReference.PointsToSymbol(uiSymbol.Symbol)))
-                    commentGrid.AddRowWithTextField(comment.Author + ":", comment, "CommentText");
+                if (MainWindow.CurrentPiece.Comments != null)
+                    foreach (var comment in MainWindow.CurrentPiece.Comments.Where(item => item.BelongsToMovement == uiSymbol.Symbol.ParentMeasure.ParentMeasureGroup.ParentPassage.ParentSegment.ParentMovement
+                                       && item.NoteReference.PointsToSymbol(uiSymbol.Symbol)))
+                        commentGrid.AddRowWithTextField(comment.Author + ":", comment, "CommentText");
                 commentGrid.AddRowWithCommentBox(uiSymbol.Symbol);
 
                 SidebarPanel.Children.Add(grid);

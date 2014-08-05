@@ -4,6 +4,7 @@ using Musicista.Properties;
 using Musicista.UI.Enums;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
@@ -215,16 +216,17 @@ namespace Musicista.UI.MeasureElements
         {
             const int moveTieMidToLeft = 120;
             const int tieHeight = 40;
+            var c = CultureInfo.GetCultureInfo("en-US");
 
             if (tiedTo)
             {
                 var start = new Point(30, GetTop(NoteHead) + 30);
                 var end = new Point(-GetLeft(this) - moveTieMidToLeft, start.Y + tieHeight);
 
-                TieToNote.Data = Geometry.Parse("F0 M " + start.X + "," + start.Y
-                                                + " C " + start.X + "," + start.Y + " " + start.X + "," + end.Y + " " + end.X + "," + end.Y // right
-                                                + " L " + end.X + "," + (end.Y + 10) // down
-                                                + " C " + end.X + "," + (end.Y + 10) + " " + start.X + "," + (end.Y + 10) + " " + "" + start.X + "," + start.Y +
+                TieToNote.Data = Geometry.Parse("F0 M " + start.X.ToString(c) + "," + start.Y.ToString(c)
+                                                + " C " + start.X.ToString(c) + "," + start.Y.ToString(c) + " " + start.X.ToString(c) + "," + end.Y.ToString(c) + " " + end.X.ToString(c) + "," + end.Y.ToString(c) // right
+                                                + " L " + end.X.ToString(c) + "," + (end.Y + 10).ToString(c) // down
+                                                + " C " + end.X.ToString(c) + "," + (end.Y + 10).ToString(c) + " " + start.X.ToString(c) + "," + (end.Y + 10).ToString(c) + " " + "" + start.X.ToString(c) + "," + start.Y.ToString(c) +
                                                 "Z");
                 // back
                 Children.Add(TieToNote);
@@ -241,10 +243,10 @@ namespace Musicista.UI.MeasureElements
                 var start = new Point(30, GetTop(NoteHead) + 30);
                 var end = new Point(Width + 10 - moveTieMidToLeft, start.Y + tieHeight);
 
-                TieFromNote.Data = Geometry.Parse("F0 M " + start.X + "," + start.Y
-                                                  + " C " + start.X + "," + start.Y + " " + start.X + "," + end.Y + " " + end.X + "," + end.Y // right
-                                                  + " L " + end.X + "," + (end.Y + 10) // down
-                                                  + " C " + end.X + "," + (end.Y + 10) + " " + start.X + "," + (end.Y + 10) + " " + "" + start.X + "," + start.Y +
+                TieFromNote.Data = Geometry.Parse("F0 M " + start.X.ToString(c) + "," + start.Y.ToString(c)
+                                                  + " C " + start.X.ToString(c) + "," + start.Y.ToString(c) + " " + start.X.ToString(c) + "," + end.Y.ToString(c) + " " + end.X.ToString(c) + "," + end.Y.ToString(c) // right
+                                                  + " L " + end.X.ToString(c) + "," + (end.Y + 10).ToString(c) // down
+                                                  + " C " + end.X.ToString(c) + "," + (end.Y + 10).ToString(c) + " " + start.X.ToString(c) + "," + (end.Y + 10).ToString(c) + " " + "" + start.X.ToString(c) + "," + start.Y.ToString(c) +
                                                   "Z");
                 // back
                 Children.Add(TieFromNote);

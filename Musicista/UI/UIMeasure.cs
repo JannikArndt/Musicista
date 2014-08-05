@@ -478,13 +478,14 @@ namespace Musicista.UI
 
             var start = Tuplets.First().GetFreePoint(direction);
             var end = Tuplets.Last().GetFreePoint(direction);
+            var c = CultureInfo.GetCultureInfo("en-US");
 
             var nibble = direction == Direction.Above ? 20 : -20;
 
-            var shapeString = "F0 M " + start.X + "," + (start.Y + nibble)
-                   + "L " + start.X + "," + start.Y
-                   + " L " + (end.X + 40) + "," + end.Y
-                   + " L " + (end.X + 40) + "," + (end.Y + nibble);
+            var shapeString = "F0 M " + start.X.ToString(c) + "," + (start.Y + nibble).ToString(c)
+                   + "L " + start.X.ToString(c) + "," + start.Y.ToString(c)
+                   + " L " + (end.X + 40).ToString(c) + "," + end.Y.ToString(c)
+                   + " L " + (end.X + 40).ToString(c) + "," + (end.Y + nibble).ToString(c);
 
             var line = new Path
             {

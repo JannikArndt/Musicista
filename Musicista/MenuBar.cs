@@ -45,7 +45,7 @@ namespace Musicista
 
         private void SelectToolSelect(object sender, RoutedEventArgs e)
         {
-            SetToolbarButtonPathFill(ToolKind.Select);
+            //SetToolbarButtonPathFill(ToolKind.Select);
             SelectedTool = ToolKind.Select;
         }
 

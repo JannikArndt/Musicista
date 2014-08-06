@@ -69,9 +69,9 @@
                     </Button>
                 </StackPanel>
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
-                    <Button Width="75" Click="SelectToolAdd" Style="{StaticResource MenuButton}">
+                    <Button Width="75" Click="SelectToolAdd" Style="{StaticResource MenuButton}" IsEnabled="False">
                         <StackPanel>
-                            <Path Name="ButtonPathAdd" Fill="Black" SnapsToDevicePixels="True" HorizontalAlignment="Center" Data="F1 M 45,52L 45,21L 49,21L 49,52L 80,52L 80,56L 49,56L 49,87L 45,87L 45,56L 14,56L 14,52L 45,52 Z M 96,104L 96,9L 101,9L 101,9C 102,12 102,16 103,19C 106,24 109,30 112,36C 120,47 131,58 133,72C 135,81 135,101 124,105C 135,84 128,54 101,45L 101,114 M 101,114C 101,121 97,127 90,132C 81,138 69,138 64,131C 64,131 64,130 64,130C 62,128 62,125 62,123C 61,116 65,109 72,105C 81,99 90,99 96,104M 70,131C 74,131 76,130 79,128C 82,126 85,123 88,121C 91,119 95,117 96,114C 98,109 93,106 90,106C 87,107 85,109 83,111C 80,113 77,115 74,117C 72,119 69,120 67,122C 63,126 67,129 70,131 Z ">
+                            <Path Name="ButtonPathAdd" Fill="Gray" SnapsToDevicePixels="True" HorizontalAlignment="Center" Data="F1 M 45,52L 45,21L 49,21L 49,52L 80,52L 80,56L 49,56L 49,87L 45,87L 45,56L 14,56L 14,52L 45,52 Z M 96,104L 96,9L 101,9L 101,9C 102,12 102,16 103,19C 106,24 109,30 112,36C 120,47 131,58 133,72C 135,81 135,101 124,105C 135,84 128,54 101,45L 101,114 M 101,114C 101,121 97,127 90,132C 81,138 69,138 64,131C 64,131 64,130 64,130C 62,128 62,125 62,123C 61,116 65,109 72,105C 81,99 90,99 96,104M 70,131C 74,131 76,130 79,128C 82,126 85,123 88,121C 91,119 95,117 96,114C 98,109 93,106 90,106C 87,107 85,109 83,111C 80,113 77,115 74,117C 72,119 69,120 67,122C 63,126 67,129 70,131 Z ">
                                 <Path.LayoutTransform>
                                     <ScaleTransform ScaleX=".2" ScaleY=".2"></ScaleTransform>
                                 </Path.LayoutTransform>
@@ -79,9 +79,9 @@
                             <TextBlock HorizontalAlignment="Center">Add</TextBlock>
                         </StackPanel>
                     </Button>
-                    <Button Width="75" Click="SelectToolEdit" Style="{StaticResource MenuButton}">
+                    <Button Width="75" Click="SelectToolEdit" Style="{StaticResource MenuButton}" IsEnabled="False">
                         <StackPanel>
-                            <Path Name="ButtonPathEdit" Fill="Black" SnapsToDevicePixels="True" HorizontalAlignment="Center" Data="F1 M 96,104 L 96,9 L 101,9 L 101,9 C 102,12 102,16 103,19 C 106,24 109,30 112,36 C 120,47 131,58 133,72 C 135,81 135,101 124,105 C 135,84 128,54 101,45 L 101,114 M 101,114 C 101,121 97,127 90,132 C 81,138 69,138 64,131 C 64,131 64,130 64,130 C 62,128 62,125 62,123 C 61,116 65,109 72,105 C 81,99 90,99 96,104 M 70,131 C 74,131 76,130 79,128 C 82,126 85,123 88,121 C 91,119 95,117 96,114 C 98,109 93,106 90,106 C 87,107 85,109 83,111 C 80,113 77,115 74,117 C 72,119 69,120 67,122 C 63,126 67,129 70,131 Z M 77,51 L 63,36 L 69,30 L 84,44 L 77,51 Z M 34,94 L 20,79 L 63,36 L 77,50 L 34,94 Z M 24,75 L 19,80 L 16,98 L 33,95 L 39,89 M 16,94 L 16,98 L 19,97 L 16,94 Z ">
+                            <Path Name="ButtonPathEdit" Fill="Gray" SnapsToDevicePixels="True" HorizontalAlignment="Center" Data="F1 M 96,104 L 96,9 L 101,9 L 101,9 C 102,12 102,16 103,19 C 106,24 109,30 112,36 C 120,47 131,58 133,72 C 135,81 135,101 124,105 C 135,84 128,54 101,45 L 101,114 M 101,114 C 101,121 97,127 90,132 C 81,138 69,138 64,131 C 64,131 64,130 64,130 C 62,128 62,125 62,123 C 61,116 65,109 72,105 C 81,99 90,99 96,104 M 70,131 C 74,131 76,130 79,128 C 82,126 85,123 88,121 C 91,119 95,117 96,114 C 98,109 93,106 90,106 C 87,107 85,109 83,111 C 80,113 77,115 74,117 C 72,119 69,120 67,122 C 63,126 67,129 70,131 Z M 77,51 L 63,36 L 69,30 L 84,44 L 77,51 Z M 34,94 L 20,79 L 63,36 L 77,50 L 34,94 Z M 24,75 L 19,80 L 16,98 L 33,95 L 39,89 M 16,94 L 16,98 L 19,97 L 16,94 Z ">
                                 <Path.LayoutTransform>
                                     <ScaleTransform ScaleX=".2" ScaleY=".2"></ScaleTransform>
                                 </Path.LayoutTransform>

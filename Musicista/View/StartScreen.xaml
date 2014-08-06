@@ -46,7 +46,30 @@
         <StackPanel Grid.Row="6" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Stretch" Name="RecentFilesStack" Height="100" Margin="20,30,0,0" Orientation="Vertical"/>
         <TextBlock Grid.Row="7" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="20" TextAlignment="Left" >- Search for music online:</TextBlock>
         <uiControls:SearchTextBox Grid.Row="7" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right" SearchEventTimeDelay="00:00:01.00"  Height="30" Search="OnlineSearchBox_OnTextChanged" x:Name="OnlineSearchBox" Width="250" GotFocus="OnlineSearchBox_OnGotFocus" />
-        <StackPanel Grid.Row="8" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Stretch" Name="OnlineSearchStack" Height="150" Margin="20,5,0,0" Orientation="Vertical"/>
-
+        <ListView Name="SearchResultsListView" Grid.Row="8" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="150" Margin="20,5,0,0" BorderThickness="0" BorderBrush="Transparent">
+            <ListView.View>
+                <GridView>
+                    <GridView.ColumnHeaderContainerStyle>
+                        <Style>
+                            <Setter Property="FrameworkElement.Visibility" Value="Collapsed" />
+                        </Style>
+                    </GridView.ColumnHeaderContainerStyle>
+                    <GridViewColumn Width="420">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Vertical" MouseDown="SearchResultItemClick">
+                                    <TextBlock Width="420">
+                                        <Run Text="{Binding Title}" FontWeight="Bold" />
+                                        <Run Text=" by " FontStyle="Italic" />
+                                        <Run Text="{Binding Metadata.Composer, Mode=OneWay}" FontStyle="Italic" />
+                                    </TextBlock>
+                                    <TextBlock Text="by MuseScore.com" Width="450" Foreground="Gray" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </UserControl>

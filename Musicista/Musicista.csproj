@@ -123,6 +123,9 @@
       <DependentUpon>Composers.xaml</DependentUpon>
     </Compile>
     <Compile Include="Collection\DocumentReference.cs" />
+    <Compile Include="Collection\SearchMuseScore.xaml.cs">
+      <DependentUpon>SearchMuseScore.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Collection\RecentlyUsed.xaml.cs">
       <DependentUpon>RecentlyUsed.xaml</DependentUpon>
     </Compile>
@@ -185,6 +188,10 @@
     <Page Include="Collection\Composers.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Collection\SearchMuseScore.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Collection\RecentlyUsed.xaml">
       <SubType>Designer</SubType>

@@ -14,6 +14,7 @@ namespace Musicista.Collection
 
             RecentlyUsedContentControl.Content = new RecentlyUsed();
             ComposersContentControl.Content = new Composers();
+            MuseScoreContentControl.Content = new SearchMuseScore();
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿
 
+using System;
+
 namespace MuseScoreAPI.RESTObjects
 {
     public class Score
@@ -26,5 +28,9 @@ namespace MuseScoreAPI.RESTObjects
         public string Description { get; set; }
 
         public Metadata Metadata { get; set; }
+
+        public string MetaTitleIfAvailable { get { return String.IsNullOrEmpty(Metadata.Title) ? Title : Metadata.Title; } }
+        public string BindingUser { get { return "by User " + User.Username; } }
+        public string BindingThumbnail { get { return "http://static.musescore.com/" + ID + "/" + Secret + "/thumb.png"; } }
     }
 }

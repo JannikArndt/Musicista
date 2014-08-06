@@ -58,5 +58,17 @@ namespace Musicista.Properties {
                 this["Username"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool UseMixpanel {
+            get {
+                return ((bool)(this["UseMixpanel"]));
+            }
+            set {
+                this["UseMixpanel"] = value;
+            }
+        }
     }
 }

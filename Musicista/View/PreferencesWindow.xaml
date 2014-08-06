@@ -25,6 +25,8 @@
         <TextBlock Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Left">Automatically send crash report</TextBlock>
         <TextBlock Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Left">Username:</TextBlock>
         <TextBox Grid.Row="3" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" Width="130" Text="{Binding Source={x:Static p:Settings.Default}, Path=Username}"></TextBox>
+        <CheckBox Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="{Binding Source={x:Static p:Settings.Default}, Path=UseMixpanel}"></CheckBox>
+        <TextBlock Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Left">Aktivitäten zur Analyse an Mixpanel übertragen (Beta)</TextBlock>
 
     </Grid>
 </Window>

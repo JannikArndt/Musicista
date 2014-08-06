@@ -140,13 +140,8 @@ namespace Musicista
 
         private static void LoadCollectionBase()
         {
-            if (File.Exists(CollectionBase.FileName))
-            {
-                var xmlSerializer = new XmlSerializer(typeof(CollectionBase));
-                CollectionBase = (CollectionBase)xmlSerializer.Deserialize(XDocument.Load(CollectionBase.FileName).CreateReader());
-            }
-            else
-                CollectionBase.Save();
+            var xmlSerializer = new XmlSerializer(typeof(CollectionBase));
+            CollectionBase = (CollectionBase)xmlSerializer.Deserialize(XDocument.Load("http://www.musicistaapp.de/download/Collection.xml").CreateReader());
         }
 
         private static void ShowMostRecentlyUsed(Panel stack)

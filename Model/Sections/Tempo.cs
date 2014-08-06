@@ -46,6 +46,8 @@ namespace Model.Sections
 
         public bool Parse(string tempoString)
         {
+            if (tempoString == null) return false;
+
             var stringParts = tempoString.Split('(');
             var parseString = stringParts[0].RemoveWhitespace();
 

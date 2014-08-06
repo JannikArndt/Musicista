@@ -25,6 +25,7 @@ namespace Musicista
             else
             {
                 CollectionWindow.Margin = new Thickness(0);
+                CollectionWindow.UpdateRecentlyUsed();
                 UICollection.Content = CollectionWindow;
                 UIButtonPathCollection.Fill = Brushes.DodgerBlue;
             }

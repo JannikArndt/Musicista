@@ -11,7 +11,7 @@ namespace Collection
         [XmlElement("Composer")]
         public List<CollectionComposer> Composers { get; set; }
         [XmlIgnore]
-        public String FileName = "Collection.appsettings";
+        public String FileName = "Collection.xml";
 
         public CollectionBase()
         {

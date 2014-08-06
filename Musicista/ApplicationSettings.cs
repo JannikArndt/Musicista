@@ -10,7 +10,7 @@ namespace Musicista
 {
     public class ApplicationSettings
     {
-        public String FileName = "ApplicationSettings.appsettings";
+        public String FileName = "RecentlyUsed.xml";
         public List<DocumentReference> MostRecentlyUsed = new List<DocumentReference>();
 
         public ApplicationSettings()

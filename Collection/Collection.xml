@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Collection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Composer Name="Bach" Born="1685" Died="1750" Image="images/Bach.jpg">
+    <Category Name="Fugen">
+      <Work Name="BWV864 Wohltemperiertes Klavier - Praeludium I" Filepath="http://musicistaapp.de/?ddownload=61">
+        <Meta>
+          <Title>Praeludium I</Title>
+          <Subtitle>Das wohltemperierte Klavier</Subtitle>
+          <People>
+            <Composers>
+              <Composer>
+                <FirstName>Johann</FirstName>
+                <MiddleName>Sebastian</MiddleName>
+                <LastName>Bach</LastName>
+              </Composer>
+            </Composers>
+            <OtherPersons>
+              <Person>
+                <FirstName />
+                <LastName>rui.c.sousa.3</LastName>
+                <Role>Uploader</Role>
+                <Misc>User ID = 167019</Misc>
+              </Person>
+            </OtherPersons>
+          </People>
+          <Collection />
+          <Opus Number="0" SubNumber="0" />
+          <Epoch>None</Epoch>
+          <Form>Other</Form>
+          <Dates>
+            <Engraving Date="2014-02-09T00:00:00" />
+          </Dates>
+          <AverageDuration>0</AverageDuration>
+          <BeatsPerMinute>0</BeatsPerMinute>
+          <Weblink>http://musicistaapp.de/?ddownload=61</Weblink>
+          <Notes>Work Number: </Notes>
+          <Software>MuseScore 1.3</Software>
+        </Meta>
+      </Work>
+      <Work Name="BWV864 Wohltemperiertes Klavier - Fuga I" Filepath="http://musicistaapp.de/?ddownload=62">
+        <Meta>
+          <Title>Fuga I</Title>
+          <Subtitle>a 4 Voci.</Subtitle>
+          <People>
+            <Composers>
+              <Composer>
+                <FirstName>Johann</FirstName>
+                <MiddleName>Sebastian</MiddleName>
+                <LastName>Bach</LastName>
+              </Composer>
+            </Composers>
+            <OtherPersons>
+              <Person>
+                <FirstName />
+                <LastName>cja</LastName>
+                <Role>Uploader</Role>
+                <Misc>User ID = 13834</Misc>
+              </Person>
+            </OtherPersons>
+          </People>
+          <Collection />
+          <Opus Number="0" SubNumber="0" />
+          <Epoch>Baroque</Epoch>
+          <Form>Other</Form>
+          <Dates>
+            <Engraving Date="2011-08-26T00:00:00" />
+          </Dates>
+          <AverageDuration>0</AverageDuration>
+          <BeatsPerMinute>0</BeatsPerMinute>
+          <Copyright>publicdomain</Copyright>
+          <Weblink>http://musicistaapp.de/?ddownload=62</Weblink>
+          <Notes>Work Number: J.S.BACH - first Fuga (BWV 846a)</Notes>
+          <Software>MuseScore 1.1</Software>
+        </Meta>
+      </Work>
+    </Category>
+  </Composer>
+  <Composer Name="Beethoven" Born="1770" Died="1827" Image="images/Beethoven.jpg">
+    <Category Name="Sonaten">
+      <Work Name="Sonate Nr. 1" Filepath="http://musicistaapp.de/?ddownload=56">
+        <Meta>
+          <Title>Sonate No. 1</Title>
+          <People>
+            <Composers>
+              <Composer>
+                <FirstName>Ludwig</FirstName>
+                <MiddleName>van</MiddleName>
+                <LastName>Beethoven</LastName>
+              </Composer>
+            </Composers>
+            <OtherPersons>
+              <Person>
+                <FirstName />
+                <LastName>ClassicMan</LastName>
+                <Role>Uploader</Role>
+                <Misc>User ID = 19710</Misc>
+              </Person>
+            </OtherPersons>
+          </People>
+          <Collection />
+          <Opus Number="2" SubNumber="1" />
+          <Epoch>Classical</Epoch>
+          <Form>Sonata</Form>
+          <Dates>
+            <Engraving Date="2013-12-08T00:00:00" />
+          </Dates>
+          <AverageDuration>0</AverageDuration>
+          <BeatsPerMinute>0</BeatsPerMinute>
+          <Weblink>http://www.musicistaapp.de/?ddownload=56</Weblink>
+          <Notes>
+            Work Number: Beethoven's Piano Sonata No. 1 in F minor, Op. 2, No. 1, was written in 1795 and dedicated to Joseph Haydn. It is the first piano sonata written by Beethoven.
+
+            The third movement, a minuet in F minor, is conventional in form. It contains two repeated sections, followed by a trio in F major in two repeated sections, after which the first minuet returns. The minuet is characterized by syncopations, dramatic pauses and sharp dynamic contrast. The trio is built around longer, more lyric phrases that pass between the right and left hands in imitative polyphony.
+
+            Transcription by jammy927.
+          </Notes>
+          <Software>Musicista 0.7</Software>
+        </Meta>
+      </Work>
+    </Category>
+  </Composer>
+  <Composer Name="Mozart" Born="1756" Died="1791" Image="images/Mozart.jpg">
+  </Composer>
+</Collection>

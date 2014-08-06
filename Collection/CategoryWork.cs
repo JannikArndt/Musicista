@@ -9,7 +9,7 @@ namespace Collection
         public string WorkName { get; set; }
         [XmlAttribute("Filepath")]
         public string Filepath { get; set; }
-        [XmlIgnore]
+        [XmlElement("Meta")]
         public MetaData MetaData { get; set; }
         [XmlIgnore]
         public string OpusString { get { return MetaData != null && MetaData.Opus != null ? MetaData.Opus.OpusString : ""; } }

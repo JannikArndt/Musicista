@@ -6,6 +6,7 @@ using Musicista.UI.TextElements;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using System.Windows.Media;
 
 namespace Musicista.UI
@@ -48,8 +49,14 @@ namespace Musicista.UI
                 return pageList;
 
             foreach (var section in piece.Sections)
+            {
+                if (section.Movements != null && section.Movements.Count > 1)
+                    MessageBox.Show("This file has multiple movements, which is great, because that's one of the advantages of the musicista-fileformat. " +
+                                    "However, the version of the Musicista-App you are using does not support multiple movements and will just put everything together. " +
+                                    "You'll get an automatic update as soon as the app supports multiple movements!", "Info", MessageBoxButton.OK);
                 if (section.Movements != null && section.Movements.Count > 0)
                     foreach (var movement in section.Movements)
+                    {
                         if (movement.Segments != null && movement.Segments.Count > 0)
                             foreach (var segment in movement.Segments)
                                 if (segment.Passages != null && segment.Passages.Count > 0)
@@ -81,6 +88,8 @@ namespace Musicista.UI
                                                 uiMeasureGroup.Draw();
                                             }
                                         }
+                    }
+            }
             return pageList;
         }
 

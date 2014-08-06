@@ -1,9 +1,12 @@
 ﻿using Collection;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Musicista.Collection
 {
@@ -24,7 +27,6 @@ namespace Musicista.Collection
             if (composer == null) return;
             var item = composer.DataContext as CollectionComposer;
             if (item == null) return;
-            CategoryListView.ItemsSource = item.Categories;
             ComposerPanel.DataContext = item;
             WorksListView.ItemsSource = item.Categories.SelectMany(cat => cat.Works);
 
@@ -32,16 +34,13 @@ namespace Musicista.Collection
             view.Filter = UserFilter;
         }
 
-        private void CategoryMouseOver(object sender, MouseEventArgs mouseEventArgs)
+        private void WorkMouseOver(object sender, MouseEventArgs mouseEventArgs)
         {
-            var category = sender as FrameworkElement;
-            if (category == null) return;
-            var item = category.DataContext as CollectionCategory;
+            var work = sender as FrameworkElement;
+            if (work == null) return;
+            var item = work.DataContext as CategoryWork;
             if (item == null) return;
-            WorksListView.ItemsSource = item.Works;
-
-            var view = (CollectionView)CollectionViewSource.GetDefaultView(WorksListView.ItemsSource);
-            view.Filter = UserFilter;
+            InfoPanel.DataContext = item;
         }
 
         private bool UserFilter(object item)
@@ -49,13 +48,39 @@ namespace Musicista.Collection
             if (String.IsNullOrEmpty(WorkFilterBox.Text))
                 return true;
             var categoryWork = item as CategoryWork;
-            return categoryWork != null && (categoryWork.WorkName.IndexOf(WorkFilterBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+            return categoryWork != null
+                && ((categoryWork.WorkName.IndexOf(WorkFilterBox.Text, StringComparison.OrdinalIgnoreCase) >= 0)
+                || (categoryWork.MetaData.Opus.OpusString.IndexOf(WorkFilterBox.Text, StringComparison.OrdinalIgnoreCase) >= 0)
+                || (categoryWork.MetaData.Title.IndexOf(WorkFilterBox.Text, StringComparison.OrdinalIgnoreCase) >= 0)
+                || (categoryWork.MetaData.Subtitle.IndexOf(WorkFilterBox.Text, StringComparison.OrdinalIgnoreCase) >= 0));
         }
 
         private void WorkFilterBox_OnTextChanged(object sender, RoutedEventArgs routedEventArgs)
         {
             if (WorksListView.ItemsSource != null)
                 CollectionViewSource.GetDefaultView(WorksListView.ItemsSource).Refresh();
+        }
+
+        private void CollectionItemClick(object sender, MouseButtonEventArgs e)
+        {
+            var frameworkElement = sender as FrameworkElement;
+            if (frameworkElement != null)
+            {
+                DownloadScore((CategoryWork)frameworkElement.DataContext);
+                MainWindow.UICollection.Content = null;
+                MainWindow.UIButtonPathCollection.Fill = Brushes.Black;
+            }
+        }
+
+        private void DownloadScore(CategoryWork score)
+        {
+            using (var client = new WebClient())
+            {
+                var filename = score.MetaData.People.ComposersAsString + " - " + score.WorkName + ".musicista";
+                client.DownloadFile(score.Filepath, "Collection/" + filename);
+                MainWindow.OpenFile("Collection/" + filename);
+            }
+            MainWindow.Tracker.Track("Download Score", new Dictionary<string, object> { { "Username", Properties.Settings.Default.Username }, { "Score Title", score.WorkName }, { "Score URL", score.Filepath } });
         }
     }
 }

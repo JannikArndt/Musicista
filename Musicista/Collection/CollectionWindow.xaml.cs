@@ -16,5 +16,10 @@ namespace Musicista.Collection
             ComposersContentControl.Content = new Composers();
             MuseScoreContentControl.Content = new SearchMuseScore();
         }
+
+        public void UpdateRecentlyUsed()
+        {
+            RecentlyUsedContentControl.Content = new RecentlyUsed();
+        }
     }
 }

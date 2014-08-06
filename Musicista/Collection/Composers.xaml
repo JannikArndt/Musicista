@@ -52,41 +52,7 @@
 
         <Rectangle Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Width="2" Fill="DarkGray" />
 
-        <StackPanel Grid.Row="0" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="ComposerPanel">
-            <Image Source="{Binding Image, Mode=OneWay}" MaxWidth="100" Height="100" />
-            <TextBlock Text="{Binding Name, Mode=OneWay}" FontSize="20" TextAlignment="Center" />
-            <TextBlock Text="{Binding Dates, Mode=OneWay}" FontSize="16" TextAlignment="Center" FontStyle="Italic" />
-        </StackPanel>
-
-        <ListView Grid.Column="2" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="CategoryListView" Background="#00FFFFFF" BorderThickness="0" BorderBrush="Transparent">
-            <ListView.View>
-                <GridView>
-                    <GridView.ColumnHeaderContainerStyle>
-                        <Style>
-                            <Setter Property="FrameworkElement.Visibility" Value="Collapsed" />
-                        </Style>
-                    </GridView.ColumnHeaderContainerStyle>
-                    <GridViewColumn Width="220" >
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Vertical" MouseEnter="CategoryMouseOver">
-                                    <TextBlock Width="220">
-                                        <Run Text="{Binding CategoryName, Mode=OneWay}" FontWeight="Bold" />
-                                        <Run Text="  (" FontStyle="Italic" />
-                                        <Run Text="{Binding Works.Count, Mode=OneWay}" FontStyle="Italic" />
-                                        <Run Text=" works)" FontStyle="Italic" />
-                                    </TextBlock>
-                                    <TextBlock Width="220" Foreground="Gray" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
-
-        <Rectangle Grid.Row="0" Grid.Column="3" Grid.RowSpan="2" Width="2" Fill="DarkGray" />
-        <StackPanel Grid.Row="0" Grid.Column="4" Grid.RowSpan="2">
+        <StackPanel Grid.Row="0" Grid.Column="2" Grid.RowSpan="2">
             <l:SearchTextBox SearchEventTimeDelay="00:00:00.10"  Height="25" Search="WorkFilterBox_OnTextChanged" x:Name="WorkFilterBox" HorizontalAlignment="Stretch" />
             <ListView  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="WorksListView" Background="#00FFFFFF" BorderThickness="0" BorderBrush="Transparent">
                 <ListView.View>
@@ -99,12 +65,12 @@
                         <GridViewColumn Width="220" >
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <StackPanel Orientation="Vertical" MouseEnter="CategoryMouseOver">
+                                    <StackPanel Orientation="Vertical"  MouseDown="CollectionItemClick" MouseEnter="WorkMouseOver">
                                         <TextBlock Width="220">
                                         <Run Text="{Binding WorkName, Mode=OneWay}" FontWeight="Bold" />
                                         </TextBlock>
                                         <TextBlock Width="220">
-                                        <Run Text="{Binding OpusString, Mode=OneWay}" FontWeight="Bold" />
+                                        <Run Text="{Binding OpusString, Mode=OneWay}" />
                                         </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
@@ -114,5 +80,24 @@
                 </ListView.View>
             </ListView>
         </StackPanel>
+        
+        <StackPanel Grid.Row="0" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="ComposerPanel">
+            <Image Source="{Binding Image, Mode=OneWay}" MaxWidth="100" Height="100" />
+            <TextBlock Text="{Binding Name, Mode=OneWay}" FontSize="20" TextAlignment="Center" />
+            <TextBlock Text="{Binding Dates, Mode=OneWay}" FontSize="16" TextAlignment="Center" FontStyle="Italic" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="4" Name="InfoPanel" HorizontalAlignment="Stretch" CanHorizontallyScroll="False" CanVerticallyScroll="True">
+            <TextBlock Text="{Binding WorkName, Mode=OneWay}" TextWrapping="Wrap" FontSize="20" />
+            <TextBlock Text="{Binding MetaData.People.ComposersAsString, Mode=OneWay}" TextWrapping="Wrap" FontSize="16" Margin="0,10,0,0" />
+            <TextBlock Text="{Binding Metadata.Opus.OpusString, Mode=OneWay}" TextWrapping="Wrap" FontSize="16" Margin="0,10,0,0" FontStyle="Italic" />
+            <TextBlock Text="{Binding Filepath, Mode=OneWay}" TextWrapping="Wrap" FontSize="12" Margin="0,10,0,0" Foreground="DarkBlue" TextDecorations="Underline" />
+            <TextBlock Text="{Binding MetaData.Epoch, Mode=OneWay}" TextWrapping="Wrap" FontSize="12" Margin="0,10,0,0" />
+            <TextBlock Text="{Binding MetaData.Form, Mode=OneWay}" TextWrapping="Wrap" FontSize="12" Margin="0,10,0,0" />
+            <TextBlock Text="{Binding MetaData.Notes, Mode=OneWay}" TextWrapping="Wrap" FontSize="12" Margin="0,10,0,0" />
+        </StackPanel>
+
+        <Rectangle Grid.Row="0" Grid.Column="3" Grid.RowSpan="2" Width="2" Fill="DarkGray" />
+        
     </Grid>
 </UserControl>

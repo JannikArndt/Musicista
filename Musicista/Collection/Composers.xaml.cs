@@ -28,6 +28,7 @@ namespace Musicista.Collection
             var item = composer.DataContext as CollectionComposer;
             if (item == null) return;
             ComposerPanel.DataContext = item;
+            InfoPanel.DataContext = null;
             WorksListView.ItemsSource = item.Categories.SelectMany(cat => cat.Works);
 
             var view = (CollectionView)CollectionViewSource.GetDefaultView(WorksListView.ItemsSource);

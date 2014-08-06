@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Collection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<Collection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:noNamespaceSchemaLocation="CollectionItem.xsd">
   <Composer Name="Bach" Born="1685" Died="1750" Image="images/Bach.jpg">
     <Category Name="Fugen">
       <Work Name="BWV864 Wohltemperiertes Klavier - Praeludium I" Filepath="http://musicistaapp.de/?ddownload=61">

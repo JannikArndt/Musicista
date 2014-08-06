@@ -1,0 +1,815 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Comment" nillable="true" type="Comment" />
+  <xs:complexType name="Comment">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="NoteReference" type="NoteReference" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Text" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute name="Name" type="xs:string" />
+    <xs:attribute name="Movement" type="xs:int" use="required" />
+    <xs:attribute name="Author" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="NoteReference">
+    <xs:attribute name="MeasureNumber" type="xs:int" use="required" />
+    <xs:attribute name="StaffNumber" type="xs:int" use="required" />
+    <xs:attribute name="Beat" type="xs:double" use="required" />
+  </xs:complexType>
+  <xs:element name="Accent" type="Accent" />
+  <xs:simpleType name="Accent">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="Staccato" />
+      <xs:enumeration value="Staccatissimo" />
+      <xs:enumeration value="Standard" />
+      <xs:enumeration value="Marcato" />
+      <xs:enumeration value="Tenuto" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Chord" nillable="true" type="Chord" />
+  <xs:complexType name="Chord">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Step" type="Step" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Gender" type="Gender" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="Step">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="C" />
+      <xs:enumeration value="CSharp" />
+      <xs:enumeration value="DFlat" />
+      <xs:enumeration value="D" />
+      <xs:enumeration value="DSharp" />
+      <xs:enumeration value="EFlat" />
+      <xs:enumeration value="E" />
+      <xs:enumeration value="ESharp" />
+      <xs:enumeration value="FFlat" />
+      <xs:enumeration value="F" />
+      <xs:enumeration value="FSharp" />
+      <xs:enumeration value="GFlat" />
+      <xs:enumeration value="G" />
+      <xs:enumeration value="GSharp" />
+      <xs:enumeration value="AFlat" />
+      <xs:enumeration value="A" />
+      <xs:enumeration value="ASharp" />
+      <xs:enumeration value="BFlat" />
+      <xs:enumeration value="B" />
+      <xs:enumeration value="BSharp" />
+      <xs:enumeration value="CFlat" />
+      <xs:enumeration value="Unknown" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Gender">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Major" />
+      <xs:enumeration value="Minor" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="DateEvent" nillable="true" type="DateEvent" />
+  <xs:complexType name="DateEvent">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="Date" type="xs:dateTime" use="required" />
+        <xs:attribute name="Place" type="xs:string" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:element name="Dates" nillable="true" type="Dates" />
+  <xs:complexType name="Dates">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Composition" type="DateEvent" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Performances" type="Performance" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Publications" type="Publication" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Engraving" type="Engraving" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Other" type="DateEvent" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Performance">
+    <xs:simpleContent>
+      <xs:extension base="DateEvent">
+        <xs:attribute name="IsFirst" type="xs:boolean" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="Publication">
+    <xs:simpleContent>
+      <xs:extension base="DateEvent">
+        <xs:attribute name="IsFirst" type="xs:boolean" use="required" />
+        <xs:attribute name="Publisher" type="xs:string" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="Engraving">
+    <xs:simpleContent>
+      <xs:extension base="DateEvent">
+        <xs:attribute name="Typesetter" type="xs:string" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:element name="Engraving" nillable="true" type="Engraving" />
+  <xs:element name="Performance" nillable="true" type="Performance" />
+  <xs:element name="Publication" nillable="true" type="Publication" />
+  <xs:element name="Accidental" type="Accidental" />
+  <xs:simpleType name="Accidental">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Sharp" />
+      <xs:enumeration value="Flat" />
+      <xs:enumeration value="Natural" />
+      <xs:enumeration value="DoubleSharp" />
+      <xs:enumeration value="DoubleFlat" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="AnalysisObject" nillable="true" type="AnalysisObject" />
+  <xs:complexType name="AnalysisObject">
+    <xs:attribute name="Beat" type="xs:double" use="required" />
+    <xs:attribute name="Key" type="xs:string" />
+    <xs:attribute name="Value" type="xs:string" />
+  </xs:complexType>
+  <xs:element name="DiatonicFunction" type="DiatonicFunction" />
+  <xs:simpleType name="DiatonicFunction">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Unknown" />
+      <xs:enumeration value="Tonic" />
+      <xs:enumeration value="SubdominantParallel" />
+      <xs:enumeration value="Supertonic" />
+      <xs:enumeration value="DominantParallel" />
+      <xs:enumeration value="Mediant" />
+      <xs:enumeration value="Subdominant" />
+      <xs:enumeration value="Dominant" />
+      <xs:enumeration value="TonicParallel" />
+      <xs:enumeration value="Submediant" />
+      <xs:enumeration value="IncompleteDominantSeventh" />
+      <xs:enumeration value="LeadingTone" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="NoteAttribute" nillable="true" type="NoteAttribute" />
+  <xs:complexType name="NoteAttribute" mixed="true">
+    <xs:complexContent mixed="false">
+      <xs:extension base="AnalysisObject">
+        <xs:attribute name="SetOn" type="xs:dateTime" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Harmony" nillable="true" type="Harmony" />
+  <xs:complexType name="Harmony">
+    <xs:complexContent mixed="false">
+      <xs:extension base="AnalysisObject">
+        <xs:attribute name="Step" type="Step" use="required" />
+        <xs:attribute name="Gender" type="Gender" use="required" />
+        <xs:attribute name="Function" type="DiatonicFunction" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Articulation" nillable="true" type="Articulation" />
+  <xs:complexType name="Articulation">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="Accent" type="Accent" />
+        <xs:attribute name="Arpeggiate" type="xs:boolean" />
+        <xs:attribute name="Caesura" type="xs:boolean" />
+        <xs:attribute name="Damping" type="xs:boolean" />
+        <xs:attribute name="Dolce" type="xs:boolean" />
+        <xs:attribute name="Dynamics" type="Dynamics" />
+        <xs:attribute name="Espressivo" type="xs:boolean" />
+        <xs:attribute name="Fermata" type="xs:boolean" />
+        <xs:attribute name="Legato" type="xs:boolean" />
+        <xs:attribute name="Bowing" type="Bowing" />
+        <xs:attribute name="Mute" type="xs:string" />
+        <xs:attribute name="Portato" type="xs:boolean" />
+        <xs:attribute name="Sliding" type="Sliding" />
+        <xs:attribute name="Slur" type="Slur" />
+        <xs:attribute name="Trill" type="xs:boolean" />
+        <xs:attribute name="Tremolo" type="xs:boolean" />
+        <xs:attribute name="Ornament" type="Ornament" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="Dynamics">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="f" />
+      <xs:enumeration value="ff" />
+      <xs:enumeration value="fff" />
+      <xs:enumeration value="ffff" />
+      <xs:enumeration value="fffff" />
+      <xs:enumeration value="ffffff" />
+      <xs:enumeration value="fp" />
+      <xs:enumeration value="fz" />
+      <xs:enumeration value="mf" />
+      <xs:enumeration value="mp" />
+      <xs:enumeration value="p" />
+      <xs:enumeration value="pp" />
+      <xs:enumeration value="ppp" />
+      <xs:enumeration value="pppp" />
+      <xs:enumeration value="ppppp" />
+      <xs:enumeration value="pppppp" />
+      <xs:enumeration value="rf" />
+      <xs:enumeration value="rfz" />
+      <xs:enumeration value="sf" />
+      <xs:enumeration value="sffz" />
+      <xs:enumeration value="sfp" />
+      <xs:enumeration value="sfpp" />
+      <xs:enumeration value="sfz" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Bowing">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="Up" />
+      <xs:enumeration value="Down" />
+      <xs:enumeration value="Spiccato" />
+      <xs:enumeration value="OpenString" />
+      <xs:enumeration value="Pizzicato" />
+      <xs:enumeration value="Arco" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Sliding">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="Scoop" />
+      <xs:enumeration value="FallOff" />
+      <xs:enumeration value="Doit" />
+      <xs:enumeration value="Plop" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Slur">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="Start" />
+      <xs:enumeration value="Middle" />
+      <xs:enumeration value="End" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Ornament">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="Mordent" />
+      <xs:enumeration value="InvertedMordent" />
+      <xs:enumeration value="Turn" />
+      <xs:enumeration value="InvertedTurn" />
+      <xs:enumeration value="DelayedTurn" />
+      <xs:enumeration value="DelayedInvertedTurn" />
+      <xs:enumeration value="VerticalTurn" />
+      <xs:enumeration value="Schleifer" />
+      <xs:enumeration value="Shake" />
+      <xs:enumeration value="WavyLine" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Bowing" type="Bowing" />
+  <xs:element name="Mute" nillable="true" type="Mute" />
+  <xs:complexType name="Mute">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="MuteType" type="MuteType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="MuteText" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="MuteType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="consord" />
+      <xs:enumeration value="consordina" />
+      <xs:enumeration value="consordine" />
+      <xs:enumeration value="senzasord" />
+      <xs:enumeration value="viasord" />
+      <xs:enumeration value="withmute" />
+      <xs:enumeration value="removemute" />
+      <xs:enumeration value="straightmute" />
+      <xs:enumeration value="muted" />
+      <xs:enumeration value="open" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="MuteType" type="MuteType" />
+  <xs:element name="Sliding" type="Sliding" />
+  <xs:element name="Clef" type="Clef" />
+  <xs:simpleType name="Clef">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Treble" />
+      <xs:enumeration value="Bass" />
+      <xs:enumeration value="Alto" />
+      <xs:enumeration value="Tenor" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Instrument" nillable="true" type="Instrument" />
+  <xs:complexType name="Instrument">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="ID" type="xs:int" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:element name="Dynamics" type="Dynamics" />
+  <xs:element name="Symbol" nillable="true" type="Symbol" />
+  <xs:complexType name="Symbol" abstract="true">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Lyrics" type="ArrayOfLyric" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Articulation" type="Articulation" />
+    </xs:sequence>
+    <xs:attribute name="Voice" type="xs:int" use="required" />
+    <xs:attribute name="Duration" type="Duration" use="required" />
+    <xs:attribute name="Beat" type="xs:double" use="required" />
+  </xs:complexType>
+  <xs:complexType name="ArrayOfLyric">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Lyric" nillable="true" type="Lyric" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Lyric">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="Syllabic" type="Syllabic" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="Syllabic">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Single" />
+      <xs:enumeration value="Begin" />
+      <xs:enumeration value="Middle" />
+      <xs:enumeration value="End" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Duration">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Unknown" />
+      <xs:enumeration value="Twohundredfiftysixth" />
+      <xs:enumeration value="Hundredtwentyeigth" />
+      <xs:enumeration value="Sixtyforth" />
+      <xs:enumeration value="ThirtysecondTriplet" />
+      <xs:enumeration value="SixtyforthDotted" />
+      <xs:enumeration value="Thirtysecond" />
+      <xs:enumeration value="SixteenthTriplet" />
+      <xs:enumeration value="ThirtysecondDotted" />
+      <xs:enumeration value="Sixteenth" />
+      <xs:enumeration value="EigthTriplet" />
+      <xs:enumeration value="SixteenthDotted" />
+      <xs:enumeration value="SixteenthDoubleDotted" />
+      <xs:enumeration value="Eigth" />
+      <xs:enumeration value="EigthPlusThirtysecond" />
+      <xs:enumeration value="QuarterTriplet" />
+      <xs:enumeration value="EigthDotted" />
+      <xs:enumeration value="EigthDoubleDotted" />
+      <xs:enumeration value="Quarter" />
+      <xs:enumeration value="QuarterPlusThirtysecond" />
+      <xs:enumeration value="QuarterPlusSixteenth" />
+      <xs:enumeration value="HalfTriplet" />
+      <xs:enumeration value="QuarterPlusSixteenthPlusThirtysecond" />
+      <xs:enumeration value="QuarterDotted" />
+      <xs:enumeration value="QuarterDoubleDotted" />
+      <xs:enumeration value="Half" />
+      <xs:enumeration value="HalfPlusSixteenth" />
+      <xs:enumeration value="HalfPlusEigth" />
+      <xs:enumeration value="WholeTriplet" />
+      <xs:enumeration value="HalfDotted" />
+      <xs:enumeration value="HalfDoubleDotted" />
+      <xs:enumeration value="Whole" />
+      <xs:enumeration value="WholePlusSixteenth" />
+      <xs:enumeration value="WholePlusEigth" />
+      <xs:enumeration value="WholePlusQuarter" />
+      <xs:enumeration value="WholePlusQuarterDotted" />
+      <xs:enumeration value="WholeDotted" />
+      <xs:enumeration value="WholeDoubleDotted" />
+      <xs:enumeration value="Doublewhole" />
+      <xs:enumeration value="DoublewholeDotted" />
+      <xs:enumeration value="Quadruplewhole" />
+      <xs:enumeration value="Octuplewhole" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Note" nillable="true" type="Note" />
+  <xs:complexType name="Note">
+    <xs:complexContent mixed="false">
+      <xs:extension base="Symbol">
+        <xs:attribute name="Step" type="Step" use="required" />
+        <xs:attribute name="Octave" type="xs:int" use="required" />
+        <xs:attribute name="Velocity" type="xs:int" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="GraceNote" nillable="true" type="GraceNote" />
+  <xs:complexType name="GraceNote">
+    <xs:complexContent mixed="false">
+      <xs:extension base="Note" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Interval" type="Interval" />
+  <xs:simpleType name="Interval">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PerfectUnison" />
+      <xs:enumeration value="MinorSecond" />
+      <xs:enumeration value="MajorSecond" />
+      <xs:enumeration value="MinorThird" />
+      <xs:enumeration value="MajorThird" />
+      <xs:enumeration value="PerfectFourth" />
+      <xs:enumeration value="Tritone" />
+      <xs:enumeration value="PerfectFifth" />
+      <xs:enumeration value="MinorSixth" />
+      <xs:enumeration value="MajorSixth" />
+      <xs:enumeration value="MinorSeventh" />
+      <xs:enumeration value="MajorSeventh" />
+      <xs:enumeration value="PerfectOctave" />
+      <xs:enumeration value="MinorNinth" />
+      <xs:enumeration value="MajorNinth" />
+      <xs:enumeration value="MinorTenth" />
+      <xs:enumeration value="MajorTenth" />
+      <xs:enumeration value="PerfectEleventh" />
+      <xs:enumeration value="AugmentedEleventh" />
+      <xs:enumeration value="PerfectTwelfth" />
+      <xs:enumeration value="MinorThirteenth" />
+      <xs:enumeration value="MajorThirteenth" />
+      <xs:enumeration value="MinorFourteenth" />
+      <xs:enumeration value="MajorFourteenth" />
+      <xs:enumeration value="PerfectFifteenth" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Legato" nillable="true" type="Legato" />
+  <xs:complexType name="Legato">
+    <xs:simpleContent>
+      <xs:extension base="Articulation" />
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:element name="Lyric" nillable="true" type="Lyric" />
+  <xs:element name="MetaData" nillable="true" type="MetaData" />
+  <xs:complexType name="MetaData">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Title" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Subtitle" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="People" type="People" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Collection" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Opus" type="OpusNumber" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Epoch" type="Epoch" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Form" type="Form" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Dates" type="Dates" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Dedication" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="AverageDuration" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="BeatsPerMinute" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Key" type="MusicalKey" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Album" type="Album" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Copyright" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Reduction" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Weblink" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Notes" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Software" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="People">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Composers" type="ArrayOfComposer" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Lyricists" type="ArrayOfPerson" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Arrangers" type="ArrayOfPerson" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Producers" type="ArrayOfPerson" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Interpreters" type="ArrayOfPerson" />
+      <xs:element minOccurs="0" maxOccurs="1" name="OtherPersons" type="ArrayOfPerson" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfComposer">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Composer" nillable="true" type="Composer" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Composer">
+    <xs:complexContent mixed="false">
+      <xs:extension base="Person" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="Person">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="FirstName" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="MiddleName" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="LastName" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Role" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Misc" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Born" type="xs:dateTime" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Died" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfPerson">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Person" nillable="true" type="Person" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OpusNumber">
+    <xs:attribute name="Posthum" type="xs:boolean" />
+    <xs:attribute name="Number" type="xs:int" use="required" />
+    <xs:attribute name="SubNumber" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:simpleType name="Epoch">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="Medieval" />
+      <xs:enumeration value="Renaissance" />
+      <xs:enumeration value="Baroque" />
+      <xs:enumeration value="Classical" />
+      <xs:enumeration value="Romantic" />
+      <xs:enumeration value="Modern" />
+      <xs:enumeration value="TwentiethCentury" />
+      <xs:enumeration value="Contemporary" />
+      <xs:enumeration value="TwentyFirstCentury" />
+      <xs:enumeration value="Pop" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Form">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Symphony" />
+      <xs:enumeration value="Concerto" />
+      <xs:enumeration value="Sonata" />
+      <xs:enumeration value="Ouverture" />
+      <xs:enumeration value="Opera" />
+      <xs:enumeration value="Lied" />
+      <xs:enumeration value="Other" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="MusicalKey">
+    <xs:attribute name="Step" type="Step" use="required" />
+    <xs:attribute name="Gender" type="Gender" use="required" />
+  </xs:complexType>
+  <xs:complexType name="Album">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Title" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Label" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Published" type="xs:dateTime" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Duration" type="TimeSpan" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TimeSpan" />
+  <xs:element name="Album" nillable="true" type="Album" />
+  <xs:element name="Duration" type="Duration" />
+  <xs:element name="Epoch" type="Epoch" />
+  <xs:element name="Form" type="Form" />
+  <xs:element name="Gender" type="Gender" />
+  <xs:element name="MusicalKey" nillable="true" type="MusicalKey" />
+  <xs:element name="OpusNumber" nillable="true" type="OpusNumber" />
+  <xs:element name="Step" type="Step" />
+  <xs:element name="StepForSums" type="StepForSums" />
+  <xs:simpleType name="StepForSums">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="C" />
+      <xs:enumeration value="CSharp" />
+      <xs:enumeration value="D" />
+      <xs:enumeration value="DSharp" />
+      <xs:enumeration value="E" />
+      <xs:enumeration value="F" />
+      <xs:enumeration value="FSharp" />
+      <xs:enumeration value="G" />
+      <xs:enumeration value="GSharp" />
+      <xs:enumeration value="A" />
+      <xs:enumeration value="ASharp" />
+      <xs:enumeration value="B" />
+      <xs:enumeration value="Unknown" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="TimeSignature" nillable="true" type="TimeSignature" />
+  <xs:complexType name="TimeSignature">
+    <xs:attribute name="Beats" type="xs:int" use="required" />
+    <xs:attribute name="BeatUnit" type="xs:int" use="required" />
+    <xs:attribute default="false" name="IsCommon" type="xs:boolean" />
+    <xs:attribute default="false" name="IsCutCommon" type="xs:boolean" />
+  </xs:complexType>
+  <xs:element name="Measure" nillable="true" type="Measure" />
+  <xs:complexType name="Measure">
+    <xs:sequence>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element minOccurs="0" maxOccurs="1" name="Note" type="Note" />
+        <xs:element minOccurs="0" maxOccurs="1" name="GraceNote" type="GraceNote" />
+        <xs:element minOccurs="0" maxOccurs="1" name="Rest" type="Rest" />
+      </xs:choice>
+      <xs:element minOccurs="0" maxOccurs="1" name="Wedge" type="Wedge" />
+    </xs:sequence>
+    <xs:attribute name="Clef" type="Clef" use="required" />
+    <xs:attribute name="InstrumentID" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:complexType name="Rest">
+    <xs:complexContent mixed="false">
+      <xs:extension base="Symbol" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="Wedge">
+    <xs:attribute name="StartBeat" type="xs:double" use="required" />
+    <xs:attribute name="EndBeat" type="xs:double" use="required" />
+    <xs:attribute name="IsCrescendo" type="xs:boolean" />
+    <xs:attribute name="IsDecrescendo" type="xs:boolean" />
+  </xs:complexType>
+  <xs:element name="NoteReference" nillable="true" type="NoteReference" />
+  <xs:element name="Part" nillable="true" type="Part" />
+  <xs:complexType name="Part">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Start" type="NoteReference" />
+      <xs:element minOccurs="0" maxOccurs="1" name="End" type="NoteReference" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Passage" type="Passage" />
+    </xs:sequence>
+    <xs:attribute name="Name" type="xs:string" />
+    <xs:attribute name="Movement" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:complexType name="Passage">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="MeasureGroup" type="MeasureGroup" />
+    </xs:sequence>
+    <xs:attribute name="Title" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="MeasureGroup">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="TimeSignature" type="TimeSignature" />
+      <xs:element minOccurs="0" maxOccurs="1" name="KeySignature" type="MusicalKey" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Tempo" type="Tempo" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Analysis" type="ArrayOfChoice1" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Measure" type="Measure" />
+    </xs:sequence>
+    <xs:attribute name="MeasureNumber" type="xs:int" use="required" />
+    <xs:attribute default="false" name="IsPickupMeasure" type="xs:boolean" />
+    <xs:attribute name="RehearsalMark" type="xs:string" />
+    <xs:attribute name="Segno" type="xs:int" />
+    <xs:attribute name="Coda" type="xs:int" />
+  </xs:complexType>
+  <xs:complexType name="Tempo">
+    <xs:attribute name="Beat" type="xs:double" use="required" />
+    <xs:attribute name="Text" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="ArrayOfChoice1">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element minOccurs="1" maxOccurs="1" name="AnalysisObject" nillable="true" type="AnalysisObject" />
+      <xs:element minOccurs="1" maxOccurs="1" name="NoteAttribute" nillable="true" type="NoteAttribute" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Harmony" nillable="true" type="Harmony" />
+    </xs:choice>
+  </xs:complexType>
+  <xs:element name="People" nillable="true" type="People" />
+  <xs:element name="Person" nillable="true" type="Person" />
+  <xs:element name="Composer" nillable="true" type="Composer" />
+  <xs:element name="MeasureGroup" nillable="true" type="MeasureGroup" />
+  <xs:element name="Movement" nillable="true" type="Movement" />
+  <xs:complexType name="Movement">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Segment" type="Segment" />
+    </xs:sequence>
+    <xs:attribute name="Name" type="xs:string" />
+    <xs:attribute name="Number" type="xs:int" use="required" />
+    <xs:attribute name="Tempo" type="xs:string" />
+    <xs:attribute name="BeatsPerMinute" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:complexType name="Segment">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Passage" type="Passage" />
+    </xs:sequence>
+    <xs:attribute name="Title" type="xs:string" />
+  </xs:complexType>
+  <xs:element name="Marcato" nillable="true" type="Marcato" />
+  <xs:complexType name="Marcato">
+    <xs:simpleContent>
+      <xs:extension base="Articulation" />
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:element name="Ornament" type="Ornament" />
+  <xs:element name="Portato" nillable="true" type="Portato" />
+  <xs:complexType name="Portato">
+    <xs:simpleContent>
+      <xs:extension base="Articulation" />
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:element name="Slur" type="Slur" />
+  <xs:element name="Staccato" nillable="true" type="Staccato" />
+  <xs:complexType name="Staccato">
+    <xs:simpleContent>
+      <xs:extension base="Articulation" />
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:element name="Tenuto" nillable="true" type="Tenuto" />
+  <xs:complexType name="Tenuto">
+    <xs:simpleContent>
+      <xs:extension base="Articulation" />
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:element name="Passage" nillable="true" type="Passage" />
+  <xs:element name="Piece" nillable="true" type="Piece" />
+  <xs:complexType name="Piece">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Meta" type="MetaData" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Instruments" type="ArrayOfInstrument" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Score" type="ArrayOfSection" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Parts" type="ArrayOfPart" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Comments" type="ArrayOfComment" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfInstrument">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Instrument" nillable="true" type="Instrument" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfSection">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Section" nillable="true" type="Section" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Section">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Movement" type="Movement" />
+    </xs:sequence>
+    <xs:attribute name="Name" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="ArrayOfPart">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Part" nillable="true" type="Part" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfComment">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Comment" nillable="true" type="Comment" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Rest" nillable="true" type="Rest" />
+  <xs:element name="Section" nillable="true" type="Section" />
+  <xs:element name="Segment" nillable="true" type="Segment" />
+  <xs:element name="Syllabic" type="Syllabic" />
+  <xs:element name="Tempo" nillable="true" type="Tempo" />
+  <xs:element name="TempoChangeString" type="TempoChangeString" />
+  <xs:simpleType name="TempoChangeString">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="accelerando" />
+      <xs:enumeration value="accel" />
+      <xs:enumeration value="affrettando" />
+      <xs:enumeration value="incalzando" />
+      <xs:enumeration value="piùmosso" />
+      <xs:enumeration value="pocopiu" />
+      <xs:enumeration value="stringendo" />
+      <xs:enumeration value="allargando" />
+      <xs:enumeration value="calando" />
+      <xs:enumeration value="largando" />
+      <xs:enumeration value="menomosso" />
+      <xs:enumeration value="piulento" />
+      <xs:enumeration value="pocomeno" />
+      <xs:enumeration value="rallentando" />
+      <xs:enumeration value="ritardando" />
+      <xs:enumeration value="rit" />
+      <xs:enumeration value="ritenente" />
+      <xs:enumeration value="ritenuto" />
+      <xs:enumeration value="slentando" />
+      <xs:enumeration value="strasciando" />
+      <xs:enumeration value="abeneplacito" />
+      <xs:enumeration value="acapriccio" />
+      <xs:enumeration value="apiacere" />
+      <xs:enumeration value="apiacimento" />
+      <xs:enumeration value="asuoarbitrio" />
+      <xs:enumeration value="commodo" />
+      <xs:enumeration value="placito" />
+      <xs:enumeration value="adlibitum" />
+      <xs:enumeration value="collaparte" />
+      <xs:enumeration value="rubato" />
+      <xs:enumeration value="senzamisura" />
+      <xs:enumeration value="senzatempo" />
+      <xs:enumeration value="suivez" />
+      <xs:enumeration value="abattuta" />
+      <xs:enumeration value="atempo" />
+      <xs:enumeration value="alrigoreditempo" />
+      <xs:enumeration value="misurato" />
+      <xs:enumeration value="tempoprimo" />
+      <xs:enumeration value="tempoi" />
+      <xs:enumeration value="allebreve" />
+      <xs:enumeration value="doppiomovimento" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="TempoString" type="TempoString" />
+  <xs:simpleType name="TempoString">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="Other" />
+      <xs:enumeration value="Larghissimo" />
+      <xs:enumeration value="Grave" />
+      <xs:enumeration value="Largo" />
+      <xs:enumeration value="Larghetto" />
+      <xs:enumeration value="Lento" />
+      <xs:enumeration value="Adagio" />
+      <xs:enumeration value="Adagietto" />
+      <xs:enumeration value="Andante" />
+      <xs:enumeration value="Andantino" />
+      <xs:enumeration value="Maestoso" />
+      <xs:enumeration value="Moderato" />
+      <xs:enumeration value="ConMoto" />
+      <xs:enumeration value="Allegretto" />
+      <xs:enumeration value="Allegro" />
+      <xs:enumeration value="Vivace" />
+      <xs:enumeration value="Vivo" />
+      <xs:enumeration value="Vivacissimo" />
+      <xs:enumeration value="Presto" />
+      <xs:enumeration value="Prestissimo" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Theme" nillable="true" type="Theme" />
+  <xs:complexType name="Theme">
+    <xs:complexContent mixed="false">
+      <xs:extension base="Part">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="ThemeNumber" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Wedge" nillable="true" type="Wedge" />
+  <xs:element name="Metrics" nillable="true" type="Metrics" />
+  <xs:complexType name="Metrics">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="MarginTop" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="MarginBelowTitle" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="StaffSpacing" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="SystemSpacing" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="SystemMarginLeft" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="SystemMarginRight" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

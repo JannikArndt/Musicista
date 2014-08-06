@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="CategoryWork" nillable="true" type="CategoryWork" />
+  <xs:complexType name="CategoryWork">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Meta" type="MetaData" />
+    </xs:sequence>
+    <xs:attribute name="Name" type="xs:string" />
+    <xs:attribute name="Filepath" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="MetaData">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Title" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Subtitle" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="People" type="People" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Collection" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Opus" type="OpusNumber" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Epoch" type="Epoch" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Form" type="Form" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Dates" type="Dates" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Dedication" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="AverageDuration" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="BeatsPerMinute" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Key" type="MusicalKey" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Album" type="Album" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Copyright" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Reduction" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Weblink" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Notes" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Software" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="People">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Composers" type="ArrayOfComposer" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Lyricists" type="ArrayOfPerson" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Arrangers" type="ArrayOfPerson" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Producers" type="ArrayOfPerson" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Interpreters" type="ArrayOfPerson" />
+      <xs:element minOccurs="0" maxOccurs="1" name="OtherPersons" type="ArrayOfPerson" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfComposer">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Composer" nillable="true" type="Composer" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Composer">
+    <xs:complexContent mixed="false">
+      <xs:extension base="Person" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="Person">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="FirstName" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="MiddleName" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="LastName" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Role" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Misc" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Born" type="xs:dateTime" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Died" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfPerson">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Person" nillable="true" type="Person" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OpusNumber">
+    <xs:attribute name="Posthum" type="xs:boolean" />
+    <xs:attribute name="Number" type="xs:int" use="required" />
+    <xs:attribute name="SubNumber" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:simpleType name="Epoch">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="Medieval" />
+      <xs:enumeration value="Renaissance" />
+      <xs:enumeration value="Baroque" />
+      <xs:enumeration value="Classical" />
+      <xs:enumeration value="Romantic" />
+      <xs:enumeration value="Modern" />
+      <xs:enumeration value="TwentiethCentury" />
+      <xs:enumeration value="Contemporary" />
+      <xs:enumeration value="TwentyFirstCentury" />
+      <xs:enumeration value="Pop" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Form">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Symphony" />
+      <xs:enumeration value="Concerto" />
+      <xs:enumeration value="Sonata" />
+      <xs:enumeration value="Ouverture" />
+      <xs:enumeration value="Opera" />
+      <xs:enumeration value="Lied" />
+      <xs:enumeration value="Other" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="Dates">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Composition" type="DateEvent" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Performances" type="Performance" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Publications" type="Publication" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Engraving" type="Engraving" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Other" type="DateEvent" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DateEvent">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="Date" type="xs:dateTime" use="required" />
+        <xs:attribute name="Place" type="xs:string" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="Engraving">
+    <xs:simpleContent>
+      <xs:extension base="DateEvent">
+        <xs:attribute name="Typesetter" type="xs:string" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="Publication">
+    <xs:simpleContent>
+      <xs:extension base="DateEvent">
+        <xs:attribute name="IsFirst" type="xs:boolean" use="required" />
+        <xs:attribute name="Publisher" type="xs:string" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="Performance">
+    <xs:simpleContent>
+      <xs:extension base="DateEvent">
+        <xs:attribute name="IsFirst" type="xs:boolean" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="MusicalKey">
+    <xs:attribute name="Step" type="Step" use="required" />
+    <xs:attribute name="Gender" type="Gender" use="required" />
+  </xs:complexType>
+  <xs:simpleType name="Step">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="C" />
+      <xs:enumeration value="CSharp" />
+      <xs:enumeration value="DFlat" />
+      <xs:enumeration value="D" />
+      <xs:enumeration value="DSharp" />
+      <xs:enumeration value="EFlat" />
+      <xs:enumeration value="E" />
+      <xs:enumeration value="ESharp" />
+      <xs:enumeration value="FFlat" />
+      <xs:enumeration value="F" />
+      <xs:enumeration value="FSharp" />
+      <xs:enumeration value="GFlat" />
+      <xs:enumeration value="G" />
+      <xs:enumeration value="GSharp" />
+      <xs:enumeration value="AFlat" />
+      <xs:enumeration value="A" />
+      <xs:enumeration value="ASharp" />
+      <xs:enumeration value="BFlat" />
+      <xs:enumeration value="B" />
+      <xs:enumeration value="BSharp" />
+      <xs:enumeration value="CFlat" />
+      <xs:enumeration value="Unknown" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Gender">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Major" />
+      <xs:enumeration value="Minor" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="Album">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Title" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Label" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Published" type="xs:dateTime" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Duration" type="TimeSpan" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TimeSpan" />
+  <xs:element name="Collection" nillable="true" type="CollectionBase" />
+  <xs:complexType name="CollectionBase">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Composer" type="CollectionComposer" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CollectionComposer">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Category" type="CollectionCategory" />
+    </xs:sequence>
+    <xs:attribute name="Name" type="xs:string" />
+    <xs:attribute name="Born" type="xs:int" use="required" />
+    <xs:attribute name="Died" type="xs:int" use="required" />
+    <xs:attribute name="Image" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="CollectionCategory">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Work" type="CategoryWork" />
+    </xs:sequence>
+    <xs:attribute name="Name" type="xs:string" />
+  </xs:complexType>
+  <xs:element name="CollectionCategory" nillable="true" type="CollectionCategory" />
+  <xs:element name="CollectionComposer" nillable="true" type="CollectionComposer" />
+</xs:schema>

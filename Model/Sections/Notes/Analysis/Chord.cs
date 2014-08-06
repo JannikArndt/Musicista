@@ -13,6 +13,8 @@ namespace Model.Sections.Notes.Analysis
             Gender = gender;
         }
 
+        public Chord() { }
+
         public override string ToString()
         {
             return Step + " " + Gender;

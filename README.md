@@ -6,14 +6,27 @@ Musicista is a tool that combines music with computer science and offers the abi
 
 ##Release Notes##
 
-###Planned features###
-- full support of expression-symbols in Model
-- barlines and repeats
+#####Long-termin planned features#####
 - automatically choose the right clef
 - automatically adjust measure width
-- Collection with all recent files and other suggestions
 - Edit instruments
-- Cue notes
+- Grace & Cue notes
+- More algorithms
+
+###Planned features###
+- barlines and repeats
+- engraving of dynamics, articulation, ornaments
+- Stylsheets (model and gui)
+- API for algorithms
+
+###v0.7 (6.8.2014)###
+- Entierly new model (not compatible with older musicista-files)
+- Analysis-track for chords, etc. (with example algorithm for analysing harmony)
+- Comments 
+- Full support for Articulation (including accents, bowing, dynamics, slurs, sliding and ornaments) in Model & mapping from MusicXML
+- Added Collection, for recent files, a better MuseScore-search and an integrated databse of works
+- Improvements and bugfixes
+- Installation beginning with this one update automatically
 
 ###v0.6 (22.7.2014)###
 - support for multiple voices

@@ -361,6 +361,7 @@ namespace Musicista.Mappers
                     tempArticulation.Other = "cresc."; return;
                 default:
                     Console.WriteLine(@"Could not parse articulation " + words);
+                    MainWindow.Tracker.Track("Articulation Parsing Error", new Dictionary<string, object> { { "Username", Properties.Settings.Default.Username }, { "Words", words } });
                     break;
             }
         }

@@ -13,7 +13,7 @@ namespace Model
         [XmlArray("Instruments")]
         public List<Instrument> Instruments { get; set; }
 
-        [XmlArray("Sections")]
+        [XmlArray("Score")]
         public List<Section> Sections { get; set; }
 
         [XmlIgnore]

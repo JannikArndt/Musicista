@@ -8,7 +8,7 @@ namespace Model.Sections
     {
         [XmlAttribute("Title")]
         public string Title { get; set; }
-        [XmlElement("MeasureGroups")]
+        [XmlElement("MeasureGroup")]
         public List<MeasureGroup> MeasureGroups { get; set; }
         [XmlIgnore]
         public Segment ParentSegment { get; set; }

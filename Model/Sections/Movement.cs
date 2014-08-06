@@ -13,7 +13,7 @@ namespace Model.Sections
         public string Tempo { get; set; } // Adagio
         [XmlAttribute("BeatsPerMinute")]
         public int BeatsPerMinute { get; set; } // see Beethovens symphonies
-        [XmlElement("Segments")]
+        [XmlElement("Segment")]
         public List<Segment> Segments { get; set; } // Andante, Presto, Trio
         [XmlIgnore]
         public Section ParentSection { get; set; }

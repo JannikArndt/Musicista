@@ -10,7 +10,7 @@ namespace Model.Sections
     {
         [XmlAttribute("Title")]
         public string Title { get; set; }
-        [XmlElement("Passages")]
+        [XmlElement("Passage")]
         public List<Passage> Passages { get; set; }
         [XmlIgnore]
         public Movement ParentMovement { get; set; }

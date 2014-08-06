@@ -61,7 +61,7 @@ namespace Model.Sections
         public List<AnalysisObject> Analysis { get { return _listOfAnalysisObjects; } }
         public bool ShouldSerializeAnalysis() { return Analysis != null && Analysis.Any(); }
 
-        [XmlElement("Measures")]
+        [XmlElement("Measure")]
         public List<Measure> Measures { get; set; }
 
         [XmlIgnore]

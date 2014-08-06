@@ -7,7 +7,7 @@ namespace Model.Sections
     {
         [XmlAttribute("Name")]
         public string Name { get; set; }
-        [XmlElement("Movements")]
+        [XmlElement("Movement")]
         public List<Movement> Movements { get; set; }
         [XmlIgnore]
         public Piece ParentPiece { get; set; }

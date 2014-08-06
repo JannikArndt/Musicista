@@ -280,7 +280,7 @@ namespace Musicista.Mappers
                                     if (directionType.Wedge != null && directionType.Wedge.type == wedgetype.diminuendo)
                                         tempWedge = new Wedge(beat / 960, 0, false);
 
-                                    if (directionType.Wedge != null && directionType.Wedge.type == wedgetype.stop)
+                                    if (directionType.Wedge != null && tempWedge != null && directionType.Wedge.type == wedgetype.stop)
                                     {
                                         tempWedge.EndBeat = beat / 960;
                                         newMeasure.Wedge = tempWedge;

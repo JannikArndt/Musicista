@@ -19,6 +19,8 @@ namespace Model.Sections
         [XmlIgnore]
         private TimeSignature _timeSignature;
         [XmlIgnore]
+        private List<Tempo> _tempi = new List<Tempo>();
+        [XmlIgnore]
         private int _measureNumber;
         [XmlIgnore]
         private readonly List<AnalysisObject> _listOfAnalysisObjects = new List<AnalysisObject>();
@@ -47,6 +49,14 @@ namespace Model.Sections
             get { return _keySignature; }
             set { _keySignature = value; NotifyPropertyChanged(); }
         }
+        [XmlElement("Tempo")]
+        public List<Tempo> Tempi
+        {
+            get { return _tempi; }
+            set { _tempi = value; NotifyPropertyChanged(); }
+        }
+        public bool ShouldSerializeTempo() { return Tempi != null && Tempi.Any(); }
+
         [XmlArray("Analysis"), XmlArrayItem(typeof(Harmony)), XmlArrayItem(typeof(NoteAttribute)), XmlArrayItem(typeof(AnalysisObject))]
         public List<AnalysisObject> Analysis { get { return _listOfAnalysisObjects; } }
         public bool ShouldSerializeAnalysis() { return Analysis != null && Analysis.Any(); }

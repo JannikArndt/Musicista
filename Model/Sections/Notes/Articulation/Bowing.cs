@@ -7,6 +7,8 @@ namespace Model.Sections.Notes.Articulation
         Up,
         Down,
         Spiccato,
-        OpenString
+        OpenString,
+        Pizzicato,
+        Arco
     }
 }

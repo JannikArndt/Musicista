@@ -287,7 +287,17 @@ namespace Musicista.Mappers
                                     }
 
                                     if (directionType.Words != null)
-                                        tempArticulation.Other = directionType.Words.Value; // TODO interpret "rit.", "accel.", "pizz.", "Grave", "con sord.", "marcato"
+                                    {
+                                        var newTempo = new Tempo { Beat = beat / 960 };
+                                        var mute = new Mute();
+
+                                        if (newTempo.Parse(directionType.Words.Value))
+                                            measureGroup.Tempi.Add(newTempo);
+                                        else if (mute.Parse(directionType.Words.Value))
+                                            tempArticulation.Mute = mute;
+                                        else
+                                            ParseArticulation(tempArticulation, directionType.Words.Value);
+                                    }
 
                                     if (directionType.Segno != null)
                                         measureGroup.Segno = 1;
@@ -328,6 +338,31 @@ namespace Musicista.Mappers
                 foreach (var measure in piece.MeasureGroups.First().Measures)
                     CorrectPickupMeasure(measure);
             return piece;
+        }
+
+        private static void ParseArticulation(Articulation tempArticulation, string words)
+        {
+            words = words.RemoveWhitespace().ToLower().Replace(".", String.Empty);
+            switch (words)
+            {
+                case "pizz":
+                    tempArticulation.Bowing = Bowing.Pizzicato; return;
+                case "arco":
+                    tempArticulation.Bowing = Bowing.Arco; return;
+                case "marcato":
+                    tempArticulation.Accent = Accent.Marcato; return;
+                case "dolce":
+                    tempArticulation.Dolce = true; return;
+                case "espress":
+                    tempArticulation.Espressivo = true; return;
+                case "leggiero":
+                    tempArticulation.Other = "leggiero"; return;
+                case "cresc":
+                    tempArticulation.Other = "cresc."; return;
+                default:
+                    Console.WriteLine(@"Could not parse articulation " + words);
+                    break;
+            }
         }
 
         private static void CorrectPickupMeasure(Measure measure)
@@ -415,23 +450,16 @@ namespace Musicista.Mappers
                         if (item.Articulations.Tenuto != null)
                             symbol.Articulations.Accent = Accent.Tenuto;
 
-                        if (item.Articulations.Spiccato != null)
-                            symbol.Articulations.Bowing = Bowing.Spiccato;
-
                         if (item.Articulations.StrongAccent != null)
                             symbol.Articulations.Accent = Accent.Marcato;
 
                         if (item.Articulations.Staccatissimo != null)
                             symbol.Articulations.Accent = Accent.Staccatissimo;
 
-                        if (item.Articulations != null)
-                            symbol.Articulations.Bowing = Bowing.Spiccato;
 
                         if (item.Articulations.Spiccato != null)
                             symbol.Articulations.Bowing = Bowing.Spiccato;
 
-                        if (item.Articulations.Spiccato != null)
-                            symbol.Articulations.Bowing = Bowing.Spiccato;
 
                         if (item.Articulations.Scoop != null)
                             symbol.Articulations.Sliding = Sliding.Scoop;

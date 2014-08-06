@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Comment.cs" />
+    <Compile Include="EnumExtensions.cs" />
     <Compile Include="ListExtension.cs" />
     <Compile Include="Sections\Notes\Articulation\Accent.cs" />
     <Compile Include="Sections\Notes\Analysis\Chord.cs" />
@@ -55,6 +56,8 @@
     <Compile Include="Sections\Notes\Analysis\Harmony.cs" />
     <Compile Include="Sections\Notes\Articulation\Articulation.cs" />
     <Compile Include="Sections\Notes\Articulation\Bowing.cs" />
+    <Compile Include="Sections\Notes\Articulation\Mute.cs" />
+    <Compile Include="Sections\Notes\Articulation\MuteType.cs" />
     <Compile Include="Sections\Notes\Articulation\Sliding.cs" />
     <Compile Include="Sections\Notes\Clef.cs" />
     <Compile Include="Instrument.cs" />
@@ -96,8 +99,12 @@
     <Compile Include="Sections\Segment.cs" />
     <Compile Include="Sections\Notes\Syllabic.cs" />
     <Compile Include="Sections\Notes\Symbol.cs" />
+    <Compile Include="Sections\Tempo.cs" />
+    <Compile Include="Sections\TempoChangeString.cs" />
+    <Compile Include="Sections\TempoString.cs" />
     <Compile Include="Sections\Theme.cs" />
     <Compile Include="Sections\Wedge.cs" />
+    <Compile Include="StringExtensions.cs" />
     <Compile Include="View\Metrics.cs" />
   </ItemGroup>
   <ItemGroup />

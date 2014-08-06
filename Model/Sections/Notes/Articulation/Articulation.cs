@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Xml.Serialization;
 
 namespace Model.Sections.Notes.Articulation
@@ -17,15 +18,25 @@ namespace Model.Sections.Notes.Articulation
         public bool Caesura { get; set; }
         public bool CaesuraSpecified { get { return Caesura; } }
 
-
+        // Harp Damping
         [XmlAttribute("Damping")]
         public bool Damping { get; set; }
         public bool DampingSpecified { get { return Damping; } }
 
 
+        [XmlAttribute("Dolce")]
+        public bool Dolce { get; set; }
+        public bool DolceSpecified { get { return Dolce; } }
+
+
         [XmlAttribute("Dynamics")]
         public Dynamics Dynamics { get; set; }
         public bool DynamicsSpecified { get { return Dynamics != Dynamics.None; } }
+
+
+        [XmlAttribute("Espressivo")]
+        public bool Espressivo { get; set; }
+        public bool EspressivoSpecified { get { return Espressivo; } }
 
 
         [XmlAttribute("Fermata")]
@@ -43,21 +54,32 @@ namespace Model.Sections.Notes.Articulation
         public bool BowingSpecified { get { return Bowing != Bowing.None; } }
 
 
+        [XmlIgnore]
+        public Mute Mute { get; set; }
+        [XmlAttribute("Mute")]
+        public String MuteForSerialization { get { return Mute.MuteText; } set { Mute.MuteText = value; } }
+        public bool MuteForSerializationSpecified { get { return Mute.MuteType != MuteType.None; } }
+
+
         [XmlAttribute("Portato")]
         public bool Portato { get; set; }
         public bool PortatoSpecified { get { return Portato; } }
+
 
         [XmlAttribute("Sliding")]
         public Sliding Sliding { get; set; }
         public bool SlidingSpecified { get { return Sliding != Sliding.None; } }
 
+
         [XmlAttribute("Slur")]
         public Slur Slur { get; set; }
         public bool SlurSpecified { get { return Slur != Slur.None; } }
 
+
         [XmlAttribute("Trill")]
         public bool Trill { get; set; }
         public bool TrillSpecified { get { return Trill; } }
+
 
         [XmlAttribute("Tremolo")]
         public bool Tremolo { get; set; }
@@ -78,9 +100,15 @@ namespace Model.Sections.Notes.Articulation
         {
             get
             {
-                return Accent != Accent.None || Caesura || Damping || Dynamics != Dynamics.None || Fermata || Legato ||
-                    Bowing != Bowing.None || Sliding != Sliding.None || Portato || !string.IsNullOrEmpty(Other);
+                return Accent != Accent.None || Arpeggiate || Caesura || Damping || Dolce || Dynamics != Dynamics.None || Espressivo || Fermata
+                    || Legato || Mute.MuteType != MuteType.None || Bowing != Bowing.None || Sliding != Sliding.None || Slur != Slur.None
+                    || Portato || Trill || Tremolo || Ornament != Ornament.None || !string.IsNullOrEmpty(Other);
             }
+        }
+
+        public Articulation()
+        {
+            Mute = new Mute();
         }
     }
 }

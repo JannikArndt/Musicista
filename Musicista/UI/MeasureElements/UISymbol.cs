@@ -1,4 +1,6 @@
-﻿using Model.Sections.Notes;
+﻿using Model;
+using Model.Sections.Notes;
+using Model.Sections.Notes.Articulation;
 using Musicista.UI.Enums;
 using System;
 using System.Linq;
@@ -177,6 +179,31 @@ namespace Musicista.UI.MeasureElements
                     return Direction.Below;
 
             return Direction.Above;
+        }
+
+        public void HandleArticulation(Articulation articulation)
+        {
+            if (articulation.Dynamics != Dynamics.None)
+                DrawDynamics(articulation.Dynamics);
+        }
+
+        public void DrawDynamics(Dynamics dynamics)
+        {
+            var scale = 1.1 - (dynamics.GetDescription().Count() / 10.0);
+            var dynamicsText = new TextBlock
+            {
+                FontSize = 140 * scale,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                TextAlignment = TextAlignment.Left,
+                FontFamily = new FontFamily(new Uri("pack://application:,,,/"), "./UI/MeasureElements/#Emmentaler 26"),
+                Text = dynamics.GetDescription()
+            };
+
+            var point = GetFreePoint(Direction.Below);
+
+            SetTop(dynamicsText, point.Y - 140 + (40 / (scale)));
+            SetLeft(dynamicsText, 0 - 10 * (1 / (2 * scale)));
+            Children.Add(dynamicsText);
         }
     }
 }

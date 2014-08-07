@@ -103,6 +103,9 @@ namespace Musicista.UI.MeasureElements
             HandleTriplets();
 
             HandleTies(tiedTo);
+
+            if (Note.Articulations != null)
+                HandleArticulation(Note.Articulations);
         }
 
         public Note Note { get; set; }

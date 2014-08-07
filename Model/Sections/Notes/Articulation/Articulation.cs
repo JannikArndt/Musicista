@@ -40,8 +40,8 @@ namespace Model.Sections.Notes.Articulation
 
 
         [XmlAttribute("Fermata")]
-        public bool Fermata { get; set; }
-        public bool FermataSpecified { get { return Fermata; } }
+        public Fermata Fermata { get; set; }
+        public bool FermataSpecified { get { return Fermata != Fermata.None; } }
 
 
         [XmlAttribute("Legato")]
@@ -59,11 +59,6 @@ namespace Model.Sections.Notes.Articulation
         [XmlAttribute("Mute")]
         public String MuteForSerialization { get { return Mute.MuteText; } set { Mute.MuteText = value; } }
         public bool MuteForSerializationSpecified { get { return Mute.MuteType != MuteType.None; } }
-
-
-        [XmlAttribute("Portato")]
-        public bool Portato { get; set; }
-        public bool PortatoSpecified { get { return Portato; } }
 
 
         [XmlAttribute("Sliding")]
@@ -100,9 +95,9 @@ namespace Model.Sections.Notes.Articulation
         {
             get
             {
-                return Accent != Accent.None || Arpeggiate || Caesura || Damping || Dolce || Dynamics != Dynamics.None || Espressivo || Fermata
+                return Accent != Accent.None || Arpeggiate || Caesura || Damping || Dolce || Dynamics != Dynamics.None || Espressivo || Fermata != Fermata.None
                     || Legato || Mute.MuteType != MuteType.None || Bowing != Bowing.None || Sliding != Sliding.None || Slur != Slur.None
-                    || Portato || Trill || Tremolo || Ornament != Ornament.None || !string.IsNullOrEmpty(Other);
+                    || Trill || Tremolo || Ornament != Ornament.None || !string.IsNullOrEmpty(Other);
             }
         }
 

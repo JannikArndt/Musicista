@@ -39,7 +39,7 @@ namespace MusicXML
 
 
         [XmlElement("fermata")]
-        public fermata[] fermata { get; set; }
+        public Fermata[] fermata { get; set; }
 
 
         public ending ending { get; set; }

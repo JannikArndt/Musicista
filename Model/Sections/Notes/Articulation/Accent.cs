@@ -7,6 +7,7 @@ namespace Model.Sections.Notes.Articulation
         Staccatissimo, // ,
         Standard, // >
         Marcato, // ^, strong
-        Tenuto // -
+        Tenuto, // -
+        Portato  // -.-
     }
 }

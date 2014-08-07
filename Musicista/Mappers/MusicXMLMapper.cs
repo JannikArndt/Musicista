@@ -16,6 +16,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using Clef = Model.Sections.Notes.Clef;
 using Duration = Model.Sections.Notes.Duration;
+using Fermata = Model.Sections.Notes.Articulation.Fermata;
 using Lyric = Model.Sections.Notes.Lyric;
 using Note = MusicXML.Note.Note;
 using Step = Model.Meta.Step;
@@ -457,6 +458,8 @@ namespace Musicista.Mappers
                         if (item.Articulations.Staccatissimo != null)
                             symbol.Articulations.Accent = Accent.Staccatissimo;
 
+                        if (item.Articulations.DetachedLegato != null)
+                            symbol.Articulations.Accent = Accent.Portato;
 
                         if (item.Articulations.Spiccato != null)
                             symbol.Articulations.Bowing = Bowing.Spiccato;
@@ -490,7 +493,15 @@ namespace Musicista.Mappers
                     }
 
                     if (item.Fermata != null)
-                        symbol.Articulations.Fermata = true;
+                        switch (item.Fermata.Value)
+                        {
+                            case fermatashape.normal:
+                                symbol.Articulations.Fermata = Fermata.Standard; break;
+                            case fermatashape.angled:
+                                symbol.Articulations.Fermata = Fermata.Short; break;
+                            case fermatashape.square:
+                                symbol.Articulations.Fermata = Fermata.Long; break;
+                        }
 
                     if (item.Arpeggiate != null)
                         symbol.Articulations.Arpeggiate = true;

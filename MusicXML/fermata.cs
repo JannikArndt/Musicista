@@ -10,36 +10,17 @@ namespace MusicXML
     [Serializable]
     [DebuggerStepThrough]
     [DesignerCategory("code")]
-    public class fermata
+    public class Fermata
     {
-        private uprightinverted typeField;
-
-        private bool typeFieldSpecified;
-
-        private fermatashape valueField;
-
-
         [XmlAttribute]
-        public uprightinverted type
-        {
-            get { return typeField; }
-            set { typeField = value; }
-        }
+        public uprightinverted Type { get; set; }
 
 
         [XmlIgnore]
-        public bool typeSpecified
-        {
-            get { return typeFieldSpecified; }
-            set { typeFieldSpecified = value; }
-        }
+        public bool TypeSpecified { get; set; }
 
 
         [XmlText]
-        public fermatashape Value
-        {
-            get { return valueField; }
-            set { valueField = value; }
-        }
+        public fermatashape Value { get; set; }
     }
 }

@@ -56,6 +56,7 @@
     <Compile Include="Sections\Notes\Analysis\Harmony.cs" />
     <Compile Include="Sections\Notes\Articulation\Articulation.cs" />
     <Compile Include="Sections\Notes\Articulation\Bowing.cs" />
+    <Compile Include="Sections\Notes\Articulation\Fermata.cs" />
     <Compile Include="Sections\Notes\Articulation\Mute.cs" />
     <Compile Include="Sections\Notes\Articulation\MuteType.cs" />
     <Compile Include="Sections\Notes\Articulation\Sliding.cs" />

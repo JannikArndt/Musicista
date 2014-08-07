@@ -35,9 +35,8 @@ namespace MusicXML.Note
         public Articulations Articulations { get; set; }
 
 
-
-        [XmlElement("fermata", typeof(fermata))]
-        public fermata Fermata { get; set; }
+        [XmlElement("fermata", typeof(Fermata))]
+        public Fermata Fermata { get; set; }
 
 
         [XmlElement("glissando", typeof(glissando))]
@@ -78,10 +77,10 @@ namespace MusicXML.Note
 
 
         [XmlAttribute("print-object")]
-        public yesno printobject { get; set; }
+        public yesno PrintObject { get; set; }
 
 
         [XmlIgnore]
-        public bool printobjectSpecified { get; set; }
+        public bool PrintObjectSpecified { get; set; }
     }
 }

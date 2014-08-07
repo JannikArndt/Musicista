@@ -1,5 +1,6 @@
 ﻿using Model.Meta;
 using System.Xml.Serialization;
+using Model.Sections.Attributes;
 
 namespace Model.Sections.Notes.Analysis
 {

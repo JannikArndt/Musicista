@@ -1,5 +1,5 @@
 ﻿
-namespace Model.Meta
+namespace Model.Sections.Attributes
 {
     public enum Gender
     {

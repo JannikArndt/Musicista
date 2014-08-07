@@ -1,8 +1,7 @@
-﻿using Model;
+﻿using Model.Extensions;
 using Model.Sections.Notes;
 using Model.Sections.Notes.Articulation;
 using Musicista.UI.Enums;
-using MusicXML.Note.Articulation;
 using System;
 using System.Linq;
 using System.Windows;
@@ -210,8 +209,9 @@ namespace Musicista.UI.MeasureElements
                 WriteArticulationText(articulation.Other);
             if (articulation.Arpeggiate || articulation.Caesura || articulation.Damping || articulation.MuteForSerializationSpecified
                 || articulation.Sliding != Sliding.None || articulation.Slur != Slur.None)
-            { }
-            // TODO Coda, Segno, Rehearsal
+            {
+                // TODO
+            }
         }
 
         private void WriteArticulationText(string text)

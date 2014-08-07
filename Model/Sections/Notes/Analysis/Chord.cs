@@ -1,4 +1,5 @@
 ﻿using Model.Meta;
+using Model.Sections.Attributes;
 
 namespace Model.Sections.Notes.Analysis
 {

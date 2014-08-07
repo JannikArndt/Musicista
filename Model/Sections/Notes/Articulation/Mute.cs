@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Model.Extensions;
+using System;
 
 namespace Model.Sections.Notes.Articulation
 {

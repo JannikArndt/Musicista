@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using System.Xml.Serialization;
+using Model.Sections.Attributes;
 
 namespace Model.Sections.Notes
 {

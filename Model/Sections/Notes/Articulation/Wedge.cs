@@ -1,7 +1,7 @@
 ﻿
 using System.Xml.Serialization;
 
-namespace Model.Sections
+namespace Model.Sections.Notes.Articulation
 {
     public class Wedge
     {

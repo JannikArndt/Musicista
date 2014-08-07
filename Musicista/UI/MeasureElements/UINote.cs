@@ -1,4 +1,5 @@
 ﻿using Model.Meta;
+using Model.Sections.Attributes;
 using Model.Sections.Notes;
 using Musicista.Properties;
 using Musicista.UI.Enums;

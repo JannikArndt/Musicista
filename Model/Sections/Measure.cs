@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
+using Model.Sections.Notes.Articulation;
 
 namespace Model.Sections
 {

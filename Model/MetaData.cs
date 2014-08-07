@@ -1,6 +1,7 @@
 ﻿using Model.Meta;
 using Model.Meta.People;
 using System.Xml.Serialization;
+using Model.Sections.Attributes;
 
 namespace Model
 {

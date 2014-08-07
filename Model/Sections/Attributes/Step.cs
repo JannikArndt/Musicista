@@ -1,7 +1,7 @@
 ﻿
 using System;
 
-namespace Model.Meta
+namespace Model.Sections.Attributes
 {
     public enum Step
     {

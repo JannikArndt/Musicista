@@ -1,7 +1,7 @@
 ﻿
 using System.ComponentModel;
 
-namespace Model.Sections
+namespace Model.Sections.Attributes
 {
     public enum TempoString
     {

@@ -3,6 +3,7 @@ using Model.Meta;
 using Model.Meta.People;
 using System;
 using System.Collections.Generic;
+using Model.Sections.Attributes;
 
 namespace ModelTests
 {

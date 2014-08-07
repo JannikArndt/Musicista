@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model;
 using Model.Meta;
+using Model.Sections.Attributes;
 using Model.Sections.Notes;
 
 namespace ModelTests

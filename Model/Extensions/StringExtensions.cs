@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Text;
 
-namespace Model
+namespace Model.Extensions
 {
     public static class StringExtensions
     {

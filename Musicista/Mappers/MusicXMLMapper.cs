@@ -1,7 +1,8 @@
 ﻿using Model;
-using Model.Meta;
+using Model.Extensions;
 using Model.Meta.People;
 using Model.Sections;
+using Model.Sections.Attributes;
 using Model.Sections.Notes;
 using Model.Sections.Notes.Articulation;
 using MuseScoreAPI.RESTObjects;
@@ -19,7 +20,7 @@ using Duration = Model.Sections.Notes.Duration;
 using Fermata = Model.Sections.Notes.Articulation.Fermata;
 using Lyric = Model.Sections.Notes.Lyric;
 using Note = MusicXML.Note.Note;
-using Step = Model.Meta.Step;
+using Step = Model.Sections.Attributes.Step;
 
 namespace Musicista.Mappers
 {

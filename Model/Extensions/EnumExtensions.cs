@@ -1,8 +1,8 @@
-﻿using Model.Sections;
+﻿using Model.Sections.Attributes;
 using System;
 using System.ComponentModel;
 
-namespace Model
+namespace Model.Extensions
 {
     public static class EnumExtensions
     {

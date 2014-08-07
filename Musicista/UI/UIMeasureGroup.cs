@@ -1,5 +1,6 @@
-﻿using Model;
+﻿using Model.Extensions;
 using Model.Sections;
+using Model.Sections.Attributes;
 using Model.Sections.Notes;
 using Musicista.UI.Converters;
 using Musicista.UI.MeasureElements;

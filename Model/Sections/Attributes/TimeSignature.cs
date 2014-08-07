@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 
-namespace Model.Meta
+namespace Model.Sections.Attributes
 {
     /// <summary>
     ///     3/4: Beats = 3, BeatUnit = 4

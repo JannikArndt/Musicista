@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Model.Extensions;
+using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 
-namespace Model.Sections
+namespace Model.Sections.Attributes
 {
     public class Tempo
     {

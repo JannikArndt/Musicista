@@ -1,7 +1,9 @@
-﻿using Model.Sections;
+﻿using Model;
+using Model.Sections;
 using Model.Sections.Notes;
 using Musicista.UI.Converters;
 using Musicista.UI.MeasureElements;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -28,6 +30,8 @@ namespace Musicista.UI
         };
 
         public List<UIMeasure> Measures = new List<UIMeasure>();
+
+        public FontFamily EmmentalerFont = new FontFamily(new Uri("pack://application:,,,/"), "./UI/MeasureElements/#Emmentaler 26");
 
         public UIMeasureGroup(UISystem system, MeasureGroup innerMeasureGroup = null, bool hasMouseDown = true)
         {
@@ -77,12 +81,60 @@ namespace Musicista.UI
             if (InnerMeasureGroup != null && InnerMeasureGroup.RehearsalMarkSpecified)
                 DrawRehearsalMark(InnerMeasureGroup.RehearsalMark);
 
+            if (InnerMeasureGroup.Repetition != Repetition.None)
+                DrawRepetition(InnerMeasureGroup.Repetition);
+
             // PropertyChangedEvent
             if (InnerMeasureGroup != null)
                 InnerMeasureGroup.PropertyChanged += (sender, args) => Redraw();
 
             Children.Add(Barline);
             ParentSystem.Children.Add(this);
+        }
+
+        private void DrawRepetition(Repetition repetition)
+        {
+            TextBlock textBlock;
+            if (repetition == Repetition.SegnoSign || repetition == Repetition.CodaSign)
+            {
+                textBlock = new TextBlock
+                {
+                    FontSize = repetition == Repetition.SegnoSign ? 25 : 30,
+                    HorizontalAlignment = HorizontalAlignment.Stretch,
+                    VerticalAlignment = VerticalAlignment.Stretch,
+                    TextAlignment = TextAlignment.Center,
+                    FontFamily = EmmentalerFont,
+                    FontWeight = FontWeights.Bold,
+                    Text = repetition == Repetition.SegnoSign ? Char.ConvertFromUtf32(0xE180) : Char.ConvertFromUtf32(0xE181)
+                };
+
+                SetTop(textBlock, repetition == Repetition.SegnoSign ? -48 : -54);
+                SetLeft(textBlock, 0);
+
+                // for the first measure of a system
+                if (ParentSystem.MeasureGroups.IndexOf(this) == 0)
+                    SetLeft(textBlock, 30);
+            }
+            else
+            {
+                textBlock = new TextBlock
+                {
+                    FontSize = 12,
+                    HorizontalAlignment = HorizontalAlignment.Stretch,
+                    VerticalAlignment = VerticalAlignment.Stretch,
+                    TextAlignment = TextAlignment.Center,
+                    FontFamily = new FontFamily("Times New Roman"),
+                    FontStyle = FontStyles.Italic,
+                    Text = repetition.GetDescription(),
+                    TextWrapping = TextWrapping.WrapWithOverflow,
+                    Width = 50
+                };
+
+                SetTop(textBlock, 30);
+                SetLeft(textBlock, Width - 40);
+            }
+            Children.Add(textBlock);
+
         }
 
         private void DrawRehearsalMark(string text)
@@ -113,7 +165,7 @@ namespace Musicista.UI
             SetLeft(border, -14);
 
             // for the first measure of a system
-            if(ParentSystem.MeasureGroups.IndexOf(this) == 0)
+            if (ParentSystem.MeasureGroups.IndexOf(this) == 0)
                 SetLeft(border, 25);
 
             Children.Add(border);

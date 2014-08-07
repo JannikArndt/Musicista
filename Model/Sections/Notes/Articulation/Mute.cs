@@ -20,7 +20,6 @@ namespace Model.Sections.Notes.Articulation
                 MuteType = (MuteType)Enum.Parse(typeof(MuteType), parseString);
                 return true;
             }
-            Console.WriteLine("Could not parse mute string " + parseString);
             return false;
         }
 

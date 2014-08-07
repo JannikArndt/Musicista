@@ -262,7 +262,7 @@ namespace Musicista.UI.MeasureElements
             var point = GetFreePoint(Direction.Above);
 
             SetTop(accentText, point.Y - 160);
-            SetLeft(accentText, 40);
+            SetLeft(accentText, 30);
             Children.Add(accentText);
         }
 
@@ -378,7 +378,7 @@ namespace Musicista.UI.MeasureElements
 
             var point = GetFreePoint(Direction.Below);
 
-            SetTop(dynamicsText, point.Y - 140 + (40 / (scale)));
+            SetTop(dynamicsText, point.Y - 210 + (90 / (scale)));
             SetLeft(dynamicsText, -10 * (1 / (2 * scale)));
             Children.Add(dynamicsText);
         }

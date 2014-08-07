@@ -71,8 +71,6 @@ namespace Model.Sections
                 TempoChangeString = (TempoChangeString)Enum.Parse(typeof(TempoChangeString), parseString);
                 return true;
             }
-
-            Console.WriteLine("Could not parse tempo string " + tempoString);
             return false;
         }
     }

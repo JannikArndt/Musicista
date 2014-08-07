@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Model.Sections;
+using System;
 using System.ComponentModel;
 
 namespace Model
@@ -16,6 +17,17 @@ namespace Model
 
             var attribute = Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute)) as DescriptionAttribute;
             return attribute != null ? attribute.Description : name;
+        }
+
+        public static Repetition ParseRepetition(string text)
+        {
+            if (text == null) return Repetition.None;
+
+            text = text.RemoveWhitespace().ToLower().Replace(".", String.Empty);
+            if (Enum.IsDefined(typeof(Repetition), text))
+                return (Repetition)Enum.Parse(typeof(Repetition), text);
+
+            return Repetition.None;
         }
     }
 }

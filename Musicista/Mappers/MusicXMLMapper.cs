@@ -296,15 +296,17 @@ namespace Musicista.Mappers
                                             measureGroup.Tempi.Add(newTempo);
                                         else if (mute.Parse(directionType.Words.Value))
                                             tempArticulation.Mute = mute;
+                                        else if (EnumExtensions.ParseRepetition(directionType.Words.Value) != Repetition.None)
+                                            measureGroup.Repetition = EnumExtensions.ParseRepetition(directionType.Words.Value);
                                         else
-                                            ParseArticulation(tempArticulation, directionType.Words.Value);
+                                            ParseArticulation(tempArticulation, measureGroup, directionType.Words.Value);
                                     }
 
                                     if (directionType.Segno != null)
-                                        measureGroup.Segno = 1;
+                                        measureGroup.Repetition = Repetition.SegnoSign;
 
                                     if (directionType.Coda != null)
-                                        measureGroup.Coda = 1;
+                                        measureGroup.Repetition = Repetition.CodaSign;
 
                                     if (directionType.OtherDirection != null && directionType.OtherDirection.Value == "Trill")
                                         tempArticulation.Trill = true;
@@ -341,7 +343,7 @@ namespace Musicista.Mappers
             return piece;
         }
 
-        private static void ParseArticulation(Articulation tempArticulation, string words)
+        private static void ParseArticulation(Articulation tempArticulation, MeasureGroup measureGroup, string words)
         {
             words = words.RemoveWhitespace().ToLower().Replace(".", String.Empty);
             switch (words)

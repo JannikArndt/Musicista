@@ -112,13 +112,10 @@ namespace Model.Sections
             get { return (int)(TimeSignature.Beats * ((double)Duration.Whole / TimeSignature.BeatUnit)); }
         }
 
-        [XmlAttribute("Segno")]
-        public int Segno { get; set; }
-        public bool SegnoSpecified { get { return Segno > 0; } }
+        [XmlAttribute("Repetition")]
+        public Repetition Repetition { get; set; }
+        public bool RepetitionSpecified { get { return Repetition != Repetition.None; } }
 
-        [XmlAttribute("Coda")]
-        public int Coda { get; set; }
-        public bool CodaSpecified { get { return Coda > 0; } }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

@@ -1,5 +1,4 @@
-﻿using Model;
-using Model.Sections;
+﻿using Model.Sections;
 using Model.Sections.Notes;
 using Musicista.UI.Converters;
 using Musicista.UI.MeasureElements;
@@ -74,12 +73,50 @@ namespace Musicista.UI
                 Children.Add(MeasureNumberTextBlock);
             }
 
+            // Rehearsal Mark
+            if (InnerMeasureGroup != null && InnerMeasureGroup.RehearsalMarkSpecified)
+                DrawRehearsalMark(InnerMeasureGroup.RehearsalMark);
+
             // PropertyChangedEvent
             if (InnerMeasureGroup != null)
                 InnerMeasureGroup.PropertyChanged += (sender, args) => Redraw();
 
             Children.Add(Barline);
             ParentSystem.Children.Add(this);
+        }
+
+        private void DrawRehearsalMark(string text)
+        {
+            var border = new Border
+            {
+                BorderThickness = new Thickness(2),
+                Width = 25,
+                Height = 25,
+                BorderBrush = Brushes.Black
+            };
+
+            if (text.Count() > 1)
+                border.Width = 40;
+
+            var textBlock = new TextBlock
+            {
+                FontSize = 20,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                VerticalAlignment = VerticalAlignment.Stretch,
+                TextAlignment = TextAlignment.Center,
+                FontFamily = new FontFamily("Times New Roman"),
+                FontWeight = FontWeights.Bold,
+                Text = text
+            };
+            border.Child = textBlock;
+            SetTop(border, -35);
+            SetLeft(border, -14);
+
+            // for the first measure of a system
+            if(ParentSystem.MeasureGroups.IndexOf(this) == 0)
+                SetLeft(border, 25);
+
+            Children.Add(border);
         }
 
         public Line Barline { get; set; }

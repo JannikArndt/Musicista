@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using Model.Sections.Attributes;
 
 namespace Musicista.UI.MeasureElements
 {

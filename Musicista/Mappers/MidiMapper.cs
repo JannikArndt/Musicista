@@ -4,6 +4,7 @@ using Midi.Events.MetaEvents;
 using Model;
 using Model.Meta;
 using Model.Sections;
+using Model.Sections.Attributes;
 using Model.Sections.Notes;
 using System;
 using System.Collections.Generic;

@@ -1,5 +1,6 @@
 ﻿using Model.Meta;
 using Model.Sections;
+using Model.Sections.Attributes;
 using Model.Sections.Notes;
 using Model.Sections.Notes.Analysis;
 using System;

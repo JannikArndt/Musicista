@@ -2,6 +2,7 @@
 using Model.Meta;
 using Model.Meta.People;
 using Model.Sections;
+using Model.Sections.Attributes;
 using Model.Sections.Notes;
 using Musicista.Exceptions;
 using Musicista.UI;

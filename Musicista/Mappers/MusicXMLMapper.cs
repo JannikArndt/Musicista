@@ -300,7 +300,7 @@ namespace Musicista.Mappers
                                         else if (EnumExtensions.ParseRepetition(directionType.Words.Value) != Repetition.None)
                                             measureGroup.Repetition = EnumExtensions.ParseRepetition(directionType.Words.Value);
                                         else
-                                            ParseArticulation(tempArticulation, measureGroup, directionType.Words.Value);
+                                            ParseArticulation(tempArticulation, directionType.Words.Value);
                                     }
 
                                     if (directionType.Segno != null)
@@ -316,8 +316,9 @@ namespace Musicista.Mappers
                             }
                             else if (mxmlObject.GetType() == typeof(barline))
                             {
-                                //var barline = ((barline)mxmlObject).barstyle; // "light-light", "light-heavy"
-                                // TODO
+                                var barline = ((barline)mxmlObject);
+                                measureGroup.Barlines.Add(new Barline(barline.location.ToString(), barline.barstyle.Value.ToString(), barline.repeat != null ? barline.repeat.direction.ToString() : "none"));
+
                             }
                         }
                     }
@@ -344,7 +345,7 @@ namespace Musicista.Mappers
             return piece;
         }
 
-        private static void ParseArticulation(Articulation tempArticulation, MeasureGroup measureGroup, string words)
+        private static void ParseArticulation(Articulation tempArticulation, string words)
         {
             words = words.RemoveWhitespace().ToLower().Replace(".", String.Empty);
             switch (words)

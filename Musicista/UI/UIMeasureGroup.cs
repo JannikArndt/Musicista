@@ -20,7 +20,7 @@ namespace Musicista.UI
         public readonly MeasureGroup InnerMeasureGroup = new MeasureGroup();
         public readonly UISystem ParentSystem;
 
-        private double _indent = 6;
+        private double _indent = 10;
         private double _marginRight = 4;
         public double Indent
         {
@@ -75,18 +75,6 @@ namespace Musicista.UI
                     ConverterParameter = ParentSystem
                 });
 
-            Barline = new Line
-            {
-                X1 = Width,
-                Y1 = 0,
-                X2 = Width,
-                Y2 = 24,
-                StrokeThickness = 2,
-                Stroke = Brushes.DimGray
-            };
-            Barline.SetBinding(Line.X1Property, new Binding { Path = new PropertyPath(WidthProperty), Source = this });
-            Barline.SetBinding(Line.X2Property, new Binding { Path = new PropertyPath(WidthProperty), Source = this });
-
             // Measure number
             if (ParentSystem.MeasureGroups.IndexOf(this) == 0 && InnerMeasureGroup.MeasureNumber > 1)
             {
@@ -111,7 +99,7 @@ namespace Musicista.UI
             // PropertyChangedEvent
             InnerMeasureGroup.PropertyChanged += (sender, args) => Redraw();
 
-            Children.Add(Barline);
+
             ParentSystem.Children.Add(this);
         }
 
@@ -218,8 +206,6 @@ namespace Musicista.UI
             Children.Add(border);
         }
 
-        public Line Barline { get; set; }
-
         public double Right
         {
             get { return GetLeft(this) + Width; }
@@ -266,11 +252,138 @@ namespace Musicista.UI
 
         public void Draw()
         {
+            if (InnerMeasureGroup.Barlines.Any(item => item.BarlineStyle == BarlineStyle.StartRepeat))
+                Indent += 10;
+
             for (var part = 0; part < InnerMeasureGroup.Measures.Count; part++)
                 DrawMeasure(InnerMeasureGroup.Measures[part], part + 1);
+
             // set connecting barlines
-            if (Measures.Count > 0)
-                Barline.Y2 = GetTop(Measures.Last()) + 36;
+            foreach (var barline in InnerMeasureGroup.Barlines)
+                DrawBarline(barline);
+            if (InnerMeasureGroup.Barlines.All(item => item.BarlineLocation != BarlineLocation.Right))
+                DrawBarline(new Barline { BarlineLocation = BarlineLocation.Right, BarlineStyle = BarlineStyle.Single });
+        }
+
+        private void DrawBarline(Barline barline)
+        {
+            double x1;
+            double x2;
+            var thickness1 = 1.5;
+            var thickness2 = 1.5;
+            var show1 = true;
+            var show2 = true;
+
+            switch (barline.BarlineLocation)
+            {
+                case BarlineLocation.Right:
+                    x1 = Width - 5;
+                    x2 = Width - 1;
+                    break;
+                case BarlineLocation.Beat:
+                    x1 = ((Width - Indent - MarginRight) / BeatsPerMeasure * (barline.Beat - 1)) + Indent;
+                    x2 = 0;
+                    break;
+                default:
+                    x1 = 0;
+                    x2 = 4;
+                    break;
+            }
+
+            switch (barline.BarlineStyle)
+            {
+                case BarlineStyle.Single:
+                    show1 = false;
+                    break;
+                case BarlineStyle.StartRepeat:
+                    thickness1 = 3.5;
+                    DrawRepeatDots(x2 + 3);
+                    break;
+                case BarlineStyle.EndRepeat:
+                    thickness2 = 3.5;
+                    x1 -= 0.7;
+                    x2 -= 0.7;
+                    DrawRepeatDots(x1 - 5);
+                    break;
+                case BarlineStyle.Double:
+                    thickness1 = 1.2;
+                    thickness2 = 1.2;
+                    x1 += 1;
+                    break;
+                case BarlineStyle.Final:
+                    thickness2 = 3.5;
+                    x1 -= 0.7;
+                    x2 -= 0.7;
+                    break;
+                case BarlineStyle.Invisible:
+                    show1 = show2 = false;
+                    break;
+                case BarlineStyle.Dashed:
+                    show1 = false;
+                    break;
+                default:
+                    show1 = false;
+                    break;
+            }
+
+            var line1 = new Line
+            {
+                X1 = x1,
+                Y1 = 0,
+                X2 = x1,
+                Y2 = GetTop(Measures.Last()) + 34,
+                StrokeThickness = thickness1,
+                Stroke = new SolidColorBrush(Color.FromArgb(0xFF, 0x30, 0x30, 0x30)),
+                SnapsToDevicePixels = Properties.Settings.Default.SnapsToDevicePixels
+            };
+
+            var line2 = new Line
+            {
+                X1 = x2,
+                Y1 = 0,
+                X2 = x2,
+                Y2 = GetTop(Measures.Last()) + 34,
+                StrokeThickness = thickness2,
+                Stroke = new SolidColorBrush(Color.FromArgb(0xFF, 0x30, 0x30, 0x30)),
+                SnapsToDevicePixels = Properties.Settings.Default.SnapsToDevicePixels
+            };
+
+            if (barline.BarlineStyle == BarlineStyle.Dashed)
+                line2.StrokeDashArray = new DoubleCollection { 4, 0 };
+
+            //line1.SetBinding(Line.X1Property, new Binding { Path = new PropertyPath(WidthProperty), Source = this });
+            //line1.SetBinding(Line.X2Property, new Binding { Path = new PropertyPath(WidthProperty), Source = this });
+            //line2.SetBinding(Line.X1Property, new Binding { Path = new PropertyPath(WidthProperty), Source = this });
+            //line2.SetBinding(Line.X2Property, new Binding { Path = new PropertyPath(WidthProperty), Source = this });
+
+            if (show1) Children.Add(line1);
+            if (show2) Children.Add(line2);
+        }
+
+        private void DrawRepeatDots(double x)
+        {
+            var dot1 = new Ellipse
+            {
+                Fill = new SolidColorBrush(Color.FromArgb(0xFF, 0x30, 0x30, 0x30)),
+                Width = 3,
+                Height = 3
+            };
+
+            var dot2 = new Ellipse
+            {
+                Fill = new SolidColorBrush(Color.FromArgb(0xFF, 0x30, 0x30, 0x30)),
+                Width = 3,
+                Height = 3
+            };
+
+            SetTop(dot1, 7.5);
+            SetLeft(dot1, x);
+
+            SetTop(dot2, 13.5);
+            SetLeft(dot2, x);
+
+            Children.Add(dot1);
+            Children.Add(dot2);
         }
 
         public void Redraw()

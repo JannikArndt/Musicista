@@ -1,8 +1,7 @@
-﻿using Model;
+﻿using Model.Sections.Notes;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using Model.Sections.Notes;
 
 namespace Musicista.UI.MeasureElements
 {

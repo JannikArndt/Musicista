@@ -92,21 +92,6 @@ namespace Musicista.UI
 
             SetBinding(WidthProperty, new Binding { Path = new PropertyPath(WidthProperty), Source = parentUIMeasureGroup, Converter = new Multiplier(), ConverterParameter = ScaleTransform });
 
-            Barline = new Line
-            {
-                X1 = Width,
-                Y1 = 50,
-                X2 = Width,
-                Y2 = 175,
-                StrokeThickness = 2 * ScaleTransform,
-                Stroke = Brushes.DimGray,
-                SnapsToDevicePixels = Properties.Settings.Default.SnapsToDevicePixels
-            };
-            Barline.SetBinding(Line.X1Property, new Binding { Path = new PropertyPath(WidthProperty), Source = this });
-            Barline.SetBinding(Line.X2Property, new Binding { Path = new PropertyPath(WidthProperty), Source = this });
-
-            Children.Add(Barline);
-
             if (hasMouseDown)
             {
                 MouseLeftButtonDown += MainWindow.DragStart;
@@ -236,8 +221,6 @@ namespace Musicista.UI
                 return null;
             }
         }
-
-        public Line Barline { get; set; }
 
         public override string ToString()
         {

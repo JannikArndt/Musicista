@@ -24,6 +24,8 @@ namespace Model.Sections
         private int _measureNumber;
         [XmlIgnore]
         private readonly List<AnalysisObject> _listOfAnalysisObjects = new List<AnalysisObject>();
+        [XmlIgnore]
+        private List<Barline> _barlines = new List<Barline>();
 
         public MeasureGroup()
         {
@@ -60,6 +62,15 @@ namespace Model.Sections
         [XmlArray("Analysis"), XmlArrayItem(typeof(Harmony)), XmlArrayItem(typeof(NoteAttribute)), XmlArrayItem(typeof(AnalysisObject))]
         public List<AnalysisObject> Analysis { get { return _listOfAnalysisObjects; } }
         public bool ShouldSerializeAnalysis() { return Analysis != null && Analysis.Any(); }
+
+        [XmlArray("Barlines")]
+        public List<Barline> Barlines
+        {
+            get { return _barlines; }
+            set { _barlines = value; NotifyPropertyChanged(); }
+        }
+        public bool ShouldSerializeBarlines() { return Barlines != null && Barlines.Any(); }
+
 
         [XmlElement("Measure")]
         public List<Measure> Measures { get; set; }
@@ -115,6 +126,8 @@ namespace Model.Sections
         [XmlAttribute("Repetition")]
         public Repetition Repetition { get; set; }
         public bool RepetitionSpecified { get { return Repetition != Repetition.None; } }
+
+
 
 
         public event PropertyChangedEventHandler PropertyChanged;

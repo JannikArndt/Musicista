@@ -1,6 +1,4 @@
-﻿using Model;
-using Model.Meta;
-using Model.Sections.Notes;
+﻿using Model.Sections.Notes;
 using Musicista.Properties;
 using System.Linq;
 using System.Windows.Media;
@@ -15,7 +13,6 @@ namespace Musicista.UI.MeasureElements
         {
             Rest = rest;
 
-            BeatsPerMeasure = (4.0 / ParentUIMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.BeatUnit) * ParentUIMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.Beats;
             ParentUIMeasure.ConnectNotesAtEndOfRun = false;
 
             SetTop(Path, 55 + -TopRelativeToMeasure);

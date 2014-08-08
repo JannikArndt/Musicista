@@ -21,7 +21,7 @@ namespace Musicista.UI.MeasureElements
 
         public FontFamily EmmentalerFont = new FontFamily(new Uri("pack://application:,,,/"), "./UI/MeasureElements/#Emmentaler 26");
 
-        public double BeatsPerMeasure { get; set; }
+        public double BeatsPerMeasure { get { return ParentUIMeasure.ParentUIMeasureGroup.BeatsPerMeasure; } }
         public UISymbol NextUISymbol
         {
             get

@@ -1,5 +1,4 @@
-﻿using Model.Meta;
-using Model.Sections;
+﻿using Model.Sections;
 using Model.Sections.Attributes;
 using Model.Sections.Notes;
 using Musicista.UI.Converters;
@@ -24,24 +23,38 @@ namespace Musicista.UI
         public readonly Measure InnerMeasure = new Measure();
         public readonly UISystem ParentUISystem;
         public readonly UIStaff ParentUIStaff;
-        public readonly UIMeasureGroup ParentUIMeasureGroup;
+        private readonly UIMeasureGroup _parentUIMeasureGroup;
+        public UIMeasureGroup ParentUIMeasureGroup
+        {
+            get
+            {
+                if (_parentUIMeasureGroup == null) MainWindow.CurrentPiece.CorrectParentConnections();
+                if (_parentUIMeasureGroup == null) throw new Exception("No ParentUIMeasureGroup found");
+                return _parentUIMeasureGroup;
+            }
+        }
+
         public List<UISymbol> Symbols = new List<UISymbol>();
         public List<Symbol> TiedNotes = new List<Symbol>();
         public int MeasureNumber { get { return ParentUIMeasureGroup.InnerMeasureGroup.MeasureNumber; } }
 
-        public List<UINote> Notes
+        public List<UINote> Notes { get { return Symbols.OfType<UINote>().ToList(); } }
+        public List<UIRest> Rests { get { return Symbols.OfType<UIRest>().ToList(); } }
+
+        public readonly int Part;
+        public readonly int ScaleTransform = 5;
+
+        public double Indent
         {
-            get { return Symbols.Where(item => item.GetType() == typeof(UINote)).Cast<UINote>().ToList(); }
+            get { return ParentUIMeasureGroup.Indent * ScaleTransform; }
+            set { ParentUIMeasureGroup.Indent = value / ScaleTransform; }
         }
 
-        public List<UIRest> Rests
+        public double MarginRight
         {
-            get { return Symbols.Where(item => item.GetType() == typeof(UIRest)).Cast<UIRest>().ToList(); }
+            get { return ParentUIMeasureGroup.MarginRight * ScaleTransform; }
+            set { ParentUIMeasureGroup.MarginRight = value / ScaleTransform; }
         }
-        public readonly int Part;
-        public double Indent = 30;
-        public double MarginRight = 20;
-        public readonly int ScaleTransform = 5;
 
         public readonly List<UINote> NotYetConnectedNotes = new List<UINote>();
         public readonly List<UISymbol> Tuplets = new List<UISymbol>();
@@ -62,7 +75,7 @@ namespace Musicista.UI
             InnerMeasure = innerMeasure;
             ParentUIStaff = uiStaff;
             ParentUISystem = uiSystem;
-            ParentUIMeasureGroup = parentUIMeasureGroup;
+            _parentUIMeasureGroup = parentUIMeasureGroup;
 
             Height = 54 * ScaleTransform;
             Background = Brushes.Transparent;
@@ -157,7 +170,7 @@ namespace Musicista.UI
                 // first click on an earlier measure
                 if (next != null && ParentUIMeasureGroup.InnerMeasureGroup.MeasureNumber > next.ParentUIMeasureGroup.InnerMeasureGroup.MeasureNumber)
                 {
-                    while (next != null && next != this)
+                    while (next != null && !Equals(next, this))
                     {
                         next.Background = UIHelper.SelectColor;
                         UIHelper.SelectedUIMeasures.Add(next);
@@ -171,7 +184,7 @@ namespace Musicista.UI
                 {
                     var final = next;
                     next = this;
-                    while (next != null && next != final)
+                    while (next != null && !Equals(next, final))
                     {
                         next.Background = UIHelper.SelectColor;
                         UIHelper.SelectedUIMeasures.Add(next);
@@ -204,7 +217,7 @@ namespace Musicista.UI
         {
             get
             {
-                if (ParentUIMeasureGroup == null || ParentUIMeasureGroup.NextUIMeasureGroup == null) return null;
+                if (ParentUIMeasureGroup.NextUIMeasureGroup == null) return null;
                 var currentIndex = ParentUIMeasureGroup.Measures.IndexOf(this);
                 if (currentIndex > -1 && ParentUIMeasureGroup.NextUIMeasureGroup.Measures.Count > currentIndex)
                     return ParentUIMeasureGroup.NextUIMeasureGroup.Measures[currentIndex];
@@ -216,7 +229,7 @@ namespace Musicista.UI
         {
             get
             {
-                if (ParentUIMeasureGroup == null || ParentUIMeasureGroup.PreviousUIMeasureGroup == null) return null;
+                if (ParentUIMeasureGroup.PreviousUIMeasureGroup == null) return null;
                 var currentIndex = ParentUIMeasureGroup.Measures.IndexOf(this);
                 if (currentIndex > -1 && ParentUIMeasureGroup.PreviousUIMeasureGroup.Measures.Count > currentIndex)
                     return ParentUIMeasureGroup.PreviousUIMeasureGroup.Measures[currentIndex];
@@ -242,7 +255,7 @@ namespace Musicista.UI
             var shapeString = "";
             var c = CultureInfo.GetCultureInfo("en-US");
 
-            var addToY = -15;
+            const int addToY = -15;
             var offsetSecondBeam = StemDirectionUp ? 20 : -20;
             var strokeThickness = 15;
 

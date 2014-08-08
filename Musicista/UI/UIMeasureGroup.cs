@@ -20,6 +20,20 @@ namespace Musicista.UI
         public readonly MeasureGroup InnerMeasureGroup = new MeasureGroup();
         public readonly UISystem ParentSystem;
 
+        private double _indent = 6;
+        private double _marginRight = 4;
+        public double Indent
+        {
+            get { return _indent; }
+            set { _indent = value; }
+        }
+        public double MarginRight
+        {
+            get { return _marginRight; }
+            set { _marginRight = value; }
+        }
+        public double BeatsPerMeasure { get { return (4.0 / InnerMeasureGroup.TimeSignature.BeatUnit) * InnerMeasureGroup.TimeSignature.Beats; } }
+
         private readonly bool _hasMouseDown = true;
 
         public TextBlock MeasureNumberTextBlock = new TextBlock
@@ -33,9 +47,13 @@ namespace Musicista.UI
         public List<UIMeasure> Measures = new List<UIMeasure>();
 
         public FontFamily EmmentalerFont = new FontFamily(new Uri("pack://application:,,,/"), "./UI/MeasureElements/#Emmentaler 26");
+        public FontFamily TimesFont = new FontFamily("Times New Roman");
 
-        public UIMeasureGroup(UISystem system, MeasureGroup innerMeasureGroup = null, bool hasMouseDown = true)
+        public UIMeasureGroup(UISystem system, MeasureGroup innerMeasureGroup, bool hasMouseDown = true)
         {
+            if (innerMeasureGroup == null)
+                throw new ArgumentException(@"No innerMeasureGroup given", "innerMeasureGroup");
+
             InnerMeasureGroup = innerMeasureGroup;
             ParentSystem = system;
             ParentSystem.MeasureGroups.Add(this);
@@ -70,7 +88,7 @@ namespace Musicista.UI
             Barline.SetBinding(Line.X2Property, new Binding { Path = new PropertyPath(WidthProperty), Source = this });
 
             // Measure number
-            if (InnerMeasureGroup != null && ParentSystem.MeasureGroups.IndexOf(this) == 0 && InnerMeasureGroup.MeasureNumber > 1)
+            if (ParentSystem.MeasureGroups.IndexOf(this) == 0 && InnerMeasureGroup.MeasureNumber > 1)
             {
                 MeasureNumberTextBlock.Text = "" + InnerMeasureGroup.MeasureNumber;
                 SetTop(MeasureNumberTextBlock, -16);
@@ -79,18 +97,46 @@ namespace Musicista.UI
             }
 
             // Rehearsal Mark
-            if (InnerMeasureGroup != null && InnerMeasureGroup.RehearsalMarkSpecified)
+            if (InnerMeasureGroup.RehearsalMarkSpecified)
                 DrawRehearsalMark(InnerMeasureGroup.RehearsalMark);
 
+            // Repetition signs (segno, coda, D.S. al Fine, ...)
             if (InnerMeasureGroup.Repetition != Repetition.None)
                 DrawRepetition(InnerMeasureGroup.Repetition);
 
+            // Tempo markings
+            foreach (var tempo in InnerMeasureGroup.Tempi)
+                DrawTempo(tempo);
+
             // PropertyChangedEvent
-            if (InnerMeasureGroup != null)
-                InnerMeasureGroup.PropertyChanged += (sender, args) => Redraw();
+            InnerMeasureGroup.PropertyChanged += (sender, args) => Redraw();
 
             Children.Add(Barline);
             ParentSystem.Children.Add(this);
+        }
+
+        private void DrawTempo(Tempo tempo)
+        {
+            var textBlock = new TextBlock
+                {
+                    FontSize = 18,
+                    HorizontalAlignment = HorizontalAlignment.Stretch,
+                    VerticalAlignment = VerticalAlignment.Stretch,
+                    TextAlignment = TextAlignment.Center,
+                    FontFamily = TimesFont,
+                    FontWeight = FontWeights.Bold,
+                    Text = tempo.TempoText
+                };
+
+            var left = ((Width - Indent - MarginRight) / BeatsPerMeasure * (tempo.Beat - 1)) + Indent;
+
+            // for the first measure of a system
+            if (ParentSystem.MeasureGroups.IndexOf(this) == 0)
+                left = 30;
+
+            SetTop(textBlock, -30);
+            SetLeft(textBlock, left);
+            Children.Add(textBlock);
         }
 
         private void DrawRepetition(Repetition repetition)
@@ -124,7 +170,7 @@ namespace Musicista.UI
                     HorizontalAlignment = HorizontalAlignment.Stretch,
                     VerticalAlignment = VerticalAlignment.Stretch,
                     TextAlignment = TextAlignment.Center,
-                    FontFamily = new FontFamily("Times New Roman"),
+                    FontFamily = TimesFont,
                     FontStyle = FontStyles.Italic,
                     Text = repetition.GetDescription(),
                     TextWrapping = TextWrapping.WrapWithOverflow,
@@ -157,7 +203,7 @@ namespace Musicista.UI
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 VerticalAlignment = VerticalAlignment.Stretch,
                 TextAlignment = TextAlignment.Center,
-                FontFamily = new FontFamily("Times New Roman"),
+                FontFamily = TimesFont,
                 FontWeight = FontWeights.Bold,
                 Text = text
             };

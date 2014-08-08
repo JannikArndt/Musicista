@@ -1,5 +1,4 @@
-﻿using Model.Meta;
-using Model.Sections.Attributes;
+﻿using Model.Sections.Attributes;
 using Model.Sections.Notes;
 using Musicista.Properties;
 using Musicista.UI.Enums;
@@ -57,8 +56,6 @@ namespace Musicista.UI.MeasureElements
         {
             Note = note;
 
-            BeatsPerMeasure = (4.0 / ParentUIMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.BeatUnit) *
-                              ParentUIMeasure.InnerMeasure.ParentMeasureGroup.TimeSignature.Beats;
             ParentUIMeasure.ConnectNotesAtEndOfRun = false;
 
             CanvasLeft = ((ParentUIMeasure.Width - ParentUIMeasure.Indent - ParentUIMeasure.MarginRight) / BeatsPerMeasure * (note.Beat - 1)) + ParentUIMeasure.Indent;

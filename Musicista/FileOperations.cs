@@ -186,25 +186,23 @@ namespace Musicista
         {
             // based upon http://stackoverflow.com/a/23663586/1507481
             var xdoc = XDocument.Load(filename);
-            if (xdoc.Root != null)
-                switch (xdoc.Root.Name.LocalName)
-                {
-                    case "score-partwise":
-                        {
-                            var xmlSerializer = new XmlSerializer(typeof(ScorePartwise));
-                            var result = (ScorePartwise)xmlSerializer.Deserialize(xdoc.CreateReader());
-                            return MusicXMLMapper.MapMusicXMLToMusicista(result, filename, scoreInfo);
-                        }
-                    case "score-timewise":
-                        {
-                            var result = ConvertTimewiseToPartwise(xdoc);
-                            return MusicXMLMapper.MapMusicXMLToMusicista(result, filename, scoreInfo);
-                        }
-                    default:
-                        MessageBox.Show(@"Cannot open file " + Path.GetExtension(filename) + " because it does not seem to be valid MusicXML.", "Error");
-                        return null;
-                }
-            return null;
+            if (xdoc.Root == null) throw new IOException(@"Cannot open file " + Path.GetExtension(filename) + " because it does not seem to be valid MusicXML.");
+            switch (xdoc.Root.Name.LocalName)
+            {
+                case "score-partwise":
+                    {
+                        var xmlSerializer = new XmlSerializer(typeof(ScorePartwise));
+                        var result = (ScorePartwise)xmlSerializer.Deserialize(xdoc.CreateReader());
+                        return MusicXMLMapper.MapMusicXMLToMusicista(result, filename, scoreInfo);
+                    }
+                case "score-timewise":
+                    {
+                        var result = ConvertTimewiseToPartwise(xdoc);
+                        return MusicXMLMapper.MapMusicXMLToMusicista(result, filename, scoreInfo);
+                    }
+                default:
+                    throw new IOException(@"Cannot open file " + Path.GetExtension(filename) + " because it does not seem to be valid MusicXML.");
+            }
         }
 
         #endregion

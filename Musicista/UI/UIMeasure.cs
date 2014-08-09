@@ -44,11 +44,7 @@ namespace Musicista.UI
         public readonly int Part;
         public readonly int ScaleTransform = 5;
 
-        public double Indent
-        {
-            get { return ParentUIMeasureGroup.Indent * ScaleTransform; }
-            set { ParentUIMeasureGroup.Indent = value / ScaleTransform; }
-        }
+        public double Indent { get; set; }
 
         public double MarginRight
         {
@@ -76,6 +72,7 @@ namespace Musicista.UI
             ParentUIStaff = uiStaff;
             ParentUISystem = uiSystem;
             _parentUIMeasureGroup = parentUIMeasureGroup;
+            Indent = ParentUIMeasureGroup.Indent;
 
             Height = 54 * ScaleTransform;
             Background = Brushes.Transparent;

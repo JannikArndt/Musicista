@@ -1,5 +1,7 @@
 ﻿using Musicista.UI;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -38,6 +40,9 @@ namespace Musicista.Sidebar
             TextBoxRightMargin.DataContext = page.Settings;
             TextBoxRightMargin.SetBinding(TextBox.TextProperty, new Binding("SystemMarginRight"));
             TextBoxRightMargin.KeyDown += AdvanceFocusAndReturn;
+
+            MeasuresPerSystemThresholdSlider.DataContext = MainWindow.CurrentPiece.Style.MetricForMovement[0];
+            MeasuresPerSystemThresholdSlider.SetBinding(RangeBase.ValueProperty, new Binding("MeasuresPerSystemThreshold"));
         }
 
         private static void AdvanceFocusAndReturn(object sender, KeyEventArgs args)
@@ -48,6 +53,17 @@ namespace Musicista.Sidebar
 
             textBox.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
             textBox.Focus();
+        }
+
+        private void ButtonRedrawClick(object sender, RoutedEventArgs e)
+        {
+            MainWindow.PageList = UIHelper.DrawPiece(MainWindow.CurrentPiece, true);
+
+            var pages = new StackPanel();
+            foreach (var newpage in MainWindow.PageList)
+                pages.Children.Add(newpage);
+            pages.Children.Add(new Canvas { Height = 200 });
+            MainWindow.UICanvasScrollViewer.Content = pages;
         }
     }
 }

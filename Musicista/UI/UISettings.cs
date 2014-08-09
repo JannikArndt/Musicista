@@ -19,7 +19,7 @@ namespace Musicista.UI
                 SystemSpacing = 60,
                 SystemMarginLeft = 50,
                 SystemMarginRight = 50,
-                MeasuresPerSystemStandard = 4,
+                MeasuresPerSystemThreshold = 60,
                 MeasuresPerSystem = new List<int>()
             };
         }

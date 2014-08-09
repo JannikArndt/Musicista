@@ -36,7 +36,7 @@ namespace Musicista.UI
             set { _selectedUISymbols = value; }
         }
 
-        public static List<UIPage> DrawPiece(Piece piece)
+        public static List<UIPage> DrawPiece(Piece piece, bool resetMeasuresPerSystem = false)
         {
             var currentPage = new UIPage { Piece = piece };
             var pageList = new List<UIPage> { currentPage };
@@ -67,11 +67,13 @@ namespace Musicista.UI
                         {
                             metrics = new Metrics
                             {
-                                MeasuresPerSystemStandard = 4,
-                                MeasuresPerSystem = CalculateMeasuresPerSystem(movement)
+                                MeasuresPerSystemThreshold = 60,
+                                MeasuresPerSystem = CalculateMeasuresPerSystem(movement, 60)
                             };
                             piece.Style.MetricForMovement.Add(metrics);
                         }
+                        if (resetMeasuresPerSystem)
+                            metrics.MeasuresPerSystem = CalculateMeasuresPerSystem(movement, metrics.MeasuresPerSystemThreshold);
 
                         var systemNumber = 0;
 
@@ -114,7 +116,7 @@ namespace Musicista.UI
             return pageList;
         }
 
-        private static List<int> CalculateMeasuresPerSystem(Movement movement)
+        public static List<int> CalculateMeasuresPerSystem(Movement movement, int threshold)
         {
             // 1. Step: calculate the fill-degree of each measureGroup (determined by its "fullest" measure). 
             // Notes are grouped in categories and have different weights.
@@ -140,7 +142,7 @@ namespace Musicista.UI
             var currentSystemDegree = 0;
             foreach (var degree in fillDegree)
             {
-                if ((currentSystemDegree > 60 || currentSystemDegree + degree > 70) && counter > 1)
+                if ((currentSystemDegree > threshold || currentSystemDegree + degree > threshold + 10) && counter > 1)
                 {
                     result.Add(counter);
                     counter = 0;

@@ -12,7 +12,7 @@ namespace Model.View
         public double SystemSpacing { get; set; }
         public double SystemMarginLeft { get; set; }
         public double SystemMarginRight { get; set; }
-        public int MeasuresPerSystemStandard { get; set; }
+        public int MeasuresPerSystemThreshold { get; set; }
         public List<int> MeasuresPerSystem { get; set; }
     }
 }

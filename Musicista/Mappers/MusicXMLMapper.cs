@@ -347,8 +347,7 @@ namespace Musicista.Mappers
 
         private static void ParseArticulation(Articulation tempArticulation, string words)
         {
-            words = words.RemoveWhitespace().ToLower().Replace(".", String.Empty);
-            switch (words)
+            switch (words.RemoveWhitespace().ToLower().Replace(".", String.Empty))
             {
                 case "pizz":
                     tempArticulation.Bowing = Bowing.Pizzicato; return;
@@ -364,7 +363,16 @@ namespace Musicista.Mappers
                     tempArticulation.Other = "leggiero"; return;
                 case "cresc":
                     tempArticulation.Other = "cresc."; return;
+                case "pococresc":
+                    tempArticulation.Other = "poco cresc."; return;
+                case "erallent":
+                    tempArticulation.Other = "e rallent."; return;
+                case "dim":
+                    tempArticulation.Other = "dim."; return;
+                case "dimin":
+                    tempArticulation.Other = "dimin."; return;
                 default:
+                    tempArticulation.Other = words;
                     Console.WriteLine(@"Could not parse articulation " + words);
                     MainWindow.Tracker.Track("Articulation Parsing Error", new Dictionary<string, object> { { "Username", Properties.Settings.Default.Username }, { "Words", words } });
                     break;

@@ -25,9 +25,9 @@ namespace Model.Sections.Attributes
         {
             get
             {
-                //var bpmText = BeatsPerMinute > 0 ? " (Quarter = " + BeatsPerMinute + ")" : "";
-                if (TempoString != TempoString.None) return TempoString.GetDescription();// + bpmText;
-                if (TempoChangeString != TempoChangeString.None) return TempoChangeString.GetDescription();// + bpmText;
+                var bpmText = BeatsPerMinute > 0 ? " (♩ = " + BeatsPerMinute + ")" : "";
+                if (TempoString != TempoString.None) return TempoString.GetDescription() + bpmText;
+                if (TempoChangeString != TempoChangeString.None) return TempoChangeString.GetDescription() + bpmText;
                 return !string.IsNullOrEmpty(FreeText) ? FreeText : "";
             }
             set
@@ -50,7 +50,7 @@ namespace Model.Sections.Attributes
             if (tempoString == null) return false;
 
             var stringParts = tempoString.Split('(');
-            var parseString = stringParts[0].RemoveWhitespace();
+            var parseString = stringParts[0].RemoveWhitespace().ToLower().Replace(".", String.Empty);
 
             if (stringParts.Count() > 1)
             {

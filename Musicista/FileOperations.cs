@@ -106,6 +106,18 @@ namespace Musicista
             {
                 MessageBox.Show("Error while unzipping file: " + exception.Message, "Error");
             }
+            catch (InvalidOperationException exception)
+            {
+                var exceptionMessage = "";
+                Exception currentEx = exception;
+                while (currentEx != null)
+                {
+                    exceptionMessage += "\n" + currentEx.Message;
+                    currentEx = currentEx.InnerException;
+                }
+
+                MessageBox.Show("Error loading musicista-file. The file might be damaged or an older version, which is not supported anymore (I'm sorry!) \n\n" + exceptionMessage, "Error");
+            }
             finally
             {
                 Mouse.OverrideCursor = null;

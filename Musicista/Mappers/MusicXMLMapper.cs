@@ -317,7 +317,9 @@ namespace Musicista.Mappers
                             else if (mxmlObject.GetType() == typeof(barline))
                             {
                                 var barline = ((barline)mxmlObject);
-                                measureGroup.Barlines.Add(new Barline(barline.location.ToString(), barline.barstyle.Value.ToString(), barline.repeat != null ? barline.repeat.direction.ToString() : "none"));
+                                measureGroup.Barlines.Add(new Barline(barline.location.ToString(),
+                                    barline.barstyle != null ? barline.barstyle.Value.ToString() : "Single",
+                                    barline.repeat != null ? barline.repeat.direction.ToString() : "none"));
 
                             }
                         }

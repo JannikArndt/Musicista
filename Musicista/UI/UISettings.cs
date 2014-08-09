@@ -1,4 +1,5 @@
 ﻿using Model.View;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
 
@@ -17,7 +18,9 @@ namespace Musicista.UI
                 StaffSpacing = 50,
                 SystemSpacing = 60,
                 SystemMarginLeft = 50,
-                SystemMarginRight = 50
+                SystemMarginRight = 50,
+                MeasuresPerSystemStandard = 4,
+                MeasuresPerSystem = new List<int>()
             };
         }
 

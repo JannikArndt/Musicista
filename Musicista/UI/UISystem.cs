@@ -12,13 +12,16 @@ namespace Musicista.UI
         public List<UIMeasureGroup> MeasureGroups = new List<UIMeasureGroup>();
         public readonly UIPage ParentPage;
         public Line BarlineFront { get; set; }
-        public int MeasuresInSystem = 4;
+        public int MeasuresInSystem { get; set; }
+        public int SystemNumber { get; set; }
 
 
-        public UISystem(UIPage page, int staves)
+        public UISystem(UIPage page, int staves, int systemNumber, int measuresInSystem)
         {
             // Logical connection
             ParentPage = page;
+            SystemNumber = systemNumber;
+            MeasuresInSystem = measuresInSystem;
 
             // geometry
             Width = page.Width - page.Settings.SystemMarginLeft - page.Settings.SystemMarginRight;

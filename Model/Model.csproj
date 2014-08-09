@@ -117,6 +117,7 @@
     <Compile Include="Sections\Theme.cs" />
     <Compile Include="Sections\Notes\Articulation\Wedge.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="View\Style.cs" />
     <Compile Include="View\Metrics.cs" />
   </ItemGroup>
   <ItemGroup>

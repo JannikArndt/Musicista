@@ -31,6 +31,9 @@ namespace Model
         [XmlArray("Comments")]
         public List<Comment> Comments { get; set; }
 
+        [XmlElement("Style")]
+        public Style Style { get; set; }
+
         public Piece() { }
 
         public Piece(bool initialize = true)
@@ -40,6 +43,7 @@ namespace Model
                 Meta = new MetaData();
                 Instruments = new List<Instrument>();
                 Parts = new List<Part>();
+                Style = new Style();
                 Sections = new List<Section> 
                 { new Section
                 {Movements = new List<Movement>

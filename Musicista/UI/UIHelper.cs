@@ -1,5 +1,6 @@
 ﻿using Model;
 using Model.Sections;
+using Model.View;
 using Musicista.Exceptions;
 using Musicista.UI.MeasureElements;
 using Musicista.UI.TextElements;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
+using Duration = Model.Sections.Notes.Duration;
 
 namespace Musicista.UI
 {
@@ -57,6 +59,22 @@ namespace Musicista.UI
                 if (section.Movements != null && section.Movements.Count > 0)
                     foreach (var movement in section.Movements)
                     {
+                        if (piece.Style == null) piece.Style = new Model.Style();
+                        if (piece.Style.MetricForMovement == null) piece.Style.MetricForMovement = new List<Metrics>();
+
+                        var metrics = piece.Style.MetricForMovement.FirstOrDefault(item => item.MovementNumber == movement.Number);
+                        if (metrics == null)
+                        {
+                            metrics = new Metrics
+                            {
+                                MeasuresPerSystemStandard = 4,
+                                MeasuresPerSystem = CalculateMeasuresPerSystem(movement)
+                            };
+                            piece.Style.MetricForMovement.Add(metrics);
+                        }
+
+                        var systemNumber = 0;
+
                         if (movement.Segments != null && movement.Segments.Count > 0)
                             foreach (var segment in movement.Segments)
                                 if (segment.Passages != null && segment.Passages.Count > 0)
@@ -68,7 +86,7 @@ namespace Musicista.UI
                                             foreach (var measureGroup in passage.MeasureGroups)
                                             {
                                                 // pagebreak if page is full
-                                                if (currentPage.Systems.Count > 0 && currentPage.Systems.Last().MeasureGroups.Count > 3
+                                                if (currentPage.Systems.Count > 0 && currentPage.Systems.Last().MeasureGroups.Count > metrics.MeasuresPerSystem[systemNumber - 1] - 1
                                                     &&
                                                     currentPage.Systems.Last().Bottom >
                                                     (currentPage.Height - (currentPage.Systems.Last().CalculatedHeight + 80)))
@@ -79,8 +97,11 @@ namespace Musicista.UI
 
                                                 // systembreak and new System with lines (staves) every 4 measures
                                                 if (currentPage.Systems.Count == 0 ||
-                                                    currentPage.Systems.Last().MeasureGroups.Count >= currentPage.Systems.Last().MeasuresInSystem)
-                                                    currentPage.Systems.Add(new UISystem(currentPage, maxStaves));
+                                                    currentPage.Systems.Last().MeasureGroups.Count >= metrics.MeasuresPerSystem[systemNumber - 1])
+                                                {
+                                                    systemNumber++;
+                                                    currentPage.Systems.Add(new UISystem(currentPage, maxStaves, systemNumber, metrics.MeasuresPerSystem[systemNumber - 1]));
+                                                }
 
                                                 // Now draw the measures and notes
                                                 // Create UIMeasureGroup
@@ -91,6 +112,51 @@ namespace Musicista.UI
                     }
             }
             return pageList;
+        }
+
+        private static List<int> CalculateMeasuresPerSystem(Movement movement)
+        {
+            // 1. Step: calculate the fill-degree of each measureGroup (determined by its "fullest" measure). 
+            // Notes are grouped in categories and have different weights.
+            var fillDegree = new List<int>();
+            foreach (var measureGroup in movement.Segments.SelectMany(seg => seg.Passages.SelectMany(pas => pas.MeasureGroups)))
+            {
+                var measureDegrees = new List<int>();
+                foreach (var measure in measureGroup.Measures)
+                {
+                    var degree = 8 * measure.Symbols.Count(symbol => symbol.Duration < Duration.SixteenthDoubleDotted);
+                    degree += 4 * measure.Symbols.Count(symbol => symbol.Duration >= Duration.SixteenthDoubleDotted && symbol.Duration < Duration.Quarter);
+                    degree += 2 * measure.Symbols.Count(symbol => symbol.Duration >= Duration.Quarter && symbol.Duration < Duration.Whole);
+                    degree += 1 * measure.Symbols.Count(symbol => symbol.Duration >= Duration.Whole);
+                    measureDegrees.Add(degree);
+                }
+                fillDegree.Add(measureDegrees.Max());
+            }
+
+            // 2. Step: Group the MeasureGroups according to their fill-degree, aim for a degree of 60 (six quarters + 12 eigths, or six quarters, two halves, four eigths).
+            // At least take to measures
+            var result = new List<int>();
+            var counter = 0;
+            var currentSystemDegree = 0;
+            foreach (var degree in fillDegree)
+            {
+                if ((currentSystemDegree > 60 || currentSystemDegree + degree > 70) && counter > 1)
+                {
+                    result.Add(counter);
+                    counter = 0;
+                    currentSystemDegree = 0;
+                }
+                counter++;
+                currentSystemDegree += degree + counter * 2; // add counter * 2 to limit the amount of measures
+            }
+
+            // Add the last measureGroups either to the last system or to a new system
+            if (counter == 1)
+                result[result.Count - 1] += 1;
+            else if (counter > 1)
+                result.Add(counter);
+
+            return result;
         }
 
         /// <summary>

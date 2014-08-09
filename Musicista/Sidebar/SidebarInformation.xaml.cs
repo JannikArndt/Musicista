@@ -139,7 +139,7 @@ namespace Musicista.Sidebar
 
             if (passage == null) return page;
 
-            page.Systems.Add(new UISystem(page, 1) { MeasuresInSystem = passage.MeasureGroups.Count });
+            page.Systems.Add(new UISystem(page, 1, 1, passage.MeasureGroups.Count));
 
             foreach (var measureGroup in passage.MeasureGroups)
             {
@@ -226,7 +226,7 @@ namespace Musicista.Sidebar
 
             var gridView = new GridView
             {
-                ColumnHeaderContainerStyle = new Style { TargetType = typeof(GridViewColumnHeader) }
+                ColumnHeaderContainerStyle = new System.Windows.Style { TargetType = typeof(GridViewColumnHeader) }
             };
             gridView.ColumnHeaderContainerStyle.Setters.Add(new Setter(VisibilityProperty, Visibility.Collapsed));
 

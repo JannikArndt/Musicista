@@ -72,7 +72,7 @@ namespace Musicista.UI
             ParentUIStaff = uiStaff;
             ParentUISystem = uiSystem;
             _parentUIMeasureGroup = parentUIMeasureGroup;
-            Indent = ParentUIMeasureGroup.Indent;
+            Indent = ParentUIMeasureGroup.Indent * ScaleTransform;
 
             Height = 54 * ScaleTransform;
             Background = Brushes.Transparent;

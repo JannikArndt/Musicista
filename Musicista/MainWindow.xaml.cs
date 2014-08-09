@@ -154,7 +154,7 @@ namespace Musicista
                 var filepath = documentReference.Filepath;
                 if (totalLength < (titleLength + pathLength))
                 {
-                    var endCharacters = (totalLength - titleLength) - 19;
+                    var endCharacters = Math.Max(0, totalLength - titleLength - 19);
                     filepath = documentReference.Filepath.Substring(0, 16) + "..." +
                                documentReference.Filepath.Substring((pathLength - endCharacters), endCharacters);
                 }

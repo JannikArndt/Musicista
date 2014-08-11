@@ -603,14 +603,10 @@ namespace Musicista.Mappers
         public static List<Lyric> GetLyricsFromMXMLNote(Note mxmlNote)
         {
             var result = new List<Lyric>();
-            if (mxmlNote.Lyric != null)
-                for (var verse = 0; verse < mxmlNote.Lyric.Length; verse++)
-                    if (mxmlNote.Lyric[verse].Text != null)
-                    {
-                        while (Int32.Parse(mxmlNote.Lyric[verse].number) > verse + 1)
-                            result.Add(new Lyric());
-                        result.Add(new Lyric { Text = mxmlNote.Lyric[verse].Text.Value, Syllabic = (Syllabic)mxmlNote.Lyric[verse].Syllabic });
-                    }
+            if (mxmlNote.Lyric == null) return result;
+            foreach (var verse in mxmlNote.Lyric.Where(item => item.Text != null))
+                result.Add(new Lyric { Text = verse.Text.Value, Syllabic = (Syllabic)verse.Syllabic });
+
             return result;
         }
 

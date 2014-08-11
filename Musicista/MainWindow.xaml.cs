@@ -10,8 +10,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Mail;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -94,37 +92,18 @@ namespace Musicista
 
         static void Application_ThreadException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            Tracker.Track("Crash", new Dictionary<string, object> { { "Username", Properties.Settings.Default.Username } });
-
-            var fromAddress = new MailAddress("musicista.app@gmail.com", "Jannik Arndt");
-            var toAddress = new MailAddress("musicista.app@gmail.com", "Jannik Arndt");
-            const string fromPassword = "Qzb-DwR-532-QAU";
-            const string subject = "Exception Report Musicista";
-            var exception = e.Exception;
-            var body = "Message: " + exception.Message + "\n\nType: " + exception.GetType() + "\n\nData: " + exception.Data + "\n\nStack Trace: "
-                       + exception.StackTrace + "\n\nSource: " + exception.Source + "\n\nComputer: " + Environment.OSVersion.VersionString + "\n\nUser Name: " +
-                       Properties.Settings.Default.Username + " (" + Environment.UserName + ")";
-            if (CurrentPiece != null)
-                body += "\n\nCurrent Piece: " + CurrentPiece.Meta.Title + "\n\nURL: " + CurrentPiece.Meta.Weblink;
-
-            var smtp = new SmtpClient
+            Tracker.Track("Crash", new Dictionary<string, object>
             {
-                Host = "smtp.gmail.com",
-                Port = 587,
-                EnableSsl = true,
-                DeliveryMethod = SmtpDeliveryMethod.Network,
-                UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
-            };
-            using (var message = new MailMessage(fromAddress, toAddress)
-            {
-                Subject = subject,
-                Body = body
-            })
-            {
-                //You can also use SendAsync method instead of Send so your application begin invoking instead of waiting for send mail to complete. SendAsync(MailMessage, Object) :- Sends the specified e-mail message to an SMTP server for delivery. This method does not block the calling thread and allows the caller to pass an object to the method that is invoked when the operation completes. 
-                smtp.Send(message);
-            }
+                { "Username", Properties.Settings.Default.Username },
+                { "Message", e.Exception.Message },
+                { "Type", e.Exception.GetType() },
+                { "Data", e.Exception.Data },
+                { "StackTrace", e.Exception.StackTrace },
+                { "Source", e.Exception.Source },
+                { "OS", Environment.OSVersion.VersionString },
+                { "Current Piece", CurrentPiece != null ? CurrentPiece.Meta.Title : "" },
+                { "URL", CurrentPiece != null ? CurrentPiece.Meta.Weblink : "" }
+            });
         }
 
         private static void LoadAppilcationSettings()

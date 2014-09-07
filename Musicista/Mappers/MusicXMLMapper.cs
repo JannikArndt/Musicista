@@ -606,9 +606,25 @@ namespace Musicista.Mappers
             var result = new List<Lyric>();
             if (mxmlNote.Lyric == null) return result;
             foreach (var verse in mxmlNote.Lyric.Where(item => item.Text != null))
-                result.Add(new Lyric { Text = verse.Text.Value, Syllabic = (Syllabic)verse.Syllabic });
+                result.Add(new Lyric { Text = verse.Text.Value, Syllabic = (Syllabic)verse.Syllabic, Line = GetLineFromLyricsNumber(verse.number) });
 
             return result;
+        }
+
+        private static int GetLineFromLyricsNumber(string number)
+        {
+            if (!string.IsNullOrEmpty(number))
+                try
+                {
+                    if (number.Contains("verse")) // for Sibelius
+                        return int.Parse(Regex.Match(number.Substring(number.IndexOf("verse", StringComparison.Ordinal) + 5), @"\d+").Value);
+                    return int.Parse(Regex.Match(number, @"\d+").Value);
+                }
+                catch
+                {
+                    return 1;
+                }
+            return 1;
         }
 
         public static int GetVoiceFromMXMLNote(Note mxmlNote)

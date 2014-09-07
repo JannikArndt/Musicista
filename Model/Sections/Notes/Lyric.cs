@@ -6,6 +6,8 @@ namespace Model.Sections.Notes
     {
         [XmlText]
         public string Text { get; set; }
+        [XmlAttribute("Line")]
+        public int Line { get; set; }
         [XmlAttribute("Syllabic")]
         public Syllabic Syllabic { get; set; }
     }

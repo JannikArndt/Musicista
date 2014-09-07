@@ -38,12 +38,14 @@ namespace Musicista.View
                 client.DownloadFile("http://static.musescore.com/" + score.ID + "/" + score.Secret + "/score.mxl", "tempDownloadMuseScore.mxl");
                 MainWindow.OpenFile("tempDownloadMuseScore.mxl", score);
             }
-            MainWindow.Tracker.Track("Download Score", new Dictionary<string, object> { { "Username", Properties.Settings.Default.Username }, { "Searchstring", OnlineSearchBox.Text }, { "Score Title", score.Metadata.Title }, { "Score URL", score.Permalink } });
+            if (MainWindow.Tracker != null)
+                MainWindow.Tracker.Track("Download Score", new Dictionary<string, object> { { "Username", Properties.Settings.Default.Username }, { "Searchstring", OnlineSearchBox.Text }, { "Score Title", score.Metadata.Title }, { "Score URL", score.Permalink } });
         }
 
         private void OnlineSearchBox_OnGotFocus(object sender, RoutedEventArgs e)
         {
-            MainWindow.Tracker.Track("Startscreen Searchfield got focus", new Dictionary<string, object> { { "Username", Properties.Settings.Default.Username } });
+            if (MainWindow.Tracker != null)
+                MainWindow.Tracker.Track("Startscreen Searchfield got focus", new Dictionary<string, object> { { "Username", Properties.Settings.Default.Username } });
         }
     }
 }

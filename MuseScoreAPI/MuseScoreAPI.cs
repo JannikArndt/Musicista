@@ -23,6 +23,8 @@ namespace Musicista
             // execute the request
             var response = Client.Execute<ScoreInfo>(request);
 
+            if (response.Data == null)
+                return null;
             return response.Data.Scores;
         }
     }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -18,7 +19,13 @@ namespace Musicista.Collection
         public Composers()
         {
             InitializeComponent();
-            ComposersListView.ItemsSource = MainWindow.CollectionBase.Composers;
+            if (MainWindow.CollectionBase.Composers.Count > 0)
+                ComposersListView.ItemsSource = MainWindow.CollectionBase.Composers;
+            else
+            {
+                var errorText = new TextBlock { Text = "Not available in offline mode" };
+                ComposersGrid.Children.Add(errorText);
+            }
         }
 
         private void ComposerMouseOver(object sender, MouseEventArgs mouseEventArgs)
@@ -81,7 +88,8 @@ namespace Musicista.Collection
                 client.DownloadFile(score.Filepath, "Collection/" + filename);
                 MainWindow.OpenFile("Collection/" + filename);
             }
-            MainWindow.Tracker.Track("Download Score", new Dictionary<string, object> { { "Username", Properties.Settings.Default.Username }, { "Score Title", score.WorkName }, { "Score URL", score.Filepath } });
+            if (MainWindow.Tracker != null)
+                MainWindow.Tracker.Track("Download Score", new Dictionary<string, object> { { "Username", Properties.Settings.Default.Username }, { "Score Title", score.WorkName }, { "Score URL", score.Filepath } });
         }
     }
 }

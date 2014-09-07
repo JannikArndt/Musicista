@@ -2,6 +2,7 @@
 using Mixpanel.NET.Events;
 using Model;
 using Musicista.Collection;
+using Musicista.Properties;
 using Musicista.Sidebar;
 using Musicista.UI;
 using Musicista.View;
@@ -10,6 +11,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -45,7 +47,7 @@ namespace Musicista
         public MainWindow()
         {
             InitializeComponent();
-            if (Properties.Settings.Default.SendCrashReport)
+            if (Settings.Default.SendCrashReport)
                 Dispatcher.UnhandledException += Application_ThreadException;
 
             // Make ui-elements accessible by static methods
@@ -83,18 +85,38 @@ namespace Musicista
             }
             SidebarInformation.ShowPiece();
 
-            if (String.IsNullOrEmpty(Properties.Settings.Default.Username))
-                Properties.Settings.Default.Username = Environment.UserName;
+            if (String.IsNullOrEmpty(Settings.Default.Username))
+                Settings.Default.Username = Environment.UserName;
 
-            Tracker = new MixpanelTracker("4b33ac9fe9a2f777e40b9b0a213669fe");
-            Tracker.Track("Start Program", new Dictionary<string, object> { { "Username", Properties.Settings.Default.Username } });
+            if (IsConnectedToTheInternet())
+            {
+                Tracker = new MixpanelTracker("4b33ac9fe9a2f777e40b9b0a213669fe");
+                Tracker.Track("Start Program", new Dictionary<string, object> { { "Username", Settings.Default.Username } });
+            }
+        }
+
+        public static bool IsConnectedToTheInternet()
+        {
+            try
+            {
+                using (var client = new WebClient())
+                using (client.OpenRead("http://www.google.com"))
+                {
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         static void Application_ThreadException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            Tracker.Track("Crash", new Dictionary<string, object>
+            if (Tracker != null)
+                Tracker.Track("Crash", new Dictionary<string, object>
             {
-                { "Username", Properties.Settings.Default.Username },
+                { "Username", Settings.Default.Username },
                 { "Message", e.Exception.Message },
                 { "Type", e.Exception.GetType() },
                 { "Data", e.Exception.Data },
@@ -120,7 +142,10 @@ namespace Musicista
         private static void LoadCollectionBase()
         {
             var xmlSerializer = new XmlSerializer(typeof(CollectionBase));
-            CollectionBase = (CollectionBase)xmlSerializer.Deserialize(XDocument.Load("http://www.musicistaapp.de/download/Collection.xml").CreateReader());
+            if (IsConnectedToTheInternet())
+                CollectionBase = (CollectionBase)xmlSerializer.Deserialize(XDocument.Load("http://www.musicistaapp.de/download/Collection.xml").CreateReader());
+            else
+                CollectionBase = new CollectionBase();
         }
 
         private static void ShowMostRecentlyUsed(Panel stack)
@@ -241,7 +266,8 @@ namespace Musicista
             DrawPiece(CurrentPiece);
             _fileName = "";
 
-            Tracker.Track("New Document", new Dictionary<string, object> { { "Username", Properties.Settings.Default.Username } });
+            if (Tracker != null)
+                Tracker.Track("New Document", new Dictionary<string, object> { { "Username", Settings.Default.Username } });
         }
 
         private void Close(object sender, ExecutedRoutedEventArgs e)
@@ -254,7 +280,8 @@ namespace Musicista
             CanvasScrollViewer.Content = startScreen;
             _fileName = "";
 
-            Tracker.Track("Close Document", new Dictionary<string, object> { { "Username", Properties.Settings.Default.Username } });
+            if (Tracker != null)
+                Tracker.Track("Close Document", new Dictionary<string, object> { { "Username", Settings.Default.Username } });
         }
 
         private void Print(object sender, RoutedEventArgs e)
@@ -272,7 +299,8 @@ namespace Musicista
                 if (visual != null)
                     dialog.PrintVisual(visual, "Drawing");
 
-                Tracker.Track("Print", new Dictionary<string, object> { { "Username", Properties.Settings.Default.Username } });
+                if (Tracker != null)
+                    Tracker.Track("Print", new Dictionary<string, object> { { "Username", Settings.Default.Username } });
             }
             catch (Exception ex)
             {
@@ -291,12 +319,14 @@ namespace Musicista
             pages.Children.Add(new Canvas { Height = 200 });
             UICanvasScrollViewer.Content = pages;
 
-            Tracker.Track("Draw Piece", new Dictionary<string, object> { { "Username", Properties.Settings.Default.Username }, { "Piece", piece.Meta.Title } });
+            if (Tracker != null)
+                Tracker.Track("Draw Piece", new Dictionary<string, object> { { "Username", Settings.Default.Username }, { "Piece", piece.Meta.Title } });
         }
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            Tracker.Track("Close Program", new Dictionary<string, object> { { "Username", Properties.Settings.Default.Username } });
+            if (Tracker != null)
+                Tracker.Track("Close Program", new Dictionary<string, object> { { "Username", Settings.Default.Username } });
         }
     }
 }

@@ -6,7 +6,7 @@
              xmlns:l="clr-namespace:UIControls;assembly=UIControls"
              mc:Ignorable="d" 
              d:DesignHeight="550" d:DesignWidth="600">
-    <Grid>
+    <Grid Name="ComposersGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="160" />
             <RowDefinition Height="*" />

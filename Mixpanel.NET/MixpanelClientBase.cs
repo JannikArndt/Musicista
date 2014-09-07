@@ -7,14 +7,16 @@ namespace Mixpanel.NET
 
         protected MixpanelClientBase(string token, IMixpanelHttp http = null)
         {
+
             this.http = http ?? new MixpanelHttp();
             this.token = token;
         }
     }
 
-    public class MixpanelEngage: MixpanelClientBase
+    public class MixpanelEngage : MixpanelClientBase
     {
-        public MixpanelEngage(string token, IMixpanelHttp http = null) : base(token, http)
+        public MixpanelEngage(string token, IMixpanelHttp http = null)
+            : base(token, http)
         {
         }
     }

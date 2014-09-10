@@ -155,15 +155,17 @@ namespace Musicista.Mappers
         /// <returns>The given Piece with the measures in it.</returns>
         public static Piece MapPartwiseMeasuresToPiece(ScorePartwise mxml, Piece piece)
         {
-            var lastClef = new List<Clef>();
+            var lastClef = new List<List<Clef>>();
             for (var i = 0; i < mxml.Part.Length; i++)
-                lastClef.Add(Clef.Treble);
+            {
+                lastClef.Add(new List<Clef>());
+                for (int j = 0; j < piece.Instruments[i].Staves.Count; j++)
+                    lastClef[i].Add(Clef.Treble);
+            }
 
             var lastClefAdditionalStaves = new List<Clef>();
             for (var i = 0; i < mxml.Part.Length; i++)
                 lastClefAdditionalStaves.Add(Clef.Treble);
-
-            var listOfAdditionalStaves = new Dictionary<int, List<Measure>>();
 
             var lastKey = new MusicalKey(Step.C, Gender.Major);
             var lastTime = new TimeSignature(4, 4);
@@ -218,36 +220,26 @@ namespace Musicista.Mappers
                     var currentMeasure = mxml.Part[partNumber].Measure[measureNumber];
                     var items = mxml.Part[partNumber].Measure[measureNumber].Items;
 
-                    // crazy multiple staves-madness, part 1
-                    if (currentMeasure.Attributes != null && currentMeasure.Attributes.staves != null && int.Parse(currentMeasure.Attributes.staves) > 1)
-                        listOfAdditionalStaves.Add(partNumber, new List<Measure>());
-                    if (listOfAdditionalStaves.ContainsKey(partNumber))
+                    // get correct clef
+                    if (currentMeasure.Attributes != null)
+                        for (var staff = 0; staff < piece.Instruments[partNumber].Staves.Count; staff++)
+                            lastClef[partNumber][staff] = GetClefFromAttributes(currentMeasure.Attributes, staff) ?? lastClef[partNumber][staff];
+
+
+                    // 3. create a new measure for each part
+                    var measures = new List<Measure>();
+                    for (int staff = 0; staff < piece.Instruments[partNumber].Staves.Count; staff++)
                     {
-                        if (currentMeasure.Attributes != null)
-                            lastClefAdditionalStaves[partNumber] = GetClefFromAttributes(currentMeasure.Attributes, true) ?? lastClefAdditionalStaves[partNumber];
-                        listOfAdditionalStaves[partNumber].Add(new Measure
+                        measures.Add(new Measure
                         {
                             Instrument = piece.Instruments[partNumber],
+                            Staff = piece.Instruments[partNumber].Staves[staff],
                             ParentMeasureGroup = measureGroup,
-                            Clef = lastClefAdditionalStaves[partNumber]
-
+                            Clef = lastClef[partNumber][staff]
                         });
                     }
 
-                    // get correct clef
-                    if (currentMeasure.Attributes != null)
-                        lastClef[partNumber] = GetClefFromAttributes(currentMeasure.Attributes) ?? lastClef[partNumber];
-
-                    // 3. create a new measure for each part
-                    var newMeasure = new Measure
-                    {
-                        Instrument = piece.Instruments[partNumber],
-                        Staff = piece.Instruments[partNumber].Staves.FirstOrDefault(),
-                        ParentMeasureGroup = measureGroup,
-                        Clef = lastClef[partNumber]
-                    };
-
-                    // 4a. Split voices (crazy multiple staves-madness, part 2)
+                    // 4a. Split voices
                     var voices = items.Aggregate(new List<List<Object>> { new List<Object>() },
                                    (list, value) =>
                                    {
@@ -301,9 +293,9 @@ namespace Musicista.Mappers
                                 advanceBeat = (int)newNote.Duration; // IF the next note advances the beat counter, it should be by this amount
 
                                 if (mxmlNote.staff == null || mxmlNote.staff == "1")
-                                    newMeasure.AddSymbol(newNote);
-                                else if (listOfAdditionalStaves.ContainsKey(partNumber)) //crazy multiple staves-madness, part 3
-                                    listOfAdditionalStaves[partNumber][measureNumber].AddSymbol(newNote);
+                                    measures[0].AddSymbol(newNote);
+                                else
+                                    measures[int.Parse(mxmlNote.staff) - 1].AddSymbol(newNote);
 
                                 tempArticulation = null;
                             }
@@ -331,7 +323,7 @@ namespace Musicista.Mappers
                                     if (directionType.Wedge != null && tempWedge != null && directionType.Wedge.type == wedgetype.stop)
                                     {
                                         tempWedge.EndBeat = beat / 960;
-                                        newMeasure.Wedge = tempWedge;
+                                        measures[0].Wedge = tempWedge;
                                     }
 
                                     if (directionType.Words != null)
@@ -370,22 +362,11 @@ namespace Musicista.Mappers
                             }
                         }
                     }
-                    measureGroup.Measures.Add(newMeasure);
+                    measureGroup.Measures.AddRange(measures);
                 }
                 piece.Sections[0].Movements[0].Segments[0].Passages[0].MeasureGroups.Add(measureGroup);
             }
-            //crazy multiple staves-madness, part 4
-            if (listOfAdditionalStaves.Count > 0)
-                foreach (var additionalStaff in listOfAdditionalStaves.Reverse())
-                {
-                    var instrument = new Instrument(piece.Instruments[additionalStaff.Key].Name);
-                    piece.Instruments.Add(instrument);
-                    foreach (var measure in additionalStaff.Value)
-                    {
-                        measure.Instrument = instrument;
-                        measure.ParentMeasureGroup.Measures.Insert(additionalStaff.Key + 1, measure);
-                    }
-                }
+
             // Correct the first measure if it is a pickup measure
             if (piece.MeasureGroups.First() != null && piece.MeasureGroups.First().IsPickupMeasure)
                 foreach (var measure in piece.MeasureGroups.First().Measures)
@@ -436,12 +417,12 @@ namespace Musicista.Mappers
                     symbol.Beat += difference / (double)Duration.Quarter;
         }
 
-        private static Clef? GetClefFromAttributes(attributes attributes, bool takeLast = false)
+        private static Clef? GetClefFromAttributes(attributes attributes, int number = 0)
         {
-            if (attributes == null || attributes.clef == null || attributes.clef[0] == null)
+            if (attributes == null || attributes.clef == null || attributes.clef[number] == null)
                 return null;
 
-            var clef = takeLast ? attributes.clef.Last() : attributes.clef.First();
+            var clef = attributes.clef[number];
 
             if (clef.sign == clefsign.G && clef.line == "2")
                 return Clef.Treble;

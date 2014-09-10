@@ -21,6 +21,17 @@ namespace Model.Sections.Notes
         public bool ShouldSerializeLyrics() { return Lyrics != null && Lyrics.Any(); }
 
 
+        [XmlIgnore]
+        public TimeSpan AbsoluteTime { get; set; }
+
+        [XmlAttribute("AbsoluteTime")]
+        public String AbsoluteTimeString
+        {
+            get { return AbsoluteTime.ToString(); }
+            set { AbsoluteTime = TimeSpan.Parse(value); }
+        }
+        public bool ShouldSerializeAbsoluteTimeString() { return AbsoluteTime.TotalMilliseconds > 0; }
+
         [XmlElement("Articulation")]
         public Articulation.Articulation Articulations { get; set; }
         public bool ShouldSerializeArticulations() { return Articulations != null && Articulations.ShouldSerialize; }
@@ -86,6 +97,7 @@ namespace Model.Sections.Notes
         {
             Lyrics = new List<Lyric>();
             Articulations = new Articulation.Articulation();
+            AbsoluteTime = new TimeSpan(0, 0, 0, 0, 0);
         }
 
         public void AddLyrics(string text, int verse, Syllabic syllabic)

@@ -7,6 +7,9 @@ namespace Model
 {
     public class Piece
     {
+        [XmlAttribute("Version")]
+        public string Version = "1.0";
+
         [XmlElement("Meta")]
         public MetaData Meta { get; set; }
 

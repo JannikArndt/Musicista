@@ -2,6 +2,7 @@
 using Midi.Events.ChannelEvents;
 using Midi.Events.MetaEvents;
 using Model;
+using Model.Instruments;
 using Model.Meta;
 using Model.Sections;
 using Model.Sections.Attributes;

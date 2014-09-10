@@ -1,4 +1,5 @@
-﻿using Model.Sections.Attributes;
+﻿using Model.Instruments;
+using Model.Sections.Attributes;
 using System;
 using System.ComponentModel;
 
@@ -28,6 +29,21 @@ namespace Model.Extensions
                 return (Repetition)Enum.Parse(typeof(Repetition), text);
 
             return Repetition.None;
+        }
+
+        public static BraceType ParseBrace(string text)
+        {
+            if (text == null) return BraceType.None;
+
+            switch (text)
+            {
+                case "none": return BraceType.None;
+                case "brace": return BraceType.Brace;
+                case "line": return BraceType.Line;
+                case "bracket": return BraceType.Bracket;
+                case "sqaure": return BraceType.Square;
+                default: return BraceType.None;
+            }
         }
     }
 }

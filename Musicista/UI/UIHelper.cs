@@ -10,6 +10,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 using Duration = Model.Sections.Notes.Duration;
+using Style = Model.View.Style;
 
 namespace Musicista.UI
 {
@@ -59,7 +60,7 @@ namespace Musicista.UI
                 if (section.Movements != null && section.Movements.Count > 0)
                     foreach (var movement in section.Movements)
                     {
-                        if (piece.Style == null) piece.Style = new Model.Style();
+                        if (piece.Style == null) piece.Style = new Style();
                         if (piece.Style.MetricForMovement == null) piece.Style.MetricForMovement = new List<Metrics>();
 
                         var metrics = piece.Style.MetricForMovement.FirstOrDefault(item => item.MovementNumber == movement.Number);

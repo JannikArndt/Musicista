@@ -46,9 +46,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Instruments\BraceType.cs" />
     <Compile Include="Comment.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\ListExtension.cs" />
+    <Compile Include="Instruments\InstrumentGroup.cs" />
+    <Compile Include="Instruments\MidiSettings.cs" />
+    <Compile Include="Instruments\Staff.cs" />
     <Compile Include="Sections\Barline.cs" />
     <Compile Include="Sections\BarlineLocation.cs" />
     <Compile Include="Sections\BarlineStyle.cs" />
@@ -71,7 +75,7 @@
     <Compile Include="Sections\Notes\Articulation\MuteType.cs" />
     <Compile Include="Sections\Notes\Articulation\Sliding.cs" />
     <Compile Include="Sections\Notes\Clef.cs" />
-    <Compile Include="Instrument.cs" />
+    <Compile Include="Instruments\Instrument.cs" />
     <Compile Include="Sections\Notes\Articulation\Dynamics.cs" />
     <Compile Include="Sections\Notes\GraceNote.cs" />
     <Compile Include="Sections\Notes\Interval.cs" />

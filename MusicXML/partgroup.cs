@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 
 namespace MusicXML
 {
-    
+
     [Serializable]
     [DebuggerStepThrough]
     [DesignerCategory("code")]

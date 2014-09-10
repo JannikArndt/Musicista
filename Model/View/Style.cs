@@ -1,8 +1,7 @@
-﻿using Model.View;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace Model
+namespace Model.View
 {
     public class Style
     {

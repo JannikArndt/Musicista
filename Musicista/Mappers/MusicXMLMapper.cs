@@ -1,5 +1,6 @@
 ﻿using Model;
 using Model.Extensions;
+using Model.Instruments;
 using Model.Meta.People;
 using Model.Sections;
 using Model.Sections.Attributes;
@@ -72,9 +73,53 @@ namespace Musicista.Mappers
                     }
 
             // Map the instruments
-            if (mxml.PartList.ScoreParts != null)
-                foreach (var scorepart in mxml.PartList.ScoreParts)
-                    piece.Instruments.Add(new Instrument(scorepart.Partname, int.Parse(Regex.Match(scorepart.id, @"\d+").Value)));
+            InstrumentGroup currentInstrumentGroup = null;
+            var staffCount = 1;
+            if (mxml.PartList.Items != null)
+                foreach (var item in mxml.PartList.Items)
+                {
+                    if (item.GetType() == typeof(partgroup) && ((partgroup)item).type == startstop.start)
+                    {
+                        currentInstrumentGroup = new InstrumentGroup
+                        {
+                            BraceType = EnumExtensions.ParseBrace(((partgroup)item).groupsymbol.Value.ToString())
+                        };
+                        piece.InstrumentGroups.Add(currentInstrumentGroup);
+                    }
+
+                    if (item.GetType() == typeof(partgroup) && ((partgroup)item).type == startstop.stop)
+                        currentInstrumentGroup = null;
+
+                    if (item.GetType() == typeof(ScorePart))
+                    {
+                        var instrument = (ScorePart)item;
+                        if (currentInstrumentGroup == null)
+                        {
+                            currentInstrumentGroup = new InstrumentGroup();
+                            piece.InstrumentGroups.Add(currentInstrumentGroup);
+                        }
+                        var newInstrument = new Instrument
+                        {
+                            Name = instrument.Partname,
+                            Shortname = instrument.Partabbreviation,
+                            ID = int.Parse(Regex.Match(instrument.id, @"\d+").Value),
+                        };
+                        var firstMeasure = mxml.Part.First(part => part.id == instrument.id).Measure.First();
+                        if (firstMeasure != null)
+                        {
+                            var transpose = firstMeasure.Attributes.transpose;
+                            if (transpose != null) newInstrument.Transposition = (int)transpose.First().chromatic;
+                        }
+
+                        for (var staffNumber = 0; staffNumber < int.Parse(mxml.Part.First(part => part.id == instrument.id).Measure.First().Attributes.staves); staffNumber++)
+                        {
+                            newInstrument.Staves.Add(new Staff { ID = staffCount });
+                            staffCount++;
+                        }
+                        currentInstrumentGroup.Instruments.Add(newInstrument);
+                    }
+                }
+            piece.InstrumentGroups.RemoveAll(item => item.Instruments.Count == 0);
 
             // Map movement information
             if (mxml.MovementNumber != null)
@@ -111,11 +156,11 @@ namespace Musicista.Mappers
         public static Piece MapPartwiseMeasuresToPiece(ScorePartwise mxml, Piece piece)
         {
             var lastClef = new List<Clef>();
-            for (var i = 0; i < mxml.Part[0].Measure.Length; i++)
+            for (var i = 0; i < mxml.Part.Length; i++)
                 lastClef.Add(Clef.Treble);
 
             var lastClefAdditionalStaves = new List<Clef>();
-            for (var i = 0; i < mxml.Part[0].Measure.Length; i++)
+            for (var i = 0; i < mxml.Part.Length; i++)
                 lastClefAdditionalStaves.Add(Clef.Treble);
 
             var listOfAdditionalStaves = new Dictionary<int, List<Measure>>();
@@ -124,7 +169,7 @@ namespace Musicista.Mappers
             var lastTime = new TimeSignature(4, 4);
             var durationDivision = 960; // = one quarter
 
-            // take the first part, go through all measure, for each measure look up the other parts
+            // take the first part, go through all measures, for each measure look up the other parts
             for (var measureNumber = 0; measureNumber < mxml.Part[0].Measure.Length; measureNumber++)
             {
                 // 1. Create a parent MeasureGroup
@@ -197,6 +242,7 @@ namespace Musicista.Mappers
                     var newMeasure = new Measure
                     {
                         Instrument = piece.Instruments[partNumber],
+                        Staff = piece.Instruments[partNumber].Staves.FirstOrDefault(),
                         ParentMeasureGroup = measureGroup,
                         Clef = lastClef[partNumber]
                     };

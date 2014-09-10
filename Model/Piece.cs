@@ -1,7 +1,9 @@
-﻿using Model.Sections;
+﻿using Model.Instruments;
+using Model.Sections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
+using Model.View;
 
 namespace Model
 {
@@ -13,8 +15,19 @@ namespace Model
         [XmlElement("Meta")]
         public MetaData Meta { get; set; }
 
-        [XmlArray("Instruments")]
-        public List<Instrument> Instruments { get; set; }
+        [XmlArray("InstrumentGroups")]
+        public List<InstrumentGroup> InstrumentGroups { get; set; }
+
+        [XmlIgnore]
+        public List<Instrument> Instruments
+        {
+            get { return InstrumentGroups.SelectMany(item => item.Instruments).ToList(); }
+        }
+        [XmlIgnore]
+        public List<Staff> Staves
+        {
+            get { return InstrumentGroups.SelectMany(item => item.Instruments).SelectMany(instrument => instrument.Staves).ToList(); }
+        }
 
         [XmlArray("Score")]
         public List<Section> Sections { get; set; }
@@ -44,7 +57,7 @@ namespace Model
             if (initialize)
             {
                 Meta = new MetaData();
-                Instruments = new List<Instrument>();
+                InstrumentGroups = new List<InstrumentGroup>();
                 Parts = new List<Part>();
                 Style = new Style();
                 Sections = new List<Section> 

@@ -1,11 +1,12 @@
-﻿using Model.Sections.Notes;
+﻿using Model.Instruments;
+using Model.Sections.Notes;
+using Model.Sections.Notes.Articulation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
-using Model.Sections.Notes.Articulation;
 
 namespace Model.Sections
 {
@@ -17,10 +18,13 @@ namespace Model.Sections
         private Clef _clef;
         [XmlIgnore]
         private Instrument _instrument;
+        [XmlIgnore]
+        private Staff _staff;
 
         public Measure()
         {
             Instrument = new Instrument();
+            Staff = new Staff();
         }
         [XmlAttribute("Clef")]
         public Clef Clef
@@ -54,6 +58,23 @@ namespace Model.Sections
             set { _instrument = value; NotifyPropertyChanged(); }
         }
 
+        [XmlAttribute("StaffID")]
+        public int StaffID
+        {
+            get { return Staff.ID; }
+            set
+            {
+                if (ParentMeasureGroup != null)
+                    Staff = ParentMeasureGroup.ParentPassage.ParentSegment.ParentMovement.ParentSection.ParentPiece.Staves.FirstOrDefault(staff => staff.ID == value);
+            }
+        }
+
+        [XmlIgnore]
+        public Staff Staff
+        {
+            get { return _staff; }
+            set { _staff = value; NotifyPropertyChanged(); }
+        }
 
 
         [XmlElement("Note", Type = typeof(Note))]

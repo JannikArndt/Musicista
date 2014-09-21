@@ -419,10 +419,10 @@ namespace Musicista.Mappers
 
         private static Clef? GetClefFromAttributes(attributes attributes, int number = 0)
         {
-            if (attributes == null || attributes.clef == null || attributes.clef[number] == null)
+            if (attributes == null || attributes.clef == null || attributes.clef.All(item => item.number != "" + number))
                 return null;
 
-            var clef = attributes.clef[number];
+            var clef = attributes.clef.First((item => item.number == "" + number));
 
             if (clef.sign == clefsign.G && clef.line == "2")
                 return Clef.Treble;

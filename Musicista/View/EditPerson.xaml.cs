@@ -1,5 +1,6 @@
 ﻿using Model.Meta.People;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Musicista.View
@@ -9,19 +10,25 @@ namespace Musicista.View
     /// </summary>
     public partial class EditPerson
     {
+        public static Person Person { get; set; }
         public EditPerson(Person person)
         {
             InitializeComponent();
+            Person = person;
 
-            // Display info about the uiSymbol
+            // Display info about the person
+
+            PersonTypeComboBox.ItemsSource = new string[] { "Composer", "Lyricist", "Arranger", "Producer", "Interpreter", "Person" };
+            PersonTypeComboBox.Text = person.GetType().Name;
+
             var grid = new GridTable(100);
-            grid.AddRowWithTextField("First Name", person, "FirstName");
-            grid.AddRowWithTextField("Middle Name", person, "MiddleName");
-            grid.AddRowWithTextField("Last Name", person, "LastName");
-            grid.AddRowWithTextField("Role", person, "Role");
-            grid.AddRowWithTextField("Misc", person, "Misc");
-            grid.AddRowWithTextField("Born", person, "BornString");
-            grid.AddRowWithTextField("Died", person, "DiedString");
+            grid.AddRowWithTextField("First Name", Person, "FirstName");
+            grid.AddRowWithTextField("Middle Name", Person, "MiddleName");
+            grid.AddRowWithTextField("Last Name", Person, "LastName");
+            grid.AddRowWithTextField("Role", Person, "Role");
+            grid.AddRowWithTextField("Misc", Person, "Misc");
+            grid.AddRowWithTextField("Born", Person, "BornString");
+            grid.AddRowWithTextField("Died", Person, "DiedString");
             MainStackPanel.Children.Add(grid);
 
 
@@ -42,6 +49,33 @@ namespace Musicista.View
             if (MainWindow.PageList.Count > 0)
                 MainWindow.PageList[0].Composer.Text = MainWindow.CurrentPiece.Meta.People.ComposersAsString;
             Close();
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            MainWindow.CurrentPiece.Meta.People.Persons.Remove(Person);
+            switch (PersonTypeComboBox.SelectedItem.ToString())
+            {
+                case "Composer":
+                    Person = new Composer(Person);
+                    break;
+                case "Lyricist":
+                    Person = new Lyricist(Person);
+                    break;
+                case "Arranger":
+                    Person = new Arranger(Person);
+                    break;
+                case "Producer":
+                    Person = new Producer(Person);
+                    break;
+                case "Interpreter":
+                    Person = new Interpreter(Person);
+                    break;
+                case "Person":
+                    Person = new Person(Person);
+                    break;
+            }
+            MainWindow.CurrentPiece.Meta.People.Persons.Add(Person);
         }
     }
 }

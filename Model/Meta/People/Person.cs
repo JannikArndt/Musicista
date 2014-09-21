@@ -74,6 +74,17 @@ namespace Model.Meta.People
             MiddleName = "";
             LastName = "";
         }
+
+        public Person(Person person)
+        {
+            FirstName = person.FirstName;
+            MiddleName = person.MiddleName;
+            LastName = person.LastName;
+            Role = person.Role;
+            Misc = person.Misc;
+            Born = person.Born;
+            Died = person.Died;
+        }
         public override string ToString()
         {
             return FullName;

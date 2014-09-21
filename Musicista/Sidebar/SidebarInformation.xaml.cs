@@ -213,7 +213,7 @@ namespace Musicista.Sidebar
 
 
             foreach (var person in piece.Meta.People.Persons)
-                grid.AddRowWithPerson(person.GetType().ToString(), person);
+                grid.AddRowWithPerson(person.GetType().Name, person);
             grid.AddRowWithAddPerson(piece.Meta.People.Persons);
 
 

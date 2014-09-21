@@ -1,9 +1,9 @@
 ﻿using Model.Instruments;
 using Model.Sections;
+using Model.View;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
-using Model.View;
 
 namespace Model
 {
@@ -15,7 +15,7 @@ namespace Model
         [XmlElement("Meta")]
         public MetaData Meta { get; set; }
 
-        [XmlArray("InstrumentGroups")]
+        [XmlArray("Instruments")]
         public List<InstrumentGroup> InstrumentGroups { get; set; }
 
         [XmlIgnore]

@@ -11,7 +11,7 @@ namespace Model.Instruments
         [XmlAttribute("BraceType")]
         public BraceType BraceType { get; set; }
 
-        [XmlElement("Instruments")]
+        [XmlElement("Instrument")]
         public List<Instrument> Instruments { get; set; }
 
         public InstrumentGroup()

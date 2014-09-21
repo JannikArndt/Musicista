@@ -1,9 +1,9 @@
 ﻿using Model;
 using Model.Meta;
 using Model.Meta.People;
+using Model.Sections.Attributes;
 using System;
 using System.Collections.Generic;
-using Model.Sections.Attributes;
 
 namespace ModelTests
 {
@@ -19,14 +19,11 @@ namespace ModelTests
                     Subtitle = "Subtitle",
                     People = new People
                     {
-                        Composers = new List<Composer>
+                        Persons = new List<Person>
                         {
                             new Composer{FirstName = "Gustav", LastName = "Mahler", Born = new DateTime(1860, 7, 7), Died = new DateTime(1911, 5, 18)},
-                            new Composer{FirstName = "Johann", MiddleName = "Sebastian", LastName = "Bach", Born = new DateTime(1685, 3, 31), Died = new DateTime(1750, 7, 28)}
-                        },
-                        Lyricists = new List<Person>
-                        {
-                            new Person{FirstName = "Friedrich", LastName = "Nietzsche"}
+                            new Composer{FirstName = "Johann", MiddleName = "Sebastian", LastName = "Bach", Born = new DateTime(1685, 3, 31), Died = new DateTime(1750, 7, 28)},
+                            new Lyricist{FirstName = "Friedrich", LastName = "Nietzsche"}
                         }
                     },
                     Collection = "Collection",

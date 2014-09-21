@@ -59,16 +59,16 @@ namespace Musicista.Mappers
                     switch (creator.Type)
                     {
                         case "composer":
-                            piece.Meta.People.Composers.Add(new Composer { FullName = creator.Value });
+                            piece.Meta.People.Persons.Add(new Composer { FullName = creator.Value });
                             break;
                         case "lyricist":
-                            piece.Meta.People.Lyricists.Add(new Person { FullName = creator.Value });
+                            piece.Meta.People.Persons.Add(new Lyricist { FullName = creator.Value });
                             break;
                         case "arranger":
-                            piece.Meta.People.Arrangers.Add(new Person { FullName = creator.Value });
+                            piece.Meta.People.Persons.Add(new Arranger { FullName = creator.Value });
                             break;
                         default:
-                            piece.Meta.People.OtherPersons.Add(new Person { FullName = creator.Value });
+                            piece.Meta.People.Persons.Add(new Person { FullName = creator.Value });
                             break;
                     }
 
@@ -131,14 +131,14 @@ namespace Musicista.Mappers
             if (scoreInfo != null)
             {
                 piece.Meta.Weblink = scoreInfo.Permalink;
-                piece.Meta.People.OtherPersons.Add(new Person { FullName = scoreInfo.User.Username, Role = "Uploader", Misc = "User ID = " + scoreInfo.User.Uid });
+                piece.Meta.People.Persons.Add(new Person { FullName = scoreInfo.User.Username, Role = "Uploader", Misc = "User ID = " + scoreInfo.User.Uid });
                 piece.Meta.Copyright = scoreInfo.License;
                 piece.Meta.Notes += scoreInfo.Description;
                 piece.Meta.Subtitle = scoreInfo.Metadata.Subtitle;
-                if (piece.Meta.People.Composers.Count == 0 && !string.IsNullOrEmpty(scoreInfo.Metadata.Composer))
-                    piece.Meta.People.Composers.Add(new Composer { FullName = scoreInfo.Metadata.Composer });
-                if (piece.Meta.People.Lyricists.Count == 0 && !string.IsNullOrEmpty(scoreInfo.Metadata.Poet))
-                    piece.Meta.People.Lyricists.Add(new Person { FullName = scoreInfo.Metadata.Poet });
+                if (!piece.Meta.People.Persons.OfType<Composer>().Any() && !string.IsNullOrEmpty(scoreInfo.Metadata.Composer))
+                    piece.Meta.People.Persons.Add(new Composer { FullName = scoreInfo.Metadata.Composer });
+                if (!piece.Meta.People.Persons.OfType<Lyricist>().Any() && !string.IsNullOrEmpty(scoreInfo.Metadata.Poet))
+                    piece.Meta.People.Persons.Add(new Lyricist { FullName = scoreInfo.Metadata.Poet });
             }
 
             // Map the music

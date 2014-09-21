@@ -1,6 +1,5 @@
 ﻿using Model;
 using Model.Meta;
-using Model.Meta.People;
 using Model.Sections;
 using Model.Sections.Attributes;
 using Model.Sections.Notes;
@@ -212,10 +211,10 @@ namespace Musicista.Sidebar
             var grid = new GridTable(60);
             grid.AddRowWithTextField("Title", MainWindow.CurrentPiece.Meta, "Title");
 
-            if (piece.Meta.People.Composers == null || piece.Meta.People.Composers.Count == 0)
-                piece.Meta.People.Composers = new List<Composer> { new Composer() };
-            foreach (var composer in piece.Meta.People.Composers)
-                grid.AddRowWithPerson("Composer", composer);
+
+            foreach (var person in piece.Meta.People.Persons)
+                grid.AddRowWithPerson(person.GetType().ToString(), person);
+            grid.AddRowWithAddPerson(piece.Meta.People.Persons);
 
 
             grid.AddRowWithComboBox("Epoch", MainWindow.CurrentPiece.Meta, "Epoch", Epoch.Classical);

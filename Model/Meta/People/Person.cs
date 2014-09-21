@@ -6,11 +6,16 @@ namespace Model.Meta.People
 {
     public class Person
     {
+        [XmlAttribute("FirstName")]
         public string FirstName { get; set; }
+        [XmlAttribute("MiddleName")]
         public string MiddleName { get; set; }
         public bool ShouldSerializeMiddleName() { return !string.IsNullOrEmpty(MiddleName); }
+        [XmlAttribute("LastName")]
         public string LastName { get; set; }
+        [XmlAttribute("Role")]
         public string Role { get; set; }
+        [XmlAttribute("Misc")]
         public string Misc { get; set; }
         [XmlIgnore]
         public string FullName
@@ -44,10 +49,24 @@ namespace Model.Meta.People
             }
         }
 
+        [XmlIgnore]
         public DateTime Born { get; set; }
-        public bool ShouldSerializeBorn() { return Born != new DateTime(); }
+        [XmlAttribute("Born")]
+        public string BornString
+        {
+            get { return Born.ToString("yyyy-MM-dd"); }
+            set
+            {
+                DateTime born; DateTime.TryParse(value, out born); Born = born;
+            }
+        }
+        public bool ShouldSerializeBornString() { return Born != new DateTime(); }
+        [XmlIgnore]
         public DateTime Died { get; set; }
-        public bool ShouldSerializeDied() { return Died != new DateTime(); }
+        [XmlAttribute("Died")]
+        public string DiedString { get { return Died.ToString("yyyy-MM-dd"); } set { DateTime died; DateTime.TryParse(value, out died); Died = died; } }
+
+        public bool ShouldSerializeDiedString() { return Died != new DateTime(); }
 
         public Person()
         {

@@ -2,10 +2,13 @@
 using Model.Meta.People;
 using Model.Sections.Notes;
 using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
+using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace Musicista.View
 {
@@ -104,51 +107,87 @@ namespace Musicista.View
             SetRow(keyTextBlock, RowDefinitions.Count - 1);
             SetColumn(keyTextBlock, 0);
 
-            var firstName = new TextBox
+            var personTextBlock = new TextBlock
             {
-                DataContext = person,
-                Width = 78,
-                Height = 26,
-                Padding = new Thickness(3),
-                Margin = new Thickness(1),
+                Text = person.FullName,
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Center
             };
-            firstName.SetBinding(TextBox.TextProperty, new Binding("FirstName"));
-            var middleName = new TextBox
+            personTextBlock.PreviewMouseDown += (sender, args) =>
             {
-                DataContext = person,
-                Width = 38,
-                Height = 26,
-                Padding = new Thickness(3),
-                Margin = new Thickness(1),
-                HorizontalAlignment = HorizontalAlignment.Left,
+                var editPersonWindow = new EditPerson(person);
+                editPersonWindow.Show();
+            };
+
+
+            var editTextBlock = new TextBlock
+            {
+                Text = "(e)",
+                HorizontalAlignment = HorizontalAlignment.Right,
                 VerticalAlignment = VerticalAlignment.Center
             };
-            middleName.SetBinding(TextBox.TextProperty, new Binding("MiddleName"));
-            var lastName = new TextBox
+            editTextBlock.PreviewMouseDown += (sender, args) =>
             {
-                DataContext = person,
-                Width = 78,
-                Height = 26,
-                Padding = new Thickness(3),
-                Margin = new Thickness(1),
-                HorizontalAlignment = HorizontalAlignment.Left,
+                var editPersonWindow = new EditPerson(person);
+                editPersonWindow.Show();
+            };
+
+            var deleteButton = new Path
+            {
+                Data = Geometry.Parse("F0 M 15,7C 15,11 12,15 8,15C 3,15 0,11 0,7C 0,3 3,0 8,0C 12,0 15,3 15,7 Z M 4,2L 8,5L 11,2L 12,4L 9,7L 12,10L 11,12L 8,9L 4,12L 3,10L 6,7L 3,4L 4,2 Z"),
+                Fill = Brushes.LightGray,
+                RenderTransform = new ScaleTransform(0.9, 0.9),
                 VerticalAlignment = VerticalAlignment.Center
             };
-            lastName.SetBinding(TextBox.TextProperty, new Binding("LastName"));
+            deleteButton.PreviewMouseDown += (sender, args) =>
+            {
+                if (person.GetType() == typeof(Composer))
+                    MainWindow.CurrentPiece.Meta.People.Persons.Remove(person);
+                MainWindow.SidebarInformation.ShowPiece();
+                if (MainWindow.PageList.Count > 0)
+                    MainWindow.PageList[0].Composer.Text = MainWindow.CurrentPiece.Meta.People.ComposersAsString;
+            };
 
-            var stackpanel = new StackPanel { Orientation = Orientation.Horizontal };
-            stackpanel.Children.Add(firstName);
-            stackpanel.Children.Add(middleName);
-            stackpanel.Children.Add(lastName);
+            var nameGrid = new Grid { Width = 260 - LeftColumnWidth };
+            nameGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength() });
+            nameGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(20) });
+            nameGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(20) });
+            SetColumn(personTextBlock, 0);
+            SetColumn(editTextBlock, 1);
+            SetColumn(deleteButton, 2);
 
+            nameGrid.Children.Add(personTextBlock);
+            nameGrid.Children.Add(editTextBlock);
+            nameGrid.Children.Add(deleteButton);
 
-            SetRow(stackpanel, RowDefinitions.Count - 1);
-            SetColumn(stackpanel, 1);
+            SetRow(nameGrid, RowDefinitions.Count - 1);
+            SetColumn(nameGrid, 1);
 
             Children.Add(keyTextBlock);
-            Children.Add(stackpanel);
+            Children.Add(nameGrid);
+        }
+
+        public void AddRowWithAddPerson(List<Person> persons)
+        {
+            RowDefinitions.Add(new RowDefinition { Height = new GridLength(30) });
+
+
+            var personTextBlock = new TextBlock
+            {
+                Text = "+ add Person",
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            personTextBlock.PreviewMouseDown += (sender, args) =>
+            {
+                var newPerson = new Person();
+                persons.Add(newPerson);
+                var editPersonWindow = new EditPerson(newPerson);
+                editPersonWindow.Show();
+            };
+            SetRow(personTextBlock, RowDefinitions.Count - 1);
+            SetColumn(personTextBlock, 1);
+            Children.Add(personTextBlock);
         }
 
         public void AddRowWithComboBox(string key, object dataContext, string propertyName, Enum enumType)

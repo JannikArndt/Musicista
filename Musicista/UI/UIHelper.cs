@@ -45,8 +45,7 @@ namespace Musicista.UI
             if (!String.IsNullOrEmpty(piece.Meta.Title))
                 currentPage.Title = new UITitle(currentPage);
 
-            if (piece.Meta.People.Composers != null && piece.Meta.People.Composers.Count > 0)
-                currentPage.Composer = new UIComposer(currentPage);
+            currentPage.Composer = new UIComposer(currentPage);
 
             if (piece.Sections == null || piece.Sections.Count <= 0)
                 return pageList;

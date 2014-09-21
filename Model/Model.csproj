@@ -53,6 +53,10 @@
     <Compile Include="Instruments\InstrumentGroup.cs" />
     <Compile Include="Instruments\MidiSettings.cs" />
     <Compile Include="Instruments\Staff.cs" />
+    <Compile Include="Meta\People\Interpreter.cs" />
+    <Compile Include="Meta\People\Producer.cs" />
+    <Compile Include="Meta\People\Arranger.cs" />
+    <Compile Include="Meta\People\Lyricist.cs" />
     <Compile Include="Sections\Barline.cs" />
     <Compile Include="Sections\BarlineLocation.cs" />
     <Compile Include="Sections\BarlineStyle.cs" />

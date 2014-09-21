@@ -132,8 +132,17 @@ namespace Musicista
         {
             if (File.Exists(ApplicationSettings.FileName))
             {
-                var xmlSerializer = new XmlSerializer(typeof(ApplicationSettings));
-                ApplicationSettings = (ApplicationSettings)xmlSerializer.Deserialize(XDocument.Load(ApplicationSettings.FileName).CreateReader());
+                try
+                {
+                    var xmlSerializer = new XmlSerializer(typeof(ApplicationSettings));
+                    ApplicationSettings =
+                        (ApplicationSettings)
+                            xmlSerializer.Deserialize(XDocument.Load(ApplicationSettings.FileName).CreateReader());
+                }
+                catch (Exception)
+                {
+                    ApplicationSettings.Save();
+                }
             }
             else
                 ApplicationSettings.Save();

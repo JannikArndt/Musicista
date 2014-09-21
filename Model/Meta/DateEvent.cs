@@ -5,8 +5,20 @@ namespace Model.Meta
 {
     public class DateEvent
     {
-        [XmlAttribute("Date")]
+        [XmlIgnore]
         public DateTime Date { get; set; }
+        [XmlAttribute("Date")]
+        public string DateString
+        {
+            get { return Date.ToString("yyyy-MM-dd"); }
+            set
+            {
+                DateTime date; DateTime.TryParse(value, out date); Date = date;
+            }
+        }
+        public bool ShouldSerializeDateString() { return Date != new DateTime(); }
+
+
         [XmlAttribute("Place")]
         public string Place { get; set; }
         [XmlText]

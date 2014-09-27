@@ -59,7 +59,7 @@
     <Compile Include="Meta\People\Lyricist.cs" />
     <Compile Include="Sections\Barline.cs" />
     <Compile Include="Sections\BarlineLocation.cs" />
-    <Compile Include="Sections\BarlineStyle.cs" />
+    <Compile Include="Sections\BarlineType.cs" />
     <Compile Include="Sections\Notes\Articulation\Accent.cs" />
     <Compile Include="Sections\Notes\Analysis\Chord.cs" />
     <Compile Include="Meta\DateEvent.cs" />

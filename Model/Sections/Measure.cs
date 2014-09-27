@@ -43,13 +43,20 @@ namespace Model.Sections
         [XmlAttribute("InstrumentID")]
         public int InstrumentID
         {
-            get { return Instrument.ID; }
+            get { return Instrument != null && Instrument.ID != 0 ? Instrument.ID : _instrumentIDBackup; }
             set
             {
                 if (ParentMeasureGroup != null)
-                    Instrument = ParentMeasureGroup.ParentPassage.ParentSegment.ParentMovement.ParentSection.ParentPiece.Instruments.FirstOrDefault(instrument => instrument.ID == value);
+                    Instrument =
+                        ParentMeasureGroup.ParentPassage.ParentSegment.ParentMovement.ParentSection.ParentPiece
+                            .Instruments.FirstOrDefault(instrument => instrument.ID == value);
+                else
+                    _instrumentIDBackup = value;
             }
         }
+
+        [XmlIgnore]
+        private int _instrumentIDBackup;
 
         [XmlIgnore]
         public Instrument Instrument
@@ -134,6 +141,11 @@ namespace Model.Sections
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public override string ToString()
+        {
+            return "Measure of " + Instrument.Name;
         }
     }
 }

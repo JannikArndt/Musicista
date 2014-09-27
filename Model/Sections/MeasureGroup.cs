@@ -153,5 +153,10 @@ namespace Model.Sections
         {
             return Measures.SelectMany(measure => measure.GetSymbolsAt(beat)).ToList();
         }
+
+        public override string ToString()
+        {
+            return "MeasureGroup #" + MeasureNumber + " (" + TimeSignature + ", " + KeySignature + ")";
+        }
     }
 }

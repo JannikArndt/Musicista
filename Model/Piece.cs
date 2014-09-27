@@ -98,6 +98,7 @@ namespace Model
                                 foreach (var measure in measureGroup.Measures)
                                 {
                                     measure.ParentMeasureGroup = measureGroup;
+                                    measure.Instrument = Instruments.FirstOrDefault(inst => inst.ID == measure.InstrumentID);
                                     foreach (var symbol in measure.Symbols)
                                         symbol.ParentMeasure = measure;
                                 }

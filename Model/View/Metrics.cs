@@ -1,5 +1,8 @@
 ﻿
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Serialization;
 
 namespace Model.View
 {
@@ -13,6 +16,14 @@ namespace Model.View
         public double SystemMarginLeft { get; set; }
         public double SystemMarginRight { get; set; }
         public int MeasuresPerSystemThreshold { get; set; }
+        [XmlIgnore]
         public List<int> MeasuresPerSystem { get; set; }
+
+        [XmlElement("MeasuresPerSystem")]
+        public String MeasuresPerSystemString
+        {
+            get { return String.Join(",", MeasuresPerSystem); }
+            set { MeasuresPerSystem = Array.ConvertAll(value.Split(','), int.Parse).ToList(); }
+        }
     }
 }

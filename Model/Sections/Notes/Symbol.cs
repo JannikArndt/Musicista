@@ -46,9 +46,32 @@ namespace Model.Sections.Notes
             get { return ParentMeasure.Symbols.FindLast(s => s.Voice == Voice && s.Beat < Beat); }
         }
         [XmlIgnore]
+        public Note PreviousNote
+        {
+            get { return ParentMeasure.Notes.FindLast(s => s.Voice == Voice && s.Beat < Beat); }
+        }
+        [XmlIgnore]
+        public Rest PreviousRests
+        {
+            get { return ParentMeasure.Rests.FindLast(s => s.Voice == Voice && s.Beat < Beat); }
+        }
+
+        [XmlIgnore]
         public Symbol Next
         {
             get { return ParentMeasure.Symbols.Find(s => s.Voice == Voice && s.Beat > Beat); }
+        }
+
+        [XmlIgnore]
+        public Note NextNote
+        {
+            get { return ParentMeasure.Notes.Find(s => s.Voice == Voice && s.Beat > Beat); }
+        }
+
+        [XmlIgnore]
+        public Rest NextRest
+        {
+            get { return ParentMeasure.Rests.Find(s => s.Voice == Voice && s.Beat > Beat); }
         }
 
         [XmlIgnore]

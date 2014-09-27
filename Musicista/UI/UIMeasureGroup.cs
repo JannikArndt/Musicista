@@ -252,7 +252,7 @@ namespace Musicista.UI
 
         public void Draw()
         {
-            if (InnerMeasureGroup.Barlines.Any(item => item.BarlineStyle == BarlineStyle.StartRepeat))
+            if (InnerMeasureGroup.Barlines.Any(item => item.Type == BarlineType.StartRepeat))
                 Indent += 10;
 
             for (var part = 0; part < InnerMeasureGroup.Measures.Count; part++)
@@ -261,8 +261,8 @@ namespace Musicista.UI
             // set connecting barlines
             foreach (var barline in InnerMeasureGroup.Barlines)
                 DrawBarline(barline);
-            if (InnerMeasureGroup.Barlines.All(item => item.BarlineLocation != BarlineLocation.Right))
-                DrawBarline(new Barline { BarlineLocation = BarlineLocation.Right, BarlineStyle = BarlineStyle.Single });
+            if (InnerMeasureGroup.Barlines.All(item => item.Location != BarlineLocation.Right))
+                DrawBarline(new Barline { Location = BarlineLocation.Right, Type = BarlineType.Single });
         }
 
         private void DrawBarline(Barline barline)
@@ -274,7 +274,7 @@ namespace Musicista.UI
             var show1 = true;
             var show2 = true;
 
-            switch (barline.BarlineLocation)
+            switch (barline.Location)
             {
                 case BarlineLocation.Right:
                     x1 = Width - 5;
@@ -290,35 +290,35 @@ namespace Musicista.UI
                     break;
             }
 
-            switch (barline.BarlineStyle)
+            switch (barline.Type)
             {
-                case BarlineStyle.Single:
+                case BarlineType.Single:
                     show1 = false;
                     break;
-                case BarlineStyle.StartRepeat:
+                case BarlineType.StartRepeat:
                     thickness1 = 3.5;
                     DrawRepeatDots(x2 + 3);
                     break;
-                case BarlineStyle.EndRepeat:
+                case BarlineType.EndRepeat:
                     thickness2 = 3.5;
                     x1 -= 0.7;
                     x2 -= 0.7;
                     DrawRepeatDots(x1 - 5);
                     break;
-                case BarlineStyle.Double:
+                case BarlineType.Double:
                     thickness1 = 1.2;
                     thickness2 = 1.2;
                     x1 += 1;
                     break;
-                case BarlineStyle.Final:
+                case BarlineType.Final:
                     thickness2 = 3.5;
                     x1 -= 0.7;
                     x2 -= 0.7;
                     break;
-                case BarlineStyle.Invisible:
+                case BarlineType.Invisible:
                     show1 = show2 = false;
                     break;
-                case BarlineStyle.Dashed:
+                case BarlineType.Dashed:
                     show1 = false;
                     break;
                 default:
@@ -348,7 +348,7 @@ namespace Musicista.UI
                 SnapsToDevicePixels = Properties.Settings.Default.SnapsToDevicePixels
             };
 
-            if (barline.BarlineStyle == BarlineStyle.Dashed)
+            if (barline.Type == BarlineType.Dashed)
                 line2.StrokeDashArray = new DoubleCollection { 4, 0 };
 
             //line1.SetBinding(Line.X1Property, new Binding { Path = new PropertyPath(WidthProperty), Source = this });

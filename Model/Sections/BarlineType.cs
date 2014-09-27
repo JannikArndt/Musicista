@@ -1,7 +1,7 @@
 ﻿
 namespace Model.Sections
 {
-    public enum BarlineStyle
+    public enum BarlineType
     {
         Single,
         Double,

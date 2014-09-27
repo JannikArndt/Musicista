@@ -430,7 +430,7 @@
   <xs:element name="MetaData" nillable="true" type="MetaData" />
   <xs:complexType name="MetaData">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="1" name="Title" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Name" type="xs:string" />
       <xs:element minOccurs="0" maxOccurs="1" name="Subtitle" type="xs:string" />
       <xs:element minOccurs="0" maxOccurs="1" name="People" type="People" />
       <xs:element minOccurs="0" maxOccurs="1" name="Collection" type="xs:string" />
@@ -523,7 +523,7 @@
   </xs:complexType>
   <xs:complexType name="Album">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="1" name="Title" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Name" type="xs:string" />
       <xs:element minOccurs="0" maxOccurs="1" name="Label" type="xs:string" />
       <xs:element minOccurs="1" maxOccurs="1" name="Published" type="xs:dateTime" />
       <xs:element minOccurs="1" maxOccurs="1" name="Duration" type="TimeSpan" />
@@ -602,7 +602,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="MeasureGroup" type="MeasureGroup" />
     </xs:sequence>
-    <xs:attribute name="Title" type="xs:string" />
+    <xs:attribute name="Name" type="xs:string" />
   </xs:complexType>
   <xs:complexType name="MeasureGroup">
     <xs:sequence>
@@ -647,7 +647,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="Passage" type="Passage" />
     </xs:sequence>
-    <xs:attribute name="Title" type="xs:string" />
+    <xs:attribute name="Name" type="xs:string" />
   </xs:complexType>
   <xs:element name="Marcato" nillable="true" type="Marcato" />
   <xs:complexType name="Marcato">
@@ -805,7 +805,7 @@
   <xs:complexType name="Metrics">
     <xs:sequence>
       <xs:element minOccurs="1" maxOccurs="1" name="MarginTop" type="xs:double" />
-      <xs:element minOccurs="1" maxOccurs="1" name="MarginBelowTitle" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="MarginBelowName" type="xs:double" />
       <xs:element minOccurs="1" maxOccurs="1" name="StaffSpacing" type="xs:double" />
       <xs:element minOccurs="1" maxOccurs="1" name="SystemSpacing" type="xs:double" />
       <xs:element minOccurs="1" maxOccurs="1" name="SystemMarginLeft" type="xs:double" />

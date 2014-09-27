@@ -82,6 +82,12 @@ namespace Model.Sections
         [XmlElement("Rest", Type = typeof(Rest))]
         public List<Symbol> Symbols { get { return _listOfSymbols; } }
 
+        [XmlIgnore]
+        public List<Note> Notes { get { return _listOfSymbols.OfType<Note>().ToList(); } }
+
+        [XmlIgnore]
+        public List<Rest> Rests { get { return _listOfSymbols.OfType<Rest>().ToList(); } }
+
         [XmlElement("Wedge")]
         public Wedge Wedge { get; set; }
 

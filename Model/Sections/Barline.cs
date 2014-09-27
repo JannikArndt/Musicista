@@ -6,19 +6,19 @@ namespace Model.Sections
     public class Barline
     {
         [XmlAttribute("Location")]
-        public BarlineLocation BarlineLocation { get; set; }
+        public BarlineLocation Location { get; set; }
 
 
         [XmlAttribute("Beat")]
         public double Beat { get; set; }
-        public bool BeatSpecified { get { return BarlineLocation == BarlineLocation.Beat; } }
+        public bool BeatSpecified { get { return Location == BarlineLocation.Beat; } }
 
 
-        [XmlAttribute("Style")]
-        public BarlineStyle BarlineStyle { get; set; }
+        [XmlAttribute("Type")]
+        public BarlineType Type { get; set; }
 
 
-        [XmlAttribute("Fermate")]
+        [XmlAttribute("Fermata")]
         public bool Fermata { get; set; }
         public bool FermataSpecified { get { return Fermata; } }
 
@@ -28,44 +28,44 @@ namespace Model.Sections
             switch (location)
             {
                 case "left":
-                    BarlineLocation = BarlineLocation.Left;
+                    Location = BarlineLocation.Left;
                     break;
                 case "right":
-                    BarlineLocation = BarlineLocation.Right;
+                    Location = BarlineLocation.Right;
                     break;
                 case "middle":
-                    BarlineLocation = BarlineLocation.Beat;
+                    Location = BarlineLocation.Beat;
                     break;
                 default:
-                    BarlineLocation = BarlineLocation.Left;
+                    Location = BarlineLocation.Left;
                     break;
             }
 
             switch (repeat)
             {
                 case "forward":
-                    BarlineStyle = BarlineStyle.StartRepeat;
+                    Type = BarlineType.StartRepeat;
                     break;
                 case "backward":
-                    BarlineStyle = BarlineStyle.EndRepeat;
+                    Type = BarlineType.EndRepeat;
                     break;
                 default:
                     switch (barstyle)
                     {
                         case "lightheavy":
-                            BarlineStyle = BarlineStyle.Final;
+                            Type = BarlineType.Final;
                             break;
                         case "lightlight":
-                            BarlineStyle = BarlineStyle.Double;
+                            Type = BarlineType.Double;
                             break;
                         case "dotted":
-                            BarlineStyle = BarlineStyle.Dashed;
+                            Type = BarlineType.Dashed;
                             break;
                         case "none":
-                            BarlineStyle = BarlineStyle.Invisible;
+                            Type = BarlineType.Invisible;
                             break;
                         default: // tick, short
-                            BarlineStyle = BarlineStyle.Single;
+                            Type = BarlineType.Single;
                             break;
                     }
                     break;

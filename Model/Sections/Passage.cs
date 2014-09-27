@@ -6,8 +6,8 @@ namespace Model.Sections
 {
     public class Passage
     {
-        [XmlAttribute("Title")]
-        public string Title { get; set; }
+        [XmlAttribute("Name")]
+        public string Name { get; set; }
         [XmlElement("MeasureGroup")]
         public List<MeasureGroup> MeasureGroups { get; set; }
         [XmlIgnore]

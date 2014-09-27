@@ -10,7 +10,7 @@
   </xs:complexType>
   <xs:complexType name="MetaData">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="1" name="Title" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Name" type="xs:string" />
       <xs:element minOccurs="0" maxOccurs="1" name="Subtitle" type="xs:string" />
       <xs:element minOccurs="0" maxOccurs="1" name="People" type="People" />
       <xs:element minOccurs="0" maxOccurs="1" name="Collection" type="xs:string" />
@@ -174,7 +174,7 @@
   </xs:simpleType>
   <xs:complexType name="Album">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="1" name="Title" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Name" type="xs:string" />
       <xs:element minOccurs="0" maxOccurs="1" name="Label" type="xs:string" />
       <xs:element minOccurs="1" maxOccurs="1" name="Published" type="xs:dateTime" />
       <xs:element minOccurs="1" maxOccurs="1" name="Duration" type="TimeSpan" />

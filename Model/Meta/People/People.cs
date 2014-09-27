@@ -16,6 +16,21 @@ namespace Model.Meta.People
         public List<Person> Persons { get; set; }
 
         [XmlIgnore]
+        public List<Composer> Composers { get { return Persons.OfType<Composer>().ToList(); } }
+
+        [XmlIgnore]
+        public List<Lyricist> Lyricists { get { return Persons.OfType<Lyricist>().ToList(); } }
+
+        [XmlIgnore]
+        public List<Arranger> Arrangers { get { return Persons.OfType<Arranger>().ToList(); } }
+
+        [XmlIgnore]
+        public List<Producer> Producers { get { return Persons.OfType<Producer>().ToList(); } }
+
+        [XmlIgnore]
+        public List<Interpreter> Interpreters { get { return Persons.OfType<Interpreter>().ToList(); } }
+
+        [XmlIgnore]
         public String ComposersAsString { get { return String.Join(", ", Persons.OfType<Composer>()); } }
 
         public People()

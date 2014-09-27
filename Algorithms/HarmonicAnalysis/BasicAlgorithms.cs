@@ -1,5 +1,4 @@
-﻿using Model.Meta;
-using Model.Sections;
+﻿using Model.Sections;
 using Model.Sections.Attributes;
 using Model.Sections.Notes;
 using Model.Sections.Notes.Analysis;
@@ -7,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Musicista.Algorithms
+namespace Algorithms.HarmonicAnalysis
 {
     public static class BasicAlgorithms
     {

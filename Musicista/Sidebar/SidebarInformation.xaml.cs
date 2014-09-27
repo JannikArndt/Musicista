@@ -3,18 +3,14 @@ using Model.Meta;
 using Model.Sections;
 using Model.Sections.Attributes;
 using Model.Sections.Notes;
-using Musicista.Exceptions;
 using Musicista.UI;
 using Musicista.UI.MeasureElements;
 using Musicista.View;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Media;
-using System.Windows.Shapes;
 using Duration = Model.Sections.Notes.Duration;
 
 namespace Musicista.Sidebar
@@ -50,7 +46,7 @@ namespace Musicista.Sidebar
 
                 // Draw note
                 var selectedPassage = new Passage(UIHelper.SelectedUISymbols.Select(item => item.Symbol));
-                SidebarPanel.Children.Add(DrawPassage(selectedPassage));
+                SidebarPanel.Children.Add(SidebarHelper.DrawPassage(selectedPassage));
 
                 // Display info about the uiSymbol
                 var grid = new GridTable(70);
@@ -90,7 +86,7 @@ namespace Musicista.Sidebar
                 if (UIHelper.SelectedUISymbols.Count < 40)
                 {
                     var selectedPassage = new Passage(UIHelper.SelectedUISymbols.Select(item => item.Symbol));
-                    SidebarPanel.Children.Add(DrawPassage(selectedPassage));
+                    SidebarPanel.Children.Add(SidebarHelper.DrawPassage(selectedPassage));
                 }
 
                 var addToThemesButton = new Button
@@ -114,39 +110,7 @@ namespace Musicista.Sidebar
             MainWindow.CurrentPiece.Parts.Add(part);
 
             if (_partsStack != null)
-                DrawPartBox(part, _partsStack);
-        }
-
-        private static UIPage DrawPassage(Passage passage)
-        {
-            var page = new UIPage(hasMouseDown: false)
-            {
-                Width = 280,
-                Height = 50,
-                HorizontalAlignment = HorizontalAlignment.Center,
-                Effect = null,
-                Settings = new UISettings
-                {
-                    MarginTop = 10,
-                    MarginBelowTitle = 0,
-                    StaffSpacing = 0,
-                    SystemSpacing = 0,
-                    SystemMarginLeft = 0,
-                    SystemMarginRight = 0
-                }
-            };
-
-            if (passage == null) return page;
-
-            page.Systems.Add(new UISystem(page, 1, 1, passage.MeasureGroups.Count));
-
-            foreach (var measureGroup in passage.MeasureGroups)
-            {
-                var uiMeasureGroup = new UIMeasureGroup(page.Systems.Last(), measureGroup, false);
-                uiMeasureGroup.Draw();
-            }
-
-            return page;
+                SidebarHelper.DrawPartBox(part, _partsStack);
         }
 
         private void ShowMeasure(UIMeasure uiMeasure)
@@ -160,7 +124,7 @@ namespace Musicista.Sidebar
                 if (UIHelper.SelectedUIMeasures.Count < 10)
                 {
                     var selectedPassage = new Passage(UIHelper.SelectedUIMeasures.Select(item => item.InnerMeasure));
-                    SidebarPanel.Children.Add(DrawPassage(selectedPassage));
+                    SidebarPanel.Children.Add(SidebarHelper.DrawPassage(selectedPassage));
                 }
 
                 // Display info about the uiMeasure
@@ -180,7 +144,7 @@ namespace Musicista.Sidebar
 
                 // Display selected passage
                 var selectedPassage = new Passage(UIHelper.SelectedUIMeasures.Select(item => item.InnerMeasure));
-                SidebarPanel.Children.Add(DrawPassage(selectedPassage));
+                SidebarPanel.Children.Add(SidebarHelper.DrawPassage(selectedPassage));
 
                 // Display info about the uiMeasure(s)
                 var grid = new GridTable(60);
@@ -225,7 +189,7 @@ namespace Musicista.Sidebar
 
             var gridView = new GridView
             {
-                ColumnHeaderContainerStyle = new System.Windows.Style { TargetType = typeof(GridViewColumnHeader) }
+                ColumnHeaderContainerStyle = new Style { TargetType = typeof(GridViewColumnHeader) }
             };
             gridView.ColumnHeaderContainerStyle.Setters.Add(new Setter(VisibilityProperty, Visibility.Collapsed));
 
@@ -275,87 +239,9 @@ namespace Musicista.Sidebar
             _partsStack.Children.Add(partsTitle);
 
             foreach (var part in MainWindow.CurrentPiece.Parts)
-                DrawPartBox(part, _partsStack);
+                SidebarHelper.DrawPartBox(part, _partsStack);
 
             SidebarPanel.Children.Add(_partsStack);
-        }
-
-        private void DrawPartBox(Part part, Panel stackPanel)
-        {
-            if (String.IsNullOrEmpty(part.Name))
-                part.Name = "Part #" + (MainWindow.CurrentPiece.Parts.IndexOf(part) + 1);
-
-            var namePanel = new StackPanel
-            {
-                Orientation = Orientation.Horizontal,
-                VerticalAlignment = VerticalAlignment.Center,
-                HorizontalAlignment = HorizontalAlignment.Center,
-                Margin = new Thickness(10, 4, 0, -18),
-                Width = 280,
-            };
-
-            var partTitle = new EditableTextBox
-            {
-                FontSize = 16,
-                HorizontalAlignment = HorizontalAlignment.Left,
-                VerticalAlignment = VerticalAlignment.Center,
-                Width = 160,
-                DataContext = part
-            };
-            partTitle.SetBinding(TextBox.TextProperty, new Binding("Name"));
-
-            var partStartAndEnd = new TextBlock
-            {
-                FontSize = 12,
-                HorizontalAlignment = HorizontalAlignment.Right,
-                VerticalAlignment = VerticalAlignment.Bottom,
-                Width = 90,
-                Text = "(" + part.Start + "-" + part.End + ")"
-            };
-
-            var deleteArea = new Border
-            {
-                Background = Brushes.Transparent,
-                Margin = new Thickness(10, 10, 0, 0)
-            };
-            var deleteButton = new Path
-            {
-                Data = Geometry.Parse("F0 M 15,7C 15,11 12,15 8,15C 3,15 0,11 0,7C 0,3 3,0 8,0C 12,0 15,3 15,7 Z M 4,2L 8,5L 11,2L 12,4L 9,7L 12,10L 11,12L 8,9L 4,12L 3,10L 6,7L 3,4L 4,2 Z"),
-                Fill = Brushes.LightGray,
-                RenderTransform = new ScaleTransform(0.9, 0.9)
-            };
-
-            var preview = DrawPassage(part.Passage);
-            preview.MouseDown += delegate
-            {
-                try
-                {
-                    UIHelper.SelectPassageInScore(part.Start, part.End);
-                }
-                catch (GUIException exception)
-                {
-                    MessageBox.Show(exception.Message, "Error");
-                }
-            };
-            deleteArea.Child = deleteButton;
-
-            namePanel.Children.Add(partTitle);
-            namePanel.Children.Add(partStartAndEnd);
-            namePanel.Children.Add(deleteArea);
-
-            deleteArea.MouseEnter += (sender, args) => deleteButton.Fill = Brushes.Gray;
-            deleteArea.MouseLeave += (sender, args) => deleteButton.Fill = Brushes.LightGray;
-            deleteArea.MouseDown += delegate { DeletePart(part, namePanel, preview); };
-
-            stackPanel.Children.Add(namePanel);
-            stackPanel.Children.Add(preview);
-        }
-
-        private void DeletePart(Part part, StackPanel namePanel, Canvas preview)
-        {
-            MainWindow.CurrentPiece.Parts.Remove(part);
-            _partsStack.Children.Remove(namePanel);
-            _partsStack.Children.Remove(preview);
         }
     }
 }

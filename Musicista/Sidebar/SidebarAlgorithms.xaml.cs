@@ -1,11 +1,15 @@
 ﻿
+using Algorithms.HarmonicAnalysis;
+using Model;
+using Model.Instruments;
 using Model.Sections.Notes;
 using Model.Sections.Notes.Analysis;
-using Musicista.Algorithms;
 using Musicista.UI;
 using Musicista.UI.MeasureElements;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Musicista.Sidebar
 {
@@ -17,21 +21,30 @@ namespace Musicista.Sidebar
         public SidebarAlgorithms()
         {
             InitializeComponent();
+
+            MouseEnter += (sender, args) =>
+            {
+                if (MainWindow.CurrentPiece != null)
+                {
+                    DoublingInstrument1.ItemsSource = MainWindow.CurrentPiece.Instruments;
+                    DoublingInstrument2.ItemsSource = MainWindow.CurrentPiece.Instruments;
+                }
+            };
         }
 
-        private void ClickAnalyseChords(object sender, RoutedEventArgs e)
+
+
+        private void ClickAnalyzeChords(object sender, RoutedEventArgs e)
         {
             foreach (var measureGroup in MainWindow.CurrentPiece.MeasureGroups)
-            {
                 BasicAlgorithms.HarmonicAnalysis(measureGroup);
-            }
         }
 
-        private void ClickAnalyseSelectedChords(object sender, RoutedEventArgs e)
+        private void ClickAnalyzeSelectedChords(object sender, RoutedEventArgs e)
         {
             var selectedNotes = UIHelper.SelectedUISymbols.Select(uiNote => uiNote.Symbol).OfType<Note>().ToList();
             var allNotes = selectedNotes.SelectMany(note => note.ParentMeasure.ParentMeasureGroup.GetSymbolsAt(note.Beat).OfType<Note>()).ToList();
-            AnalyseSelectedResult.Text = "" + BasicAlgorithms.GetChordFromNotes(allNotes);
+            AnalyzeSelectedResult.Text = "" + BasicAlgorithms.GetChordFromNotes(allNotes);
         }
 
         private void AddAnalysisText(object sender, RoutedEventArgs e)
@@ -41,7 +54,41 @@ namespace Musicista.Sidebar
             var measureNumber = note.Symbol.ParentMeasure.ParentMeasureGroup.MeasureNumber;
             var measureGroup = MainWindow.CurrentPiece.MeasureGroups.FirstOrDefault(item => item.MeasureNumber == measureNumber);
 
-            measureGroup.Analysis.Add(new NoteAttribute(note.Symbol.Beat, TextToAdd.Text, measureGroup));
+            if (measureGroup != null)
+                measureGroup.Analysis.Add(new NoteAttribute(note.Symbol.Beat, TextToAdd.Text, measureGroup));
+        }
+
+        private void FindDoublingsClick(object sender, RoutedEventArgs e)
+        {
+            var doublings = Algorithms.Doublings.FindDoublings.Run(MainWindow.CurrentPiece, (Instrument)DoublingInstrument1.SelectedItem, (Instrument)DoublingInstrument2.SelectedItem);
+            ShowParts(doublings);
+        }
+
+        private StackPanel _partsStack;
+        public void ShowParts(List<Part> parts)
+        {
+            _partsStack = new StackPanel
+            {
+                Orientation = Orientation.Vertical,
+                VerticalAlignment = VerticalAlignment.Bottom
+            };
+
+            var partsTitle = new TextBlock
+            {
+                FontSize = 16,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                Margin = new Thickness(0, 10, 0, 0),
+                Text = "Results"
+            };
+
+            _partsStack.Children.Add(partsTitle);
+
+
+            foreach (var part in parts)
+                SidebarHelper.DrawPartBox(part, _partsStack);
+
+            SidebarPanel.Children.Add(_partsStack);
         }
     }
 }

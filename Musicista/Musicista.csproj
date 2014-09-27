@@ -107,7 +107,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Algorithms\BasicAlgorithms.cs" />
     <Compile Include="ApplicationSettings.cs" />
     <Compile Include="Collection\CollectionWindow.xaml.cs">
       <DependentUpon>CollectionWindow.xaml</DependentUpon>
@@ -123,6 +122,7 @@
       <DependentUpon>RecentlyUsed.xaml</DependentUpon>
     </Compile>
     <Compile Include="DragAndDrop.cs" />
+    <Compile Include="Sidebar\SidebarHelper.cs" />
     <Compile Include="UI\Engraving.cs" />
     <Compile Include="Mappers\Mapper.cs" />
     <Compile Include="Mappers\MidiMapper.cs" />
@@ -272,6 +272,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Algorithms\Algorithms.csproj">
+      <Project>{34049660-c922-4bcd-9780-ecd1653a7778}</Project>
+      <Name>Algorithms</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Collection\MusicistaCollection.csproj">
       <Project>{f53fbfaf-e8e7-42c9-a303-d83554d46569}</Project>
       <Name>MusicistaCollection</Name>

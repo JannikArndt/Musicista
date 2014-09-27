@@ -123,6 +123,9 @@
     </Compile>
     <Compile Include="DragAndDrop.cs" />
     <Compile Include="Sidebar\SidebarHelper.cs" />
+    <Compile Include="TinyEditor\TinyEditor.xaml.cs">
+      <DependentUpon>TinyEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Engraving.cs" />
     <Compile Include="Mappers\Mapper.cs" />
     <Compile Include="Mappers\MidiMapper.cs" />
@@ -220,6 +223,10 @@
     <Page Include="Sidebar\Icons\PageDimensions.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TinyEditor\TinyEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\EditPerson.xaml">
       <Generator>MSBuild:Compile</Generator>

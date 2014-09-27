@@ -35,6 +35,9 @@ namespace Musicista
         {
             SetToolbarButtonPathFill(ToolKind.Add);
             SelectedTool = ToolKind.Add;
+            var tinyEditor = new TinyEditor.TinyEditor();
+            tinyEditor.Show();
+
         }
 
         private void SelectToolEdit(object sender, RoutedEventArgs e)

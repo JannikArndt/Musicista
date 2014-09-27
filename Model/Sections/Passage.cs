@@ -1,4 +1,6 @@
-﻿using Model.Sections.Notes;
+﻿using Model.Instruments;
+using Model.Sections.Attributes;
+using Model.Sections.Notes;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
@@ -33,14 +35,14 @@ namespace Model.Sections
                     currentMeasureGroup = new MeasureGroup
                     {
                         MeasureNumber = symbol.MeasureNumber,
-                        KeySignature = symbol.ParentMeasure.ParentMeasureGroup.KeySignature,
-                        TimeSignature = symbol.ParentMeasure.ParentMeasureGroup.TimeSignature,
+                        KeySignature = symbol.ParentMeasure != null && symbol.ParentMeasure.ParentMeasureGroup != null ? symbol.ParentMeasure.ParentMeasureGroup.KeySignature : new MusicalKey(Step.C, Gender.Major),
+                        TimeSignature = symbol.ParentMeasure != null && symbol.ParentMeasure.ParentMeasureGroup != null ? symbol.ParentMeasure.ParentMeasureGroup.TimeSignature : new TimeSignature(4, 4),
                         ParentPassage = this
                     };
                     currentMeasure = new Measure
                     {
-                        Clef = symbol.ParentMeasure.Clef,
-                        Instrument = symbol.ParentMeasure.Instrument,
+                        Clef = symbol.ParentMeasure != null ? symbol.ParentMeasure.Clef : Clef.Treble,
+                        Instrument = symbol.ParentMeasure != null ? symbol.ParentMeasure.Instrument : new Instrument("temporary Instrument"),
                         ParentMeasureGroup = currentMeasureGroup
                     };
                     currentMeasureGroup.Measures.Add(currentMeasure);

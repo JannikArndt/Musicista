@@ -77,7 +77,7 @@ namespace Model.Sections.Notes
         [XmlIgnore]
         public int MeasureNumber
         {
-            get { return ParentMeasure.ParentMeasureGroup.MeasureNumber; }
+            get { return ParentMeasure == null ? 0 : ParentMeasure.ParentMeasureGroup == null ? 0 : ParentMeasure.ParentMeasureGroup.MeasureNumber; }
         }
 
         [XmlIgnore]

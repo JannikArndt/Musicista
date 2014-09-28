@@ -4,6 +4,7 @@ using Model;
 using Musicista.Collection;
 using Musicista.Properties;
 using Musicista.Sidebar;
+using Musicista.TinyEditor;
 using Musicista.UI;
 using Musicista.View;
 using System;
@@ -42,6 +43,8 @@ namespace Musicista
         public static Path UIButtonPathAlgorithms;
         public static Path UIButtonPathCollection;
 
+        public static TextBox TinyNotationTextBox;
+
         public static MixpanelTracker Tracker { get; set; }
 
         public MainWindow()
@@ -58,6 +61,7 @@ namespace Musicista
             UIButtonPathView = ButtonPathView;
             UIButtonPathAlgorithms = ButtonPathAlgorithms;
             UIButtonPathCollection = ButtonPathCollection;
+            TinyNotationTextBox = TinyNotationBox;
 
             PreviewMouseWheel += Zoom;
             SetUpKeyCommands();
@@ -336,6 +340,16 @@ namespace Musicista
         {
             if (Tracker != null)
                 Tracker.Track("Close Program", new Dictionary<string, object> { { "Username", Settings.Default.Username } });
+        }
+
+        private void TinyNotationBox_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (SelectedTool != ToolKind.Add || UIHelper.SelectedUIMeasures.First() == null)
+                return;
+
+            var measure = UIHelper.SelectedUIMeasures.First().InnerMeasure;
+            measure.Symbols = TinyNotation.ParseTinyNotation(TinyNotationBox.Text, measure);
+            // UIHelper.SelectedUIMeasures.First().ParentUIMeasureGroup.Redraw(); // TODO
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Model.Sections
     public class Measure : INotifyPropertyChanged
     {
         [XmlIgnore]
-        private readonly List<Symbol> _listOfSymbols = new List<Symbol>();
+        private List<Symbol> _listOfSymbols = new List<Symbol>();
         [XmlIgnore]
         private Clef _clef;
         [XmlIgnore]
@@ -87,7 +87,7 @@ namespace Model.Sections
         [XmlElement("Note", Type = typeof(Note))]
         [XmlElement("GraceNote", Type = typeof(GraceNote))]
         [XmlElement("Rest", Type = typeof(Rest))]
-        public List<Symbol> Symbols { get { return _listOfSymbols; } }
+        public List<Symbol> Symbols { get { return _listOfSymbols; } set { _listOfSymbols = value; } }
 
         [XmlIgnore]
         public List<Note> Notes { get { return _listOfSymbols.OfType<Note>().ToList(); } }

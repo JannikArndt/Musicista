@@ -34,6 +34,9 @@
             <MenuItem Header="_Edit">
                 <MenuItem Header="Cut"></MenuItem>
             </MenuItem>
+            <MenuItem Header="_Tools">
+                <MenuItem Header="TinyNotation Editor..." Click="OpenTinyEditor"></MenuItem>
+            </MenuItem>
             <MenuItem Header="_Help">
                 <MenuItem Header="About" Click="ShowAboutWindow"></MenuItem>
             </MenuItem>
@@ -139,5 +142,28 @@ M 70,131 C 74,131 76,130 79,128 C 82,126 85,123 88,121 C 91,119 95,117 96,114 C 
         <Border Grid.Row="2" Grid.Column="1" BorderBrush="Gray" BorderThickness="1,1,0,0">
             <ContentControl  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="Sidebar"></ContentControl>
         </Border>
+        <TextBox Grid.Row="2" Grid.Column="0" Height="30" Margin="50,10,100,30" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Padding="5" Name="TinyNotationBox" Visibility="Collapsed" TextChanged="TinyNotationBox_OnTextChanged">
+            <TextBox.Effect>
+                <DropShadowEffect ShadowDepth="3" Opacity=".4" RenderingBias="Performance" />
+            </TextBox.Effect>
+        </TextBox>
+        <Button Grid.Row="2" Grid.Column="0" Height="30" Width="30" Margin="50,10,70,30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Content="(?)"  Visibility="{Binding ElementName=TinyNotationBox, Path=Visibility}" Name="TinyNotationHelpButton" Click="TinyNotationHelpButton_OnClick">
+            <Button.Effect>
+                <DropShadowEffect ShadowDepth="3" Opacity=".4" RenderingBias="Performance" />
+            </Button.Effect>
+        </Button>
+        <TextBlock Grid.Row="2" Grid.Column="0" Height="120" Width="300" Margin="50,10,70,60" VerticalAlignment="Bottom" HorizontalAlignment="Right" TextWrapping="Wrap" Background="LightGray"  Visibility="Collapsed" Name="TinyNotationHelp">
+                <Run>Enter notes as TinyNotation!</Run>
+                <LineBreak />
+                <Run>Notenames: a, b, c, d, e, f, g and r for rests</Run>
+                <LineBreak />
+                Accidentals: # and -
+                <LineBreak />
+                Octaves: CCC > CC > C > c > cc > ccc
+                <LineBreak />
+                Durations: 1, 2, 4, 8, 16, 32 or no number to repeat the previous duration, '.' for dotted notes
+                <LineBreak />
+                Example: c f#8 g a4. dd-8 c2 A
+        </TextBlock>
     </Grid>
 </Window>

@@ -1,6 +1,7 @@
 ﻿using Model.Sections;
 using Model.Sections.Attributes;
 using Model.Sections.Notes;
+using Musicista.TinyEditor;
 using Musicista.UI.Converters;
 using Musicista.UI.Enums;
 using Musicista.UI.MeasureElements;
@@ -184,6 +185,8 @@ namespace Musicista.UI
                 UIHelper.SelectedUIMeasures.Clear();
                 Background = UIHelper.SelectColor;
                 UIHelper.SelectedUIMeasures.Add(this);
+
+                MainWindow.TinyNotationTextBox.Text = TinyNotation.CreateTinyNotation(InnerMeasure);
             }
             args.Handled = true;
 

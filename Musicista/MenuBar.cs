@@ -35,8 +35,7 @@ namespace Musicista
         {
             SetToolbarButtonPathFill(ToolKind.Add);
             SelectedTool = ToolKind.Add;
-            var tinyEditor = new TinyEditor.TinyEditor();
-            tinyEditor.Show();
+            TinyNotationBox.Visibility = Visibility.Visible;
 
         }
 
@@ -48,7 +47,7 @@ namespace Musicista
 
         private void SelectToolSelect(object sender, RoutedEventArgs e)
         {
-            //SetToolbarButtonPathFill(ToolKind.Select);
+            SetToolbarButtonPathFill(ToolKind.Select);
             SelectedTool = ToolKind.Select;
         }
 
@@ -112,6 +111,7 @@ namespace Musicista
                     ButtonPathSelect.Fill = Brushes.DodgerBlue;
                     break;
             }
+            TinyNotationBox.Visibility = Visibility.Hidden;
         }
 
         private void ShowAboutWindow(object sender, RoutedEventArgs e)
@@ -124,6 +124,19 @@ namespace Musicista
         {
             var preferencesWindow = new PreferencesWindow();
             preferencesWindow.Show();
+        }
+
+        private void OpenTinyEditor(object sender, RoutedEventArgs e)
+        {
+            var tinyEditor = new TinyEditor.TinyEditor();
+            tinyEditor.Show();
+        }
+
+        private void TinyNotationHelpButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            TinyNotationHelp.Visibility = TinyNotationHelp.Visibility == Visibility.Collapsed
+                ? Visibility.Visible
+                : Visibility.Collapsed;
         }
     }
 }

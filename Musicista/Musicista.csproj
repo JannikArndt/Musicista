@@ -122,6 +122,7 @@
       <DependentUpon>RecentlyUsed.xaml</DependentUpon>
     </Compile>
     <Compile Include="DragAndDrop.cs" />
+    <Compile Include="Editing.cs" />
     <Compile Include="Sidebar\SidebarHelper.cs" />
     <Compile Include="TinyEditor\TinyEditor.xaml.cs">
       <DependentUpon>TinyEditor.xaml</DependentUpon>

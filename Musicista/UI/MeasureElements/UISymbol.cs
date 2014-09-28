@@ -67,7 +67,7 @@ namespace Musicista.UI.MeasureElements
 
         public void ClickToSelectSymbols(object sender, MouseButtonEventArgs args)
         {
-            if (UIHelper.SelectedUISymbols.Contains(this) || UIHelper.SelectionModeIsMeasures)
+            if (UIHelper.SelectedUISymbols.Contains(this) || UIHelper.SelectionModeIsMeasures || MainWindow.SelectedTool == ToolKind.Edit)
                 return;
 
             if (Keyboard.Modifiers.HasFlag(ModifierKeys.Control))

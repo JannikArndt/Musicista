@@ -64,8 +64,6 @@ namespace Musicista.TinyEditor
             var snippets = text.Split(' ');
             var lastDuration = Duration.Quarter;
             var beat = 960;
-            var measureCount = 1;
-            var currentMeasure = new Measure { ParentMeasureGroup = new MeasureGroup { MeasureNumber = 1, KeySignature = new MusicalKey(Step.C, Gender.Major), TimeSignature = new TimeSignature(4, 4) }, Clef = Clef.Treble };
             foreach (var snippet in snippets)
             {
                 if (string.IsNullOrWhiteSpace(snippet))
@@ -79,11 +77,11 @@ namespace Musicista.TinyEditor
                 newNote.Duration = ParseTinyDuration(snippet.Substring(splittingpoint)) ?? lastDuration;
                 lastDuration = newNote.Duration;
                 // Parent Measure
-                newNote.ParentMeasure = currentMeasure;
+                newNote.ParentMeasure = measure;
                 // Beat
                 newNote.Beat = beat / 960.0;
                 beat += (int)newNote.Duration;
-                if (beat >= 4800)
+                if (beat > 4800)
                     continue;
                 notes.Add(newNote);
             }
@@ -186,7 +184,7 @@ namespace Musicista.TinyEditor
             foreach (var symbol in measure.Symbols)
             {
                 if (symbol.GetType() == typeof(Rest))
-                    result += "r " + 3840.0 / (double)symbol.Duration;
+                    result += "r" + 3840.0 / (double)symbol.Duration + " ";
                 else if (symbol.GetType() == typeof(Note))
                     result += CreateTinyNotation((Note)symbol);
             }

@@ -44,7 +44,7 @@ namespace Musicista.UI
             TextAlignment = TextAlignment.Left
         };
 
-        public List<UIMeasure> Measures = new List<UIMeasure>();
+        public List<UIMeasure> UIMeasures = new List<UIMeasure>();
 
         public FontFamily EmmentalerFont = new FontFamily(new Uri("pack://application:,,,/"), "./UI/MeasureElements/#Emmentaler 26");
         public FontFamily TimesFont = new FontFamily("Times New Roman");
@@ -255,6 +255,10 @@ namespace Musicista.UI
             if (InnerMeasureGroup.Barlines.Any(item => item.Type == BarlineType.StartRepeat))
                 Indent += 10;
 
+            // Correct parent-relations
+            foreach (var measure in InnerMeasureGroup.Measures)
+                measure.ParentMeasureGroup = InnerMeasureGroup;
+
             for (var part = 0; part < InnerMeasureGroup.Measures.Count; part++)
                 DrawMeasure(InnerMeasureGroup.Measures[part], part + 1);
 
@@ -331,7 +335,7 @@ namespace Musicista.UI
                 X1 = x1,
                 Y1 = 0,
                 X2 = x1,
-                Y2 = GetTop(Measures.Last()) + 34,
+                Y2 = GetTop(UIMeasures.Last()) + 34,
                 StrokeThickness = thickness1,
                 Stroke = new SolidColorBrush(Color.FromArgb(0xFF, 0x30, 0x30, 0x30)),
                 SnapsToDevicePixels = Properties.Settings.Default.SnapsToDevicePixels
@@ -342,7 +346,7 @@ namespace Musicista.UI
                 X1 = x2,
                 Y1 = 0,
                 X2 = x2,
-                Y2 = GetTop(Measures.Last()) + 34,
+                Y2 = GetTop(UIMeasures.Last()) + 34,
                 StrokeThickness = thickness2,
                 Stroke = new SolidColorBrush(Color.FromArgb(0xFF, 0x30, 0x30, 0x30)),
                 SnapsToDevicePixels = Properties.Settings.Default.SnapsToDevicePixels
@@ -350,11 +354,6 @@ namespace Musicista.UI
 
             if (barline.Type == BarlineType.Dashed)
                 line2.StrokeDashArray = new DoubleCollection { 4, 0 };
-
-            //line1.SetBinding(Line.X1Property, new Binding { Path = new PropertyPath(WidthProperty), Source = this });
-            //line1.SetBinding(Line.X2Property, new Binding { Path = new PropertyPath(WidthProperty), Source = this });
-            //line2.SetBinding(Line.X1Property, new Binding { Path = new PropertyPath(WidthProperty), Source = this });
-            //line2.SetBinding(Line.X2Property, new Binding { Path = new PropertyPath(WidthProperty), Source = this });
 
             if (show1) Children.Add(line1);
             if (show2) Children.Add(line2);
@@ -388,8 +387,23 @@ namespace Musicista.UI
 
         public void Redraw()
         {
+            // Save selection
+            var selectedUIMeasure = UIHelper.SelectedUIMeasures.First();
+            var part = 0;
+            if (selectedUIMeasure != null)
+                part = selectedUIMeasure.ParentUIMeasureGroup.UIMeasures.IndexOf(selectedUIMeasure);
+
             Children.Clear();
+            UIMeasures.Clear();
             Draw();
+
+            // Restore selection
+            if (UIMeasures.Count > part && part > -1)
+            {
+                UIMeasures[part].Background = UIHelper.SelectColor;
+                UIHelper.SelectedUIMeasures.Clear();
+                UIHelper.SelectedUIMeasures.Add(UIMeasures[part]);
+            }
         }
 
         public void DrawMeasure(Measure measure, int part)
@@ -400,7 +414,7 @@ namespace Musicista.UI
             var measureGroup = InnerMeasureGroup;
 
             var newMeasure = new UIMeasure(this, part, measure, hasMouseDown: _hasMouseDown);
-            Measures.Add(newMeasure);
+            UIMeasures.Add(newMeasure);
 
             // Draw clef changes
             if (measure.Previous == null || !Equals(measure.Clef, measure.Previous.Clef) || ParentSystem.MeasureGroups.IndexOf(this) == 0)

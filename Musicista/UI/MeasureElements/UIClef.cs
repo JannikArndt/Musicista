@@ -45,7 +45,7 @@ namespace Musicista.UI.MeasureElements
                         SetTop(ClefPath, 56);
                         break;
                 }
-                uiMeasure.PreviousUIMeasure.MarginRight += 120;
+                uiMeasure.PreviousUIMeasure.MarginRight = 120;
                 uiMeasure.PreviousUIMeasure.ParentUIMeasureGroup.Redraw();
             }
             else

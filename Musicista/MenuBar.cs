@@ -11,8 +11,9 @@ namespace Musicista
         public static SidebarInformation SidebarInformation;
         public static SidebarView SidebarView;
         public static SidebarAlgorithms SidebarAlgorithms;
-        public static ToolKind SelectedTool;
+        public static ToolKind SelectedTool = ToolKind.Select;
         public static CollectionWindow CollectionWindow;
+        public static bool UpdateTinyNotationBox = true;
 
         private void ShowCollection(object sender, RoutedEventArgs e)
         {
@@ -36,13 +37,13 @@ namespace Musicista
             SetToolbarButtonPathFill(ToolKind.Add);
             SelectedTool = ToolKind.Add;
             TinyNotationBox.Visibility = Visibility.Visible;
-
         }
 
         private void SelectToolEdit(object sender, RoutedEventArgs e)
         {
             SetToolbarButtonPathFill(ToolKind.Edit);
             SelectedTool = ToolKind.Edit;
+            TinyNotationBox.Visibility = Visibility.Visible;
         }
 
         private void SelectToolSelect(object sender, RoutedEventArgs e)
@@ -96,17 +97,17 @@ namespace Musicista
             switch (selected)
             {
                 case ToolKind.Add:
-                    ButtonPathAdd.Fill = Brushes.DodgerBlue;
+                    //ButtonPathAdd.Fill = Brushes.DodgerBlue;
                     ButtonPathEdit.Fill = Brushes.Black;
                     ButtonPathSelect.Fill = Brushes.Black;
                     break;
                 case ToolKind.Edit:
-                    ButtonPathAdd.Fill = Brushes.Black;
+                    //ButtonPathAdd.Fill = Brushes.Black;
                     ButtonPathEdit.Fill = Brushes.DodgerBlue;
                     ButtonPathSelect.Fill = Brushes.Black;
                     break;
                 case ToolKind.Select:
-                    ButtonPathAdd.Fill = Brushes.Black;
+                    //ButtonPathAdd.Fill = Brushes.Black;
                     ButtonPathEdit.Fill = Brushes.Black;
                     ButtonPathSelect.Fill = Brushes.DodgerBlue;
                     break;
@@ -130,13 +131,6 @@ namespace Musicista
         {
             var tinyEditor = new TinyEditor.TinyEditor();
             tinyEditor.Show();
-        }
-
-        private void TinyNotationHelpButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            TinyNotationHelp.Visibility = TinyNotationHelp.Visibility == Visibility.Collapsed
-                ? Visibility.Visible
-                : Visibility.Collapsed;
         }
     }
 }

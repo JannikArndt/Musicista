@@ -24,6 +24,7 @@ namespace Musicista
 
         public static void DragStart(object sender, MouseButtonEventArgs e)
         {
+            return; // TODO rewrite
             if (SelectedTool != ToolKind.Edit)
                 return;
 
@@ -72,6 +73,7 @@ namespace Musicista
 
         public static void Drag(object sender, MouseEventArgs e)
         {
+            return; // TODO rewrite
             if (SelectedTool != ToolKind.Edit)
                 return;
 
@@ -115,6 +117,7 @@ namespace Musicista
 
         public static void DragEnd(object sender, MouseButtonEventArgs e)
         {
+            return; // TODO rewrite
             if (SelectedTool != ToolKind.Edit)
                 return;
 

@@ -186,7 +186,9 @@ namespace Musicista.UI
                 Background = UIHelper.SelectColor;
                 UIHelper.SelectedUIMeasures.Add(this);
 
+                MainWindow.UpdateTinyNotationBox = false;
                 MainWindow.TinyNotationTextBox.Text = TinyNotation.CreateTinyNotation(InnerMeasure);
+                MainWindow.UpdateTinyNotationBox = true;
             }
             args.Handled = true;
 
@@ -203,9 +205,9 @@ namespace Musicista.UI
             get
             {
                 if (ParentUIMeasureGroup.NextUIMeasureGroup == null) return null;
-                var currentIndex = ParentUIMeasureGroup.Measures.IndexOf(this);
-                if (currentIndex > -1 && ParentUIMeasureGroup.NextUIMeasureGroup.Measures.Count > currentIndex)
-                    return ParentUIMeasureGroup.NextUIMeasureGroup.Measures[currentIndex];
+                var currentIndex = ParentUIMeasureGroup.UIMeasures.IndexOf(this);
+                if (currentIndex > -1 && ParentUIMeasureGroup.NextUIMeasureGroup.UIMeasures.Count > currentIndex)
+                    return ParentUIMeasureGroup.NextUIMeasureGroup.UIMeasures[currentIndex];
                 return null;
             }
         }
@@ -215,9 +217,9 @@ namespace Musicista.UI
             get
             {
                 if (ParentUIMeasureGroup.PreviousUIMeasureGroup == null) return null;
-                var currentIndex = ParentUIMeasureGroup.Measures.IndexOf(this);
-                if (currentIndex > -1 && ParentUIMeasureGroup.PreviousUIMeasureGroup.Measures.Count > currentIndex)
-                    return ParentUIMeasureGroup.PreviousUIMeasureGroup.Measures[currentIndex];
+                var currentIndex = ParentUIMeasureGroup.UIMeasures.IndexOf(this);
+                if (currentIndex > -1 && ParentUIMeasureGroup.PreviousUIMeasureGroup.UIMeasures.Count > currentIndex)
+                    return ParentUIMeasureGroup.PreviousUIMeasureGroup.UIMeasures[currentIndex];
                 return null;
             }
         }

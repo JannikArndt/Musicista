@@ -236,7 +236,7 @@ namespace Musicista.UI
         {
             return MainWindow.PageList.SelectMany(page => page.Systems.SelectMany(system => system.MeasureGroups))
                 .Where(uiMeasureGroup => uiMeasureGroup.InnerMeasureGroup.MeasureNumber == note.MeasureNumber)
-                .SelectMany(uiMeasureGroup => uiMeasureGroup.Measures[note.StaffNumber].Symbols)
+                .SelectMany(uiMeasureGroup => uiMeasureGroup.UIMeasures[note.StaffNumber].Symbols)
                 .FirstOrDefault(uiSymbol => Math.Abs(uiSymbol.Symbol.Beat - note.Beat) < 0.01);
         }
 
@@ -253,6 +253,8 @@ namespace Musicista.UI
             foreach (var uiSymbol in SelectedUISymbols)
                 uiSymbol.Background = Brushes.Transparent;
             SelectedUISymbols.Clear();
+
+            MainWindow.TinyNotationTextBox.Text = "";
         }
     }
 }

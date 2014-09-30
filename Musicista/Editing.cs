@@ -30,16 +30,37 @@ namespace Musicista
             if (e.Key == Key.Enter && UIHelper.SelectedUIMeasures.Count > 0)
             {
                 var nextSelectedMeasure = UIHelper.SelectedUIMeasures.First().NextUIMeasure;
-                if (nextSelectedMeasure != null)
+                if (nextSelectedMeasure == null)
                 {
-                    UIHelper.UnselectAll();
-                    nextSelectedMeasure.Background = UIHelper.SelectColor;
-                    UIHelper.SelectedUIMeasures.Add(nextSelectedMeasure);
-
-                    UpdateTinyNotationBox = false;
-                    TinyNotationTextBox.Text = TinyNotation.CreateTinyNotation(nextSelectedMeasure.InnerMeasure);
-                    UpdateTinyNotationBox = true;
+                    UIHelper.SelectedUIMeasures.First().ParentUIMeasureGroup.AddMeasureGroup(null, null);
+                    var part = UIHelper.SelectedUIMeasures.First().ParentUIMeasureGroup.UIMeasures.IndexOf(UIHelper.SelectedUIMeasures.First());
+                    nextSelectedMeasure = PageList.Last().Systems.Last().UIMeasureGroups.Last().UIMeasures[part];
                 }
+                UIHelper.UnselectAll();
+                nextSelectedMeasure.Background = UIHelper.SelectColor;
+                UIHelper.SelectedUIMeasures.Add(nextSelectedMeasure);
+
+                UpdateTinyNotationBox = false;
+                TinyNotationTextBox.Text = TinyNotation.CreateTinyNotation(nextSelectedMeasure.InnerMeasure);
+                UpdateTinyNotationBox = true;
+            }
+        }
+
+        private void TinyNotationBox_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            var caret = TinyNotationBox.CaretIndex;
+            switch (e.Text)
+            {
+                case "(":
+                    TinyNotationTextBox.Text = TinyNotationTextBox.Text.Insert(caret, "()");
+                    TinyNotationTextBox.CaretIndex = caret + 1;
+                    e.Handled = true;
+                    break;
+                case "[":
+                    TinyNotationTextBox.Text = TinyNotationTextBox.Text.Insert(caret, "[]");
+                    TinyNotationTextBox.CaretIndex = caret + 1;
+                    e.Handled = true;
+                    break;
             }
         }
     }

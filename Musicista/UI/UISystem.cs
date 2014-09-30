@@ -9,7 +9,7 @@ namespace Musicista.UI
     public class UISystem : Canvas
     {
         public List<UIStaff> Staves = new List<UIStaff>();
-        public List<UIMeasureGroup> MeasureGroups = new List<UIMeasureGroup>();
+        public List<UIMeasureGroup> UIMeasureGroups = new List<UIMeasureGroup>();
         public readonly UIPage ParentPage;
         public Line BarlineFront { get; set; }
         public int MeasuresInSystem { get; set; }

@@ -31,7 +31,7 @@ namespace Musicista.UI.MeasureElements
 
             Children.Add(ClefPath);
 
-            if (uiMeasure.ParentUIMeasureGroup.ParentSystem.MeasureGroups.IndexOf(uiMeasure.ParentUIMeasureGroup) > 0)
+            if (uiMeasure.ParentUIMeasureGroup.ParentSystem.UIMeasureGroups.IndexOf(uiMeasure.ParentUIMeasureGroup) > 0)
             {
                 SetLeft(this, -120);
                 switch (clefType)

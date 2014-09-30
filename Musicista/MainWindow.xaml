@@ -142,7 +142,7 @@ M 70,131 C 74,131 76,130 79,128 C 82,126 85,123 88,121 C 91,119 95,117 96,114 C 
         <Border Grid.Row="2" Grid.Column="1" BorderBrush="Gray" BorderThickness="1,1,0,0">
             <ContentControl  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="Sidebar"></ContentControl>
         </Border>
-        <TextBox Grid.Row="2" Grid.Column="0" Height="30" Margin="50,10,100,30" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Padding="5" Name="TinyNotationBox" Visibility="Collapsed" TextChanged="TinyNotationBox_OnTextChanged" PreviewKeyDown="TinyNotationBox_OnPreviewKeyDown">
+        <TextBox Grid.Row="2" Grid.Column="0" Height="30" Margin="50,10,100,30" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Padding="5" Name="TinyNotationBox" Visibility="Collapsed" TextChanged="TinyNotationBox_OnTextChanged" PreviewKeyDown="TinyNotationBox_OnPreviewKeyDown" PreviewTextInput="TinyNotationBox_OnPreviewTextInput">
             <TextBox.Effect>
                 <DropShadowEffect ShadowDepth="3" Opacity=".4" RenderingBias="Performance" />
             </TextBox.Effect>

@@ -10,8 +10,10 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using Duration = Model.Sections.Notes.Duration;
 
 namespace Musicista.UI
 {
@@ -36,6 +38,9 @@ namespace Musicista.UI
 
         private readonly bool _hasMouseDown = true;
 
+        private Line Barline1;
+        private Line Barline2;
+
         public TextBlock MeasureNumberTextBlock = new TextBlock
         {
             FontSize = 10,
@@ -56,7 +61,7 @@ namespace Musicista.UI
 
             InnerMeasureGroup = innerMeasureGroup;
             ParentSystem = system;
-            ParentSystem.MeasureGroups.Add(this);
+            ParentSystem.UIMeasureGroups.Add(this);
             _hasMouseDown = hasMouseDown;
 
 
@@ -76,7 +81,7 @@ namespace Musicista.UI
                 });
 
             // Measure number
-            if (ParentSystem.MeasureGroups.IndexOf(this) == 0 && InnerMeasureGroup.MeasureNumber > 1)
+            if (ParentSystem.UIMeasureGroups.IndexOf(this) == 0 && InnerMeasureGroup.MeasureNumber > 1)
             {
                 MeasureNumberTextBlock.Text = "" + InnerMeasureGroup.MeasureNumber;
                 SetTop(MeasureNumberTextBlock, -16);
@@ -99,6 +104,9 @@ namespace Musicista.UI
             // PropertyChangedEvent
             InnerMeasureGroup.PropertyChanged += (sender, args) => Redraw();
 
+            // edit Buttons
+            if (hasMouseDown)
+                DrawEditButtons();
 
             ParentSystem.Children.Add(this);
         }
@@ -119,7 +127,7 @@ namespace Musicista.UI
             var left = ((Width - Indent - MarginRight) / BeatsPerMeasure * (tempo.Beat - 1)) + Indent;
 
             // for the first measure of a system
-            if (ParentSystem.MeasureGroups.IndexOf(this) == 0)
+            if (ParentSystem.UIMeasureGroups.IndexOf(this) == 0)
                 left = 30;
 
             SetTop(textBlock, -30);
@@ -147,7 +155,7 @@ namespace Musicista.UI
                 SetLeft(textBlock, 0);
 
                 // for the first measure of a system
-                if (ParentSystem.MeasureGroups.IndexOf(this) == 0)
+                if (ParentSystem.UIMeasureGroups.IndexOf(this) == 0)
                     SetLeft(textBlock, 30);
             }
             else
@@ -200,7 +208,7 @@ namespace Musicista.UI
             SetLeft(border, -14);
 
             // for the first measure of a system
-            if (ParentSystem.MeasureGroups.IndexOf(this) == 0)
+            if (ParentSystem.UIMeasureGroups.IndexOf(this) == 0)
                 SetLeft(border, 25);
 
             Children.Add(border);
@@ -215,12 +223,12 @@ namespace Musicista.UI
         {
             get
             {
-                var index = ParentSystem.MeasureGroups.IndexOf(this);
-                if (index > -1 && ParentSystem.MeasureGroups.Count > index + 1)
-                    return ParentSystem.MeasureGroups[index + 1];
-                if (ParentSystem.NextUISystem != null && ParentSystem.NextUISystem.MeasureGroups != null &&
-                    ParentSystem.NextUISystem.MeasureGroups.Count > 0 && ParentSystem.NextUISystem.MeasureGroups[0] != null)
-                    return ParentSystem.NextUISystem.MeasureGroups[0];
+                var index = ParentSystem.UIMeasureGroups.IndexOf(this);
+                if (index > -1 && ParentSystem.UIMeasureGroups.Count > index + 1)
+                    return ParentSystem.UIMeasureGroups[index + 1];
+                if (ParentSystem.NextUISystem != null && ParentSystem.NextUISystem.UIMeasureGroups != null &&
+                    ParentSystem.NextUISystem.UIMeasureGroups.Count > 0 && ParentSystem.NextUISystem.UIMeasureGroups[0] != null)
+                    return ParentSystem.NextUISystem.UIMeasureGroups[0];
                 return null;
             }
         }
@@ -229,12 +237,12 @@ namespace Musicista.UI
         {
             get
             {
-                var index = ParentSystem.MeasureGroups.IndexOf(this);
+                var index = ParentSystem.UIMeasureGroups.IndexOf(this);
                 if (index > 0)
-                    return ParentSystem.MeasureGroups[index - 1];
-                if (ParentSystem.PreviousUISystem != null && ParentSystem.PreviousUISystem.MeasureGroups != null &&
-                    ParentSystem.PreviousUISystem.MeasureGroups.Count > 0 && ParentSystem.PreviousUISystem.MeasureGroups.Last() != null)
-                    return ParentSystem.PreviousUISystem.MeasureGroups.Last();
+                    return ParentSystem.UIMeasureGroups[index - 1];
+                if (ParentSystem.PreviousUISystem != null && ParentSystem.PreviousUISystem.UIMeasureGroups != null &&
+                    ParentSystem.PreviousUISystem.UIMeasureGroups.Count > 0 && ParentSystem.PreviousUISystem.UIMeasureGroups.Last() != null)
+                    return ParentSystem.PreviousUISystem.UIMeasureGroups.Last();
                 return null;
             }
         }
@@ -243,9 +251,9 @@ namespace Musicista.UI
         {
             get
             {
-                var index = ParentSystem.MeasureGroups.IndexOf(this);
+                var index = ParentSystem.UIMeasureGroups.IndexOf(this);
                 if (index > 0)
-                    return ParentSystem.MeasureGroups[index - 1];
+                    return ParentSystem.UIMeasureGroups[index - 1];
                 return null;
             }
         }
@@ -330,7 +338,7 @@ namespace Musicista.UI
                     break;
             }
 
-            var line1 = new Line
+            Barline1 = new Line
             {
                 X1 = x1,
                 Y1 = 0,
@@ -341,7 +349,7 @@ namespace Musicista.UI
                 SnapsToDevicePixels = Properties.Settings.Default.SnapsToDevicePixels
             };
 
-            var line2 = new Line
+            Barline2 = new Line
             {
                 X1 = x2,
                 Y1 = 0,
@@ -353,10 +361,10 @@ namespace Musicista.UI
             };
 
             if (barline.Type == BarlineType.Dashed)
-                line2.StrokeDashArray = new DoubleCollection { 4, 0 };
+                Barline2.StrokeDashArray = new DoubleCollection { 4, 0 };
 
-            if (show1) Children.Add(line1);
-            if (show2) Children.Add(line2);
+            if (show1) Children.Add(Barline1);
+            if (show2) Children.Add(Barline2);
         }
 
         private void DrawRepeatDots(double x)
@@ -385,15 +393,118 @@ namespace Musicista.UI
             Children.Add(dot2);
         }
 
+        private void DrawEditButtons()
+        {
+            var delete = new Path
+            {
+                Data = Geometry.Parse("F0 M 16,8 C 16,12 12,16 8,16 C 4,16 0,12 0,8 C 0,4 4,0 8,0 C 12,0 16,4 16,8 Z M 4,3 L 3,4 L 7,8 L 3,12 L 4,13 L 8,9 L 12,13 L 13,12 L 9,8 L 13,4 L 12,3 L 8,7 L 4,3 Z "),
+                Fill = Brushes.PaleVioletRed,
+                RenderTransform = new ScaleTransform(0.9, 0.9),
+                Cursor = Cursors.Hand
+            };
+
+            var add = new Path
+            {
+                Data = Geometry.Parse("F0 M 16,8 C 16,12 12,16 8,16 C 4,16 0,12 0,8 C 0,4 4,0 8,0 C 12,0 16,4 16,8 Z M 7,3 L 9,3 L 9,7 L 13,7 L 13,9 L 9,9 L 9,13 L 7,13 L 7,9 L 3,9 L 3,7 L 7,7 Z "),
+                Fill = Brushes.LightGreen,
+                RenderTransform = new ScaleTransform(0.9, 0.9),
+                Cursor = Cursors.Hand
+            };
+
+            delete.MouseDown += DeleteMeasureGroup;
+            add.MouseDown += AddMeasureGroup;
+
+            delete.SetBinding(VisibilityProperty, new Binding { Path = new PropertyPath(VisibilityProperty), Source = MainWindow.TinyNotationTextBox });
+            add.SetBinding(VisibilityProperty, new Binding { Path = new PropertyPath(VisibilityProperty), Source = MainWindow.TinyNotationTextBox });
+
+            SetTop(delete, -22);
+            SetLeft(delete, Width - 25);
+
+            SetTop(add, -22);
+            SetLeft(add, Width - 8);
+
+            Children.Add(delete);
+            Children.Add(add);
+        }
+
+        public void DeleteMeasureGroup(object sender, MouseButtonEventArgs mouseButtonEventArgs)
+        {
+            InnerMeasureGroup.ParentPassage.MeasureGroups.Remove(InnerMeasureGroup);
+
+            // Correct measure numbers
+            var measureNumber = InnerMeasureGroup.ParentPassage.ParentSegment.ParentMovement.MeasureGroups[0].MeasureNumber;
+            foreach (var measureGroup in InnerMeasureGroup.ParentPassage.ParentSegment.ParentMovement.MeasureGroups)
+                measureGroup.MeasureNumber = measureNumber++;
+
+            // Redraw whole piece 
+            MainWindow.PageList = UIHelper.DrawPiece(MainWindow.CurrentPiece, true);
+            var pages = new StackPanel();
+            foreach (var newpage in MainWindow.PageList)
+                pages.Children.Add(newpage);
+            pages.Children.Add(new Canvas { Height = 200 });
+            MainWindow.UICanvasScrollViewer.Content = pages;
+        }
+
+        public void AddMeasureGroup(object sender, MouseButtonEventArgs mouseButtonEventArgs)
+        {
+            var index = InnerMeasureGroup.ParentPassage.MeasureGroups.IndexOf(InnerMeasureGroup);
+            var newMeasureGroup = new MeasureGroup
+            {
+                MeasureNumber = InnerMeasureGroup.MeasureNumber + 1,
+                KeySignature = InnerMeasureGroup.KeySignature,
+                TimeSignature = InnerMeasureGroup.TimeSignature,
+                ParentPassage = InnerMeasureGroup.ParentPassage,
+                Measures = new List<Measure>()
+            };
+            foreach (var measure in InnerMeasureGroup.Measures)
+            {
+                newMeasureGroup.Measures.Add(new Measure
+                {
+                    Instrument = measure.Instrument,
+                    Clef = measure.Clef,
+                    ParentMeasureGroup = measure.ParentMeasureGroup,
+                    Staff = measure.Staff,
+                    Symbols = new List<Symbol> { new Rest { Beat = 1.0, Duration = Duration.Whole } }
+                });
+            }
+
+            var finalBarline = InnerMeasureGroup.Barlines.FirstOrDefault(bl => bl.Type == BarlineType.Final);
+            if (finalBarline != null)
+            {
+                InnerMeasureGroup.Barlines.Remove(finalBarline);
+                newMeasureGroup.Barlines.Add(finalBarline);
+            }
+
+            InnerMeasureGroup.ParentPassage.MeasureGroups.Insert(index + 1, newMeasureGroup);
+
+            // Correct measure numbers
+            var measureNumber = InnerMeasureGroup.ParentPassage.ParentSegment.ParentMovement.MeasureGroups[0].MeasureNumber;
+            foreach (var measureGroup in InnerMeasureGroup.ParentPassage.ParentSegment.ParentMovement.MeasureGroups)
+                measureGroup.MeasureNumber = measureNumber++;
+
+            // Redraw whole piece 
+            MainWindow.PageList = UIHelper.DrawPiece(MainWindow.CurrentPiece, true);
+            var pages = new StackPanel();
+            foreach (var newpage in MainWindow.PageList)
+                pages.Children.Add(newpage);
+            pages.Children.Add(new Canvas { Height = 200 });
+            MainWindow.UICanvasScrollViewer.Content = pages;
+
+        }
+
         public void Redraw()
         {
             // Save selection
-            var selectedUIMeasure = UIHelper.SelectedUIMeasures.First();
+            var selectedUIMeasure = UIHelper.SelectedUIMeasures.FirstOrDefault();
             var part = 0;
             if (selectedUIMeasure != null)
                 part = selectedUIMeasure.ParentUIMeasureGroup.UIMeasures.IndexOf(selectedUIMeasure);
 
-            Children.Clear();
+            foreach (var child in Children.OfType<UIMeasure>().ToList())
+                Children.Remove(child);
+
+            // TODO remove barline as well
+
             UIMeasures.Clear();
             Draw();
 
@@ -417,12 +528,12 @@ namespace Musicista.UI
             UIMeasures.Add(newMeasure);
 
             // Draw clef changes
-            if (measure.Previous == null || !Equals(measure.Clef, measure.Previous.Clef) || ParentSystem.MeasureGroups.IndexOf(this) == 0)
+            if (measure.Previous == null || !Equals(measure.Clef, measure.Previous.Clef) || ParentSystem.UIMeasureGroups.IndexOf(this) == 0)
                 newMeasure.Children.Add(new UIClef(measure.Clef, newMeasure));
 
             // Draw key signature changes
             if (measureGroup.Previous == null || !Equals(measureGroup.KeySignature, measureGroup.Previous.KeySignature) ||
-                ParentSystem.MeasureGroups.IndexOf(this) == 0)
+                ParentSystem.UIMeasureGroups.IndexOf(this) == 0)
                 newMeasure.Children.Add(new UIKeySignature(measureGroup.KeySignature, measure.Clef, newMeasure));
 
             // Draw meter changes

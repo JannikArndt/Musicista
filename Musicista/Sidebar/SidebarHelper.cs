@@ -55,7 +55,7 @@ namespace Musicista.Sidebar
             };
             var deleteButton = new Path
             {
-                Data = Geometry.Parse("F0 M 15,7C 15,11 12,15 8,15C 3,15 0,11 0,7C 0,3 3,0 8,0C 12,0 15,3 15,7 Z M 4,2L 8,5L 11,2L 12,4L 9,7L 12,10L 11,12L 8,9L 4,12L 3,10L 6,7L 3,4L 4,2 Z"),
+                Data = Geometry.Parse("F0 M 16,8 C 16,12 12,16 8,16 C 4,16 0,12 0,8 C 0,4 4,0 8,0 C 12,0 16,4 16,8 Z M 4,3 L 3,4 L 7,8 L 3,12 L 4,13 L 8,9 L 12,13 L 13,12 L 9,8 L 13,4 L 12,3 L 8,7 L 4,3 Z "),
                 Fill = Brushes.LightGray,
                 RenderTransform = new ScaleTransform(0.9, 0.9)
             };

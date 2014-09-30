@@ -88,7 +88,7 @@ namespace Musicista.UI
                                             foreach (var measureGroup in passage.MeasureGroups)
                                             {
                                                 // pagebreak if page is full
-                                                if (currentPage.Systems.Count > 0 && currentPage.Systems.Last().MeasureGroups.Count > metrics.MeasuresPerSystem[systemNumber - 1] - 1
+                                                if (currentPage.Systems.Count > 0 && currentPage.Systems.Last().UIMeasureGroups.Count > metrics.MeasuresPerSystem[systemNumber - 1] - 1
                                                     &&
                                                     currentPage.Systems.Last().Bottom >
                                                     (currentPage.Height - (currentPage.Systems.Last().CalculatedHeight + 80)))
@@ -99,7 +99,7 @@ namespace Musicista.UI
 
                                                 // systembreak and new System with lines (staves) every 4 measures
                                                 if (currentPage.Systems.Count == 0 ||
-                                                    currentPage.Systems.Last().MeasureGroups.Count >= metrics.MeasuresPerSystem[systemNumber - 1])
+                                                    currentPage.Systems.Last().UIMeasureGroups.Count >= metrics.MeasuresPerSystem[systemNumber - 1])
                                                 {
                                                     systemNumber++;
                                                     currentPage.Systems.Add(new UISystem(currentPage, maxStaves, systemNumber, metrics.MeasuresPerSystem[systemNumber - 1]));
@@ -234,7 +234,7 @@ namespace Musicista.UI
         /// <returns></returns>
         public static UISymbol FindUISymbol(NoteReference note)
         {
-            return MainWindow.PageList.SelectMany(page => page.Systems.SelectMany(system => system.MeasureGroups))
+            return MainWindow.PageList.SelectMany(page => page.Systems.SelectMany(system => system.UIMeasureGroups))
                 .Where(uiMeasureGroup => uiMeasureGroup.InnerMeasureGroup.MeasureNumber == note.MeasureNumber)
                 .SelectMany(uiMeasureGroup => uiMeasureGroup.UIMeasures[note.StaffNumber].Symbols)
                 .FirstOrDefault(uiSymbol => Math.Abs(uiSymbol.Symbol.Beat - note.Beat) < 0.01);

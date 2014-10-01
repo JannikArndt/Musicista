@@ -111,11 +111,21 @@ namespace Musicista.Mappers
                             if (transpose != null) newInstrument.Transposition = (int)transpose.First().chromatic;
                         }
 
-                        for (var staffNumber = 0; staffNumber < int.Parse(mxml.Part.First(part => part.id == instrument.id).Measure.First().Attributes.staves); staffNumber++)
+                        var staveString = mxml.Part.FirstOrDefault(part => part.id == instrument.id).Measure.First().Attributes.staves;
+                        if (!string.IsNullOrEmpty(staveString))
                         {
-                            newInstrument.Staves.Add(new Staff { ID = staffCount });
-                            staffCount++;
+                            var staves = int.Parse(staveString);
+                            for (var staffNumber = 0; staffNumber < staves; staffNumber++)
+                            {
+                                newInstrument.Staves.Add(new Staff { ID = staffCount });
+                                staffCount++;
+                            }
+
                         }
+                        else
+                            newInstrument.Staves.Add(new Staff { ID = staffCount });
+
+
                         currentInstrumentGroup.Instruments.Add(newInstrument);
                     }
                 }
@@ -228,7 +238,7 @@ namespace Musicista.Mappers
 
                     // 3. create a new measure for each part
                     var measures = new List<Measure>();
-                    for (int staff = 0; staff < piece.Instruments[partNumber].Staves.Count; staff++)
+                    for (var staff = 0; staff < piece.Instruments[partNumber].Staves.Count; staff++)
                     {
                         measures.Add(new Measure
                         {

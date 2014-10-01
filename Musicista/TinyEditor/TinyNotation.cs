@@ -290,6 +290,8 @@ namespace Musicista.TinyEditor
 
         public static string CreateTinyArticulation(Symbol symbol)
         {
+            if (symbol.Articulations == null)
+                return "";
             var articulations = new List<String>();
             switch (symbol.Articulations.Dynamics)
             {

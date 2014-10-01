@@ -22,6 +22,8 @@ namespace Model.Instruments
 
         public override string ToString()
         {
+            if (!string.IsNullOrEmpty(Name))
+                return Name;
             return string.Join(", ", Instruments);
         }
     }

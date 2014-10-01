@@ -169,7 +169,7 @@ namespace Musicista.Mappers
             for (var i = 0; i < mxml.Part.Length; i++)
             {
                 lastClef.Add(new List<Clef>());
-                for (int j = 0; j < piece.Instruments[i].Staves.Count; j++)
+                for (var j = 0; j < piece.Instruments[i].Staves.Count; j++)
                     lastClef[i].Add(Clef.Treble);
             }
 
@@ -185,7 +185,7 @@ namespace Musicista.Mappers
             for (var measureNumber = 0; measureNumber < mxml.Part[0].Measure.Length; measureNumber++)
             {
                 // 1. Create a parent MeasureGroup
-                ScorePartwisePartMeasure measure = mxml.Part[0].Measure[measureNumber];
+                var measure = mxml.Part[0].Measure[measureNumber];
                 var measureGroup = new MeasureGroup
                 {
                     MeasureNumber = int.Parse(Regex.Match(measure.number, @"\d+").Value),

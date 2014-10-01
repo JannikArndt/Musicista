@@ -180,6 +180,8 @@ namespace Musicista.Sidebar
                 grid.AddRowWithPerson(person.GetType().Name, person);
             grid.AddRowWithAddPerson(piece.Meta.People.Persons);
 
+            grid.AddRowWithInstruments(piece.InstrumentGroups);
+
 
             grid.AddRowWithComboBox("Epoch", MainWindow.CurrentPiece.Meta, "Epoch", Epoch.Classical);
             grid.AddRowWithComboBox("Form", MainWindow.CurrentPiece.Meta, "Form", Form.Other);

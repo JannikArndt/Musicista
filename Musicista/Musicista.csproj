@@ -144,6 +144,9 @@
     <Compile Include="UI\MeasureElements\UITimeSignature.cs" />
     <Compile Include="UI\TextElements\CanvasText.cs" />
     <Compile Include="UI\TextElements\UIComposer.cs" />
+    <Compile Include="View\EditInstruments.xaml.cs">
+      <DependentUpon>EditInstruments.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\EditPerson.xaml.cs">
       <DependentUpon>EditPerson.xaml</DependentUpon>
     </Compile>
@@ -229,6 +232,10 @@
     <Page Include="TinyEditor\TinyEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EditInstruments.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\EditPerson.xaml">
       <Generator>MSBuild:Compile</Generator>

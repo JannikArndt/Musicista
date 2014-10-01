@@ -437,12 +437,7 @@ namespace Musicista.UI
                 measureGroup.MeasureNumber = measureNumber++;
 
             // Redraw whole piece 
-            MainWindow.PageList = UIHelper.DrawPiece(MainWindow.CurrentPiece, true);
-            var pages = new StackPanel();
-            foreach (var newpage in MainWindow.PageList)
-                pages.Children.Add(newpage);
-            pages.Children.Add(new Canvas { Height = 200 });
-            MainWindow.UICanvasScrollViewer.Content = pages;
+            MainWindow.ReDrawPiece();
         }
 
         public void AddMeasureGroup(object sender, MouseButtonEventArgs mouseButtonEventArgs)
@@ -483,12 +478,7 @@ namespace Musicista.UI
                 measureGroup.MeasureNumber = measureNumber++;
 
             // Redraw whole piece 
-            MainWindow.PageList = UIHelper.DrawPiece(MainWindow.CurrentPiece, true);
-            var pages = new StackPanel();
-            foreach (var newpage in MainWindow.PageList)
-                pages.Children.Add(newpage);
-            pages.Children.Add(new Canvas { Height = 200 });
-            MainWindow.UICanvasScrollViewer.Content = pages;
+            MainWindow.ReDrawPiece();
 
         }
 

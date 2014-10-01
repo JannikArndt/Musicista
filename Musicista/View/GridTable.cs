@@ -1,4 +1,5 @@
 ﻿using Model;
+using Model.Instruments;
 using Model.Meta.People;
 using Model.Sections.Notes;
 using System;
@@ -438,6 +439,27 @@ namespace Musicista.View
             SetRow(addCommentButton, RowDefinitions.Count - 1);
             SetColumn(addCommentButton, 1);
             Children.Add(addCommentButton);
+        }
+
+        public void AddRowWithInstruments(List<InstrumentGroup> list)
+        {
+            RowDefinitions.Add(new RowDefinition { Height = new GridLength(30) });
+
+
+            var personTextBlock = new TextBlock
+            {
+                Text = "Edit Instruments",
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            personTextBlock.PreviewMouseDown += (sender, args) =>
+            {
+                var editInstrumentsWindow = new EditInstruments(list);
+                editInstrumentsWindow.Show();
+            };
+            SetRow(personTextBlock, RowDefinitions.Count - 1);
+            SetColumn(personTextBlock, 1);
+            Children.Add(personTextBlock);
         }
     }
 }

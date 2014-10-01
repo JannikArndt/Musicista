@@ -36,7 +36,6 @@ namespace Musicista.UI
             get { return _selectedUISymbols; }
             set { _selectedUISymbols = value; }
         }
-
         public static List<UIPage> DrawPiece(Piece piece, bool resetMeasuresPerSystem = false)
         {
             var currentPage = new UIPage { Piece = piece };
@@ -102,6 +101,8 @@ namespace Musicista.UI
                                                     currentPage.Systems.Last().UIMeasureGroups.Count >= metrics.MeasuresPerSystem[systemNumber - 1])
                                                 {
                                                     systemNumber++;
+                                                    while (metrics.MeasuresPerSystem.Count <= systemNumber - 1)
+                                                        metrics.MeasuresPerSystem.Add(2);
                                                     currentPage.Systems.Add(new UISystem(currentPage, maxStaves, systemNumber, metrics.MeasuresPerSystem[systemNumber - 1]));
                                                 }
 
@@ -153,7 +154,9 @@ namespace Musicista.UI
             }
 
             // Add the last measureGroups either to the last system or to a new system
-            if (counter == 1)
+            if (result.Count == 0)
+                result.Add(1);
+            else if (counter == 1)
                 result[result.Count - 1] += 1;
             else if (counter > 1)
                 result.Add(counter);

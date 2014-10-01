@@ -1,6 +1,10 @@
 ﻿using Model.Instruments;
+using Model.Meta;
 using Model.Sections;
+using Model.Sections.Attributes;
+using Model.Sections.Notes;
 using Model.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
@@ -52,14 +56,44 @@ namespace Model
 
         public Piece() { }
 
-        public Piece(bool initialize = true)
+        public Piece(bool initialize = true, string username = "")
         {
             if (initialize)
             {
-                Meta = new MetaData();
-                InstrumentGroups = new List<InstrumentGroup>();
+                Meta = new MetaData
+                {
+                    Dates = new Dates { Engraving = new Engraving { Date = DateTime.Now, Typesetter = username } }
+                };
+                var inst1 = new Instrument
+                {
+                    Name = "Instrument 1",
+                    Staves = new List<Staff> { new Staff { ID = 0 } }
+                };
+                InstrumentGroups = new List<InstrumentGroup>
+                {
+                    new InstrumentGroup{Instruments = new List<Instrument>{inst1}}
+                };
                 Parts = new List<Part>();
                 Style = new Style();
+
+                var restMeasure = new MeasureGroup
+                {
+                    KeySignature = new MusicalKey(Step.C, Gender.Major),
+                    TimeSignature = new TimeSignature(4, 4),
+                    MeasureNumber = 1,
+                    Measures = new List<Measure>
+                    {
+                        new Measure
+                        {
+                            Clef = Clef.Treble,
+                            Instrument = inst1,
+                            Staff = inst1.Staves[0],
+                            Symbols = new List<Symbol> {new Rest {Duration = Duration.Whole, Beat = 1.0}}
+                        }
+                    }
+                };
+
+
                 Sections = new List<Section> 
                 { new Section
                 {Movements = new List<Movement>
@@ -67,7 +101,10 @@ namespace Model
                         {Segments = new List<Segment>
                             {new Segment
                                 {Passages = new List<Passage>
-                                    {new Passage{MeasureGroups = new List<MeasureGroup>()}}
+                                    {new Passage{MeasureGroups = new List<MeasureGroup>
+                                    {
+                                        restMeasure
+                                    }}}
                                 }
                             }
                         }

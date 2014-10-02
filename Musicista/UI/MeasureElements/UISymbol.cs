@@ -39,7 +39,6 @@ namespace Musicista.UI.MeasureElements
         {
             Symbol = symbol;
             ParentUIMeasure = parentUIMeasure;
-            ParentUIMeasure.Symbols.Add(this);
 
             Background = Brushes.Transparent;
             SetTop(this, TopRelativeToMeasure);

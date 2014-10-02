@@ -49,7 +49,6 @@ namespace Musicista.TinyEditor
             foreach (var measureGroup in passage.MeasureGroups)
             {
                 var uiMeasureGroup = new UIMeasureGroup(page.Systems.Last(), measureGroup, false);
-                uiMeasureGroup.Draw();
             }
 
             return page;

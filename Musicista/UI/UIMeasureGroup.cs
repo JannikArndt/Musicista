@@ -3,7 +3,6 @@ using Model.Sections;
 using Model.Sections.Attributes;
 using Model.Sections.Notes;
 using Musicista.UI.Converters;
-using Musicista.UI.MeasureElements;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +19,7 @@ namespace Musicista.UI
     public class UIMeasureGroup : Canvas
     {
         public readonly MeasureGroup InnerMeasureGroup = new MeasureGroup();
-        public readonly UISystem ParentSystem;
+        public readonly UISystem ParentUISystem;
 
         private double _indent = 10;
         private double _marginRight = 4;
@@ -38,8 +37,8 @@ namespace Musicista.UI
 
         private readonly bool _hasMouseDown = true;
 
-        private Line Barline1;
-        private Line Barline2;
+        private Line _barline1;
+        private Line _barline2;
 
         public TextBlock MeasureNumberTextBlock = new TextBlock
         {
@@ -54,18 +53,18 @@ namespace Musicista.UI
         public FontFamily EmmentalerFont = new FontFamily(new Uri("pack://application:,,,/"), "./UI/MeasureElements/#Emmentaler 26");
         public FontFamily TimesFont = new FontFamily("Times New Roman");
 
-        public UIMeasureGroup(UISystem system, MeasureGroup innerMeasureGroup, bool hasMouseDown = true)
+        public UIMeasureGroup(UISystem uiSystem, MeasureGroup innerMeasureGroup, bool hasMouseDown = true)
         {
             if (innerMeasureGroup == null)
                 throw new ArgumentException(@"No innerMeasureGroup given", "innerMeasureGroup");
 
             InnerMeasureGroup = innerMeasureGroup;
-            ParentSystem = system;
-            ParentSystem.UIMeasureGroups.Add(this);
+            ParentUISystem = uiSystem;
+            ParentUISystem.UIMeasureGroups.Add(this);
             _hasMouseDown = hasMouseDown;
 
 
-            Height = ParentSystem.ActualHeight;
+            Height = ParentUISystem.ActualHeight;
             Background = Brushes.Transparent;
 
             SetTop(this, 0);
@@ -75,13 +74,13 @@ namespace Musicista.UI
                 new Binding
                 {
                     Path = new PropertyPath(WidthProperty),
-                    Source = ParentSystem,
+                    Source = ParentUISystem,
                     Converter = new MeasureWidthConverter(),
-                    ConverterParameter = ParentSystem
+                    ConverterParameter = ParentUISystem
                 });
 
             // Measure number
-            if (ParentSystem.UIMeasureGroups.IndexOf(this) == 0 && InnerMeasureGroup.MeasureNumber > 1)
+            if (ParentUISystem.UIMeasureGroups.IndexOf(this) == 0 && InnerMeasureGroup.MeasureNumber > 1)
             {
                 MeasureNumberTextBlock.Text = "" + InnerMeasureGroup.MeasureNumber;
                 SetTop(MeasureNumberTextBlock, -16);
@@ -108,7 +107,9 @@ namespace Musicista.UI
             if (hasMouseDown)
                 DrawEditButtons();
 
-            ParentSystem.Children.Add(this);
+            ParentUISystem.Children.Add(this);
+
+            Draw();
         }
 
         private void DrawTempo(Tempo tempo)
@@ -127,7 +128,7 @@ namespace Musicista.UI
             var left = ((Width - Indent - MarginRight) / BeatsPerMeasure * (tempo.Beat - 1)) + Indent;
 
             // for the first measure of a system
-            if (ParentSystem.UIMeasureGroups.IndexOf(this) == 0)
+            if (ParentUISystem.UIMeasureGroups.IndexOf(this) == 0)
                 left = 30;
 
             SetTop(textBlock, -30);
@@ -155,7 +156,7 @@ namespace Musicista.UI
                 SetLeft(textBlock, 0);
 
                 // for the first measure of a system
-                if (ParentSystem.UIMeasureGroups.IndexOf(this) == 0)
+                if (ParentUISystem.UIMeasureGroups.IndexOf(this) == 0)
                     SetLeft(textBlock, 30);
             }
             else
@@ -208,7 +209,7 @@ namespace Musicista.UI
             SetLeft(border, -14);
 
             // for the first measure of a system
-            if (ParentSystem.UIMeasureGroups.IndexOf(this) == 0)
+            if (ParentUISystem.UIMeasureGroups.IndexOf(this) == 0)
                 SetLeft(border, 25);
 
             Children.Add(border);
@@ -223,12 +224,12 @@ namespace Musicista.UI
         {
             get
             {
-                var index = ParentSystem.UIMeasureGroups.IndexOf(this);
-                if (index > -1 && ParentSystem.UIMeasureGroups.Count > index + 1)
-                    return ParentSystem.UIMeasureGroups[index + 1];
-                if (ParentSystem.NextUISystem != null && ParentSystem.NextUISystem.UIMeasureGroups != null &&
-                    ParentSystem.NextUISystem.UIMeasureGroups.Count > 0 && ParentSystem.NextUISystem.UIMeasureGroups[0] != null)
-                    return ParentSystem.NextUISystem.UIMeasureGroups[0];
+                var index = ParentUISystem.UIMeasureGroups.IndexOf(this);
+                if (index > -1 && ParentUISystem.UIMeasureGroups.Count > index + 1)
+                    return ParentUISystem.UIMeasureGroups[index + 1];
+                if (ParentUISystem.NextUISystem != null && ParentUISystem.NextUISystem.UIMeasureGroups != null &&
+                    ParentUISystem.NextUISystem.UIMeasureGroups.Count > 0 && ParentUISystem.NextUISystem.UIMeasureGroups[0] != null)
+                    return ParentUISystem.NextUISystem.UIMeasureGroups[0];
                 return null;
             }
         }
@@ -237,12 +238,12 @@ namespace Musicista.UI
         {
             get
             {
-                var index = ParentSystem.UIMeasureGroups.IndexOf(this);
+                var index = ParentUISystem.UIMeasureGroups.IndexOf(this);
                 if (index > 0)
-                    return ParentSystem.UIMeasureGroups[index - 1];
-                if (ParentSystem.PreviousUISystem != null && ParentSystem.PreviousUISystem.UIMeasureGroups != null &&
-                    ParentSystem.PreviousUISystem.UIMeasureGroups.Count > 0 && ParentSystem.PreviousUISystem.UIMeasureGroups.Last() != null)
-                    return ParentSystem.PreviousUISystem.UIMeasureGroups.Last();
+                    return ParentUISystem.UIMeasureGroups[index - 1];
+                if (ParentUISystem.PreviousUISystem != null && ParentUISystem.PreviousUISystem.UIMeasureGroups != null &&
+                    ParentUISystem.PreviousUISystem.UIMeasureGroups.Count > 0 && ParentUISystem.PreviousUISystem.UIMeasureGroups.Last() != null)
+                    return ParentUISystem.PreviousUISystem.UIMeasureGroups.Last();
                 return null;
             }
         }
@@ -251,9 +252,9 @@ namespace Musicista.UI
         {
             get
             {
-                var index = ParentSystem.UIMeasureGroups.IndexOf(this);
+                var index = ParentUISystem.UIMeasureGroups.IndexOf(this);
                 if (index > 0)
-                    return ParentSystem.UIMeasureGroups[index - 1];
+                    return ParentUISystem.UIMeasureGroups[index - 1];
                 return null;
             }
         }
@@ -268,7 +269,7 @@ namespace Musicista.UI
                 measure.ParentMeasureGroup = InnerMeasureGroup;
 
             for (var part = 0; part < InnerMeasureGroup.Measures.Count; part++)
-                DrawMeasure(InnerMeasureGroup.Measures[part], part + 1);
+                UIMeasures.Add(new UIMeasure(this, part + 1, InnerMeasureGroup.Measures[part], hasMouseDown: _hasMouseDown));
 
             // set connecting barlines
             foreach (var barline in InnerMeasureGroup.Barlines)
@@ -338,7 +339,7 @@ namespace Musicista.UI
                     break;
             }
 
-            Barline1 = new Line
+            _barline1 = new Line
             {
                 X1 = x1,
                 Y1 = 0,
@@ -349,7 +350,7 @@ namespace Musicista.UI
                 SnapsToDevicePixels = Properties.Settings.Default.SnapsToDevicePixels
             };
 
-            Barline2 = new Line
+            _barline2 = new Line
             {
                 X1 = x2,
                 Y1 = 0,
@@ -361,10 +362,10 @@ namespace Musicista.UI
             };
 
             if (barline.Type == BarlineType.Dashed)
-                Barline2.StrokeDashArray = new DoubleCollection { 4, 0 };
+                _barline2.StrokeDashArray = new DoubleCollection { 4, 0 };
 
-            if (show1) Children.Add(Barline1);
-            if (show2) Children.Add(Barline2);
+            if (show1) Children.Add(_barline1);
+            if (show2) Children.Add(_barline2);
         }
 
         private void DrawRepeatDots(double x)
@@ -505,48 +506,6 @@ namespace Musicista.UI
                 UIHelper.SelectedUIMeasures.Clear();
                 UIHelper.SelectedUIMeasures.Add(UIMeasures[part]);
             }
-        }
-
-        public void DrawMeasure(Measure measure, int part)
-        {
-            if (measure.Symbols == null || measure.Symbols.Count <= 0)
-                return;
-
-            var measureGroup = InnerMeasureGroup;
-
-            var newMeasure = new UIMeasure(this, part, measure, hasMouseDown: _hasMouseDown);
-            UIMeasures.Add(newMeasure);
-
-            // Draw clef changes
-            if (measure.Previous == null || !Equals(measure.Clef, measure.Previous.Clef) || ParentSystem.UIMeasureGroups.IndexOf(this) == 0)
-                newMeasure.Children.Add(new UIClef(measure.Clef, newMeasure));
-
-            // Draw key signature changes
-            if (measureGroup.Previous == null || !Equals(measureGroup.KeySignature, measureGroup.Previous.KeySignature) ||
-                ParentSystem.UIMeasureGroups.IndexOf(this) == 0)
-                newMeasure.Children.Add(new UIKeySignature(measureGroup.KeySignature, measure.Clef, newMeasure));
-
-            // Draw meter changes
-            if (measureGroup.Previous == null || !Equals(measureGroup.Previous.TimeSignature, measureGroup.TimeSignature))
-                newMeasure.Children.Add(new UITimeSignature(measureGroup.TimeSignature, newMeasure));
-
-            // If the width is smaller than the indent, there is no room for any notes. Return without drawing
-            if (newMeasure.Width - newMeasure.Indent < 1)
-                return;
-
-            // Draw tied notes
-            if (newMeasure.PreviousUIMeasure != null)
-                foreach (var symbol in newMeasure.PreviousUIMeasure.TiedNotes.OfType<Note>())
-                    new UINote(symbol, newMeasure, _hasMouseDown, true);
-
-            // Draw notes
-            foreach (var symbol in measure.Symbols)
-                if (symbol.GetType() == typeof(Note))
-                    new UINote((Note)symbol, newMeasure, _hasMouseDown);
-                else if (symbol.GetType() == typeof(Rest))
-                    new UIRest((Rest)symbol, newMeasure, _hasMouseDown);
-
-            newMeasure.CorrectTextVerticalAlignment();
         }
     }
 }

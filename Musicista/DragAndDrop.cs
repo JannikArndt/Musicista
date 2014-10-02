@@ -166,7 +166,8 @@ namespace Musicista
                     };
                     newMeasure.AddSymbol(new Rest { Beat = 1, Duration = Duration.Whole });
                     newMeasure.ParentMeasureGroup.Measures.Add(newMeasure);
-                    ((UIMeasure)_draggedElement).ParentUIMeasureGroup.DrawMeasure(newMeasure, ((UIMeasure)_draggedElement).Part);
+                    var parentUIMeasureGroup = ((UIMeasure)_draggedElement).ParentUIMeasureGroup;
+                    parentUIMeasureGroup.UIMeasures.Add(new UIMeasure(parentUIMeasureGroup, ((UIMeasure)_draggedElement).Part, newMeasure));
 
 
                     // Update visual tree

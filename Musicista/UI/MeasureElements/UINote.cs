@@ -51,8 +51,8 @@ namespace Musicista.UI.MeasureElements
             SnapsToDevicePixels = Settings.Default.SnapsToDevicePixels
         };
 
-        public UINote(Note note, UIMeasure parentMeasure, bool hasMouseDown = true, bool tiedTo = false)
-            : base(note, parentMeasure, hasMouseDown)
+        public UINote(Note note, UIMeasure parentUIMeasure, bool hasMouseDown = true, bool tiedTo = false)
+            : base(note, parentUIMeasure, hasMouseDown)
         {
             Note = note;
 
@@ -185,7 +185,7 @@ namespace Musicista.UI.MeasureElements
         {
             // Check if all notes, that are on that beat, are already drawn
             if (Note.ParentMeasure.Symbols.OfType<Note>().Count(item => Math.Abs(item.Beat - Note.Beat) < 0.01 && item.Voice == Note.Voice)
-                > ParentUIMeasure.Symbols.OfType<UINote>().Count(item => Math.Abs(item.Symbol.Beat - Note.Beat) < 0.01 && item.Symbol.Voice == Note.Voice))
+                > ParentUIMeasure.Notes.Count(item => Math.Abs(item.Symbol.Beat - Note.Beat) < 0.01 && item.Symbol.Voice == Note.Voice))
                 return;
 
             if (
@@ -257,7 +257,7 @@ namespace Musicista.UI.MeasureElements
         private void HandleNotesInChord()
         {
             var otherNotes =
-                ParentUIMeasure.Symbols.OfType<UINote>().Where(item => Math.Abs(item.Symbol.Beat - Note.Beat) < 0.01 && item.Symbol.Voice == Note.Voice).ToList();
+                ParentUIMeasure.Notes.Where(item => Math.Abs(item.Symbol.Beat - Note.Beat) < 0.01 && item.Symbol.Voice == Note.Voice).ToList();
             foreach (var otherNote in otherNotes)
             {
                 if (Equals(otherNote, this))
@@ -417,7 +417,7 @@ namespace Musicista.UI.MeasureElements
         private bool HandleConnectedNotes_NeedsFlag(Note note, UIMeasure measure)
         {
             // ignore notes in chord, except fo the first one, which actually still has a stem
-            if (ParentUIMeasure.Symbols.OfType<UINote>().Count(item => Math.Abs(item.Symbol.Beat - Note.Beat) < 0.01 && item.Symbol.Voice == note.Voice) > 1)
+            if (ParentUIMeasure.Notes.Count(item => Math.Abs(item.Symbol.Beat - Note.Beat) < 0.01 && item.Symbol.Voice == note.Voice) > 1)
                 return false;
             // a note qualifies for beaming IF there already are others
 

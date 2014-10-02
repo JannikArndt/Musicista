@@ -109,7 +109,6 @@ namespace Musicista.UI
                                                 // Now draw the measures and notes
                                                 // Create UIMeasureGroup
                                                 var uiMeasureGroup = new UIMeasureGroup(currentPage.Systems.Last(), measureGroup);
-                                                uiMeasureGroup.Draw();
                                             }
                                         }
                     }

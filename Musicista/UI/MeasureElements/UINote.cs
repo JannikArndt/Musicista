@@ -184,9 +184,9 @@ namespace Musicista.UI.MeasureElements
         private void HandleBeams()
         {
             // Check if all notes, that are on that beat, are already drawn
-            if (Note.ParentMeasure.Symbols.OfType<Note>().Count(item => Math.Abs(item.Beat - Note.Beat) < 0.01 && item.Voice == Note.Voice)
-                > ParentUIMeasure.Notes.Count(item => Math.Abs(item.Symbol.Beat - Note.Beat) < 0.01 && item.Symbol.Voice == Note.Voice))
-                return;
+            var notesCount = Note.ParentMeasure.Symbols.OfType<Note>().Count(item => Math.Abs(item.Beat - Note.Beat) < 0.01 && item.Voice == Note.Voice);
+            var uiNotesCount = ParentUIMeasure.Notes.Count(item => Math.Abs(item.Symbol.Beat - Note.Beat) < 0.01 && item.Symbol.Voice == Note.Voice);
+            if (notesCount > uiNotesCount + 1) return;
 
             if (
                 ParentUIMeasure.ConnectNotesAtEndOfRun

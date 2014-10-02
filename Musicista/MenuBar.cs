@@ -32,13 +32,6 @@ namespace Musicista
             }
         }
 
-        private void SelectToolAdd(object sender, RoutedEventArgs e)
-        {
-            SetToolbarButtonPathFill(ToolKind.Add);
-            SelectedTool = ToolKind.Add;
-            TinyNotationBox.Visibility = Visibility.Visible;
-        }
-
         private void SelectToolEdit(object sender, RoutedEventArgs e)
         {
             SetToolbarButtonPathFill(ToolKind.Edit);
@@ -96,18 +89,11 @@ namespace Musicista
         {
             switch (selected)
             {
-                case ToolKind.Add:
-                    //ButtonPathAdd.Fill = Brushes.DodgerBlue;
-                    ButtonPathEdit.Fill = Brushes.Black;
-                    ButtonPathSelect.Fill = Brushes.Black;
-                    break;
                 case ToolKind.Edit:
-                    //ButtonPathAdd.Fill = Brushes.Black;
                     ButtonPathEdit.Fill = Brushes.DodgerBlue;
                     ButtonPathSelect.Fill = Brushes.Black;
                     break;
                 case ToolKind.Select:
-                    //ButtonPathAdd.Fill = Brushes.Black;
                     ButtonPathEdit.Fill = Brushes.Black;
                     ButtonPathSelect.Fill = Brushes.DodgerBlue;
                     break;

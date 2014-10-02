@@ -292,6 +292,7 @@ namespace Musicista
             CurrentPiece = null;
             PageList = null;
             Sidebar.Content = new SidebarInformation();
+            SetToolbarButtonPathFill(ToolKind.Select);
             var startScreen = new StartScreen();
             ShowMostRecentlyUsed(startScreen.RecentFilesStack);
             CanvasScrollViewer.Content = startScreen;

@@ -50,9 +50,9 @@ namespace Musicista.UI
         {
             if (parentPage.Systems.Count == 0 || parentPage.Systems.IndexOf(this) == 0)
                 if (parentPage.Title != null)
-                    return Metrics.MarginTop + parentPage.Title.DrawnHeight + Metrics.MarginBelowTitle;
+                    return parentPage.Settings.MarginTop + parentPage.Title.DrawnHeight + parentPage.Settings.MarginBelowTitle;
                 else
-                    return Metrics.MarginTop;
+                    return parentPage.Settings.MarginTop;
             if (parentPage.Systems.Contains(this))
                 return parentPage.Systems[parentPage.Systems.IndexOf(this) - 1].Bottom + parentPage.Settings.SystemSpacing;
             return parentPage.Systems.Last().Bottom + parentPage.Settings.SystemSpacing;

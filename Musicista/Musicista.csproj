@@ -124,6 +124,9 @@
     <Compile Include="DragAndDrop.cs" />
     <Compile Include="Editing.cs" />
     <Compile Include="Sidebar\SidebarHelper.cs" />
+    <Compile Include="Sidebar\SidebarInstruments.xaml.cs">
+      <DependentUpon>SidebarInstruments.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TinyEditor\TinyEditor.xaml.cs">
       <DependentUpon>TinyEditor.xaml</DependentUpon>
     </Compile>
@@ -216,6 +219,10 @@
     <Page Include="Sidebar\SidebarAlgorithms.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Sidebar\SidebarInstruments.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Sidebar\SidebarInformation.xaml">
       <SubType>Designer</SubType>

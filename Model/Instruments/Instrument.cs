@@ -1,15 +1,25 @@
 ﻿
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 
 namespace Model.Instruments
 {
-    public class Instrument
+    public class Instrument : INotifyPropertyChanged
     {
+        private string _name;
+
         [XmlAttribute("ID")]
         public int ID { get; set; }
+
         [XmlAttribute("Name")]
-        public string Name { get; set; }
+        public string Name
+        {
+            get { return _name; }
+            set { _name = value; NotifyPropertyChanged(); }
+        }
 
         [XmlAttribute("Shortname")]
         public string Shortname { get; set; }
@@ -46,6 +56,13 @@ namespace Model.Instruments
         public override string ToString()
         {
             return ID + ": " + Name;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

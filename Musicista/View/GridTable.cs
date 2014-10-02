@@ -2,6 +2,7 @@
 using Model.Instruments;
 using Model.Meta.People;
 using Model.Sections.Notes;
+using Musicista.Sidebar;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -454,8 +455,9 @@ namespace Musicista.View
             };
             personTextBlock.PreviewMouseDown += (sender, args) =>
             {
-                var editInstrumentsWindow = new EditInstruments(list);
-                editInstrumentsWindow.Show();
+                //var editInstrumentsWindow = new EditInstruments(list);
+                //editInstrumentsWindow.Show();
+                MainWindow.UISidebar.Content = new SidebarInstruments();
             };
             SetRow(personTextBlock, RowDefinitions.Count - 1);
             SetColumn(personTextBlock, 1);

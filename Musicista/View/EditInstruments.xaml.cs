@@ -1,5 +1,6 @@
 ﻿using Model.Instruments;
 using Model.Meta.People;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -39,12 +40,12 @@ namespace Musicista.View
 
         private void GroupChanged(object sender, SelectionChangedEventArgs e)
         {
-            var inst = (InstrumentGroup)GroupListBox.SelectedItems[0];
-            if (inst != null)
+            var group = (InstrumentGroup)GroupListBox.SelectedItems[0];
+            if (group != null)
             {
-                InstrumentListBox.DataContext = inst;
-                //InstrumentListBox.ItemsSource = inst.Instruments;
-                GroupNameTextBox.DataContext = inst;
+                InstrumentGroupGrid.DataContext = group;
+                InstrumentListBox.ItemsSource = group.Instruments;
+                BraceTypeComboBox.ItemsSource = Enum.GetValues(typeof(BraceType));
             }
         }
 

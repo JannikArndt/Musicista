@@ -9,6 +9,8 @@ namespace Model.View
     public class Metrics
     {
         public int MovementNumber { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
         public double MarginTop { get; set; }
         public double MarginBelowTitle { get; set; }
         public double StaffSpacing { get; set; }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Model.View;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -10,25 +11,22 @@ namespace Musicista.UI
     {
         public List<UIStaff> Staves = new List<UIStaff>();
         public List<UIMeasureGroup> UIMeasureGroups = new List<UIMeasureGroup>();
-        public readonly UIPage ParentPage;
+        public UIPage ParentPage;
+        public readonly Metrics Metrics;
         public Line BarlineFront { get; set; }
         public int MeasuresInSystem { get; set; }
         public int SystemNumber { get; set; }
 
 
-        public UISystem(UIPage page, int staves, int systemNumber, int measuresInSystem)
+        public UISystem(Metrics metrics, int staves, int systemNumber, int measuresInSystem)
         {
             // Logical connection
-            ParentPage = page;
+            Metrics = metrics;
             SystemNumber = systemNumber;
             MeasuresInSystem = measuresInSystem;
 
             // geometry
-            Width = page.Width - page.Settings.SystemMarginLeft - page.Settings.SystemMarginRight;
-
-            SetLeft(this, page.Settings.SystemMarginLeft);
-            SetTop(this, CalculateTop());
-
+            Width = Metrics.Width - Metrics.SystemMarginLeft - Metrics.SystemMarginRight;
 
             // Line in front of the system
             BarlineFront = new Line
@@ -46,20 +44,18 @@ namespace Musicista.UI
             // Add staves
             for (var i = 0; i < staves; i++)
                 AddStaff(new UIStaff(this));
-
-            page.Children.Add(this);
         }
 
-        public double CalculateTop()
+        public double CalculateTop(UIPage parentPage)
         {
-            if (ParentPage.Systems.Count == 0 || ParentPage.Systems.IndexOf(this) == 0)
-                if (ParentPage.Title != null)
-                    return ParentPage.Settings.MarginTop + ParentPage.Title.DrawnHeight + ParentPage.Settings.MarginBelowTitle;
+            if (parentPage.Systems.Count == 0 || parentPage.Systems.IndexOf(this) == 0)
+                if (parentPage.Title != null)
+                    return Metrics.MarginTop + parentPage.Title.DrawnHeight + Metrics.MarginBelowTitle;
                 else
-                    return ParentPage.Settings.MarginTop;
-            if (ParentPage.Systems.Contains(this))
-                return ParentPage.Systems[ParentPage.Systems.IndexOf(this) - 1].Bottom + ParentPage.Settings.SystemSpacing;
-            return ParentPage.Systems.Last().Bottom + ParentPage.Settings.SystemSpacing;
+                    return Metrics.MarginTop;
+            if (parentPage.Systems.Contains(this))
+                return parentPage.Systems[parentPage.Systems.IndexOf(this) - 1].Bottom + parentPage.Settings.SystemSpacing;
+            return parentPage.Systems.Last().Bottom + parentPage.Settings.SystemSpacing;
 
         }
 
@@ -70,7 +66,7 @@ namespace Musicista.UI
 
         public double CalculatedHeight
         {
-            get { return ((6 * 5) + ParentPage.Settings.StaffSpacing) * Staves.Count - ParentPage.Settings.StaffSpacing; }
+            get { return ((6 * 5) + Metrics.StaffSpacing) * Staves.Count - Metrics.StaffSpacing; }
         }
 
         public void AddStaff(UIStaff staff)

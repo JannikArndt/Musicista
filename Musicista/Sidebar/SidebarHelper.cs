@@ -1,10 +1,10 @@
 ﻿
 using Model;
 using Model.Sections;
+using Model.View;
 using Musicista.Exceptions;
 using Musicista.UI;
 using System;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -25,7 +25,7 @@ namespace Musicista.Sidebar
                 Orientation = Orientation.Horizontal,
                 VerticalAlignment = VerticalAlignment.Center,
                 HorizontalAlignment = HorizontalAlignment.Center,
-                Margin = new Thickness(10, 4, 0, -18),
+                Margin = new Thickness(10, 4, 0, 0),
                 Width = 280,
             };
 
@@ -86,35 +86,28 @@ namespace Musicista.Sidebar
             stackPanel.Children.Add(preview);
         }
 
-        public static UIPage DrawPassage(Passage passage)
+        public static UISystem DrawPassage(Passage passage)
         {
-            var page = new UIPage(hasMouseDown: false)
+            if (passage == null) return null;
+            var metrics = new Metrics
             {
+                MarginTop = 10,
+                MarginBelowTitle = 0,
+                StaffSpacing = 0,
+                SystemSpacing = 0,
+                SystemMarginLeft = 0,
+                SystemMarginRight = 0,
                 Width = 280,
-                Height = 50,
-                HorizontalAlignment = HorizontalAlignment.Center,
-                Effect = null,
-                Settings = new UISettings
-                {
-                    MarginTop = 10,
-                    MarginBelowTitle = 0,
-                    StaffSpacing = 0,
-                    SystemSpacing = 0,
-                    SystemMarginLeft = 0,
-                    SystemMarginRight = 0
-                }
+                Height = 50
             };
 
-            if (passage == null) return page;
-
-            page.Systems.Add(new UISystem(page, 1, 1, passage.MeasureGroups.Count));
+            var uiSystem = new UISystem(metrics, 1, 1, passage.MeasureGroups.Count) { Height = 60, Background = Brushes.White, Margin = new Thickness(0, 30, 0, 0) };
+            uiSystem.Children.Add(new Rectangle { Width = 280, Height = 30, Fill = Brushes.White, Margin = new Thickness(0, -30, 0, 0) });
 
             foreach (var measureGroup in passage.MeasureGroups)
-            {
-                var uiMeasureGroup = new UIMeasureGroup(page.Systems.Last(), measureGroup, false);
-            }
+                new UIMeasureGroup(uiSystem, measureGroup, false);
 
-            return page;
+            return uiSystem;
         }
 
         public static void DeletePart(Part part, Panel partsStack, StackPanel namePanel, Canvas preview)

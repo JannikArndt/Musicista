@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using Duration = Model.Sections.Notes.Duration;
 using Style = Model.View.Style;
@@ -64,56 +65,67 @@ namespace Musicista.UI
                         var metrics = piece.Style.MetricForMovement.FirstOrDefault(item => item.MovementNumber == movement.Number);
                         if (metrics == null)
                         {
-                            metrics = new Metrics
-                            {
-                                MeasuresPerSystemThreshold = 60,
-                                MeasuresPerSystem = CalculateMeasuresPerSystem(movement, 60)
-                            };
+                            metrics = new UISettings().Metrics;
                             piece.Style.MetricForMovement.Add(metrics);
                         }
                         if (resetMeasuresPerSystem)
                             metrics.MeasuresPerSystem = CalculateMeasuresPerSystem(movement, metrics.MeasuresPerSystemThreshold);
 
-                        var systemNumber = 0;
+                        // Draw UISystems, UIMeasureGroups and UIMeasures
+                        var uiSystems = DrawMovement(movement, metrics);
 
-                        if (movement.Segments != null && movement.Segments.Count > 0)
-                            foreach (var segment in movement.Segments)
-                                if (segment.Passages != null && segment.Passages.Count > 0)
-                                    foreach (var passage in segment.Passages)
-                                        if (passage.MeasureGroups != null && passage.MeasureGroups.Count > 0)
-                                        {
-                                            var maxStaves = passage.MeasureGroups.Select(measure => measure.Measures.Count).Max();
+                        // Print the UISystems on UIPages
+                        foreach (var uiSystem in uiSystems)
+                        {
+                            uiSystem.ParentPage = currentPage;
 
-                                            foreach (var measureGroup in passage.MeasureGroups)
-                                            {
-                                                // pagebreak if page is full
-                                                if (currentPage.Systems.Count > 0 && currentPage.Systems.Last().UIMeasureGroups.Count > metrics.MeasuresPerSystem[systemNumber - 1] - 1
-                                                    &&
-                                                    currentPage.Systems.Last().Bottom >
-                                                    (currentPage.Height - (currentPage.Systems.Last().CalculatedHeight + 80)))
-                                                {
-                                                    currentPage = new UIPage();
-                                                    pageList.Add(currentPage);
-                                                }
+                            Canvas.SetLeft(uiSystem, currentPage.Settings.SystemMarginLeft);
+                            Canvas.SetTop(uiSystem, uiSystem.CalculateTop(currentPage));
 
-                                                // systembreak and new System with lines (staves) every 4 measures
-                                                if (currentPage.Systems.Count == 0 ||
-                                                    currentPage.Systems.Last().UIMeasureGroups.Count >= metrics.MeasuresPerSystem[systemNumber - 1])
-                                                {
-                                                    systemNumber++;
-                                                    while (metrics.MeasuresPerSystem.Count <= systemNumber - 1)
-                                                        metrics.MeasuresPerSystem.Add(2);
-                                                    currentPage.Systems.Add(new UISystem(currentPage, maxStaves, systemNumber, metrics.MeasuresPerSystem[systemNumber - 1]));
-                                                }
+                            currentPage.Systems.Add(uiSystem);
+                            currentPage.Children.Add(uiSystem);
 
-                                                // Now draw the measures and notes
-                                                // Create UIMeasureGroup
-                                                var uiMeasureGroup = new UIMeasureGroup(currentPage.Systems.Last(), measureGroup);
-                                            }
-                                        }
+                            // Page break if page is full
+                            if (uiSystem.Bottom > (currentPage.Height - (uiSystem.CalculatedHeight + 80)))
+                            {
+                                currentPage = new UIPage();
+                                pageList.Add(currentPage);
+                            }
+                        }
                     }
             }
             return pageList;
+        }
+
+        public static List<UISystem> DrawMovement(Movement movement, Metrics metrics)
+        {
+            var systemNumber = 0;
+            var uiSystems = new List<UISystem>();
+
+            if (movement.Segments != null && movement.Segments.Count > 0)
+                foreach (var segment in movement.Segments)
+                    if (segment.Passages != null && segment.Passages.Count > 0)
+                        foreach (var passage in segment.Passages)
+                            if (passage.MeasureGroups != null && passage.MeasureGroups.Count > 0)
+                            {
+                                var maxStaves = passage.MeasureGroups.Select(measure => measure.Measures.Count).Max();
+
+                                foreach (var measureGroup in passage.MeasureGroups)
+                                {
+                                    // Systembreak according to MeasuresPerSystem
+                                    if (uiSystems.Count == 0 || uiSystems.Last().UIMeasureGroups.Count >= metrics.MeasuresPerSystem[systemNumber - 1])
+                                    {
+                                        systemNumber++;
+                                        while (metrics.MeasuresPerSystem.Count <= systemNumber - 1)
+                                            metrics.MeasuresPerSystem.Add(2);
+                                        uiSystems.Add(new UISystem(metrics, maxStaves, systemNumber, metrics.MeasuresPerSystem[systemNumber - 1]));
+                                    }
+
+                                    // Now draw the measures and notes
+                                    new UIMeasureGroup(uiSystems.Last(), measureGroup);
+                                }
+                            }
+            return uiSystems;
         }
 
         public static List<int> CalculateMeasuresPerSystem(Movement movement, int threshold)

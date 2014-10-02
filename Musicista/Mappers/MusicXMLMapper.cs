@@ -29,7 +29,7 @@ namespace Musicista.Mappers
     {
         public static Piece MapMusicXMLToMusicista(ScorePartwise mxml, String filename, Score scoreInfo = null)
         {
-            var piece = Mapper.CreateEmptyPiece();
+            var piece = new Piece();
 
             // Map work information
             if (!string.IsNullOrEmpty(mxml.Work.WorkTitle))

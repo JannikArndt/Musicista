@@ -54,7 +54,28 @@ namespace Model
         [XmlElement("Style")]
         public Style Style { get; set; }
 
-        public Piece() { }
+        public Piece()
+        {
+            Meta = new MetaData();
+            InstrumentGroups = new List<InstrumentGroup>();
+            Parts = new List<Part>();
+            Style = new Style();
+            Sections = new List<Section> 
+                { new Section
+                {Movements = new List<Movement>
+                    {new Movement
+                        {Segments = new List<Segment>
+                            {new Segment
+                                {Passages = new List<Passage>
+                                    {new Passage{MeasureGroups = new List<MeasureGroup>()}}
+                                }
+                            }
+                        }
+                    }
+                } 
+                };
+            CorrectParentConnections();
+        }
 
         public Piece(bool initialize = true, string username = "")
         {

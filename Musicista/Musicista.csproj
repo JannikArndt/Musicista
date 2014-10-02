@@ -132,7 +132,6 @@
     </Compile>
     <Compile Include="TinyEditor\TinyNotation.cs" />
     <Compile Include="UI\Engraving.cs" />
-    <Compile Include="Mappers\Mapper.cs" />
     <Compile Include="Mappers\MidiMapper.cs" />
     <Compile Include="Mappers\MidiNote.cs" />
     <Compile Include="Mappers\MusicXMLMapper.cs" />

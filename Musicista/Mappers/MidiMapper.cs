@@ -3,7 +3,6 @@ using Midi.Events.ChannelEvents;
 using Midi.Events.MetaEvents;
 using Model;
 using Model.Instruments;
-using Model.Meta;
 using Model.Sections;
 using Model.Sections.Attributes;
 using Model.Sections.Notes;
@@ -17,7 +16,7 @@ namespace Musicista.Mappers
     {
         public static Piece MapMidiToPiece(MidiData midi)
         {
-            var piece = Mapper.CreateEmptyPiece();
+            var piece = new Piece(initialize: true);
             //piece.Title = filePath;
             var passage = piece.Sections[0].Movements[0].Segments[0].Passages[0];
 

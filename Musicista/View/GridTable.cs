@@ -1,6 +1,7 @@
 ﻿using Model;
 using Model.Instruments;
 using Model.Meta.People;
+using Model.Sections;
 using Model.Sections.Notes;
 using Musicista.Sidebar;
 using System;
@@ -446,22 +447,65 @@ namespace Musicista.View
         {
             RowDefinitions.Add(new RowDefinition { Height = new GridLength(30) });
 
-
-            var personTextBlock = new TextBlock
+            var editInstrumentsButton = new Button
             {
-                Text = "Edit Instruments",
+                Content = "Edit Instruments",
+                Width = 150,
+                Height = 20,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Center
+            }; ;
+            editInstrumentsButton.PreviewMouseDown += (sender, args) =>
+            {
+                MainWindow.UISidebar.Content = new SidebarInstruments();
+            };
+            SetRow(editInstrumentsButton, RowDefinitions.Count - 1);
+            SetColumn(editInstrumentsButton, 1);
+            Children.Add(editInstrumentsButton);
+        }
+
+        public void AddRowWithInstrument(Measure measure)
+        {
+            RowDefinitions.Add(new RowDefinition { Height = new GridLength(30) });
+
+            var keyTextBlock = new TextBlock
+            {
+                Text = "Instrument",
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Center
             };
-            personTextBlock.PreviewMouseDown += (sender, args) =>
+            SetRow(keyTextBlock, RowDefinitions.Count - 1);
+            SetColumn(keyTextBlock, 0);
+
+            var instrumentTextBlock = new TextBlock
             {
-                //var editInstrumentsWindow = new EditInstruments(list);
-                //editInstrumentsWindow.Show();
+                Text = measure.Instrument.Name,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Center,
+                Margin = new Thickness(3, 0, 0, 0)
+            };
+            SetRow(instrumentTextBlock, RowDefinitions.Count - 1);
+            SetColumn(instrumentTextBlock, 1);
+
+            var editInstrumentButton = new Button
+            {
+                Content = "Edit",
+                Width = 50,
+                Height = 20,
+                HorizontalAlignment = HorizontalAlignment.Right,
+                VerticalAlignment = VerticalAlignment.Center,
+                Margin = new Thickness(0, 0, 19, 0)
+            };
+            SetRow(editInstrumentButton, RowDefinitions.Count - 1);
+            SetColumn(editInstrumentButton, 1);
+            editInstrumentButton.PreviewMouseDown += (sender, args) =>
+            {
                 MainWindow.UISidebar.Content = new SidebarInstruments();
             };
-            SetRow(personTextBlock, RowDefinitions.Count - 1);
-            SetColumn(personTextBlock, 1);
-            Children.Add(personTextBlock);
+
+            Children.Add(keyTextBlock);
+            Children.Add(instrumentTextBlock);
+            Children.Add(editInstrumentButton);
         }
     }
 }

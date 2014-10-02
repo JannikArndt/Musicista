@@ -128,8 +128,8 @@ namespace Musicista.Sidebar
                 }
 
                 // Display info about the uiMeasure
-                var grid = new GridTable(60);
-                grid.AddRowWithTextField("Instrument", uiMeasure.InnerMeasure.Instrument, "Name");
+                var grid = new GridTable(70);
+                grid.AddRowWithInstrument(uiMeasure.InnerMeasure);
                 grid.AddRowWithComboBox("Clef", uiMeasure.InnerMeasure, "Clef", Clef.Treble);
                 grid.AddRowWithTwoComboBoxes("Key", uiMeasure.ParentUIMeasureGroup.InnerMeasureGroup.KeySignature, "Step", "Gender", Step.C, Gender.Major);
                 grid.AddRowWithTimeSignature("Time", uiMeasure.ParentUIMeasureGroup.InnerMeasureGroup.TimeSignature);
@@ -172,7 +172,7 @@ namespace Musicista.Sidebar
 
             SidebarPanel.Children.Clear();
 
-            var grid = new GridTable(60);
+            var grid = new GridTable(70);
             grid.AddRowWithTextField("Title", MainWindow.CurrentPiece.Meta, "Title");
 
 

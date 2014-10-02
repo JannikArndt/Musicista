@@ -106,7 +106,7 @@ namespace Model.Sections
         {
             get
             {
-                if (ParentMeasureGroup != null && ParentMeasureGroup.Previous != null)
+                if (ParentMeasureGroup != null && ParentMeasureGroup.Previous != null && ParentMeasureGroup.Previous.Measures.Count > ParentMeasureGroup.Measures.IndexOf(this))
                     return ParentMeasureGroup.Previous.Measures[ParentMeasureGroup.Measures.IndexOf(this)];
                 return null;
             }

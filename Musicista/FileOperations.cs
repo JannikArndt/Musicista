@@ -76,6 +76,9 @@ namespace Musicista
 
         public static void OpenFile(String filename, Score scoreInfo = null)
         {
+            if (!string.IsNullOrEmpty(_fileName) && CurrentPiece != null)
+                SaveFile(_fileName, CurrentPiece);
+
             if (Tracker != null)
                 Tracker.Track("Open File", new Dictionary<string, object> { { "Username", Properties.Settings.Default.Username }, { "Filename", filename } });
             try

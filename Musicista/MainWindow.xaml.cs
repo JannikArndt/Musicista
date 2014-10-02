@@ -289,6 +289,7 @@ namespace Musicista
 
         private void Close(object sender, ExecutedRoutedEventArgs e)
         {
+            SaveFile(_fileName, CurrentPiece);
             CurrentPiece = null;
             PageList = null;
             Sidebar.Content = new SidebarInformation();
@@ -354,6 +355,7 @@ namespace Musicista
 
         protected override void OnClosing(CancelEventArgs e)
         {
+            SaveFile(_fileName, CurrentPiece);
             if (Tracker != null)
                 Tracker.Track("Close Program", new Dictionary<string, object> { { "Username", Settings.Default.Username } });
         }

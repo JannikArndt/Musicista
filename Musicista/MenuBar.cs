@@ -101,6 +101,17 @@ namespace Musicista
             TinyNotationBox.Visibility = Visibility.Hidden;
         }
 
+        private void ShowFeedbackWindow(object sender, RoutedEventArgs e)
+        {
+            if (!IsConnectedToTheInternet())
+            {
+                MessageBox.Show("Feedback", "You need to be connected to the internet to send feedback!", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            var feedbackWindow = new FeedbackWindow();
+            feedbackWindow.Show();
+        }
         private void ShowAboutWindow(object sender, RoutedEventArgs e)
         {
             var aboutWindow = new AboutWindow();

@@ -238,11 +238,11 @@ namespace Musicista
             InputBindings.Add(saveAsInputBinding);
 
             // export
-            var exportCommandBinding = new CommandBinding(MediaCommands.DecreaseBass, Export, (sender, e) => { e.CanExecute = CurrentPiece != null; });
+            var exportCommandBinding = new CommandBinding(MediaCommands.DecreaseTreble, Export, (sender, e) => { e.CanExecute = CurrentPiece != null; });
             CommandBindings.Add(exportCommandBinding);
 
             var exportKeyGesture = new KeyGesture(Key.E, ModifierKeys.Control);
-            var exportInputBinding = new InputBinding(MediaCommands.DecreaseBass, exportKeyGesture);
+            var exportInputBinding = new InputBinding(MediaCommands.DecreaseTreble, exportKeyGesture);
             InputBindings.Add(exportInputBinding);
 
             // print
@@ -363,7 +363,8 @@ namespace Musicista
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            SaveFile(_fileName, CurrentPiece);
+            if (!String.IsNullOrEmpty(_fileName) && CurrentPiece != null)
+                SaveFile(_fileName, CurrentPiece);
             if (Tracker != null)
                 Tracker.Track("Close Program", new Dictionary<string, object> { { "Username", Settings.Default.Username } });
         }

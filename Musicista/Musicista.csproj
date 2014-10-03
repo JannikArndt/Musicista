@@ -128,9 +128,6 @@
     <Compile Include="Sidebar\SidebarInstruments.xaml.cs">
       <DependentUpon>SidebarInstruments.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TinyEditor\TinyEditor.xaml.cs">
-      <DependentUpon>TinyEditor.xaml</DependentUpon>
-    </Compile>
     <Compile Include="TinyEditor\TinyNotation.cs" />
     <Compile Include="UI\Engraving.cs" />
     <Compile Include="Mappers\MidiMapper.cs" />
@@ -147,6 +144,9 @@
     <Compile Include="UI\MeasureElements\UITimeSignature.cs" />
     <Compile Include="UI\TextElements\CanvasText.cs" />
     <Compile Include="UI\TextElements\UIComposer.cs" />
+    <Compile Include="View\FeedbackWindow.xaml.cs">
+      <DependentUpon>FeedbackWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\EditInstruments.xaml.cs">
       <DependentUpon>EditInstruments.xaml</DependentUpon>
     </Compile>
@@ -236,9 +236,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="TinyEditor\TinyEditor.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="View\FeedbackWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\EditInstruments.xaml">
       <Generator>MSBuild:Compile</Generator>

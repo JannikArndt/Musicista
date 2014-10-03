@@ -306,7 +306,7 @@ namespace Musicista.Mappers
 
                                 if (mxmlNote.staff == null || mxmlNote.staff == "1")
                                     measures[0].AddSymbol(newNote);
-                                else if (measures.Count < int.Parse(mxmlNote.staff) - 1)
+                                else if (measures.Count <= int.Parse(mxmlNote.staff))
                                     measures[int.Parse(mxmlNote.staff) - 1].AddSymbol(newNote);
 
                                 tempArticulation = null;

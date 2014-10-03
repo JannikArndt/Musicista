@@ -324,7 +324,7 @@ namespace Musicista.TinyEditor
                 case Accent.Marcato: articulations.Add("Marcato"); break;
                 case Accent.Staccato: articulations.Add("Staccato"); break;
                 case Accent.Staccatissimo: articulations.Add("Staccatissimo"); break;
-                case Accent.Standard: articulations.Add("Standard"); break;
+                case Accent.Standard: articulations.Add("Accent"); break;
                 case Accent.Tenuto: articulations.Add("Tenuto"); break;
                 case Accent.Portato: articulations.Add("Portato"); break;
             }

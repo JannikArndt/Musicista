@@ -123,6 +123,7 @@
     </Compile>
     <Compile Include="DragAndDrop.cs" />
     <Compile Include="Editing.cs" />
+    <Compile Include="Mappers\MusicistaToMusicXMLMapper.cs" />
     <Compile Include="Sidebar\SidebarHelper.cs" />
     <Compile Include="Sidebar\SidebarInstruments.xaml.cs">
       <DependentUpon>SidebarInstruments.xaml</DependentUpon>

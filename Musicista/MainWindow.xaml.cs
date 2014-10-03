@@ -237,6 +237,14 @@ namespace Musicista
             var saveAsInputBinding = new InputBinding(ApplicationCommands.SaveAs, saveAsKeyGesture);
             InputBindings.Add(saveAsInputBinding);
 
+            // export
+            var exportCommandBinding = new CommandBinding(MediaCommands.DecreaseBass, Export, (sender, e) => { e.CanExecute = CurrentPiece != null; });
+            CommandBindings.Add(exportCommandBinding);
+
+            var exportKeyGesture = new KeyGesture(Key.E, ModifierKeys.Control);
+            var exportInputBinding = new InputBinding(MediaCommands.DecreaseBass, exportKeyGesture);
+            InputBindings.Add(exportInputBinding);
+
             // print
             var printCommandBinding = new CommandBinding(ApplicationCommands.Print, Print, (sender, e) => { e.CanExecute = CurrentPiece != null; });
             CommandBindings.Add(printCommandBinding);

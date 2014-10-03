@@ -58,6 +58,33 @@ namespace Musicista
             }
         }
 
+        private void Export(object sender, RoutedEventArgs e)
+        {
+            var saveFileDialog = new SaveFileDialog
+            {
+                DefaultExt = ".xml",
+                Filter = "MusicXML (*.xml)|*.xml",
+                OverwritePrompt = true,
+                FileName = CurrentPiece.Meta.Title
+            };
+            if (saveFileDialog.ShowDialog() != true)
+                return;
+
+            ExportToMusicXML(saveFileDialog.FileName, CurrentPiece);
+        }
+
+        public static void ExportToMusicXML(string filename, Piece piece)
+        {
+            var mxmlPiece = MusicXMLMapper.MapMusicistaToMusicXML(piece);
+            var serializer = new XmlSerializer(typeof(ScorePartwise));
+            var streamWriter = new StreamWriter(filename);
+            using (var writer = XmlWriter.Create(streamWriter))
+            {
+                writer.WriteDocType("score-partwise", "-//Recordare//DTD MusicXML 3.0 Partwise//EN", "http://www.musicxml.org/dtds/partwise.dtd", null);
+                serializer.Serialize(writer, mxmlPiece);
+            }
+        }
+
         #endregion
 
         #region Open

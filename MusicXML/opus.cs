@@ -1,16 +1,13 @@
 using System;
 
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 
 namespace MusicXML
 {
-    
+
     [Serializable]
-    [DebuggerStepThrough]
-    [DesignerCategory("code")]
     public class opus
     {
         public opus()
@@ -36,7 +33,7 @@ namespace MusicXML
         public string role { get; set; }
 
 
-        [XmlAttribute(Form = XmlSchemaForm.Qualified, Namespace = "http://www.w3.org/1999/xlink", DataType = "token")]
+        [XmlAttribute("title")]
         public string title { get; set; }
 
 

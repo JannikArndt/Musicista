@@ -15,6 +15,10 @@ namespace MusicXML
     [XmlType(AnonymousType = true)]
     public class ScorePartwisePartMeasure
     {
+        [XmlElement("attributes")]
+        public attributes Attributes { get; set; }
+
+
         [XmlElement("backup", typeof(backup)),
         XmlElement("barline", typeof(barline)),
         XmlElement("bookmark", typeof(bookmark)),
@@ -28,12 +32,6 @@ namespace MusicXML
         XmlElement("print", typeof(print)),
         XmlElement("sound", typeof(sound))]
         public object[] Items { get; set; }
-
-        [XmlElement("attributes")]
-        public attributes Attributes { get; set; }
-
-
-
 
         [XmlAttribute(DataType = "token")]
         public string number { get; set; }

@@ -22,6 +22,7 @@
                 <Separator />
                 <MenuItem Header="_Save" Command="Save" />
                 <MenuItem Header="_Save as..." Command="SaveAs" InputGestureText="Ctrl+Shift+S" />
+                <MenuItem Header="_Export..." Command="DecreaseBass" InputGestureText="Ctrl+E" />
                 <Separator />
                 <MenuItem Header="Print..." Command="Print" />
                 <Separator />

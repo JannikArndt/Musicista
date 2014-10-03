@@ -25,8 +25,9 @@ using Step = Model.Sections.Attributes.Step;
 
 namespace Musicista.Mappers
 {
-    public static class MusicXMLMapper
+    public static partial class MusicXMLMapper
     {
+        #region MusicXML to Musicista
         public static Piece MapMusicXMLToMusicista(ScorePartwise mxml, String filename, Score scoreInfo = null)
         {
             var piece = new Piece();
@@ -39,7 +40,8 @@ namespace Musicista.Mappers
             else
                 piece.Meta.Title = Path.GetFileNameWithoutExtension(filename);
 
-            piece.Meta.Notes += "Work Number: " + mxml.Work.WorkNumber;
+            if (!string.IsNullOrEmpty(mxml.Work.WorkNumber))
+                piece.Meta.Notes += "Work Number: " + mxml.Work.WorkNumber;
 
             // Map Identification information
             if (mxml.Identification != null && mxml.Identification.Encoding != null)
@@ -825,5 +827,7 @@ namespace Musicista.Mappers
             }
             return new MusicalKey(Step.C, Gender.Major);
         }
+        #endregion
+
     }
 }

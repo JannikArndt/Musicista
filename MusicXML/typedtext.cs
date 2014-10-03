@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 
 namespace MusicXML
 {
-    
+
     [Serializable]
     [DebuggerStepThrough]
     [DesignerCategory("code")]
@@ -19,5 +19,13 @@ namespace MusicXML
 
         [XmlText]
         public string Value { get; set; }
+
+        public Typedtext(String type, String value)
+        {
+            Type = type;
+            Value = value;
+        }
+
+        public Typedtext() { }
     }
 }

@@ -60,6 +60,33 @@ namespace Model.Sections.Attributes
             }
             return StepForSums.Unknown;
         }
+
+        public static int ToFifths(this Step step)
+        {
+            switch (step)
+            {
+                case Step.C: return 0;
+                case Step.G: return 1;
+                case Step.D: return 2;
+                case Step.A: return 3;
+                case Step.E: return 4;
+                case Step.B: return 5;
+                case Step.FSharp: return 6;
+                case Step.CSharp: return 7;
+                case Step.GSharp: return 8;
+                case Step.DSharp: return 9;
+                case Step.ASharp: return 10;
+                case Step.F: return -1;
+                case Step.BFlat: return -2;
+                case Step.EFlat: return -3;
+                case Step.AFlat: return -4;
+                case Step.DFlat: return -5;
+                case Step.GFlat: return -6;
+                case Step.CFlat: return -7;
+                case Step.FFlat: return -8;
+                default: return 0;
+            }
+        }
     }
 
     public enum StepForSums

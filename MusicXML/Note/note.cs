@@ -1,15 +1,11 @@
 using MusicXML.Enums;
 using MusicXML.Note.Articulation;
 using System;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Xml.Serialization;
 
 namespace MusicXML.Note
 {
     [Serializable]
-    [DebuggerStepThrough]
-    [DesignerCategory("code")]
     [XmlType(TypeName = "Note")]
     public class Note
     {
@@ -33,6 +29,8 @@ namespace MusicXML.Note
         // Rests
         [XmlElement("rest", IsNullable = true)]
         public rest Rest { get; set; }
+        public bool ShouldSerializeRest() { return Rest != null; }
+
 
         [XmlIgnore]
         public bool IsRest { get { return Rest != null; } }
@@ -40,6 +38,7 @@ namespace MusicXML.Note
         // Chords
         [XmlElement("chord", IsNullable = true)]
         public string Chord { get; set; }
+        public bool ShouldSerializeChord() { return Chord != null; }
 
         [XmlIgnore]
         public bool IsChord { get { return Chord != null; } }
@@ -47,6 +46,7 @@ namespace MusicXML.Note
 
         [XmlElement("cue", IsNullable = true)]
         public string Cue { get; set; }
+        public bool ShouldSerializeCue() { return Cue != null; }
 
         [XmlIgnore]
         public bool IsCue { get { return Cue != null; } }
@@ -54,6 +54,7 @@ namespace MusicXML.Note
 
         [XmlElement("grace", IsNullable = true)]
         public grace Grace { get; set; }
+        public bool ShouldSerializeGrace() { return Grace != null; }
 
         [XmlIgnore]
         public bool IsGrace { get { return Grace != null; } }
@@ -61,6 +62,7 @@ namespace MusicXML.Note
 
         [XmlElement("tie", IsNullable = true)]
         public Tie Tie { get; set; }
+        public bool ShouldSerializeTie() { return Tie != null; }
 
         [XmlIgnore]
         public bool IsTied { get { return Tie != null; } }
@@ -68,6 +70,7 @@ namespace MusicXML.Note
 
         [XmlElement("unpitched", IsNullable = true)]
         public unpitched Unpitched { get; set; }
+        public bool ShouldSerializeUnpitched() { return Unpitched != null; }
 
         [XmlIgnore]
         public bool IsUnpitched { get { return Unpitched != null; } }

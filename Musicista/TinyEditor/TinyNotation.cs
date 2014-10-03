@@ -439,10 +439,25 @@ namespace Musicista.TinyEditor
 
         public static string CreateTinyDuration(Symbol symbol)
         {
-            var duration = 3840.0 / (double)symbol.Duration;
-            if (Math.Abs(duration % 1) < 0.001)
-                return "" + duration;
-            return duration + ".";
+            switch (symbol.Duration)
+            {
+                case Duration.Thirtysecond: return "32";
+                case Duration.ThirtysecondDotted: return "32.";
+                case Duration.Sixteenth: return "16";
+                case Duration.SixteenthDotted: return "16.";
+                case Duration.SixteenthDoubleDotted: return "16..";
+                case Duration.Eigth: return "8";
+                case Duration.EigthDotted: return "8.";
+                case Duration.EigthDoubleDotted: return "8..";
+                case Duration.Quarter: return "4";
+                case Duration.QuarterDotted: return "4.";
+                case Duration.QuarterDoubleDotted: return "4..";
+                case Duration.Half: return "2";
+                case Duration.HalfDotted: return "2.";
+                case Duration.HalfDoubleDotted: return "2..";
+                case Duration.Whole: return "1";
+                default: return "";
+            }
         }
     }
 }

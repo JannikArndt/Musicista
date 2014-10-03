@@ -112,11 +112,5 @@ namespace Musicista
             var preferencesWindow = new PreferencesWindow();
             preferencesWindow.Show();
         }
-
-        private void OpenTinyEditor(object sender, RoutedEventArgs e)
-        {
-            var tinyEditor = new TinyEditor.TinyEditor();
-            tinyEditor.Show();
-        }
     }
 }

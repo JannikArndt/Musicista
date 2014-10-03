@@ -35,9 +35,6 @@
             <MenuItem Header="_Edit">
                 <MenuItem Header="Cut" />
             </MenuItem>
-            <MenuItem Header="_Tools">
-                <MenuItem Header="TinyNotation Editor..." Click="OpenTinyEditor" />
-            </MenuItem>
             <MenuItem Header="_Help">
                 <MenuItem Header="About" Click="ShowAboutWindow" />
             </MenuItem>

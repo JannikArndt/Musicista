@@ -12,7 +12,7 @@
             <RowDefinition Height="20" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Image Grid.Row="1" Source="../AppIcon.ico"></Image>
+        <Image Grid.Row="1" Source="../AppIcon100px.png" />
         <TextBlock Grid.Row="2" TextAlignment="Center" FontWeight="Bold" FontSize="16">Musicista</TextBlock>
         <TextBlock Grid.Row="3" TextAlignment="Center" Name="VersionTextBlock"></TextBlock>
         <ScrollViewer Grid.Row="5" VerticalScrollBarVisibility="Hidden">

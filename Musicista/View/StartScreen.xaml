@@ -29,6 +29,7 @@
                 <DropShadowEffect />
             </Canvas.Effect>
         </Canvas>
+        <Image Grid.Row="1" Grid.Column="0" Source="../AppIcon100px.png" />
         <TextBlock Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" FontSize="50">Welcome to Musicista!</TextBlock>
         <TextBlock Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" FontSize="14.8" TextAlignment="Right" Margin="0,0,18,0">italian "musician", /muziˈtʃista/</TextBlock>
         <TextBlock Grid.Row="3" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="20" TextAlignment="Left" >You can...</TextBlock>

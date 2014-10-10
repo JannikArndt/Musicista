@@ -51,6 +51,8 @@ namespace Musicista
 
         public static void SaveFile(string filename, Piece piece)
         {
+            if (String.IsNullOrEmpty(filename))
+                return;
             var serializer = new XmlSerializer(typeof(Piece));
             using (TextWriter writer = new StreamWriter(filename))
             {

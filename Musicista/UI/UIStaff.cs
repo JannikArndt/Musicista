@@ -52,10 +52,10 @@ namespace Musicista.UI
                 if (ParentSystem.Staves.IndexOf(this) == 0)
                     return 0;
                 else
-                    return GetTop(ParentSystem.Staves[ParentSystem.Staves.IndexOf(this) - 1]) + 24 + ParentSystem.Metrics.StaffSpacing;
+                    return GetTop(ParentSystem.Staves[ParentSystem.Staves.IndexOf(this) - 1]) + 24 + ParentSystem.Metrics.Staff.Spacing;
             if (ParentSystem.Staves.Count == 0)
                 return 0;
-            return GetTop(ParentSystem.Staves.Last()) + 24 + ParentSystem.Metrics.StaffSpacing;
+            return GetTop(ParentSystem.Staves.Last()) + 24 + ParentSystem.Metrics.Staff.Spacing;
         }
     }
 }

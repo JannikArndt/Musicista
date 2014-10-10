@@ -26,7 +26,7 @@ namespace Musicista.UI
             MeasuresInSystem = measuresInSystem;
 
             // geometry
-            Width = Metrics.Width - Metrics.SystemMarginLeft - Metrics.SystemMarginRight;
+            Width = Metrics.Page.Width - Metrics.Margin.Left - Metrics.Margin.Right;
 
             // Line in front of the system
             BarlineFront = new Line
@@ -66,7 +66,7 @@ namespace Musicista.UI
 
         public double CalculatedHeight
         {
-            get { return ((6 * 5) + Metrics.StaffSpacing) * Staves.Count - Metrics.StaffSpacing; }
+            get { return ((6 * 5) + Metrics.Staff.Spacing) * Staves.Count - Metrics.Staff.Spacing; }
         }
 
         public void AddStaff(UIStaff staff)

@@ -111,7 +111,6 @@ namespace Model
             Meta = new MetaData();
             InstrumentGroups = new List<InstrumentGroup>();
             Parts = new List<Part>();
-            Style = new Style();
             Sections = new List<Section>();
             CorrectParentConnections();
         }

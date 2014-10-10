@@ -89,17 +89,7 @@ namespace Musicista.Sidebar
         public static UISystem DrawPassage(Passage passage)
         {
             if (passage == null) return null;
-            var metrics = new Metrics
-            {
-                MarginTop = 10,
-                MarginBelowTitle = 0,
-                StaffSpacing = 0,
-                SystemSpacing = 0,
-                SystemMarginLeft = 0,
-                SystemMarginRight = 0,
-                Width = 280,
-                Height = 50
-            };
+            var metrics = new Metrics(280, 50, 0, 10);
 
             var uiSystem = new UISystem(metrics, 1, 1, passage.MeasureGroups.Count) { Height = 60, Background = Brushes.White, Margin = new Thickness(0, 30, 0, 0) };
             uiSystem.Children.Add(new Rectangle { Width = 280, Height = 30, Fill = Brushes.White, Margin = new Thickness(0, -30, 0, 0) });

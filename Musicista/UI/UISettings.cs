@@ -1,5 +1,4 @@
 ﻿using Model.View;
-using System.Collections.Generic;
 using System.Windows.Controls;
 
 namespace Musicista.UI
@@ -10,51 +9,39 @@ namespace Musicista.UI
 
         public UISettings()
         {
-            Metrics = new Metrics
-            {
-                Width = 841, // A0 in mm
-                Height = 1189,
-                MarginTop = 60,
-                MarginBelowTitle = 60,
-                StaffSpacing = 50,
-                SystemSpacing = 60,
-                SystemMarginLeft = 50,
-                SystemMarginRight = 50,
-                MeasuresPerSystemThreshold = 60,
-                MeasuresPerSystem = new List<int>()
-            };
+            Metrics = new Metrics(841, 1189, 50, 60, 50, 0, 60, 50, 60);
         }
 
-        public int Width
+        public double Width
         {
-            get { return Metrics.Width; }
-            set { Metrics.Width = value; }
+            get { return Metrics.Page.Width; }
+            set { Metrics.Page.Width = value; }
         }
 
-        public int Height
+        public double Height
         {
-            get { return Metrics.Height; }
-            set { Metrics.Height = value; }
+            get { return Metrics.Page.Height; }
+            set { Metrics.Page.Height = value; }
         }
 
         public double MarginTop
         {
-            get { return Metrics.MarginTop; }
-            set { Metrics.MarginTop = value; }
+            get { return Metrics.Margin.Top; }
+            set { Metrics.Margin.Top = value; }
         }
 
         public double MarginBelowTitle
         {
-            get { return Metrics.MarginBelowTitle; }
-            set { Metrics.MarginBelowTitle = value; }
+            get { return Metrics.Margin.BelowTitle; }
+            set { Metrics.Margin.BelowTitle = value; }
         }
 
         public double StaffSpacing
         {
-            get { return Metrics.StaffSpacing; }
+            get { return Metrics.Staff.Spacing; }
             set
             {
-                Metrics.StaffSpacing = value;
+                Metrics.Staff.Spacing = value;
                 if (MainWindow.PageList == null || MainWindow.PageList.Count == 0) return;
                 foreach (var uiPage in MainWindow.PageList)
                     foreach (var uiSystem in uiPage.Systems)
@@ -68,10 +55,10 @@ namespace Musicista.UI
 
         public double SystemSpacing
         {
-            get { return Metrics.SystemSpacing; }
+            get { return Metrics.System.Spacing; }
             set
             {
-                Metrics.SystemSpacing = value;
+                Metrics.System.Spacing = value;
                 if (MainWindow.PageList == null || MainWindow.PageList.Count == 0) return;
                 foreach (var uiPage in MainWindow.PageList)
                     foreach (var uiSystem in uiPage.Systems)
@@ -81,14 +68,14 @@ namespace Musicista.UI
 
         public double SystemMarginLeft
         {
-            get { return Metrics.SystemMarginLeft; }
-            set { Metrics.SystemMarginLeft = value; }
+            get { return Metrics.Margin.Left; }
+            set { Metrics.Margin.Left = value; }
         }
 
         public double SystemMarginRight
         {
-            get { return Metrics.SystemMarginRight; }
-            set { Metrics.SystemMarginRight = value; }
+            get { return Metrics.Margin.Right; }
+            set { Metrics.Margin.Right = value; }
         }
     }
 }

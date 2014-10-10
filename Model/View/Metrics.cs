@@ -1,31 +1,50 @@
 ﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Xml.Serialization;
 
 namespace Model.View
 {
     public class Metrics
     {
+        /// <summary>
+        /// A reference to what movement this style applies.
+        /// </summary>
+        [XmlAttribute("MovementNumber")]
         public int MovementNumber { get; set; }
-        public int Width { get; set; }
-        public int Height { get; set; }
-        public double MarginTop { get; set; }
-        public double MarginBelowTitle { get; set; }
-        public double StaffSpacing { get; set; }
-        public double SystemSpacing { get; set; }
-        public double SystemMarginLeft { get; set; }
-        public double SystemMarginRight { get; set; }
-        public int MeasuresPerSystemThreshold { get; set; }
-        [XmlIgnore]
-        public List<int> MeasuresPerSystem { get; set; }
+
+        [XmlElement("Page")]
+        public PageMetric Page { get; set; }
+
+        [XmlElement("Margin")]
+        public Margin Margin { get; set; }
+
+        [XmlElement("Staff")]
+        public StaffMetric Staff { get; set; }
+
+
+        [XmlElement("System")]
+        public SystemMetric System { get; set; }
+
 
         [XmlElement("MeasuresPerSystem")]
-        public String MeasuresPerSystemString
+        public MeasuresMetrics Measures { get; set; }
+
+
+        public Metrics(double width = 0, double height = 0, double marginLeft = 0, double marginTop = 0, double marginRight = 0, double marginBottom = 0, double marginBelowTitle = 0, double staffSpacing = 0, double systemSpacing = 0, int measuresPerSystemThreshold = 0)
         {
-            get { return String.Join(",", MeasuresPerSystem); }
-            set { MeasuresPerSystem = Array.ConvertAll(value.Split(','), int.Parse).ToList(); }
+            Page = new PageMetric { Width = width, Height = height };
+            Margin = new Margin
+            {
+                Left = marginLeft,
+                Top = marginTop,
+                Right = marginRight,
+                Bottom = marginBottom,
+                BelowTitle = marginBelowTitle
+            };
+            Staff = new StaffMetric { Spacing = staffSpacing };
+            System = new SystemMetric { Spacing = systemSpacing };
+            Measures = new MeasuresMetrics { MeasuresPerSystemThreshold = measuresPerSystemThreshold };
         }
+
+        public Metrics() { }
     }
 }

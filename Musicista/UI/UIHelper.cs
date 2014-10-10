@@ -80,10 +80,11 @@ namespace Musicista.UI
                         if (metrics == null)
                         {
                             metrics = new UISettings().Metrics;
+                            metrics.MovementNumber = movement.Number;
                             piece.Style.MetricForMovement.Add(metrics);
                         }
                         if (resetMeasuresPerSystem)
-                            metrics.MeasuresPerSystem = CalculateMeasuresPerSystem(movement, metrics.MeasuresPerSystemThreshold);
+                            metrics.Measures.MeasuresPerSystem = CalculateMeasuresPerSystem(movement, metrics.Measures.MeasuresPerSystemThreshold);
 
                         // Draw UISystems, UIMeasureGroups and UIMeasures
                         var uiSystems = DrawMovement(movement, metrics);
@@ -127,12 +128,12 @@ namespace Musicista.UI
                                 foreach (var measureGroup in passage.MeasureGroups)
                                 {
                                     // Systembreak according to MeasuresPerSystem
-                                    if (uiSystems.Count == 0 || uiSystems.Last().UIMeasureGroups.Count >= metrics.MeasuresPerSystem[systemNumber - 1])
+                                    if (uiSystems.Count == 0 || uiSystems.Last().UIMeasureGroups.Count >= metrics.Measures.MeasuresPerSystem[systemNumber - 1])
                                     {
                                         systemNumber++;
-                                        while (metrics.MeasuresPerSystem.Count <= systemNumber - 1)
-                                            metrics.MeasuresPerSystem.Add(2);
-                                        uiSystems.Add(new UISystem(metrics, maxStaves, systemNumber, metrics.MeasuresPerSystem[systemNumber - 1]));
+                                        while (metrics.Measures.MeasuresPerSystem.Count <= systemNumber - 1)
+                                            metrics.Measures.MeasuresPerSystem.Add(2);
+                                        uiSystems.Add(new UISystem(metrics, maxStaves, systemNumber, metrics.Measures.MeasuresPerSystem[systemNumber - 1]));
                                     }
 
                                     // Now draw the measures and notes

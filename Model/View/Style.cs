@@ -5,7 +5,7 @@ namespace Model.View
 {
     public class Style
     {
-        [XmlArray("MovementMetric")]
+        [XmlElement("MovementMetric")]
         public List<Metrics> MetricForMovement { get; set; }
 
         public Style()

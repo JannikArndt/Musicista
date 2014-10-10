@@ -125,8 +125,13 @@
     <Compile Include="Sections\Theme.cs" />
     <Compile Include="Sections\Notes\Articulation\Wedge.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="View\Margin.cs" />
+    <Compile Include="View\MeasuresMetrics.cs" />
+    <Compile Include="View\PageMetric.cs" />
+    <Compile Include="View\StaffMetric.cs" />
     <Compile Include="View\Style.cs" />
     <Compile Include="View\Metrics.cs" />
+    <Compile Include="View\SystemMetric.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MusicistaModel.xsd">

@@ -19,8 +19,10 @@
             <TextBox Name="AnalyzeSelectedResult" Width="100" />
             <Separator Height="20" Margin="0"/>
             <Button Content="AddText" Width="140" Click="AddAnalysisText" />
-            <TextBox Name="TextToAdd" Width="100" />
-            <Separator Height="20" Margin="0"/> -->
+            <TextBox Name="TextToAdd" Width="100" />-->
+            <Button Content="Extract Lyrics" Width="140" Click="ExtractLyricsClick" Margin="0,10,0,0" />
+            <TextBox Name="LyricsTextBox" Width="200" Height="40" Margin="0,10" />
+            <Separator Height="20" Margin="0"/> 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <ComboBox Name="DoublingInstrument1" Width="80" />
                 <ComboBox Name="DoublingInstrument2" Width="80" Margin="10,0" />

@@ -1,8 +1,12 @@
 ﻿
 using Model;
+using Model.Extensions;
 using Model.Instruments;
+using Model.Sections.Notes;
+using Musicista.UI;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -65,6 +69,55 @@ namespace Musicista.Sidebar
                 MessageBox.Show(@"Error, the " + exception.Message + " was not provided.", "Error");
             }
 
+        }
+
+        private void ExtractLyricsClick(object sender, RoutedEventArgs e)
+        {
+            if (UIHelper.SelectedUISymbols.IsNullOrEmpty())
+            {
+                MessageBox.Show(@"You have not selected any notes.", "Error");
+                return;
+            }
+
+            var results = new List<Lyric>();
+            // Handle incomplete first word
+            var first = UIHelper.SelectedUISymbols.First().Symbol;
+            if (first.Lyrics.Any() && first.Lyrics[0].Syllabic != Syllabic.Begin && first.Lyrics[0].Syllabic != Syllabic.Single)
+            {
+                var predecessor = first.Previous;
+                while (predecessor.Lyrics[0].Syllabic != Syllabic.Begin)
+                {
+                    results.Add(predecessor.Lyrics[0]);
+                    predecessor = predecessor.Previous;
+                }
+                results.Reverse(); // since the lyrics were added in the reverse order 
+            }
+            // Handle selected symbols
+            foreach (var uiSymbol in UIHelper.SelectedUISymbols)
+                if (uiSymbol.Symbol != null && uiSymbol.Symbol.Lyrics != null && uiSymbol.Symbol.Lyrics.Any())
+                    results.Add(uiSymbol.Symbol.Lyrics[0]);
+
+            // Handle incomplete last word
+            var last = UIHelper.SelectedUISymbols.Last().Symbol;
+            if (last.Lyrics.Any() && last.Lyrics[0].Syllabic != Syllabic.End && last.Lyrics[0].Syllabic != Syllabic.Single)
+            {
+                var follower = last.Next;
+                while (follower.Lyrics[0].Syllabic != Syllabic.End)
+                {
+                    results.Add(follower.Lyrics[0]);
+                    follower = follower.Next;
+                }
+            }
+
+            // Add spaces after words
+            var text = "";
+            foreach (var lyric in results)
+                if (lyric.Syllabic == Syllabic.End || lyric.Syllabic == Syllabic.Single)
+                    text += lyric.Text + " ";
+                else
+                    text += lyric.Text;
+
+            LyricsTextBox.Text = text;
         }
 
         private StackPanel _partsStack;

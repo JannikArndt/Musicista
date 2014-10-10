@@ -11,49 +11,101 @@ using System.Xml.Serialization;
 
 namespace Model
 {
+    /// <summary>
+    /// The root element for every piece. 
+    /// </summary>
     public class Piece
     {
         [XmlAttribute("Version")]
         public string Version = "1.0";
 
+        /// <summary>
+        /// Contains the title, composer, etc.
+        /// </summary>
         [XmlElement("Meta")]
         public MetaData Meta { get; set; }
 
+        /// <summary>
+        /// InstrumentGroups like woodwind, brass, percussion, strings, ...
+        /// </summary>
         [XmlArray("Instruments")]
         public List<InstrumentGroup> InstrumentGroups { get; set; }
 
+        /// <summary>
+        /// A shortcut directly to all instruments. Also see InstrumentGroups
+        /// </summary>
         [XmlIgnore]
         public List<Instrument> Instruments
         {
             get { return InstrumentGroups.SelectMany(item => item.Instruments).ToList(); }
         }
+
+        /// <summary>
+        /// An InstrumentGroup has several Instruments which can have several staves (e.g. for the piano). These are all staves.
+        /// </summary>
         [XmlIgnore]
         public List<Staff> Staves
         {
             get { return InstrumentGroups.SelectMany(item => item.Instruments).SelectMany(instrument => instrument.Staves).ToList(); }
         }
 
+        /// <summary>
+        /// The topmost musical elements
+        /// </summary>
         [XmlArray("Score")]
         public List<Section> Sections { get; set; }
 
+        /// <summary>
+        ///  Shortcut to Sections > Movements
+        /// </summary>
         [XmlIgnore]
         public List<Movement> Movements { get { return Sections.SelectMany(section => section.Movements).ToList(); } }
+
+        /// <summary>
+        /// Shortcut to Sections > Movements > Segments
+        /// </summary>
         [XmlIgnore]
         public List<Segment> Segments { get { return Movements.SelectMany(movement => movement.Segments).ToList(); } }
+
+        /// <summary>
+        /// Shortcut to Sections > Movements > Segments > Passages
+        /// </summary>
         [XmlIgnore]
         public List<Passage> Passages { get { return Segments.SelectMany(segment => segment.Passages).ToList(); } }
+
+        /// <summary>
+        /// Shortcut to Sections > Movements > Segments > Passages > MeasureGroups
+        /// </summary>
         [XmlIgnore]
         public List<MeasureGroup> MeasureGroups { get { return Passages.SelectMany(passage => passage.MeasureGroups).ToList(); } }
+
+        /// <summary>
+        /// Shortcut to Sections > Movements > Segments > Passages > MeasureGroups > Measures
+        /// </summary>
         [XmlIgnore]
         public List<Measure> Measures { get { return MeasureGroups.SelectMany(measureGroup => measureGroup.Measures).ToList(); } }
+
+        /// <summary>
+        /// Stores references to the actual music, for example for themes.
+        /// </summary>
         [XmlArray("Parts")]
         public List<Part> Parts { get; set; }
+
+        /// <summary>
+        /// Stores text with a reference to the music
+        /// </summary>
         [XmlArray("Comments")]
         public List<Comment> Comments { get; set; }
 
+        /// <summary>
+        /// Stores style information
+        /// </summary>
         [XmlElement("Style")]
         public Style Style { get; set; }
 
+        /// <summary>
+        /// Empty contructor for Deserialization
+        /// </summary>
         public Piece()
         {
             Meta = new MetaData();
@@ -64,6 +116,11 @@ namespace Model
             CorrectParentConnections();
         }
 
+        /// <summary>
+        /// Contructor for normal initialization. Use initialize-parameter to initialize EVERY object and list and avoid null-pointer-exceptions.
+        /// </summary>
+        /// <param name="initialize">Wheter all objects and lists should be initialized</param>
+        /// <param name="username">What the Typesetter is set to</param>
         public Piece(bool initialize = true, string username = "")
         {
             if (initialize)
@@ -123,6 +180,9 @@ namespace Model
             }
         }
 
+        /// <summary>
+        /// Go through the hierarchy and set the parent-reference for every element.
+        /// </summary>
         public void CorrectParentConnections()
         {
             foreach (var section in Sections)

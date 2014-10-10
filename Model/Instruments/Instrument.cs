@@ -14,6 +14,9 @@ namespace Model.Instruments
         [XmlAttribute("ID")]
         public int ID { get; set; }
 
+        /// <summary>
+        /// The full name, printed in front of the first system.
+        /// </summary>
         [XmlAttribute("Name")]
         public string Name
         {
@@ -21,16 +24,27 @@ namespace Model.Instruments
             set { _name = value; NotifyPropertyChanged(); }
         }
 
+        /// <summary>
+        /// The name that is repeated in front of the second, third, ... system.
+        /// </summary>
         [XmlAttribute("Shortname")]
         public string Shortname { get; set; }
 
+        /// <summary>
+        /// The half tones by which this instrument is transposed, i.e. a trumpet would be -2, a double bass -12.
+        /// </summary>
         [XmlAttribute("Transposition")]
         public int Transposition { get; set; }
 
-
+        /// <summary>
+        /// Midi settings such as channel, instrument, volume, pan and library.
+        /// </summary>
         [XmlElement("Midi")]
         public MidiSettings MidiSettings { get; set; }
 
+        /// <summary>
+        /// A list of staff objects. A normal instrument has just one, a piano for instance has two.
+        /// </summary>
         [XmlElement("Staff")]
         public List<Staff> Staves { get; set; }
 

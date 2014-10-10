@@ -5,6 +5,9 @@ using System.Xml.Serialization;
 
 namespace Model
 {
+    /// <summary>
+    /// This class contains the title, people, etc.
+    /// </summary>
     public class MetaData
     {
         public string Title { get; set; }

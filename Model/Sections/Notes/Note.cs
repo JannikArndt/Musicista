@@ -1,20 +1,38 @@
-﻿using Model.Meta;
+﻿using Model.Sections.Attributes;
 using System;
 using System.Linq;
 using System.Xml.Serialization;
-using Model.Sections.Attributes;
 
 namespace Model.Sections.Notes
 {
     public class Note : Symbol
     {
+        /// <summary>
+        /// The step of this note, i.e. C, CSharp, DFlat, ...
+        /// </summary>
         [XmlAttribute("Step")]
         public Step Step { get; set; }
+
+        /// <summary>
+        /// The octave of this note, middle C is 4.
+        /// </summary>
         [XmlAttribute("Octave")]
         public int Octave { get; set; }
+
+        /// <summary>
+        /// The midi-velocity, for compatability. Ranges from 0 to 127.
+        /// </summary>
         [XmlAttribute("Velocity")]
         public int Velocity { get; set; } // 0-127, c.f. midi
+
         public Note() { }
+
+        /// <summary>
+        /// Compares this note to another note, can handle enharmonic spelling.
+        /// </summary>
+        /// <param name="otherStep"></param>
+        /// <param name="otherOctave"></param>
+        /// <returns></returns>
         public int PitchIsHigherThan(Step otherStep, int otherOctave)
         {
             if (Octave == otherOctave)
@@ -40,11 +58,21 @@ namespace Model.Sections.Notes
             return Octave.CompareTo(otherOctave);
         }
 
+        /// <summary>
+        /// Compares this note to another note, can handle enharmonic spelling.
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
         public int PitchIsHigherThan(Note other)
         {
             return PitchIsHigherThan(other.Step, other.Octave);
         }
 
+        /// <summary>
+        /// Compares this note to another note, can handle enharmonic spelling.
+        /// </summary>
+        /// <param name="noteString"></param>
+        /// <returns></returns>
         public int PitchIsHigherThan(String noteString)
         {
             var otherStep = (Step)Enum.Parse(typeof(Step), noteString.Substring(0, noteString.Length - 1));
@@ -57,6 +85,10 @@ namespace Model.Sections.Notes
             return "" + Step + Octave + " on " + Math.Round(Beat, 2) + " for " + Duration;
         }
 
+        /// <summary>
+        /// Determines from voice and lef if the stemp should go up (true) or down (false). This does not look at the neighbouring notes!
+        /// </summary>
+        /// <returns></returns>
         public bool StemShouldGoUp()
         {
             if (ParentMeasure.Voices.Count > 1)
@@ -75,6 +107,11 @@ namespace Model.Sections.Notes
             return true;
         }
 
+        /// <summary>
+        /// Calculates the interval to another note.
+        /// </summary>
+        /// <param name="otherNote"></param>
+        /// <returns></returns>
         public Interval DistanceTo(Note otherNote)
         {
             var step1 = (int)Step.ToStepForSums();

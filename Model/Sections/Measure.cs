@@ -26,6 +26,10 @@ namespace Model.Sections
             Instrument = new Instrument();
             Staff = new Staff();
         }
+
+        /// <summary>
+        /// The clef of this measure.
+        /// </summary>
         [XmlAttribute("Clef")]
         public Clef Clef
         {
@@ -37,9 +41,15 @@ namespace Model.Sections
             }
         }
 
+        /// <summary>
+        /// The MeasureGroup that contains this Measure.
+        /// </summary>
         [XmlIgnore]
         public MeasureGroup ParentMeasureGroup { get; set; }
 
+        /// <summary>
+        /// The instrument's ID, if the instrument is set. Otherwise the IDBackup. The setter automatically looks for the corresponding instrument to link.
+        /// </summary>
         [XmlAttribute("InstrumentID")]
         public int InstrumentID
         {
@@ -58,6 +68,9 @@ namespace Model.Sections
         [XmlIgnore]
         private int _instrumentIDBackup;
 
+        /// <summary>
+        /// The instrument that this measure belongs to.
+        /// </summary>
         [XmlIgnore]
         public Instrument Instrument
         {
@@ -65,6 +78,9 @@ namespace Model.Sections
             set { _instrument = value; NotifyPropertyChanged(); }
         }
 
+        /// <summary>
+        /// The ID of the staff that this measure belongs to. The staff is a property of the instrument.
+        /// </summary>
         [XmlAttribute("StaffID")]
         public int StaffID
         {
@@ -76,6 +92,9 @@ namespace Model.Sections
             }
         }
 
+        /// <summary>
+        /// The staff of the instrument where this measure is supposed to be.
+        /// </summary>
         [XmlIgnore]
         public Staff Staff
         {
@@ -83,24 +102,41 @@ namespace Model.Sections
             set { _staff = value; NotifyPropertyChanged(); }
         }
 
-
+        /// <summary>
+        /// The Note, Rest and GraceNote objects are stored in this list. To access them seperately, use Notes and Rests.
+        /// </summary>
         [XmlElement("Note", Type = typeof(Note))]
         [XmlElement("GraceNote", Type = typeof(GraceNote))]
         [XmlElement("Rest", Type = typeof(Rest))]
         public List<Symbol> Symbols { get { return _listOfSymbols; } set { _listOfSymbols = value; } }
 
+        /// <summary>
+        /// Those symbols that are of type Note.
+        /// </summary>
         [XmlIgnore]
         public List<Note> Notes { get { return _listOfSymbols.OfType<Note>().ToList(); } }
 
+        /// <summary>
+        /// This symbols that are of type Rest.
+        /// </summary>
         [XmlIgnore]
         public List<Rest> Rests { get { return _listOfSymbols.OfType<Rest>().ToList(); } }
 
+        /// <summary>
+        /// A wedge for crescendos and decrescendos. Remember to set the start and end beat.
+        /// </summary>
         [XmlElement("Wedge")]
         public Wedge Wedge { get; set; }
 
+        /// <summary>
+        /// A list of all voice-numbers that appear. Note that voice-numbers are arbitrar, i.e. the result can be 1,2,4,5.
+        /// </summary>
         [XmlIgnore]
         public List<int> Voices { get { return Symbols.Select(item => item.Voice).Distinct().ToList(); } }
 
+        /// <summary>
+        /// The previous measure, i.e. from the previous MeasureGroup the measure with the same index as this one.
+        /// </summary>
         [XmlIgnore]
         public Measure Previous
         {
@@ -112,6 +148,9 @@ namespace Model.Sections
             }
         }
 
+        /// <summary>
+        /// The next measure, i.e. from the next MeasureGroup the measure with the same index as this one.
+        /// </summary>
         [XmlIgnore]
         public Measure Next
         {
@@ -125,6 +164,10 @@ namespace Model.Sections
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// Adds a symbol and sets the symbol's ParentMeasure property to this measure.
+        /// </summary>
+        /// <param name="symbol"></param>
         public void AddSymbol(Symbol symbol)
         {
             _listOfSymbols.Add(symbol);
@@ -132,6 +175,11 @@ namespace Model.Sections
             NotifyPropertyChanged();
         }
 
+        /// <summary>
+        /// Returns a list of all symbols at the specified beat, with a 0.01 tolerance.
+        /// </summary>
+        /// <param name="beat"></param>
+        /// <returns></returns>
         public List<Symbol> GetSymbolsAt(double beat)
         {
             return Symbols.Where(item => Math.Abs(item.Beat - beat) < 0.01).ToList();

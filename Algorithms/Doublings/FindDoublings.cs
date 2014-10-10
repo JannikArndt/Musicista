@@ -24,12 +24,13 @@ namespace Algorithms.Doublings
 
             foreach (var measureGroup in piece.MeasureGroups)
             {
-                var instrument1Notes = measureGroup.Measures.First(measure => measure.Instrument == instrument1).Notes;
-                var instrument2Notes = measureGroup.Measures.First(measure => measure.Instrument == instrument2).Notes;
+                var inst1Measure = measureGroup.Measures.FirstOrDefault(measure => measure.Instrument == instrument1);
+                var inst2Measure = measureGroup.Measures.FirstOrDefault(measure => measure.Instrument == instrument2);
+                if (inst1Measure == null || inst2Measure == null) continue;
 
-                foreach (var instrument1Note in instrument1Notes)
+                foreach (var instrument1Note in inst1Measure.Notes)
                 {
-                    var instrument2Note = instrument2Notes.FirstOrDefault(note => Math.Abs(note.Beat - instrument1Note.Beat) < 0.01);
+                    var instrument2Note = inst2Measure.Notes.FirstOrDefault(note => Math.Abs(note.Beat - instrument1Note.Beat) < 0.01);
                     if (instrument2Note != null && instrument1Note.Step == instrument2Note.Step && instrument1Note.Duration == instrument2Note.Duration)
                         similarNotes.Add(instrument1Note);
                     else if (similarNotes.Count > 0)

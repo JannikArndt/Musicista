@@ -60,20 +60,7 @@ namespace Model
             InstrumentGroups = new List<InstrumentGroup>();
             Parts = new List<Part>();
             Style = new Style();
-            Sections = new List<Section> 
-                { new Section
-                {Movements = new List<Movement>
-                    {new Movement
-                        {Segments = new List<Segment>
-                            {new Segment
-                                {Passages = new List<Passage>
-                                    {new Passage{MeasureGroups = new List<MeasureGroup>()}}
-                                }
-                            }
-                        }
-                    }
-                } 
-                };
+            Sections = new List<Section>();
             CorrectParentConnections();
         }
 

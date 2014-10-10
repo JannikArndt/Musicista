@@ -162,20 +162,22 @@ M 70,131 C 74,131 76,130 79,128 C 82,126 85,123 88,121 C 91,119 95,117 96,114 C 
                 VerticalAlignment="Bottom" HorizontalAlignment="Right" Content="(?)"
                 Visibility="{Binding ElementName=TinyNotationBox, Path=Visibility}" Name="TinyNotationHelpButton"
                 Click="TinyNotationHelpButton_OnClick" />
-        <TextBlock Grid.Row="2" Grid.Column="0" Height="120" Width="300" Margin="50,10,70,60"
+        <TextBlock Grid.Row="2" Grid.Column="0" Height="120" Width="400" Margin="50,10,70,60"
                    VerticalAlignment="Bottom" HorizontalAlignment="Right" TextWrapping="Wrap" Background="LightGray"
                    Visibility="Collapsed" Name="TinyNotationHelp">
             <Run>Enter notes as TinyNotation!</Run>
             <LineBreak />
-            <Run>Notenames: a, b, c, d, e, f, g and r for rests</Run>
-            <LineBreak />
-            Accidentals: # and -
+            Pitch: a, b, c, d, e, f, g for notes, r for rests,  # and - for accidentals
             <LineBreak />
             Octaves: CCC > CC > C > c > cc > ccc
             <LineBreak />
-            Durations: 1, 2, 4, 8, 16, 32 or no number to repeat the previous duration, '.' for dotted notes
+            Durations: 1, 2, 4, 8, 16, 32, '.' for dotted notes, '3' for triplets
             <LineBreak />
-            Example: c f#8 g a4. dd-8 c2 A
+            Articulation: (p, dolce) see musicistaapp.de/application/tinynotation/
+            <LineBreak />
+            Lyrics: [Text]
+            <LineBreak />
+            Example: c f#8 g a4.(ff) dd-8 c2 A
         </TextBlock>
     </Grid>
 </Window>

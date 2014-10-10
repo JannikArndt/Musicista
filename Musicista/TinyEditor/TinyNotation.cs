@@ -201,6 +201,18 @@ namespace Musicista.TinyEditor
                     return dotted ? Duration.SixteenthDotted : Duration.Sixteenth;
                 case 32:
                     return dotted ? Duration.ThirtysecondDotted : Duration.Thirtysecond;
+                case 13:
+                    return Duration.WholeTriplet;
+                case 23:
+                    return Duration.HalfTriplet;
+                case 43:
+                    return Duration.QuarterTriplet;
+                case 83:
+                    return Duration.EigthTriplet;
+                case 163:
+                    return Duration.SixteenthTriplet;
+                case 324:
+                    return Duration.ThirtysecondTriplet;
                 default: return Duration.Quarter;
             }
         }
@@ -443,19 +455,25 @@ namespace Musicista.TinyEditor
             {
                 case Duration.Thirtysecond: return "32";
                 case Duration.ThirtysecondDotted: return "32.";
+                case Duration.ThirtysecondTriplet: return "323";
                 case Duration.Sixteenth: return "16";
                 case Duration.SixteenthDotted: return "16.";
+                case Duration.SixteenthTriplet: return "163";
                 case Duration.SixteenthDoubleDotted: return "16..";
                 case Duration.Eigth: return "8";
                 case Duration.EigthDotted: return "8.";
                 case Duration.EigthDoubleDotted: return "8..";
+                case Duration.EigthTriplet: return "83";
                 case Duration.Quarter: return "4";
                 case Duration.QuarterDotted: return "4.";
                 case Duration.QuarterDoubleDotted: return "4..";
+                case Duration.QuarterTriplet: return "43";
                 case Duration.Half: return "2";
                 case Duration.HalfDotted: return "2.";
                 case Duration.HalfDoubleDotted: return "2..";
+                case Duration.HalfTriplet: return "23";
                 case Duration.Whole: return "1";
+                case Duration.WholeTriplet: return "13";
                 default: return "";
             }
         }

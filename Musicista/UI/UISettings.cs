@@ -9,9 +9,9 @@ namespace Musicista.UI
 
         public UISettings()
         {
-            Metrics = new Metrics(width: 841, height: 1189, marginLeft: 50, marginTop: 60, marginRight: 50, marginBottom: 0, marginBelowTitle: 60,
+            Metrics = new Metrics(width: 794, height: 1122, marginLeft: 50, marginTop: 60, marginRight: 50, marginBottom: 0, marginBelowTitle: 60,
                 staffSpacing: 50, systemSpacing: 60, titleSize: 50, movementSize: 30, composerSize: 16);
-        }
+        } //794*1122   841*1189
 
         public double StaffSpacing
         {

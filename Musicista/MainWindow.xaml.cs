@@ -12,6 +12,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Printing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -65,7 +66,7 @@ namespace Musicista
             PreviewMouseWheel += Zoom;
             SetUpKeyCommands();
 
-            LoadAppilcationSettings();
+            LoadApplicationSettings();
             LoadCollectionBase();
 
             SidebarInformation = new SidebarInformation();
@@ -98,6 +99,10 @@ namespace Musicista
             }
         }
 
+        /// <summary>
+        /// Ping Google to see if the app has internet access.
+        /// </summary>
+        /// <returns></returns>
         public static bool IsConnectedToTheInternet()
         {
             try
@@ -114,6 +119,11 @@ namespace Musicista
             }
         }
 
+        /// <summary>
+        /// This method is called whenever an unhandled exception is thrown. It reports the exception to MixPanel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         static void Application_ThreadException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             if (Tracker != null)
@@ -131,7 +141,10 @@ namespace Musicista
             });
         }
 
-        private static void LoadAppilcationSettings()
+        /// <summary>
+        /// Load the RecentlyUsed.xml or create a new one if none exists.
+        /// </summary>
+        private static void LoadApplicationSettings()
         {
             if (File.Exists(ApplicationSettings.FileName))
             {
@@ -151,6 +164,9 @@ namespace Musicista
                 ApplicationSettings.Save();
         }
 
+        /// <summary>
+        /// Load the collection.xml from the musicista server or create a local one if the app is not connected to the internet.
+        /// </summary>
         private static void LoadCollectionBase()
         {
             var xmlSerializer = new XmlSerializer(typeof(CollectionBase));
@@ -160,6 +176,10 @@ namespace Musicista
                 CollectionBase = new CollectionBase();
         }
 
+        /// <summary>
+        /// Show a list of most recently used files in the given StackPanel.
+        /// </summary>
+        /// <param name="stack"></param>
         private static void ShowMostRecentlyUsed(Panel stack)
         {
             foreach (var documentReference in ApplicationSettings.MostRecentlyUsed.Take(4))
@@ -195,6 +215,11 @@ namespace Musicista
             }
         }
 
+        /// <summary>
+        /// Interpret mouse events as zooming (when alt is pressed)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void Zoom(object sender, MouseWheelEventArgs e)
         {
             if (Keyboard.Modifiers.HasFlag(ModifierKeys.Alt))
@@ -215,6 +240,9 @@ namespace Musicista
             }
         }
 
+        /// <summary>
+        /// Setup command bindings for menu items
+        /// </summary>
         public void SetUpKeyCommands()
         {
             // new
@@ -280,6 +308,11 @@ namespace Musicista
             InputBindings.Add(escInputBinding);
         }
 
+        /// <summary>
+        /// Create a new, empty piece and open it
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void New(object sender, ExecutedRoutedEventArgs e)
         {
             CurrentPiece = new Piece(true, Settings.Default.Username);
@@ -295,6 +328,11 @@ namespace Musicista
                 Tracker.Track("New Document", new Dictionary<string, object> { { "Username", Settings.Default.Username } });
         }
 
+        /// <summary>
+        /// Sive and close the current piece
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Close(object sender, ExecutedRoutedEventArgs e)
         {
             SaveFile(_fileName, CurrentPiece);
@@ -311,20 +349,33 @@ namespace Musicista
                 Tracker.Track("Close Document", new Dictionary<string, object> { { "Username", Settings.Default.Username } });
         }
 
+        /// <summary>
+        /// Print the current piece
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Print(object sender, RoutedEventArgs e)
         {
             try
             {
-                var dialog = new PrintDialog();
+                var dialog = new PrintDialog
+                {
+                    PrintTicket = { PageMediaSize = new PageMediaSize(PageMediaSizeName.ISOA4), PageBorderless = PageBorderless.Borderless }
+                };
 
                 if (dialog.ShowDialog() != true)
                     return;
                 var stackPanel = CanvasScrollViewer.Content as StackPanel;
                 if (stackPanel == null)
                     return;
-                var visual = stackPanel.Children[0] as Canvas;
-                if (visual != null)
-                    dialog.PrintVisual(visual, "Drawing");
+
+                foreach (var canvas in stackPanel.Children.OfType<UIPage>())
+                {
+                    // Arrange parent canvas
+                    //canvas.Measure(new Size(dialog.PrintableAreaWidth, dialog.PrintableAreaHeight));
+                    //canvas.Arrange(new Rect(canvas.DesiredSize));
+                    dialog.PrintVisual(canvas, CurrentPiece.Meta.Title);
+                }
 
                 if (Tracker != null)
                     Tracker.Track("Print", new Dictionary<string, object> { { "Username", Settings.Default.Username } });

@@ -6,7 +6,7 @@
              xmlns:uiControls="clr-namespace:UIControls;assembly=UIControls"
              mc:Ignorable="d" 
              d:DesignHeight="692" d:DesignWidth="900">
-    <Grid Width="840" Margin="0,20,0,0" HorizontalAlignment="Center">
+    <Grid Width="794" Margin="0,20,0,0" HorizontalAlignment="Center">
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
             <RowDefinition Height="80" />

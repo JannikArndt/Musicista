@@ -41,8 +41,18 @@ namespace Musicista.Sidebar
         {
             if (UIHelper.SelectedUISymbols.Count == 1)
             {
-                TitleTextBlock.Text = uiSymbol.ToString();
                 SidebarPanel.Children.Clear();
+
+                var titleTextBlock = new TextBlock
+                {
+                    FontSize = 20,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    Margin = new Thickness(0, 10, 0, 0),
+                    TextWrapping = TextWrapping.Wrap,
+                    TextAlignment = TextAlignment.Center,
+                    Text = uiSymbol.ToString()
+                };
+                SidebarPanel.Children.Add(titleTextBlock);
 
                 // Draw note
                 var selectedPassage = new Passage(UIHelper.SelectedUISymbols.Select(item => item.Symbol));
@@ -79,8 +89,18 @@ namespace Musicista.Sidebar
             }
             else if (UIHelper.SelectedUISymbols.Count > 1)
             {
-                TitleTextBlock.Text = "Passage";
                 SidebarPanel.Children.Clear();
+
+                var titleTextBlock = new TextBlock
+                {
+                    FontSize = 20,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    Margin = new Thickness(0, 10, 0, 0),
+                    TextWrapping = TextWrapping.Wrap,
+                    TextAlignment = TextAlignment.Center,
+                    Text = "Passage"
+                };
+                SidebarPanel.Children.Add(titleTextBlock);
 
                 // Draw notes
                 if (UIHelper.SelectedUISymbols.Count < 40)
@@ -117,8 +137,18 @@ namespace Musicista.Sidebar
         {
             if (UIHelper.SelectedUIMeasures.Count == 1)
             {
-                TitleTextBlock.Text = uiMeasure.ToString();
                 SidebarPanel.Children.Clear();
+
+                var titleTextBlock = new TextBlock
+                {
+                    FontSize = 20,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    Margin = new Thickness(0, 10, 0, 0),
+                    TextWrapping = TextWrapping.Wrap,
+                    TextAlignment = TextAlignment.Center,
+                    Text = uiMeasure.ToString()
+                };
+                SidebarPanel.Children.Add(titleTextBlock);
 
                 // Display selected passage
                 if (UIHelper.SelectedUIMeasures.Count < 10)
@@ -139,8 +169,18 @@ namespace Musicista.Sidebar
             }
             else if (UIHelper.SelectedUIMeasures.Count > 1)
             {
-                TitleTextBlock.Text = "Measures #" + UIHelper.NumbersToString(UIHelper.SelectedUIMeasures.Select(item => item.InnerMeasure.ParentMeasureGroup.MeasureNumber).ToList());
                 SidebarPanel.Children.Clear();
+
+                var titleTextBlock = new TextBlock
+                {
+                    FontSize = 20,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    Margin = new Thickness(0, 10, 0, 0),
+                    TextWrapping = TextWrapping.Wrap,
+                    TextAlignment = TextAlignment.Center,
+                    Text = "Measures #" + UIHelper.NumbersToString(UIHelper.SelectedUIMeasures.Select(item => item.InnerMeasure.ParentMeasureGroup.MeasureNumber).ToList())
+                };
+                SidebarPanel.Children.Add(titleTextBlock);
 
                 // Display selected passage
                 var selectedPassage = new Passage(UIHelper.SelectedUIMeasures.Select(item => item.InnerMeasure));
@@ -167,10 +207,19 @@ namespace Musicista.Sidebar
                 return;
             var piece = MainWindow.CurrentPiece;
 
-            TitleTextBlock.DataContext = piece.Meta;
-            TitleTextBlock.SetBinding(TextBlock.TextProperty, new Binding("Title"));
-
             SidebarPanel.Children.Clear();
+
+            var titleTextBlock = new TextBlock
+            {
+                FontSize = 20,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                Margin = new Thickness(0, 10, 0, 0),
+                TextWrapping = TextWrapping.Wrap,
+                TextAlignment = TextAlignment.Center,
+                DataContext = piece.Meta
+            };
+            titleTextBlock.SetBinding(TextBlock.TextProperty, new Binding("Title"));
+            SidebarPanel.Children.Add(titleTextBlock);
 
             var grid = new GridTable(70);
             grid.AddRowWithTextField("Title", MainWindow.CurrentPiece.Meta, "Title");

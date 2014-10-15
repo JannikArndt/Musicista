@@ -9,6 +9,11 @@ namespace Musicista
 {
     public partial class MainWindow
     {
+        /// <summary>
+        /// Called when the text inside the TinyNotationBox is changed, updates the correponding measure
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TinyNotationBox_OnTextChanged(object sender, TextChangedEventArgs e)
         {
             if (SelectedTool != ToolKind.Edit || UIHelper.SelectedUIMeasures.Count == 0 || UIHelper.SelectedUIMeasures.First() == null || !UpdateTinyNotationBox)
@@ -18,6 +23,12 @@ namespace Musicista
             measure.Symbols = TinyNotation.ParseTinyNotation(TinyNotationBox.Text, measure);
             UIHelper.SelectedUIMeasures.First().ParentUIMeasureGroup.Redraw();
         }
+
+        /// <summary>
+        /// Toggle Help button visibility
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TinyNotationHelpButton_OnClick(object sender, RoutedEventArgs e)
         {
             TinyNotationHelp.Visibility = TinyNotationHelp.Visibility == Visibility.Collapsed
@@ -25,6 +36,11 @@ namespace Musicista
                 : Visibility.Collapsed;
         }
 
+        /// <summary>
+        /// Check if the enter key is hit inside the TinyNotationBox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TinyNotationBox_OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter && UIHelper.SelectedUIMeasures.Count > 0)
@@ -46,6 +62,11 @@ namespace Musicista
             }
         }
 
+        /// <summary>
+        /// Insert closing paranthesis and brackets
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TinyNotationBox_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             var caret = TinyNotationBox.CaretIndex;

@@ -26,6 +26,11 @@ namespace Musicista
 
         #region Save
 
+        /// <summary>
+        /// Save command, automatically chooses between "Save" and "Save as" if no filename is defined.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Save(object sender, ExecutedRoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(_fileName))
@@ -34,6 +39,11 @@ namespace Musicista
                 SaveFile(_fileName, CurrentPiece);
         }
 
+        /// <summary>
+        /// Opens the "Save as" dialog to let the user choose a filename.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SaveAs(object sender, RoutedEventArgs e)
         {
             var saveFileDialog = new SaveFileDialog
@@ -50,6 +60,11 @@ namespace Musicista
             SaveFile(_fileName, CurrentPiece);
         }
 
+        /// <summary>
+        /// Serializes the given piece.
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <param name="piece"></param>
         public static void SaveFile(string filename, Piece piece)
         {
             if (String.IsNullOrEmpty(filename))
@@ -61,6 +76,11 @@ namespace Musicista
             }
         }
 
+        /// <summary>
+        /// Opens the "Save as" dialog with MusicXML as an option.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Export(object sender, RoutedEventArgs e)
         {
             var saveFileDialog = new SaveFileDialog
@@ -76,6 +96,11 @@ namespace Musicista
             ExportToMusicXML(saveFileDialog.FileName, CurrentPiece);
         }
 
+        /// <summary>
+        /// Converts a piece to a MusicXML ScorePartwise and serializes that.
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <param name="piece"></param>
         public static void ExportToMusicXML(string filename, Piece piece)
         {
             var mxmlPiece = MusicXMLMapper.MapMusicistaToMusicXML(piece);
@@ -92,6 +117,11 @@ namespace Musicista
 
         #region Open
 
+        /// <summary>
+        /// Shows the "Open" dialog for musicista, MusicXML and Midi files
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Open(object sender, RoutedEventArgs e)
         {
             var openFileDialog = new OpenFileDialog
@@ -104,6 +134,11 @@ namespace Musicista
             OpenFile(openFileDialog.FileName);
         }
 
+        /// <summary>
+        /// Opens a file (see LoadFile) and displays it.
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <param name="scoreInfo">An optional MuseScore-API-object for additional meta data</param>
         public static void OpenFile(String filename, Score scoreInfo = null)
         {
             if (!string.IsNullOrEmpty(_fileName) && CurrentPiece != null)
@@ -177,6 +212,12 @@ namespace Musicista
             }
         }
 
+        /// <summary>
+        /// Loads the file with the given filename. Can handle musicista, xml and mxl files.
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <param name="scoreInfo"></param>
+        /// <returns></returns>
         public static Piece LoadFile(string filename, Score scoreInfo)
         {
             if (!File.Exists(filename))
@@ -213,6 +254,11 @@ namespace Musicista
             }
         }
 
+        /// <summary>
+        /// Usel XSLT to convert a Timewise MusicXML piece to a Partwise piece.
+        /// </summary>
+        /// <param name="xdoc"></param>
+        /// <returns></returns>
         public static ScorePartwise ConvertTimewiseToPartwise(XDocument xdoc)
         {
             var xslCompiledTransform = new XslCompiledTransform(); // XSLT Transformation
@@ -227,6 +273,12 @@ namespace Musicista
             return (ScorePartwise)xmlSerializer.Deserialize(XmlReader.Create(stream)); // deserialize the transformed stream
         }
 
+        /// <summary>
+        /// Unzip .xml files to .xml files and stores them in the temp-folder
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <param name="scoreInfo"></param>
+        /// <returns></returns>
         public static string UnzipMXL(string filename, Score scoreInfo = null)
         {
             foreach (
@@ -247,6 +299,12 @@ namespace Musicista
             return null;
         }
 
+        /// <summary>
+        /// Load ANY MusicXML file (timewise or partwise) and look at the root, which on it is. timewise files are than tranformed.
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <param name="scoreInfo"></param>
+        /// <returns>A musicista piece</returns>
         public static Piece LoadMusicXMLFile(string filename, Score scoreInfo = null)
         {
             // based upon http://stackoverflow.com/a/23663586/1507481

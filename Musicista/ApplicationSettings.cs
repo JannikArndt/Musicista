@@ -18,6 +18,9 @@ namespace Musicista
             MostRecentlyUsed = new List<DocumentReference>();
         }
 
+        /// <summary>
+        /// Saves the MostRecentlyUsed object to RecentlyUsed.xml
+        /// </summary>
         public void Save()
         {
             var serializer = new XmlSerializer(typeof(ApplicationSettings));
@@ -27,6 +30,12 @@ namespace Musicista
             }
         }
 
+        /// <summary>
+        /// Add a file to the list of most recently used files.
+        /// </summary>
+        /// <param name="name">The title</param>
+        /// <param name="filename">The filename</param>
+        /// <param name="metaData">The piece's metadata object</param>
         public void AddToMostRecentlyUsedFiles(String name, String filename, MetaData metaData)
         {
             var document = MostRecentlyUsed.FirstOrDefault(item => item.Name == name && item.Filepath == filename);

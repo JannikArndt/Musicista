@@ -1,4 +1,5 @@
 ﻿using Model.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
@@ -50,12 +51,12 @@ namespace Musicista.UI
         {
             if (parentPage.Systems.Count == 0 || parentPage.Systems.IndexOf(this) == 0)
                 if (parentPage.Title != null)
-                    return parentPage.Settings.MarginTop + parentPage.Title.DrawnHeight + parentPage.Settings.MarginBelowTitle;
+                    return Math.Round(parentPage.Settings.Metrics.Margin.Top + parentPage.Title.DrawnHeight + parentPage.Title.DrawnHeight + parentPage.Settings.Metrics.Margin.BelowTitle);
                 else
-                    return parentPage.Settings.MarginTop;
+                    return Math.Round(parentPage.Settings.Metrics.Margin.Top);
             if (parentPage.Systems.Contains(this))
-                return parentPage.Systems[parentPage.Systems.IndexOf(this) - 1].Bottom + parentPage.Settings.SystemSpacing;
-            return parentPage.Systems.Last().Bottom + parentPage.Settings.SystemSpacing;
+                return Math.Round(parentPage.Systems[parentPage.Systems.IndexOf(this) - 1].Bottom + parentPage.Settings.SystemSpacing);
+            return Math.Round(parentPage.Systems.Last().Bottom + parentPage.Settings.SystemSpacing);
 
         }
 

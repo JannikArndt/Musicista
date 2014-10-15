@@ -7,7 +7,7 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Musicista")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A Framwork for Computational Musicology")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Jannik Arndt")]
 [assembly: AssemblyProduct("Musicista")]

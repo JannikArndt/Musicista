@@ -11,7 +11,7 @@ namespace Musicista.UI.TextElements
         {
             DataContext = ParentPage;
             SetBinding(TextProperty, "Piece.Meta.People.ComposersAsString");
-            FontSize = 16;
+            FontSize = ParentPage.Settings.Metrics.Fontsize.Composer;
 
             Canvas.SetTop(this, 150);
             Canvas.SetRight(this, 50);

@@ -16,8 +16,8 @@ namespace Musicista.UI
         {
             Settings = new UISettings();
 
-            Width = Settings.Width;
-            Height = Settings.Height;
+            Width = Settings.Metrics.Page.Width;
+            Height = Settings.Metrics.Page.Height;
             Margin = new Thickness(0, 20, 0, 0);
             VerticalAlignment = VerticalAlignment.Top;
             Background = Brushes.White;

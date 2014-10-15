@@ -167,6 +167,15 @@ namespace Musicista.Mappers
         /// <returns>The given Piece with the measures in it.</returns>
         public static Piece MapPartwiseMeasuresToPiece(ScorePartwise mxml, Piece piece)
         {
+            if (piece.Sections.Count == 0)
+                piece.Sections.Add(new Section
+                {
+                    Movements = new List<Movement> { new Movement { Segments = new List<Segment>
+                {
+                    new Segment { Passages = new List<Passage> { new Passage { MeasureGroups = new List<MeasureGroup>() } } }
+                } } }
+                });
+
             var lastClef = new List<List<Clef>>();
             for (var i = 0; i < mxml.Part.Length; i++)
             {

@@ -3,6 +3,7 @@ using Microsoft.Win32;
 using Model;
 using MuseScoreAPI.RESTObjects;
 using Musicista.Mappers;
+using Musicista.Properties;
 using Musicista.Sidebar;
 using MusicXML;
 using System;
@@ -109,15 +110,15 @@ namespace Musicista
                 SaveFile(_fileName, CurrentPiece);
 
             if (Tracker != null)
-                Tracker.Track("Open File", new Dictionary<string, object> { { "Username", Properties.Settings.Default.Username }, { "Filename", filename } });
+                Tracker.Track("Open File", new Dictionary<string, object> { { "Username", Settings.Default.Username }, { "Filename", filename } });
             try
             {
                 Mouse.OverrideCursor = Cursors.Wait;
 
-                var piece = LoadFile(filename, scoreInfo);
-                DrawPiece(piece);
+                CurrentPiece = LoadFile(filename, scoreInfo);
+                DrawCurrentPiece();
 
-                ApplicationSettings.AddToMostRecentlyUsedFiles(CurrentPiece.Meta.Title, _fileName, piece.Meta);
+                ApplicationSettings.AddToMostRecentlyUsedFiles(CurrentPiece.Meta.Title, _fileName, CurrentPiece.Meta);
                 SidebarInformation.ShowPiece();
                 UISidebar.Content = SidebarInformation;
                 SetSidebarButtonPathFill(SidebarKind.Information);
@@ -149,7 +150,26 @@ namespace Musicista
                     currentEx = currentEx.InnerException;
                 }
 
-                MessageBox.Show("Error loading musicista-file. The file might be damaged or an older version, which is not supported anymore (I'm sorry!) \n\n" + exceptionMessage, "Error");
+                MessageBox.Show(
+                    "Error loading musicista-file. The file might be damaged or an older version, which is not supported anymore (I'm sorry!) \n\n" +
+                    exceptionMessage, "Error");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error opening file \n\n" + e.Message, "Error");
+                if (Tracker != null)
+                    Tracker.Track("Crash", new Dictionary<string, object>
+            {
+                { "Username", Settings.Default.Username },
+                { "Message", e.Message },
+                { "Type", e.GetType() },
+                { "Data", e.Data },
+                { "StackTrace", e.StackTrace },
+                { "Source", e.Source },
+                { "OS", Environment.OSVersion.VersionString },
+                { "Current Piece", CurrentPiece != null ? CurrentPiece.Meta.Title : "" },
+                { "URL", CurrentPiece != null ? CurrentPiece.Meta.Weblink : "" }
+            });
             }
             finally
             {

@@ -218,7 +218,7 @@ namespace Musicista.UI
                 MainWindow.UpdateTinyNotationBox = false;
                 MainWindow.TinyNotationTextBox.Text = TinyNotation.CreateTinyNotation(InnerMeasure);
                 MainWindow.TinyNotationTextBox.Focus();
-                MainWindow.TinyNotationTextBox.CaretIndex = MainWindow.TinyNotationTextBox.Text.Length - 1;
+                MainWindow.TinyNotationTextBox.CaretIndex = Math.Max(0, MainWindow.TinyNotationTextBox.Text.Length - 1);
                 MainWindow.UpdateTinyNotationBox = true;
             }
             args.Handled = true;

@@ -63,14 +63,14 @@ namespace Musicista.UI
                             var movementTitle = new TextBlock
                             {
                                 Text = "Movement " + movement.Number + " - \"" + movement.Name + "\"",
-                                FontSize = 30,
+                                FontSize = currentPage.Settings.Metrics.Fontsize.Movement,
                                 Width = currentPage.Width - 40,
                                 HorizontalAlignment = HorizontalAlignment.Stretch,
                                 TextAlignment = TextAlignment.Center
                             };
-                            Canvas.SetTop(movementTitle, currentPage.Settings.MarginTop);
+                            Canvas.SetTop(movementTitle, currentPage.Settings.Metrics.Margin.Top);
                             currentPage.Children.Add(movementTitle);
-                            currentPage.Settings.MarginTop += 90;
+                            currentPage.Settings.Metrics.Margin.Top += 90;
                         }
 
                         if (piece.Style == null) piece.Style = new Style();
@@ -94,7 +94,7 @@ namespace Musicista.UI
                         {
                             uiSystem.ParentPage = currentPage;
 
-                            Canvas.SetLeft(uiSystem, currentPage.Settings.SystemMarginLeft);
+                            Canvas.SetLeft(uiSystem, currentPage.Settings.Metrics.Margin.Left);
                             Canvas.SetTop(uiSystem, uiSystem.CalculateTop(currentPage));
 
                             currentPage.Systems.Add(uiSystem);

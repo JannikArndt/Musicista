@@ -9,31 +9,8 @@ namespace Musicista.UI
 
         public UISettings()
         {
-            Metrics = new Metrics(841, 1189, 50, 60, 50, 0, 60, 50, 60);
-        }
-
-        public double Width
-        {
-            get { return Metrics.Page.Width; }
-            set { Metrics.Page.Width = value; }
-        }
-
-        public double Height
-        {
-            get { return Metrics.Page.Height; }
-            set { Metrics.Page.Height = value; }
-        }
-
-        public double MarginTop
-        {
-            get { return Metrics.Margin.Top; }
-            set { Metrics.Margin.Top = value; }
-        }
-
-        public double MarginBelowTitle
-        {
-            get { return Metrics.Margin.BelowTitle; }
-            set { Metrics.Margin.BelowTitle = value; }
+            Metrics = new Metrics(width: 841, height: 1189, marginLeft: 50, marginTop: 60, marginRight: 50, marginBottom: 0, marginBelowTitle: 60,
+                staffSpacing: 50, systemSpacing: 60, titleSize: 50, movementSize: 30, composerSize: 16);
         }
 
         public double StaffSpacing
@@ -64,18 +41,6 @@ namespace Musicista.UI
                     foreach (var uiSystem in uiPage.Systems)
                         Canvas.SetTop(uiSystem, uiSystem.CalculateTop(uiPage));
             }
-        }
-
-        public double SystemMarginLeft
-        {
-            get { return Metrics.Margin.Left; }
-            set { Metrics.Margin.Left = value; }
-        }
-
-        public double SystemMarginRight
-        {
-            get { return Metrics.Margin.Right; }
-            set { Metrics.Margin.Right = value; }
         }
     }
 }

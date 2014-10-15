@@ -21,8 +21,8 @@ namespace Musicista.Sidebar
         {
             TitleTextBlock.Text = "Page";
 
-            TextBoxMarginTop.DataContext = page.Settings;
-            TextBoxMarginTop.SetBinding(TextBox.TextProperty, new Binding("MarginTop"));
+            TextBoxMarginTop.DataContext = page.Settings.Metrics.Margin;
+            TextBoxMarginTop.SetBinding(TextBox.TextProperty, new Binding("Top"));
             TextBoxMarginTop.KeyDown += AdvanceFocusAndReturn;
 
             TextBoxStaffSpacing.DataContext = page.Settings;
@@ -33,15 +33,15 @@ namespace Musicista.Sidebar
             TextBoxSystemSpacing.SetBinding(TextBox.TextProperty, new Binding("SystemSpacing"));
             TextBoxSystemSpacing.KeyDown += AdvanceFocusAndReturn;
 
-            TextBoxLeftMargin.DataContext = page.Settings;
-            TextBoxLeftMargin.SetBinding(TextBox.TextProperty, new Binding("SystemMarginLeft"));
+            TextBoxLeftMargin.DataContext = page.Settings.Metrics.Margin;
+            TextBoxLeftMargin.SetBinding(TextBox.TextProperty, new Binding("Left"));
             TextBoxLeftMargin.KeyDown += AdvanceFocusAndReturn;
 
-            TextBoxRightMargin.DataContext = page.Settings;
-            TextBoxRightMargin.SetBinding(TextBox.TextProperty, new Binding("SystemMarginRight"));
+            TextBoxRightMargin.DataContext = page.Settings.Metrics.Margin;
+            TextBoxRightMargin.SetBinding(TextBox.TextProperty, new Binding("Right"));
             TextBoxRightMargin.KeyDown += AdvanceFocusAndReturn;
 
-            MeasuresPerSystemThresholdSlider.DataContext = MainWindow.CurrentPiece.Style.MetricForMovement[0];
+            MeasuresPerSystemThresholdSlider.DataContext = MainWindow.CurrentPiece.Style.MetricForMovement[0].Measures; //TODO this just applies to the first movement!
             MeasuresPerSystemThresholdSlider.SetBinding(RangeBase.ValueProperty, new Binding("MeasuresPerSystemThreshold"));
         }
 

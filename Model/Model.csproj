@@ -33,7 +33,8 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>Musicista_TemporaryKey.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
@@ -125,6 +126,7 @@
     <Compile Include="Sections\Theme.cs" />
     <Compile Include="Sections\Notes\Articulation\Wedge.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="View\Fontsize.cs" />
     <Compile Include="View\Margin.cs" />
     <Compile Include="View\MeasuresMetrics.cs" />
     <Compile Include="View\PageMetric.cs" />
@@ -137,7 +139,6 @@
     <None Include="MusicistaModel.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Musicista_TemporaryKey.pfx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

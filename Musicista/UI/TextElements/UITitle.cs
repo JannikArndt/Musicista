@@ -11,10 +11,12 @@ namespace Musicista.UI.TextElements
         {
             DataContext = ParentPage;
             SetBinding(TextProperty, "Piece.Meta.Title");
-            FontSize = 50;
+            FontSize = page.Settings.Metrics.Fontsize.Title;
             SetBinding(Canvas.TopProperty, "Settings.MarginTop");
-            Left = 20;
-            Width = ParentPage.Width - 40;
+            Left = (page.Settings.Metrics.Margin.Left + page.Settings.Metrics.Margin.Right) / 2;
+            Width = ParentPage.Width - (page.Settings.Metrics.Margin.Left + page.Settings.Metrics.Margin.Right);
+            Canvas.SetTop(this, ParentPage.Settings.Metrics.Margin.Top);
+            TextWrapping = TextWrapping.Wrap;
             HorizontalAlignment = HorizontalAlignment.Stretch;
             TextAlignment = TextAlignment.Center;
 

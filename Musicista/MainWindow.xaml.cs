@@ -283,7 +283,7 @@ namespace Musicista
         private void New(object sender, ExecutedRoutedEventArgs e)
         {
             CurrentPiece = new Piece(true, Settings.Default.Username);
-            DrawPiece(CurrentPiece);
+            DrawCurrentPiece();
             _fileName = "";
 
             SidebarInformation.ShowPiece();
@@ -335,9 +335,8 @@ namespace Musicista
             }
         }
 
-        private static void DrawPiece(Piece piece)
+        private static void DrawCurrentPiece()
         {
-            CurrentPiece = piece;
             PageList = UIHelper.DrawPiece(CurrentPiece);
 
             var pages = new StackPanel();
@@ -347,7 +346,7 @@ namespace Musicista
             UICanvasScrollViewer.Content = pages;
 
             if (Tracker != null)
-                Tracker.Track("Draw Piece", new Dictionary<string, object> { { "Username", Settings.Default.Username }, { "Piece", piece.Meta.Title } });
+                Tracker.Track("Draw Piece", new Dictionary<string, object> { { "Username", Settings.Default.Username }, { "Piece", CurrentPiece.Meta.Title } });
         }
 
         public static void ReDrawPiece()

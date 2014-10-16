@@ -10,59 +10,18 @@ using System.Text.RegularExpressions;
 
 namespace Musicista.TinyEditor
 {
+    /// <summary>
+    /// Static class to provide conversion between measures and TinyNotation (see http://www.musicistaapp.de/application/tinynotation/)
+    /// </summary>
     public static class TinyNotation
     {
-        public static Passage ParseTinyNotation(string text)
-        {
-
-            var notes = new List<Symbol>();
-            var snippets = text.Split(' ');
-            var lastDuration = Duration.Quarter;
-            var beat = 960;
-            var measureCount = 1;
-            var currentMeasure = new Measure { ParentMeasureGroup = new MeasureGroup { MeasureNumber = 1, KeySignature = new MusicalKey(Step.C, Gender.Major), TimeSignature = new TimeSignature(4, 4) }, Clef = Clef.Treble };
-            foreach (var snippet in snippets)
-            {
-                if (string.IsNullOrWhiteSpace(snippet))
-                    continue;
-                var splittingpoint = snippet.IndexOfAny("0123456789".ToCharArray());
-                splittingpoint = splittingpoint < 0 ? snippet.Length : splittingpoint;
-
-                // Pitch
-                var newNote = ParseTinyPitch(snippet.Substring(0, splittingpoint));
-                // Duration
-                newNote.Duration = ParseTinyDuration(snippet.Substring(splittingpoint)) ?? lastDuration;
-                lastDuration = newNote.Duration;
-                // Parent Measure
-                newNote.ParentMeasure = currentMeasure;
-                // Beat
-                newNote.Beat = beat / 960.0;
-                beat += (int)newNote.Duration;
-                if (beat >= 4800)
-                {
-                    currentMeasure = new Measure
-                    {
-                        ParentMeasureGroup =
-                            new MeasureGroup
-                            {
-                                MeasureNumber = ++measureCount,
-                                KeySignature = new MusicalKey(Step.C, Gender.Major),
-                                TimeSignature = new TimeSignature(4, 4)
-                            },
-                        Clef = Clef.Treble
-                    };
-                    beat = 960;
-                }
-                notes.Add(newNote);
-            }
-
-            if (notes.IsNullOrEmpty())
-                notes.Add(new Rest { Beat = 1.0, Duration = Duration.Whole, ParentMeasure = currentMeasure });
-
-            return new Passage(notes);
-        }
-
-        public static List<Symbol> ParseTinyNotation(string text, Measure measure)
+        /// <summary>
+        /// Turns a TinyNotation string into a list of Symbols, with the given Measure as their parent Measure.
+        /// </summary>
+        /// <param name="text">A string containing TinyNotation</param>
+        /// <param name="measure">The parent of the created symbols</param>
+        /// <returns>A list of symbols</returns>
+        public static List<Symbol> ParseTinyNotation(string text, Measure measure = null)
         {
 
             var notes = new List<Symbol>();
@@ -71,32 +30,46 @@ namespace Musicista.TinyEditor
             var snippets = text.Split(' ');
             var lastDuration = Duration.Quarter;
             var beat = 960;
+            var chordMode = false;
             foreach (var snippet in snippets)
             {
-                if (string.IsNullOrWhiteSpace(snippet))
-                    continue;
-                var splittingpoint = snippet.IndexOfAny("0123456789".ToCharArray());
-                splittingpoint = splittingpoint < 0 ? snippet.Length : splittingpoint;
+                switch (snippet)
+                {
+                    case "":
+                        continue;
+                    case "{":
+                        chordMode = true;
+                        break;
+                    case "}":
+                        chordMode = false;
+                        beat += (int)notes.Last().Duration;
+                        break;
+                    default:
+                        var splittingpoint = snippet.IndexOfAny("0123456789".ToCharArray());
+                        splittingpoint = splittingpoint < 0 ? snippet.Length : splittingpoint;
 
-                // Pitch
-                var newNote = ParseTinyPitch(snippet.Substring(0, splittingpoint));
-                // Duration
-                newNote.Duration = ParseTinyDuration(snippet.Substring(splittingpoint)) ?? lastDuration;
-                lastDuration = newNote.Duration;
-                // Articulation
-                if (new Regex(@"\(.*\)").IsMatch(snippet))
-                    newNote.Articulations = ParseTinyArticulation(snippet);
-                // Lyrics
-                if (new Regex(@"\[.*\]").IsMatch(snippet))
-                    newNote.Lyrics = ParseTinyLyrics(snippet.Replace("§§§", " "));
-                // Parent Measure
-                newNote.ParentMeasure = measure;
-                // Beat
-                newNote.Beat = beat / 960.0;
-                beat += (int)newNote.Duration;
-                if (beat > 4800)
-                    continue;
-                notes.Add(newNote);
+                        // Pitch
+                        var newNote = ParseTinyPitch(snippet.Substring(0, splittingpoint));
+                        // Duration
+                        newNote.Duration = ParseTinyDuration(snippet.Substring(splittingpoint)) ?? lastDuration;
+                        lastDuration = newNote.Duration;
+                        // Articulation
+                        if (new Regex(@"\(.*\)").IsMatch(snippet))
+                            newNote.Articulations = ParseTinyArticulation(snippet);
+                        // Lyrics
+                        if (new Regex(@"\[.*\]").IsMatch(snippet))
+                            newNote.Lyrics = ParseTinyLyrics(snippet.Replace("§§§", " "));
+                        // Parent Measure
+                        newNote.ParentMeasure = measure;
+                        // Beat
+                        newNote.Beat = beat / 960.0;
+                        if (!chordMode)
+                            beat += (int)newNote.Duration;
+                        if (beat > 4800)
+                            continue;
+                        notes.Add(newNote);
+                        break;
+                }
             }
 
             if (notes.IsNullOrEmpty())
@@ -105,6 +78,11 @@ namespace Musicista.TinyEditor
             return notes;
         }
 
+        /// <summary>
+        /// Grabs the [...] element from the string and turns it into a list of Lyrics
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public static List<Lyric> ParseTinyLyrics(string text)
         {
             var arguments = Regex.Match(text, @"\[.*\]").Value;
@@ -113,6 +91,11 @@ namespace Musicista.TinyEditor
             return lyrics.Select((t, line) => new Lyric { Text = t, Line = line }).ToList();
         }
 
+        /// <summary>
+        /// Grabs the (...) element from the string and turns it into an Articulation object
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public static Articulation ParseTinyArticulation(string text)
         {
             var newArticulation = new Articulation();
@@ -179,6 +162,11 @@ namespace Musicista.TinyEditor
             return newArticulation;
         }
 
+        /// <summary>
+        /// Grabs the number from the string and turns it into a Duration
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public static Duration? ParseTinyDuration(string text)
         {
             if (string.IsNullOrEmpty(text)) return null;
@@ -217,6 +205,11 @@ namespace Musicista.TinyEditor
             }
         }
 
+        /// <summary>
+        /// Grabs the first letters from the string and turns them into a Pitch
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public static Symbol ParseTinyPitch(string text)
         {
             if (text == "r" || string.IsNullOrWhiteSpace(text))
@@ -261,30 +254,61 @@ namespace Musicista.TinyEditor
 
             }
 
-            if (new Regex("A{3}|B{3}|C{3}|D{3}|E{3}|F{3}|G{3}").IsMatch(text))
+            if (new Regex("A{3}|B{3}|C{3}|D{3}|E{3}|F{3}|G{3}|H{3}").IsMatch(text))
                 newNote.Octave = 1;
-            else if (new Regex("A{2}|B{2}|C{2}|D{2}|E{2}|F{2}|G{2}").IsMatch(text))
+            else if (new Regex("A{2}|B{2}|C{2}|D{2}|E{2}|F{2}|G{2}|H{2}").IsMatch(text))
                 newNote.Octave = 2;
-            else if (new Regex("[A-G]").IsMatch(text))
+            else if (new Regex("[A-H]").IsMatch(text))
                 newNote.Octave = 3;
-            else if (new Regex("a{4}|b{4}|c{4}|d{4}|e{4}|f{4}|g{4}|[a-g]'{3}").IsMatch(text))
+            else if (new Regex("a{4}|b{4}|c{4}|d{4}|e{4}|f{4}|g{4}|h{4}|[a-h]'{3}").IsMatch(text))
                 newNote.Octave = 7;
-            else if (new Regex("a{3}|b{3}|c{3}|d{3}|e{3}|f{3}|g{3}|[a-g]'{2}").IsMatch(text))
+            else if (new Regex("a{3}|b{3}|c{3}|d{3}|e{3}|f{3}|g{3}|h{3}|[a-h]'{2}").IsMatch(text))
                 newNote.Octave = 6;
-            else if (new Regex("a{2}|b{2}|c{2}|d{2}|e{2}|f{2}|g{2}|[a-g]'").IsMatch(text))
+            else if (new Regex("a{2}|b{2}|c{2}|d{2}|e{2}|f{2}|g{2}|h{2}|[a-h]'").IsMatch(text))
                 newNote.Octave = 5;
-            else if (new Regex("[a-g]").IsMatch(text))
+            else if (new Regex("[a-h]").IsMatch(text))
                 newNote.Octave = 4;
 
             return newNote;
         }
 
+        /// <summary>
+        /// Turns a Measure into a string of TinyNotation
+        /// </summary>
+        /// <param name="measure">The original measure</param>
+        /// <returns>The TinyNotation version of the measure</returns>
         public static string CreateTinyNotation(Measure measure)
         {
             var result = "";
             var previousDuration = Duration.Quarter;
+            var chordMode = false;
+            var chordBeat = 0.0;
             foreach (var symbol in measure.Symbols)
             {
+                // chords
+                if (measure.Symbols.Count(item => Math.Abs(item.Beat - symbol.Beat) < 0.01) > 1) // if there is more than one note
+                {
+                    if (!chordMode) // Start chord mode
+                    {
+                        result += "{ ";
+                        chordMode = true;
+                        chordBeat = symbol.Beat;
+                    }
+                    else if (Math.Abs(chordBeat - symbol.Beat) > 0.01) // new chord
+                    {
+                        result += "} { ";
+                        chordBeat = symbol.Beat;
+                    }
+                }
+                else
+                {
+                    if (chordMode) // exit chord mode
+                    {
+                        result += "} ";
+                        chordMode = false;
+                    }
+                }
+
                 var duration = "";
                 if (symbol.Duration != previousDuration)
                 {
@@ -300,6 +324,11 @@ namespace Musicista.TinyEditor
             return result;
         }
 
+        /// <summary>
+        /// Turns the Articulation part of a Symbol into a TinyNotation string
+        /// </summary>
+        /// <param name="symbol"></param>
+        /// <returns></returns>
         public static string CreateTinyArticulation(Symbol symbol)
         {
             if (symbol.Articulations == null)
@@ -388,6 +417,11 @@ namespace Musicista.TinyEditor
             return "";
         }
 
+        /// <summary>
+        /// Turns the lyrics of a symbol into a TinyNotation string
+        /// </summary>
+        /// <param name="symbol"></param>
+        /// <returns></returns>
         public static string CreateTinyLyrics(Symbol symbol)
         {
             if (symbol.Lyrics.Count > 0)
@@ -395,6 +429,11 @@ namespace Musicista.TinyEditor
             return "";
         }
 
+        /// <summary>
+        /// Turns the Step of a symbol into a TinyNotation string
+        /// </summary>
+        /// <param name="note"></param>
+        /// <returns></returns>
         public static string CreateTinyStep(Note note)
         {
             // Step
@@ -449,6 +488,11 @@ namespace Musicista.TinyEditor
             return step;
         }
 
+        /// <summary>
+        /// Turns the duration of a symbol into a TinyNotation string
+        /// </summary>
+        /// <param name="symbol"></param>
+        /// <returns></returns>
         public static string CreateTinyDuration(Symbol symbol)
         {
             switch (symbol.Duration)

@@ -25,6 +25,9 @@ using Step = Model.Sections.Attributes.Step;
 
 namespace Musicista.Mappers
 {
+    /// <summary>
+    /// Mapper between MusicXML and Musicista (both ways)
+    /// </summary>
     public static partial class MusicXMLMapper
     {
         #region MusicXML to Musicista

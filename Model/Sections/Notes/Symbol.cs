@@ -5,6 +5,9 @@ using System.Xml.Serialization;
 
 namespace Model.Sections.Notes
 {
+    /// <summary>
+    /// Represents a note or a rest and provides the common properties
+    /// </summary>
     public abstract class Symbol
     {
         /// <summary>

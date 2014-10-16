@@ -7,6 +7,10 @@ using System.Xml.Serialization;
 
 namespace Model.Instruments
 {
+    /// <summary>
+    /// Represents one instrument, for example a flute, a violin or a piano. This is part of an InstrumentGroup (woodwind, strings, none) and can have multiple staves (for the piano). 
+    /// Different voices have different instruments, i.e. Flute 1 and Flute 2 are different instruments, whereas all first Violins are one Instrument.
+    /// </summary>
     public class Instrument : INotifyPropertyChanged
     {
         private string _name;

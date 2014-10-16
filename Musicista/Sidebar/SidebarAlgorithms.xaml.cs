@@ -57,6 +57,11 @@ namespace Musicista.Sidebar
         //        measureGroup.Analysis.Add(new NoteAttribute(note.Symbol.Beat, TextToAdd.Text, measureGroup));
         //}
 
+        /// <summary>
+        /// Calls the FindDoublings Algorithm
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FindDoublingsClick(object sender, RoutedEventArgs e)
         {
             try
@@ -71,6 +76,11 @@ namespace Musicista.Sidebar
 
         }
 
+        /// <summary>
+        /// Extracts the lyrics from the selected symbols
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ExtractLyricsClick(object sender, RoutedEventArgs e)
         {
             if (UIHelper.SelectedUISymbols.IsNullOrEmpty())
@@ -121,6 +131,10 @@ namespace Musicista.Sidebar
         }
 
         private StackPanel _partsStack;
+        /// <summary>
+        /// Shows the given list of parts (most likely a result from an algorithm) in the sidebar
+        /// </summary>
+        /// <param name="parts"></param>
         public void ShowParts(List<Part> parts)
         {
             if (SidebarPanel.Children.Contains(_partsStack))

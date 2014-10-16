@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace Algorithms
 {
+    /// <summary>
+    /// A general interface for Algorithms
+    /// </summary>
     public interface IMusicistaAlgorithm
     {
         object Run(Piece piece);

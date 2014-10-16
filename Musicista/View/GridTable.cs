@@ -15,6 +15,9 @@ using System.Windows.Shapes;
 
 namespace Musicista.View
 {
+    /// <summary>
+    /// A two column grid that offers custom functions for adding rows
+    /// </summary>
     public class GridTable : Grid
     {
         public readonly int LeftColumnWidth = 60;

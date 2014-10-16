@@ -5,6 +5,9 @@ using System.Xml.Serialization;
 
 namespace Model
 {
+    /// <summary>
+    /// Represents a text with a reference to a piece
+    /// </summary>
     public class Comment
     {
         [XmlAttribute("Name")]

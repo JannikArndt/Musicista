@@ -4,6 +4,9 @@ using System.Xml.Serialization;
 
 namespace Collection
 {
+    /// <summary>
+    /// Represents a category of works, i.e. a Symphony, Sonata, Opera, ...
+    /// </summary>
     public class CollectionCategory
     {
         [XmlAttribute("Name")]

@@ -2,6 +2,9 @@
 
 namespace Model.Sections.Attributes
 {
+    /// <summary>
+    /// Represents a repetition. Use description attribute for actual displaying
+    /// </summary>
     public enum Repetition
     {
         None,

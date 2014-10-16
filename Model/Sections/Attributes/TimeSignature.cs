@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 namespace Model.Sections.Attributes
 {
     /// <summary>
-    ///     3/4: Beats = 3, BeatUnit = 4
+    /// Represents a time signature (or meter), where 3/4: Beats = 3, BeatUnit = 4
     /// </summary>
     public class TimeSignature : INotifyPropertyChanged
     {

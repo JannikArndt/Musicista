@@ -2,7 +2,6 @@
 using Model;
 using Model.Sections;
 using Model.View;
-using Musicista.Exceptions;
 using Musicista.UI;
 using System;
 using System.Windows;
@@ -13,8 +12,16 @@ using System.Windows.Shapes;
 
 namespace Musicista.Sidebar
 {
+    /// <summary>
+    /// Offers methods to draw passages in the sidebar
+    /// </summary>
     public static class SidebarHelper
     {
+        /// <summary>
+        /// Displays a passage with a title, reference and delete button
+        /// </summary>
+        /// <param name="part"></param>
+        /// <param name="stackPanel"></param>
         public static void DrawPartBox(Part part, Panel stackPanel)
         {
             if (String.IsNullOrEmpty(part.Name))
@@ -67,7 +74,7 @@ namespace Musicista.Sidebar
                 {
                     UIHelper.SelectPassageInScore(part.Start, part.End);
                 }
-                catch (GUIException exception)
+                catch (Exception exception)
                 {
                     MessageBox.Show(exception.Message, "Error");
                 }
@@ -86,6 +93,11 @@ namespace Musicista.Sidebar
             stackPanel.Children.Add(preview);
         }
 
+        /// <summary>
+        /// Draws a passage onto an UISystem, with metrics fitting the sidebar
+        /// </summary>
+        /// <param name="passage"></param>
+        /// <returns></returns>
         public static UISystem DrawPassage(Passage passage)
         {
             if (passage == null) return null;
@@ -100,6 +112,13 @@ namespace Musicista.Sidebar
             return uiSystem;
         }
 
+        /// <summary>
+        /// Removes a part from the Part list
+        /// </summary>
+        /// <param name="part"></param>
+        /// <param name="partsStack"></param>
+        /// <param name="namePanel"></param>
+        /// <param name="preview"></param>
         public static void DeletePart(Part part, Panel partsStack, StackPanel namePanel, Canvas preview)
         {
             MainWindow.CurrentPiece.Parts.Remove(part);

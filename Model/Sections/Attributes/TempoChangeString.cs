@@ -2,6 +2,9 @@
 
 namespace Model.Sections.Attributes
 {
+    /// <summary>
+    /// Represents an instruction where the tempo changes
+    /// </summary>
     public enum TempoChangeString
     {
         None,

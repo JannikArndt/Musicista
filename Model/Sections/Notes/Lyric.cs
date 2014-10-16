@@ -2,6 +2,9 @@
 
 namespace Model.Sections.Notes
 {
+    /// <summary>
+    /// Represents a lyric, which consists of text, line and a Syllabic to connect it to other lyrics
+    /// </summary>
     public class Lyric
     {
         [XmlText]

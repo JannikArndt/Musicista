@@ -3,6 +3,9 @@ using System.ComponentModel;
 
 namespace Model.Sections.Attributes
 {
+    /// <summary>
+    /// Represents an instruction for a tempo
+    /// </summary>
     public enum TempoString
     {
         None,

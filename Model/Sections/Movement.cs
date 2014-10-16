@@ -4,6 +4,9 @@ using System.Xml.Serialization;
 
 namespace Model.Sections
 {
+    /// <summary>
+    /// Represents a movement of a piece. This can also be used for numbers in an opera.
+    /// </summary>
     public class Movement
     {
         [XmlAttribute("Name")]

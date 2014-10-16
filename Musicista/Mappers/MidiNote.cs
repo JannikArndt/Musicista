@@ -1,9 +1,11 @@
 using Midi.Events.ChannelEvents;
-using Model;
 using Model.Sections.Notes;
 
 namespace Musicista.Mappers
 {
+    /// <summary>
+    /// Provides an interim model for Musicista notes with a DeltaTime. This is used for Midi to Musicista conversion.
+    /// </summary>
     public class MidiNote
     {
         public Note Note { get; set; }

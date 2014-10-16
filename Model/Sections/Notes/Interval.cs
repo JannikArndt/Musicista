@@ -1,6 +1,9 @@
 ﻿
 namespace Model.Sections.Notes
 {
+    /// <summary>
+    /// Represents an interval between two notes
+    /// </summary>
     public enum Interval
     {
         PerfectUnison = 0,

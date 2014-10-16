@@ -15,8 +15,16 @@ using Step = Model.Sections.Attributes.Step;
 
 namespace Musicista.Mappers
 {
+    /// <summary>
+    /// Mapper between MusicXML and Musicista (both ways)
+    /// </summary>
     public static partial class MusicXMLMapper
     {
+        /// <summary>
+        /// Maps a Musicista piece to a MusicXML partwise score for export.
+        /// </summary>
+        /// <param name="piece"></param>
+        /// <returns></returns>
         public static ScorePartwise MapMusicistaToMusicXML(Piece piece)
         {
             // Initialization and Metadata
@@ -121,7 +129,12 @@ namespace Musicista.Mappers
         }
 
         private static double _lastBeat;
-
+        /// <summary>
+        /// Converts a Musicista symbol into a MusicXML note
+        /// </summary>
+        /// <param name="symbol"></param>
+        /// <param name="measure"></param>
+        /// <returns></returns>
         public static Note GetMXMLNoteFromMusicistaSymbol(Symbol symbol, Measure measure)
         {
             var note = new Note
@@ -148,6 +161,11 @@ namespace Musicista.Mappers
             return note;
         }
 
+        /// <summary>
+        /// Extracts the MusicXML Pitch from a Musicista note
+        /// </summary>
+        /// <param name="note"></param>
+        /// <returns></returns>
         public static Pitch GetPitchFromMusicistaNote(Model.Sections.Notes.Note note)
         {
             var c = CultureInfo.InvariantCulture;

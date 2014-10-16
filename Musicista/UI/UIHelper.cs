@@ -1,7 +1,6 @@
 ﻿using Model;
 using Model.Sections;
 using Model.View;
-using Musicista.Exceptions;
 using Musicista.UI.MeasureElements;
 using Musicista.UI.TextElements;
 using System;
@@ -15,6 +14,9 @@ using Style = Model.View.Style;
 
 namespace Musicista.UI
 {
+    /// <summary>
+    /// Static class that handles displaying the notation.
+    /// </summary>
     public static class UIHelper
     {
         private static List<UIMeasure> _selectedUIMeasures = new List<UIMeasure>();
@@ -263,7 +265,7 @@ namespace Musicista.UI
             var next = firstNote;
 
             if (lastNote == null)
-                throw new GUIException("Could not find note in score. Passages may only cover one voice!");
+                throw new Exception("Could not find note in score. Passages may only cover one voice!");
 
             while (next != null && !Equals(next, lastNote))
             {

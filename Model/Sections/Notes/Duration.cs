@@ -1,5 +1,8 @@
 ﻿namespace Model.Sections.Notes
 {
+    /// <summary>
+    /// Represents the duration of a symbol
+    /// </summary>
     public enum Duration
     {
         Unknown = 0,

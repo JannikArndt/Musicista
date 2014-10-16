@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 namespace Musicista
 {
+    /// <summary>
+    /// This package offers a connection to the MuseScore.com REST API
+    /// </summary>
     public static class MuseScoreAPI
     {
         public static RestClient Client;
@@ -14,6 +17,11 @@ namespace Musicista
             Client = new RestClient("http://api.musescore.com/services/rest");
         }
 
+        /// <summary>
+        /// Searches the musescore.com REST API for Scores and returns a list of the results
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         public static List<Score> Search(String query)
         {
             var request = new RestRequest("score.xml", Method.GET);

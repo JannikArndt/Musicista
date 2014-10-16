@@ -3,6 +3,9 @@ using System;
 
 namespace Model.Sections.Attributes
 {
+    /// <summary>
+    /// Represents a note name, i.e. C, CSharp, CFlat, ...
+    /// </summary>
     public enum Step
     {
         C,
@@ -29,8 +32,16 @@ namespace Model.Sections.Attributes
         Unknown
     }
 
+    /// <summary>
+    /// Converts Step into another representation
+    /// </summary>
     public static class StepExtensions
     {
+        /// <summary>
+        /// Turns Step into StepForSums, which only has the sharp-variant and can therefore be used for interval calculations
+        /// </summary>
+        /// <param name="step"></param>
+        /// <returns></returns>
         public static StepForSums ToStepForSums(this Step step)
         {
             if (step == Step.C || step == Step.D || step == Step.E || step == Step.F || step == Step.G || step == Step.A || step == Step.B
@@ -61,6 +72,11 @@ namespace Model.Sections.Attributes
             return StepForSums.Unknown;
         }
 
+        /// <summary>
+        /// Turns the Step into the position on the position in the circle of fifths
+        /// </summary>
+        /// <param name="step"></param>
+        /// <returns></returns>
         public static int ToFifths(this Step step)
         {
             switch (step)
@@ -89,6 +105,9 @@ namespace Model.Sections.Attributes
         }
     }
 
+    /// <summary>
+    /// An alternative representation where only sharps exist. This can be used for interval calculations
+    /// </summary>
     public enum StepForSums
     {
         C = 1,

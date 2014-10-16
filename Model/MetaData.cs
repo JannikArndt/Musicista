@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 namespace Model
 {
     /// <summary>
-    /// This class contains the title, people, etc.
+    /// This class contains all meta data such as title, people, dates, etc.
     /// </summary>
     public class MetaData
     {

@@ -6,6 +6,9 @@ using System.Xml.Serialization;
 
 namespace Model.Sections
 {
+    /// <summary>
+    /// Represents a musical unit such as exposition of first theme, or modulation, or verse
+    /// </summary>
     public class Passage
     {
         [XmlAttribute("Name")]

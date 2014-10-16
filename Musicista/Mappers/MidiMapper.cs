@@ -12,8 +12,16 @@ using System.Linq;
 
 namespace Musicista.Mappers
 {
+    /// <summary>
+    /// Static class to convert a MidiData object (see package Midi) into a Musicista piece
+    /// </summary>
     public static class MidiMapper
     {
+        /// <summary>
+        /// Maps the MidiData object to a Musicista piece
+        /// </summary>
+        /// <param name="midi"></param>
+        /// <returns></returns>
         public static Piece MapMidiToPiece(MidiData midi)
         {
             var piece = new Piece(initialize: true);
@@ -92,6 +100,12 @@ namespace Musicista.Mappers
             return piece;
         }
 
+        /// <summary>
+        /// Converts a given delta time into a Duration object, according to the given division
+        /// </summary>
+        /// <param name="time"></param>
+        /// <param name="division"></param>
+        /// <returns></returns>
         private static Duration ConvertDeltaTimeToDuration(int time, int division)
         {
             // 1. Normalize division to 960
@@ -102,6 +116,9 @@ namespace Musicista.Mappers
             return MapDeltaTimeToDuration.First(kvp => kvp.Key(time)).Value;
         }
 
+        /// <summary>
+        /// Maps midi steps (0 to 11) to Step objects (C, CSharp, ...)
+        /// </summary>
         public static Dictionary<int, Step> MapMidiStepsToPitch = new Dictionary<int, Step>
                 { 
                     { 0, Step.C },
@@ -118,6 +135,9 @@ namespace Musicista.Mappers
                     { 11, Step.B }
                 };
 
+        /// <summary>
+        /// Maps delta times to Duration objects, with a tolerance.
+        /// </summary>
         public static Dictionary<Func<int, bool>, Duration> MapDeltaTimeToDuration = new Dictionary<Func<int, bool>, Duration>
                 { 
                     { x => x < 150,                Duration.Sixtyforth},          // = 120

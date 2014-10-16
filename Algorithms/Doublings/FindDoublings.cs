@@ -8,8 +8,18 @@ using System.Linq;
 
 namespace Algorithms.Doublings
 {
+    /// <summary>
+    /// An algorithm class that finds doublings in two given instruments
+    /// </summary>
     public static class FindDoublings
     {
+        /// <summary>
+        /// The FindDoublings algorithm, which compares two instruments and searches for passages where they play the same notes.
+        /// </summary>
+        /// <param name="piece">The piece to analyze</param>
+        /// <param name="instrument1">The first instrument</param>
+        /// <param name="instrument2">The second instrument</param>
+        /// <returns>A list of parts that reference the passages that are doubled</returns>
         public static List<Part> Run(Piece piece, Instrument instrument1, Instrument instrument2)
         {
             if (piece == null)

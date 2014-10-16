@@ -4,6 +4,9 @@ using System.Xml.Serialization;
 
 namespace Collection
 {
+    /// <summary>
+    /// Represents a composer in a collection. A composer has works in various categories.
+    /// </summary>
     public class CollectionComposer
     {
         [XmlAttribute("Name")]

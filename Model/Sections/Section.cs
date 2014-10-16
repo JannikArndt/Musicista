@@ -3,6 +3,9 @@ using System.Xml.Serialization;
 
 namespace Model.Sections
 {
+    /// <summary>
+    /// Represents the largest logic unit of a piece, i.e. an Act in an opera or an Abteilung in a symphony
+    /// </summary>
     public class Section
     {
         [XmlAttribute("Name")]

@@ -26,6 +26,9 @@ using System.Linq;
 
 namespace Midi
 {
+    /// <summary>
+    /// Represents a Midi event which consists of a HeaderChunk and a list of TrackChunks
+    /// </summary>
     public class MidiData
     {
         public readonly HeaderChunk Header;

@@ -5,6 +5,9 @@ using System.Xml.Serialization;
 
 namespace Model
 {
+    /// <summary>
+    /// Represents a Passage with a reference to the original occurance
+    /// </summary>
     public class Part
     {
         [XmlAttribute("Name")]

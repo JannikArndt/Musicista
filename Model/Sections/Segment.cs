@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 namespace Model.Sections
 {
     /// <summary>
-    /// Andante, Presto, Trio, ...
+    /// Represents the largest logical unit in a Movement, i.e. Exposition, Development, Reprise, Coda or Andante, Presto, Trio, ... or an aria or tutti segment
     /// </summary>
     public class Segment
     {

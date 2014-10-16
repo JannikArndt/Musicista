@@ -10,6 +10,9 @@ using System.Xml.Serialization;
 
 namespace Model.Sections
 {
+    /// <summary>
+    /// Represents a measure whcih is placed inside a MeasureGroup and linked to an Instrument
+    /// </summary>
     public class Measure : INotifyPropertyChanged
     {
         [XmlIgnore]

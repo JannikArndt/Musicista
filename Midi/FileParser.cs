@@ -33,6 +33,9 @@ using System.Text;
 
 namespace Midi
 {
+    /// <summary>
+    /// This parser turns a string of binary Midi data into a list of MidiData objects
+    /// </summary>
     public class FileParser
     {
         private static readonly UTF7Encoding StringEncoder = new UTF7Encoding();

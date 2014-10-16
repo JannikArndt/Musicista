@@ -2,6 +2,9 @@
 
 namespace Musicista.UI
 {
+    /// <summary>
+    /// Static class to provide the path markup for symbols (note heads, keys, clefs, ...)
+    /// </summary>
     public static class Engraving
     {
         // Note Height: 130

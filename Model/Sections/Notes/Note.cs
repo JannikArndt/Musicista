@@ -5,6 +5,9 @@ using System.Xml.Serialization;
 
 namespace Model.Sections.Notes
 {
+    /// <summary>
+    /// Represents a note, which is derived from the symbol class
+    /// </summary>
     public class Note : Symbol
     {
         /// <summary>

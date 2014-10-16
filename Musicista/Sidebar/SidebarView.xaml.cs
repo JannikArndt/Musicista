@@ -17,6 +17,10 @@ namespace Musicista.Sidebar
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Sets up the binding of textfields to the UIPage.Settings
+        /// </summary>
+        /// <param name="page"></param>
         public void ShowPageSettings(UIPage page)
         {
             TitleTextBlock.Text = "Page";
@@ -45,6 +49,11 @@ namespace Musicista.Sidebar
             MeasuresPerSystemThresholdSlider.SetBinding(RangeBase.ValueProperty, new Binding("MeasuresPerSystemThreshold"));
         }
 
+        /// <summary>
+        /// Advances the focus and returns, thus updating the bound property
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         private static void AdvanceFocusAndReturn(object sender, KeyEventArgs args)
         {
             if (args.Key != Key.Return) return;
@@ -55,6 +64,11 @@ namespace Musicista.Sidebar
             textBox.Focus();
         }
 
+        /// <summary>
+        /// Redraws the piece
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonRedrawClick(object sender, RoutedEventArgs e)
         {
             MainWindow.PageList = UIHelper.DrawPiece(MainWindow.CurrentPiece, true);

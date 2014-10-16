@@ -3,6 +3,9 @@ using System.Xml.Serialization;
 
 namespace Model.Sections
 {
+    /// <summary>
+    /// Represents a bar line with different styles, locations and an optional fermata
+    /// </summary>
     public class Barline
     {
         [XmlAttribute("Location")]

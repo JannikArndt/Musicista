@@ -6,6 +6,9 @@ using System.Xml.Serialization;
 
 namespace Model.Instruments
 {
+    /// <summary>
+    /// Represents a group of Instruments, i.e. woodwinds or strings.
+    /// </summary>
     public class InstrumentGroup : INotifyPropertyChanged
     {
         private string _name;

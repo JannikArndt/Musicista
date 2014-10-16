@@ -1,6 +1,9 @@
 ﻿
 namespace Model.Sections.Notes
 {
+    /// <summary>
+    /// Represents a clef
+    /// </summary>
     public enum Clef
     {
         Treble = 0,

@@ -4,6 +4,9 @@ using System.Windows.Media;
 
 namespace Musicista.Sidebar
 {
+    /// <summary>
+    /// Represents a TextBox whose background is only visible if it has focus
+    /// </summary>
     public class EditableTextBox : TextBox
     {
         public EditableTextBox()

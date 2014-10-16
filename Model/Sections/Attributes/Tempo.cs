@@ -6,6 +6,9 @@ using System.Xml.Serialization;
 
 namespace Model.Sections.Attributes
 {
+    /// <summary>
+    /// Represens a tempo (change), which can be a TempoString (enum), TempoChangeString (enum), free text and a BPM
+    /// </summary>
     public class Tempo
     {
         [XmlIgnore]
@@ -45,6 +48,11 @@ namespace Model.Sections.Attributes
         {
         }
 
+        /// <summary>
+        /// Turns a string into a tempo representation
+        /// </summary>
+        /// <param name="tempoString"></param>
+        /// <returns></returns>
         public bool Parse(string tempoString)
         {
             if (tempoString == null) return false;

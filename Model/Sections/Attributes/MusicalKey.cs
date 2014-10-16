@@ -6,6 +6,9 @@ using System.Xml.Serialization;
 
 namespace Model.Sections.Attributes
 {
+    /// <summary>
+    /// Represents the musical key, i.e. a Step and a Gender
+    /// </summary>
     public class MusicalKey : INotifyPropertyChanged
     {
         [XmlIgnore]

@@ -8,6 +8,9 @@ using System.Xml.Serialization;
 
 namespace Musicista
 {
+    /// <summary>
+    /// The class that handles most recently used files
+    /// </summary>
     public class ApplicationSettings
     {
         public String FileName = "RecentlyUsed.xml";

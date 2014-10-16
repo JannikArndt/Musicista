@@ -10,6 +10,9 @@ using System.Xml.Serialization;
 
 namespace Model.Sections
 {
+    /// <summary>
+    /// Represents a group of measures that appear at the same time in the same system, but in different instruments (or different hands)
+    /// </summary>
     public class MeasureGroup : INotifyPropertyChanged
     {
         [XmlIgnore]
@@ -27,6 +30,9 @@ namespace Model.Sections
         [XmlIgnore]
         private List<Barline> _barlines = new List<Barline>();
 
+        /// <summary>
+        /// Initializes the MeasureGroup
+        /// </summary>
         public MeasureGroup()
         {
             Measures = new List<Measure>();
@@ -135,7 +141,7 @@ namespace Model.Sections
         }
 
         /// <summary>
-        /// The next measure grouo. If this is the last in the passage, this will return the first measure group of the next passage.
+        /// The next measure group. If this is the last in the passage, this will return the first measure group of the next passage.
         /// </summary>
         [XmlIgnore]
         public MeasureGroup Next

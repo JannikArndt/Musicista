@@ -5,6 +5,9 @@ using System.Xml.Serialization;
 
 namespace Collection
 {
+    /// <summary>
+    /// The root of the Collection model. This has various composers which have categories with various works.
+    /// </summary>
     [XmlRoot("Collection")]
     public class CollectionBase
     {

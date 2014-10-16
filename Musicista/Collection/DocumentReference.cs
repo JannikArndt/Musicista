@@ -3,6 +3,9 @@ using System;
 
 namespace Musicista.Collection
 {
+    /// <summary>
+    /// Logical structure to store a reference to a file with additional meta data
+    /// </summary>
     [Serializable]
     public class DocumentReference
     {

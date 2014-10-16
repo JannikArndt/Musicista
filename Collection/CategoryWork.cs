@@ -3,6 +3,9 @@ using System.Xml.Serialization;
 
 namespace Collection
 {
+    /// <summary>
+    /// A container for a works name, opus, filepath and meta data
+    /// </summary>
     public class CategoryWork
     {
         [XmlAttribute("Name")]

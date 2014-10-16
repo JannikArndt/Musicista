@@ -25,6 +25,10 @@ namespace Musicista.Sidebar
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Called when any element is clicked, decides from the object whter to show the symbol or the measure.
+        /// </summary>
+        /// <param name="uiObject"></param>
         public void ShowUIElement(object uiObject)
         {
             if (uiObject is TextBlock)
@@ -37,6 +41,10 @@ namespace Musicista.Sidebar
                 ShowSymbol(uiSymbol);
         }
 
+        /// <summary>
+        /// Sidebar view for one or multiple symbols
+        /// </summary>
+        /// <param name="uiSymbol"></param>
         private void ShowSymbol(UISymbol uiSymbol)
         {
             if (UIHelper.SelectedUISymbols.Count == 1)
@@ -124,6 +132,11 @@ namespace Musicista.Sidebar
             }
         }
 
+        /// <summary>
+        /// Adds the currently selected symbols as a passage to w new part and adds that to the Parts list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="routedEventArgs"></param>
         public void AddToThemes(object sender, RoutedEventArgs routedEventArgs)
         {
             var part = new Part(new Passage(UIHelper.SelectedUISymbols.Select(item => item.Symbol)), UIHelper.SelectedUISymbols.First().Symbol.ParentMeasure.ParentMeasureGroup.ParentPassage.ParentSegment.ParentMovement);
@@ -133,6 +146,10 @@ namespace Musicista.Sidebar
                 SidebarHelper.DrawPartBox(part, _partsStack);
         }
 
+        /// <summary>
+        /// Show the sidebar view for one or multiple measures
+        /// </summary>
+        /// <param name="uiMeasure"></param>
         private void ShowMeasure(UIMeasure uiMeasure)
         {
             if (UIHelper.SelectedUIMeasures.Count == 1)
@@ -201,6 +218,9 @@ namespace Musicista.Sidebar
             }
         }
 
+        /// <summary>
+        /// Shows the sidebar view for a piece
+        /// </summary>
         public void ShowPiece()
         {
             if (MainWindow.CurrentPiece == null)
@@ -269,6 +289,9 @@ namespace Musicista.Sidebar
             ShowParts();
         }
 
+        /// <summary>
+        /// Shows the list of parts
+        /// </summary>
         private StackPanel _partsStack;
         public void ShowParts()
         {

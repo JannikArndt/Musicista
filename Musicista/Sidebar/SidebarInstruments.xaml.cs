@@ -23,6 +23,11 @@ namespace Musicista.Sidebar
                 SidebarPanel.Children.Add(DrawInstrumentGroup(instrumentGroup));
         }
 
+        /// <summary>
+        /// Creates a grid for an InstrumentGroup
+        /// </summary>
+        /// <param name="instrumentGroup"></param>
+        /// <returns></returns>
         private static Grid DrawInstrumentGroup(InstrumentGroup instrumentGroup)
         {
             var groupGrid = new Grid();
@@ -108,6 +113,11 @@ namespace Musicista.Sidebar
             return groupGrid;
         }
 
+        /// <summary>
+        /// Creats a Grid for an Instrument
+        /// </summary>
+        /// <param name="instrument"></param>
+        /// <returns></returns>
         private static Grid DrawInstrumentGrid(Instrument instrument)
         {
             var instrumentGrid = new Grid();
@@ -224,6 +234,11 @@ namespace Musicista.Sidebar
             return instrumentGrid;
         }
 
+        /// <summary>
+        /// Navigates back to the Information sidebar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GoBackClick(object sender, RoutedEventArgs e)
         {
             MainWindow.UISidebar.Content = MainWindow.SidebarInformation;

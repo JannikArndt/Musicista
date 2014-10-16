@@ -19,6 +19,9 @@ using Duration = Model.Sections.Notes.Duration;
 
 namespace Musicista.UI
 {
+    /// <summary>
+    /// The view-model version of a Measure. Stores UINotes, Lines and Beams.
+    /// </summary>
     public class UIMeasure : Canvas
     {
         public readonly Measure InnerMeasure = new Measure();
@@ -161,6 +164,11 @@ namespace Musicista.UI
             CorrectTextVerticalAlignment();
         }
 
+        /// <summary>
+        /// Click handler for measures. This is only called if the selection mode is set to measures. It colors the measure(s) and adds it to the list in the UIHelper class.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         private void ClickToSelectMeasures(object sender, MouseButtonEventArgs args)
         {
             if (Keyboard.Modifiers.HasFlag(ModifierKeys.Control))
@@ -231,6 +239,9 @@ namespace Musicista.UI
                 MainWindow.SidebarInformation.ShowUIElement(sender);
         }
 
+        /// <summary>
+        /// The next UIMeasure object, i.e. in the next UIMeasureGroup the UIMeasure with the same index.
+        /// </summary>
         public UIMeasure NextUIMeasure
         {
             get
@@ -243,6 +254,9 @@ namespace Musicista.UI
             }
         }
 
+        /// <summary>
+        /// The previous UIMeasure object, i.e. in the previous UIMeasureGroup the UIMeasure with the same index.
+        /// </summary>
         public UIMeasure PreviousUIMeasure
         {
             get
@@ -255,6 +269,10 @@ namespace Musicista.UI
             }
         }
 
+        /// <summary>
+        /// Returns "Measure # ..."
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             if (InnerMeasure.ParentMeasureGroup != null)
@@ -262,6 +280,9 @@ namespace Musicista.UI
             return "Measure";
         }
 
+        /// <summary>
+        /// Analyzes the notes in the NotYetConnectedNotes list and connects eighths and sixteenths with beams.
+        /// </summary>
         public void ConnectNotes()
         {
             var onlyEights = NotYetConnectedNotes.All(item => item.Note.Duration == Duration.Eigth);
@@ -424,6 +445,9 @@ namespace Musicista.UI
             StemDirectionIsSetForGroup = false;
         }
 
+        /// <summary>
+        /// Takes groups of beamed notes and ajusts their stem lenghts to create a nice beaming.
+        /// </summary>
         internal void BalanceStems()
         {
             // Find extreme distances between outer notes
@@ -492,6 +516,12 @@ namespace Musicista.UI
 
         }
 
+        /// <summary>
+        /// Calculate wheter a list of comparable objects is monotonic.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <returns></returns>
         private static bool IsMonotonic<T>(List<T> list) where T : IComparable
         {
             var increasing = list.Zip(list.Skip(1), (a, b) => a.CompareTo(b) <= 0).All(b => b);
@@ -500,6 +530,9 @@ namespace Musicista.UI
             return increasing || decreasing;
         }
 
+        /// <summary>
+        /// Connect tuplets (triplets) with a line and a number
+        /// </summary>
         internal void ConnectTuplets()
         {
             var firstNote = Tuplets.OfType<UINote>().First();
@@ -543,6 +576,9 @@ namespace Musicista.UI
             Children.Add(number);
         }
 
+        /// <summary>
+        /// Get the lowest coordinate from all note heads and stems.
+        /// </summary>
         public double LowestPoint
         {
             get
@@ -555,6 +591,9 @@ namespace Musicista.UI
             }
         }
 
+        /// <summary>
+        /// Correct all Lyrics to be placed below the lowest point.
+        /// </summary>
         public void CorrectTextVerticalAlignment()
         {
             var lowest = LowestPoint;

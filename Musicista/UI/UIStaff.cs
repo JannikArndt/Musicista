@@ -8,6 +8,9 @@ using System.Windows.Shapes;
 
 namespace Musicista.UI
 {
+    /// <summary>
+    /// A UI class for staves. This contains lines and UIMeasures
+    /// </summary>
     public class UIStaff : Canvas
     {
         public Line Line1 { get; set; }
@@ -46,6 +49,10 @@ namespace Musicista.UI
             Children.Add(Line5);
         }
 
+        /// <summary>
+        /// Calculates where this staff sould be places by looking at the UISystem and its contents.
+        /// </summary>
+        /// <returns></returns>
         public double CalculateStaffTop()
         {
             if (ParentSystem.Staves.Contains(this))

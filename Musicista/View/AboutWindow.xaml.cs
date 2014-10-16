@@ -17,6 +17,10 @@ namespace Musicista.View
             VersionTextBlock.Text = "Version " + GetPublishedVersion();
         }
 
+        /// <summary>
+        /// Load the manifest end extract the version number
+        /// </summary>
+        /// <returns></returns>
         public static Version GetPublishedVersion()
         {
             var xmlDoc = new XmlDocument();
@@ -32,6 +36,11 @@ namespace Musicista.View
             return new Version(retval);
         }
 
+        /// <summary>
+        /// Open the browser with the given link
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
             Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));

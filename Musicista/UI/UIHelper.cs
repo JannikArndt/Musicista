@@ -37,6 +37,13 @@ namespace Musicista.UI
             get { return _selectedUISymbols; }
             set { _selectedUISymbols = value; }
         }
+
+        /// <summary>
+        /// Creates a list of UIPage objects from a piece
+        /// </summary>
+        /// <param name="piece">A musicista piece</param>
+        /// <param name="resetMeasuresPerSystem">Wheter the grouping of measures should be re-calculated</param>
+        /// <returns>A list of UIPage objects</returns>
         public static List<UIPage> DrawPiece(Piece piece, bool resetMeasuresPerSystem = false)
         {
             var currentPage = new UIPage { Piece = piece };
@@ -97,7 +104,7 @@ namespace Musicista.UI
                             Canvas.SetLeft(uiSystem, currentPage.Settings.Metrics.Margin.Left);
                             Canvas.SetTop(uiSystem, uiSystem.CalculateTop(currentPage));
 
-                            currentPage.Systems.Add(uiSystem);
+                            currentPage.UISystems.Add(uiSystem);
                             currentPage.Children.Add(uiSystem);
 
                             // Page break if page is full
@@ -112,6 +119,12 @@ namespace Musicista.UI
             return pageList;
         }
 
+        /// <summary>
+        /// Turns a movement object into a List of UISystems
+        /// </summary>
+        /// <param name="movement"></param>
+        /// <param name="metrics"></param>
+        /// <returns></returns>
         public static List<UISystem> DrawMovement(Movement movement, Metrics metrics)
         {
             var systemNumber = 0;
@@ -143,6 +156,12 @@ namespace Musicista.UI
             return uiSystems;
         }
 
+        /// <summary>
+        /// Analyzes the notes in all measures and determines how many measuregroups belong into each system. See http://www.musicistaapp.de/automatic-system-break/
+        /// </summary>
+        /// <param name="movement"></param>
+        /// <param name="threshold"></param>
+        /// <returns></returns>
         public static List<int> CalculateMeasuresPerSystem(Movement movement, int threshold)
         {
             // 1. Step: calculate the fill-degree of each measureGroup (determined by its "fullest" measure). 
@@ -191,7 +210,7 @@ namespace Musicista.UI
         }
 
         /// <summary>
-        ///     Converts a list of int to a string while concatenating adjecent number, like so: "1, 3-4, 6"
+        /// Converts a list of int to a string while concatenating adjecent number, like so: "1, 3-4, 6"
         /// </summary>
         /// <param name="numbers"></param>
         /// <returns></returns>
@@ -230,8 +249,8 @@ namespace Musicista.UI
         }
 
         /// <summary>
-        ///     Finds the given start- and end-NoteReferences, sets their background-color
-        ///     (and that of all the symbols in between) to blue and adds them to the SelectedUISymbols-list.
+        /// Finds the given start- and end-NoteReferences, sets their background-color
+        /// (and that of all the symbols in between) to blue and adds them to the SelectedUISymbols-list.
         /// </summary>
         /// <param name="start">The first note to be selected</param>
         /// <param name="end">The last note to be selected</param>
@@ -263,7 +282,7 @@ namespace Musicista.UI
         /// <returns></returns>
         public static UISymbol FindUISymbol(NoteReference note)
         {
-            return MainWindow.PageList.SelectMany(page => page.Systems.SelectMany(system => system.UIMeasureGroups))
+            return MainWindow.PageList.SelectMany(page => page.UISystems.SelectMany(system => system.UIMeasureGroups))
                 .Where(uiMeasureGroup => uiMeasureGroup.InnerMeasureGroup.MeasureNumber == note.MeasureNumber)
                 .SelectMany(uiMeasureGroup => uiMeasureGroup.UIMeasures[note.StaffNumber].Symbols)
                 .FirstOrDefault(uiSymbol => Math.Abs(uiSymbol.Symbol.Beat - note.Beat) < 0.01);

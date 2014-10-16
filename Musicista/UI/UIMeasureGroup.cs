@@ -16,6 +16,9 @@ using Duration = Model.Sections.Notes.Duration;
 
 namespace Musicista.UI
 {
+    /// <summary>
+    /// The view-model version of a MeasureGroup.
+    /// </summary>
     public class UIMeasureGroup : Canvas
     {
         public readonly MeasureGroup InnerMeasureGroup = new MeasureGroup();
@@ -68,7 +71,7 @@ namespace Musicista.UI
             Background = Brushes.Transparent;
 
             SetTop(this, 0);
-            SetLeft(this, PreviousUIMeasureGroupInSystem != null ? PreviousUIMeasureGroupInSystem.Right : 0);
+            SetLeft(this, !IsFirstInUISystem ? PreviousUIMeasureGroup.Right : 0);
 
             SetBinding(WidthProperty,
                 new Binding
@@ -112,6 +115,10 @@ namespace Musicista.UI
             Draw();
         }
 
+        /// <summary>
+        /// Draws the tempo text
+        /// </summary>
+        /// <param name="tempo"></param>
         private void DrawTempo(Tempo tempo)
         {
             var textBlock = new TextBlock
@@ -136,6 +143,10 @@ namespace Musicista.UI
             Children.Add(textBlock);
         }
 
+        /// <summary>
+        /// Draws a repetition sign
+        /// </summary>
+        /// <param name="repetition"></param>
         private void DrawRepetition(Repetition repetition)
         {
             TextBlock textBlock;
@@ -181,6 +192,10 @@ namespace Musicista.UI
 
         }
 
+        /// <summary>
+        /// Draws the rehearsal mark
+        /// </summary>
+        /// <param name="text"></param>
         private void DrawRehearsalMark(string text)
         {
             var border = new Border
@@ -215,11 +230,17 @@ namespace Musicista.UI
             Children.Add(border);
         }
 
+        /// <summary>
+        /// Left + Width, readonly
+        /// </summary>
         public double Right
         {
             get { return GetLeft(this) + Width; }
         }
 
+        /// <summary>
+        /// Returns the next UIMeasureGroup. If there is none in the parent UISystem it takes the first UIMeasureGroup of the next system.
+        /// </summary>
         public UIMeasureGroup NextUIMeasureGroup
         {
             get
@@ -234,6 +255,9 @@ namespace Musicista.UI
             }
         }
 
+        /// <summary>
+        /// Returns the previous UIMeasureGroup. If there is none in the parent UISystem it takes the last UIMeasureGroup of the previous system.
+        /// </summary>
         public UIMeasureGroup PreviousUIMeasureGroup
         {
             get
@@ -248,17 +272,17 @@ namespace Musicista.UI
             }
         }
 
-        private UIMeasureGroup PreviousUIMeasureGroupInSystem
+        /// <summary>
+        /// Checks if this UIMeasureGroup is the first in the parent UISystem
+        /// </summary>
+        private bool IsFirstInUISystem
         {
-            get
-            {
-                var index = ParentUISystem.UIMeasureGroups.IndexOf(this);
-                if (index > 0)
-                    return ParentUISystem.UIMeasureGroups[index - 1];
-                return null;
-            }
+            get { return ParentUISystem.UIMeasureGroups.IndexOf(this) == 0; }
         }
 
+        /// <summary>
+        /// Draw the UIMeasures and Barlines
+        /// </summary>
         public void Draw()
         {
             if (InnerMeasureGroup.Barlines.Any(item => item.Type == BarlineType.StartRepeat))
@@ -278,6 +302,10 @@ namespace Musicista.UI
                 DrawBarline(new Barline { Location = BarlineLocation.Right, Type = BarlineType.Single });
         }
 
+        /// <summary>
+        /// Draws a bar line
+        /// </summary>
+        /// <param name="barline"></param>
         private void DrawBarline(Barline barline)
         {
             double x1;
@@ -368,6 +396,10 @@ namespace Musicista.UI
             if (show2) Children.Add(_barline2);
         }
 
+        /// <summary>
+        /// Draws the repeat dots to a bar line
+        /// </summary>
+        /// <param name="x"></param>
         private void DrawRepeatDots(double x)
         {
             var dot1 = new Ellipse
@@ -394,6 +426,9 @@ namespace Musicista.UI
             Children.Add(dot2);
         }
 
+        /// <summary>
+        /// Draws the Delete and Add buttons
+        /// </summary>
         private void DrawEditButtons()
         {
             var delete = new Path
@@ -428,6 +463,11 @@ namespace Musicista.UI
             Children.Add(add);
         }
 
+        /// <summary>
+        /// Removes the underlying MeasureGroup from the parent Passage, corrects the measure numbers and redraws the piece.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="mouseButtonEventArgs"></param>
         public void DeleteMeasureGroup(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {
             InnerMeasureGroup.ParentPassage.MeasureGroups.Remove(InnerMeasureGroup);
@@ -441,6 +481,11 @@ namespace Musicista.UI
             MainWindow.ReDrawPiece();
         }
 
+        /// <summary>
+        /// Adds a MeasureGroup to the parent Passage, corrects the measure numbers and redraws the piece.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="mouseButtonEventArgs"></param>
         public void AddMeasureGroup(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {
             var index = InnerMeasureGroup.ParentPassage.MeasureGroups.IndexOf(InnerMeasureGroup);
@@ -483,6 +528,9 @@ namespace Musicista.UI
 
         }
 
+        /// <summary>
+        /// Redraws the current UIMeasureGroup
+        /// </summary>
         public void Redraw()
         {
             // Save selection

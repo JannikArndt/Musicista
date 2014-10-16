@@ -50,7 +50,7 @@ namespace Musicista
                 {
                     UIHelper.SelectedUIMeasures.First().ParentUIMeasureGroup.AddMeasureGroup(null, null);
                     var part = UIHelper.SelectedUIMeasures.First().ParentUIMeasureGroup.UIMeasures.IndexOf(UIHelper.SelectedUIMeasures.First());
-                    nextSelectedMeasure = PageList.Last().Systems.Last().UIMeasureGroups.Last().UIMeasures[part];
+                    nextSelectedMeasure = PageList.Last().UISystems.Last().UIMeasureGroups.Last().UIMeasures[part];
                 }
                 UIHelper.UnselectAll();
                 nextSelectedMeasure.Background = UIHelper.SelectColor;

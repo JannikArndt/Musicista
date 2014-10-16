@@ -17,6 +17,11 @@ namespace Musicista.View
             MailTextBox.Text = Settings.Default.EMail;
         }
 
+        /// <summary>
+        /// Send the Feedback via the Tracer to MixPanel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SendFeedback(object sender, RoutedEventArgs e)
         {
             if (!String.IsNullOrEmpty(NameTextBox.Text))

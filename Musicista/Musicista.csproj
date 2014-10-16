@@ -57,6 +57,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Musicista.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>Musicista.App</StartupObject>
@@ -158,9 +159,6 @@
     <Compile Include="View\FeedbackWindow.xaml.cs">
       <DependentUpon>FeedbackWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\EditInstruments.xaml.cs">
-      <DependentUpon>EditInstruments.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\EditPerson.xaml.cs">
       <DependentUpon>EditPerson.xaml</DependentUpon>
     </Compile>
@@ -248,10 +246,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\FeedbackWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\EditInstruments.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

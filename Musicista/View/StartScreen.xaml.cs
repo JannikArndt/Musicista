@@ -16,6 +16,11 @@ namespace Musicista.View
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Calls the MuseScore API and displays the search results
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="routedEventArgs"></param>
         private void OnlineSearchBox_OnTextChanged(object sender, RoutedEventArgs routedEventArgs)
         {
             if (OnlineSearchBox.Text.Length < 3)
@@ -24,15 +29,17 @@ namespace Musicista.View
             SearchResultsListView.ItemsSource = MuseScoreAPI.Search(OnlineSearchBox.Text);
         }
 
+        /// <summary>
+        /// Downloads a score and opens it
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SearchResultItemClick(object sender, MouseButtonEventArgs e)
         {
             var frameworkElement = sender as FrameworkElement;
-            if (frameworkElement != null)
-                DownloadScore((Score)frameworkElement.DataContext);
-        }
+            if (frameworkElement == null) return;
+            var score = (Score)frameworkElement.DataContext;
 
-        private void DownloadScore(Score score)
-        {
             using (var client = new WebClient())
             {
                 client.DownloadFile("http://static.musescore.com/" + score.ID + "/" + score.Secret + "/score.mxl", "tempDownloadMuseScore.mxl");

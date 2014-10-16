@@ -43,6 +43,11 @@ namespace Musicista.View
 
         }
 
+        /// <summary>
+        /// Closes the window, reloads the sidebar and updates the composer textbox in the piece.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CloseClick(object sender, RoutedEventArgs e)
         {
             MainWindow.SidebarInformation.ShowPiece();
@@ -51,6 +56,11 @@ namespace Musicista.View
             Close();
         }
 
+        /// <summary>
+        /// Change the type of the person.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             MainWindow.CurrentPiece.Meta.People.Persons.Remove(Person);

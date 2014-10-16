@@ -8,9 +8,12 @@ using System.Windows.Media.Effects;
 
 namespace Musicista.UI
 {
+    /// <summary>
+    /// The top UI class which represents one page with several UISystems, title and composer on it.
+    /// </summary>
     public class UIPage : Canvas
     {
-        public List<UISystem> Systems = new List<UISystem>();
+        public List<UISystem> UISystems = new List<UISystem>();
 
         public UIPage(bool hasMouseDown = true)
         {

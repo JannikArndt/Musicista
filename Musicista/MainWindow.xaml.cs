@@ -386,6 +386,9 @@ namespace Musicista
             }
         }
 
+        /// <summary>
+        /// Turn the piece stored in CurrentPiece into a list of UIPage objects and display those
+        /// </summary>
         private static void DrawCurrentPiece()
         {
             PageList = UIHelper.DrawPiece(CurrentPiece);
@@ -400,6 +403,9 @@ namespace Musicista
                 Tracker.Track("Draw Piece", new Dictionary<string, object> { { "Username", Settings.Default.Username }, { "Piece", CurrentPiece.Meta.Title } });
         }
 
+        /// <summary>
+        /// Draw the CurrentPiece again, replace the old one
+        /// </summary>
         public static void ReDrawPiece()
         {
             PageList = UIHelper.DrawPiece(CurrentPiece);
@@ -411,6 +417,10 @@ namespace Musicista
             UICanvasScrollViewer.Content = pages;
         }
 
+        /// <summary>
+        /// This is called before the program is closed. It saves the document.
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnClosing(CancelEventArgs e)
         {
             if (!String.IsNullOrEmpty(_fileName) && CurrentPiece != null)

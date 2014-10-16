@@ -3,6 +3,9 @@ using System.Windows.Controls;
 
 namespace Musicista.UI
 {
+    /// <summary>
+    /// The UI class that handles the metrics
+    /// </summary>
     public class UISettings
     {
         public readonly Metrics Metrics = new Metrics();
@@ -21,7 +24,7 @@ namespace Musicista.UI
                 Metrics.Staff.Spacing = value;
                 if (MainWindow.PageList == null || MainWindow.PageList.Count == 0) return;
                 foreach (var uiPage in MainWindow.PageList)
-                    foreach (var uiSystem in uiPage.Systems)
+                    foreach (var uiSystem in uiPage.UISystems)
                     {
                         foreach (var uiStaff in uiSystem.Staves)
                             Canvas.SetTop(uiStaff, uiStaff.CalculateStaffTop());
@@ -38,7 +41,7 @@ namespace Musicista.UI
                 Metrics.System.Spacing = value;
                 if (MainWindow.PageList == null || MainWindow.PageList.Count == 0) return;
                 foreach (var uiPage in MainWindow.PageList)
-                    foreach (var uiSystem in uiPage.Systems)
+                    foreach (var uiSystem in uiPage.UISystems)
                         Canvas.SetTop(uiSystem, uiSystem.CalculateTop(uiPage));
             }
         }

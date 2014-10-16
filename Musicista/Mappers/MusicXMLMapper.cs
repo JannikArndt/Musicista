@@ -28,6 +28,13 @@ namespace Musicista.Mappers
     public static partial class MusicXMLMapper
     {
         #region MusicXML to Musicista
+        /// <summary>
+        /// Maps a MusicXML partwise piece to a musicista piece, first all meta data and instrument definitions, then it calls MapPartwiseMeasuresToPiece()
+        /// </summary>
+        /// <param name="mxml">A MusicXML piece</param>
+        /// <param name="filename">If no title is defined, the filename will be made title</param>
+        /// <param name="scoreInfo">An optional MuseScore-API scoreInfo object</param>
+        /// <returns></returns>
         public static Piece MapMusicXMLToMusicista(ScorePartwise mxml, String filename, Score scoreInfo = null)
         {
             var piece = new Piece();
@@ -161,6 +168,13 @@ namespace Musicista.Mappers
         /// <summary>
         /// Maps a partwise-MusicXML-Object to a Musicista Piece. The structure is 
         /// <score-partwise><part id="P1"><measure number="1"></measure><measure number="2"></measure>...</part><part id="P2">...</part></score-partwise>
+        /// 
+        /// Dear maintainer:
+        /// Once you are done trying to 'optimize' this routine, 
+        /// and have realized what a terrible mistake that was, 
+        /// please increment the following counter as a warning to the next guy:
+        /// 
+        /// total_hours_wasted_here = 42
         /// </summary>
         /// <param name="mxml">A ScorePartwise-object</param>
         /// <param name="piece">The Piece-object the measures will be added to</param>
@@ -395,6 +409,11 @@ namespace Musicista.Mappers
             return piece;
         }
 
+        /// <summary>
+        /// Turns a string into an articulation property and adds that to the given Articulation object
+        /// </summary>
+        /// <param name="tempArticulation"></param>
+        /// <param name="words"></param>
         private static void ParseArticulation(Articulation tempArticulation, string words)
         {
             switch (words.RemoveWhitespace().ToLower().Replace(".", String.Empty))
@@ -430,6 +449,10 @@ namespace Musicista.Mappers
             }
         }
 
+        /// <summary>
+        /// Moves all notes to the right of the measure
+        /// </summary>
+        /// <param name="measure"></param>
         private static void CorrectPickupMeasure(Measure measure)
         {
             var difference = measure.ParentMeasureGroup.HoldsDuration - measure.Symbols.Sum(item => (int)item.Duration);
@@ -438,6 +461,12 @@ namespace Musicista.Mappers
                     symbol.Beat += difference / (double)Duration.Quarter;
         }
 
+        /// <summary>
+        /// Parses the MusicXML attributes and extracts the clef
+        /// </summary>
+        /// <param name="attributes"></param>
+        /// <param name="number"></param>
+        /// <returns></returns>
         private static Clef? GetClefFromAttributes(attributes attributes, int number = 0)
         {
             if (attributes == null || attributes.clef == null || attributes.clef.All(item => item.number != "" + number))
@@ -456,6 +485,15 @@ namespace Musicista.Mappers
             return null;
         }
 
+        /// <summary>
+        /// Creates a Musicista Note from a MusicXML Note
+        /// </summary>
+        /// <param name="mxmlNote"></param>
+        /// <param name="beat"></param>
+        /// <param name="durationDivision"></param>
+        /// <param name="addToDuration"></param>
+        /// <param name="articulation"></param>
+        /// <returns></returns>
         public static Symbol CreateNoteFromMXMLNote(Note mxmlNote, double beat = 1.0, int durationDivision = 256, int addToDuration = 0, Articulation articulation = null)
         {
             if (mxmlNote == null) return null;
@@ -620,6 +658,13 @@ namespace Musicista.Mappers
         }
 
         private static bool _durationErrorDisplayed;
+        /// <summary>
+        /// Parses the duration from a MusicXML note
+        /// </summary>
+        /// <param name="mxmlNote"></param>
+        /// <param name="durationDivision"></param>
+        /// <param name="addToDuration"></param>
+        /// <returns></returns>
         public static Duration GetDurationFromMXMLNote(Note mxmlNote, int durationDivision = 256, int addToDuration = 0)
         {
             // Division
@@ -649,6 +694,11 @@ namespace Musicista.Mappers
             return (Duration)duration;
         }
 
+        /// <summary>
+        /// Retrieves a list of lyrics from a MusicXML note
+        /// </summary>
+        /// <param name="mxmlNote"></param>
+        /// <returns></returns>
         public static List<Lyric> GetLyricsFromMXMLNote(Note mxmlNote)
         {
             var result = new List<Lyric>();
@@ -659,6 +709,11 @@ namespace Musicista.Mappers
             return result;
         }
 
+        /// <summary>
+        /// Tries to interpret the cryptic string that applications (mis)use to encode what line a lyric is on
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
         private static int GetLineFromLyricsNumber(string number)
         {
             if (!string.IsNullOrEmpty(number))
@@ -675,6 +730,11 @@ namespace Musicista.Mappers
             return 1;
         }
 
+        /// <summary>
+        /// Extract the voice from a MusicXML note
+        /// </summary>
+        /// <param name="mxmlNote"></param>
+        /// <returns></returns>
         public static int GetVoiceFromMXMLNote(Note mxmlNote)
         {
             if (!string.IsNullOrEmpty(mxmlNote.voice))
@@ -689,6 +749,11 @@ namespace Musicista.Mappers
             return 0;
         }
 
+        /// <summary>
+        /// Extracts the Pitch from a MusicXML note
+        /// </summary>
+        /// <param name="mxmlNote"></param>
+        /// <returns></returns>
         public static Step GetPitchFromMXMLNote(Note mxmlNote)
         {
             if (mxmlNote.Pitch == null)
@@ -756,6 +821,11 @@ namespace Musicista.Mappers
             return Step.Unknown;
         }
 
+        /// <summary>
+        /// Turns a MusicXML key into a Musicista key
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public static MusicalKey GetKeyFromMXMLKey(key key)
         {
             var fifths = int.Parse(key.Fifths);

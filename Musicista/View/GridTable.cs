@@ -18,6 +18,11 @@ namespace Musicista.View
     public class GridTable : Grid
     {
         public readonly int LeftColumnWidth = 60;
+
+        /// <summary>
+        /// Create a new GridTable with two columns.
+        /// </summary>
+        /// <param name="columnOneWidth">Width of the left colum</param>
         public GridTable(int columnOneWidth)
         {
             LeftColumnWidth = columnOneWidth;
@@ -27,6 +32,12 @@ namespace Musicista.View
             ColumnDefinitions.Add(new ColumnDefinition());
         }
 
+        /// <summary>
+        /// Add a row to the GridTable with a TextField and binding to a property.
+        /// </summary>
+        /// <param name="key">The label in the left colum</param>
+        /// <param name="dataContext">The bound object</param>
+        /// <param name="propertyName">Name of the bound property</param>
         public void AddRowWithTextField(string key, object dataContext, string propertyName)
         {
             if (dataContext == null)
@@ -66,6 +77,11 @@ namespace Musicista.View
             Children.Add(valueTextBox);
         }
 
+        /// <summary>
+        /// Add a row to the GridTable with a TestField that can only be read and has no binding.
+        /// </summary>
+        /// <param name="key">The label in the left colum</param>
+        /// <param name="text">Content of the TextField</param>
         public void AddRowWithReadonlyTextField(string key, string text)
         {
             RowDefinitions.Add(new RowDefinition { Height = new GridLength(30) });
@@ -97,6 +113,11 @@ namespace Musicista.View
             Children.Add(valueTextBox);
         }
 
+        /// <summary>
+        /// Add a row to the GridTable with the name of a Person and buttons for editing and deleting.
+        /// </summary>
+        /// <param name="key">The label in the left colum</param>
+        /// <param name="person">The person that is displayed</param>
         public void AddRowWithPerson(string key, Person person)
         {
             RowDefinitions.Add(new RowDefinition { Height = new GridLength(30) });
@@ -170,6 +191,10 @@ namespace Musicista.View
             Children.Add(nameGrid);
         }
 
+        /// <summary>
+        /// Add a row to the GridTable with a "+ add Person" text
+        /// </summary>
+        /// <param name="persons">The list of persons the new person would be added to</param>
         public void AddRowWithAddPerson(List<Person> persons)
         {
             RowDefinitions.Add(new RowDefinition { Height = new GridLength(30) });
@@ -193,6 +218,13 @@ namespace Musicista.View
             Children.Add(personTextBlock);
         }
 
+        /// <summary>
+        /// Add a row to the GridTable with a ComboBox and a binding to an enum
+        /// </summary>
+        /// <param name="key">The label in the left column</param>
+        /// <param name="dataContext">The object that holds the property</param>
+        /// <param name="propertyName">The name of the bound property, whcih will be selected in the ComboBox</param>
+        /// <param name="enumType">The items in the ComboBox</param>
         public void AddRowWithComboBox(string key, object dataContext, string propertyName, Enum enumType)
         {
             if (string.IsNullOrEmpty(propertyName))
@@ -233,6 +265,15 @@ namespace Musicista.View
             Children.Add(valueComboBox);
         }
 
+        /// <summary>
+        /// Add a row to the GridTable with two ComboBoxes
+        /// </summary>
+        /// <param name="key">The label in the left column</param>
+        /// <param name="dataContext">The object that hold both properties</param>
+        /// <param name="property1Name">The name of the first property</param>
+        /// <param name="property2Name">The name of the econd property</param>
+        /// <param name="enum1Type">The items in the first ComboBox</param>
+        /// <param name="enum2Type">The items in the second ComboBox</param>
         public void AddRowWithTwoComboBoxes(string key, object dataContext, string property1Name, string property2Name, Enum enum1Type, Enum enum2Type)
         {
             if (string.IsNullOrEmpty(property1Name))
@@ -296,6 +337,11 @@ namespace Musicista.View
             Children.Add(stackpanel);
         }
 
+        /// <summary>
+        /// Add a row to the GridTable with a TimeSignature
+        /// </summary>
+        /// <param name="key">The label in the left column</param>
+        /// <param name="dataContext">The timesignature object</param>
         public void AddRowWithTimeSignature(string key, object dataContext)
         {
             RowDefinitions.Add(new RowDefinition { Height = new GridLength(30) });
@@ -366,6 +412,12 @@ namespace Musicista.View
             Children.Add(stackpanel);
         }
 
+        /// <summary>
+        /// Add a row to the GridTable with a Checkbox.
+        /// </summary>
+        /// <param name="key">The label in the left colum</param>
+        /// <param name="dataContext">the object that holds the property</param>
+        /// <param name="propertyName">The name of the property</param>
         public void AddRowWithCheckbox(string key, object dataContext, string propertyName)
         {
             RowDefinitions.Add(new RowDefinition { Height = new GridLength(30) });
@@ -394,6 +446,10 @@ namespace Musicista.View
             Children.Add(valueCheckBox);
         }
 
+        /// <summary>
+        /// Add a row to the GridTable with a Comment
+        /// </summary>
+        /// <param name="referenceSymbol"></param>
         public void AddRowWithCommentBox(Symbol referenceSymbol)
         {
             RowDefinitions.Add(new RowDefinition { Height = new GridLength(30) });
@@ -443,6 +499,10 @@ namespace Musicista.View
             Children.Add(addCommentButton);
         }
 
+        /// <summary>
+        /// Add a row to the GridTable with an "Edit Instruments" button
+        /// </summary>
+        /// <param name="list">The list of instrumentgroups</param>
         public void AddRowWithInstruments(List<InstrumentGroup> list)
         {
             RowDefinitions.Add(new RowDefinition { Height = new GridLength(30) });
@@ -464,6 +524,10 @@ namespace Musicista.View
             Children.Add(editInstrumentsButton);
         }
 
+        /// <summary>
+        /// Add a row to the GridTable with an Instrument
+        /// </summary>
+        /// <param name="measure"></param>
         public void AddRowWithInstrument(Measure measure)
         {
             RowDefinitions.Add(new RowDefinition { Height = new GridLength(30) });

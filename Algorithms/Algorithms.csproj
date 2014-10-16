@@ -52,9 +52,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Collection\MusicistaCollection.csproj">
+    <ProjectReference Include="..\Collection\Collection.csproj">
       <Project>{f53fbfaf-e8e7-42c9-a303-d83554d46569}</Project>
-      <Name>MusicistaCollection</Name>
+      <Name>Collection</Name>
     </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{482ea0c1-bb86-4d52-af7f-0eb53928f341}</Project>

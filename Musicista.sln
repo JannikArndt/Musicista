@@ -16,7 +16,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MuseScoreAPI", "MuseScoreAP
 		{2ECECFBF-5F3E-40EE-A963-72336DC7ABE2} = {2ECECFBF-5F3E-40EE-A963-72336DC7ABE2}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicistaCollection", "Collection\MusicistaCollection.csproj", "{F53FBFAF-E8E7-42C9-A303-D83554D46569}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Collection", "Collection\Collection.csproj", "{F53FBFAF-E8E7-42C9-A303-D83554D46569}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestSharp", "RestSharp\RestSharp.csproj", "{2ECECFBF-5F3E-40EE-A963-72336DC7ABE2}"
 EndProject

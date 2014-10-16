@@ -171,7 +171,7 @@ namespace Musicista.UI
         /// <param name="args"></param>
         private void ClickToSelectMeasures(object sender, MouseButtonEventArgs args)
         {
-            if (Keyboard.Modifiers.HasFlag(ModifierKeys.Control))
+            if (Keyboard.Modifiers.HasFlag(ModifierKeys.Control) && MainWindow.SelectedTool != ToolKind.Edit)
             {
                 if (UIHelper.SelectedUIMeasures.Contains(this))
                 {
@@ -184,7 +184,7 @@ namespace Musicista.UI
                     Background = UIHelper.SelectColor;
                 }
             }
-            else if (Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
+            else if (Keyboard.Modifiers.HasFlag(ModifierKeys.Shift) && MainWindow.SelectedTool != ToolKind.Edit)
             {
                 var next = UIHelper.SelectedUIMeasures.FirstOrDefault();
                 // first click on an earlier measure

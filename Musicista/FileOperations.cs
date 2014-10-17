@@ -197,13 +197,13 @@ namespace Musicista
             {
                 { "Username", Settings.Default.Username },
                 { "Message", e.Message },
-                { "Type", e.GetType() },
-                { "Data", e.Data },
+                { "Type", e.GetType().ToString() },
+                { "Data", e.Data.ToString() },
                 { "StackTrace", e.StackTrace },
                 { "Source", e.Source },
                 { "OS", Environment.OSVersion.VersionString },
                 { "Current Piece", CurrentPiece != null ? CurrentPiece.Meta.Title : "" },
-                { "URL", CurrentPiece != null ? CurrentPiece.Meta.Weblink : "" }
+                { "URL", CurrentPiece != null && CurrentPiece.Meta.Weblink != null ? CurrentPiece.Meta.Weblink : "" }
             });
             }
             finally

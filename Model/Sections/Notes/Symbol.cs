@@ -66,7 +66,7 @@ namespace Model.Sections.Notes
         [XmlIgnore]
         public Symbol Previous
         {
-            get { return ParentMeasure.Symbols.FindLast(s => s.Voice == Voice && s.Beat < Beat); }
+            get { return ParentMeasure.Symbols.FindLast(s => s.Voice == Voice && s.Beat < Beat) ?? ParentMeasure.Previous.Symbols.Find(s => s.Voice == Voice); }
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace Model.Sections.Notes
         [XmlIgnore]
         public Note PreviousNote
         {
-            get { return ParentMeasure.Notes.FindLast(s => s.Voice == Voice && s.Beat < Beat); }
+            get { return ParentMeasure.Notes.FindLast(s => s.Voice == Voice && s.Beat < Beat) ?? ParentMeasure.Previous.Notes.Find(s => s.Voice == Voice); }
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace Model.Sections.Notes
         [XmlIgnore]
         public Rest PreviousRests
         {
-            get { return ParentMeasure.Rests.FindLast(s => s.Voice == Voice && s.Beat < Beat); }
+            get { return ParentMeasure.Rests.FindLast(s => s.Voice == Voice && s.Beat < Beat) ?? ParentMeasure.Previous.Rests.Find(s => s.Voice == Voice); }
         }
 
         /// <summary>
@@ -93,7 +93,7 @@ namespace Model.Sections.Notes
         [XmlIgnore]
         public Symbol Next
         {
-            get { return ParentMeasure.Symbols.Find(s => s.Voice == Voice && s.Beat > Beat); }
+            get { return ParentMeasure.Symbols.Find(s => s.Voice == Voice && s.Beat > Beat) ?? ParentMeasure.Next.Symbols.Find(s => s.Voice == Voice); }
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace Model.Sections.Notes
         [XmlIgnore]
         public Note NextNote
         {
-            get { return ParentMeasure.Notes.Find(s => s.Voice == Voice && s.Beat > Beat); }
+            get { return ParentMeasure.Notes.Find(s => s.Voice == Voice && s.Beat > Beat) ?? ParentMeasure.Next.Notes.Find(s => s.Voice == Voice); }
         }
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace Model.Sections.Notes
         [XmlIgnore]
         public Rest NextRest
         {
-            get { return ParentMeasure.Rests.Find(s => s.Voice == Voice && s.Beat > Beat); }
+            get { return ParentMeasure.Rests.Find(s => s.Voice == Voice && s.Beat > Beat) ?? ParentMeasure.Next.Rests.Find(s => s.Voice == Voice); }
         }
 
         /// <summary>

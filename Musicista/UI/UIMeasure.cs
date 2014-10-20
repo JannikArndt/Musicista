@@ -302,6 +302,7 @@ namespace Musicista.UI
             // Basic eigths-beam for eigths and sixteenths
             switch (NotYetConnectedNotes.Count)
             {
+                case 1: break;
                 case 2:
                     shapeString = "F0 M "
                         + (GetLeft(NotYetConnectedNotes[0]) + NotYetConnectedNotes[0].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[0].Stem.Y2 + addToY).ToString(c) + " L "
@@ -329,6 +330,7 @@ namespace Musicista.UI
                 strokeThickness = 10;
                 switch (NotYetConnectedNotes.Count)
                 {
+                    case 1: break;
                     case 2:
                         shapeString += " M "
                             + (GetLeft(NotYetConnectedNotes[0]) + NotYetConnectedNotes[0].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[0].Stem.Y2 + addToY + offsetSecondBeam).ToString(c) + " L "
@@ -357,6 +359,7 @@ namespace Musicista.UI
                 strokeThickness = 8;
                 switch (NotYetConnectedNotes.Count)
                 {
+                    case 1: break;
                     case 2:
                         shapeString += " M "
                             + (GetLeft(NotYetConnectedNotes[0]) + NotYetConnectedNotes[0].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[0].Stem.Y2 + addToY + 2 * offsetSecondBeam).ToString(c) + " L "
@@ -382,54 +385,68 @@ namespace Musicista.UI
             // mixed eigths and sixteenths
             if (!onlyEights && !onlySixteenths)
             {
-                // find pairs of two
-                foreach (var uiNote in NotYetConnectedNotes.Where(uiNote => uiNote.NextUINote != null))
+                if (NotYetConnectedNotes.Count == 3)
                 {
-                    // two sixteenths and some eights
-                    if (uiNote.Note.Duration == Duration.Sixteenth && uiNote.NextUINote.Note.Duration == Duration.Sixteenth)
-                        shapeString += " M "
-                                       + (GetLeft(uiNote) + uiNote.Stem.X2).ToString(c) + "," + (uiNote.Stem.Y2 + offsetSecondBeam + addToY).ToString(c) + " L "
-                                       + (GetLeft(uiNote.NextUINote) + uiNote.NextUINote.Stem.X2).ToString(c) + "," + (uiNote.NextUINote.Stem.Y2 + offsetSecondBeam + addToY).ToString(c) + "";
-                    // dotted eigth followed by a sixteenth
-                    if (uiNote.Note.Duration == Duration.EigthDotted && uiNote.NextUINote.Note.Duration == Duration.Sixteenth)
-                        shapeString += " M "
-                                       + (GetLeft(uiNote) + uiNote.Stem.X2 + (uiNote.NextUINote.CanvasLeft - uiNote.CanvasLeft) * 0.6).ToString(c) + ","
-                                       + (uiNote.Stem.Y2 + (uiNote.NextUINote.Stem.Y2 - uiNote.Stem.Y2) * 0.6 + offsetSecondBeam + addToY).ToString(c) + " L "
-                                       + (GetLeft(uiNote.NextUINote) + uiNote.NextUINote.Stem.X2).ToString(c) + "," + (uiNote.NextUINote.Stem.Y2 + offsetSecondBeam + addToY).ToString(c) + "";
-                    // sixteenth followed by a dotted eigth
-                    if (uiNote.Note.Duration == Duration.Sixteenth && uiNote.NextUINote.Note.Duration == Duration.EigthDotted)
-                        shapeString += " M "
-                                       + (GetLeft(NotYetConnectedNotes[1]) + NotYetConnectedNotes[1].Stem.X2 + (NotYetConnectedNotes[0].CanvasLeft - NotYetConnectedNotes[1].CanvasLeft) * 0.4).ToString(c) + ","
-                                       + (NotYetConnectedNotes[1].Stem.Y2 + (NotYetConnectedNotes[0].Stem.Y2 - NotYetConnectedNotes[1].Stem.Y2) * 0.4 + offsetSecondBeam - addToY).ToString(c) + " L "
-                                       + (GetLeft(NotYetConnectedNotes[0]) + NotYetConnectedNotes[0].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[0].Stem.Y2 + offsetSecondBeam - addToY).ToString(c) + "";
-                }
-                // 16th - 8th - 16th
-                if (NotYetConnectedNotes.Count == 3
-                    && NotYetConnectedNotes[0].Note.Duration == Duration.Sixteenth
-                    && NotYetConnectedNotes[1].Note.Duration == Duration.Eigth
-                    && NotYetConnectedNotes[2].Note.Duration == Duration.Sixteenth)
-                {
-                    NotYetConnectedNotes[1].CanvasLeft = (NotYetConnectedNotes[0].CanvasLeft + NotYetConnectedNotes[2].CanvasLeft) / 2;
-                    // First 16th to middle 8th
-                    shapeString += " M "
-                                       + (GetLeft(NotYetConnectedNotes[1]) + NotYetConnectedNotes[1].Stem.X2 + (NotYetConnectedNotes[0].CanvasLeft - NotYetConnectedNotes[1].CanvasLeft) * 0.5).ToString(c) + ","
-                                       + (NotYetConnectedNotes[1].Stem.Y2 + (NotYetConnectedNotes[0].Stem.Y2 - NotYetConnectedNotes[1].Stem.Y2) * 0.5 + offsetSecondBeam).ToString(c) + " L "
-                                       + (GetLeft(NotYetConnectedNotes[0]) + NotYetConnectedNotes[0].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[0].Stem.Y2 + offsetSecondBeam).ToString(c) + "";
-                    // Middle 8th to second 16th
-                    shapeString += " M "
-                                       + (GetLeft(NotYetConnectedNotes[1]) + NotYetConnectedNotes[1].Stem.X2 + (NotYetConnectedNotes[2].CanvasLeft - NotYetConnectedNotes[1].CanvasLeft) * 0.6).ToString(c) + ","
-                                       + (NotYetConnectedNotes[1].Stem.Y2 + (NotYetConnectedNotes[2].Stem.Y2 - NotYetConnectedNotes[1].Stem.Y2) * 0.6 + offsetSecondBeam).ToString(c) + " L "
-                                       + (GetLeft(NotYetConnectedNotes[2]) + NotYetConnectedNotes[2].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[2].Stem.Y2 + offsetSecondBeam).ToString(c) + "";
+                    // 8 - 16 - 16
+                    if (NotYetConnectedNotes[0].Note.Duration == Duration.Eigth &&
+                        NotYetConnectedNotes[1].Note.Duration == Duration.Sixteenth &&
+                        NotYetConnectedNotes[2].Note.Duration == Duration.Sixteenth)
+                        shapeString += " M " +
+                                       (GetLeft(NotYetConnectedNotes[1]) + NotYetConnectedNotes[1].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[1].Stem.Y2 + offsetSecondBeam + addToY).ToString(c) + " L " +
+                                       (GetLeft(NotYetConnectedNotes[2]) + NotYetConnectedNotes[2].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[2].Stem.Y2 + offsetSecondBeam + addToY).ToString(c) + "";
 
+                    // 16 - 16 - 8
+                    if (NotYetConnectedNotes[0].Note.Duration == Duration.Sixteenth &&
+                        NotYetConnectedNotes[1].Note.Duration == Duration.Sixteenth &&
+                        NotYetConnectedNotes[2].Note.Duration == Duration.Eigth)
+                        shapeString += " M " +
+                                       (GetLeft(NotYetConnectedNotes[0]) + NotYetConnectedNotes[0].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[0].Stem.Y2 + offsetSecondBeam + addToY).ToString(c) + " L " +
+                                       (GetLeft(NotYetConnectedNotes[1]) + NotYetConnectedNotes[1].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[1].Stem.Y2 + offsetSecondBeam + addToY).ToString(c) + "";
+
+                    // 16th - 8th - 16th
+                    if (NotYetConnectedNotes[0].Note.Duration == Duration.Sixteenth &&
+                        NotYetConnectedNotes[1].Note.Duration == Duration.Eigth &&
+                        NotYetConnectedNotes[2].Note.Duration == Duration.Sixteenth)
+                    {
+                        offsetSecondBeam -= 10;
+                        NotYetConnectedNotes[1].CanvasLeft = (NotYetConnectedNotes[0].CanvasLeft + NotYetConnectedNotes[2].CanvasLeft) / 2;
+                        // First 16th to middle 8th
+                        shapeString += " M " +
+                            (GetLeft(NotYetConnectedNotes[1]) + NotYetConnectedNotes[1].Stem.X2 + (NotYetConnectedNotes[0].CanvasLeft - NotYetConnectedNotes[1].CanvasLeft) * 0.5).ToString(c) + "," +
+                                       (NotYetConnectedNotes[1].Stem.Y2 + (NotYetConnectedNotes[0].Stem.Y2 - NotYetConnectedNotes[1].Stem.Y2) * 0.5 + offsetSecondBeam).ToString(c) + " L " +
+                                       (GetLeft(NotYetConnectedNotes[0]) + NotYetConnectedNotes[0].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[0].Stem.Y2 + offsetSecondBeam).ToString(c) + "";
+                        // Middle 8th to second 16th
+                        shapeString += " M " +
+                                       (GetLeft(NotYetConnectedNotes[1]) + NotYetConnectedNotes[1].Stem.X2 + (NotYetConnectedNotes[2].CanvasLeft - NotYetConnectedNotes[1].CanvasLeft) * 0.6).ToString(c) + "," +
+                                       (NotYetConnectedNotes[1].Stem.Y2 + (NotYetConnectedNotes[2].Stem.Y2 - NotYetConnectedNotes[1].Stem.Y2) * 0.6 + offsetSecondBeam).ToString(c) + " L " +
+                                       (GetLeft(NotYetConnectedNotes[2]) + NotYetConnectedNotes[2].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[2].Stem.Y2 + offsetSecondBeam).ToString(c) + "";
+
+                    }
                 }
-                // 16th - 16th rest - 8th
-                if (NotYetConnectedNotes.Count == 2
-                    && NotYetConnectedNotes[0].Note.Duration == Duration.Sixteenth
-                    && NotYetConnectedNotes[1].Note.Duration == Duration.Eigth)
-                    shapeString += " M "
-                                       + (GetLeft(NotYetConnectedNotes[1]) + NotYetConnectedNotes[1].Stem.X2 + (NotYetConnectedNotes[0].CanvasLeft - NotYetConnectedNotes[1].CanvasLeft) * 0.5).ToString(c) + ","
-                                       + (NotYetConnectedNotes[1].Stem.Y2 + (NotYetConnectedNotes[0].Stem.Y2 - NotYetConnectedNotes[1].Stem.Y2) * 0.5 + offsetSecondBeam).ToString(c) + " L "
-                                       + (GetLeft(NotYetConnectedNotes[0]) + NotYetConnectedNotes[0].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[0].Stem.Y2 + offsetSecondBeam).ToString(c) + "";
+
+                if (NotYetConnectedNotes.Count == 2)
+                {
+                    // 8. - 16
+                    if (NotYetConnectedNotes[0].Note.Duration == Duration.EigthDotted && NotYetConnectedNotes[1].Note.Duration == Duration.Sixteenth)
+                        shapeString += " M "
+                                       + (GetLeft(NotYetConnectedNotes[0]) + NotYetConnectedNotes[0].Stem.X2 + (NotYetConnectedNotes[1].CanvasLeft - NotYetConnectedNotes[0].CanvasLeft) * 0.6).ToString(c) + ","
+                                       + (NotYetConnectedNotes[0].Stem.Y2 + (NotYetConnectedNotes[1].Stem.Y2 - NotYetConnectedNotes[0].Stem.Y2) * 0.6 + offsetSecondBeam + addToY).ToString(c) + " L "
+                                       + (GetLeft(NotYetConnectedNotes[1]) + NotYetConnectedNotes[1].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[1].Stem.Y2 + offsetSecondBeam + addToY).ToString(c) + "";
+
+                    // 16 - 8.
+                    if (NotYetConnectedNotes[0].Note.Duration == Duration.Sixteenth && NotYetConnectedNotes[1].Note.Duration == Duration.EigthDotted)
+                        shapeString += " M "
+                                           + (GetLeft(NotYetConnectedNotes[1]) + NotYetConnectedNotes[1].Stem.X2 + (NotYetConnectedNotes[0].CanvasLeft - NotYetConnectedNotes[1].CanvasLeft) * 0.6).ToString(c) + ","
+                                           + (NotYetConnectedNotes[1].Stem.Y2 + (NotYetConnectedNotes[0].Stem.Y2 - NotYetConnectedNotes[1].Stem.Y2) * 0.6 + offsetSecondBeam + addToY).ToString(c) + " L "
+                                           + (GetLeft(NotYetConnectedNotes[0]) + NotYetConnectedNotes[0].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[0].Stem.Y2 + offsetSecondBeam + addToY).ToString(c) + "";
+                    // 16th - 16th rest - 8th
+                    if (NotYetConnectedNotes[0].Note.Duration == Duration.Sixteenth &&
+                        NotYetConnectedNotes[1].Note.Duration == Duration.Eigth)
+                        shapeString += " M "
+                                           + (GetLeft(NotYetConnectedNotes[1]) + NotYetConnectedNotes[1].Stem.X2 + (NotYetConnectedNotes[0].CanvasLeft - NotYetConnectedNotes[1].CanvasLeft) * 0.5).ToString(c) + ","
+                                           + (NotYetConnectedNotes[1].Stem.Y2 + (NotYetConnectedNotes[0].Stem.Y2 - NotYetConnectedNotes[1].Stem.Y2) * 0.5 + offsetSecondBeam).ToString(c) + " L "
+                                           + (GetLeft(NotYetConnectedNotes[0]) + NotYetConnectedNotes[0].Stem.X2).ToString(c) + "," + (NotYetConnectedNotes[0].Stem.Y2 + offsetSecondBeam).ToString(c) + "";
+                }
             }
 
             var beam = new Path

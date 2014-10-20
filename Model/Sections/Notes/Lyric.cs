@@ -13,5 +13,10 @@ namespace Model.Sections.Notes
         public int Line { get; set; }
         [XmlAttribute("Syllabic")]
         public Syllabic Syllabic { get; set; }
+
+        public override string ToString()
+        {
+            return Text;
+        }
     }
 }

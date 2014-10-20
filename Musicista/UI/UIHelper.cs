@@ -95,6 +95,14 @@ namespace Musicista.UI
                         if (resetMeasuresPerSystem)
                             metrics.Measures.MeasuresPerSystem = CalculateMeasuresPerSystem(movement, metrics.Measures.MeasuresPerSystemThreshold);
 
+                        // If the tags are missing, reset to defaults
+                        metrics.Fontsize = metrics.Fontsize ?? new Fontsize { Title = 50, Composer = 16, Movement = 30 };
+                        metrics.Margin = metrics.Margin ?? new Margin { Left = 50, Top = 60, Right = 50, Bottom = 0, BelowTitle = 60 };
+                        metrics.Measures = metrics.Measures ?? new MeasuresMetrics();
+                        metrics.Page = metrics.Page ?? new PageMetric { Width = 794, Height = 1122 };
+                        metrics.Staff = metrics.Staff ?? new StaffMetric { Spacing = 50 };
+                        metrics.System = metrics.System ?? new SystemMetric { Spacing = 60 };
+
                         // Draw UISystems, UIMeasureGroups and UIMeasures
                         var uiSystems = DrawMovement(movement, metrics);
 

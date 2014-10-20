@@ -71,12 +71,14 @@ namespace Musicista.UI
                             pageList.Add(currentPage);
                             var movementTitle = new TextBlock
                             {
-                                Text = "Movement " + movement.Number + " - \"" + movement.Name + "\"",
                                 FontSize = currentPage.Settings.Metrics.Fontsize.Movement,
                                 Width = currentPage.Width - 40,
                                 HorizontalAlignment = HorizontalAlignment.Stretch,
                                 TextAlignment = TextAlignment.Center
                             };
+                            movementTitle.Text = string.IsNullOrWhiteSpace(movement.Name)
+                                ? "Movement " + movement.Number
+                                : "Movement " + movement.Number + " - \"" + movement.Name + "\"";
                             Canvas.SetTop(movementTitle, currentPage.Settings.Metrics.Margin.Top);
                             currentPage.Children.Add(movementTitle);
                             currentPage.Settings.Metrics.Margin.Top += 90;

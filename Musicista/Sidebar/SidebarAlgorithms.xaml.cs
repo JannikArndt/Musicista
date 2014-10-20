@@ -95,7 +95,7 @@ namespace Musicista.Sidebar
             if (first.Lyrics.Any() && first.Lyrics[0].Syllabic != Syllabic.Begin && first.Lyrics[0].Syllabic != Syllabic.Single)
             {
                 var predecessor = first.Previous;
-                while (predecessor.Lyrics[0].Syllabic != Syllabic.Begin)
+                while (predecessor != null && predecessor.Lyrics[0].Syllabic != Syllabic.Begin)
                 {
                     results.Add(predecessor.Lyrics[0]);
                     predecessor = predecessor.Previous;
@@ -112,7 +112,7 @@ namespace Musicista.Sidebar
             if (last.Lyrics.Any() && last.Lyrics[0].Syllabic != Syllabic.End && last.Lyrics[0].Syllabic != Syllabic.Single)
             {
                 var follower = last.Next;
-                while (follower.Lyrics[0].Syllabic != Syllabic.End)
+                while (follower != null && follower.Lyrics[0].Syllabic != Syllabic.End)
                 {
                     results.Add(follower.Lyrics[0]);
                     follower = follower.Next;

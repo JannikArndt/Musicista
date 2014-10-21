@@ -74,9 +74,16 @@ namespace Musicista.Collection
             var frameworkElement = sender as FrameworkElement;
             if (frameworkElement != null)
             {
-                DownloadScore((CategoryWork)frameworkElement.DataContext);
-                MainWindow.UICollection.Content = null;
-                MainWindow.UIButtonPathCollection.Fill = Brushes.Black;
+                try
+                {
+                    DownloadScore((CategoryWork)frameworkElement.DataContext);
+                    MainWindow.UICollection.Content = null;
+                    MainWindow.UIButtonPathCollection.Fill = Brushes.Black;
+                }
+                catch (WebException exception)
+                {
+                    MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 

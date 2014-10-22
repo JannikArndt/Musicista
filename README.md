@@ -10,3 +10,6 @@ Documentation: http://www.musicistaapp.de/doc/
 Repositories are at https://bitbucket.org/JannikArndt/musicista/ and https://github.com/JannikArndt/Musicista
 
 This software is licensed under GPL v3.0 (see http://www.gnu.org/licenses/gpl-3.0.txt)
+
+###Installation###
+To install the windows binaries, run http://musicistaapp.de/download/setup.exe.

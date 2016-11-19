@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Musicista</title>
+    <link>http://jannikarndt.github.io/Musicista/index.xml</link>
+    <description>Recent content on Musicista</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://jannikarndt.github.io/Musicista/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Automatic system-break</title>
+      <link>http://jannikarndt.github.io/Musicista/blog/Automatic%20system-break/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://jannikarndt.github.io/Musicista/blog/Automatic%20system-break/</guid>
+      <description>
+
+&lt;h1 id=&#34;automatic-system-break&#34;&gt;Automatic system-break&lt;/h1&gt;
+
+&lt;p&gt;Up to now, Musicista fit a fixed amount of four measures (or, to be precisely, measure groups) into one system. Today, this has changed:&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt;&lt;img src=&#34;AutomaticSystemBreaks.png&#34; alt=&#34;Musicista&#34; /&gt;&lt;/center&gt;&lt;/p&gt;
+
+&lt;p&gt;There now is a slider to influence, how many measures are put into one system. How does it work? As opposed to most other programs, Musicista spaces notes in mathematical proportion, i.e. a quarter is double as wide as an eight, an eight has double the width of a sixteenth and so on. These widths however are relative to the width of the measure, which itself depends on how many measures fit into one system. This is the tricky thing: The measure-count is the one given thing everything else depends on. So how can you calculate, how many measures fit?&lt;/p&gt;
+
+&lt;p&gt;Fitting mostly depends on the kind of notes that are present in the measures. Half notes have a lot of space, which is not necessarily needed, whereas sixteenths follow each other very closely. They need a wider measure. The chosen approach is to calculate a density-score: The algorithm counts groups of note, multiplies them with a factor and adds up these factors. In the above screenshot we have four quarter notes, which give the measure a density-score of 4 * 2 = 8. The next measure has eight eigths, which makes 8 * 4 = 32. The next one is mixed: 2 * 2 + 4 * 4 = 20. The highest possible score is 96, as seen in measure 8 with 16 sixteenths.&lt;/p&gt;
+
+&lt;p&gt;Now that each measure has a score (in the example 8, 32, 20, 32, 4, 6, 18, 128, 36) they need to be grouped into systems. This is done by adding up the density-scores until the threshold (which the user can alter) is reached. The algorithm adds an increasing amount of points for each measure as well, to limit their amount. Also, no matter how high the score is, there have to be at least to measures for one system. In the example the measures are grouped into&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;(8, 32, 20, 32, 4) + 1 + 2 + 3 + 4 + 5 = 60 + 15 = 75,&lt;/li&gt;
+&lt;li&gt;(6, 18, 96, 28) + 1 + 2 + 3 + 4 = 60 + 10 = 70 and&lt;/li&gt;
+&lt;li&gt;(128, 36) + 1 + 2 = 167.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This is a very basic algorithm, which works in most cases, but might fail in some. For example imagine measure with a double-dotted half and two sixteenths. There will be a lot of space for the half note and the sixteenths will be very close. This is why the threshold is not fixed but can be adjusted by the user. Also, the grouping is stored in the musicista-file and can be corrected by hand.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Home</title>
+      <link>http://jannikarndt.github.io/Musicista/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://jannikarndt.github.io/Musicista/</guid>
+      <description>
+
+&lt;h1 id=&#34;musicista&#34;&gt;Musicista&lt;/h1&gt;
+
+&lt;p&gt;&lt;center style=&#34;float: right&#34;&gt;&lt;img src=&#34;icon.png&#34; alt=&#34;Musicista&#34; /&gt;&lt;/center&gt;&lt;/p&gt;
+
+&lt;p&gt;Musicista is a tool that combines music with computer science and offers the ability to run algorithms on musical notation. It has its own file format &lt;code&gt;.musicista&lt;/code&gt; to store all information, but it can also read &lt;code&gt;MusicXML&lt;/code&gt;- and &lt;code&gt;Midi&lt;/code&gt;-files.&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;p&gt;This software is licensed under &lt;a href=&#34;http://www.gnu.org/licenses/gpl-3.0.txt&#34;&gt;GPL v3.0&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a class=&#34;btn btn-success&#34; href=&#34;http://www.musicistaapp.de/download/setup.exe&#34;&gt;Install Windows-App&lt;/a&gt;
+&lt;a class=&#34;btn btn-primary&#34; href=&#34;https://www.github.com/JannikArndt/Musicista&#34;&gt;View on Github&lt;/a&gt;
+&lt;a class=&#34;btn btn-info&#34; href=&#34;https://www.facebook.com/MusicistaApp&#34;&gt;Like on Facebook&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt;&lt;img src=&#34;screenshot.png&#34; alt=&#34;Musicista&#34; /&gt;&lt;/center&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;file-format&#34;&gt;File Format&lt;/h1&gt;
+
+&lt;p&gt;Musicista files have six sections:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;    &amp;lt;Piece&amp;gt;
+      &amp;lt;Meta /&amp;gt;
+      &amp;lt;Instruments /&amp;gt;
+      &amp;lt;Score /&amp;gt;
+      &amp;lt;Parts /&amp;gt;
+      &amp;lt;Comments /&amp;gt;
+      &amp;lt;Style /&amp;gt;
+    &amp;lt;/Piece&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;a href=&#34;http://www.musicistaapp.de/doc/namespace_model_1_1_meta.html&#34;&gt;meta data&lt;/a&gt; section stores title, composer, etc.:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;    &amp;lt;Meta&amp;gt;
+      &amp;lt;Title&amp;gt;Gute Nacht&amp;lt;/Title&amp;gt;
+      &amp;lt;Subtitle&amp;gt;Ein Cyclus von Liedern von Wilhelm Müller. Für eine Singstimme mit Begleitung des   Pianoforte&amp;lt;/Subtitle&amp;gt;
+      &amp;lt;People&amp;gt;
+        &amp;lt;Composer FirstName=&amp;quot;Franz&amp;quot; LastName=&amp;quot;Schubert&amp;quot; Born=&amp;quot;1797-01-31&amp;quot; Died=&amp;quot;1828-11-19&amp;quot; /&amp;gt;
+        &amp;lt;Lyricist FirstName=&amp;quot;Wilhelm&amp;quot; LastName=&amp;quot;Müller&amp;quot; Born=&amp;quot;1794-10-07&amp;quot; Died=&amp;quot;1827-10-01&amp;quot; /&amp;gt;
+      &amp;lt;/People&amp;gt;
+      &amp;lt;Collection&amp;gt;Die Winterreise&amp;lt;/Collection&amp;gt;
+      &amp;lt;Opus Number=&amp;quot;89&amp;quot; SubNumber=&amp;quot;0&amp;quot; /&amp;gt;
+      &amp;lt;Epoch&amp;gt;Romantik&amp;lt;/Epoch&amp;gt;
+      &amp;lt;Form&amp;gt;Lied&amp;lt;/Form&amp;gt;
+      &amp;lt;Dates&amp;gt;
+        &amp;lt;Composition Date=&amp;quot;1827-02&amp;quot; /&amp;gt;
+        &amp;lt;Publication Date=&amp;quot;1828-01-24&amp;quot; Publisher=&amp;quot;Tobias Haslinger&amp;quot; /&amp;gt;
+        &amp;lt;Performance Date=&amp;quot;1828-01-10&amp;quot; IsFirst=&amp;quot;true&amp;quot; Place=&amp;quot;Musikverein, Wien&amp;quot;&amp;gt;Ludwig Tietze&amp;lt;/Performance&amp;gt;
+        &amp;lt;Engraving Date=&amp;quot;2014-09-10&amp;quot; Typesetter=&amp;quot;Jannik Arndt&amp;quot; /&amp;gt;
+      &amp;lt;/Dates&amp;gt;
+      &amp;lt;Dedication /&amp;gt;
+      &amp;lt;AverageDuration&amp;gt;5:38&amp;lt;/AverageDuration&amp;gt;
+      &amp;lt;BeatsPerMinute&amp;gt;90&amp;lt;/BeatsPerMinute&amp;gt;
+      &amp;lt;MusicalKey Step=&amp;quot;D&amp;quot; Gender=&amp;quot;Minor&amp;quot; /&amp;gt;
+      &amp;lt;Copyright&amp;gt;Public Domain&amp;lt;/Copyright&amp;gt;
+      &amp;lt;Weblink&amp;gt;http://musicistaapp.de/?ddownload=62&amp;lt;/Weblink&amp;gt;
+      &amp;lt;Notes&amp;gt;Deutsch-Verzeichnis D911&amp;lt;/Notes&amp;gt;
+      &amp;lt;Software&amp;gt;Musicista 1.0&amp;lt;/Software&amp;gt;
+    &amp;lt;/Meta&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;a href=&#34;http://www.musicistaapp.de/doc/namespace_model_1_1_instruments.html&#34;&gt;instruments&lt;/a&gt; section defines instrument groups, instruments and staves:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;    &amp;lt;Instruments&amp;gt;
+      &amp;lt;InstrumentGroup Name=&amp;quot;Woodwind&amp;quot; BraceType=&amp;quot;Bracket&amp;quot;&amp;gt;
+        &amp;lt;Instrument ID=&amp;quot;1&amp;quot; Name=&amp;quot;Flute 1&amp;quot; Shortname=&amp;quot;Fl. 1&amp;quot;&amp;gt;
+          &amp;lt;Staff ID=&amp;quot;1&amp;quot;/&amp;gt;
+        &amp;lt;/Instrument&amp;gt;
+        &amp;lt;Instruments ID=&amp;quot;2&amp;quot; Name=&amp;quot;Flute 2&amp;quot; Shortname=&amp;quot;Fl. 2&amp;quot;&amp;gt;
+          &amp;lt;Staff ID=&amp;quot;2&amp;quot; PrintInStaff=&amp;quot;1&amp;quot;/&amp;gt;
+        &amp;lt;/Instrument&amp;gt;
+      &amp;lt;/InstrumentGroup&amp;gt;
+      &amp;lt;InstrumentGroup Name=&amp;quot;Brass&amp;quot; BraceType=&amp;quot;None&amp;quot;&amp;gt;
+        &amp;lt;Instrument ID=&amp;quot;3&amp;quot; Name=&amp;quot;Trumpet in Bb&amp;quot; Transposition=&amp;quot;-2&amp;quot;&amp;gt;
+          &amp;lt;Staff ID=&amp;quot;3&amp;quot;/&amp;gt;
+        &amp;lt;/Instrument&amp;gt;
+      &amp;lt;/InstrumentGroup&amp;gt;
+      &amp;lt;InstrumentGroup Name=&amp;quot;Keys&amp;quot; BraceType=&amp;quot;Brace&amp;quot;&amp;gt;
+        &amp;lt;Instrument ID=&amp;quot;4&amp;quot; Name=&amp;quot;Piano&amp;quot; Shortname=&amp;quot;Pno.&amp;quot;&amp;gt;
+          &amp;lt;Staff ID=&amp;quot;4&amp;quot;/&amp;gt;
+          &amp;lt;Staff ID=&amp;quot;5&amp;quot;/&amp;gt;
+        &amp;lt;/Instrument&amp;gt;
+      &amp;lt;/InstrumentGroup&amp;gt;
+      &amp;lt;InstrumentGroup Name=&amp;quot;Strings&amp;quot; BraceType=&amp;quot;Bracket&amp;quot;&amp;gt;
+        &amp;lt;Instrument ID=&amp;quot;5&amp;quot; Name=&amp;quot;Violoncello&amp;quot; Shortname=&amp;quot;Vc.&amp;quot;&amp;gt;
+          &amp;lt;Staff ID=&amp;quot;6&amp;quot;/&amp;gt;
+        &amp;lt;/Instrument&amp;gt;
+        &amp;lt;Instrument ID=&amp;quot;6&amp;quot; Name=&amp;quot;Double Bass&amp;quot; Shortname=&amp;quot;Db.&amp;quot;&amp;gt;
+          &amp;lt;Staff ID=&amp;quot;7&amp;quot;/&amp;gt;
+        &amp;lt;/Instrument&amp;gt;
+      &amp;lt;/InstrumentGroup&amp;gt;
+    &amp;lt;/Instruments&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The actual music is stored in the &lt;a href=&#34;http://www.musicistaapp.de/doc/namespace_model_1_1_sections.html&#34;&gt;Score&lt;/a&gt; section, hierarchically structured:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;    &amp;lt;Score&amp;gt;
+      &amp;lt;Section&amp;gt;
+        &amp;lt;Movement Number=&amp;quot;0&amp;quot; BeatsPerMinute=&amp;quot;0&amp;quot;&amp;gt;
+          &amp;lt;Segment&amp;gt;
+            &amp;lt;Passage&amp;gt;
+              &amp;lt;MeasureGroup MeasureNumber=&amp;quot;1&amp;quot;&amp;gt;...&amp;lt;/MeasureGroup&amp;gt;
+            &amp;lt;/Passage&amp;gt;
+          &amp;lt;/Segment&amp;gt;
+        &amp;lt;/Movement&amp;gt;
+      &amp;lt;/Section&amp;gt;
+    &amp;lt;/Score&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.musicistaapp.de/doc/class_model_1_1_sections_1_1_measure_group.html&#34;&gt;MeasureGroup&lt;/a&gt; tags group measures from different instruments that occur at the same time in the score. This resembles the &lt;em&gt;timewise&lt;/em&gt; dialect of MusicXML.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;    &amp;lt;MeasureGroup MeasureNumber=&amp;quot;6&amp;quot; RehearsalMark=&amp;quot;A&amp;quot;&amp;gt;
+      &amp;lt;TimeSignature Beats=&amp;quot;4&amp;quot; BeatUnit=&amp;quot;4&amp;quot;/&amp;gt;
+      &amp;lt;KeySignature Step=&amp;quot;F&amp;quot; Gender=&amp;quot;Major&amp;quot;/&amp;gt;
+      &amp;lt;Tempo Beat=&amp;quot;1&amp;quot; Text=&amp;quot;Allegro&amp;quot; /&amp;gt;
+      &amp;lt;Repetition Beat=&amp;quot;4&amp;quot; Sign=&amp;quot;SegnoSign&amp;quot; /&amp;gt;
+      &amp;lt;Barline Location=&amp;quot;Right&amp;quot; Type=&amp;quot;EndRepeat&amp;quot;/&amp;gt;
+      &amp;lt;Measure Clef=&amp;quot;Treble&amp;quot; InstrumentID=&amp;quot;1&amp;quot; StaffID=&amp;quot;1&amp;quot;&amp;gt;
+        &amp;lt;Note Voice=&amp;quot;1&amp;quot; Duration=&amp;quot;Quarter&amp;quot; Beat=&amp;quot;1&amp;quot; Step=&amp;quot;C&amp;quot; Octave=&amp;quot;5&amp;quot;/&amp;gt;
+        &amp;lt;Note Voice=&amp;quot;1&amp;quot; Duration=&amp;quot;Quarter&amp;quot; Beat=&amp;quot;2&amp;quot; Step=&amp;quot;D&amp;quot; Octave=&amp;quot;5&amp;quot;/&amp;gt;
+        &amp;lt;Note Voice=&amp;quot;1&amp;quot; Duration=&amp;quot;Quarter&amp;quot; Beat=&amp;quot;3&amp;quot; Step=&amp;quot;E&amp;quot; Octave=&amp;quot;5&amp;quot;/&amp;gt;
+        &amp;lt;Note Voice=&amp;quot;1&amp;quot; Duration=&amp;quot;Quarter&amp;quot; Beat=&amp;quot;4&amp;quot; Step=&amp;quot;F&amp;quot; Octave=&amp;quot;5&amp;quot;/&amp;gt;
+      &amp;lt;/Measure&amp;gt;
+      &amp;lt;Measure Clef=&amp;quot;Bass&amp;quot; InstrumentID=&amp;quot;2&amp;quot; StaffID=&amp;quot;2&amp;quot;&amp;gt;
+        &amp;lt;Note Voice=&amp;quot;1&amp;quot; Duration=&amp;quot;Whole&amp;quot; Beat=&amp;quot;1&amp;quot; Step=&amp;quot;C&amp;quot; Octave=&amp;quot;3&amp;quot;/&amp;gt;
+      &amp;lt;/Measure&amp;gt;
+    &amp;lt;/MeasureGroup&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.musicistaapp.de/doc/class_model_1_1_sections_1_1_notes_1_1_note.html&#34;&gt;Notes&lt;/a&gt; consist of Step, Octave, Duration and Beat but can have several additional attributes. Possible child tags are Articulation, Lyrics and analysis tags such as Harmony or NoteAttribute:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;    &amp;lt;Note Step=&amp;quot;C&amp;quot; Octave=&amp;quot;4&amp;quot; Duration=&amp;quot;Eighth&amp;quot; Beat=&amp;quot;1&amp;quot; Voice=&amp;quot;1&amp;quot;&amp;gt;
+      &amp;lt;Articulation Bowing=&amp;quot;Pizzicato&amp;quot; Accent=&amp;quot;Marcato&amp;quot;&amp;gt;Griffbrett&amp;lt;/Articulation&amp;gt;
+      &amp;lt;Lyrics&amp;gt;
+        &amp;lt;Lyric Line=&amp;quot;1&amp;quot; Syllabic=&amp;quot;Single&amp;quot;&amp;gt;Eins&amp;lt;/Lyric&amp;gt;
+        &amp;lt;Lyric Line=&amp;quot;2&amp;quot; Syllabic=&amp;quot;Single&amp;quot;&amp;gt;Zwei&amp;lt;/Lyric&amp;gt;
+        &amp;lt;Lyric Line=&amp;quot;3&amp;quot; Syllabic=&amp;quot;Single&amp;quot;&amp;gt;Drei&amp;lt;/Lyric&amp;gt;
+        &amp;lt;Lyric Line=&amp;quot;4&amp;quot; Syllabic=&amp;quot;Single&amp;quot;&amp;gt;Vier&amp;lt;/Lyric&amp;gt;
+      &amp;lt;/Lyrics&amp;gt;
+      &amp;lt;Harmony Step=&amp;quot;C&amp;quot; Gender=&amp;quot;Major&amp;quot; Function=&amp;quot;Tonic&amp;quot; /&amp;gt;
+      &amp;lt;NoteAttribute SetOn=&amp;quot;2014-09-17&amp;quot;&amp;gt;Free Text&amp;lt;/NoteAttribute&amp;gt;
+    &amp;lt;/Note&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Musicista can also store additional information, such as themes, in the &lt;a href=&#34;http://www.musicistaapp.de/doc/class_model_1_1_part.html&#34;&gt;Parts&lt;/a&gt; section:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;    &amp;lt;Parts&amp;gt;
+      &amp;lt;Part Name=&amp;quot;Theme #1&amp;quot; Movement=&amp;quot;1&amp;quot;&amp;gt;
+        &amp;lt;Start MeasureNumber=&amp;quot;0&amp;quot; StaffNumber=&amp;quot;1&amp;quot; Beat=&amp;quot;1.75&amp;quot; /&amp;gt;
+        &amp;lt;End MeasureNumber=&amp;quot;1&amp;quot; StaffNumber=&amp;quot;1&amp;quot; Beat=&amp;quot;1&amp;quot; /&amp;gt;
+        &amp;lt;Passage&amp;gt;
+          &amp;lt;MeasureGroup MeasureNumber=&amp;quot;0&amp;quot;&amp;gt;...&amp;lt;/MeasureGroup&amp;gt;
+          &amp;lt;MeasureGroup MeasureNumber=&amp;quot;1&amp;quot;&amp;gt;...&amp;lt;/MeasureGroup&amp;gt;
+        &amp;lt;/Passage&amp;gt;
+      &amp;lt;/Part&amp;gt;
+    &amp;lt;/Parts&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Comments can be stored in the &lt;a href=&#34;http://www.musicistaapp.de/doc/class_model_1_1_comment.html&#34;&gt;Comments&lt;/a&gt; section&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;    &amp;lt;Comments&amp;gt;
+      &amp;lt;Comment Name=&amp;quot;c1&amp;quot; Movement=&amp;quot;1&amp;quot; Author=&amp;quot;Jannik&amp;quot;&amp;gt;
+        &amp;lt;Text&amp;gt;Interesting passage&amp;lt;/Text&amp;gt;
+        &amp;lt;NoteReference MeasureNumber=&amp;quot;0&amp;quot; StaffNumber=&amp;quot;1&amp;quot; Beat=&amp;quot;1.75&amp;quot; /&amp;gt;
+      &amp;lt;/Comment&amp;gt;
+    &amp;lt;/Comments&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And, although it is not a graphical format, some stylistic information can be stored in the &lt;a href=&#34;http://www.musicistaapp.de/doc/class_model_1_1_view_1_1_style.html&#34;&gt;Style&lt;/a&gt; tag:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;    &amp;lt;Style&amp;gt;
+      &amp;lt;MovementMetric MovementNumber=&amp;quot;1&amp;quot;&amp;gt;
+        &amp;lt;Margin Left=&amp;quot;60&amp;quot; Top=&amp;quot;60&amp;quot; Right=&amp;quot;60&amp;quot; BelowTitle=&amp;quot;50&amp;quot; /&amp;gt;
+        &amp;lt;Staff Spacing=&amp;quot;20&amp;quot; /&amp;gt;
+        &amp;lt;System Spacing=&amp;quot;40&amp;quot; /&amp;gt;
+        &amp;lt;MeasuresPerSystem Threshold=&amp;quot;280&amp;quot; Division=&amp;quot;6,6,6,6,6,4,5,3,...&amp;quot; /&amp;gt;
+      &amp;lt;/MovementMetric&amp;gt;
+    &amp;lt;/Style&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;screenshots&#34;&gt;Screenshots&lt;/h1&gt;
+
+&lt;p&gt;&lt;center&gt;&lt;img src=&#34;screenshot_start.png&#34; alt=&#34;Musicista&#34; /&gt;&lt;/center&gt;
+&lt;center&gt;&lt;img src=&#34;screenshot_collection.png&#34; alt=&#34;Musicista&#34; /&gt;&lt;/center&gt;
+&lt;center&gt;&lt;img src=&#34;screenshot_musescore.png&#34; alt=&#34;Musicista&#34; /&gt;&lt;/center&gt;
+&lt;center&gt;&lt;img src=&#34;screenshot_score.png&#34; alt=&#34;Musicista&#34; /&gt;&lt;/center&gt;
+&lt;center&gt;&lt;img src=&#34;screenshot_selection.png&#34; alt=&#34;Musicista&#34; /&gt;&lt;/center&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;tinynotation&#34;&gt;TinyNotation&lt;/h1&gt;
+
+&lt;p&gt;TinyNotation is easy and intuitive:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Start with the note name: &lt;strong&gt;a&lt;/strong&gt;, &lt;strong&gt;b&lt;/strong&gt;, &lt;strong&gt;c&lt;/strong&gt;, &lt;strong&gt;d&lt;/strong&gt;, &lt;strong&gt;e&lt;/strong&gt;, &lt;strong&gt;f&lt;/strong&gt;, &lt;strong&gt;g&lt;/strong&gt; or &lt;strong&gt;r&lt;/strong&gt; for a rest&lt;/li&gt;
+&lt;li&gt;Select the octave by repeating the note name or writing upper case: &lt;strong&gt;CCC&lt;/strong&gt; &amp;gt; &lt;strong&gt;CC&lt;/strong&gt; &amp;gt; &lt;strong&gt;C&lt;/strong&gt; &amp;gt; &lt;strong&gt;c&lt;/strong&gt; &amp;gt; &lt;strong&gt;cc&lt;/strong&gt; &amp;gt; &lt;strong&gt;ccc&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Separate notes with space: &lt;strong&gt;cc dd e f g a r&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Now write the duration: &lt;strong&gt;cc8&lt;/strong&gt; for example.&lt;/li&gt;
+&lt;li&gt;If the duration is the same as before, you don&amp;rsquo;t have to specify it: &lt;strong&gt;cc8 dd e f g4 a r1&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Dotted notes work as well: &lt;strong&gt;cc8&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;Add articulation in parenthesis: &lt;strong&gt;cc8.(pp,accent)&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;And lyrics in brackets: &lt;strong&gt;cc8.(pp,accent)[Gloria,Oh]&lt;/strong&gt; (separate lines with comma)&lt;/li&gt;
+&lt;li&gt;That&amp;rsquo;s it!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Thanks to the guys at &lt;a href=&#34;http://web.mit.edu/music21/&#34;&gt;music21&lt;/a&gt; who inspired this dialect!&lt;/p&gt;
+
+&lt;p&gt;All articulation keywords:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;p, pp, ppp, pppp, ppppp, pppppp&lt;/li&gt;
+&lt;li&gt;f, ff, fff, ffff, fffff, ffffff&lt;/li&gt;
+&lt;li&gt;fp, fz, mf, mp&lt;/li&gt;
+&lt;li&gt;rf, rfz, sf, sfz, sffz, sfp, sfpp&lt;/li&gt;
+&lt;li&gt;marcato, staccato, staccatissimo, accent, tenuto, portato,&lt;/li&gt;
+&lt;li&gt;legato&lt;/li&gt;
+&lt;li&gt;arpeggiate&lt;/li&gt;
+&lt;li&gt;damping&lt;/li&gt;
+&lt;li&gt;dolce&lt;/li&gt;
+&lt;li&gt;espressivo&lt;/li&gt;
+&lt;li&gt;trill&lt;/li&gt;
+&lt;li&gt;Slurs: begin = {, middle = _, end = }&lt;/li&gt;
+&lt;li&gt;mordent, invmordent (inverted mordent)&lt;/li&gt;
+&lt;li&gt;turn, invturn (inverted turn), delturn (delayed turn), delinvturn (delayed inverted turn)&lt;/li&gt;
+&lt;li&gt;schleifer, shake, wavyline&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Scorewriter Benchmarks</title>
+      <link>http://jannikarndt.github.io/Musicista/blog/Scorewriter%20Benchmarks/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://jannikarndt.github.io/Musicista/blog/Scorewriter%20Benchmarks/</guid>
+      <description>
+
+&lt;h1 id=&#34;scorewriter-benchmarks&#34;&gt;Scorewriter Benchmarks&lt;/h1&gt;
+
+&lt;p&gt;Evaluating the output of a scorewriter is not easy. Mostly because there are no compulsory rules that anyone has to keep to. There is the 676-page-guide &lt;em&gt;Behind Bars — The Definitive Guide to Music Notation&lt;/em&gt; by Elaine Gould, which is a wonderful reference, but still not complete and in now way easy transformable into algorithms.&lt;/p&gt;
+
+&lt;p&gt;Now displaying html- css- and javascript-content on a webpage is in a way similar to musical notation, at least in its liberties. Browsers are tested with example-code, like the acid-test. Inspired by this test I created a benchmark score that uses all common pitfalls in notation. Here is a complete list:&lt;/p&gt;
+
+&lt;h3 id=&#34;general-layout&#34;&gt;General layout&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Pickup measure&lt;/li&gt;
+&lt;li&gt;Time signature changes&lt;/li&gt;
+&lt;li&gt;Key changes&lt;/li&gt;
+&lt;li&gt;Tempo text with metronome mark&lt;/li&gt;
+&lt;li&gt;Barlines (Single, Double, Repeat, Final)&lt;/li&gt;
+&lt;li&gt;Rehearsal marks&lt;/li&gt;
+&lt;li&gt;Lyrics&lt;/li&gt;
+&lt;li&gt;Meta information: Title, Composer, Lyricist&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;notation&#34;&gt;Notation&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Sixteenths (beamed), Eigths (single and beamed), Quarters, Halves, Whole notes&lt;/li&gt;
+&lt;li&gt;Triplets&lt;/li&gt;
+&lt;li&gt;Tied notes (in measure and between measures)&lt;/li&gt;
+&lt;li&gt;Chords&lt;/li&gt;
+&lt;li&gt;Multiple voices&lt;/li&gt;
+&lt;li&gt;Notes longer than one measure&lt;/li&gt;
+&lt;li&gt;Accidentals&lt;/li&gt;
+&lt;li&gt;Dotted notes&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;articulation&#34;&gt;Articulation&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Slur&lt;/li&gt;
+&lt;li&gt;Staccato, Tenuto, Accent&lt;/li&gt;
+&lt;li&gt;Fermata&lt;/li&gt;
+&lt;li&gt;Trill, Mordent, Turn&lt;/li&gt;
+&lt;li&gt;Ritardando, Accelerando&lt;/li&gt;
+&lt;li&gt;Crescendo (wedge)&lt;/li&gt;
+&lt;li&gt;Dynamics&lt;/li&gt;
+&lt;li&gt;Free text (“espress.”)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I engraved the piece by hand in Sibelius as beautiful as the software was able to. The desired result looks like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt;&lt;img src=&#34;Correct.png&#34; alt=&#34;Musicista&#34; /&gt;&lt;/center&gt;&lt;/p&gt;
+
+&lt;p&gt;Then I exported the score to MusicXML and imported that back into Sibelius 7:&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt;&lt;img src=&#34;Screen-Sibelius.png&#34; alt=&#34;Musicista&#34; /&gt;&lt;/center&gt;&lt;/p&gt;
+
+&lt;p&gt;Probably the most astonishing thing is the trill, which is not recognized on import, although the file was written by the exact same software. I also tried Finale 2014:&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt;&lt;img src=&#34;Screen-Finale.png&#34; alt=&#34;Musicista&#34; /&gt;&lt;/center&gt;&lt;/p&gt;
+
+&lt;p&gt;Here too quite a few corrections by hand would be necessary. Note that the red notes in measure 5 denote a second voice, not an error. Let&amp;rsquo;s see what MuseScore 1.3 displays:&lt;/p&gt;
+
+&lt;p&gt;The Benchmark Score in MuseScore
+The Benchmark Score in MuseScore
+Again, not that beautiful. Especially the system breaks throw me off. But as I wrote, they are difficult to calculate. Neither Finale nor MuseScore got the title, composer and lyricist right, although the source clearly states them:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;    &amp;lt;score-partwise version=&amp;quot;3.0&amp;quot;&amp;gt;
+     &amp;lt;work&amp;gt;
+     &amp;lt;work-title&amp;gt;Benchmark Score&amp;lt;/work-title&amp;gt;
+     &amp;lt;/work&amp;gt;
+     &amp;lt;identification&amp;gt;
+     &amp;lt;creator type=&amp;quot;composer&amp;quot;&amp;gt;Jannik Arndt&amp;lt;/creator&amp;gt;
+     &amp;lt;creator type=&amp;quot;lyricist&amp;quot;&amp;gt;William Shake-Beer&amp;lt;/creator&amp;gt;
+    …
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now finally for the Musicista (v0.8) result:&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt;&lt;img src=&#34;Screen-Musicista.png&#34; alt=&#34;Musicista&#34; /&gt;&lt;/center&gt;&lt;/p&gt;
+
+&lt;p&gt;Well, there are a few spots that still need correction, but all in all I am a bit proud.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

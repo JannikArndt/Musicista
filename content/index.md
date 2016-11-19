@@ -14,7 +14,7 @@ This software is licensed under [GPL v3.0](http://www.gnu.org/licenses/gpl-3.0.t
 
 <br><br>
 
-<a class="btn btn-success" href="http://www.musicistaapp.de/download/setup.exe">Install Windows-App</a>
+<a class="btn btn-success" href="https://raw.githubusercontent.com/JannikArndt/Musicista/master/setup/Musicista.application">Install Windows-App</a>
 <a class="btn btn-primary" href="https://www.github.com/JannikArndt/Musicista">View on Github</a>
 <a class="btn btn-info" href="https://www.facebook.com/MusicistaApp">Like on Facebook</a>
 
@@ -35,7 +35,7 @@ Musicista files have six sections:
     </Piece>
 ```
 
-The <a href="http://www.musicistaapp.de/doc/namespace_model_1_1_meta.html">meta data</a> section stores title, composer, etc.:
+The __meta data__ section stores title, composer, etc.:
 
 ``` xml
     <Meta>
@@ -66,7 +66,7 @@ The <a href="http://www.musicistaapp.de/doc/namespace_model_1_1_meta.html">meta 
     </Meta>
 ```
 
-The <a href="http://www.musicistaapp.de/doc/namespace_model_1_1_instruments.html">instruments</a> section defines instrument groups, instruments and staves:
+The __instruments__ section defines instrument groups, instruments and staves:
 
 ``` xml
     <Instruments>
@@ -100,7 +100,7 @@ The <a href="http://www.musicistaapp.de/doc/namespace_model_1_1_instruments.html
     </Instruments>
 ```
 
-The actual music is stored in the <a href="http://www.musicistaapp.de/doc/namespace_model_1_1_sections.html">Score</a> section, hierarchically structured:
+The actual music is stored in the __Score__ section, hierarchically structured:
 
 ``` xml
     <Score>
@@ -116,7 +116,7 @@ The actual music is stored in the <a href="http://www.musicistaapp.de/doc/namesp
     </Score>
 ```
 
-<a href="http://www.musicistaapp.de/doc/class_model_1_1_sections_1_1_measure_group.html">MeasureGroup</a> tags group measures from different instruments that occur at the same time in the score. This resembles the <em>timewise</em> dialect of MusicXML.
+__MeasureGroup__ tags group measures from different instruments that occur at the same time in the score. This resembles the <em>timewise</em> dialect of MusicXML.
 
 ``` xml
     <MeasureGroup MeasureNumber="6" RehearsalMark="A">
@@ -137,7 +137,7 @@ The actual music is stored in the <a href="http://www.musicistaapp.de/doc/namesp
     </MeasureGroup>
 ```
 
-<a href="http://www.musicistaapp.de/doc/class_model_1_1_sections_1_1_notes_1_1_note.html">Notes</a> consist of Step, Octave, Duration and Beat but can have several additional attributes. Possible child tags are Articulation, Lyrics and analysis tags such as Harmony or NoteAttribute:
+__Notes__ consist of Step, Octave, Duration and Beat but can have several additional attributes. Possible child tags are Articulation, Lyrics and analysis tags such as Harmony or NoteAttribute:
 
 ``` xml
     <Note Step="C" Octave="4" Duration="Eighth" Beat="1" Voice="1">
@@ -153,7 +153,7 @@ The actual music is stored in the <a href="http://www.musicistaapp.de/doc/namesp
     </Note>
 ```
 
-Musicista can also store additional information, such as themes, in the <a href="http://www.musicistaapp.de/doc/class_model_1_1_part.html">Parts</a> section:
+Musicista can also store additional information, such as themes, in the __Parts__ section:
 
 ``` xml
     <Parts>
@@ -168,7 +168,7 @@ Musicista can also store additional information, such as themes, in the <a href=
     </Parts>
 ```
 
-Comments can be stored in the <a href="http://www.musicistaapp.de/doc/class_model_1_1_comment.html">Comments</a> section
+Comments can be stored in the __Comments__ section
 
 ``` xml
     <Comments>
@@ -179,7 +179,7 @@ Comments can be stored in the <a href="http://www.musicistaapp.de/doc/class_mode
     </Comments>
 ```
 
-And, although it is not a graphical format, some stylistic information can be stored in the <a href="http://www.musicistaapp.de/doc/class_model_1_1_view_1_1_style.html">Style</a> tag:
+And, although it is not a graphical format, some stylistic information can be stored in the __Style__ tag:
 
 ``` xml
     <Style>

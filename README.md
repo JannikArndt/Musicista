@@ -10,5 +10,3 @@ To update
 2. `add`, `commit` and `push` changes
 3. `cd` into `public` 
 4. `add`, `commit` and `push` changes
-
-or run `./deploy.sh`

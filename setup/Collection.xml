@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Collection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:noNamespaceSchemaLocation="CollectionItem.xsd">
+	<Composer Name="Arndt" Born="1989" Image="http://www.jannikarndt.de/wp-content/uploads/2014/05/cropped-2014-05-04-mit-Stock.jpg">
+		<Category Name="Examples">
+			<Work Name="Abendstück Nr. 17" Filepath="http://www.musicistaapp.de/download/scores/Arndt-Abendstueck17.musicista">
+				<Meta>
+					<Title>Abendstück No. 17</Title>
+					<People>
+						<Composer FirstName="Jannik" LastName="Arndt"/>
+					</People>
+					<Collection/>
+					<Opus Number="0" SubNumber="0"/>
+					<Epoch>None</Epoch>
+					<Form>Other</Form>
+					<Dates>
+						<Engraving Date="2014-06-10" Typesetter="Jannik Arndt"/>
+					</Dates>
+					<AverageDuration>0</AverageDuration>
+					<BeatsPerMinute>0</BeatsPerMinute>
+					<Copyright>Copyright © Jannik Arndt</Copyright>
+					<Software>Musicista 1.0</Software>
+				</Meta>
+			</Work>
+			<Work Name="Benchmark" Filepath="http://www.musicistaapp.de/download/scores/Benchmark.musicista">
+				<Meta>
+					<Title>Benchmark Score</Title>
+					<Subtitle>For testing scorewriters</Subtitle>
+					<People>
+						<Composer FirstName="Jannik" LastName="Arndt"/>
+						<Lyricist FirstName="William" LastName="Shake-Beer"/>
+					</People>
+					<Collection/>
+					<Opus Number="0" SubNumber="0"/>
+					<Epoch>None</Epoch>
+					<Form>Other</Form>
+					<Dates>
+						<Engraving Date="2014-08-11" Typesetter="Jannik Arndt"/>
+					</Dates>
+					<AverageDuration>0</AverageDuration>
+					<BeatsPerMinute>0</BeatsPerMinute>
+					<Copyright>Copyright © 2014</Copyright>
+					<Software>Musicista 1.0</Software>
+				</Meta>
+			</Work>
+			<Work Name="Doubling" Filepath="http://www.musicistaapp.de/download/scores/Doubling.musicista">
+				<Meta>
+					<Title>Example Piece with quite a very long title</Title>
+					<People>
+						<Composer FirstName="Jannik" LastName="Arndt"/>
+					</People>
+					<Collection/>
+					<Opus Number="0" SubNumber="0"/>
+					<Epoch>TwentyFirstCentury</Epoch>
+					<Form>Lied</Form>
+					<Dates>
+						<Engraving Date="2014-09-27" Typesetter="Jannik Arndt"/>
+					</Dates>
+					<AverageDuration>0</AverageDuration>
+					<BeatsPerMinute>0</BeatsPerMinute>
+					<Copyright>Copyright © </Copyright>
+					<Notes>Use this file to test the algorithms!</Notes>
+					<Software>Musicista 1.0</Software>
+				</Meta>
+			</Work>
+		</Category>
+	</Composer>
+	<Composer Name="Beethoven" Born="1770" Died="1827" Image="images/Beethoven.jpg">
+		<Category Name="Sonatas">
+			<Work Name="Sonate Nr. 1" Filepath="http://www.musicistaapp.de/download/scores/Beethoven-Sonate1.musicista">
+				<Meta>
+					<Title>Sonate No. 1</Title>
+					<People>
+						<Composer FirstName="Ludwig" MiddleName="van" LastName="Beethoven"/>
+					</People>
+					<Collection/>
+					<Opus Number="2" SubNumber="1"/>
+					<Epoch>Classical</Epoch>
+					<Form>Sonata</Form>
+					<Dates>
+						<Engraving Date="2013-12-08"/>
+					</Dates>
+					<AverageDuration>0</AverageDuration>
+					<BeatsPerMinute>0</BeatsPerMinute>
+					<Weblink>http://www.musicistaapp.de/download/scores/Beethoven-Sonate1.musicista</Weblink>
+					<Notes>Beethoven's Piano Sonata No. 1 in F minor, Op. 2, No. 1, was written in 1795 and dedicated to Joseph Haydn. It is the first piano sonata written by Beethoven. The first movement, in 2/2 time, is in sonata form. The first theme is driven by a Mannheim Rocket, very similar to the opening of the fourth movement of Mozart's Symphony No. 40. The second theme, in A-flat major, is accompanied by eighth-note octaves in the bass (usually with dominant harmony). There are two codettas; the first consists of a series of energetic descending scales in A-flat major, and the second is a lyrical passage marked con espressione. In this second codetta and in the second theme Beethoven makes interesting use of mode mixture as the right hand parts borrows from the parallel minor. The development opens with the initial theme, but is mostly dedicated to the second theme and its eighth-note accompaniment. The retransition to the main theme uses its sixteenth-note triplet. The recapitulation repeats the material from the exposition without much change, except that it stays in F minor throughout. There is a short coda. A tense, agitated feel is ubiquitous throughout the movement.</Notes>
+					<Software>Musicista 1.0</Software>
+				</Meta>
+			</Work>
+		</Category>
+	</Composer>
+	<Composer Name="Palestrina" Born="1525" Died="1594" Image="http://upload.wikimedia.org/wikipedia/commons/1/18/Giovanni_Pierluigi_da_Palestrina.jpg">
+		<Category Name="Motets">
+			<Work Name="Dies sanctificatus" Filepath="http://www.musicistaapp.de/download/scores/Palestrina-DiesSanctificatus.musicista">
+				<Meta>
+					<Title>Dies sanctificatus</Title>
+					<People>
+						<Composer FirstName="G." MiddleName="P. da" LastName="Palestrina"/>
+					</People>
+					<Collection/>
+					<Opus Number="0" SubNumber="0"/>
+					<Epoch>Renaissance</Epoch>
+					<Form>Other</Form>
+					<Dates>
+						<Engraving Date="2011-09-07" Typesetter="Jannik Arndt"/>
+					</Dates>
+					<AverageDuration>0</AverageDuration>
+					<BeatsPerMinute>0</BeatsPerMinute>
+					<Notes/>
+					<Software>Musicista 1.0</Software>
+				</Meta>
+			</Work>
+		</Category>
+	</Composer>
+</Collection>

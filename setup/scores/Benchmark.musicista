@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Piece xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.0">
+  <Meta>
+    <Title>Benchmark Score</Title>
+    <People>
+      <Composer FirstName="Jannik" LastName="Arndt" />
+      <Lyricist FirstName="William" LastName="Shake-Beer" />
+    </People>
+    <Collection />
+    <Opus Number="0" SubNumber="0" />
+    <Epoch>None</Epoch>
+    <Form>Other</Form>
+    <Dates>
+      <Engraving Date="2014-08-11" Typesetter="Jannik Arndt" />
+    </Dates>
+    <AverageDuration>0</AverageDuration>
+    <BeatsPerMinute>0</BeatsPerMinute>
+    <Copyright>Copyright © 2014</Copyright>
+    <Software>Sibelius 7.1.3</Software>
+  </Meta>
+  <Instruments>
+    <InstrumentGroup Name="" BraceType="Brace">
+      <Instrument ID="1" Name="Piano" Shortname="Pno." Transposition="0">
+        <Staff ID="1" />
+        <Staff ID="2" />
+      </Instrument>
+    </InstrumentGroup>
+  </Instruments>
+  <Score>
+    <Section>
+      <Movement Number="0" BeatsPerMinute="0">
+        <Segment>
+          <Passage>
+            <MeasureGroup MeasureNumber="0" IsPickupMeasure="true">
+              <TimeSignature Beats="4" BeatUnit="4" />
+              <KeySignature Step="A" Gender="Major" />
+              <Measure Clef="Treble" InstrumentID="1" StaffID="0">
+                <Note Voice="0" Duration="Eigth" Beat="3.5" Step="B" Octave="3" Velocity="0">
+                  <Lyrics>
+                    <Lyric Line="0" Syllabic="Single">Dies</Lyric>
+                  </Lyrics>
+                  <Articulation Dynamics="p" />
+                </Note>
+                <Note Voice="0" Duration="Eigth" Beat="4" Step="E" Octave="4" Velocity="0">
+                  <Lyrics>
+                    <Lyric Line="0" Syllabic="Single">ist</Lyric>
+                  </Lyrics>
+                </Note>
+                <Note Voice="0" Duration="Eigth" Beat="4.5" Step="GSharp" Octave="4" Velocity="0">
+                  <Lyrics>
+                    <Lyric Line="0" Syllabic="Single">ein</Lyric>
+                  </Lyrics>
+                </Note>
+              </Measure>
+              <Measure Clef="Bass" InstrumentID="1" StaffID="0">
+                <Rest Voice="0" Duration="Eigth" Beat="3.5" />
+                <Rest Voice="0" Duration="Quarter" Beat="4" />
+              </Measure>
+            </MeasureGroup>
+            <MeasureGroup MeasureNumber="1">
+              <TimeSignature Beats="4" BeatUnit="4" />
+              <KeySignature Step="A" Gender="Major" />
+              <Measure Clef="Treble" InstrumentID="1" StaffID="0">
+                <Note Voice="1" Duration="Quarter" Beat="1" Step="A" Octave="4" Velocity="0">
+                  <Lyrics>
+                    <Lyric Line="1" Syllabic="Single">Bench</Lyric>
+                  </Lyrics>
+                </Note>
+                <Note Voice="1" Duration="Quarter" Beat="2" Step="B" Octave="4" Velocity="0">
+                  <Lyrics>
+                    <Lyric Line="1" Syllabic="Single">mark</Lyric>
+                  </Lyrics>
+                </Note>
+                <Note Voice="1" Duration="Quarter" Beat="3" Step="GSharp" Octave="4" Velocity="0">
+                  <Lyrics>
+                    <Lyric Line="1" Syllabic="Single">stück</Lyric>
+                  </Lyrics>
+                  <Articulation Ornament="Mordent" />
+                </Note>
+                <Note Voice="1" Duration="EigthTriplet" Beat="4" Step="FSharp" Octave="4" Velocity="0">
+                  <Lyrics>
+                    <Lyric Line="1" Syllabic="Single">mi</Lyric>
+                  </Lyrics>
+                </Note>
+                <Note Voice="1" Duration="EigthTriplet" Beat="4.333333333333333" Step="E" Octave="4" Velocity="0" />
+                <Note Voice="1" Duration="EigthTriplet" Beat="4.666666666666667" Step="FSharp" Octave="4" Velocity="0">
+                  <Lyrics>
+                    <Lyric Line="1" Syllabic="Single">t</Lyric>
+                  </Lyrics>
+                </Note>
+              </Measure>
+              <Measure Clef="Bass" InstrumentID="1" StaffID="0">
+                <Note Voice="3" Duration="Sixteenth" Beat="1" Step="CSharp" Octave="3" Velocity="0" />
+                <Note Voice="3" Duration="Sixteenth" Beat="1.25" Step="A" Octave="3" Velocity="0" />
+                <Note Voice="3" Duration="Sixteenth" Beat="1.5" Step="E" Octave="3" Velocity="0" />
+                <Note Voice="3" Duration="Sixteenth" Beat="1.75" Step="A" Octave="3" Velocity="0" />
+                <Note Voice="3" Duration="Sixteenth" Beat="2" Step="CSharp" Octave="3" Velocity="0" />
+                <Note Voice="3" Duration="Sixteenth" Beat="2.25" Step="A" Octave="3" Velocity="0" />
+                <Note Voice="3" Duration="Sixteenth" Beat="2.5" Step="E" Octave="3" Velocity="0" />
+                <Note Voice="3" Duration="Sixteenth" Beat="2.75" Step="A" Octave="3" Velocity="0" />
+                <Note Voice="3" Duration="Sixteenth" Beat="3" Step="D" Octave="3" Velocity="0" />
+                <Note Voice="3" Duration="Sixteenth" Beat="3.25" Step="A" Octave="3" Velocity="0" />
+                <Note Voice="3" Duration="Sixteenth" Beat="3.5" Step="FSharp" Octave="3" Velocity="0" />
+                <Note Voice="3" Duration="Sixteenth" Beat="3.75" Step="A" Octave="3" Velocity="0" />
+                <Note Voice="3" Duration="Sixteenth" Beat="4" Step="D" Octave="3" Velocity="0" />
+                <Note Voice="3" Duration="Sixteenth" Beat="4.25" Step="A" Octave="3" Velocity="0" />
+                <Note Voice="3" Duration="Sixteenth" Beat="4.5" Step="FSharp" Octave="3" Velocity="0" />
+                <Note Voice="3" Duration="Sixteenth" Beat="4.75" Step="A" Octave="3" Velocity="0" />
+              </Measure>
+            </MeasureGroup>
+            <MeasureGroup MeasureNumber="2">
+              <TimeSignature Beats="4" BeatUnit="4" />
+              <KeySignature Step="A" Gender="Major" />
+              <Measure Clef="Treble" InstrumentID="1" StaffID="0">
+                <Note Voice="1" Duration="Quarter" Beat="1" Step="GSharp" Octave="4" Velocity="0">
+                  <Lyrics>
+                    <Lyric Line="1" Syllabic="Single">Um</Lyric>
+                  </Lyrics>
+                </Note>
+                <Note Voice="1" Duration="EigthDotted" Beat="2" Step="E" Octave="4" Velocity="0">
+                  <Lyrics>
+                    <Lyric Line="1" Syllabic="Single">lau</Lyric>
+                  </Lyrics>
+                </Note>
+                <Note Voice="1" Duration="Sixteenth" Beat="2.75" Step="D" Octave="4" Velocity="0" />
+                <Note Voice="1" Duration="Half" Beat="3" Step="CSharp" Octave="4" Velocity="0">
+                  <Lyrics>
+                    <Lyric Line="1" Syllabic="Single">ten.</Lyric>
+                  </Lyrics>
+                  <Articulation Ornament="Turn" />
+                </Note>
+              </Measure>
+              <Measure Clef="Bass" InstrumentID="1" StaffID="0">
+                <Note Voice="3" Duration="Quarter" Beat="1" Step="CSharp" Octave="3" Velocity="0" />
+                <Note Voice="3" Duration="Quarter" Beat="2" Step="D" Octave="3" Velocity="0" />
+                <Note Voice="3" Duration="Quarter" Beat="3" Step="FSharp" Octave="3" Velocity="0" />
+                <Rest Voice="3" Duration="Quarter" Beat="4" />
+              </Measure>
+            </MeasureGroup>
+            <MeasureGroup MeasureNumber="3">
+              <TimeSignature Beats="4" BeatUnit="4" />
+              <KeySignature Step="A" Gender="Major" />
+              <Barlines>
+                <Barline Location="Right" Type="Double" />
+              </Barlines>
+              <Measure Clef="Treble" InstrumentID="1" StaffID="0">
+                <Rest Voice="0" Duration="Eigth" Beat="1" />
+                <Note Voice="0" Duration="QuarterDotted" Beat="1.5" Step="GSharp" Octave="4" Velocity="0">
+                  <Articulation Espressivo="true" />
+                </Note>
+                <Note Voice="0" Duration="Eigth" Beat="3" Step="A" Octave="4" Velocity="0" />
+                <Note Voice="0" Duration="Eigth" Beat="3.5" Step="FSharp" Octave="4" Velocity="0" />
+                <Note Voice="0" Duration="Quarter" Beat="4" Step="GSharp" Octave="4" Velocity="0" />
+              </Measure>
+              <Measure Clef="Bass" InstrumentID="1" StaffID="0">
+                <Note Voice="3" Duration="Quarter" Beat="1" Step="CSharp" Octave="3" Velocity="0" />
+                <Note Voice="3" Duration="Quarter" Beat="2" Step="D" Octave="3" Velocity="0" />
+                <Note Voice="3" Duration="Quarter" Beat="3" Step="B" Octave="2" Velocity="0" />
+                <Rest Voice="3" Duration="Eigth" Beat="4" />
+                <Note Voice="3" Duration="Eigth" Beat="4.5" Step="CSharp" Octave="3" Velocity="0" />
+              </Measure>
+            </MeasureGroup>
+            <MeasureGroup MeasureNumber="4">
+              <TimeSignature Beats="4" BeatUnit="4" />
+              <KeySignature Step="E" Gender="Major" />
+              <Measure Clef="Treble" InstrumentID="1" StaffID="0">
+                <Note Voice="1" Duration="Eigth" Beat="2" Step="E" Octave="5" Velocity="0" />
+                <Rest Voice="1" Duration="Eigth" Beat="2.5" />
+                <Note Voice="1" Duration="Eigth" Beat="3" Step="CSharp" Octave="5" Velocity="0" />
+                <Rest Voice="1" Duration="Eigth" Beat="3.5" />
+                <Note Voice="1" Duration="Half" Beat="4" Step="B" Octave="4" Velocity="0">
+                  <Articulation Trill="true" />
+                </Note>
+              </Measure>
+              <Measure Clef="Bass" InstrumentID="1" StaffID="0">
+                <Note Voice="3" Duration="Half" Beat="1" Step="CSharp" Octave="4" Velocity="0" />
+                <Rest Voice="3" Duration="Half" Beat="3" />
+              </Measure>
+            </MeasureGroup>
+            <MeasureGroup MeasureNumber="5">
+              <TimeSignature Beats="4" BeatUnit="4" />
+              <KeySignature Step="E" Gender="Major" />
+              <Tempo Beat="1" Text="rit." />
+              <Barlines>
+                <Barline Location="Right" Type="Double" />
+              </Barlines>
+              <Measure Clef="Treble" InstrumentID="1" StaffID="0">
+                <Note Voice="1" Duration="Quarter" Beat="2" Step="CSharp" Octave="5" Velocity="0" />
+                <Note Voice="1" Duration="Quarter" Beat="3" Step="DSharp" Octave="5" Velocity="0" />
+                <Note Voice="1" Duration="Quarter" Beat="4" Step="E" Octave="4" Velocity="0" />
+                <Note Voice="1" Duration="Quarter" Beat="4" Step="E" Octave="5" Velocity="0" />
+                <Rest Voice="2" Duration="Quarter" Beat="1" />
+                <Note Voice="2" Duration="Eigth" Beat="2" Step="A" Octave="4" Velocity="0" />
+                <Note Voice="2" Duration="Eigth" Beat="2.5" Step="GSharp" Octave="4" Velocity="0" />
+                <Note Voice="2" Duration="Eigth" Beat="3" Step="FSharp" Octave="4" Velocity="0" />
+                <Note Voice="2" Duration="Eigth" Beat="3.5" Step="DSharp" Octave="4" Velocity="0" />
+                <Wedge StartBeat="1" EndBeat="3" IsDecrescendo="true" />
+              </Measure>
+              <Measure Clef="Bass" InstrumentID="1" StaffID="0">
+                <Rest Voice="3" Duration="Whole" Beat="1" />
+              </Measure>
+            </MeasureGroup>
+            <MeasureGroup MeasureNumber="6" RehearsalMark="A">
+              <TimeSignature Beats="4" BeatUnit="4" />
+              <KeySignature Step="A" Gender="Major" />
+              <Tempo Beat="1" Text="accel." />
+              <Barlines>
+                <Barline Location="Left" Type="StartRepeat" />
+              </Barlines>
+              <Measure Clef="Treble" InstrumentID="1" StaffID="0">
+                <Note Voice="1" Duration="Quarter" Beat="1" Step="E" Octave="4" Velocity="0" />
+                <Note Voice="1" Duration="Quarter" Beat="1" Step="GSharp" Octave="4" Velocity="0" />
+                <Note Voice="1" Duration="Quarter" Beat="1" Step="B" Octave="4" Velocity="0" />
+                <Note Voice="1" Duration="Quarter" Beat="1" Step="E" Octave="5" Velocity="0" />
+                <Note Voice="1" Duration="Quarter" Beat="2" Step="E" Octave="4" Velocity="0" />
+                <Note Voice="1" Duration="Quarter" Beat="2" Step="A" Octave="4" Velocity="0" />
+                <Note Voice="1" Duration="Quarter" Beat="2" Step="CSharp" Octave="5" Velocity="0" />
+                <Note Voice="1" Duration="Quarter" Beat="2" Step="E" Octave="5" Velocity="0" />
+                <Note Voice="1" Duration="Quarter" Beat="3" Step="FSharp" Octave="4" Velocity="0" />
+                <Note Voice="1" Duration="Quarter" Beat="3" Step="B" Octave="4" Velocity="0" />
+                <Note Voice="1" Duration="Quarter" Beat="3" Step="CSharp" Octave="5" Velocity="0" />
+                <Note Voice="1" Duration="Quarter" Beat="3" Step="FSharp" Octave="5" Velocity="0" />
+                <Note Voice="1" Duration="Quarter" Beat="4" Step="G" Octave="4" Velocity="0" />
+                <Note Voice="1" Duration="Quarter" Beat="4" Step="B" Octave="4" Velocity="0" />
+                <Note Voice="1" Duration="Quarter" Beat="4" Step="D" Octave="5" Velocity="0" />
+                <Note Voice="1" Duration="Quarter" Beat="4" Step="G" Octave="5" Velocity="0" />
+                <Wedge StartBeat="1" EndBeat="3" IsCrescendo="true" />
+              </Measure>
+              <Measure Clef="Bass" InstrumentID="1" StaffID="0">
+                <Note Voice="3" Duration="Quarter" Beat="1" Step="E" Octave="3" Velocity="0" />
+                <Note Voice="3" Duration="Quarter" Beat="2" Step="A" Octave="2" Velocity="0" />
+                <Note Voice="3" Duration="Quarter" Beat="3" Step="B" Octave="2" Velocity="0" />
+                <Note Voice="3" Duration="Quarter" Beat="4" Step="G" Octave="2" Velocity="0" />
+              </Measure>
+            </MeasureGroup>
+            <MeasureGroup MeasureNumber="7">
+              <TimeSignature Beats="4" BeatUnit="4" />
+              <KeySignature Step="A" Gender="Major" />
+              <Measure Clef="Treble" InstrumentID="1" StaffID="0">
+                <Note Voice="0" Duration="Whole" Beat="1" Step="A" Octave="5" Velocity="0">
+                  <Articulation Dynamics="f" />
+                </Note>
+              </Measure>
+              <Measure Clef="Bass" InstrumentID="1" StaffID="0">
+                <Note Voice="3" Duration="Eigth" Beat="1" Step="A" Octave="2" Velocity="0" />
+                <Note Voice="3" Duration="Sixteenth" Beat="1.5" Step="B" Octave="2" Velocity="0" />
+                <Note Voice="3" Duration="Sixteenth" Beat="1.75" Step="CSharp" Octave="3" Velocity="0" />
+                <Note Voice="3" Duration="Sixteenth" Beat="2" Step="D" Octave="3" Velocity="0" />
+                <Note Voice="3" Duration="Sixteenth" Beat="2.25" Step="E" Octave="3" Velocity="0" />
+                <Note Voice="3" Duration="Eigth" Beat="2.5" Step="FSharp" Octave="3" Velocity="0" />
+                <Note Voice="3" Duration="Eigth" Beat="3" Step="E" Octave="3" Velocity="0" />
+                <Note Voice="3" Duration="Eigth" Beat="3.5" Step="D" Octave="3" Velocity="0" />
+                <Note Voice="3" Duration="Eigth" Beat="4" Step="A" Octave="3" Velocity="0" />
+                <Note Voice="3" Duration="Eigth" Beat="4.5" Step="CSharp" Octave="4" Velocity="0" />
+              </Measure>
+            </MeasureGroup>
+            <MeasureGroup MeasureNumber="8">
+              <TimeSignature Beats="4" BeatUnit="4" />
+              <KeySignature Step="A" Gender="Major" />
+              <Barlines>
+                <Barline Location="Right" Type="EndRepeat" />
+              </Barlines>
+              <Measure Clef="Treble" InstrumentID="1" StaffID="0">
+                <Note Voice="1" Duration="Quarter" Beat="3" Step="E" Octave="5" Velocity="0">
+                  <Articulation Accent="Tenuto" />
+                </Note>
+                <Note Voice="1" Duration="Eigth" Beat="4" Step="CSharp" Octave="5" Velocity="0">
+                  <Articulation Accent="Standard" />
+                </Note>
+                <Note Voice="1" Duration="Eigth" Beat="4.5" Step="D" Octave="5" Velocity="0">
+                  <Articulation Accent="Standard" />
+                </Note>
+              </Measure>
+              <Measure Clef="Bass" InstrumentID="1" StaffID="0">
+                <Note Voice="0" Duration="EigthDotted" Beat="1" Step="D" Octave="4" Velocity="0" />
+                <Note Voice="0" Duration="Sixteenth" Beat="1.75" Step="CSharp" Octave="4" Velocity="0" />
+                <Note Voice="0" Duration="EigthDotted" Beat="2" Step="B" Octave="3" Velocity="0" />
+                <Note Voice="0" Duration="Sixteenth" Beat="2.75" Step="A" Octave="3" Velocity="0" />
+                <Note Voice="0" Duration="Eigth" Beat="3" Step="GSharp" Octave="3" Velocity="0" />
+                <Note Voice="0" Duration="Eigth" Beat="3.5" Step="D" Octave="4" Velocity="0" />
+                <Note Voice="0" Duration="Eigth" Beat="4" Step="GSharp" Octave="2" Velocity="0" />
+                <Note Voice="0" Duration="Eigth" Beat="4.5" Step="A" Octave="2" Velocity="0" />
+              </Measure>
+            </MeasureGroup>
+            <MeasureGroup MeasureNumber="9">
+              <TimeSignature Beats="5" BeatUnit="4" />
+              <KeySignature Step="A" Gender="Major" />
+              <Measure Clef="Treble" InstrumentID="1" StaffID="0">
+                <Note Voice="1" Duration="Quarter" Beat="1" Step="E" Octave="5" Velocity="0">
+                  <Articulation Accent="Staccato" />
+                </Note>
+                <Note Voice="1" Duration="Quarter" Beat="2" Step="A" Octave="4" Velocity="0">
+                  <Articulation Accent="Staccato" />
+                </Note>
+                <Note Voice="1" Duration="Quarter" Beat="3" Step="CSharp" Octave="5" Velocity="0">
+                  <Articulation Slur="Start" />
+                </Note>
+                <Note Voice="1" Duration="Sixteenth" Beat="4" Step="B" Octave="4" Velocity="0" />
+                <Note Voice="1" Duration="Sixteenth" Beat="4.25" Step="A" Octave="4" Velocity="0" />
+                <Note Voice="1" Duration="Sixteenth" Beat="4.5" Step="GSharp" Octave="4" Velocity="0" />
+                <Note Voice="1" Duration="Sixteenth" Beat="4.75" Step="A" Octave="4" Velocity="0" />
+                <Note Voice="1" Duration="Quarter" Beat="5" Step="CSharp" Octave="5" Velocity="0">
+                  <Articulation Slur="End" />
+                </Note>
+              </Measure>
+              <Measure Clef="Bass" InstrumentID="1" StaffID="0">
+                <Note Voice="3" Duration="Half" Beat="1" Step="B" Octave="2" Velocity="0" />
+                <Note Voice="3" Duration="Quarter" Beat="3" Step="B" Octave="1" Velocity="0" />
+                <Note Voice="3" Duration="Quarter" Beat="4" Step="E" Octave="2" Velocity="0" />
+                <Note Voice="3" Duration="Quarter" Beat="5" Step="GSharp" Octave="2" Velocity="0" />
+              </Measure>
+            </MeasureGroup>
+            <MeasureGroup MeasureNumber="10">
+              <TimeSignature Beats="4" BeatUnit="4" />
+              <KeySignature Step="A" Gender="Major" />
+              <Barlines>
+                <Barline Location="Right" Type="Final" />
+              </Barlines>
+              <Measure Clef="Treble" InstrumentID="1" StaffID="0">
+                <Note Voice="1" Duration="Quarter" Beat="1" Step="A" Octave="4" Velocity="0" />
+                <Note Voice="1" Duration="HalfDotted" Beat="2" Step="A" Octave="4" Velocity="0">
+                  <Articulation Fermata="Standard" />
+                </Note>
+              </Measure>
+              <Measure Clef="Bass" InstrumentID="1" StaffID="0">
+                <Note Voice="3" Duration="Whole" Beat="1" Step="A" Octave="2" Velocity="0" />
+              </Measure>
+            </MeasureGroup>
+          </Passage>
+        </Segment>
+      </Movement>
+    </Section>
+  </Score>
+  <Parts />
+  <Comments />
+  <Style>
+    <MovementMetric MovementNumber="0">
+      <Page Width="794" Height="1122" />
+      <Margin Left="50" Top="60" Right="50" Bottom="0" BelowTitle="60" />
+      <Staff Spacing="50" />
+      <System Spacing="60" />
+      <MeasuresPerSystem Threshold="100" Division="2,4,2,3" />
+      <Fontsize Title="50" Movement="30" Composer="16" />
+    </MovementMetric>
+  </Style>
+</Piece>

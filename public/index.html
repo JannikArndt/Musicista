@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+<html lang="en-us">
+<head>
+	<meta name="generator" content="Hugo 0.17" />
+	<meta charset="UTF-8">
+	<title>Musicista</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="http://jannikarndt.github.io/Musicista/css.css" type="text/css" >
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/github.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+<body >
+
+
+    
+
+<h1 id="musicista">Musicista</h1>
+
+<p><center style="float: right"><img src="icon.png" alt="Musicista" /></center></p>
+
+<p>Musicista is a tool that combines music with computer science and offers the ability to run algorithms on musical notation. It has its own file format <code>.musicista</code> to store all information, but it can also read <code>MusicXML</code>- and <code>Midi</code>-files.</p>
+
+<p><br></p>
+
+<p>This software is licensed under <a href="http://www.gnu.org/licenses/gpl-3.0.txt">GPL v3.0</a>.</p>
+
+<p><br><br></p>
+
+<p><a class="btn btn-success" href="https://raw.githubusercontent.com/JannikArndt/Musicista/master/setup/Musicista.application">Install Windows-App</a>
+<a class="btn btn-primary" href="https://www.github.com/JannikArndt/Musicista">View on Github</a>
+<a class="btn btn-info" href="https://www.facebook.com/MusicistaApp">Like on Facebook</a></p>
+
+<p><center><img src="screenshot.png" alt="Musicista" /></center></p>
+
+<h1 id="file-format">File Format</h1>
+
+<p>Musicista files have six sections:</p>
+
+<pre><code class="language-html">    &lt;Piece&gt;
+      &lt;Meta /&gt;
+      &lt;Instruments /&gt;
+      &lt;Score /&gt;
+      &lt;Parts /&gt;
+      &lt;Comments /&gt;
+      &lt;Style /&gt;
+    &lt;/Piece&gt;
+</code></pre>
+
+<p>The <strong>meta data</strong> section stores title, composer, etc.:</p>
+
+<pre><code class="language-xml">    &lt;Meta&gt;
+      &lt;Title&gt;Gute Nacht&lt;/Title&gt;
+      &lt;Subtitle&gt;Ein Cyclus von Liedern von Wilhelm Müller. Für eine Singstimme mit Begleitung des   Pianoforte&lt;/Subtitle&gt;
+      &lt;People&gt;
+        &lt;Composer FirstName=&quot;Franz&quot; LastName=&quot;Schubert&quot; Born=&quot;1797-01-31&quot; Died=&quot;1828-11-19&quot; /&gt;
+        &lt;Lyricist FirstName=&quot;Wilhelm&quot; LastName=&quot;Müller&quot; Born=&quot;1794-10-07&quot; Died=&quot;1827-10-01&quot; /&gt;
+      &lt;/People&gt;
+      &lt;Collection&gt;Die Winterreise&lt;/Collection&gt;
+      &lt;Opus Number=&quot;89&quot; SubNumber=&quot;0&quot; /&gt;
+      &lt;Epoch&gt;Romantik&lt;/Epoch&gt;
+      &lt;Form&gt;Lied&lt;/Form&gt;
+      &lt;Dates&gt;
+        &lt;Composition Date=&quot;1827-02&quot; /&gt;
+        &lt;Publication Date=&quot;1828-01-24&quot; Publisher=&quot;Tobias Haslinger&quot; /&gt;
+        &lt;Performance Date=&quot;1828-01-10&quot; IsFirst=&quot;true&quot; Place=&quot;Musikverein, Wien&quot;&gt;Ludwig Tietze&lt;/Performance&gt;
+        &lt;Engraving Date=&quot;2014-09-10&quot; Typesetter=&quot;Jannik Arndt&quot; /&gt;
+      &lt;/Dates&gt;
+      &lt;Dedication /&gt;
+      &lt;AverageDuration&gt;5:38&lt;/AverageDuration&gt;
+      &lt;BeatsPerMinute&gt;90&lt;/BeatsPerMinute&gt;
+      &lt;MusicalKey Step=&quot;D&quot; Gender=&quot;Minor&quot; /&gt;
+      &lt;Copyright&gt;Public Domain&lt;/Copyright&gt;
+      &lt;Weblink&gt;http://musicistaapp.de/?ddownload=62&lt;/Weblink&gt;
+      &lt;Notes&gt;Deutsch-Verzeichnis D911&lt;/Notes&gt;
+      &lt;Software&gt;Musicista 1.0&lt;/Software&gt;
+    &lt;/Meta&gt;
+</code></pre>
+
+<p>The <strong>instruments</strong> section defines instrument groups, instruments and staves:</p>
+
+<pre><code class="language-xml">    &lt;Instruments&gt;
+      &lt;InstrumentGroup Name=&quot;Woodwind&quot; BraceType=&quot;Bracket&quot;&gt;
+        &lt;Instrument ID=&quot;1&quot; Name=&quot;Flute 1&quot; Shortname=&quot;Fl. 1&quot;&gt;
+          &lt;Staff ID=&quot;1&quot;/&gt;
+        &lt;/Instrument&gt;
+        &lt;Instruments ID=&quot;2&quot; Name=&quot;Flute 2&quot; Shortname=&quot;Fl. 2&quot;&gt;
+          &lt;Staff ID=&quot;2&quot; PrintInStaff=&quot;1&quot;/&gt;
+        &lt;/Instrument&gt;
+      &lt;/InstrumentGroup&gt;
+      &lt;InstrumentGroup Name=&quot;Brass&quot; BraceType=&quot;None&quot;&gt;
+        &lt;Instrument ID=&quot;3&quot; Name=&quot;Trumpet in Bb&quot; Transposition=&quot;-2&quot;&gt;
+          &lt;Staff ID=&quot;3&quot;/&gt;
+        &lt;/Instrument&gt;
+      &lt;/InstrumentGroup&gt;
+      &lt;InstrumentGroup Name=&quot;Keys&quot; BraceType=&quot;Brace&quot;&gt;
+        &lt;Instrument ID=&quot;4&quot; Name=&quot;Piano&quot; Shortname=&quot;Pno.&quot;&gt;
+          &lt;Staff ID=&quot;4&quot;/&gt;
+          &lt;Staff ID=&quot;5&quot;/&gt;
+        &lt;/Instrument&gt;
+      &lt;/InstrumentGroup&gt;
+      &lt;InstrumentGroup Name=&quot;Strings&quot; BraceType=&quot;Bracket&quot;&gt;
+        &lt;Instrument ID=&quot;5&quot; Name=&quot;Violoncello&quot; Shortname=&quot;Vc.&quot;&gt;
+          &lt;Staff ID=&quot;6&quot;/&gt;
+        &lt;/Instrument&gt;
+        &lt;Instrument ID=&quot;6&quot; Name=&quot;Double Bass&quot; Shortname=&quot;Db.&quot;&gt;
+          &lt;Staff ID=&quot;7&quot;/&gt;
+        &lt;/Instrument&gt;
+      &lt;/InstrumentGroup&gt;
+    &lt;/Instruments&gt;
+</code></pre>
+
+<p>The actual music is stored in the <strong>Score</strong> section, hierarchically structured:</p>
+
+<pre><code class="language-xml">    &lt;Score&gt;
+      &lt;Section&gt;
+        &lt;Movement Number=&quot;0&quot; BeatsPerMinute=&quot;0&quot;&gt;
+          &lt;Segment&gt;
+            &lt;Passage&gt;
+              &lt;MeasureGroup MeasureNumber=&quot;1&quot;&gt;...&lt;/MeasureGroup&gt;
+            &lt;/Passage&gt;
+          &lt;/Segment&gt;
+        &lt;/Movement&gt;
+      &lt;/Section&gt;
+    &lt;/Score&gt;
+</code></pre>
+
+<p><strong>MeasureGroup</strong> tags group measures from different instruments that occur at the same time in the score. This resembles the <em>timewise</em> dialect of MusicXML.</p>
+
+<pre><code class="language-xml">    &lt;MeasureGroup MeasureNumber=&quot;6&quot; RehearsalMark=&quot;A&quot;&gt;
+      &lt;TimeSignature Beats=&quot;4&quot; BeatUnit=&quot;4&quot;/&gt;
+      &lt;KeySignature Step=&quot;F&quot; Gender=&quot;Major&quot;/&gt;
+      &lt;Tempo Beat=&quot;1&quot; Text=&quot;Allegro&quot; /&gt;
+      &lt;Repetition Beat=&quot;4&quot; Sign=&quot;SegnoSign&quot; /&gt;
+      &lt;Barline Location=&quot;Right&quot; Type=&quot;EndRepeat&quot;/&gt;
+      &lt;Measure Clef=&quot;Treble&quot; InstrumentID=&quot;1&quot; StaffID=&quot;1&quot;&gt;
+        &lt;Note Voice=&quot;1&quot; Duration=&quot;Quarter&quot; Beat=&quot;1&quot; Step=&quot;C&quot; Octave=&quot;5&quot;/&gt;
+        &lt;Note Voice=&quot;1&quot; Duration=&quot;Quarter&quot; Beat=&quot;2&quot; Step=&quot;D&quot; Octave=&quot;5&quot;/&gt;
+        &lt;Note Voice=&quot;1&quot; Duration=&quot;Quarter&quot; Beat=&quot;3&quot; Step=&quot;E&quot; Octave=&quot;5&quot;/&gt;
+        &lt;Note Voice=&quot;1&quot; Duration=&quot;Quarter&quot; Beat=&quot;4&quot; Step=&quot;F&quot; Octave=&quot;5&quot;/&gt;
+      &lt;/Measure&gt;
+      &lt;Measure Clef=&quot;Bass&quot; InstrumentID=&quot;2&quot; StaffID=&quot;2&quot;&gt;
+        &lt;Note Voice=&quot;1&quot; Duration=&quot;Whole&quot; Beat=&quot;1&quot; Step=&quot;C&quot; Octave=&quot;3&quot;/&gt;
+      &lt;/Measure&gt;
+    &lt;/MeasureGroup&gt;
+</code></pre>
+
+<p><strong>Notes</strong> consist of Step, Octave, Duration and Beat but can have several additional attributes. Possible child tags are Articulation, Lyrics and analysis tags such as Harmony or NoteAttribute:</p>
+
+<pre><code class="language-xml">    &lt;Note Step=&quot;C&quot; Octave=&quot;4&quot; Duration=&quot;Eighth&quot; Beat=&quot;1&quot; Voice=&quot;1&quot;&gt;
+      &lt;Articulation Bowing=&quot;Pizzicato&quot; Accent=&quot;Marcato&quot;&gt;Griffbrett&lt;/Articulation&gt;
+      &lt;Lyrics&gt;
+        &lt;Lyric Line=&quot;1&quot; Syllabic=&quot;Single&quot;&gt;Eins&lt;/Lyric&gt;
+        &lt;Lyric Line=&quot;2&quot; Syllabic=&quot;Single&quot;&gt;Zwei&lt;/Lyric&gt;
+        &lt;Lyric Line=&quot;3&quot; Syllabic=&quot;Single&quot;&gt;Drei&lt;/Lyric&gt;
+        &lt;Lyric Line=&quot;4&quot; Syllabic=&quot;Single&quot;&gt;Vier&lt;/Lyric&gt;
+      &lt;/Lyrics&gt;
+      &lt;Harmony Step=&quot;C&quot; Gender=&quot;Major&quot; Function=&quot;Tonic&quot; /&gt;
+      &lt;NoteAttribute SetOn=&quot;2014-09-17&quot;&gt;Free Text&lt;/NoteAttribute&gt;
+    &lt;/Note&gt;
+</code></pre>
+
+<p>Musicista can also store additional information, such as themes, in the <strong>Parts</strong> section:</p>
+
+<pre><code class="language-xml">    &lt;Parts&gt;
+      &lt;Part Name=&quot;Theme #1&quot; Movement=&quot;1&quot;&gt;
+        &lt;Start MeasureNumber=&quot;0&quot; StaffNumber=&quot;1&quot; Beat=&quot;1.75&quot; /&gt;
+        &lt;End MeasureNumber=&quot;1&quot; StaffNumber=&quot;1&quot; Beat=&quot;1&quot; /&gt;
+        &lt;Passage&gt;
+          &lt;MeasureGroup MeasureNumber=&quot;0&quot;&gt;...&lt;/MeasureGroup&gt;
+          &lt;MeasureGroup MeasureNumber=&quot;1&quot;&gt;...&lt;/MeasureGroup&gt;
+        &lt;/Passage&gt;
+      &lt;/Part&gt;
+    &lt;/Parts&gt;
+</code></pre>
+
+<p>Comments can be stored in the <strong>Comments</strong> section</p>
+
+<pre><code class="language-xml">    &lt;Comments&gt;
+      &lt;Comment Name=&quot;c1&quot; Movement=&quot;1&quot; Author=&quot;Jannik&quot;&gt;
+        &lt;Text&gt;Interesting passage&lt;/Text&gt;
+        &lt;NoteReference MeasureNumber=&quot;0&quot; StaffNumber=&quot;1&quot; Beat=&quot;1.75&quot; /&gt;
+      &lt;/Comment&gt;
+    &lt;/Comments&gt;
+</code></pre>
+
+<p>And, although it is not a graphical format, some stylistic information can be stored in the <strong>Style</strong> tag:</p>
+
+<pre><code class="language-xml">    &lt;Style&gt;
+      &lt;MovementMetric MovementNumber=&quot;1&quot;&gt;
+        &lt;Margin Left=&quot;60&quot; Top=&quot;60&quot; Right=&quot;60&quot; BelowTitle=&quot;50&quot; /&gt;
+        &lt;Staff Spacing=&quot;20&quot; /&gt;
+        &lt;System Spacing=&quot;40&quot; /&gt;
+        &lt;MeasuresPerSystem Threshold=&quot;280&quot; Division=&quot;6,6,6,6,6,4,5,3,...&quot; /&gt;
+      &lt;/MovementMetric&gt;
+    &lt;/Style&gt;
+</code></pre>
+
+<h1 id="screenshots">Screenshots</h1>
+
+<p><center><img src="screenshot_start.png" alt="Musicista" /></center>
+<center><img src="screenshot_collection.png" alt="Musicista" /></center>
+<center><img src="screenshot_musescore.png" alt="Musicista" /></center>
+<center><img src="screenshot_score.png" alt="Musicista" /></center>
+<center><img src="screenshot_selection.png" alt="Musicista" /></center></p>
+
+<h1 id="tinynotation">TinyNotation</h1>
+
+<p>TinyNotation is easy and intuitive:</p>
+
+<ul>
+<li>Start with the note name: <strong>a</strong>, <strong>b</strong>, <strong>c</strong>, <strong>d</strong>, <strong>e</strong>, <strong>f</strong>, <strong>g</strong> or <strong>r</strong> for a rest</li>
+<li>Select the octave by repeating the note name or writing upper case: <strong>CCC</strong> &gt; <strong>CC</strong> &gt; <strong>C</strong> &gt; <strong>c</strong> &gt; <strong>cc</strong> &gt; <strong>ccc</strong></li>
+<li>Separate notes with space: <strong>cc dd e f g a r</strong></li>
+<li>Now write the duration: <strong>cc8</strong> for example.</li>
+<li>If the duration is the same as before, you don&rsquo;t have to specify it: <strong>cc8 dd e f g4 a r1</strong></li>
+<li>Dotted notes work as well: <strong>cc8</strong>.</li>
+<li>Add articulation in parenthesis: <strong>cc8.(pp,accent)</strong></li>
+<li>And lyrics in brackets: <strong>cc8.(pp,accent)[Gloria,Oh]</strong> (separate lines with comma)</li>
+<li>That&rsquo;s it!</li>
+</ul>
+
+<p>Thanks to the guys at <a href="http://web.mit.edu/music21/">music21</a> who inspired this dialect!</p>
+
+<p>All articulation keywords:</p>
+
+<ul>
+<li>p, pp, ppp, pppp, ppppp, pppppp</li>
+<li>f, ff, fff, ffff, fffff, ffffff</li>
+<li>fp, fz, mf, mp</li>
+<li>rf, rfz, sf, sfz, sffz, sfp, sfpp</li>
+<li>marcato, staccato, staccatissimo, accent, tenuto, portato,</li>
+<li>legato</li>
+<li>arpeggiate</li>
+<li>damping</li>
+<li>dolce</li>
+<li>espressivo</li>
+<li>trill</li>
+<li>Slurs: begin = {, middle = _, end = }</li>
+<li>mordent, invmordent (inverted mordent)</li>
+<li>turn, invturn (inverted turn), delturn (delayed turn), delinvturn (delayed inverted turn)</li>
+<li>schleifer, shake, wavyline</li>
+</ul>
+
+
+
+</body>
+</html>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blog-rsses on Musicista</title>
+    <link>http://jannikarndt.github.io/Musicista/blog/index.xml</link>
+    <description>Recent content in Blog-rsses on Musicista</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://jannikarndt.github.io/Musicista/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Automatic system-break</title>
+      <link>http://jannikarndt.github.io/Musicista/blog/Automatic%20system-break/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://jannikarndt.github.io/Musicista/blog/Automatic%20system-break/</guid>
+      <description>
+
+&lt;h1 id=&#34;automatic-system-break&#34;&gt;Automatic system-break&lt;/h1&gt;
+
+&lt;p&gt;Up to now, Musicista fit a fixed amount of four measures (or, to be precisely, measure groups) into one system. Today, this has changed:&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt;&lt;img src=&#34;AutomaticSystemBreaks.png&#34; alt=&#34;Musicista&#34; /&gt;&lt;/center&gt;&lt;/p&gt;
+
+&lt;p&gt;There now is a slider to influence, how many measures are put into one system. How does it work? As opposed to most other programs, Musicista spaces notes in mathematical proportion, i.e. a quarter is double as wide as an eight, an eight has double the width of a sixteenth and so on. These widths however are relative to the width of the measure, which itself depends on how many measures fit into one system. This is the tricky thing: The measure-count is the one given thing everything else depends on. So how can you calculate, how many measures fit?&lt;/p&gt;
+
+&lt;p&gt;Fitting mostly depends on the kind of notes that are present in the measures. Half notes have a lot of space, which is not necessarily needed, whereas sixteenths follow each other very closely. They need a wider measure. The chosen approach is to calculate a density-score: The algorithm counts groups of note, multiplies them with a factor and adds up these factors. In the above screenshot we have four quarter notes, which give the measure a density-score of 4 * 2 = 8. The next measure has eight eigths, which makes 8 * 4 = 32. The next one is mixed: 2 * 2 + 4 * 4 = 20. The highest possible score is 96, as seen in measure 8 with 16 sixteenths.&lt;/p&gt;
+
+&lt;p&gt;Now that each measure has a score (in the example 8, 32, 20, 32, 4, 6, 18, 128, 36) they need to be grouped into systems. This is done by adding up the density-scores until the threshold (which the user can alter) is reached. The algorithm adds an increasing amount of points for each measure as well, to limit their amount. Also, no matter how high the score is, there have to be at least to measures for one system. In the example the measures are grouped into&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;(8, 32, 20, 32, 4) + 1 + 2 + 3 + 4 + 5 = 60 + 15 = 75,&lt;/li&gt;
+&lt;li&gt;(6, 18, 96, 28) + 1 + 2 + 3 + 4 = 60 + 10 = 70 and&lt;/li&gt;
+&lt;li&gt;(128, 36) + 1 + 2 = 167.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This is a very basic algorithm, which works in most cases, but might fail in some. For example imagine measure with a double-dotted half and two sixteenths. There will be a lot of space for the half note and the sixteenths will be very close. This is why the threshold is not fixed but can be adjusted by the user. Also, the grouping is stored in the musicista-file and can be corrected by hand.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Scorewriter Benchmarks</title>
+      <link>http://jannikarndt.github.io/Musicista/blog/Scorewriter%20Benchmarks/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://jannikarndt.github.io/Musicista/blog/Scorewriter%20Benchmarks/</guid>
+      <description>
+
+&lt;h1 id=&#34;scorewriter-benchmarks&#34;&gt;Scorewriter Benchmarks&lt;/h1&gt;
+
+&lt;p&gt;Evaluating the output of a scorewriter is not easy. Mostly because there are no compulsory rules that anyone has to keep to. There is the 676-page-guide &lt;em&gt;Behind Bars — The Definitive Guide to Music Notation&lt;/em&gt; by Elaine Gould, which is a wonderful reference, but still not complete and in now way easy transformable into algorithms.&lt;/p&gt;
+
+&lt;p&gt;Now displaying html- css- and javascript-content on a webpage is in a way similar to musical notation, at least in its liberties. Browsers are tested with example-code, like the acid-test. Inspired by this test I created a benchmark score that uses all common pitfalls in notation. Here is a complete list:&lt;/p&gt;
+
+&lt;h3 id=&#34;general-layout&#34;&gt;General layout&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Pickup measure&lt;/li&gt;
+&lt;li&gt;Time signature changes&lt;/li&gt;
+&lt;li&gt;Key changes&lt;/li&gt;
+&lt;li&gt;Tempo text with metronome mark&lt;/li&gt;
+&lt;li&gt;Barlines (Single, Double, Repeat, Final)&lt;/li&gt;
+&lt;li&gt;Rehearsal marks&lt;/li&gt;
+&lt;li&gt;Lyrics&lt;/li&gt;
+&lt;li&gt;Meta information: Title, Composer, Lyricist&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;notation&#34;&gt;Notation&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Sixteenths (beamed), Eigths (single and beamed), Quarters, Halves, Whole notes&lt;/li&gt;
+&lt;li&gt;Triplets&lt;/li&gt;
+&lt;li&gt;Tied notes (in measure and between measures)&lt;/li&gt;
+&lt;li&gt;Chords&lt;/li&gt;
+&lt;li&gt;Multiple voices&lt;/li&gt;
+&lt;li&gt;Notes longer than one measure&lt;/li&gt;
+&lt;li&gt;Accidentals&lt;/li&gt;
+&lt;li&gt;Dotted notes&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;articulation&#34;&gt;Articulation&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Slur&lt;/li&gt;
+&lt;li&gt;Staccato, Tenuto, Accent&lt;/li&gt;
+&lt;li&gt;Fermata&lt;/li&gt;
+&lt;li&gt;Trill, Mordent, Turn&lt;/li&gt;
+&lt;li&gt;Ritardando, Accelerando&lt;/li&gt;
+&lt;li&gt;Crescendo (wedge)&lt;/li&gt;
+&lt;li&gt;Dynamics&lt;/li&gt;
+&lt;li&gt;Free text (“espress.”)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I engraved the piece by hand in Sibelius as beautiful as the software was able to. The desired result looks like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt;&lt;img src=&#34;Correct.png&#34; alt=&#34;Musicista&#34; /&gt;&lt;/center&gt;&lt;/p&gt;
+
+&lt;p&gt;Then I exported the score to MusicXML and imported that back into Sibelius 7:&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt;&lt;img src=&#34;Screen-Sibelius.png&#34; alt=&#34;Musicista&#34; /&gt;&lt;/center&gt;&lt;/p&gt;
+
+&lt;p&gt;Probably the most astonishing thing is the trill, which is not recognized on import, although the file was written by the exact same software. I also tried Finale 2014:&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt;&lt;img src=&#34;Screen-Finale.png&#34; alt=&#34;Musicista&#34; /&gt;&lt;/center&gt;&lt;/p&gt;
+
+&lt;p&gt;Here too quite a few corrections by hand would be necessary. Note that the red notes in measure 5 denote a second voice, not an error. Let&amp;rsquo;s see what MuseScore 1.3 displays:&lt;/p&gt;
+
+&lt;p&gt;The Benchmark Score in MuseScore
+The Benchmark Score in MuseScore
+Again, not that beautiful. Especially the system breaks throw me off. But as I wrote, they are difficult to calculate. Neither Finale nor MuseScore got the title, composer and lyricist right, although the source clearly states them:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;    &amp;lt;score-partwise version=&amp;quot;3.0&amp;quot;&amp;gt;
+     &amp;lt;work&amp;gt;
+     &amp;lt;work-title&amp;gt;Benchmark Score&amp;lt;/work-title&amp;gt;
+     &amp;lt;/work&amp;gt;
+     &amp;lt;identification&amp;gt;
+     &amp;lt;creator type=&amp;quot;composer&amp;quot;&amp;gt;Jannik Arndt&amp;lt;/creator&amp;gt;
+     &amp;lt;creator type=&amp;quot;lyricist&amp;quot;&amp;gt;William Shake-Beer&amp;lt;/creator&amp;gt;
+    …
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now finally for the Musicista (v0.8) result:&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt;&lt;img src=&#34;Screen-Musicista.png&#34; alt=&#34;Musicista&#34; /&gt;&lt;/center&gt;&lt;/p&gt;
+
+&lt;p&gt;Well, there are a few spots that still need correction, but all in all I am a bit proud.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

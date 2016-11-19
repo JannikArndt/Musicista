@@ -1,6 +1,0 @@
-{
-  "name": "Musicista",
-  "tagline": "Framework for Computational Musicology",
-  "body": "![Musicista](http://www.musicistaapp.de/wp-content/uploads/2014/07/Icons_AppIcon-300x300.png)\r\n\r\n# Musicista\r\n\r\nMusicista is a tool that combines music with computer science and offers the ability to run algorithms on musical notation. It has its own file format `.musicista` to store all information, but it can also read `MusicXML`- and `Midi`-files.\r\n\r\n![](https://scontent-frt3-1.xx.fbcdn.net/v/t1.0-9/10269404_950939264922958_7732195614007707671_n.png?oh=206d1e295a42e9a42e70822908f1544c&oe=58B614D3)\r\n\r\nThis software is licensed under GPL v3.0 (see http://www.gnu.org/licenses/gpl-3.0.txt)",
-  "note": "Don't delete this file! It's used internally to help with page regeneration."
-}

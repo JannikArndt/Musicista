@@ -36,5 +36,11 @@ git commit -m "$msg"
 
 # Push source and build repos.
 git push origin master
-git subtree push --prefix=public git@github.com:JannikArndt/Musicista.git gh-pages
+
+# Add, Commit and Push `public` subtree to gh-pages branch
+cd public/
+git add -A
+git commit -m "$msg"
+git push origin master
+
 echo "New version is deployed 👍"

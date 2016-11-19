@@ -16,6 +16,7 @@ This software is licensed under [GPL v3.0](http://www.gnu.org/licenses/gpl-3.0.t
 
 <a class="btn btn-success" href="http://www.musicistaapp.de/download/setup.exe">Install Windows-App</a>
 <a class="btn btn-primary" href="https://www.github.com/JannikArndt/Musicista">View on Github</a>
+<a class="btn btn-info" href="https://www.facebook.com/MusicistaApp">Like on Facebook</a>
 
 <center>![Musicista](screenshot.png)</center>
 
@@ -190,3 +191,45 @@ And, although it is not a graphical format, some stylistic information can be st
       </MovementMetric>
     </Style>
 ```
+
+# Screenshots
+
+<center>![Musicista](screenshot_start.png)</center>
+<center>![Musicista](screenshot_collection.png)</center>
+<center>![Musicista](screenshot_musescore.png)</center>
+<center>![Musicista](screenshot_score.png)</center>
+<center>![Musicista](screenshot_selection.png)</center>
+
+# TinyNotation
+
+TinyNotation is easy and intuitive:
+
+- Start with the note name: __a__, __b__, __c__, __d__, __e__, __f__, __g__ or __r__ for a rest
+- Select the octave by repeating the note name or writing upper case: __CCC__ > __CC__ > __C__ > __c__ > __cc__ > __ccc__
+- Separate notes with space: __cc dd e f g a r__
+- Now write the duration: __cc8__ for example.
+- If the duration is the same as before, you don't have to specify it: __cc8 dd e f g4 a r1__
+- Dotted notes work as well: __cc8__.
+- Add articulation in parenthesis: __cc8.(pp,accent)__
+- And lyrics in brackets: __cc8.(pp,accent)[Gloria,Oh]__ (separate lines with comma)
+- That's it!
+
+Thanks to the guys at [music21](http://web.mit.edu/music21/) who inspired this dialect!
+
+All articulation keywords:
+
+- p, pp, ppp, pppp, ppppp, pppppp
+- f, ff, fff, ffff, fffff, ffffff
+- fp, fz, mf, mp
+- rf, rfz, sf, sfz, sffz, sfp, sfpp
+- marcato, staccato, staccatissimo, accent, tenuto, portato,
+- legato
+- arpeggiate
+- damping
+- dolce
+- espressivo
+- trill
+- Slurs: begin = {, middle = _, end = }
+- mordent, invmordent (inverted mordent)
+- turn, invturn (inverted turn), delturn (delayed turn), delinvturn (delayed inverted turn)
+- schleifer, shake, wavyline
